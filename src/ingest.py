@@ -134,12 +134,8 @@ def extract_program_statements(page: str, program_code: str, sections: list[str]
             "statements": statements}
 
 
-def extract_program_courses(page: str, program_code: str, sections: list[str]) -> dict:
-    """Read explicit course-ID lists in visible sections of the primary program.
-
-    A link is a discovery candidate, never an interpreted degree requirement.
-    Unrelated metadata, hidden groups, and free-text numbers cannot supply IDs.
-    """
+def _visible_program_sections(page: str, program_code: str, sections: list[str]) -> dict:
+    """Resolve unique visible sections within the primary program's tree."""
     table, resolve = _nuxt_data(page)
     primary = next((v for v in table if isinstance(v, dict) and
                     {"code", "programGroupId", "degreeDesignation", "longName"} <= v.keys()), None)
@@ -169,11 +165,19 @@ def extract_program_courses(page: str, program_code: str, sections: list[str]) -
             if not isinstance(children, list):
                 raise ValueError("The program requirement structure is invalid")
             queue.extend((child, depth + 1) for child in children)
-    courses = {}
     for section, nodes in matches.items():
         if len(nodes) != 1:
             raise ValueError("The course-discovery section is missing or ambiguous")
-        value = nodes[0].get("value")
+    return {"program_code": program_code, "catalog_version": _active_edition(table, resolve),
+            "nodes": {section: nodes[0] for section, nodes in matches.items()}}
+
+
+def extract_program_courses(page: str, program_code: str, sections: list[str]) -> dict:
+    """Read explicit course-ID lists from the primary visible program sections."""
+    selected = _visible_program_sections(page, program_code, sections)
+    courses = {}
+    for section, node in selected["nodes"].items():
+        value = node.get("value")
         if (not isinstance(value, dict) or value.get("condition") != "courses"
                 or value.get("subSelections") not in (None, []) or not isinstance(value.get("values"), list)):
             raise ValueError("Only explicit course-ID lists can be discovered")
@@ -189,4 +193,20 @@ def extract_program_courses(page: str, program_code: str, sections: list[str]) -
         if not 1 <= len(ids) <= 40:
             raise ValueError("The course-ID list exceeds the supported limits")
         courses[section] = ids
-    return {"program_code": program_code, "catalog_version": _active_edition(table, resolve), "course_ids": courses}
+    return {"program_code": program_code, "catalog_version": selected["catalog_version"], "course_ids": courses}
+
+
+def extract_visible_program_statements(page: str, program_code: str, sections: list[str]) -> dict:
+    """Read condition text from the exact visible nodes supplying course links."""
+    selected = _visible_program_sections(page, program_code, sections)
+    statements = {}
+    for section, node in selected["nodes"].items():
+        raw = node.get("description")
+        if not isinstance(raw, str) or not raw.strip() or len(raw) > 20000:
+            raise ValueError("The discovery condition statement is missing or invalid")
+        text = description_text(raw)
+        if not 1 <= len(text) <= 3000:
+            raise ValueError("The discovery condition statement exceeds its limits")
+        statements[section] = text
+    return {"program_code": program_code, "catalog_version": selected["catalog_version"],
+            "statements": statements}

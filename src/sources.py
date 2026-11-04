@@ -24,10 +24,10 @@ import httpx
 from pydantic import AwareDatetime, Field, field_validator
 
 from .ingest import extract_course
-from .models import Catalog, Record, Rule, Source, SourceCheck, StrictModel, StudentProfile, normalize_code
+from .models import Catalog, Record, Rule, Source, SourceCheck, StrictModel, StudentProfile, normalize_code, rule_hash
 from .rules import dependency_codes
 from .rule_sources import prepare_rule_jobs, fetch_rule_source, apply_rule_source, finalize_rule_checks
-from .discovery import prepare_discovery_jobs, select_candidates, add_discovered_course
+from .discovery import prepare_discovery_jobs, select_candidates, add_discovered_course, apply_discovered_rule
 from .resource_sources import prepare_resource_jobs, fetch_resource_source, apply_resource_source
 from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, failure_kind, read_public_page
 
@@ -77,7 +77,11 @@ class CatalogRefresh:
     def trace(self):
         return {"enabled": True, "catalog_version": self.catalog.catalog_version,
                 "discovered_courses": {r.record_id: {"origin": r.discovery.model_dump(mode="json"),
-                    "field_sources": r.field_sources} for r in self.catalog.records if r.discovery},
+                    "field_sources": r.field_sources, "rule_verification": r.rule_verification,
+                    "rule_evidence_ids": [p.evidence_id for p in r.rule_evidence],
+                    "rule_hash": rule_hash(r.rule) if r.rule_reviewed else None,
+                    "reviewed_statement_hashes": {p.evidence_id: p.statement_hash for p in r.rule_evidence}}
+                    for r in self.catalog.records if r.discovery},
                 "checks": [check.model_dump(mode="json") for check in self.checks]}
 
 
@@ -302,6 +306,8 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                     saved, check = future.result()
                     record = add_discovered_course(active, candidate, source, saved, check, now)
                     if record is not None:
+                        program_saved, program_check = program_results[candidate.plan.source.source_id]
+                        apply_discovered_rule(record, candidate, program_saved, program_check)
                         courses.append(record)
                     result.checks.append(check)
                     if check.message:

@@ -187,6 +187,28 @@ def test_paraphrased_interest_reaches_roadmap_and_visible_search_terms(app, care
     assert result.context.rule_results[f"uofa:{code}:2026-2027"].status == "unknown"
 
 
+def test_discovered_reviewed_condition_reaches_picker_card_and_inspector(app, monkeypatch, tmp_path):
+    from test_discovered_rules import rule_client, refresh
+    calls = []
+    def refresher(catalog, profile, **kwargs):
+        calls.append(profile.question)
+        with rule_client(catalog) as client:
+            return refresh(catalog, client, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresher)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_area(key="course_text").set_value("MATH112:B")
+    app.text_input(key="question").set_value("CSC110")
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    assert result.context.rule_results["uofa:CSC110:2026-2027"].status == "satisfied"
+    assert any("Recorded prerequisites satisfied" in item.value for item in app.caption)
+    assert any("uofa:CSC110:2026-2027:rule:R1299-L30" in item.value for item in app.markdown)
+    app.run()
+    assert any(option.startswith("CSC110 · ") for option in app.multiselect(key="completed_courses").options)
+    assert calls == ["CSC110"]
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

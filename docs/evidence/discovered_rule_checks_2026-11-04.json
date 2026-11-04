@@ -1,0 +1,1569 @@
+{
+  "created_at": "2026-11-04T20:13:16.600949+00:00",
+  "scope": "Controlled MATH112 histories with real public-source checks, only the COSCBS discovery plan, no resource checks. This is not a full enrollment audit or performance benchmark.",
+  "embedding_calls": 0,
+  "generation_calls": 0,
+  "initial_observations": [
+    {
+      "case": "fresh_coursework_branch",
+      "recorded_math_grade": "B",
+      "discovered": true,
+      "rule_verification": "verified",
+      "academic_status": "satisfied",
+      "evidence_ids": [
+        "uofa:CSC110:2026-2027:rule:R1299-L30"
+      ],
+      "issues": [],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC110:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "uofa:ECE425:2026-2027:overview",
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE369A:2026-2027:overview",
+          "career:embedded:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC110:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:30.787823Z",
+            "last_checked_at": "2026-11-04T20:08:30.787823Z"
+          },
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:30.756018Z",
+            "last_checked_at": "2026-11-04T20:08:30.756018Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:31.317888Z",
+            "last_checked_at": "2026-11-04T20:08:31.317888Z"
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:30.706961Z",
+            "last_checked_at": "2026-11-04T20:08:30.706961Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:31.571874Z",
+            "last_checked_at": "2026-11-04T20:08:31.571874Z"
+          }
+        },
+        "field_sources": {
+          "uofa:CSC110:2026-2027": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "uofa:CSC120:2026-2027": {
+            "title": "catalog:CSC120",
+            "summary": "catalog:CSC120",
+            "credits": "catalog:CSC120",
+            "requirement_reference": "catalog:CSC120"
+          },
+          "uofa:ECE425:2026-2027": {
+            "title": "catalog:ECE425",
+            "summary": "catalog:ECE425",
+            "credits": "catalog:ECE425",
+            "requirement_reference": "catalog:ECE425"
+          }
+        },
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 7.068918097000051,
+          "retrieval": 0.0010128860000122586,
+          "total": 7.0729678170000625
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-04T20:08:31.572494Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "rule_verification": "verified",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ]
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:CS_foundations",
+              "code": "COSCBS",
+              "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+              "kind": "rule",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:08:24.527795Z",
+              "last_checked_at": "2026-11-04T20:08:30.706961Z",
+              "retrieved_at": "2026-11-04T20:08:30.706961Z",
+              "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": "verified",
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:08:24.529793Z",
+              "last_checked_at": "2026-11-04T20:08:30.787823Z",
+              "retrieved_at": "2026-11-04T20:08:30.787823Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE425",
+              "code": "ECE425",
+              "url": "https://catalog.arizona.edu/courses/0435981",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:08:24.533728Z",
+              "last_checked_at": "2026-11-04T20:08:30.756018Z",
+              "retrieved_at": "2026-11-04T20:08:30.756018Z",
+              "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC120",
+              "code": "CSC120",
+              "url": "https://catalog.arizona.edu/courses/0393701",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:08:30.786450Z",
+              "last_checked_at": "2026-11-04T20:08:31.317888Z",
+              "retrieved_at": "2026-11-04T20:08:31.317888Z",
+              "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC110",
+              "code": "CSC110",
+              "url": "https://catalog.arizona.edu/courses/0393681",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:08:30.787987Z",
+              "last_checked_at": "2026-11-04T20:08:31.571874Z",
+              "retrieved_at": "2026-11-04T20:08:31.571874Z",
+              "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "repeat_missing_grade",
+      "recorded_math_grade": null,
+      "discovered": true,
+      "rule_verification": "verified",
+      "academic_status": "unknown",
+      "evidence_ids": [
+        "uofa:CSC110:2026-2027:rule:R1299-L30"
+      ],
+      "issues": [],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC110:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "uofa:ECE425:2026-2027:overview",
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE369A:2026-2027:overview",
+          "career:embedded:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC110:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:37.709398Z",
+            "last_checked_at": "2026-11-04T20:08:37.709398Z"
+          },
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:38.084385Z",
+            "last_checked_at": "2026-11-04T20:08:38.084385Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:38.419684Z",
+            "last_checked_at": "2026-11-04T20:08:38.419684Z"
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:38.236299Z",
+            "last_checked_at": "2026-11-04T20:08:38.236299Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:08:39.257823Z",
+            "last_checked_at": "2026-11-04T20:08:39.257823Z"
+          }
+        },
+        "field_sources": {
+          "uofa:CSC110:2026-2027": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "uofa:CSC120:2026-2027": {
+            "title": "catalog:CSC120",
+            "summary": "catalog:CSC120",
+            "credits": "catalog:CSC120",
+            "requirement_reference": "catalog:CSC120"
+          },
+          "uofa:ECE425:2026-2027": {
+            "title": "catalog:ECE425",
+            "summary": "catalog:ECE425",
+            "credits": "catalog:ECE425",
+            "requirement_reference": "catalog:ECE425"
+          }
+        },
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 7.680877967000015,
+          "retrieval": 0.0008580460000757739,
+          "total": 7.684334704999969
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-04T20:08:39.258624Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "rule_verification": "verified",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ]
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:CS_foundations",
+              "code": "COSCBS",
+              "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+              "kind": "rule",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:08:31.582548Z",
+              "last_checked_at": "2026-11-04T20:08:38.236299Z",
+              "retrieved_at": "2026-11-04T20:08:38.236299Z",
+              "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": "verified",
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:08:31.582910Z",
+              "last_checked_at": "2026-11-04T20:08:37.709398Z",
+              "retrieved_at": "2026-11-04T20:08:37.709398Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE425",
+              "code": "ECE425",
+              "url": "https://catalog.arizona.edu/courses/0435981",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:08:31.584469Z",
+              "last_checked_at": "2026-11-04T20:08:38.084385Z",
+              "retrieved_at": "2026-11-04T20:08:38.084385Z",
+              "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC120",
+              "code": "CSC120",
+              "url": "https://catalog.arizona.edu/courses/0393701",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:08:37.710176Z",
+              "last_checked_at": "2026-11-04T20:08:38.419684Z",
+              "retrieved_at": "2026-11-04T20:08:38.419684Z",
+              "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC110",
+              "code": "CSC110",
+              "url": "https://catalog.arizona.edu/courses/0393681",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:08:38.237104Z",
+              "last_checked_at": "2026-11-04T20:08:39.257823Z",
+              "retrieved_at": "2026-11-04T20:08:39.257823Z",
+              "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "initial_implementation": {
+    "src/discovery.py": "9ad2f4c41cda6a3244815f64ec7fe3e70657f21caba6a5db18162a783f415926",
+    "src/ingest.py": "2f6b1f12b03b00c62832f31e711870fdd32a1889c60ab58b61bcbea34ad41fff",
+    "src/rule_sources.py": "e324571138af700fc5bc62928bf2ea9a629376122e6ec6df9a3361c2f9edc919",
+    "src/sources.py": "2702e036ba628546153115338005f6f659e6c99aec1c154605e657728cc1204e",
+    "data/connectors/course_discovery.json": "20d5c3f90e6271d2cad5a956064b55d77e61aa077a86a0e036fa4131655da800"
+  },
+  "implementation": {
+    "src/discovery.py": "9ad2f4c41cda6a3244815f64ec7fe3e70657f21caba6a5db18162a783f415926",
+    "src/ingest.py": "5751e63751675a917a975c850e67b275c6b18ed4dd9b5db98fbbca354a6c336b",
+    "src/rule_sources.py": "0b2b7601b1b0ca82af5c6bde18f0994bac00494651e735669fd2940ab4b459d5",
+    "src/sources.py": "1aeb59d0871417ca44a5a698bb660b6000fd4d381f80b186c27fc757489a1897",
+    "data/connectors/course_discovery.json": "20d5c3f90e6271d2cad5a956064b55d77e61aa077a86a0e036fa4131655da800"
+  },
+  "earlier_checks": {
+    "implementation": {
+      "src/discovery.py": "9ad2f4c41cda6a3244815f64ec7fe3e70657f21caba6a5db18162a783f415926",
+      "src/ingest.py": "2f6b1f12b03b00c62832f31e711870fdd32a1889c60ab58b61bcbea34ad41fff",
+      "src/rule_sources.py": "e324571138af700fc5bc62928bf2ea9a629376122e6ec6df9a3361c2f9edc919",
+      "src/sources.py": "1aeb59d0871417ca44a5a698bb660b6000fd4d381f80b186c27fc757489a1897",
+      "data/connectors/course_discovery.json": "20d5c3f90e6271d2cad5a956064b55d77e61aa077a86a0e036fa4131655da800"
+    },
+    "observations": [
+      {
+        "case": "checked_coursework_branch",
+        "recorded_math_grade": "B",
+        "discovered": true,
+        "rule_verification": "verified",
+        "academic_status": "satisfied",
+        "evidence_ids": [
+          "uofa:CSC110:2026-2027:rule:R1299-L30"
+        ],
+        "issues": [],
+        "trace": {
+          "data_version": "pilot-2026-11-03-rule-provenance-v1",
+          "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+          "prompt_version": "p07-v7-statement-selection",
+          "query_interpretation": {
+            "version": "p07-domain-aliases-v1",
+            "matched_aliases": [],
+            "added_terms": []
+          },
+          "focused_record_ids": [
+            "uofa:CSC110:2026-2027"
+          ],
+          "retrieval_mode": "keyword",
+          "embedding_model": null,
+          "generation_model": null,
+          "cache_state": "not_used",
+          "retrieved_chunk_ids": [
+            "uofa:ECE425:2026-2027:overview",
+            "career:ai_ml:overview",
+            "resource:pytorch:overview",
+            "uofa:CSC120:2026-2027:overview",
+            "resource:cs50:overview",
+            "uofa:CSC110:2026-2027:overview",
+            "uofa:CSC110:2026-2027:rule:R1299-L30",
+            "uofa:ECE101:2026-2027:overview",
+            "uofa:ECE372A:2026-2027:overview",
+            "uofa:CSC120:2026-2027:rule:R1299-L40",
+            "uofa:ECE369A:2026-2027:overview",
+            "career:embedded:overview"
+          ],
+          "context_chunk_ids": [
+            "uofa:CSC110:2026-2027:overview",
+            "uofa:CSC110:2026-2027:rule:R1299-L30",
+            "uofa:CSC120:2026-2027:overview",
+            "uofa:CSC120:2026-2027:rule:R1299-L40",
+            "uofa:ECE425:2026-2027:overview",
+            "resource:cs50:overview",
+            "resource:pytorch:overview",
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "allowed_record_ids": [
+            "uofa:CSC110:2026-2027",
+            "uofa:CSC120:2026-2027",
+            "uofa:ECE425:2026-2027",
+            "resource:cs50",
+            "resource:pytorch"
+          ],
+          "source_freshness": {
+            "catalog:ECE101": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:46.581791Z",
+              "last_checked_at": "2026-11-04T20:10:46.581791Z"
+            },
+            "catalog:ECE425": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:46.638863Z",
+              "last_checked_at": "2026-11-04T20:10:46.638863Z"
+            },
+            "catalog:CSC120": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:47.218951Z",
+              "last_checked_at": "2026-11-04T20:10:47.218951Z"
+            },
+            "resource:pytorch": {
+              "verification_status": "snapshot",
+              "retrieved_at": "2026-10-23T04:01:51.068000Z",
+              "last_checked_at": null
+            },
+            "resource:cs50": {
+              "verification_status": "snapshot",
+              "retrieved_at": "2026-10-23T04:01:51.068000Z",
+              "last_checked_at": null
+            },
+            "catalog:CS_foundations": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:46.826186Z",
+              "last_checked_at": "2026-11-04T20:10:46.826186Z"
+            },
+            "catalog:CSC110": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:47.468044Z",
+              "last_checked_at": "2026-11-04T20:10:47.468044Z"
+            }
+          },
+          "field_sources": {
+            "uofa:CSC110:2026-2027": {
+              "title": "catalog:CSC110",
+              "summary": "catalog:CSC110",
+              "credits": "catalog:CSC110",
+              "requirement_reference": "catalog:CSC110"
+            },
+            "uofa:CSC120:2026-2027": {
+              "title": "catalog:CSC120",
+              "summary": "catalog:CSC120",
+              "credits": "catalog:CSC120",
+              "requirement_reference": "catalog:CSC120"
+            },
+            "uofa:ECE425:2026-2027": {
+              "title": "catalog:ECE425",
+              "summary": "catalog:ECE425",
+              "credits": "catalog:ECE425",
+              "requirement_reference": "catalog:ECE425"
+            }
+          },
+          "resource_versions": {},
+          "answer_contract": "statement-selection-v1",
+          "selected_statement_ids": [],
+          "statement_validation_passed": null,
+          "validation_error": null,
+          "generation_complete": false,
+          "generation_status": "not_requested",
+          "reference_checks_passed": null,
+          "timings_seconds": {
+            "source_refresh": 6.084655996999913,
+            "retrieval": 0.0010204949999206292,
+            "total": 6.089829704999943
+          },
+          "source_refresh": {
+            "enabled": true,
+            "catalog_version": "2026-2027",
+            "discovered_courses": {
+              "uofa:CSC110:2026-2027": {
+                "origin": {
+                  "source_id": "catalog:CS_foundations",
+                  "program_code": "COSCBS",
+                  "section_ids": [
+                    "R1299/L30"
+                  ],
+                  "course_id": "0393681",
+                  "discovered_at": "2026-11-04T20:10:47.468685Z"
+                },
+                "field_sources": {
+                  "title": "catalog:CSC110",
+                  "summary": "catalog:CSC110",
+                  "credits": "catalog:CSC110",
+                  "requirement_reference": "catalog:CSC110"
+                },
+                "rule_verification": "verified",
+                "rule_evidence_ids": [
+                  "uofa:CSC110:2026-2027:rule:R1299-L30"
+                ],
+                "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+                "reviewed_statement_hashes": {
+                  "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+                }
+              }
+            },
+            "checks": [
+              {
+                "source_id": "catalog:CS_foundations",
+                "code": "COSCBS",
+                "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+                "kind": "rule",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:41.409770Z",
+                "last_checked_at": "2026-11-04T20:10:46.826186Z",
+                "retrieved_at": "2026-11-04T20:10:46.826186Z",
+                "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": "verified",
+                "message": ""
+              },
+              {
+                "source_id": "catalog:ECE101",
+                "code": "ECE101",
+                "url": "https://catalog.arizona.edu/courses/0432351",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:41.411851Z",
+                "last_checked_at": "2026-11-04T20:10:46.581791Z",
+                "retrieved_at": "2026-11-04T20:10:46.581791Z",
+                "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": null,
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:ECE425",
+                "code": "ECE425",
+                "url": "https://catalog.arizona.edu/courses/0435981",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:41.413718Z",
+                "last_checked_at": "2026-11-04T20:10:46.638863Z",
+                "retrieved_at": "2026-11-04T20:10:46.638863Z",
+                "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": null,
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:CSC120",
+                "code": "CSC120",
+                "url": "https://catalog.arizona.edu/courses/0393701",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:46.638534Z",
+                "last_checked_at": "2026-11-04T20:10:47.218951Z",
+                "retrieved_at": "2026-11-04T20:10:47.218951Z",
+                "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:CSC110",
+                "code": "CSC110",
+                "url": "https://catalog.arizona.edu/courses/0393681",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:46.827496Z",
+                "last_checked_at": "2026-11-04T20:10:47.468044Z",
+                "retrieved_at": "2026-11-04T20:10:47.468044Z",
+                "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": null,
+                "message": ""
+              }
+            ]
+          }
+        }
+      },
+      {
+        "case": "repeat_missing_grade",
+        "recorded_math_grade": null,
+        "discovered": true,
+        "rule_verification": "verified",
+        "academic_status": "unknown",
+        "evidence_ids": [
+          "uofa:CSC110:2026-2027:rule:R1299-L30"
+        ],
+        "issues": [],
+        "trace": {
+          "data_version": "pilot-2026-11-03-rule-provenance-v1",
+          "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+          "prompt_version": "p07-v7-statement-selection",
+          "query_interpretation": {
+            "version": "p07-domain-aliases-v1",
+            "matched_aliases": [],
+            "added_terms": []
+          },
+          "focused_record_ids": [
+            "uofa:CSC110:2026-2027"
+          ],
+          "retrieval_mode": "keyword",
+          "embedding_model": null,
+          "generation_model": null,
+          "cache_state": "not_used",
+          "retrieved_chunk_ids": [
+            "uofa:ECE425:2026-2027:overview",
+            "career:ai_ml:overview",
+            "resource:pytorch:overview",
+            "uofa:CSC120:2026-2027:overview",
+            "resource:cs50:overview",
+            "uofa:CSC110:2026-2027:overview",
+            "uofa:CSC110:2026-2027:rule:R1299-L30",
+            "uofa:ECE101:2026-2027:overview",
+            "uofa:ECE372A:2026-2027:overview",
+            "uofa:CSC120:2026-2027:rule:R1299-L40",
+            "uofa:ECE369A:2026-2027:overview",
+            "career:embedded:overview"
+          ],
+          "context_chunk_ids": [
+            "uofa:CSC110:2026-2027:overview",
+            "uofa:CSC110:2026-2027:rule:R1299-L30",
+            "uofa:CSC120:2026-2027:overview",
+            "uofa:CSC120:2026-2027:rule:R1299-L40",
+            "uofa:ECE425:2026-2027:overview",
+            "resource:cs50:overview",
+            "resource:pytorch:overview",
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "allowed_record_ids": [
+            "uofa:CSC110:2026-2027",
+            "uofa:CSC120:2026-2027",
+            "uofa:ECE425:2026-2027",
+            "resource:cs50",
+            "resource:pytorch"
+          ],
+          "source_freshness": {
+            "catalog:ECE101": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:51.819194Z",
+              "last_checked_at": "2026-11-04T20:10:51.819194Z"
+            },
+            "catalog:ECE425": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:52.442623Z",
+              "last_checked_at": "2026-11-04T20:10:52.442623Z"
+            },
+            "catalog:CSC120": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:52.670518Z",
+              "last_checked_at": "2026-11-04T20:10:52.670518Z"
+            },
+            "resource:pytorch": {
+              "verification_status": "snapshot",
+              "retrieved_at": "2026-10-23T04:01:51.068000Z",
+              "last_checked_at": null
+            },
+            "resource:cs50": {
+              "verification_status": "snapshot",
+              "retrieved_at": "2026-10-23T04:01:51.068000Z",
+              "last_checked_at": null
+            },
+            "catalog:CS_foundations": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:52.282506Z",
+              "last_checked_at": "2026-11-04T20:10:52.282506Z"
+            },
+            "catalog:CSC110": {
+              "verification_status": "verified",
+              "retrieved_at": "2026-11-04T20:10:52.788836Z",
+              "last_checked_at": "2026-11-04T20:10:52.788836Z"
+            }
+          },
+          "field_sources": {
+            "uofa:CSC110:2026-2027": {
+              "title": "catalog:CSC110",
+              "summary": "catalog:CSC110",
+              "credits": "catalog:CSC110",
+              "requirement_reference": "catalog:CSC110"
+            },
+            "uofa:CSC120:2026-2027": {
+              "title": "catalog:CSC120",
+              "summary": "catalog:CSC120",
+              "credits": "catalog:CSC120",
+              "requirement_reference": "catalog:CSC120"
+            },
+            "uofa:ECE425:2026-2027": {
+              "title": "catalog:ECE425",
+              "summary": "catalog:ECE425",
+              "credits": "catalog:ECE425",
+              "requirement_reference": "catalog:ECE425"
+            }
+          },
+          "resource_versions": {},
+          "answer_contract": "statement-selection-v1",
+          "selected_statement_ids": [],
+          "statement_validation_passed": null,
+          "validation_error": null,
+          "generation_complete": false,
+          "generation_status": "not_requested",
+          "reference_checks_passed": null,
+          "timings_seconds": {
+            "source_refresh": 5.315399074999959,
+            "retrieval": 0.0008108360000278481,
+            "total": 5.3196026389999815
+          },
+          "source_refresh": {
+            "enabled": true,
+            "catalog_version": "2026-2027",
+            "discovered_courses": {
+              "uofa:CSC110:2026-2027": {
+                "origin": {
+                  "source_id": "catalog:CS_foundations",
+                  "program_code": "COSCBS",
+                  "section_ids": [
+                    "R1299/L30"
+                  ],
+                  "course_id": "0393681",
+                  "discovered_at": "2026-11-04T20:10:52.789603Z"
+                },
+                "field_sources": {
+                  "title": "catalog:CSC110",
+                  "summary": "catalog:CSC110",
+                  "credits": "catalog:CSC110",
+                  "requirement_reference": "catalog:CSC110"
+                },
+                "rule_verification": "verified",
+                "rule_evidence_ids": [
+                  "uofa:CSC110:2026-2027:rule:R1299-L30"
+                ],
+                "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+                "reviewed_statement_hashes": {
+                  "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+                }
+              }
+            },
+            "checks": [
+              {
+                "source_id": "catalog:CS_foundations",
+                "code": "COSCBS",
+                "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+                "kind": "rule",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:47.480279Z",
+                "last_checked_at": "2026-11-04T20:10:52.282506Z",
+                "retrieved_at": "2026-11-04T20:10:52.282506Z",
+                "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": "verified",
+                "message": ""
+              },
+              {
+                "source_id": "catalog:ECE101",
+                "code": "ECE101",
+                "url": "https://catalog.arizona.edu/courses/0432351",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:47.480662Z",
+                "last_checked_at": "2026-11-04T20:10:51.819194Z",
+                "retrieved_at": "2026-11-04T20:10:51.819194Z",
+                "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": null,
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:ECE425",
+                "code": "ECE425",
+                "url": "https://catalog.arizona.edu/courses/0435981",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:47.482423Z",
+                "last_checked_at": "2026-11-04T20:10:52.442623Z",
+                "retrieved_at": "2026-11-04T20:10:52.442623Z",
+                "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": null,
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:CSC120",
+                "code": "CSC120",
+                "url": "https://catalog.arizona.edu/courses/0393701",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:51.819640Z",
+                "last_checked_at": "2026-11-04T20:10:52.670518Z",
+                "retrieved_at": "2026-11-04T20:10:52.670518Z",
+                "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": null,
+                "message": ""
+              },
+              {
+                "source_id": "catalog:CSC110",
+                "code": "CSC110",
+                "url": "https://catalog.arizona.edu/courses/0393681",
+                "kind": "course",
+                "status": "unchanged",
+                "attempted_at": "2026-11-04T20:10:52.283460Z",
+                "last_checked_at": "2026-11-04T20:10:52.788836Z",
+                "retrieved_at": "2026-11-04T20:10:52.788836Z",
+                "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+                "content_changed": false,
+                "cache_saved": true,
+                "http_status": 200,
+                "resolved_url": null,
+                "failure_kind": null,
+                "rule_status": "verified",
+                "discovery_status": null,
+                "message": ""
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "observations": [
+    {
+      "case": "visible_section_coursework_branch",
+      "recorded_math_grade": "B",
+      "discovered": true,
+      "rule_verification": "verified",
+      "academic_status": "satisfied",
+      "evidence_ids": [
+        "uofa:CSC110:2026-2027:rule:R1299-L30"
+      ],
+      "issues": [],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC110:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "uofa:ECE425:2026-2027:overview",
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE369A:2026-2027:overview",
+          "career:embedded:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC110:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:21.287713Z",
+            "last_checked_at": "2026-11-04T20:13:21.287713Z"
+          },
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:21.310561Z",
+            "last_checked_at": "2026-11-04T20:13:21.310561Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:21.936781Z",
+            "last_checked_at": "2026-11-04T20:13:21.936781Z"
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:21.408438Z",
+            "last_checked_at": "2026-11-04T20:13:21.408438Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:21.976335Z",
+            "last_checked_at": "2026-11-04T20:13:21.976335Z"
+          }
+        },
+        "field_sources": {
+          "uofa:CSC110:2026-2027": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "uofa:CSC120:2026-2027": {
+            "title": "catalog:CSC120",
+            "summary": "catalog:CSC120",
+            "credits": "catalog:CSC120",
+            "requirement_reference": "catalog:CSC120"
+          },
+          "uofa:ECE425:2026-2027": {
+            "title": "catalog:ECE425",
+            "summary": "catalog:ECE425",
+            "credits": "catalog:ECE425",
+            "requirement_reference": "catalog:ECE425"
+          }
+        },
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 5.377109472000029,
+          "retrieval": 0.0006422370001928357,
+          "total": 5.380793886999982
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-04T20:13:21.976976Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "rule_verification": "verified",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ],
+              "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+              "reviewed_statement_hashes": {
+                "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+              }
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:CS_foundations",
+              "code": "COSCBS",
+              "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+              "kind": "rule",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:16.631935Z",
+              "last_checked_at": "2026-11-04T20:13:21.408438Z",
+              "retrieved_at": "2026-11-04T20:13:21.408438Z",
+              "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": "verified",
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:16.633787Z",
+              "last_checked_at": "2026-11-04T20:13:21.287713Z",
+              "retrieved_at": "2026-11-04T20:13:21.287713Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE425",
+              "code": "ECE425",
+              "url": "https://catalog.arizona.edu/courses/0435981",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:16.634549Z",
+              "last_checked_at": "2026-11-04T20:13:21.310561Z",
+              "retrieved_at": "2026-11-04T20:13:21.310561Z",
+              "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC120",
+              "code": "CSC120",
+              "url": "https://catalog.arizona.edu/courses/0393701",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:21.343206Z",
+              "last_checked_at": "2026-11-04T20:13:21.936781Z",
+              "retrieved_at": "2026-11-04T20:13:21.936781Z",
+              "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC110",
+              "code": "CSC110",
+              "url": "https://catalog.arizona.edu/courses/0393681",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:21.409470Z",
+              "last_checked_at": "2026-11-04T20:13:21.976335Z",
+              "retrieved_at": "2026-11-04T20:13:21.976335Z",
+              "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "visible_section_missing_grade",
+      "recorded_math_grade": null,
+      "discovered": true,
+      "rule_verification": "verified",
+      "academic_status": "unknown",
+      "evidence_ids": [
+        "uofa:CSC110:2026-2027:rule:R1299-L30"
+      ],
+      "issues": [],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC110:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "uofa:ECE425:2026-2027:overview",
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE369A:2026-2027:overview",
+          "career:embedded:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC110:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:26.766542Z",
+            "last_checked_at": "2026-11-04T20:13:26.766542Z"
+          },
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:26.535262Z",
+            "last_checked_at": "2026-11-04T20:13:26.535262Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:27.215470Z",
+            "last_checked_at": "2026-11-04T20:13:27.215470Z"
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:26.877284Z",
+            "last_checked_at": "2026-11-04T20:13:26.877284Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:13:27.385724Z",
+            "last_checked_at": "2026-11-04T20:13:27.385724Z"
+          }
+        },
+        "field_sources": {
+          "uofa:CSC110:2026-2027": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "uofa:CSC120:2026-2027": {
+            "title": "catalog:CSC120",
+            "summary": "catalog:CSC120",
+            "credits": "catalog:CSC120",
+            "requirement_reference": "catalog:CSC120"
+          },
+          "uofa:ECE425:2026-2027": {
+            "title": "catalog:ECE425",
+            "summary": "catalog:ECE425",
+            "credits": "catalog:ECE425",
+            "requirement_reference": "catalog:ECE425"
+          }
+        },
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 5.405523057999972,
+          "retrieval": 0.0009164810001038859,
+          "total": 5.409176636999973
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-04T20:13:27.386863Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "rule_verification": "verified",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ],
+              "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+              "reviewed_statement_hashes": {
+                "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+              }
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:CS_foundations",
+              "code": "COSCBS",
+              "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+              "kind": "rule",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:21.986168Z",
+              "last_checked_at": "2026-11-04T20:13:26.877284Z",
+              "retrieved_at": "2026-11-04T20:13:26.877284Z",
+              "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": "verified",
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:21.986479Z",
+              "last_checked_at": "2026-11-04T20:13:26.766542Z",
+              "retrieved_at": "2026-11-04T20:13:26.766542Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE425",
+              "code": "ECE425",
+              "url": "https://catalog.arizona.edu/courses/0435981",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:21.987335Z",
+              "last_checked_at": "2026-11-04T20:13:26.535262Z",
+              "retrieved_at": "2026-11-04T20:13:26.535262Z",
+              "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC120",
+              "code": "CSC120",
+              "url": "https://catalog.arizona.edu/courses/0393701",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:26.535899Z",
+              "last_checked_at": "2026-11-04T20:13:27.215470Z",
+              "retrieved_at": "2026-11-04T20:13:27.215470Z",
+              "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC110",
+              "code": "CSC110",
+              "url": "https://catalog.arizona.edu/courses/0393681",
+              "kind": "course",
+              "status": "unchanged",
+              "attempted_at": "2026-11-04T20:13:26.878507Z",
+              "last_checked_at": "2026-11-04T20:13:27.385724Z",
+              "retrieved_at": "2026-11-04T20:13:27.385724Z",
+              "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+              "content_changed": false,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

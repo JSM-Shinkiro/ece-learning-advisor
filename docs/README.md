@@ -12,6 +12,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Reviewed development evaluation](18_REVIEWED_EVALUATION.md) | Frozen relevance labels, roadmap scenarios, authored claim audits, measured baseline, and limitations |
 | [Grounded explanations](19_GROUNDED_EXPLANATIONS.md) | Application-owned statements, strict model selections, adversarial tests, follow-up audit, and live verification limits |
 | [Student wording and coverage](20_QUERY_INTERPRETATION.md) | Domain aliases, coverage gates, question-focused context selection, preserved baseline, and development measurements |
+| [Discovered-course conditions](21_DISCOVERED_COURSE_RULES.md) | Bound CSC110 interpretation, unknown placement, visible-section parsing, cache migration, and public-source checks |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

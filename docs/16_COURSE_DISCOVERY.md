@@ -1,5 +1,7 @@
 # Bounded official-course discovery
 
+November 4 follow-up: [reviewed discovered-course conditions](21_DISCOVERED_COURSE_RULES.md) add CSC110's exact math condition, retain unknown placement, and advance program caches to schema 3. The original discovery milestone and schema-2 verification below retain their November 3 scope. Other discovered conditions remain unreviewed.
+
 Implemented November 3, 2026, in the development repository. This extends [prerequisite-source revalidation](15_PREREQUISITE_EVIDENCE.md). The submitted repository and midproject artifacts remain unchanged.
 
 **Follow-up, November 3:** [Resource-source checks](17_RESOURCE_SOURCES.md) adds live introductory excerpts and published versions for both configured resources, with prompt version `p07-v6-resource-sources`. The discovery milestone and measurements below retain their original scope and results.

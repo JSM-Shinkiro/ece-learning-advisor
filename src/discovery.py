@@ -11,11 +11,29 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
-from .models import CourseOrigin, Record, Source, SourceCheck, StrictModel, program_source_url_matches
+from .models import (CourseOrigin, Record, Rule, RuleEvidence, Source, SourceCheck, StrictModel,
+                     program_source_url_matches, rule_citation_ids, rule_hash, statement_hash)
 from .rule_sources import MAX_RULE_SOURCES, RuleJob
 
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
+
+
+class ReviewedDiscoveryRule(StrictModel):
+    course_id: str = Field(pattern=r"^\d{7}$")
+    course_code: str = Field(pattern=r"^[A-Z]{2,8}\d{3}[A-Z]{0,2}$")
+    requirement_reference: str = Field(pattern=r"^\d{1,12}$")
+    rule: Rule
+    proof: RuleEvidence
+
+    @model_validator(mode="after")
+    def bound_interpretation(self):
+        expected = "uofa:" + self.course_code + ":" + self.proof.catalog_version + ":rule:"
+        if (self.proof.course_code != self.course_code or not self.proof.evidence_id.startswith(expected)
+                or self.proof.rule_hash != rule_hash(self.rule)
+                or rule_citation_ids(self.rule) != {self.proof.evidence_id}):
+            raise ValueError("Discovered-course interpretation does not match its reviewed proof")
+        return self
 
 
 class DiscoveryPlan(StrictModel):
@@ -24,6 +42,7 @@ class DiscoveryPlan(StrictModel):
     section_ids: list[str] = Field(min_length=1, max_length=16)
     career_ids: list[Literal["ai_ml", "embedded"]] = Field(min_length=1, max_length=2)
     study_stage: Literal["foundation", "intermediate", "advanced"]
+    reviewed_rules: list[ReviewedDiscoveryRule] = Field(default_factory=list, max_length=3)
 
     @model_validator(mode="after")
     def matching_program(self):
@@ -32,6 +51,15 @@ class DiscoveryPlan(StrictModel):
                 or any(not re.fullmatch(r"R\d+/L?\d+", section) for section in self.section_ids)
                 or len(set(self.section_ids)) != len(self.section_ids)):
             raise ValueError("Course-discovery configuration does not match its program source")
+        for entry in self.reviewed_rules:
+            if (entry.proof.source_id != self.source.source_id or entry.proof.program_code != self.program_code
+                    or entry.proof.catalog_version != self.source.catalog_version
+                    or entry.proof.section_id not in self.section_ids):
+                raise ValueError("Discovered-course proof does not match its program/edition/section")
+        for key in ("course_id", "course_code"):
+            values = [getattr(entry, key) for entry in self.reviewed_rules]
+            if len(values) != len(set(values)):
+                raise ValueError("Duplicate discovered-course interpretation")
         return self
 
 
@@ -156,3 +184,34 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
     catalog.sources.append(source)
     catalog.records.append(record)
     return record
+
+
+def apply_discovered_rule(record, candidate, saved, check):
+    """Attach only a pre-reviewed interpretation with exact live identities.
+
+    Downloading a link never interprets a new requirement. Missing or changed
+    statement evidence leaves the bound interpretation unavailable/changed.
+    """
+    entry = next((entry for entry in candidate.plan.reviewed_rules if entry.course_id == candidate.course_id
+                  and entry.course_code == record.code), None)
+    if (entry is None or record.catalog_version != entry.proof.catalog_version
+            or record.requirement_reference != entry.requirement_reference
+            or record.discovery is None or record.discovery.course_id != entry.course_id
+            or saved is None or saved.data.program_code != entry.proof.program_code
+            or saved.data.catalog_version != entry.proof.catalog_version
+            or check.source_id != entry.proof.source_id or check.url != candidate.plan.source.url
+            or entry.course_id not in saved.data.course_ids.get(entry.proof.section_id, [])):
+        return False
+    record.rule = entry.rule.model_copy(deep=True)
+    proof = entry.proof.model_copy(deep=True)
+    proof.observed_text = saved.data.discovery_statements.get(proof.section_id)
+    if proof.observed_text is None:
+        proof.verification_status = "unavailable"
+    elif statement_hash(proof.observed_text) != proof.statement_hash:
+        proof.verification_status = "changed"
+    else:
+        proof.verification_status = ("verified" if check.status in {"updated", "unchanged", "not_modified"}
+                                     and check.discovery_status == "verified" else "stale")
+    record.rule_reviewed, record.rule_evidence = True, [proof]
+    record.rule_verification = proof.verification_status
+    return True

@@ -92,3 +92,7 @@ The final command-line check returned zero with all three requested course pages
 ## Next backend work
 
 Expand bounded course/resource coverage with exact source identities and reviewed parser examples. Resolve additional academic conditions only when edition-specific evidence supports them. Keep unsupported conditions unknown, then add held-out retrieval and claim-support cases before treating the broader collection as a reliable advisor.
+
+## November 4 follow-up
+
+[Reviewed discovery](21_DISCOVERED_COURSE_RULES.md) adds the exact CSC110 mathematics condition with an unresolved placement alternative. It attaches only after matching current course, enrollment-reference, edition, program, section, and statement bindings. Production proof parsing now uses unique visible program sections, and program caches advance to schema 3. Scoped public-source checks and 37 new rule cases are recorded separately; the full suite passes 482 tests. The original 172-test milestone, dates, and evidence above keep their historical scope. The four ECE conditions remain unknown.

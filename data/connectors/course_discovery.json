@@ -5,7 +5,7 @@
       "retrieved_at": "2026-11-04T04:02:39.295788Z",
       "last_checked_at": null,
       "source_id": "catalog:CS_foundations",
-      "title": "Computer Science BS — foundation course requirements",
+      "title": "Computer Science BS \u2014 foundation course requirements",
       "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
       "section": "Computer Science Major: Foundation Courses, R1299/L40",
@@ -19,7 +19,60 @@
     "career_ids": [
       "ai_ml"
     ],
-    "study_stage": "foundation"
+    "study_stage": "foundation",
+    "reviewed_rules": [
+      {
+        "course_id": "0393681",
+        "course_code": "CSC110",
+        "requirement_reference": "017080",
+        "rule": {
+          "type": "any_of",
+          "children": [
+            {
+              "type": "completed",
+              "children": [],
+              "course_code": "MATH112",
+              "minimum_grade": "C",
+              "value": null,
+              "note": "",
+              "evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ]
+            },
+            {
+              "type": "unknown",
+              "children": [],
+              "course_code": null,
+              "minimum_grade": null,
+              "value": null,
+              "note": "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+              "evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ]
+            }
+          ],
+          "course_code": null,
+          "minimum_grade": null,
+          "value": null,
+          "note": "",
+          "evidence_ids": []
+        },
+        "proof": {
+          "evidence_id": "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC110",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L30",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. Appropriate math placement score or C or better in MATH 112 required prior to taking CSC 110. Only one course from CSC 110, ECE 101, ECE 175, and ISTA 130 may be used towards the program.",
+          "statement_hash": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c",
+          "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+          "reviewed_at": "2026-11-04T20:03:52.996567Z",
+          "observed_text": null,
+          "verification_status": "snapshot"
+        }
+      }
+    ]
   },
   {
     "source": {
@@ -27,7 +80,7 @@
       "retrieved_at": "2026-11-04T04:48:36.657093Z",
       "last_checked_at": null,
       "source_id": "catalog:ECE_program",
-      "title": "Electrical and Computer Engineering BSECE — foundation course links",
+      "title": "Electrical and Computer Engineering BSECE \u2014 foundation course links",
       "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
       "section": "Engineering foundation coursework, R17348/L320",

@@ -31,28 +31,24 @@ def rule_catalog(catalog):
 
 def program_page(course, *, program_code="COSCBS", edition="2026-2027", text=None,
                  missing=False, conflicting=False, extra_texts=None):
-    table = []
-    def ref(value):
-        table.append(value)
-        return len(table) - 1
-
-    table.append({"code": ref(program_code), "programGroupId": ref(program_code),
-                  "degreeDesignation": ref("Fixture BS"), "longName": ref("Fixture program")})
-    if edition:
-        table.append({"activeCatalog": ref("fixture-catalog-id"),
-                      "catalogDisplayName": ref(edition + " University of Arizona Catalog")})
+    from test_discovery import encoded_page
+    nodes = []
     if not missing:
         for proof in course.rule_evidence:
             if proof.program_code != program_code:
                 continue
             words = (extra_texts or {}).get(proof.section_id, text or proof.reviewed_text)
-            table.append({"id": ref("fixture-" + proof.section_id),
-                          "name": ref("Fixture condition (" + proof.section_id + ")"),
-                          "description": ref(words)})
+            nodes.append({"id": "fixture-" + proof.section_id,
+                          "name": "Fixture condition (" + proof.section_id + ")",
+                          "description": words})
             if conflicting:
-                table.append({"id": ref("conflict"), "name": ref("Conflict (" + proof.section_id + ")"),
-                              "description": ref("Different fixture prerequisite statement.")})
-    return '<script id="__NUXT_DATA__">' + json.dumps(table).replace("<", r"\u003c") + "</script>"
+                nodes.append({"id": "conflict", "name": "Conflict (" + proof.section_id + ")",
+                              "description": "Different fixture prerequisite statement."})
+    primary = {"code": program_code, "programGroupId": program_code,
+               "degreeDesignation": "Fixture BS", "longName": "Fixture program",
+               "requisites": {"requisitesSimple": [{"showInCatalog": True,
+                   "requirementLevel": "programRequirements", "rules": nodes}]}}
+    return encoded_page(primary, edition=edition)
 
 
 def http_fixture(catalog, *, program=None, program_status=200, course_status=200, headers=None, seen=None):

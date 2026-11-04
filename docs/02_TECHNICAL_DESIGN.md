@@ -50,7 +50,7 @@ Provider calls run only after explicit actions, behind service adapters. Scripts
 
 ## Data design
 
-The table describes the intended record design. The pilot schema is smaller. It has source dates/hashes, course summaries and credits, rules, team topic/stage annotations, profile background, evidence IDs, and cache manifests. Explicit rule provenance binds a source section and reviewed statement to an interpretation hash. Publication dates, costs, skill mapping reviews, and durable profile IDs need further work. Only CSC120 has a reviewed prerequisite condition; the four ECE conditions stay unknown.
+The table describes the intended record design. The pilot schema is smaller. It has source dates/hashes, course summaries and credits, rules, team topic/stage annotations, profile background, evidence IDs, and cache manifests. Explicit rule provenance binds a source section and reviewed statement to an interpretation hash. Publication dates, costs, skill mapping reviews, and durable profile IDs need further work. CSC120 has a reviewed saved condition; runtime discovery can attach CSC110's bound math condition with unknown placement. The four ECE conditions stay unknown.
 
 | Record | Main fields |
 | --- | --- |
@@ -103,6 +103,8 @@ The service reconstructs statements from the active catalog and compares the reg
 `validate_references` preserves the earlier membership behavior for the frozen audit. Production uses `validate_answer(answer, context, catalog)`. Trace fields include `answer_contract`, `selected_statement_ids`, `statement_validation_passed`, and a sanitized `validation_error`. Prompt version is `p07-v7-statement-selection`, contract `statement-selection-v1`. This changes the provider's role to statement selection rather than unrestricted explanation writing; source accuracy and selection suitability still require evaluation. See [grounded explanations](19_GROUNDED_EXPLANATIONS.md).
 
 Query policy `p07-domain-aliases-v1` is separate from the prompt/output contract. Coverage gates and query construction share original-text alias matching; up to 12 existing-catalog terms may be appended within the 5,000-character query limit. For specific questions, a local keyword lookup can prefer one course from the permitted career scope within the existing context policy. Traces add `query_interpretation` (version, matched aliases, added terms) and `focused_record_ids`. The inspector exposes added terms. The raw evaluator remains the default; expanded evaluation is separately labeled and retains the original/effective query pair. See [query interpretation](20_QUERY_INTERPRETATION.md).
+
+`DiscoveryPlan.reviewed_rules` binds an optional interpretation to an exact discovered course ID/code, catalog edition, enrollment reference, visible program section, and reviewed statement/tree hashes. New links receive no interpretation unless the binding matches. Program cache schema 3 stores optional visible discovery statements beside course IDs; their absence preserves descriptive discovery while the condition remains unknown. Production prerequisite statements are selected through the primary visible requirements tree. See [discovered-course conditions](21_DISCOVERED_COURSE_RULES.md).
 
 ## Configuration, caching, and storage
 

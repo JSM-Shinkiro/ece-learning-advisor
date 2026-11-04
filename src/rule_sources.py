@@ -14,7 +14,7 @@ from typing import Annotated, Literal
 import httpx
 from pydantic import AwareDatetime, Field, model_validator
 
-from .ingest import extract_program_courses, extract_program_statements
+from .ingest import extract_program_courses, extract_visible_program_statements
 from .models import (Source, SourceCheck, StrictModel, program_source_url_matches, rule_binding_matches, statement_hash)
 from .source_http import failure_kind, read_public_page
 
@@ -28,6 +28,7 @@ class ProgramSnapshot(StrictModel):
     catalog_version: str = Field(pattern=r"^20\d{2}-20\d{2}$")
     statements: dict[str, Statement] = Field(default_factory=dict, max_length=16)
     course_ids: dict[str, list[Annotated[str, Field(pattern=r"^\d{7}$")]]] = Field(default_factory=dict, max_length=16)
+    discovery_statements: dict[str, Statement] = Field(default_factory=dict, max_length=16)
 
     @model_validator(mode="after")
     def bounded_sections(self):
@@ -35,6 +36,8 @@ class ProgramSnapshot(StrictModel):
             raise ValueError("A program snapshot needs selected evidence")
         if any(not 1 <= len(ids) <= 40 or len(set(ids)) != len(ids) for ids in self.course_ids.values()):
             raise ValueError("A program course list is invalid")
+        if not set(self.discovery_statements) <= set(self.course_ids):
+            raise ValueError("Discovery statements need matching course-list sections")
         return self
 
 
@@ -44,7 +47,7 @@ def program_hash(data: ProgramSnapshot):
 
 
 class CachedProgram(StrictModel):
-    schema_version: Literal[2] = 2
+    schema_version: Literal[3] = 3
     url: str
     data: ProgramSnapshot
     content_hash: str = Field(pattern=r"^[a-f0-9]{64}$")
@@ -82,6 +85,7 @@ def _read(path, job):
         if (saved.url != job.source.url or saved.data.program_code != job.program_code
                 or saved.data.catalog_version != job.edition or set(saved.data.statements) != job.sections
                 or set(saved.data.course_ids) != job.discovery_sections
+                or not set(saved.data.discovery_statements) <= job.discovery_sections
                 or saved.content_hash != program_hash(saved.data) or saved.last_checked_at < saved.retrieved_at):
             return None
         return saved
@@ -169,10 +173,18 @@ def fetch_rule_source(job, directory, client, now=None):
             saved = cached.model_copy(update={"last_checked_at": now or datetime.now(timezone.utc)})
             check.status = "not_modified"
         else:
-            fields = (extract_program_statements(page.text, job.program_code, sorted(job.sections)) if job.sections else {})
+            fields = (extract_visible_program_statements(page.text, job.program_code, sorted(job.sections)) if job.sections else {})
             if job.discovery_sections:
                 try:
                     discovered = extract_program_courses(page.text, job.program_code, sorted(job.discovery_sections))
+                    discovered["discovery_statements"] = {}
+                    for section in sorted(job.discovery_sections):
+                        try:
+                            statement = extract_visible_program_statements(page.text, job.program_code, [section])
+                            discovered["discovery_statements"].update(statement["statements"])
+                        except (ValueError, TypeError, KeyError, AttributeError, RecursionError):
+                            # A missing condition must not erase validated course links.
+                            continue
                     fields.update(discovered)
                 except (ValueError, TypeError, KeyError, AttributeError, RecursionError):
                     if not job.sections:
@@ -253,6 +265,11 @@ def finalize_rule_checks(catalog, courses, checks):
             statuses.append("stale")
         record.rule_verification = min(statuses, key=priority.index)
     for check in checks:
+        if check.kind == "course":
+            record = next((r for r in courses if r.code == check.code and r.rule_reviewed and r.rule_evidence), None)
+            if record is not None:
+                check.rule_status = record.rule_verification
+            continue
         if check.kind != "rule":
             continue
         affected = [r for r in courses if any(p.source_id == check.source_id and p.verification_status != "snapshot"

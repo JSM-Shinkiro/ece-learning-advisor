@@ -75,6 +75,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Versioned public-record embedding cache.
 - Official course checks on submitted roadmaps, with a rebuildable source cache and dated failure fallback.
 - Explicit prerequisite provenance and on-use revalidation for the reviewed CSC120 condition, with separate citation evidence.
+- Reviewed-rule attachment during discovery, with an edition-bound CSC110 math condition and an unresolved placement alternative.
 - On-use checks of PyTorch Quickstart and CS50, with short source excerpts, published versions, and dated failure fallback.
 - Reuse of unchanged document vectors when another course changes.
 - Profile export/import, searchable coursework entry, and Mark completed actions.
@@ -107,7 +108,7 @@ The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from 
 
 Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The real exploring-profile check added CSC110, ECE201, and ECE220. Candidate selection is limited to the configured foundation sections; finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
 
-The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules and every discovered-course rule remain **unknown**. One CSC120 condition is reviewed against the current Computer Science program requirements, with its source linked in the app. Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
+The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules remain **unknown**. CSC120 has a reviewed condition in the saved collection; runtime CSC110 discovery can attach a separately reviewed mathematics condition from the matching program section. A confirmed MATH112 grade can satisfy its coursework branch, while placement remains unknown. Other discovered courses remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
 
 Failed grades cannot be entered as successful completions. Missing prerequisite grades remain unknown. Learning-stage annotations are team suggestions and do not place courses into semesters.
 
@@ -133,7 +134,7 @@ The refinement includes regression tests for the review findings. See [prototype
 
 Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a configured Gemini key. It uses real provider quota for embeddings only; no generator is called. Controlled test vectors are labeled as fixtures and are not published as neural quality results.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 444 tests. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 482 tests. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 
