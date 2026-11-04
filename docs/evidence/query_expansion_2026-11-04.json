@@ -1,0 +1,2696 @@
+{
+  "schema_version": 1,
+  "suite_id": "saved-corpus-review-2026-11-03-v1",
+  "suite_hash": "8a2c2ee00f57fb07532d4f53feed1e8d591d0eda01d3b3653efd723a5649a689",
+  "created_at": "2026-11-04T19:02:55.732544+00:00",
+  "data_version": "pilot-2026-11-03-rule-provenance-v1",
+  "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "catalog_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+  "labels_hash": "025eea97ee864e5dfda13bbe03bff2c93645ab87d9a53d19073ded45e4f7561b",
+  "evidence_count": 10,
+  "cutoff": 5,
+  "label_origin": "assistant-authored source review",
+  "limitations": "Small closed-corpus development references, authored and reviewed by the implementation assistant. Validation examples are not an independent human or held-out study. Claim probes are constructed examples, not model outputs. No live freshness or end-to-end neural quality is measured by the default run.",
+  "prompt_version": "p07-v7-statement-selection",
+  "metric_conventions": {
+    "unit": "evidence chunk",
+    "binary_relevance_minimum": 2,
+    "precision_denominator": "fixed cutoff, including short result lists",
+    "ndcg_gain": "linear grade / log2(rank + 1)",
+    "ties": "retriever score order, then stable chunk ID",
+    "aggregation": "equal query weights; undefined values excluded"
+  },
+  "retrieval_query_mode": "domain-alias expansion without profile expansion",
+  "query_mode": "expanded",
+  "runtime_query_policy": "p07-domain-aliases-v1",
+  "policy_method": "keyword",
+  "implementation": {
+    "files": {
+      "src/evaluation.py": "8a5323eb422681c980c92d63f9841e5235e3bb24b15242409ce409df778f0aad",
+      "src/retrieval.py": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006",
+      "src/service.py": "aaf1f1fbd6352280f3c2bdfc90cd97734721a3a7fa23ceb62d38e13fc38d1cf1",
+      "src/models.py": "95d4f04392dbc810732072ae3da055b31d4f1c435ec07dea3bd28386efc7c5ab",
+      "src/catalog.py": "9b251c47689ec368c28c4c917830b6d3930a0507eaf133c8001e17ff41637813",
+      "src/planning.py": "0df94b762719d871f184ebe95868e2aebe1c3d5c9939f4df4a03d69e50421cb0",
+      "src/query.py": "08c2b51b144ae5f9dbb9e6b3a6f59e0d48f47ea82ba4de45c1aa3b1887663ef9",
+      "src/rules.py": "f9b46a63e1d25f627e71c272331e10cbd7e3864b4865c4d055a61f7f87445271",
+      "src/providers.py": "7de5e48828854b30a18672b9d0e4243f698a97d6bee2db707635d4f5dd063fb8",
+      "src/grounding.py": "99714180ce3bfce542c3333b01c7004aa769eb5ed33eeced6a77b8167f522f65",
+      "scripts/evaluate_reviewed.py": "0d13dddadd945678fa4ddc85b2a90acc5d430e8de3817b10b30c106a456b8476"
+    },
+    "sha256": "366e7a98cf42bc3e9bd7acb53a67dc84bbefb4969d231b6708c3c5b0230cd248"
+  },
+  "methods": [
+    "keyword"
+  ],
+  "embedding": {
+    "origin": null,
+    "model": null,
+    "dimensions": null,
+    "cache_state": "not_used",
+    "document_calls": 0,
+    "query_calls": 0
+  },
+  "generation_calls": 0,
+  "source_refresh_calls": 0,
+  "retrieval_summary": {
+    "keyword": {
+      "development": {
+        "cases": 10,
+        "precision": 0.36,
+        "recall": 0.9166666666666666,
+        "reciprocal_rank": 0.9333333333333333,
+        "ndcg": 0.8800302506923056,
+        "precision_ceiling": 0.4
+      },
+      "validation": {
+        "cases": 6,
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.9301965652915469,
+        "precision_ceiling": 0.4
+      },
+      "all": {
+        "cases": 16,
+        "precision": 0.375,
+        "recall": 0.9479166666666666,
+        "reciprocal_rank": 0.9583333333333334,
+        "ndcg": 0.8988426186670211,
+        "precision_ceiling": 0.4
+      }
+    }
+  },
+  "retrieval_cases": [
+    {
+      "case_id": "retrieval_c_foundations",
+      "split": "development",
+      "method": "keyword",
+      "query": "C programming control flow memory management foundations",
+      "effective_query": "C programming control flow memory management foundations",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview",
+        "career:ai_ml:overview",
+        "resource:pytorch:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC120:2026-2027:overview"
+      ],
+      "scores": [
+        11.312546656004397,
+        2.9875474651431606,
+        1.8785233378572173,
+        1.7745915129517444,
+        1.1296819498462567,
+        1.0528473566203638,
+        0.9777536140326779,
+        0.7944147228791862,
+        0.41314700041299024
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "resource:cs50"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "resource:cs50"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.8952681803248685
+      },
+      "ranking_seconds": 5.443900045065675e-05,
+      "rationale": "ECE101 directly covers these programming foundations. CS50 is a complementary foundation resource; the remaining grades indicate background only."
+    },
+    {
+      "case_id": "retrieval_data_structures",
+      "split": "development",
+      "method": "keyword",
+      "query": "lists stacks queues trees searching sorting exceptions",
+      "effective_query": "lists stacks queues trees searching sorting exceptions",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview"
+      ],
+      "scores": [
+        13.00803523087574
+      ],
+      "relevant_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "resource:cs50:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:CSC120",
+        "resource:cs50"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.2,
+        "recall": 0.5,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.6300059872618923
+      },
+      "ranking_seconds": 2.377399960096227e-05,
+      "rationale": "CSC120 explicitly lists these data structures and operations. CS50 provides related introductory data-structure practice."
+    },
+    {
+      "case_id": "retrieval_processor_instructions",
+      "split": "development",
+      "method": "keyword",
+      "query": "MIPS processor instruction sets memory caches reduced instruction set",
+      "effective_query": "MIPS processor instruction sets memory caches reduced instruction set processor organization computer architecture",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [
+          "processor_execution",
+          "processor_memory"
+        ],
+        "added_terms": [
+          "processor organization",
+          "computer architecture"
+        ]
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE369A:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview"
+      ],
+      "scores": [
+        20.50498459245485,
+        3.7271672548753703,
+        2.559899869122152,
+        2.1208834713070783,
+        1.6146475705523569,
+        1.068036814135858
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE369A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "resource:cs50"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0
+      },
+      "ranking_seconds": 4.1089999285759404e-05,
+      "rationale": "ECE369A describes these processor topics. The team embedded mapping supplies a broader learning connection."
+    },
+    {
+      "case_id": "retrieval_microcontroller_interfaces",
+      "split": "development",
+      "method": "keyword",
+      "query": "microcontrollers interrupts timers serial communication analog conversion",
+      "effective_query": "microcontrollers interrupts timers serial communication analog conversion",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "scores": [
+        13.094303542378773,
+        1.7600248550204547
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.8207664720313073
+      },
+      "ranking_seconds": 2.5706999622343574e-05,
+      "rationale": "ECE372A explicitly covers the interfaces and events in this query; the team embedded mapping is supporting context."
+    },
+    {
+      "case_id": "retrieval_neural_models",
+      "split": "development",
+      "method": "keyword",
+      "query": "perceptrons convolutional attention models optimization inference",
+      "effective_query": "perceptrons convolutional attention models optimization inference",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview"
+      ],
+      "scores": [
+        10.597409360815254,
+        1.352789437490792
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:CSC120",
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.6,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 0.6666666666666666,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.8099531166420328
+      },
+      "ranking_seconds": 2.0739999854413327e-05,
+      "rationale": "ECE425 directly covers these neural models. PyTorch is complementary implementation practice and the team AI mapping explains the connection."
+    },
+    {
+      "case_id": "retrieval_pytorch_workflow",
+      "split": "development",
+      "method": "keyword",
+      "query": "PyTorch data loading neural network construction optimization saved model parameters",
+      "effective_query": "PyTorch data loading neural network construction optimization saved model parameters",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "resource:pytorch:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview"
+      ],
+      "scores": [
+        17.42962480037781,
+        5.839296665067197,
+        4.943320554379062,
+        0.9416581611409018,
+        0.6806036323862733,
+        0.641884083135474
+      ],
+      "relevant_chunk_ids": [
+        "resource:pytorch:overview"
+      ],
+      "relevant_source_ids": [
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.2,
+      "metrics": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0
+      },
+      "ranking_seconds": 5.7903999731934164e-05,
+      "rationale": "The PyTorch overview directly identifies this hands-on workflow. Course and career passages provide background rather than the tutorial itself."
+    },
+    {
+      "case_id": "retrieval_independent_cs50",
+      "split": "development",
+      "method": "keyword",
+      "query": "CS50 independent study C Python web OpenCourseWare",
+      "effective_query": "CS50 independent study C Python web OpenCourseWare",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:embedded:overview",
+        "resource:pytorch:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE372A:2026-2027:overview"
+      ],
+      "scores": [
+        11.302304809758018,
+        2.591991766433319,
+        2.183725477660019,
+        1.352789437490792,
+        0.7944147228791862,
+        0.6755101410412906
+      ],
+      "relevant_chunk_ids": [
+        "resource:cs50:overview"
+      ],
+      "relevant_source_ids": [
+        "resource:cs50"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CS_foundations",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.2,
+      "metrics": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.878961873034099
+      },
+      "ranking_seconds": 2.987300013046479e-05,
+      "rationale": "Only CS50 directly meets the named independent-study resource request. Programming courses have background relevance."
+    },
+    {
+      "case_id": "retrieval_csc120_rule",
+      "split": "development",
+      "method": "keyword",
+      "query": "CSC120 prerequisite minimum grade C alternatives CSC110 ECE101 ECE175 ISTA130",
+      "effective_query": "CSC120 prerequisite minimum grade C alternatives CSC110 ECE101 ECE175 ISTA130",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview"
+      ],
+      "scores": [
+        14.000250147973013,
+        4.622003180760213,
+        2.432136858383627,
+        0.8234020835356334,
+        0.6755101410412906,
+        0.641884083135474
+      ],
+      "relevant_chunk_ids": [
+        "uofa:CSC120:2026-2027:rule:R1299-L40"
+      ],
+      "relevant_source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:CS_foundations",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "precision_ceiling": 0.2,
+      "metrics": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0
+      },
+      "ranking_seconds": 3.3228000575036276e-05,
+      "rationale": "The separate program-section evidence contains the reviewed prerequisite wording; the course overview intentionally does not substitute for that statement."
+    },
+    {
+      "case_id": "retrieval_beginner_ai_path",
+      "split": "development",
+      "method": "keyword",
+      "query": "beginner programming foundations toward deep learning",
+      "effective_query": "beginner programming foundations toward deep learning",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "resource:pytorch:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview"
+      ],
+      "scores": [
+        3.21503253123956,
+        1.5701605685918998,
+        1.4833527254049759,
+        1.345674529148958,
+        1.289439811725816,
+        1.24195453984067,
+        0.5741614873784096,
+        0.549880465121631,
+        0.4001308356026836
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.6,
+      "metrics": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "reciprocal_rank": 0.3333333333333333,
+        "ndcg": 0.7653468776288558
+      },
+      "ranking_seconds": 3.298799947515363e-05,
+      "rationale": "Programming foundations and CS50 are direct starting material. The team AI mapping supports a learning direction; advanced material is background for this beginner query."
+    },
+    {
+      "case_id": "retrieval_embedded_path",
+      "split": "development",
+      "method": "keyword",
+      "query": "embedded systems C programming processor architecture microcontrollers hardware interfaces",
+      "effective_query": "embedded systems C programming processor architecture microcontrollers hardware interfaces",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "career:embedded:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC120:2026-2027:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview"
+      ],
+      "scores": [
+        14.215872437800893,
+        9.902661871918907,
+        4.634912068708743,
+        1.4422299129610563,
+        0.9903339402642344,
+        0.7944147228791862,
+        0.41314700041299024,
+        0.34487071000006964,
+        0.2854484376554516
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "resource:cs50"
+      ],
+      "precision_ceiling": 0.6,
+      "metrics": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0
+      },
+      "ranking_seconds": 0.00011208300020371098,
+      "rationale": "The embedded team mapping connects these topics; ECE369A and ECE372A provide direct supporting course descriptions."
+    },
+    {
+      "case_id": "retrieval_button_paraphrase",
+      "split": "validation",
+      "method": "keyword",
+      "query": "make a little board react when a button is pressed without polling",
+      "effective_query": "make a little board react when a button is pressed without polling microcontrollers interrupts hardware interfaces embedded systems",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [
+          "board_events"
+        ],
+        "added_terms": [
+          "microcontrollers",
+          "interrupts",
+          "hardware interfaces",
+          "embedded systems"
+        ]
+      },
+      "ranked_chunk_ids": [
+        "career:embedded:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40"
+      ],
+      "scores": [
+        10.719346627203652,
+        9.629318976953241,
+        2.756388730851526,
+        1.8450759742548366,
+        1.7573589899739677,
+        1.3124340510885184
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.9224945116765986
+      },
+      "ranking_seconds": 4.604700006893836e-05,
+      "rationale": "Interrupts and microcontroller interfaces are the closest saved evidence. The button scenario is a query example, not a promise about a specific lab."
+    },
+    {
+      "case_id": "retrieval_pictures_paraphrase",
+      "split": "validation",
+      "method": "keyword",
+      "query": "train computers to pick out patterns from pictures",
+      "effective_query": "train computers to pick out patterns from pictures computer vision deep learning neural networks",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [
+          "visual_learning"
+        ],
+        "added_terms": [
+          "computer vision",
+          "deep learning",
+          "neural networks"
+        ]
+      },
+      "ranked_chunk_ids": [
+        "resource:pytorch:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "career:ai_ml:overview",
+        "resource:cs50:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview"
+      ],
+      "scores": [
+        3.7690011959595857,
+        3.739718432123415,
+        3.1177794115844266,
+        1.560629043530974,
+        1.258572814704367,
+        1.204770278844499,
+        0.2678816210677861,
+        0.14395046225944874,
+        0.14287316793021623
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:CSC120",
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE369A",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.6,
+      "metrics": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.8288615669472547
+      },
+      "ranking_seconds": 4.283300040697213e-05,
+      "rationale": "Convolutional neural models and practical deep-learning workflows are the closest relevant evidence; the query deliberately avoids the catalog terminology."
+    },
+    {
+      "case_id": "retrieval_chip_paraphrase",
+      "split": "validation",
+      "method": "keyword",
+      "query": "how a chip speaks with memory and executes machine instructions",
+      "effective_query": "how a chip speaks with memory and executes machine instructions processor organization instruction sets memory caches computer architecture",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [
+          "chip_execution"
+        ],
+        "added_terms": [
+          "processor organization",
+          "instruction sets",
+          "memory caches",
+          "computer architecture"
+        ]
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE369A:2026-2027:overview",
+        "career:embedded:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview"
+      ],
+      "scores": [
+        16.56250923703206,
+        3.7271672548753703,
+        3.0576511104058155,
+        2.559899869122152,
+        2.1208834713070783,
+        1.819202362898817,
+        1.6146475705523569,
+        1.068036814135858
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE369A:2026-2027:overview",
+        "career:embedded:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.9854419388428785
+      },
+      "ranking_seconds": 4.5214999772724696e-05,
+      "rationale": "Processor organization, instruction sets, and memory make ECE369A the direct match; hardware/microcontroller material supplies background."
+    },
+    {
+      "case_id": "retrieval_weights_practice",
+      "split": "validation",
+      "method": "keyword",
+      "query": "practice tensors minibatches optimization weights outside university coursework",
+      "effective_query": "practice tensors minibatches optimization weights outside university coursework deep learning neural network model parameters",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [
+          "tensor_practice"
+        ],
+        "added_terms": [
+          "deep learning",
+          "neural network",
+          "model parameters"
+        ]
+      },
+      "ranked_chunk_ids": [
+        "resource:pytorch:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview",
+        "career:embedded:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview"
+      ],
+      "scores": [
+        13.668968078978683,
+        7.409457233659097,
+        5.6836516995079975,
+        5.085798769569266,
+        1.3296640563991229,
+        0.1450441260787422,
+        0.14395046225944874,
+        0.14287316793021623,
+        0.1367334647086408
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A",
+        "catalog:ECE425",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.9854419388428785
+      },
+      "ranking_seconds": 5.1234999773441814e-05,
+      "rationale": "The PyTorch workflow is the relevant practical resource; ECE425 supports neural-model optimization. The resource does not establish university credit."
+    },
+    {
+      "case_id": "retrieval_or_requirement",
+      "split": "validation",
+      "method": "keyword",
+      "query": "Do I need both ECE101 and CSC110 before CSC120?",
+      "effective_query": "Do I need both ECE101 and CSC110 before CSC120?",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview"
+      ],
+      "scores": [
+        6.310189553416392,
+        5.743602335490264,
+        2.7637124334922505,
+        0.8843107805992715,
+        0.8710747968550616,
+        0.8277137726753295
+      ],
+      "relevant_chunk_ids": [
+        "uofa:CSC120:2026-2027:rule:R1299-L40"
+      ],
+      "relevant_source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:CSC120",
+        "catalog:CS_foundations",
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "precision_ceiling": 0.2,
+      "metrics": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.9639404333166532
+      },
+      "ranking_seconds": 2.801000027830014e-05,
+      "rationale": "Answering the alternatives question requires the exact reviewed OR statement. A course-description chunk is background only."
+    },
+    {
+      "case_id": "retrieval_exact_deep_learning",
+      "split": "validation",
+      "method": "keyword",
+      "query": "ECE425 attention models training inference",
+      "effective_query": "ECE425 attention models training inference",
+      "query_interpretation": {
+        "version": "p07-domain-aliases-v1",
+        "matched_aliases": [],
+        "added_terms": []
+      },
+      "ranked_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview"
+      ],
+      "scores": [
+        8.752333386560418,
+        1.352789437490792
+      ],
+      "relevant_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview"
+      ],
+      "relevant_source_ids": [
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "retrieved_source_ids_at_k": [
+        "catalog:ECE425",
+        "resource:pytorch"
+      ],
+      "precision_ceiling": 0.4,
+      "metrics": {
+        "precision": 0.4,
+        "recall": 1.0,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.894999002123018
+      },
+      "ranking_seconds": 1.7224999282916542e-05,
+      "rationale": "The exact course description directly matches; PyTorch provides supplementary training practice."
+    }
+  ],
+  "policy_summary": {
+    "cases": 18,
+    "passed": 18
+  },
+  "policy_cases": [
+    {
+      "case_id": "policy_ai_beginner",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "first_course": true,
+        "rule:uofa:ECE101:2026-2027": true,
+        "rule:uofa:CSC120:2026-2027": true,
+        "rule:uofa:ECE425:2026-2027": true,
+        "phase:uofa:ECE101:2026-2027": true,
+        "phase:uofa:ECE425:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE101:2026-2027": "next",
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:cs50": "next",
+        "resource:pytorch": "later"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:cs50:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "A novice gets programming preparation and later AI goals without interpreting unresolved ECE conditions."
+    },
+    {
+      "case_id": "policy_embedded_beginner",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "first_course": true,
+        "rule:uofa:ECE369A:2026-2027": true,
+        "rule:uofa:ECE372A:2026-2027": true,
+        "phase:uofa:ECE101:2026-2027": true,
+        "phase:uofa:ECE372A:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:ECE369A:2026-2027",
+        "uofa:ECE372A:2026-2027",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE369A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016494 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE372A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016495 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE101:2026-2027": "next",
+        "uofa:ECE369A:2026-2027": "build",
+        "uofa:ECE372A:2026-2027": "later",
+        "resource:cs50": "next"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:embedded:overview"
+      ],
+      "rationale": "The embedded path retains both architecture and microcontroller learning goals, with unknown enrollment conditions."
+    },
+    {
+      "case_id": "policy_exploring",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "first_course": true,
+        "phase:uofa:ECE425:2026-2027": true,
+        "phase:uofa:ECE372A:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "uofa:ECE372A:2026-2027",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE372A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016495 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE101:2026-2027": "next",
+        "uofa:ECE425:2026-2027": "later",
+        "uofa:ECE372A:2026-2027": "later",
+        "resource:cs50": "next",
+        "resource:pytorch": "later"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview",
+        "career:embedded:overview"
+      ],
+      "rationale": "Exploration retains an advanced learning goal from each direction."
+    },
+    {
+      "case_id": "policy_ai_experienced",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "first_course": true,
+        "rule:uofa:ECE425:2026-2027": true,
+        "phase:uofa:ECE425:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE425:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE101:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE425:2026-2027": "later",
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE101:2026-2027": "build",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "Programming experience does not resolve the unreviewed deep-learning enrollment condition."
+    },
+    {
+      "case_id": "policy_embedded_experienced",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "first_course": true,
+        "rule:uofa:ECE372A:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE372A:2026-2027",
+        "uofa:ECE369A:2026-2027",
+        "uofa:ECE101:2026-2027",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE372A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016495 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE369A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016494 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE372A:2026-2027": "later",
+        "uofa:ECE369A:2026-2027": "build",
+        "uofa:ECE101:2026-2027": "build",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:embedded:overview"
+      ],
+      "rationale": "Advanced matching can rise in relevance without changing academic certainty."
+    },
+    {
+      "case_id": "policy_completed_embedded",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:ECE369A:2026-2027",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE369A:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 016494 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE101:2026-2027": "next",
+        "uofa:ECE369A:2026-2027": "build",
+        "resource:cs50": "next"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "resource:cs50:overview",
+        "career:embedded:overview"
+      ],
+      "rationale": "Completed coursework must not remain an allowed new recommendation."
+    },
+    {
+      "case_id": "policy_csc_grade_b",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true,
+        "phase:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade B, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "next",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "Recorded ECE101 grade B satisfies the dated reviewed C-minimum OR condition; this is not full enrollment clearance."
+    },
+    {
+      "case_id": "policy_or_external_alternative",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "uofa:ECE101:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175: grade C, required C.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "next",
+        "uofa:ECE425:2026-2027": "later",
+        "uofa:ECE101:2026-2027": "build",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "A qualifying alternative can satisfy OR even though its own course description is outside the small corpus."
+    },
+    {
+      "case_id": "policy_missing_grade",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 needs a confirmed grade of C or higher.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "A listed completion without the required grade cannot satisfy this condition."
+    },
+    {
+      "case_id": "policy_complete_history_absent",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true,
+        "phase:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "uofa:ECE101:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unsatisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "later",
+        "uofa:ECE425:2026-2027": "later",
+        "uofa:ECE101:2026-2027": "build",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "A declared complete history with none of the alternatives is unsatisfied."
+    },
+    {
+      "case_id": "policy_low_grade_incomplete",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade D, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "An unsuccessful alternative does not disprove unreported alternatives in an incomplete history."
+    },
+    {
+      "case_id": "policy_low_grade_complete",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unsatisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade D, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "later",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "With a complete history, the D grade and absent other alternatives leave the OR condition unsatisfied."
+    },
+    {
+      "case_id": "policy_unsupported_edition",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "The student's catalog edition does not match this reviewed rule.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "unsupported",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "A reviewed current-edition rule cannot establish satisfaction for another catalog edition."
+    },
+    {
+      "case_id": "policy_stale_rule",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "5e4efbe347a6bba9f9596a634cedfaa0607a8a3da51b4df6606097ee1051d5ff",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "The prerequisite sources could not be verified for this request.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "stale",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {
+        "uofa:CSC120:2026-2027": "stale"
+      },
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "Controlled stale-rule state: a formerly reviewed condition remains unknown for a failed current check."
+    },
+    {
+      "case_id": "policy_changed_rule",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:CSC120:2026-2027": true
+      },
+      "scenario_snapshot_hash": "47cec6a9afe40a3107b0270166e1908b6ab0e879130c1514f56ffc8952e4f7f6",
+      "allowed_record_ids": [
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "The prerequisite evidence or interpretation needs review.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "changed",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {
+        "uofa:CSC120:2026-2027": "changed"
+      },
+      "context_chunk_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "Controlled changed-rule state: the old reviewed interpretation cannot remain approved."
+    },
+    {
+      "case_id": "policy_unsupported_topic",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [],
+      "coverage_notice": true,
+      "rule_results": {},
+      "phases": {},
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [],
+      "rationale": "A clear unsupported topic must receive a coverage notice and no default recommendation list."
+    },
+    {
+      "case_id": "policy_self_study",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "resource:cs50",
+        "resource:pytorch"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE101:2026-2027": "next",
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE425:2026-2027": "later",
+        "resource:cs50": "next",
+        "resource:pytorch": "later"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:cs50:overview",
+        "resource:pytorch:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "The independent-study source can appear as complementary material without an academic credit claim."
+    },
+    {
+      "case_id": "policy_senior_is_not_approval",
+      "passed": true,
+      "checks": {
+        "coverage_notice": true,
+        "required_records": true,
+        "forbidden_records": true,
+        "rule:uofa:ECE425:2026-2027": true
+      },
+      "scenario_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+      "allowed_record_ids": [
+        "uofa:ECE425:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE101:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ],
+      "coverage_notice": false,
+      "rule_results": {
+        "uofa:ECE425:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        },
+        "uofa:CSC120:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 is not in the supplied completion history.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "This evaluates a dated reviewed snapshot, not current enrollment eligibility.",
+            "Some supporting requirement records are outside this reviewed context."
+          ],
+          "evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "verification_status": "snapshot",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "uofa:ECE101:2026-2027": {
+          "status": "unknown",
+          "reasons": [
+            "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+          ],
+          "evidence_ids": [],
+          "verification_status": "unreviewed",
+          "source_ids": []
+        }
+      },
+      "phases": {
+        "uofa:ECE425:2026-2027": "later",
+        "uofa:CSC120:2026-2027": "build",
+        "uofa:ECE101:2026-2027": "build",
+        "resource:pytorch": "next",
+        "resource:cs50": "build"
+      },
+      "synthetic_rule_state_overrides": {},
+      "context_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "career:ai_ml:overview"
+      ],
+      "rationale": "Senior standing must not be treated as verified Engineering advanced standing or resolved prerequisites."
+    }
+  ],
+  "claim_summary": {
+    "authored_probes": 16,
+    "reference_verdicts": {
+      "supported": 6,
+      "contradicted": 3,
+      "insufficient_evidence": 8,
+      "recommendation": 1
+    },
+    "integrity_expectations_matched": 16,
+    "unsupported_claims_admitted_by_reference_checks": 9,
+    "scope": "Authored counterexamples; not generated-model accuracy or an automatic entailment score."
+  },
+  "render_contract_summary": {
+    "answer_contract": "statement-selection-v1",
+    "legacy_authored_answers_accepted": 0,
+    "unsupported_reviewed_claims_admitted": 0,
+    "canonical_controls": {
+      "attempted": 82,
+      "accepted": 82
+    },
+    "scope": "Strict application-owned wording contract, not an unrestricted entailment classifier."
+  },
+  "claim_probes": [
+    {
+      "case_id": "claim_credits_supported",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The course overview records 4.0 credits.",
+          "text": "ECE101 carries four credits.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_credits_contradicted",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "contradicted",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The cited overview records four credits, not three.",
+          "text": "ECE101 carries three credits.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_wrong_subject",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "contradicted",
+          "reference_evidence_ids": [
+            "uofa:ECE369A:2026-2027:overview"
+          ],
+          "rationale": "The cited course is computer organization and processor hardware, not marine biology.",
+          "text": "ECE369A is an introduction to marine biology.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE369A:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_unknown_eligibility",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE425:2026-2027:overview"
+          ],
+          "rationale": "The application-owned ECE425 condition is unknown; the description cannot establish complete eligibility.",
+          "text": "You satisfy every requirement and are cleared to enroll in ECE425 now.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE425:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_or_supported",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "rationale": "The reviewed program statement lists this minimum grade and alternative; the claim is explicitly dated.",
+          "text": "The dated reviewed CSC120 condition accepts C or better in ECE101 as one alternative.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 6,
+        "accepted": 6,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_all_alternatives_false",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "contradicted",
+          "reference_evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "rationale": "The reviewed condition is an OR choice, not a conjunction of every alternative.",
+          "text": "CSC120 requires all four of CSC110, ECE101, ECE175, and ISTA130 before it.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:CSC120:2026-2027:rule:R1299-L40"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 6,
+        "accepted": 6,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_resource_credit",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "resource:cs50:overview"
+          ],
+          "rationale": "The source is complementary independent study; no university credit or equivalency is established.",
+          "text": "Completing CS50 awards four University of Arizona credits.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "resource:cs50:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_semester_guarantee",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE425:2026-2027:overview"
+          ],
+          "rationale": "The supplied evidence has no current semester offering or registration guarantee.",
+          "text": "ECE425 is guaranteed to be available next semester.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE425:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_freshness_invented",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE369A:2026-2027:overview"
+          ],
+          "rationale": "The supplied source freshness is a dated snapshot, and the academic condition remains unresolved.",
+          "text": "The official ECE369A enrollment conditions were verified today.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE369A:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_job_guarantee",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE372A:2026-2027:overview"
+          ],
+          "rationale": "A course learning connection does not establish job placement.",
+          "text": "ECE372A guarantees placement in an embedded engineering job.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE372A:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_per_reason_wrong_source",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The first reason has direct supporting course evidence.",
+          "text": "ECE101 introduces C programming and memory management.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        },
+        {
+          "recommendation_index": 0,
+          "reason_index": 1,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "resource:cs50:overview",
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The second sentence cites CS50, which does not establish ECE101 units. Another reason citing the course does not repair that sentence.",
+          "text": "ECE101 carries four university credits.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "resource:cs50:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": true
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_unknown_citation",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": false,
+      "reference_integrity_expected": false,
+      "integrity_matches_reference": true,
+      "reference_error": "The response cited evidence not supplied to the model",
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The authored citation is absent from the supplied context, even though other provided material describes the course.",
+          "text": "ECE101 introduces C programming.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:invented"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "invalid_reference",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_outside_recommendation",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": false,
+      "reference_integrity_expected": false,
+      "integrity_matches_reference": true,
+      "reference_error": "The response recommended an out-of-context record",
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "insufficient_evidence",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The cited evidence identifies ECE101, not the recommended outside record.",
+          "text": "This outside course teaches programming.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "invalid_reference",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_raw_url_rejected",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": false,
+      "reference_integrity_expected": false,
+      "integrity_matches_reference": true,
+      "reference_error": "Generated URLs cannot be used as citations",
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The programming fact is supported; a raw generated URL separately violates the output contract.",
+          "text": "ECE101 introduces C programming; see https://catalog.arizona.edu/courses/0432351.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "invalid_reference",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_duplicate_recommendation",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": false,
+      "reference_integrity_expected": false,
+      "integrity_matches_reference": true,
+      "reference_error": "The response repeated a recommendation",
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The factual statement is supported; repeating its recommendation separately violates the output contract.",
+          "text": "ECE101 introduces C programming.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        },
+        {
+          "recommendation_index": 1,
+          "reason_index": 0,
+          "verdict": "supported",
+          "reference_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "rationale": "The factual statement is supported; repeating its recommendation separately violates the output contract.",
+          "text": "ECE101 introduces C programming.",
+          "claim_type": "source_fact",
+          "cited_evidence_ids": [
+            "uofa:ECE101:2026-2027:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "invalid_reference",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    },
+    {
+      "case_id": "claim_learning_suggestion",
+      "answer_origin": "authored_probe",
+      "reference_checks_accepted": true,
+      "reference_integrity_expected": true,
+      "integrity_matches_reference": true,
+      "reference_error": null,
+      "reference_reviews": [
+        {
+          "recommendation_index": 0,
+          "reason_index": 0,
+          "verdict": "recommendation",
+          "reference_evidence_ids": [
+            "resource:cs50:overview"
+          ],
+          "rationale": "This is a learning suggestion anchored to a relevant resource, not an official academic requirement.",
+          "text": "Use CS50 for additional programming practice alongside coursework.",
+          "claim_type": "recommendation",
+          "cited_evidence_ids": [
+            "resource:cs50:overview"
+          ],
+          "unsupported_claim_admitted_by_render_contract": false,
+          "unsupported_claim_admitted_by_reference_checks": false
+        }
+      ],
+      "render_contract_accepted": false,
+      "render_contract_error": "unlisted_wording",
+      "canonical_controls": {
+        "attempted": 5,
+        "accepted": 5,
+        "failures": []
+      }
+    }
+  ],
+  "regression_checks_passed": true
+}

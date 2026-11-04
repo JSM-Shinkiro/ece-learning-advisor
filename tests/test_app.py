@@ -174,6 +174,19 @@ def test_unsupported_question_shows_clarification_instead_of_courses(app):
     assert not any(button.key and button.key.startswith("complete_") for button in app.button)
 
 
+@pytest.mark.parametrize("career,question,code", [("ai_ml", "train computers to pick out patterns from pictures", "ECE425"),
+    ("embedded", "make a little board react when a button is pressed without polling", "ECE372A")])
+def test_paraphrased_interest_reaches_roadmap_and_visible_search_terms(app, career, question, code):
+    app.selectbox(key="career_id").set_value(career)
+    app.text_input(key="question").set_value(question)
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    assert not result.coverage_notice and f"uofa:{code}:2026-2027" in result.context.allowed_record_ids
+    assert any("Search also uses:" in item.value for item in app.caption)
+    assert result.context.rule_results[f"uofa:{code}:2026-2027"].status == "unknown"
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

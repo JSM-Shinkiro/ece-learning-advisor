@@ -15,6 +15,9 @@ def render_inspector(result, catalog):
         st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
+        added_terms = result.trace.get("query_interpretation", {}).get("added_terms", [])
+        if added_terms:
+            st.caption("Search also uses: " + ", ".join(added_terms) + ". These search terms do not change academic requirements.")
         hits = [h for h in result.hits if records[h.record_id].kind!="career"][:10]
         if hits:
             def hit_label(hit):

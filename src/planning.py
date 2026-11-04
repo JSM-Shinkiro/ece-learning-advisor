@@ -4,6 +4,7 @@ import re
 
 from .models import Record, StudentProfile
 from .retrieval import tokenize
+from .query import catalog_vocabulary, interpret_query
 
 CAREER_NAMES = {"ai_ml": "AI / Machine Learning", "embedded": "Embedded Systems", "exploring": "Still exploring"}
 PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later goals"}
@@ -34,7 +35,7 @@ def learning_phase(record: Record, profile: StudentProfile, evaluation=None):
 
 
 def coverage_message(catalog, profile, question, *, allow_course_discovery=False):
-    """A transparent vocabulary guard before adding default career terms.
+    """A transparent vocabulary/alias guard before adding default career terms.
 
     This catches clear nonmatches, not semantic intent or every out-of-scope claim.
     The generator must still abstain when the retrieved facts do not answer a query.
@@ -53,7 +54,14 @@ def coverage_message(catalog, profile, question, *, allow_course_discovery=False
     terms = set(tokenize(text)) - generic
     if not terms:
         return None
-    vocabulary = set(tokenize(" ".join(r.title + " " + r.summary + " " + " ".join(r.topics) for r in catalog.records)))
+    interpretation = interpret_query(text, catalog)
+    terms |= set(tokenize(" ".join(interpretation.added_terms)))
+    vocabulary = catalog_vocabulary(catalog)
+    # These broad words alone cannot establish computing-domain coverage.
+    vocabulary -= {"training", "train", "model", "models", "learning", "study", "studies",
+        "foundation", "foundations", "project", "projects", "practice", "basic", "introduction",
+        "introductory", "engineering", "systems", "design", "control", "data", "patterns", "pattern",
+        "coursework", "independent", "source", "saved", "parameters"}
     vocabulary |= {"ai", "ml", "ece", "csc", "python", "robotics", "robot", "math", "calculus", "algebra", "programming"}
     vocabulary |= {r.code.lower() for r in catalog.records if r.code}
     if terms & vocabulary:

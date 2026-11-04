@@ -53,7 +53,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                     proof.verification_status = "snapshot"
         source_issues = ["Official-source checks are disabled. Showing dated saved evidence."]
     provider, issue = None, None
-    if use_ai and api_key:
+    if use_ai and api_key and not coverage_message(catalog, profile, profile.question):
         try:
             provider = (provider_factory or GeminiProvider)(api_key, embedding_model=embedding_model,
                 generation_model=generation_model, dimensions=dimensions)

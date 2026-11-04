@@ -13,9 +13,10 @@ from .catalog import build_evidence, code_lookup, corpus_hash
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import EmbeddingCache, ProviderError
 from .planning import coverage_message, learning_phase, needs_programming_foundations
-from .retrieval import Hit, Retriever
+from .retrieval import Hit, Retriever, tokenize
 from .rules import dependency_codes, evaluate_course
 from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer, validate_wording
+from .query import interpret_query
 
 
 class CitationError(ValueError):
@@ -74,16 +75,20 @@ class AdvisorResult:
     trace: dict = field(default_factory=dict)
 
 
-def build_query(catalog: Catalog, profile: StudentProfile, question: str):
+def build_query(catalog: Catalog, profile: StudentProfile, question: str, *, interpretation=None):
     careers = [r for r in catalog.records if r.kind == "career" and (
         profile.career_id == "exploring" or r.record_id == "career:" + profile.career_id)]
     direction = " ".join(r.title + " " + " ".join(r.topics) for r in careers)
     foundations = "introductory programming foundations C" if needs_programming_foundations(profile) else ""
-    return " ".join([direction, foundations, profile.interests, profile.experience, question]).strip()[:5000]
+    interpretation = interpretation or interpret_query(question.strip() or profile.interests.strip(), catalog)
+    original = " ".join([direction, foundations, profile.interests, profile.experience, question]).strip()
+    suffix = " ".join(interpretation.added_terms)
+    # Reserve space for bounded aliases even with a maximum-length profile.
+    return (original[:5000 - len(suffix) - 1] + " " + suffix).strip() if suffix else original[:5000]
 
 
 def build_context(catalog: Catalog, profile: StudentProfile, question: str, query: str,
-                  hits: list[Hit], max_chunks=8, max_characters=16000):
+                  hits: list[Hit], max_chunks=8, max_characters=16000, *, focused_record_ids=()):
     records = {r.record_id: r for r in catalog.records}
     chunks = {}
     for chunk in build_evidence(catalog):
@@ -98,6 +103,9 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             courses.append(record.record_id)
         elif record.kind == "resource" and record.record_id not in resources:
             resources.append(record.record_id)
+    # A matched question may prefer an existing course, without changing the
+    # selected career, excluding foundations, or granting academic clearance.
+    courses.sort(key=lambda rid: rid not in focused_record_ids)
     beginner = needs_programming_foundations(profile)
     if beginner:
         foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
@@ -115,7 +123,8 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             matches=[rid for rid in candidates if records[rid].study_stage=="advanced"
                      and career in records[rid].career_ids]
             goals.extend(matches[:1])
-        courses=list(dict.fromkeys(foundations[:1]+goals+courses))[:3]
+        focused = [rid for rid in courses if rid in focused_record_ids]
+        courses=list(dict.fromkeys(foundations[:1]+focused[:1]+goals+courses))[:3]
     selected = courses[:3] + resources[:2]
     career_ids = [
         r.record_id for r in catalog.records
@@ -183,6 +192,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     question = question or profile.question
     if len(question) > 1200:
         raise ValueError("Keep the learning question within 1,200 characters")
+    interpretation = interpret_query(question.strip() or profile.interests.strip(), catalog)
     notice = coverage_message(catalog, profile, question)
     if notice:
         context = GenerationContext(profile=profile, question=question, query=question,
@@ -193,10 +203,11 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         result.trace = {"data_version":catalog.version, "prompt_version":context.prompt_version,
                         "generation_status":"insufficient_evidence", "generation_complete":False,
                         "coverage_guard":"no_vocabulary_match", "model_calls":0,
+                        "query_interpretation": interpretation.trace(),
                         "context_chunk_ids":[], "allowed_record_ids":[], "timings_seconds":result.timings}
         return result
     chunks = build_evidence(catalog)
-    query = build_query(catalog, profile, question)
+    query = build_query(catalog, profile, question, interpretation=interpretation)
     vectors, query_vector, manifest = None, None, {}
     issues, timings = [], {}
     mode, cache_state = "keyword", "not_used"
@@ -213,8 +224,22 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     before = time.perf_counter()
     retriever = Retriever(chunks, vectors)
     hits = retriever.search(query, mode, query_vector)
+    focused = []
+    records = {r.record_id: r for r in catalog.records}
+    question_terms = set(tokenize(question))
+    named_course = any(r.code and r.code.lower() in question_terms for r in catalog.records if r.kind == "course")
+    if question.strip():
+        for hit in retriever.keyword(interpretation.expand(question)):
+            record = records[hit.record_id]
+            if record.kind != "course" or (profile.career_id != "exploring" and record.career_ids
+                                          and profile.career_id not in record.career_ids):
+                continue
+            description_terms = set(tokenize(record.title + " " + record.summary + " " + " ".join(record.topics)))
+            if interpretation.matched_aliases or named_course or len(question_terms & description_terms) >= 2:
+                focused = [record.record_id]
+                break
     timings["retrieval"] = time.perf_counter() - before
-    context = build_context(catalog, profile, question, query, hits)
+    context = build_context(catalog, profile, question, query, hits, focused_record_ids=focused)
     result = AdvisorResult(
         context=context, hits=hits, catalog=catalog, retrieval_mode=mode,
         issues=issues, timings=timings, vectors=vectors,
@@ -245,6 +270,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "data_version": catalog.version,
         "corpus_hash": corpus_hash(catalog),
         "prompt_version": context.prompt_version,
+        "query_interpretation": interpretation.trace(),
+        "focused_record_ids": focused,
         "retrieval_mode": mode,
         "embedding_model": getattr(provider, "embedding_model", None),
         "generation_model": getattr(provider, "generation_model", None),

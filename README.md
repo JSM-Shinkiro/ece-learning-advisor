@@ -80,6 +80,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Profile export/import, searchable coursework entry, and Mark completed actions.
 - Direction comparison for students who are still exploring.
 - Coverage clarification for clear requests outside the starter collection.
+- Bounded domain aliases for student wording, with visible added search terms and question-focused course selection.
 - On-demand Adzuna search adapter with a short session cache.
 
 Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabricated when the provider is unavailable.
@@ -131,6 +132,8 @@ The refinement includes regression tests for the review findings. See [prototype
 `evaluate.py` retains the original keyword-only smoke check. `evaluate_reviewed.py` adds frozen retrieval judgments, roadmap expectations, and authored claim probes. Its default run makes no source, embedding, or generation calls. The [reviewed baseline](docs/18_REVIEWED_EVALUATION.md) preserves retrieval misses and nine unsupported claims admitted by the earlier citation checker. The [November 4 follow-up](docs/19_GROUNDED_EXPLANATIONS.md) rejects those authored explanations and accepts 82/82 canonical statement controls. It also rejects true paraphrases outside the fixed wording; this is an output contract, not a general entailment score or live model-accuracy result.
 
 Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a configured Gemini key. It uses real provider quota for embeddings only; no generator is called. Controlled test vectors are labeled as fixtures and are not published as neural quality results.
+
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 444 tests. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 

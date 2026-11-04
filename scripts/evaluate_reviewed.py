@@ -19,6 +19,8 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / '.cache' / 'reviewed_evaluation.json')
     parser.add_argument('--markdown', type=Path)
     parser.add_argument('--k', type=int, default=5)
+    parser.add_argument('--query-mode', choices=['raw', 'expanded'], default='raw',
+                        help='Keep original questions by default; expanded adds bounded domain aliases, without profile terms.')
     parser.add_argument('--methods', nargs='+', choices=['keyword', 'semantic', 'hybrid'], default=['keyword'])
     parser.add_argument('--live-embeddings', action='store_true', help='Opt in to real embedding requests and provider quota; no generation calls.')
     parser.add_argument('--embedding-model', default='gemini-embedding-2')
@@ -41,13 +43,13 @@ def main():
             provider = GeminiProvider(os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY'),
                                       embedding_model=args.embedding_model, dimensions=args.dimensions)
         report = evaluate_suite(catalog, suite, k=args.k, methods=args.methods, embedder=provider,
-                                embedding_origin='live_provider' if provider else None)
+                                embedding_origin='live_provider' if provider else None, query_mode=args.query_mode)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
         if args.markdown:
             args.markdown.parent.mkdir(parents=True, exist_ok=True)
             args.markdown.write_text(report_markdown(report), encoding='utf-8')
-        print(json.dumps({'suite_id': report['suite_id'], 'retrieval': report['retrieval_summary'],
+        print(json.dumps({'suite_id': report['suite_id'], 'query_mode': report['query_mode'], 'retrieval': report['retrieval_summary'],
             'policy': report['policy_summary'], 'claims': report['claim_summary'],
             'render_contract': report['render_contract_summary'], 'output': str(args.output)}, indent=2))
         return 0 if report['regression_checks_passed'] else 1

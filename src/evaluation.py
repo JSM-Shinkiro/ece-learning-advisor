@@ -27,6 +27,7 @@ from .retrieval import Retriever
 from .rules import evaluate_course
 from .service import CitationError, recommend, validate_answer, validate_references
 from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer
+from .query import QUERY_POLICY_VERSION, interpret_query
 
 DEFAULT_SUITE = ROOT / "data" / "evaluation" / "reviewed_v1.json"
 Grade = Annotated[int, Field(strict=True, ge=0, le=3)]
@@ -285,7 +286,7 @@ def _claim_result(catalog, probe):
 
 def _implementation_hash():
     files = ["src/evaluation.py", "src/retrieval.py", "src/service.py", "src/models.py", "src/catalog.py",
-             "src/planning.py", "src/rules.py", "src/providers.py", "src/grounding.py", "scripts/evaluate_reviewed.py"]
+             "src/planning.py", "src/query.py", "src/rules.py", "src/providers.py", "src/grounding.py", "scripts/evaluate_reviewed.py"]
     hashes = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in files}
     return {"files": hashes, "sha256": hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest()}
 
@@ -305,10 +306,12 @@ class _CountedEmbeddings:
 
 
 def evaluate_suite(catalog, suite, *, k=5, methods=("keyword",), embedder=None, embedding_origin=None,
-                   cache_dir=ROOT / ".cache" / "evaluation_embeddings"):
+                   cache_dir=ROOT / ".cache" / "evaluation_embeddings", query_mode="raw"):
     validate_suite(suite, catalog)
     if not methods or len(set(methods)) != len(methods) or not set(methods) <= {"keyword", "semantic", "hybrid"}:
         raise ValueError("Choose unique supported retrieval methods")
+    if query_mode not in {"raw", "expanded"}:
+        raise ValueError("Choose raw or expanded query evaluation")
     neural = bool(set(methods) & {"semantic", "hybrid"})
     if neural and (embedder is None or embedding_origin not in {"live_provider", "controlled_fixture"}):
         raise ValueError("Semantic/hybrid evaluation needs an explicit embedding provider and origin; no silent keyword fallback")
@@ -323,13 +326,16 @@ def evaluate_suite(catalog, suite, *, k=5, methods=("keyword",), embedder=None, 
     retriever = Retriever(chunks, vectors)
     rows = []
     for case in suite.retrieval_cases:
-        query_vector = counted.embed_query(case.query) if neural else None
+        interpretation = interpret_query(case.query, catalog) if query_mode == "expanded" else None
+        effective_query = interpretation.expand(case.query) if interpretation else case.query
+        query_vector = counted.embed_query(effective_query) if neural else None
         for method in methods:
             started = time.perf_counter()
-            hits = retriever.search(case.query, method=method, query_vector=query_vector, limit=max(k, 20))
+            hits = retriever.search(effective_query, method=method, query_vector=query_vector, limit=max(k, 20))
             elapsed = time.perf_counter() - started
             relevant_ids = [key for key, grade in case.relevance.items() if grade >= suite.binary_relevance_minimum]
             rows.append({"case_id": case.case_id, "split": case.split, "method": method, "query": case.query,
+                "effective_query": effective_query, "query_interpretation": interpretation.trace() if interpretation else None,
                 "ranked_chunk_ids": [h.chunk_id for h in hits], "scores": [h.score for h in hits],
                 "relevant_chunk_ids": relevant_ids,
                 "relevant_source_ids": sorted({sid for key in relevant_ids for sid in by_chunk[key].source_ids}),
@@ -353,7 +359,9 @@ def evaluate_suite(catalog, suite, *, k=5, methods=("keyword",), embedder=None, 
         "metric_conventions": {"unit": "evidence chunk", "binary_relevance_minimum": suite.binary_relevance_minimum,
             "precision_denominator": "fixed cutoff, including short result lists", "ndcg_gain": "linear grade / log2(rank + 1)",
             "ties": "retriever score order, then stable chunk ID", "aggregation": "equal query weights; undefined values excluded"},
-        "retrieval_query_mode": "raw reference query without profile expansion", "policy_method": "keyword",
+        "retrieval_query_mode": ("raw reference query without profile expansion" if query_mode == "raw"
+                                 else "domain-alias expansion without profile expansion"),
+        "query_mode": query_mode, "runtime_query_policy": QUERY_POLICY_VERSION, "policy_method": "keyword",
         "implementation": _implementation_hash(), "methods": list(methods),
         "embedding": {"origin": embedding_origin if neural else None,
             "model": counted.embedding_model if counted else None, "dimensions": counted.dimensions if counted else None,
@@ -383,7 +391,10 @@ def report_markdown(report):
         return f"{value:.4f}" if value is not None else "n/a"
     lines = ["# Reviewed development evaluation", "", "Fixed saved corpus; assistant-authored references. This is not an independent held-out benchmark.",
         "", f"Suite: `{report['suite_id']}` · {report['evidence_count']} evidence chunks · cutoff {report['cutoff']}.",
-        f"Suite hash: `{report['suite_hash']}`.", f"Corpus hash: `{report['corpus_hash']}`.", "",
+        f"Suite hash: `{report['suite_hash']}`.", f"Corpus hash: `{report['corpus_hash']}`.",
+        f"Retrieval query mode: {report['retrieval_query_mode']}.",
+        "Expanded-query results use aliases authored after the known misses; they are development tuning, not held-out validation."
+        if report['query_mode'] == 'expanded' else "Raw-query scoring preserves the original retrieval input.", "",
         "| Method | Split | Cases | Precision | Maximum precision | Recall | MRR | nDCG |", "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for method, splits in report["retrieval_summary"].items():
         for split, row in splits.items():

@@ -51,6 +51,10 @@ Rebuild affected chunks when sources change. A different embedding model or inco
 
 Start with semantic retrieval. Add BM25 and hybrid ranking after the first full RAG interaction works.
 
+The current request path first applies a shared vocabulary/alias policy to the student's question, or interests when no question is supplied. Bounded whole-token rules translate phrasings such as pictures/patterns and board/button events into terms already present in the active catalog. They add no academic facts and make no extra model call. Explicit unsupported requests skip source fetching and provider initialization; broad career defaults do not establish coverage. See [student wording and coverage](20_QUERY_INTERPRETATION.md).
+
+Specific questions can prefer one existing course using a keyword lookup without career defaults, while retaining novice foundations, the selected career, completion filtering, academic checks, and context limits. A generic exploring roadmap still shows both directions. Added search terms and preferred course IDs are inspectable. Default evaluation preserves raw reference questions; `--query-mode expanded` explicitly measures alias-expanded inputs without profile terms.
+
 | Setting | Initial choice |
 | --- | --- |
 | Embedding model | Gemini Embedding 2, subject to access testing |

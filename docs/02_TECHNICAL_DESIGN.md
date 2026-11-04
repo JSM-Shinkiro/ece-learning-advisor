@@ -38,6 +38,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
+| src/query.py | Versioned whole-token domain aliases and bounded source-vocabulary query expansion |
 | src/grounding.py | Canonical explanation statements, context binding, model selections, and exact wording validation |
 | retrieval.py | BM25, semantic ranking, fusion, and deduplication |
 | rules.py | Prerequisite evaluation |
@@ -100,6 +101,8 @@ clarification_code: null, insufficient_evidence, or more_details
 The service reconstructs statements from the active catalog and compares the registry before materializing the existing `GeneratedAnswer` display shape: record IDs, reasons with text/type/evidence, or application-owned clarification text. Exact wording/type/citation validation follows schema and reference checks. Mutated selections, foreign IDs, arbitrary prose, repeated statements, changed context inputs, and unsupported clarification text fail the contract. A factual statement cannot bypass the contract by being labeled a recommendation. Source cards and computed academic results remain available on failure.
 
 `validate_references` preserves the earlier membership behavior for the frozen audit. Production uses `validate_answer(answer, context, catalog)`. Trace fields include `answer_contract`, `selected_statement_ids`, `statement_validation_passed`, and a sanitized `validation_error`. Prompt version is `p07-v7-statement-selection`, contract `statement-selection-v1`. This changes the provider's role to statement selection rather than unrestricted explanation writing; source accuracy and selection suitability still require evaluation. See [grounded explanations](19_GROUNDED_EXPLANATIONS.md).
+
+Query policy `p07-domain-aliases-v1` is separate from the prompt/output contract. Coverage gates and query construction share original-text alias matching; up to 12 existing-catalog terms may be appended within the 5,000-character query limit. For specific questions, a local keyword lookup can prefer one course from the permitted career scope within the existing context policy. Traces add `query_interpretation` (version, matched aliases, added terms) and `focused_record_ids`. The inspector exposes added terms. The raw evaluator remains the default; expanded evaluation is separately labeled and retains the original/effective query pair. See [query interpretation](20_QUERY_INTERPRETATION.md).
 
 ## Configuration, caching, and storage
 

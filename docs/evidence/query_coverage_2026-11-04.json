@@ -1,0 +1,730 @@
+{
+  "created_at": "2026-11-04T19:02:56.223638+00:00",
+  "baseline_commit": "8878614bf8810b4c96f5c9c4861ff849656ccb28",
+  "baseline_tree": "b7712b1404f25c98954a522bb23b4f65eb1c3c69",
+  "suite_hash": "8a2c2ee00f57fb07532d4f53feed1e8d591d0eda01d3b3653efd723a5649a689",
+  "catalog_snapshot_hash": "7ea6b2a09c6d4070d05312de2a94adf64d044ba0c7333a1535d0b52d85e1a0fc",
+  "implementation": {
+    "files": {
+      "src/evaluation.py": "8a5323eb422681c980c92d63f9841e5235e3bb24b15242409ce409df778f0aad",
+      "src/retrieval.py": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006",
+      "src/service.py": "aaf1f1fbd6352280f3c2bdfc90cd97734721a3a7fa23ceb62d38e13fc38d1cf1",
+      "src/models.py": "95d4f04392dbc810732072ae3da055b31d4f1c435ec07dea3bd28386efc7c5ab",
+      "src/catalog.py": "9b251c47689ec368c28c4c917830b6d3930a0507eaf133c8001e17ff41637813",
+      "src/planning.py": "0df94b762719d871f184ebe95868e2aebe1c3d5c9939f4df4a03d69e50421cb0",
+      "src/query.py": "08c2b51b144ae5f9dbb9e6b3a6f59e0d48f47ea82ba4de45c1aa3b1887663ef9",
+      "src/rules.py": "f9b46a63e1d25f627e71c272331e10cbd7e3864b4865c4d055a61f7f87445271",
+      "src/providers.py": "7de5e48828854b30a18672b9d0e4243f698a97d6bee2db707635d4f5dd063fb8",
+      "src/grounding.py": "99714180ce3bfce542c3333b01c7004aa769eb5ed33eeced6a77b8167f522f65",
+      "scripts/evaluate_reviewed.py": "0d13dddadd945678fa4ddc85b2a90acc5d430e8de3817b10b30c106a456b8476"
+    },
+    "sha256": "366e7a98cf42bc3e9bd7acb53a67dc84bbefb4969d231b6708c3c5b0230cd248"
+  },
+  "profile": {
+    "career_id": "exploring",
+    "programming_background": "experienced",
+    "other_fields": "StudentProfile defaults"
+  },
+  "scope": "Before/after keyword context selection on authored saved-corpus references, without source refresh or model calls. Direct records derive from grade-three non-career chunks; visibility alone does not establish answer quality.",
+  "source_refresh_calls": 0,
+  "embedding_calls": 0,
+  "generation_calls": 0,
+  "summary": {
+    "cases": 16,
+    "before_coverage_blocked": 2,
+    "after_coverage_blocked": 0,
+    "before_cases_with_visible_direct_record": 8,
+    "after_cases_with_visible_direct_record": 15,
+    "cases_with_direct_non_career_reference": 15
+  },
+  "cases": [
+    {
+      "case_id": "retrieval_c_foundations",
+      "query": "C programming control flow memory management foundations",
+      "direct_reference_records": [
+        "uofa:ECE101:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_c_foundations",
+        "query": "C programming control flow memory management foundations",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE101:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "uofa:ECE101:2026-2027"
+      ],
+      "after_visible_direct_records": [
+        "uofa:ECE101:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_data_structures",
+      "query": "lists stacks queues trees searching sorting exceptions",
+      "direct_reference_records": [
+        "uofa:CSC120:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_data_structures",
+        "query": "lists stacks queues trees searching sorting exceptions",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC120:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:CSC120:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_processor_instructions",
+      "query": "MIPS processor instruction sets memory caches reduced instruction set",
+      "direct_reference_records": [
+        "uofa:ECE369A:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_processor_instructions",
+        "query": "MIPS processor instruction sets memory caches reduced instruction set",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "processor_execution",
+            "processor_memory"
+          ],
+          "added_terms": [
+            "processor organization",
+            "computer architecture"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE369A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:ECE369A:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_microcontroller_interfaces",
+      "query": "microcontrollers interrupts timers serial communication analog conversion",
+      "direct_reference_records": [
+        "uofa:ECE372A:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_microcontroller_interfaces",
+        "query": "microcontrollers interrupts timers serial communication analog conversion",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE372A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "uofa:ECE372A:2026-2027"
+      ],
+      "after_visible_direct_records": [
+        "uofa:ECE372A:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_neural_models",
+      "query": "perceptrons convolutional attention models optimization inference",
+      "direct_reference_records": [
+        "uofa:ECE425:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_neural_models",
+        "query": "perceptrons convolutional attention models optimization inference",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "uofa:ECE425:2026-2027"
+      ],
+      "after_visible_direct_records": [
+        "uofa:ECE425:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_pytorch_workflow",
+      "query": "PyTorch data loading neural network construction optimization saved model parameters",
+      "direct_reference_records": [
+        "resource:pytorch"
+      ],
+      "before": {
+        "case_id": "retrieval_pytorch_workflow",
+        "query": "PyTorch data loading neural network construction optimization saved model parameters",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "resource:pytorch"
+      ],
+      "after_visible_direct_records": [
+        "resource:pytorch"
+      ]
+    },
+    {
+      "case_id": "retrieval_independent_cs50",
+      "query": "CS50 independent study C Python web OpenCourseWare",
+      "direct_reference_records": [
+        "resource:cs50"
+      ],
+      "before": {
+        "case_id": "retrieval_independent_cs50",
+        "query": "CS50 independent study C Python web OpenCourseWare",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE101:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "resource:cs50"
+      ],
+      "after_visible_direct_records": [
+        "resource:cs50"
+      ]
+    },
+    {
+      "case_id": "retrieval_csc120_rule",
+      "query": "CSC120 prerequisite minimum grade C alternatives CSC110 ECE101 ECE175 ISTA130",
+      "direct_reference_records": [
+        "uofa:CSC120:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_csc120_rule",
+        "query": "CSC120 prerequisite minimum grade C alternatives CSC110 ECE101 ECE175 ISTA130",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC120:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:CSC120:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_beginner_ai_path",
+      "query": "beginner programming foundations toward deep learning",
+      "direct_reference_records": [
+        "uofa:ECE101:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_beginner_ai_path",
+        "query": "beginner programming foundations toward deep learning",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "uofa:ECE101:2026-2027"
+      ],
+      "after_visible_direct_records": [
+        "uofa:ECE101:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_embedded_path",
+      "query": "embedded systems C programming processor architecture microcontrollers hardware interfaces",
+      "direct_reference_records": [],
+      "before": {
+        "case_id": "retrieval_embedded_path",
+        "query": "embedded systems C programming processor architecture microcontrollers hardware interfaces",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE372A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": []
+    },
+    {
+      "case_id": "retrieval_button_paraphrase",
+      "query": "make a little board react when a button is pressed without polling",
+      "direct_reference_records": [
+        "uofa:ECE372A:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_button_paraphrase",
+        "query": "make a little board react when a button is pressed without polling",
+        "coverage_blocked": true,
+        "allowed_record_ids": []
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "board_events"
+          ],
+          "added_terms": [
+            "microcontrollers",
+            "interrupts",
+            "hardware interfaces",
+            "embedded systems"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE372A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:ECE372A:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_pictures_paraphrase",
+      "query": "train computers to pick out patterns from pictures",
+      "direct_reference_records": [
+        "uofa:ECE425:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_pictures_paraphrase",
+        "query": "train computers to pick out patterns from pictures",
+        "coverage_blocked": true,
+        "allowed_record_ids": []
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "visual_learning"
+          ],
+          "added_terms": [
+            "computer vision",
+            "deep learning",
+            "neural networks"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE369A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:ECE425:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_chip_paraphrase",
+      "query": "how a chip speaks with memory and executes machine instructions",
+      "direct_reference_records": [
+        "uofa:ECE369A:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_chip_paraphrase",
+        "query": "how a chip speaks with memory and executes machine instructions",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "chip_execution"
+          ],
+          "added_terms": [
+            "processor organization",
+            "instruction sets",
+            "memory caches",
+            "computer architecture"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE369A:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:ECE369A:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_weights_practice",
+      "query": "practice tensors minibatches optimization weights outside university coursework",
+      "direct_reference_records": [
+        "resource:pytorch"
+      ],
+      "before": {
+        "case_id": "retrieval_weights_practice",
+        "query": "practice tensors minibatches optimization weights outside university coursework",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "tensor_practice"
+          ],
+          "added_terms": [
+            "deep learning",
+            "neural network",
+            "model parameters"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "resource:pytorch"
+      ],
+      "after_visible_direct_records": [
+        "resource:pytorch"
+      ]
+    },
+    {
+      "case_id": "retrieval_or_requirement",
+      "query": "Do I need both ECE101 and CSC110 before CSC120?",
+      "direct_reference_records": [
+        "uofa:CSC120:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_or_requirement",
+        "query": "Do I need both ECE101 and CSC110 before CSC120?",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC120:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [],
+      "after_visible_direct_records": [
+        "uofa:CSC120:2026-2027"
+      ]
+    },
+    {
+      "case_id": "retrieval_exact_deep_learning",
+      "query": "ECE425 attention models training inference",
+      "direct_reference_records": [
+        "uofa:ECE425:2026-2027"
+      ],
+      "before": {
+        "case_id": "retrieval_exact_deep_learning",
+        "query": "ECE425 attention models training inference",
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ]
+      },
+      "after": {
+        "coverage_blocked": false,
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ]
+      },
+      "before_visible_direct_records": [
+        "uofa:ECE425:2026-2027"
+      ],
+      "after_visible_direct_records": [
+        "uofa:ECE425:2026-2027"
+      ]
+    }
+  ]
+}
