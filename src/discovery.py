@@ -25,6 +25,7 @@ class ReviewedDiscoveryRule(StrictModel):
     requirement_reference: str = Field(pattern=r"^\d{1,12}$")
     rule: Rule
     proof: RuleEvidence
+    study_stage: Literal["foundation", "intermediate", "advanced"] | None = None
 
     @model_validator(mode="after")
     def bound_interpretation(self):
@@ -174,10 +175,14 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
     source.verification_status = "verified" if check.status in {"updated", "unchanged", "not_modified"} else "stale"
     source.review_note = "Course fields fetched from an official program link. Prerequisites and degree applicability remain unreviewed."
     fields = {key: source.source_id for key in ("title", "summary", "credits", "requirement_reference")}
+    entry = next((e for e in candidate.plan.reviewed_rules if e.course_id == candidate.course_id
+                  and e.course_code == data.code and e.proof.catalog_version == data.catalog_version), None)
+    # This explicit learning annotation is separate from academic satisfaction.
+    stage = entry.study_stage if entry is not None and entry.study_stage is not None else candidate.plan.study_stage
     record = Record(record_id="uofa:" + data.code + ":" + data.catalog_version, kind="course", code=data.code,
         title=data.title, summary=data.summary, credits=data.credits, catalog_version=data.catalog_version,
         source_ids=[source.source_id, candidate.plan.source.source_id], requirement_reference=data.requirement_reference,
-        review_status="source_fetched", study_stage=candidate.plan.study_stage, career_ids=candidate.plan.career_ids,
+        review_status="source_fetched", study_stage=stage, career_ids=candidate.plan.career_ids,
         field_sources=fields, discovery=CourseOrigin(source_id=candidate.plan.source.source_id,
             program_code=candidate.plan.program_code, section_ids=candidate.sections, course_id=candidate.course_id,
             discovered_at=now or datetime.now(timezone.utc)))

@@ -38,10 +38,10 @@ def encoded_page(primary, extras=(), edition="2026-2027"):
     return '<script id="__NUXT_DATA__">' + json.dumps(table).replace("<", r"\u003c") + '</script>'
 
 
-def program_page(plan, *, proofs=(), ids=None, edition="2026-2027", hidden=False, modify=None, extras=()):
+def program_page(plan, *, proofs=(), ids=None, ids_by_section=None, edition="2026-2027", hidden=False, modify=None, extras=()):
     ids = ids if ids is not None else ([CS_ID] if plan.program_code == "COSCBS" else ["0432351", *ECE_IDS])
     rules = [{"id": "fixture-" + section, "name": "Fixture courses (" + section + ")",
-        "value": {"condition": "courses", "values": [{"value": ids, "logic": "and"}], "subSelections": []}}
+        "value": {"condition": "courses", "values": [{"value": (ids_by_section or {}).get(section, ids), "logic": "and"}], "subSelections": []}}
         for section in plan.section_ids]
     rules.extend({"id": "fixture-proof", "name": "Fixture proof (" + proof.section_id + ")",
         "description": proof.reviewed_text} for proof in proofs)
@@ -105,7 +105,7 @@ def test_extracts_only_explicit_ids_in_primary_visible_sections(plans):
     plan = plans[0]
     decoy = {"name": "Decoy (R1299/L30)", "value": {"condition": "courses", "values": ["0000000"]}}
     data = extract_program_courses(program_page(plan, extras=[decoy]), plan.program_code, plan.section_ids)
-    assert data["course_ids"] == {"R1299/L30": [CS_ID]}
+    assert data["course_ids"] == {section: [CS_ID] for section in plan.section_ids}
     assert data["catalog_version"] == "2026-2027"
 
 

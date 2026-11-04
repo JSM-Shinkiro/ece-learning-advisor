@@ -333,6 +333,31 @@ def test_discovered_reviewed_condition_reaches_picker_card_and_inspector(app, mo
     assert calls == ["CSC110"]
 
 
+@pytest.mark.parametrize("code,section", [("CSC144", "R1299-L50"), ("CSC210", "R1299-L70")])
+def test_expanded_cs_conditions_reach_the_roadmap_picker_and_sources(app, monkeypatch, tmp_path, code, section):
+    from test_cs_foundations import expanded_refresh
+    calls = []
+    def refresher(catalog, profile, **kwargs):
+        calls.append(profile.question)
+        return expanded_refresh(catalog, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresher)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_area(key="course_text").set_value("ECE101:B, MATH112:B, CSC120:B")
+    app.selectbox(key="programming_background").set_value("experienced")
+    app.text_input(key="question").set_value(code)
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    rid = "uofa:" + code + ":2026-2027"
+    assert rid in result.context.allowed_record_ids
+    assert result.context.rule_results[rid].status == "satisfied"
+    assert result.context.rule_results[rid].verification_status == "verified"
+    assert any(rid + ":rule:" + section in item.value for item in app.markdown)
+    app.run()
+    assert any(option.startswith(code + " · ") for option in app.multiselect(key="completed_courses").options)
+    assert calls == [code]
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

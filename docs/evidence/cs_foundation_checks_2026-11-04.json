@@ -1,0 +1,783 @@
+{
+  "checked_at": "2026-11-04T21:32:33.164440+00:00",
+  "scope": "One real source-only refresh using the COSCBS discovery plan, followed by local evaluation of controlled histories against that captured catalog. No resource, model, or opportunity requests.",
+  "model_calls": 0,
+  "credentials_used": false,
+  "frozen_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "implementation": {
+    "src/ingest.py": "5751e63751675a917a975c850e67b275c6b18ed4dd9b5db98fbbca354a6c336b",
+    "src/rule_sources.py": "0b2b7601b1b0ca82af5c6bde18f0994bac00494651e735669fd2940ab4b459d5",
+    "src/sources.py": "1aeb59d0871417ca44a5a698bb660b6000fd4d381f80b186c27fc757489a1897",
+    "src/discovery.py": "333136482d9153553a809b6249cfbbc796a615387600ff1976edf7630555784d",
+    "src/rules.py": "f9b46a63e1d25f627e71c272331e10cbd7e3864b4865c4d055a61f7f87445271",
+    "src/models.py": "95d4f04392dbc810732072ae3da055b31d4f1c435ec07dea3bd28386efc7c5ab",
+    "data/connectors/course_discovery.json": "9e00929ef99493937366b4007705f8bfa542e2d899fb0edf7612cc7291603c24"
+  },
+  "research_observations": {
+    "recorded_at": "2026-11-04T21:26:47.254925+00:00",
+    "initial": {
+      "0420001": "ReadTimeout",
+      "0393711": "ReadTimeout",
+      "0432351": "ReadTimeout",
+      "0366021": "HTTP 200",
+      "0367521": "HTTP 200",
+      "0435981": "HTTP 200"
+    },
+    "bounded_course_rechecks": [
+      {
+        "course_id": "0420001",
+        "attempted_at": "2026-11-04T21:26:47.278887+00:00",
+        "http_status": 200,
+        "identity": {
+          "code": "CSC144",
+          "course_id": "0420001",
+          "catalog_version": "2026-2027",
+          "requirement_reference": "018647",
+          "page_hash": "cee0a930a279a34d3aa3676a51c45cb0f2c8c490c514cc5cd25c403ee7bba468"
+        }
+      },
+      {
+        "course_id": "0393711",
+        "attempted_at": "2026-11-04T21:26:52.101165+00:00",
+        "http_status": 200,
+        "identity": {
+          "code": "CSC210",
+          "course_id": "0393711",
+          "catalog_version": "2026-2027",
+          "requirement_reference": "017084",
+          "page_hash": "2f1c67a675e085d7137bea6c6ecf9d4abdebab6133dd3febfd44c1d524da72de"
+        }
+      }
+    ]
+  },
+  "live_refresh": {
+    "profile": {
+      "schema_version": 1,
+      "standing": "Incoming",
+      "catalog_version": "2026-2027",
+      "career_id": "ai_ml",
+      "interests": "",
+      "experience": "",
+      "question": "",
+      "completed": [
+        {
+          "course_code": "ECE101",
+          "grade": "B"
+        },
+        {
+          "course_code": "MATH112",
+          "grade": "B"
+        },
+        {
+          "course_code": "CSC120",
+          "grade": "B"
+        }
+      ],
+      "history_complete": true,
+      "programming_background": "experienced",
+      "current_enrollment": [],
+      "consents": []
+    },
+    "seconds": 7.4250597609998295,
+    "trace": {
+      "enabled": true,
+      "catalog_version": "2026-2027",
+      "discovered_courses": {
+        "uofa:CSC110:2026-2027": {
+          "origin": {
+            "source_id": "catalog:CS_foundations",
+            "program_code": "COSCBS",
+            "section_ids": [
+              "R1299/L30"
+            ],
+            "course_id": "0393681",
+            "discovered_at": "2026-11-04T21:32:39.201507Z"
+          },
+          "field_sources": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "rule_verification": "verified",
+          "rule_evidence_ids": [
+            "uofa:CSC110:2026-2027:rule:R1299-L30"
+          ],
+          "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+          "reviewed_statement_hashes": {
+            "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+          }
+        },
+        "uofa:CSC144:2026-2027": {
+          "origin": {
+            "source_id": "catalog:CS_foundations",
+            "program_code": "COSCBS",
+            "section_ids": [
+              "R1299/L50"
+            ],
+            "course_id": "0420001",
+            "discovered_at": "2026-11-04T21:32:40.589010Z"
+          },
+          "field_sources": {
+            "title": "catalog:CSC144",
+            "summary": "catalog:CSC144",
+            "credits": "catalog:CSC144",
+            "requirement_reference": "catalog:CSC144"
+          },
+          "rule_verification": "verified",
+          "rule_evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "rule_hash": "d4f516efae1a7bfd19eaf71a8df389ea53c6b0a9c97d59d2480924bc9506fa09",
+          "reviewed_statement_hashes": {
+            "uofa:CSC144:2026-2027:rule:R1299-L50": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac"
+          }
+        },
+        "uofa:CSC210:2026-2027": {
+          "origin": {
+            "source_id": "catalog:CS_foundations",
+            "program_code": "COSCBS",
+            "section_ids": [
+              "R1299/L70"
+            ],
+            "course_id": "0393711",
+            "discovered_at": "2026-11-04T21:32:40.589294Z"
+          },
+          "field_sources": {
+            "title": "catalog:CSC210",
+            "summary": "catalog:CSC210",
+            "credits": "catalog:CSC210",
+            "requirement_reference": "catalog:CSC210"
+          },
+          "rule_verification": "verified",
+          "rule_evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+          "reviewed_statement_hashes": {
+            "uofa:CSC210:2026-2027:rule:R1299-L70": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be"
+          }
+        }
+      },
+      "checks": [
+        {
+          "source_id": "catalog:CS_foundations",
+          "code": "COSCBS",
+          "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+          "kind": "rule",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:33.192437Z",
+          "last_checked_at": "2026-11-04T21:32:38.636355Z",
+          "retrieved_at": "2026-11-04T21:32:38.636355Z",
+          "content_hash": "12336590731161849c5df2beccfc4bbee1061d2aeef63a88fdf26c95e6b79ff4",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": "verified",
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE101",
+          "code": "ECE101",
+          "url": "https://catalog.arizona.edu/courses/0432351",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:33.193367Z",
+          "last_checked_at": "2026-11-04T21:32:38.376726Z",
+          "retrieved_at": "2026-11-04T21:32:38.376726Z",
+          "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE425",
+          "code": "ECE425",
+          "url": "https://catalog.arizona.edu/courses/0435981",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:33.195410Z",
+          "last_checked_at": "2026-11-04T21:32:38.842567Z",
+          "retrieved_at": "2026-11-04T21:32:38.842567Z",
+          "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC120",
+          "code": "CSC120",
+          "url": "https://catalog.arizona.edu/courses/0393701",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:38.377830Z",
+          "last_checked_at": "2026-11-04T21:32:38.937806Z",
+          "retrieved_at": "2026-11-04T21:32:38.937806Z",
+          "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC110",
+          "code": "CSC110",
+          "url": "https://catalog.arizona.edu/courses/0393681",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:38.640259Z",
+          "last_checked_at": "2026-11-04T21:32:39.200626Z",
+          "retrieved_at": "2026-11-04T21:32:39.200626Z",
+          "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC144",
+          "code": "CSC144",
+          "url": "https://catalog.arizona.edu/courses/0420001",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:38.843312Z",
+          "last_checked_at": "2026-11-04T21:32:40.588157Z",
+          "retrieved_at": "2026-11-04T21:32:40.588157Z",
+          "content_hash": "a27a363a4458cec1df9d20156772f31e8cb0494408e6815f26c67db995ed4471",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC210",
+          "code": "CSC210",
+          "url": "https://catalog.arizona.edu/courses/0393711",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T21:32:38.938515Z",
+          "last_checked_at": "2026-11-04T21:32:39.676876Z",
+          "retrieved_at": "2026-11-04T21:32:39.676876Z",
+          "content_hash": "0c16813fdb89a5810029d48df090bdce25fff9cc89f706d49d66ae5493aea781",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        }
+      ]
+    },
+    "issues": [],
+    "passed": true
+  },
+  "records": {
+    "CSC120": {
+      "record_id": "uofa:CSC120:2026-2027",
+      "requirement_reference": "017083",
+      "study_stage": "intermediate",
+      "rule_reviewed": true,
+      "rule_verification": "verified",
+      "rule_hash": "ec451cbd0eafae519ea9848d0d2d729166a72a72c28e0376174198c27e4180f4",
+      "origin": null,
+      "proofs": [
+        {
+          "evidence_id": "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "section_id": "R1299/L40",
+          "source_id": "catalog:CS_foundations",
+          "statement_hash": "137c87c389c60717fe2ba9c912bcf03947d1c6be26c24281e3e1802118ed2dbd",
+          "verification_status": "verified"
+        }
+      ]
+    },
+    "CSC110": {
+      "record_id": "uofa:CSC110:2026-2027",
+      "requirement_reference": "017080",
+      "study_stage": "foundation",
+      "rule_reviewed": true,
+      "rule_verification": "verified",
+      "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+      "origin": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L30"
+        ],
+        "course_id": "0393681",
+        "discovered_at": "2026-11-04T21:32:39.201507Z"
+      },
+      "proofs": [
+        {
+          "evidence_id": "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "section_id": "R1299/L30",
+          "source_id": "catalog:CS_foundations",
+          "statement_hash": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c",
+          "verification_status": "verified"
+        }
+      ]
+    },
+    "CSC144": {
+      "record_id": "uofa:CSC144:2026-2027",
+      "requirement_reference": "018647",
+      "study_stage": "foundation",
+      "rule_reviewed": true,
+      "rule_verification": "verified",
+      "rule_hash": "d4f516efae1a7bfd19eaf71a8df389ea53c6b0a9c97d59d2480924bc9506fa09",
+      "origin": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L50"
+        ],
+        "course_id": "0420001",
+        "discovered_at": "2026-11-04T21:32:40.589010Z"
+      },
+      "proofs": [
+        {
+          "evidence_id": "uofa:CSC144:2026-2027:rule:R1299-L50",
+          "section_id": "R1299/L50",
+          "source_id": "catalog:CS_foundations",
+          "statement_hash": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac",
+          "verification_status": "verified"
+        }
+      ]
+    },
+    "CSC210": {
+      "record_id": "uofa:CSC210:2026-2027",
+      "requirement_reference": "017084",
+      "study_stage": "intermediate",
+      "rule_reviewed": true,
+      "rule_verification": "verified",
+      "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+      "origin": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L70"
+        ],
+        "course_id": "0393711",
+        "discovered_at": "2026-11-04T21:32:40.589294Z"
+      },
+      "proofs": [
+        {
+          "evidence_id": "uofa:CSC210:2026-2027:rule:R1299-L70",
+          "section_id": "R1299/L70",
+          "source_id": "catalog:CS_foundations",
+          "statement_hash": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be",
+          "verification_status": "verified"
+        }
+      ]
+    }
+  },
+  "captured_catalog_evaluations": [
+    {
+      "case": "confirmed_grades",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": "B"
+          },
+          {
+            "course_code": "MATH112",
+            "grade": "B"
+          },
+          {
+            "course_code": "CSC120",
+            "grade": "B"
+          }
+        ],
+        "history_complete": true,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "expected": {
+        "CSC144": "satisfied",
+        "CSC210": "satisfied"
+      },
+      "actual": {
+        "CSC144": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade B, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "MATH112: grade B, required C.",
+            "MATH113 is not in the supplied completion history.",
+            "MATH116 is not in the supplied completion history.",
+            "MATH120R is not in the supplied completion history.",
+            "MATH122A is not in the supplied completion history.",
+            "MATH122B is not in the supplied completion history.",
+            "MATH125 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "CSC210": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC120: grade B, required C."
+          ],
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        }
+      },
+      "passed": true,
+      "new_source_requests": 0
+    },
+    {
+      "case": "missing_grades",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": null
+          },
+          {
+            "course_code": "MATH112",
+            "grade": "B"
+          },
+          {
+            "course_code": "CSC120",
+            "grade": null
+          }
+        ],
+        "history_complete": true,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "expected": {
+        "CSC144": "unknown",
+        "CSC210": "unknown"
+      },
+      "actual": {
+        "CSC144": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101 needs a confirmed grade of C or higher.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "MATH112: grade B, required C.",
+            "MATH113 is not in the supplied completion history.",
+            "MATH116 is not in the supplied completion history.",
+            "MATH120R is not in the supplied completion history.",
+            "MATH122A is not in the supplied completion history.",
+            "MATH122B is not in the supplied completion history.",
+            "MATH125 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "CSC210": {
+          "status": "unknown",
+          "reasons": [
+            "CSC120 needs a confirmed grade of C or higher."
+          ],
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        }
+      },
+      "passed": true,
+      "new_source_requests": 0
+    },
+    {
+      "case": "lower_grades",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": "D"
+          },
+          {
+            "course_code": "MATH112",
+            "grade": "B"
+          },
+          {
+            "course_code": "CSC120",
+            "grade": "D"
+          }
+        ],
+        "history_complete": true,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "expected": {
+        "CSC144": "unsatisfied",
+        "CSC210": "unsatisfied"
+      },
+      "actual": {
+        "CSC144": {
+          "status": "unsatisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade D, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "MATH112: grade B, required C.",
+            "MATH113 is not in the supplied completion history.",
+            "MATH116 is not in the supplied completion history.",
+            "MATH120R is not in the supplied completion history.",
+            "MATH122A is not in the supplied completion history.",
+            "MATH122B is not in the supplied completion history.",
+            "MATH125 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "CSC210": {
+          "status": "unsatisfied",
+          "reasons": [
+            "CSC120: grade D, required C."
+          ],
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        }
+      },
+      "passed": true,
+      "new_source_requests": 0
+    },
+    {
+      "case": "placement_unknown",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": "B"
+          },
+          {
+            "course_code": "CSC120",
+            "grade": "B"
+          }
+        ],
+        "history_complete": true,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "expected": {
+        "CSC144": "unknown",
+        "CSC210": "satisfied"
+      },
+      "actual": {
+        "CSC144": {
+          "status": "unknown",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade B, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "MATH112 is not in the supplied completion history.",
+            "MATH113 is not in the supplied completion history.",
+            "MATH116 is not in the supplied completion history.",
+            "MATH120R is not in the supplied completion history.",
+            "MATH122A is not in the supplied completion history.",
+            "MATH122B is not in the supplied completion history.",
+            "MATH125 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "CSC210": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC120: grade B, required C."
+          ],
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        }
+      },
+      "passed": true,
+      "new_source_requests": 0
+    },
+    {
+      "case": "csc120_concurrent_only",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": "B"
+          },
+          {
+            "course_code": "MATH112",
+            "grade": "B"
+          }
+        ],
+        "history_complete": true,
+        "programming_background": "new",
+        "current_enrollment": [
+          "CSC120"
+        ],
+        "consents": []
+      },
+      "expected": {
+        "CSC144": "satisfied",
+        "CSC210": "unsatisfied"
+      },
+      "actual": {
+        "CSC144": {
+          "status": "satisfied",
+          "reasons": [
+            "CSC110 is not in the supplied completion history.",
+            "ECE101: grade B, required C.",
+            "ECE175 is not in the supplied completion history.",
+            "ISTA130 is not in the supplied completion history.",
+            "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "MATH112: grade B, required C.",
+            "MATH113 is not in the supplied completion history.",
+            "MATH116 is not in the supplied completion history.",
+            "MATH120R is not in the supplied completion history.",
+            "MATH122A is not in the supplied completion history.",
+            "MATH122B is not in the supplied completion history.",
+            "MATH125 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC144:2026-2027:rule:R1299-L50"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        },
+        "CSC210": {
+          "status": "unsatisfied",
+          "reasons": [
+            "CSC120 is not in the supplied completion history."
+          ],
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "verification_status": "verified",
+          "source_ids": [
+            "catalog:CS_foundations"
+          ]
+        }
+      },
+      "passed": true,
+      "new_source_requests": 0
+    }
+  ],
+  "passed": true,
+  "automated_verification": {
+    "command": "python -m pytest -q",
+    "passed": 639,
+    "failed": 0,
+    "seconds": 11.63,
+    "scope": "Controlled backend and Streamlit cases, without public requests or model calls."
+  },
+  "test_implementation": {
+    "tests/test_cs_foundations.py": "c16bf96c7d3ce219cbb08e39857b6e470f52e99136fef351aa5770753cda0e3a",
+    "tests/test_discovery.py": "015a8d16a42f9e8f32304884254ebab53afc466e9d915fa34c4ae1010b33f36e",
+    "tests/test_app.py": "f04cef7ad2af9dab2d7ad4f915ba14a0e24162e1ea0936160f1159d2beecf72c"
+  }
+}

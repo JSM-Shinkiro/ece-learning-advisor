@@ -15,6 +15,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Discovered-course conditions](21_DISCOVERED_COURSE_RULES.md) | Bound CSC110 interpretation, unknown placement, visible-section parsing, cache migration, and public-source checks |
 | [Current Gemini verification](22_CURRENT_GEMINI_VERIFICATION.md) | Authorized transient credential, actual statement selections, real embedding comparison, review scope, and reproduction |
 | [Live opportunities](23_LIVE_OPPORTUNITIES.md) | Public employer-board requests, title/location/date filters, explicit cache reuse, failure handling, and observed coverage |
+| [CS foundation coverage](24_CS_FOUNDATION_COVERAGE.md) | CSC144/CSC210 discovery, exact source bindings, coursework/grade alternatives, learning annotations, and real-source verification |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

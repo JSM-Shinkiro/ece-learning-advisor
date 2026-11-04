@@ -1,5 +1,7 @@
 # Reviewed conditions for discovered courses
 
+Later November 4: [CS foundation coverage](24_CS_FOUNDATION_COVERAGE.md) extends this mechanism to CSC144 and CSC210. The first CSC110 unit's counts, conditions, and public observations below retain their original scope.
+
 Implemented November 4, 2026, in the development repository. The frozen evaluation collection, earlier measurements, and submitted midproject artifacts remain unchanged.
 
 Runtime discovery can now attach an explicitly reviewed academic condition to a newly fetched course. The first supported discovery condition is CSC110's mathematics requirement in the [2026–2027 Computer Science BS program](https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj), visible section `R1299/L30`. This extends CSC120's existing reviewed condition. The four ECE conditions remain unresolved.

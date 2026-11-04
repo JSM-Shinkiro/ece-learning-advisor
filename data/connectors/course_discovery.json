@@ -2,19 +2,21 @@
   {
     "source": {
       "verification_status": "snapshot",
-      "retrieved_at": "2026-11-04T04:02:39.295788Z",
+      "retrieved_at": "2026-11-04T21:24:58.140949+00:00",
       "last_checked_at": null,
       "source_id": "catalog:CS_foundations",
       "title": "Computer Science BS \u2014 foundation course requirements",
       "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
-      "section": "Computer Science Major: Foundation Courses, R1299/L40",
-      "review_note": "Reviewed prerequisite condition from the matching catalog program section R1299/L40. Runtime checks compare this section with its reviewed statement and interpretation; this is not a complete enrollment audit. Department guidance lists different alternatives, so the versioned catalog remains the authority for this condition.",
-      "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c"
+      "section": "Computer Science foundation requirements, R1299/L30, L40, L50, L70",
+      "review_note": "Exact catalog-edition prerequisite statements and course links reviewed. Runtime checks bind each supported interpretation to its course ID, enrollment reference, and visible section. Degree applicability and complete enrollment eligibility are not evaluated.",
+      "content_hash": null
     },
     "program_code": "COSCBS",
     "section_ids": [
-      "R1299/L30"
+      "R1299/L30",
+      "R1299/L50",
+      "R1299/L70"
     ],
     "career_ids": [
       "ai_ml"
@@ -71,6 +73,219 @@
           "observed_text": null,
           "verification_status": "snapshot"
         }
+      },
+      {
+        "course_id": "0420001",
+        "course_code": "CSC144",
+        "requirement_reference": "018647",
+        "rule": {
+          "type": "all_of",
+          "children": [
+            {
+              "type": "any_of",
+              "children": [
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "CSC110",
+                  "minimum_grade": "C",
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "ECE101",
+                  "minimum_grade": "C",
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "ECE175",
+                  "minimum_grade": "C",
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "ISTA130",
+                  "minimum_grade": "C",
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                }
+              ],
+              "course_code": null,
+              "minimum_grade": null,
+              "value": null,
+              "note": "",
+              "evidence_ids": []
+            },
+            {
+              "type": "any_of",
+              "children": [
+                {
+                  "type": "unknown",
+                  "children": [],
+                  "course_code": null,
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH112",
+                  "minimum_grade": "C",
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH113",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH116",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH120R",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH122A",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH122B",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                },
+                {
+                  "type": "completed",
+                  "children": [],
+                  "course_code": "MATH125",
+                  "minimum_grade": null,
+                  "value": null,
+                  "note": "",
+                  "evidence_ids": [
+                    "uofa:CSC144:2026-2027:rule:R1299-L50"
+                  ]
+                }
+              ],
+              "course_code": null,
+              "minimum_grade": null,
+              "value": null,
+              "note": "",
+              "evidence_ids": []
+            }
+          ],
+          "course_code": null,
+          "minimum_grade": null,
+          "value": null,
+          "note": "",
+          "evidence_ids": []
+        },
+        "proof": {
+          "evidence_id": "uofa:CSC144:2026-2027:rule:R1299-L50",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC144",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L50",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. C or higher in CSC 110 (or ECE 101 or ECE 175 or ISTA 130) and [appropriate math placement or (C or higher in MATH 112) or one course from MATH 113, 116, 120R, 122A, 122B, or 125], prior to taking CSC 144. Only one course from CSC 144, MATH 243 and MATH 323 may be used towards the program.",
+          "statement_hash": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac",
+          "rule_hash": "d4f516efae1a7bfd19eaf71a8df389ea53c6b0a9c97d59d2480924bc9506fa09",
+          "reviewed_at": "2026-11-04T21:27:52.872996Z",
+          "observed_text": null,
+          "verification_status": "snapshot"
+        },
+        "study_stage": "foundation"
+      },
+      {
+        "course_id": "0393711",
+        "course_code": "CSC210",
+        "requirement_reference": "017084",
+        "rule": {
+          "type": "completed",
+          "children": [],
+          "course_code": "CSC120",
+          "minimum_grade": "C",
+          "value": null,
+          "note": "",
+          "evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ]
+        },
+        "proof": {
+          "evidence_id": "uofa:CSC210:2026-2027:rule:R1299-L70",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC210",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L70",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. C or better is required in CSC 120 prior to taking CSC 210.",
+          "statement_hash": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be",
+          "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+          "reviewed_at": "2026-11-04T21:27:52.872996Z",
+          "observed_text": null,
+          "verification_status": "snapshot"
+        },
+        "study_stage": "intermediate"
       }
     ]
   },

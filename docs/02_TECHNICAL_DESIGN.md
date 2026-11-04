@@ -109,6 +109,8 @@ Query policy `p07-domain-aliases-v1` is separate from the prompt/output contract
 
 `DiscoveryPlan.reviewed_rules` binds an optional interpretation to an exact discovered course ID/code, catalog edition, enrollment reference, visible program section, and reviewed statement/tree hashes. New links receive no interpretation unless the binding matches. Program cache schema 3 stores optional visible discovery statements beside course IDs; their absence preserves descriptive discovery while the condition remains unknown. Production prerequisite statements are selected through the primary visible requirements tree. See [discovered-course conditions](21_DISCOVERED_COURSE_RULES.md).
 
+The [CS coverage extension](24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210 beside CSC110, using additional sections of the same program request. CSC144 combines programming and mathematics alternatives; CSC210 checks prior CSC120 completion with minimum grade C. Placement remains unknown. An optional `ReviewedDiscoveryRule.study_stage` supplies a team learning annotation after exact course-ID/code/edition validation; it does not depend on academic satisfaction and does not become introductory if an enrollment reference changes. Source ordering still controls candidate selection under the unchanged three-discovery limit. The CS plan now occupies those three slots for AI/ML and exploring requests.
+
 ## Configuration, caching, and storage
 
 Use configuration for providers, model IDs, dimensions, retrieval method, candidate count, context budget, recommendation count, timeouts, data version, and explicit fixture mode. Keep secrets outside source control.

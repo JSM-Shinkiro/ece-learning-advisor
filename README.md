@@ -75,7 +75,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Versioned public-record embedding cache.
 - Official course checks on submitted roadmaps, with a rebuildable source cache and dated failure fallback.
 - Explicit prerequisite provenance and on-use revalidation for the reviewed CSC120 condition, with separate citation evidence.
-- Reviewed-rule attachment during discovery, with an edition-bound CSC110 math condition and an unresolved placement alternative.
+- Reviewed-rule attachment during discovery for CSC110, CSC144, and CSC210, with edition-bound coursework/grade conditions and unknown placement alternatives.
 - On-use checks of PyTorch Quickstart and CS50, with short source excerpts, published versions, and dated failure fallback.
 - Reuse of unchanged document vectors when another course changes.
 - Profile export/import, searchable coursework entry, and Mark completed actions.
@@ -103,7 +103,7 @@ The command saves its source checks under `.cache` and returns a failure status 
 
 Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
 
-The connector checks five configured course pages, the reviewed CSC120 program-requirement section, and bounded course links from two configured foundation sections. It validates linked course IDs, subject scope, edition, and fixed units before adding a description. Fetched titles, summaries, units, and enrollment references retain their source IDs. Discovered courses keep unreviewed prerequisites unknown.
+The connector checks five configured course pages, the reviewed CSC120 program-requirement section, and bounded course links from four configured sections across two programs. It validates linked course IDs, subject scope, edition, and fixed units before adding a description. Fetched titles, summaries, units, and enrollment references retain their source IDs. Discovered courses keep unreviewed prerequisites unknown; only exact configured interpretations can acquire verified conditions.
 
 The CSC120 prerequisite statement is checked against its exact reviewed text, catalog edition, and structured interpretation. Changed, stale, unavailable, or unsupported prerequisite evidence makes the affected academic result unknown. The rule statement has its own source-linked evidence chunk and travels with the course description into the generator context.
 
@@ -119,9 +119,9 @@ The command saves a trace under `.cache` and exits unsuccessfully if a requested
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 
-Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The real exploring-profile check added CSC110, ECE201, and ECE220. Candidate selection is limited to the configured foundation sections; finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
+Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The November 3 exploring-profile check added CSC110, ECE201, and ECE220. The [later CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210 sections and reviewed conditions. With the current source order and unchanged three-course cap, AI/ML and exploring prioritize CSC110, CSC144, and CSC210; embedded searches retain the configured ECE foundation section. This is bounded coverage, not a complete catalog search. Finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
 
-The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules remain **unknown**. CSC120 has a reviewed condition in the saved collection; runtime CSC110 discovery can attach a separately reviewed mathematics condition from the matching program section. A confirmed MATH112 grade can satisfy its coursework branch, while placement remains unknown. Other discovered courses remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
+The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules remain **unknown**. CSC120 has a reviewed condition in the saved collection. Runtime discovery can attach the reviewed CSC110, CSC144, and CSC210 conditions from matching program sections. The CSC144 condition combines an introductory programming alternative with a mathematics alternative; its placement branch remains unknown. CSC210 requires a confirmed CSC120 grade of C or higher. These checks preserve prior completion, minimum grades, and unknown evidence. Other discovered conditions remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md) and [the CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
 
 Failed grades cannot be entered as successful completions. Missing prerequisite grades remain unknown. Learning-stage annotations are team suggestions and do not place courses into semesters.
 
@@ -149,7 +149,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 586 tests, including 28 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 639 tests, including 30 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 
