@@ -21,6 +21,8 @@ Use unit tests for deterministic rules and a few integration tests for the full 
 
 ## Evaluation
 
+The [reviewed development evaluation](18_REVIEWED_EVALUATION.md) implements an initial saved-corpus baseline with 16 queries, 18 roadmap scenarios, and 16 authored claim probes. The broader independent and live-provider evaluation described below remains a final-project target. The original smoke script and historical measurements retain their scope.
+
 Prepare 8–10 development cases, followed by approximately 20–30 separate evaluation cases if time allows. Include incoming students, mid-degree students, seniors, exact course queries, changed goals, completed prerequisites, incomplete histories, unsupported catalog versions, and out-of-scope requests.
 
 Review expected relevant records and supported facts before scoring. Several learning choices may be reasonable.

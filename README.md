@@ -121,13 +121,16 @@ This stages source metadata and hashes without modifying approved records.
 ```bash
 python -m pytest -q
 python scripts/evaluate.py --runs 20
+python scripts/evaluate_reviewed.py --output .cache/reviewed_evaluation.json --markdown .cache/reviewed_evaluation.md
 ```
 
 Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. The October 23 integration checks included five generated answers plus an unsupported-topic guard that made no provider calls; live Adzuna checks remain pending.
 
 The refinement includes regression tests for the review findings. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) and [refinement notes](docs/08_REFINEMENT_NOTES.md) for checks and remaining limits.
 
-The evaluation script is a keyword-only smoke check, not a completed research benchmark.
+`evaluate.py` retains the original keyword-only smoke check. `evaluate_reviewed.py` adds frozen retrieval judgments, roadmap expectations, and authored claim probes. Its default run makes no source, embedding, or generation calls. The [reviewed baseline](docs/18_REVIEWED_EVALUATION.md) records misses and unsupported claims that still pass citation checks; these development references are not an independent held-out study.
+
+Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a configured Gemini key. It uses real provider quota for embeddings only; no generator is called. Controlled test vectors are labeled as fixtures and are not published as neural quality results.
 
 ## Project documents
 

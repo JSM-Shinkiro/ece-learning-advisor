@@ -2,6 +2,8 @@
 
 Implemented November 3, 2026, in the development repository. This extends [bounded course discovery](16_COURSE_DISCOVERY.md). The submitted repository and midproject artifacts remain unchanged.
 
+**Follow-up, November 3:** [Reviewed development evaluation](18_REVIEWED_EVALUATION.md) adds fixed-corpus relevance and roadmap cases plus authored claim probes. The resource checks and measurements below retain their original scope and results.
+
 ## Implemented scope
 
 Relevant roadmap submissions check the two configured public learning resources before retrieval and optional generation:

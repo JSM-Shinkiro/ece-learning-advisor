@@ -35,6 +35,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/sources.py / src/rule_sources.py / src/source_http.py | Bounded course/rule checks, source caches, and shared HTTP limits |
 | src/discovery.py / data/connectors/course_discovery.json | Validated program-section configuration, course candidates, and provenance |
 | src/resource_sources.py | Resource identity, introductory excerpts, versions, bounded redirects, and caches |
+| src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
 | retrieval.py | BM25, semantic ranking, fusion, and deduplication |
