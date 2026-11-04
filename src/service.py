@@ -232,6 +232,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "allowed_record_ids": context.allowed_record_ids,
         "source_freshness": {sid: status.model_dump(mode="json") for sid, status in context.source_freshness.items()},
         "field_sources": context.field_sources,
+        "resource_versions": {r.record_id: r.resource_version for r in catalog.records
+                              if r.kind == "resource" and r.resource_version},
         "generation_complete": result.generation_complete,
         "generation_status": result.generation_status,
         "reference_checks_passed": True if result.answer else (False if result.generation_status=="failed" else None),

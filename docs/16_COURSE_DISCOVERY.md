@@ -2,6 +2,8 @@
 
 Implemented November 3, 2026, in the development repository. This extends [prerequisite-source revalidation](15_PREREQUISITE_EVIDENCE.md). The submitted repository and midproject artifacts remain unchanged.
 
+**Follow-up, November 3:** [Resource-source checks](17_RESOURCE_SOURCES.md) adds live introductory excerpts and published versions for both configured resources, with prompt version `p07-v6-resource-sources`. The discovery milestone and measurements below retain their original scope and results.
+
 ## Current coverage
 
 Submitted roadmaps can add up to three validated course descriptions to the five-course starter collection. The connector reads explicit course IDs from two configured foundation sections, then fetches those official course pages. The bundled course records remain unchanged.

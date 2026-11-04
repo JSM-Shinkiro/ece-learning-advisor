@@ -250,3 +250,40 @@ def test_discovered_sources_reach_collection_picker_and_trace(app, monkeypatch, 
     app.run()
     assert len(seen) == calls
     assert any(option.startswith('CSC110 · ') for option in app.multiselect(key='completed_courses').options)
+
+
+def test_resource_sources_render_versions_and_update_only_on_submission(app, monkeypatch, tmp_path):
+    import httpx
+    from src.sources import refresh_catalog
+    from src.resource_sources import RESOURCE_URLS
+    from test_resource_sources import INTRO, resource_page
+
+    changed = False
+    seen = []
+    def respond(request):
+        url = str(request.url)
+        seen.append(url)
+        rid = next((rid for rid, known in RESOURCE_URLS.items() if known == url), None)
+        if rid is None:
+            return httpx.Response(503)
+        intro = 'Changed fixture resource introduction describes updated programming examples and study material.' if changed else INTRO
+        return httpx.Response(200, text=resource_page(rid, intro=intro), headers={'Content-Type': 'text/html'})
+    def refresh(catalog, profile, **kwargs):
+        assert kwargs['resource_checks'] is True
+        with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+            return refresh_catalog(catalog, profile, client=client, resource_checks=True,
+                                   cache_dir=tmp_path / 'sources')
+    monkeypatch.setattr('src.controller.refresh_catalog', refresh)
+    monkeypatch.setenv('ECE_REFRESH_SOURCES', 'true')
+    submit(app)
+    assert not app.exception
+    assert any(INTRO in item.value for item in app.markdown)
+    assert any('Version: 2.99.0+fixture' in item.value for item in app.caption)
+    assert app.session_state['result'].trace['resource_versions']['resource:cs50'] == '2026'
+    count = len(seen)
+    app.run()
+    assert len(seen) == count
+    changed = True
+    submit(app)
+    assert not app.exception
+    assert any('Changed fixture resource introduction' in item.value for item in app.markdown)

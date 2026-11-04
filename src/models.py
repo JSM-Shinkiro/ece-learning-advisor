@@ -166,7 +166,7 @@ class SourceCheck(StrictModel):
     source_id: str
     code: str
     url: str
-    kind: Literal["course", "rule", "discovery"] = "course"
+    kind: Literal["course", "rule", "discovery", "resource"] = "course"
     status: Literal["updated", "unchanged", "not_modified", "stale_cache",
                     "bundled_fallback", "unsupported_edition", "skipped", "unavailable"]
     attempted_at: datetime
@@ -176,6 +176,7 @@ class SourceCheck(StrictModel):
     content_changed: bool = False
     cache_saved: bool = False
     http_status: int | None = None
+    resolved_url: str | None = None
     failure_kind: Literal["timeout", "network", "response", "validation"] | None = None
     rule_status: Literal["verified", "stale", "changed", "unavailable", "unsupported", "unreviewed"] | None = None
     discovery_status: Literal["verified", "stale", "unavailable"] | None = None
@@ -218,7 +219,8 @@ class Record(StrictModel):
     learning_note: str = Field(default="", max_length=1200)
     first_activity: str = Field(default="", max_length=600)
     discovery: CourseOrigin | None = None
-    field_sources: dict[Literal["title", "summary", "credits", "requirement_reference"], str] = Field(default_factory=dict)
+    field_sources: dict[Literal["title", "summary", "credits", "requirement_reference", "resource_version"], str] = Field(default_factory=dict)
+    resource_version: str | None = Field(default=None, min_length=1, max_length=80)
 
     @field_validator("code")
     @classmethod
@@ -328,7 +330,7 @@ class GenerationContext(StrictModel):
     source_freshness: dict[str, SourceFreshness] = Field(default_factory=dict)
     field_sources: dict[str, dict[str, str]] = Field(default_factory=dict)
     suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
-    prompt_version: str = "p07-v5-course-discovery"
+    prompt_version: str = "p07-v6-resource-sources"
 
     def to_prompt(self) -> str:
         return self.model_dump_json(indent=2)

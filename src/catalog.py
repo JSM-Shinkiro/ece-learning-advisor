@@ -45,6 +45,10 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
             )
             if record.requirement_reference:
                 text += f" Enrollment requirement reference: {record.requirement_reference}."
+        if record.kind == "resource":
+            if record.resource_version:
+                text += f"\nResource edition/version: {record.resource_version}."
+            text += "\nComplementary learning resource; this does not establish university credit or course equivalency."
         if record.review_status == "team_mapping":
             text += "\nThis is a team-authored learning connection, not a university requirement."
         if record.learning_note:

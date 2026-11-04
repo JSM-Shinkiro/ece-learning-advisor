@@ -10,9 +10,10 @@ REQUEST_TIMEOUT = httpx.Timeout(6.0, connect=4.0, pool=4.0)
 
 
 class SourcePageError(ValueError):
-    def __init__(self, message, http_status):
+    def __init__(self, message, http_status, location=None):
         super().__init__(message)
         self.http_status = http_status
+        self.location = location if location and len(location) <= 2048 else None
 
 
 @dataclass
@@ -34,7 +35,7 @@ def read_public_page(client, url, headers):
         if status == 304:
             return PublicPage(status, None, etag, modified)
         if status != 200 or "text/html" not in response.headers.get("content-type", "").lower():
-            raise SourcePageError("The official source page is unavailable", status)
+            raise SourcePageError("The official source page is unavailable", status, response.headers.get("location"))
         try:
             length = int(response.headers.get("content-length", "0"))
         except ValueError as exc:

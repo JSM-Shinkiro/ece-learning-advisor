@@ -28,6 +28,7 @@ from .models import Catalog, Record, Rule, Source, SourceCheck, StrictModel, Stu
 from .rules import dependency_codes
 from .rule_sources import prepare_rule_jobs, fetch_rule_source, apply_rule_source, finalize_rule_checks
 from .discovery import prepare_discovery_jobs, select_candidates, add_discovered_course
+from .resource_sources import prepare_resource_jobs, fetch_resource_source, apply_resource_source
 from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, failure_kind, read_public_page
 
 MAX_CACHE_BYTES = 100_000
@@ -218,13 +219,16 @@ def _apply(record, source, saved, check):
 
 
 def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path(".cache/sources"),
-                    client=None, now=None, discovery_plans=()) -> CatalogRefresh:
+                    client=None, now=None, discovery_plans=(), resource_checks=False) -> CatalogRefresh:
     """Check relevant configured course pages once per explicit submitted request."""
     started = time.perf_counter()
     active = catalog.model_copy(deep=True)
     for source in active.sources:
         source.verification_status = "snapshot"
     result = CatalogRefresh(active)
+    resource_jobs, resource_skips = prepare_resource_jobs(active, profile, now) if resource_checks else ([], [])
+    result.checks.extend(resource_skips)
+    resource_futures = []
     sources = {s.source_id: s for s in active.sources}
     courses = [r for r in active.records if r.kind == "course" and (
         profile.career_id == "exploring" or not r.career_ids or profile.career_id in r.career_ids)]
@@ -249,13 +253,13 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                 record.rule_verification = "unsupported"
                 for proof in record.rule_evidence:
                     proof.verification_status = "unsupported"
-        result.issues.append("Live source checks do not support your catalog edition yet. "
+        result.issues.append("Academic source checks do not support your catalog edition yet. "
                              f"Showing dated {active.catalog_version} references; enrollment remains unverified.")
         for source, record in targets:
             result.checks.append(SourceCheck(source_id=source.source_id, code=record.code,
                 url=source.url, status="unsupported_edition", attempted_at=now or datetime.now(timezone.utc),
                 retrieved_at=source.retrieved_at, last_checked_at=source.last_checked_at))
-    elif courses:
+    elif courses or resource_jobs:
         selected, omitted = targets[:MAX_SOURCES], targets[MAX_SOURCES:]
         jobs, rule_checks, rule_issues = prepare_rule_jobs(active, courses, profile, now)
         result.checks.extend(rule_checks)
@@ -263,14 +267,16 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
         plans, discovery_checks, discovery_issues = prepare_discovery_jobs(active, profile, jobs, discovery_plans, now)
         result.checks.extend(discovery_checks)
         result.issues.extend(discovery_issues)
-        if selected or jobs:
+        if selected or jobs or resource_jobs:
             context = nullcontext(client) if client is not None else httpx.Client(
                 timeout=REQUEST_TIMEOUT, follow_redirects=False,
                 limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
-            with context as http, ThreadPoolExecutor(max_workers=min(3, len(selected) + len(jobs))) as pool:
+            with context as http, ThreadPoolExecutor(max_workers=min(3, len(selected) + len(jobs) + len(resource_jobs))) as pool:
                 rule_futures = [pool.submit(fetch_rule_source, job, Path(cache_dir), http, now) for job in jobs]
                 futures = [pool.submit(_fetch_one, source, record, Path(cache_dir), http, now)
                            for source, record in selected]
+                resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now))
+                                    for job in resource_jobs]
                 program_results = {}
                 for job, future in zip(jobs, rule_futures):
                     saved, check = future.result()
@@ -308,5 +314,18 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
         finalize_rule_checks(active, courses, result.checks)
         result.issues.extend(check.message for check in result.checks if check.kind in {"rule", "discovery"}
                              and check.message and check.message not in result.issues)
+    # Learning resources do not depend on the student's academic catalog edition.
+    if resource_jobs and not resource_futures:
+        context = nullcontext(client) if client is not None else httpx.Client(
+            timeout=REQUEST_TIMEOUT, follow_redirects=False,
+            limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
+        with context as http, ThreadPoolExecutor(max_workers=min(3, len(resource_jobs))) as pool:
+            resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now))
+                                for job in resource_jobs]
+    for job, future in resource_futures:
+        saved, check = future.result()
+        apply_resource_source(active, job, saved, check)
+        result.checks.append(check)
+    result.issues.extend(check.message for check in result.checks if check.kind == "resource" and check.message)
     result.elapsed = time.perf_counter() - started
     return result

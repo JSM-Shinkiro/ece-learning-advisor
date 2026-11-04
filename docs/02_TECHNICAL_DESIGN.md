@@ -23,7 +23,7 @@ Add source adapters that resolve official program and course links, fetch the re
 
 Keep source URLs, parser rules, and trusted domains in configuration. Build the active evidence index in memory and use a rebuildable cache for fetched content and embeddings. A permanent academic or vector database is optional. Query a job provider separately when the student requests opportunities.
 
-The current app starts with bundled reviewed JSON, then checks relevant configured course pages and explicitly bound prerequisite-source sections before retrieval. It overlays validated public fields in a request-local catalog and discovers additional course descriptions from configured foundation sections. Catalog-wide discovery and resource-page refresh remain planned. See [runtime checks](14_RUNTIME_SOURCES.md), [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md), and [bounded discovery](16_COURSE_DISCOVERY.md).
+The current app starts with bundled reviewed JSON, then checks relevant configured course/resource pages and explicitly bound prerequisite-source sections before retrieval. It overlays validated public fields in a request-local catalog and discovers additional course descriptions from configured foundation sections. Catalog-wide discovery remains planned. See [runtime checks](14_RUNTIME_SOURCES.md), [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md), [bounded discovery](16_COURSE_DISCOVERY.md), and [resource checks](17_RESOURCE_SOURCES.md).
 
 ## Code organization
 
@@ -34,6 +34,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/catalog.py / src/ingest.py | Reviewed collection, evidence chunks, and source parsing |
 | src/sources.py / src/rule_sources.py / src/source_http.py | Bounded course/rule checks, source caches, and shared HTTP limits |
 | src/discovery.py / data/connectors/course_discovery.json | Validated program-section configuration, course candidates, and provenance |
+| src/resource_sources.py | Resource identity, introductory excerpts, versions, bounded redirects, and caches |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
 | retrieval.py | BM25, semantic ranking, fusion, and deduplication |

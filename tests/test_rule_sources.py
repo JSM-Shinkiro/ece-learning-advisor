@@ -396,3 +396,19 @@ def test_reviewed_text_cannot_change_without_a_new_fingerprint(rule_catalog):
     data["records"][0]["rule_evidence"][0]["reviewed_text"] = "Altered fixture source statement."
     with pytest.raises(ValidationError, match="fingerprint"):
         Catalog.model_validate(data)
+
+
+@pytest.mark.parametrize('prior,expected,verification', [('verified', 'satisfied', 'snapshot'),
+                                                       ('changed', 'unknown', 'changed')])
+def test_offline_use_preserves_rule_limitations_without_claiming_a_live_check(rule_catalog, tmp_path, prior, expected, verification):
+    with http_fixture(rule_catalog) as client:
+        active = check(rule_catalog, client, tmp_path).catalog
+    active.records[0].rule_verification = prior
+    profile = grade_profile().model_copy(update={'question': 'Programming next steps'})
+    result = run_advisor(active, profile, refresh_sources=False)
+    evaluated = result.context.rule_results[active.records[0].record_id]
+    assert evaluated.status == expected and evaluated.verification_status == verification
+    assert all(s.verification_status == 'snapshot' for s in result.catalog.sources)
+    assert active.records[0].rule_verification == prior
+    if prior == 'verified':
+        assert any('dated reviewed snapshot' in reason for reason in evaluated.reasons)

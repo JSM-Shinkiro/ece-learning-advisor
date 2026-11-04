@@ -19,11 +19,11 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 ## Current implementation
 
-The baseline provides five courses, two learning resources, two career mappings, profile export/import, academic-rule checks, keyword/semantic/hybrid ranking, Gemini generation, source references, PCA and cosine inspection, and request traces. The development backend checks the relevant configured official course pages and CSC120's reviewed program-requirement section on a submitted roadmap, then adds up to three validated course descriptions from configured foundation sections. It tracks source IDs for fetched fields, validates identity/edition, keeps separate freshness timestamps, handles source/cache failures, and reuses unchanged document embeddings. Prerequisite statements have separate citation chunks; changed or failed checks make the affected academic result unknown. Resources still use dated snapshots. See [runtime source checks](14_RUNTIME_SOURCES.md), [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md), and [bounded discovery](16_COURSE_DISCOVERY.md).
+The baseline provides five courses, two learning resources, two career mappings, profile export/import, academic-rule checks, keyword/semantic/hybrid ranking, Gemini generation, source references, PCA and cosine inspection, and request traces. The development backend checks the relevant configured course and resource pages plus CSC120's reviewed program-requirement section on a submitted roadmap, then adds up to three validated course descriptions from configured foundation sections. It tracks source IDs for fetched fields, validates identity/edition, keeps separate freshness timestamps, handles source/cache failures, and reuses unchanged document embeddings. Prerequisite statements have separate citation chunks; changed or failed checks make the affected academic result unknown. Resource excerpts retain published versions separately from academic catalog years. See [runtime source checks](14_RUNTIME_SOURCES.md), [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md), [bounded discovery](16_COURSE_DISCOVERY.md), and [resource checks](17_RESOURCE_SOURCES.md).
 
 Adzuna live verification and OpenRouter integration remain unfinished. The original source repository passed 80 tests before this development work; historical measurements retain their dates and scope.
 
-Citation membership does not establish claim accuracy. Four ECE academic rules remain unresolved. Learning stages are preparation suggestions, not semester assignments or a complete degree audit.
+Citation membership does not establish claim accuracy. The starter collection's four unresolved ECE conditions and all discovered-course conditions stay unknown. Learning stages are preparation suggestions, not semester assignments or a complete degree audit.
 
 ## Backend priorities
 
@@ -33,11 +33,11 @@ Work across the app as needed, with backend correctness and source handling firs
 | --- | --- | --- |
 | 1 | Official-source checks in the submitted roadmap pipeline | Configured courses and bounded foundation-course discovery implemented; full-catalog coverage remains |
 | 2 | More academic-rule evidence and catalog-edition coverage | CSC120 provenance and live revalidation implemented; four ECE conditions and other editions remain unresolved |
-| 3 | Broader course/resource coverage with source provenance | Up to three linked foundation courses per request implemented; resource-page checks are next |
+| 3 | Broader course/resource coverage with source provenance | Bounded foundation discovery and both configured resource checks implemented; wider coverage remains |
 | 4 | Actual opportunity results and failure handling | Adapter exists; live Adzuna verification remains |
 | 5 | Retrieval/claim evaluation, performance, and deployment | Reviewed cases and repeated measurements remain planned |
 
-The current suite passes 212 tests, including 15 Streamlit interactions. The real exploring-profile discovery check added CSC110, ECE201, and ECE220; a final CLI check verified internal course IDs for all eight selected course pages. These checks made no model calls and are not a latency benchmark. Earlier prerequisite observations retain their partial failure and later success. The next backend unit is resource-page revalidation, followed by reviewed retrieval and claim-support cases. Do not translate older department descriptions or Engineering advanced-standing language into current enrollment approval.
+The current suite passes 266 tests, including 16 Streamlit interactions. The earlier exploring-profile discovery check added CSC110, ECE201, and ECE220. Two later complete checks verified both resources; the repeat received HTTP 304 from each resource host and retained the same corpus hash. These public-source checks made no model calls and are not a latency benchmark. Earlier prerequisite observations retain their partial failure and later success. The next backend unit is reviewed retrieval and claim-support evaluation. Do not translate older department descriptions or Engineering advanced-standing language into current enrollment approval.
 
 Continue the report's weekly roadmap: live opportunities November 9–15; source revalidation and coverage November 16–22; reviewed retrieval/answer evaluation and a small voluntary pilot November 23–29; fixes and deployment stability November 30–December 6, with a December 4 feature freeze; final artifacts and rehearsal December 7–11.
 

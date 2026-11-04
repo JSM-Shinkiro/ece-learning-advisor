@@ -8,6 +8,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Runtime source checks](14_RUNTIME_SOURCES.md) | On-use course checks, freshness, failure recovery, cache identity, and live verification |
 | [Prerequisite evidence](15_PREREQUISITE_EVIDENCE.md) | Reviewed rule provenance, separate citation chunks, live revalidation, and conservative failure behavior |
 | [Bounded course discovery](16_COURSE_DISCOVERY.md) | Official program course links, identity checks, field provenance, request budgets, and current verification |
+| [Resource-source checks](17_RESOURCE_SOURCES.md) | Live resource excerpts, published versions, conditional checks, source failures, and verification |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |
