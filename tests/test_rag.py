@@ -1,9 +1,9 @@
 import pytest
 
 from src.catalog import build_evidence
-from src.models import GeneratedAnswer, Reason, Recommendation, StudentProfile
+from src.models import ExplanationSelection, GeneratedAnswer, Reason, Recommendation, StudentProfile
 from src.providers import ProviderError
-from src.service import CitationError, recommend, validate_answer
+from src.service import CitationError, recommend, validate_references
 
 
 def answer_for(context, citation=None, record_id=None):
@@ -27,20 +27,20 @@ def test_real_orchestration_passes_exact_context(catalog,fake_provider,tmp_path)
 def test_unknown_citation_is_rejected(catalog):
     context=recommend(catalog,StudentProfile()).context
     with pytest.raises(CitationError):
-        validate_answer(answer_for(context,citation="invented"),context)
+        validate_references(answer_for(context,citation="invented"),context)
 
 
 def test_known_but_unsupplied_evidence_rejected(catalog):
     context=recommend(catalog,StudentProfile()).context
     unsupplied=next(e.chunk_id for e in build_evidence(catalog) if e.chunk_id not in {x.chunk_id for x in context.evidence})
     with pytest.raises(CitationError):
-        validate_answer(answer_for(context,citation=unsupplied),context)
+        validate_references(answer_for(context,citation=unsupplied),context)
 
 
 def test_unknown_recommendation_is_rejected(catalog):
     context=recommend(catalog,StudentProfile()).context
     with pytest.raises(CitationError):
-        validate_answer(answer_for(context,record_id="invented-course"),context)
+        validate_references(answer_for(context,record_id="invented-course"),context)
 
 
 def test_generation_failure_preserves_cards(catalog,fake_provider,tmp_path):
@@ -54,15 +54,17 @@ def test_generation_failure_preserves_cards(catalog,fake_provider,tmp_path):
     assert result.issues
 
 
-def test_bad_citations_do_not_render_as_valid_rag(catalog,fake_provider,tmp_path):
-    fake_provider.generate=lambda context: answer_for(context,citation="invented")
+def test_bad_selections_do_not_render_as_valid_rag(catalog,fake_provider,tmp_path):
+    from src.models import SelectedRecommendation
+    fake_provider.generate=lambda context: ExplanationSelection(status="answered", recommendations=[
+        SelectedRecommendation(record_id=context.allowed_record_ids[0], statement_ids=["invented"])])
     result=recommend(catalog,StudentProfile(),provider=fake_provider,cache_dir=tmp_path)
     assert result.answer is None
     assert not result.trace["reference_checks_passed"]
 
 
 def test_generation_abstention_is_supported(catalog,fake_provider,tmp_path):
-    fake_provider.generate=lambda context: GeneratedAnswer(status="insufficient_evidence",clarification="That topic is outside this collection.")
+    fake_provider.generate=lambda context: ExplanationSelection(status="insufficient_evidence",clarification_code="insufficient_evidence")
     result=recommend(catalog,StudentProfile(),provider=fake_provider,cache_dir=tmp_path)
     assert result.answer.status=="insufficient_evidence"
     assert result.answer.recommendations==[]

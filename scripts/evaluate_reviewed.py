@@ -48,7 +48,8 @@ def main():
             args.markdown.parent.mkdir(parents=True, exist_ok=True)
             args.markdown.write_text(report_markdown(report), encoding='utf-8')
         print(json.dumps({'suite_id': report['suite_id'], 'retrieval': report['retrieval_summary'],
-            'policy': report['policy_summary'], 'claims': report['claim_summary'], 'output': str(args.output)}, indent=2))
+            'policy': report['policy_summary'], 'claims': report['claim_summary'],
+            'render_contract': report['render_contract_summary'], 'output': str(args.output)}, indent=2))
         return 0 if report['regression_checks_passed'] else 1
     except (OSError, ValueError, ProviderError) as exc:
         print('Evaluation could not complete:', str(exc), file=sys.stderr)

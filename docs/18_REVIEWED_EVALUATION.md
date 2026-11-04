@@ -85,3 +85,11 @@ The original `evaluate.py` remains the historical smoke check. No permanent data
 The full automated suite passes 316 tests, including 50 evaluation tests and 16 Streamlit interactions. Evaluation tests cover hand-calculated metrics, short rankings, cutoff/grade validation, duplicate/unjudged IDs, complete judgments, full-snapshot binding, unchanged labels, atomic prerequisite bundles, reviewed-claim alignment, repeatability, provider-call boundaries, explicit neural origin, failure handling, and CLI reports/statuses.
 
 Next, harden factual-answer validation using application-owned facts and academic results, then review actual generated answers against source evidence. Add independent reviewer judgments and broader queries before claiming a held-out result. Keep source freshness, reference integrity, retrieval relevance, roadmap policy, and factual support as distinct measures.
+
+## November 4 follow-up
+
+The production provider now selects application-owned explanation statements. See [grounded explanations](19_GROUNDED_EXPLANATIONS.md) and the separate [follow-up report](evidence/statement_validation_2026-11-04.json). The historical November 3 artifacts and all frozen source/label identities remain unchanged.
+
+The current evaluator still records the earlier membership checker independently: its nine admitted unsupported claims remain visible. The new contract admits zero unsupported reviewed claims and accepts 82/82 canonical statement controls. All 16 legacy prose answers are rejected, including true paraphrases, because they are outside its fixed wording. This is an output-contract regression check, not a semantic classifier or real model result. Retrieval metrics and all 18 roadmap outcomes remain unchanged. The current automated suite passes 386 tests.
+
+Current CLI success additionally requires zero unsupported claims admitted by the new contract and all canonical controls accepted. Actual Gemini compatibility and selection quality remain unverified for this new schema; no source, embedding, or generation calls were made for the follow-up.

@@ -7,8 +7,8 @@
 | Interface | Python, Streamlit, Plotly |
 | Semantic retrieval | Gemini Embedding 2 adapter, NumPy cosine ranking |
 | Keyword and hybrid retrieval | BM25, Reciprocal Rank Fusion |
-| Explanations | Gemini adapter, default `gemini-3.5-flash-lite`; live starter checks passed October 23 |
-| Records and validation | JSON, Pydantic, explicit citation checks |
+| Explanations | Gemini selects application-owned statements; default `gemini-3.5-flash-lite`; new schema needs live verification |
+| Records and validation | JSON, Pydantic, exact statement/wording and citation checks |
 | Academic rules | Python predicates and three-state evaluation |
 | Profiles | Export/import first, then authenticated durable storage |
 | Opportunities | One job API, initially Adzuna if access and coverage work |
@@ -38,10 +38,11 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
+| src/grounding.py | Canonical explanation statements, context binding, model selections, and exact wording validation |
 | retrieval.py | BM25, semantic ranking, fusion, and deduplication |
 | rules.py | Prerequisite evaluation |
-| src/service.py | Query construction, context assembly, generation, and citation validation |
-| app.py / src/retrieval.py | Inspection UI, scores, and embedding projection |
+| src/service.py | Query/context assembly, orchestration, reference checks, and validated answer rendering |
+| src/inspector.py / src/retrieval.py | Inspection UI, statement selections, scores, and embedding projection |
 | profiles.py / jobs.py | Saved progress and opportunity search |
 
 Provider calls run only after explicit actions, behind service adapters. Scripts build the index, refresh source candidates, and run smoke evaluation. Reviewed records and synthetic test fixtures are separate.
@@ -84,20 +85,21 @@ The roadmap suggests learning order. It does not establish official enrollment e
 
 The retrieval stage returns chunk/record IDs, method, rank, and the relevant scores. The context object stores the exact evidence sent to the generator, allowed record IDs, rule results, prompt version, and budget use.
 
-The generated response contains:
+The provider returns a selection with no free-text explanation field:
 
 ```text
 status: answered or insufficient_evidence
 recommendations:
   - record_id
-  - reasons:
-      - text
-      - claim_type: source_fact or recommendation
-      - evidence_ids
-clarification: optional text
+    statement_ids: one to four owned statement IDs
+clarification_code: null, insufficient_evidence, or more_details
 ```
 
-Validate the structure, allowed IDs, evidence membership, citation resolution, and duplicate recommendations. Evidence must support the recommended record and any stated career connection. The generator cannot replace prerequisite results.
+`GenerationContext.allowed_statements` contains up to 80 statements, each with record identity, field, claim type, exact wording (at most 1,400 characters), and supplied evidence IDs. Stable statement hashes bind these values to the complete context. Long or URL-bearing candidate wording is omitted. The model may select up to five distinct allowed records and four distinct owned statements per record. An abstention uses a fixed code with no recommendations.
+
+The service reconstructs statements from the active catalog and compares the registry before materializing the existing `GeneratedAnswer` display shape: record IDs, reasons with text/type/evidence, or application-owned clarification text. Exact wording/type/citation validation follows schema and reference checks. Mutated selections, foreign IDs, arbitrary prose, repeated statements, changed context inputs, and unsupported clarification text fail the contract. A factual statement cannot bypass the contract by being labeled a recommendation. Source cards and computed academic results remain available on failure.
+
+`validate_references` preserves the earlier membership behavior for the frozen audit. Production uses `validate_answer(answer, context, catalog)`. Trace fields include `answer_contract`, `selected_statement_ids`, `statement_validation_passed`, and a sanitized `validation_error`. Prompt version is `p07-v7-statement-selection`, contract `statement-selection-v1`. This changes the provider's role to statement selection rather than unrestricted explanation writing; source accuracy and selection suitability still require evaluation. See [grounded explanations](19_GROUNDED_EXPLANATIONS.md).
 
 ## Configuration, caching, and storage
 

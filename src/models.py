@@ -320,6 +320,35 @@ class GeneratedAnswer(StrictModel):
         return self
 
 
+class ExplanationStatement(StrictModel):
+    statement_id: str
+    record_id: str
+    field: Literal["description", "credits", "academic_status", "reviewed_condition", "resource_version",
+                   "resource_scope", "source_freshness", "learning_connection", "first_activity", "learning_stage"]
+    claim_type: Literal["source_fact", "recommendation"]
+    text: str = Field(min_length=1, max_length=1400)
+    evidence_ids: list[str] = Field(min_length=1, max_length=8)
+
+
+class SelectedRecommendation(StrictModel):
+    record_id: str
+    statement_ids: list[str] = Field(min_length=1, max_length=4)
+
+
+class ExplanationSelection(StrictModel):
+    status: Literal["answered", "insufficient_evidence"]
+    recommendations: list[SelectedRecommendation] = Field(default_factory=list, max_length=5)
+    clarification_code: Literal["insufficient_evidence", "more_details"] | None = None
+
+    @model_validator(mode="after")
+    def coherent_selection(self):
+        if self.status == "answered" and (not self.recommendations or self.clarification_code is not None):
+            raise ValueError("An answered selection needs recommendations and no clarification")
+        if self.status == "insufficient_evidence" and (self.recommendations or self.clarification_code is None):
+            raise ValueError("An abstention needs a clarification code and no recommendations")
+        return self
+
+
 class GenerationContext(StrictModel):
     profile: StudentProfile
     question: str
@@ -330,7 +359,8 @@ class GenerationContext(StrictModel):
     source_freshness: dict[str, SourceFreshness] = Field(default_factory=dict)
     field_sources: dict[str, dict[str, str]] = Field(default_factory=dict)
     suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
-    prompt_version: str = "p07-v6-resource-sources"
+    allowed_statements: list[ExplanationStatement] = Field(default_factory=list, max_length=80)
+    prompt_version: str = "p07-v7-statement-selection"
 
     def to_prompt(self) -> str:
         return self.model_dump_json(indent=2)

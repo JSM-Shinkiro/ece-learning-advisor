@@ -14,8 +14,9 @@ flowchart TD
     B --> D
     D --> E["Prerequisite checks and supporting records"]
     E --> F["Selected evidence context"]
-    F --> G["Generated explanation"]
-    G --> H["Validated recommendations and citations"]
+    F --> G["Application-owned explanation statements"]
+    G --> H["Model selects statement IDs"]
+    H --> J["App validates and renders exact wording"]
     D --> I["Retrieval inspector"]
 ```
 
@@ -63,7 +64,7 @@ Start with semantic retrieval. Add BM25 and hybrid ranking after the first full 
 
 These are starting settings to evaluate.
 
-The initial implementation includes all three retrieval methods. Live keyword, semantic, and hybrid RAG passed integration checks on October 23 using `gemini-embedding-2` and `gemini-3.5-flash-lite`. See [live verification](11_GEMINI_LIVE_VERIFICATION.md). Broader answer-quality evaluation remains open. The context limit applies to evidence text, while profile lengths and generated output are bounded separately.
+The initial implementation includes all three retrieval methods. Live keyword, semantic, and hybrid RAG passed integration checks on October 23 using `gemini-embedding-2` and `gemini-3.5-flash-lite` with the earlier output format. See [live verification](11_GEMINI_LIVE_VERIFICATION.md). The November 4 selection schema still needs live provider verification. The context limit applies to evidence text; profile lengths, the statement registry, and selected output are bounded separately.
 
 Normalize vectors and use cosine similarity. For hybrid retrieval, combine ranks rather than adding raw BM25 and cosine values. RRF adds 1 / (60 + rank) for each list containing a chunk. Ranks start at one.
 
@@ -78,19 +79,20 @@ The model receives:
 - The student's goal and relevant background.
 - Selected course, resource, and career-mapping evidence.
 - Application-computed prerequisite results.
-- Allowed recommendation IDs and a defined response structure.
+- Allowed recommendation IDs and up to 80 application-owned explanation statements.
+- Exact statement IDs, wording, claim types, and evidence references to select from.
 
-The explanation should connect the evidence to the student's goal. It should distinguish a suggested learning connection from an explicit catalog fact.
+The model selects relevant statements for the student's goal and preparation. It returns at most five records with one to four distinct statement IDs each, or a fixed clarification code. It does not write the displayed prose or assign its claim types and citations. The app distinguishes source facts from team-authored learning suggestions.
 
-Every factual claim needs supporting evidence from the supplied context. Missing information should produce a limitation or focused clarification. Retrieved text is source material, not an instruction channel.
+Source descriptions and credits come from the active catalog. Academic statements come from conservative application results and, where valid, literal reviewed condition evidence. Successful descriptive checks do not establish complete enrollment eligibility. Missing information produces a limitation or fixed clarification. Retrieved text is source material, not an instruction channel.
 
-The application supplies course titles, credits, prerequisite badges, and URLs from stored records. The model generates explanatory text. Citations resolve through stored evidence IDs.
+The application supplies titles, credits, prerequisite badges, URLs, and explanation wording from the active records and statement registry. Citations resolve through supplied evidence IDs. This bounded selection approach trades free-form personalization for controlled wording; actual selection relevance and recommendation quality still require review. See [the explanation contract](19_GROUNDED_EXPLANATIONS.md).
 
 ## Validation and failures
 
-Check that recommendation IDs were allowed, citation IDs were actually supplied, and every citation resolves to a known source. Keep generated output separate from application-owned academic status.
+Check the selection schema, unique allowed records, owned statement IDs, and fixed clarification codes. Rebuild the registry against current catalog evidence, freshness, academic results, provenance, profile, and learning stages before rendering. Validate the resulting exact wording, claim types, and citations as well as reference membership. Keep model output separate from application-owned academic status.
 
-These checks establish reference integrity. Whether a sentence follows from its source still needs evaluation.
+The earlier membership checker remains available for the frozen reference audit. It does not prove factual support. The production contract accepts only application-owned statements; it is not an unrestricted prose-entailment classifier. Source correctness, parser errors, learning mappings, and relevant statement selection remain evaluation concerns.
 
 | Situation | App behavior |
 | --- | --- |
@@ -98,7 +100,7 @@ These checks establish reference integrity. Whether a sentence follows from its 
 | Academic information is missing or conflicting | Keep the affected condition unknown |
 | Embedding service fails | Offer a labeled keyword fallback where possible |
 | Generation fails | Retain source cards and rule results, with the explanation unavailable |
-| A citation or record ID is invalid | Reject the affected generated output |
+| A record/statement ID, wording, or citation is invalid | Reject the explanation and retain source cards |
 | Model and index do not match | Load a compatible index or rebuild |
 
 Keyword retrieval followed by generation is still RAG, but does not demonstrate the planned neural retrieval path. A retrieval-only fallback does not complete the first RAG milestone.
@@ -107,4 +109,4 @@ Keyword retrieval followed by generation is still RAG, but does not demonstrate 
 
 Show the exact evidence passed to the model, retrieved ranks, similarity scores, and source excerpts. Use a fixed PCA projection for the embedding map and rank in the original vector space. Similarity is not a probability.
 
-Record data/model/prompt versions, selected evidence IDs, validation results, cache state, and timings for embedding, retrieval, generation, and the total request. Keep credentials and full personal histories out of routine logs.
+Record data/model/prompt versions, the answer contract, selected evidence and statement IDs, validation results/error categories, cache state, and timings for embedding, retrieval, generation, and the total request. The inspector exposes available and selected statements. Keep credentials, rejected raw prose, and full personal histories out of routine logs.

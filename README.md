@@ -37,7 +37,7 @@ If Python 3.12 is missing, install it first with `winget install --exact --id Py
 
 Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.5-flash-lite`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
 
-These models passed live checks on October 23. The tested `gemini-flash-latest` and `gemini-3.8-flash` generation requests encountered high-demand errors, so the default generator uses the working lighter model. See [live verification](docs/11_GEMINI_LIVE_VERIFICATION.md) for results and limitations. Keys are supplied locally and are not included in the repository.
+These models passed live checks on October 23 with the earlier output format. The tested `gemini-flash-latest` and `gemini-3.8-flash` generation requests encountered high-demand errors, so the default generator uses the working lighter model. The November 4 statement-selection format has controlled integration coverage; live Gemini compatibility still needs a new check. See [live verification](docs/11_GEMINI_LIVE_VERIFICATION.md) and [the current explanation contract](docs/19_GROUNDED_EXPLANATIONS.md). Keys are supplied locally and are not included in the repository.
 
 For local development only, `ECE_DEVELOPMENT_MODE=true` enables editable model IDs and an empty session-only key field when no server key exists. Keep this off for a shared deployment.
 
@@ -47,7 +47,7 @@ Precompute the index with:
 python scripts/build_index.py
 ```
 
-Enable **Generate AI explanations**, then update the roadmap. Retrieved evidence is passed to the generator. Recommendation IDs and citations are validated before rendering.
+Enable **Generate AI explanations**, then update the roadmap. The model receives retrieved evidence and application-owned statements, and selects relevant statement IDs. The app supplies the exact displayed wording, fact/suggestion labels, and citations. Arbitrary model prose or altered statements are rejected; source cards remain available on failure.
 
 To compare real keyword, semantic, and hybrid RAG requests and save their answers/timings:
 
@@ -69,7 +69,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Up to three additional course descriptions discovered from configured official foundation sections on each submitted roadmap.
 - Keyword, semantic, and hybrid retrieval.
 - Independent prerequisite evaluation with blocked courses kept as later goals.
-- Structured Gemini generation and citation checks.
+- Structured Gemini statement selection with application-owned wording, citations, and academic limitations.
 - Evidence inspector and ranking chart.
 - PCA projection and cosine drill-down when embeddings are available.
 - Versioned public-record embedding cache.
@@ -128,7 +128,7 @@ Tests cover backend behavior and Streamlit interactions. Controlled providers te
 
 The refinement includes regression tests for the review findings. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) and [refinement notes](docs/08_REFINEMENT_NOTES.md) for checks and remaining limits.
 
-`evaluate.py` retains the original keyword-only smoke check. `evaluate_reviewed.py` adds frozen retrieval judgments, roadmap expectations, and authored claim probes. Its default run makes no source, embedding, or generation calls. The [reviewed baseline](docs/18_REVIEWED_EVALUATION.md) records misses and unsupported claims that still pass citation checks; these development references are not an independent held-out study.
+`evaluate.py` retains the original keyword-only smoke check. `evaluate_reviewed.py` adds frozen retrieval judgments, roadmap expectations, and authored claim probes. Its default run makes no source, embedding, or generation calls. The [reviewed baseline](docs/18_REVIEWED_EVALUATION.md) preserves retrieval misses and nine unsupported claims admitted by the earlier citation checker. The [November 4 follow-up](docs/19_GROUNDED_EXPLANATIONS.md) rejects those authored explanations and accepts 82/82 canonical statement controls. It also rejects true paraphrases outside the fixed wording; this is an output contract, not a general entailment score or live model-accuracy result.
 
 Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a configured Gemini key. It uses real provider quota for embeddings only; no generator is called. Controlled test vectors are labeled as fixtures and are not published as neural quality results.
 

@@ -60,7 +60,9 @@ def test_live_ui_with_controlled_provider(app,monkeypatch,fake_provider):
     original=fake_provider.generate
     def with_multiple_reasons(context):
         answer=original(context)
-        answer.recommendations[0].reasons.append(answer.recommendations[0].reasons[0].model_copy())
+        item = answer.recommendations[0]
+        extra = next(s for s in context.allowed_statements if s.record_id == item.record_id and s.statement_id not in item.statement_ids)
+        item.statement_ids.append(extra.statement_id)
         return answer
     fake_provider.generate=with_multiple_reasons
     fake_provider.close=lambda:None
@@ -73,6 +75,33 @@ def test_live_ui_with_controlled_provider(app,monkeypatch,fake_provider):
     assert not app.exception
     assert app.session_state["result"].generation_complete
     assert fake_provider.context is app.session_state["result"].context
+    assert app.session_state["result"].statement_validation_passed
+    assert any(expander.label == "Available explanation statements" for expander in app.expander)
+    table = next(item.value for item in app.dataframe if "statement" in item.value.columns)
+    assert table["selected"].sum() == 2
+    assert set(table[table["selected"]]["statement"]) == set(app.session_state["result"].selected_statement_ids)
+
+
+def test_rejected_explanation_keeps_sources_and_never_displays_its_prose(app, monkeypatch, fake_provider):
+    from src.models import GeneratedAnswer, Reason, Recommendation
+    def legacy(context):
+        rid = context.allowed_record_ids[0]
+        return GeneratedAnswer(status="answered", recommendations=[Recommendation(record_id=rid,
+            reasons=[Reason(text="Guaranteed internship from this course.", claim_type="recommendation",
+                evidence_ids=[rid + ":overview"])])])
+    fake_provider.generate = legacy
+    fake_provider.close = lambda: None
+    monkeypatch.setattr("src.controller.GeminiProvider", lambda *a, **k: fake_provider)
+    monkeypatch.setenv("GEMINI_API_KEY", "fixture-key")
+    app.run()
+    app.checkbox(key="use_ai").set_value(True).run()
+    submit(app)
+    assert not app.exception and app.warning
+    result = app.session_state["result"]
+    assert result.answer is None and result.trace["validation_error"] == "unsupported_output"
+    assert any(button.key == "complete_ECE101" for button in app.button)
+    assert not any("Guaranteed internship" in item.value for item in app.markdown)
+    assert not any("AI explanation available" in item.value for item in app.caption)
 
 
 def test_server_key_never_populates_widget(app,monkeypatch):
@@ -146,8 +175,8 @@ def test_unsupported_question_shows_clarification_instead_of_courses(app):
 
 
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
-    from src.models import GeneratedAnswer
-    fake_provider.generate=lambda _:GeneratedAnswer(status="insufficient_evidence",clarification="Please clarify the topic.")
+    from src.models import ExplanationSelection
+    fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")
     fake_provider.close=lambda:None
     monkeypatch.setattr("src.controller.GeminiProvider",lambda *a,**k:fake_provider)
     monkeypatch.setenv("GEMINI_API_KEY","dummy")
@@ -155,7 +184,7 @@ def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,
     app.checkbox(key="use_ai").set_value(True).run()
     submit(app)
     assert not app.exception
-    assert any("Please clarify" in message.value for message in app.info)
+    assert any("Please add a learning goal" in message.value for message in app.info)
     assert not any("AI explanation available" in message.value for message in app.caption)
     assert not any(button.key and button.key.startswith("complete_") for button in app.button)
 

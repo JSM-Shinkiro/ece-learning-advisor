@@ -19,12 +19,14 @@ from typing import Annotated, Literal
 from pydantic import Field, model_validator
 
 from .catalog import ROOT, build_evidence, corpus_hash
-from .models import GeneratedAnswer, GenerationContext, SourceFreshness, StrictModel, StudentProfile
+from .models import (ExplanationSelection, GeneratedAnswer, GenerationContext, SelectedRecommendation,
+                     SourceFreshness, StrictModel, StudentProfile)
 from .planning import learning_phase
 from .providers import EmbeddingCache
 from .retrieval import Retriever
 from .rules import evaluate_course
-from .service import CitationError, recommend, validate_answer
+from .service import CitationError, recommend, validate_answer, validate_references
+from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer
 
 DEFAULT_SUITE = ROOT / "data" / "evaluation" / "reviewed_v1.json"
 Grade = Annotated[int, Field(strict=True, ge=0, le=3)]
@@ -229,36 +231,61 @@ def _probe_context(catalog, probe):
     evidence = [chunks[key] for key in probe.context_chunk_ids]
     source_ids = {sid for e in evidence for sid in e.source_ids}
     rules = {rid: evaluate_course(records[rid], probe.profile) for rid in probe.allowed_record_ids if records[rid].kind == "course"}
-    return GenerationContext(profile=probe.profile, question=probe.profile.question, query=probe.profile.question,
+    context = GenerationContext(profile=probe.profile, question=probe.profile.question, query=probe.profile.question,
         allowed_record_ids=probe.allowed_record_ids, evidence=evidence, rule_results=rules,
         source_freshness={s.source_id: SourceFreshness(verification_status=s.verification_status,
             retrieved_at=s.retrieved_at, last_checked_at=s.last_checked_at) for s in catalog.sources if s.source_id in source_ids},
         suggested_phases={rid: learning_phase(records[rid], probe.profile, rules.get(rid)) for rid in probe.allowed_record_ids})
+    context.field_sources = {rid: records[rid].field_sources for rid in probe.allowed_record_ids if records[rid].field_sources}
+    context.allowed_statements = build_statements(catalog, context)
+    return context
 
 
 def _claim_result(catalog, probe):
     error = None
+    context = _probe_context(catalog, probe)
     try:
-        validate_answer(probe.answer, _probe_context(catalog, probe))
+        validate_references(probe.answer, context)
     except CitationError as exc:
         error = str(exc)
     accepted = error is None
+    render_error = None
+    try:
+        validate_answer(probe.answer, context, catalog)
+    except (CitationError, GroundingError) as exc:
+        render_error = exc.code if isinstance(exc, GroundingError) else "invalid_reference"
+    # Positive controls use every available canonical statement, not authored
+    # paraphrases. A validator that rejects everything must fail this audit.
+    control_failures = []
+    for statement in context.allowed_statements:
+        selection = ExplanationSelection(status="answered", recommendations=[SelectedRecommendation(
+            record_id=statement.record_id, statement_ids=[statement.statement_id])])
+        try:
+            answer = materialize_answer(selection, context, catalog)
+            validate_answer(answer, context, catalog)
+        except (CitationError, GroundingError) as exc:
+            control_failures.append({"statement_id": statement.statement_id,
+                "error": exc.code if isinstance(exc, GroundingError) else "invalid_reference"})
     claims = []
     for review in probe.reviews:
         recommendation = probe.answer.recommendations[review.recommendation_index]
         reason = recommendation.reasons[review.reason_index]
         claims.append({**review.model_dump(mode="json"), "text": reason.text, "claim_type": reason.claim_type,
             "cited_evidence_ids": reason.evidence_ids,
+            "unsupported_claim_admitted_by_render_contract": render_error is None and review.verdict in {"contradicted", "insufficient_evidence"},
             "unsupported_claim_admitted_by_reference_checks": accepted and review.verdict in {"contradicted", "insufficient_evidence"}})
     return {"case_id": probe.case_id, "answer_origin": "authored_probe", "reference_checks_accepted": accepted,
         "reference_integrity_expected": probe.reference_integrity_expected,
         "integrity_matches_reference": accepted == probe.reference_integrity_expected,
-        "reference_error": error, "reference_reviews": claims}
+        "reference_error": error, "reference_reviews": claims,
+        "render_contract_accepted": render_error is None, "render_contract_error": render_error,
+        "canonical_controls": {"attempted": len(context.allowed_statements),
+            "accepted": len(context.allowed_statements) - len(control_failures), "failures": control_failures}}
 
 
 def _implementation_hash():
     files = ["src/evaluation.py", "src/retrieval.py", "src/service.py", "src/models.py", "src/catalog.py",
-             "src/planning.py", "src/rules.py", "src/providers.py", "scripts/evaluate_reviewed.py"]
+             "src/planning.py", "src/rules.py", "src/providers.py", "src/grounding.py", "scripts/evaluate_reviewed.py"]
     hashes = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in files}
     return {"files": hashes, "sha256": hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest()}
 
@@ -315,6 +342,8 @@ def evaluate_suite(catalog, suite, *, k=5, methods=("keyword",), embedder=None, 
     claims = [_claim_result(catalog, probe) for probe in suite.claim_probes]
     verdicts = Counter(review["verdict"] for case in claims for review in case["reference_reviews"])
     gaps = sum(review["unsupported_claim_admitted_by_reference_checks"] for case in claims for review in case["reference_reviews"])
+    render_gaps = sum(r["unsupported_claim_admitted_by_render_contract"] for c in claims for r in c["reference_reviews"])
+    controls = {key: sum(c["canonical_controls"][key] for c in claims) for key in ("attempted", "accepted")}
     return {"schema_version": 1, "suite_id": suite.suite_id, "suite_hash": suite_hash(suite),
         "created_at": datetime.now(timezone.utc).isoformat(), "data_version": catalog.version,
         "corpus_hash": corpus_hash(catalog), "catalog_snapshot_hash": catalog_snapshot_hash(catalog),
@@ -339,8 +368,14 @@ def evaluate_suite(catalog, suite, *, k=5, methods=("keyword",), embedder=None, 
             "integrity_expectations_matched": sum(c["integrity_matches_reference"] for c in claims),
             "unsupported_claims_admitted_by_reference_checks": gaps,
             "scope": "Authored counterexamples; not generated-model accuracy or an automatic entailment score."},
+        "render_contract_summary": {"answer_contract": ANSWER_CONTRACT,
+            "legacy_authored_answers_accepted": sum(c["render_contract_accepted"] for c in claims),
+            "unsupported_reviewed_claims_admitted": render_gaps, "canonical_controls": controls,
+            "scope": "Strict application-owned wording contract, not an unrestricted entailment classifier."},
         "claim_probes": claims,
-        "regression_checks_passed": all(p["passed"] for p in policies) and all(c["integrity_matches_reference"] for c in claims)}
+        "regression_checks_passed": (all(p["passed"] for p in policies)
+            and all(c["integrity_matches_reference"] for c in claims)
+            and render_gaps == 0 and controls["attempted"] > 0 and controls["accepted"] == controls["attempted"])}
 
 
 def report_markdown(report):
@@ -354,10 +389,17 @@ def report_markdown(report):
         for split, row in splits.items():
             lines.append(f"| {method} | {split} | {row['cases']} | " + " | ".join(fmt(row[m]) for m in ("precision", "precision_ceiling", "recall", "reciprocal_rank", "ndcg")) + " |")
     p, c = report["policy_summary"], report["claim_summary"]
+    contract = report["render_contract_summary"]
     lines += ["", f"Roadmap expectations passed: {p['passed']}/{p['cases']}.",
         f"Citation-integrity expectations matched: {c['integrity_expectations_matched']}/{c['authored_probes']} authored probes.",
         f"Authored unsupported/contradicted claims admitted by citation checks: {c['unsupported_claims_admitted_by_reference_checks']}.",
         "Claim verdicts are supplied review labels. Citation acceptance does not infer factual support.", "",
+        "## Application-owned explanation contract", "",
+        f"Contract: `{contract['answer_contract']}`. Unsupported reviewed claims admitted: {contract['unsupported_reviewed_claims_admitted']}.",
+        f"Canonical statement controls accepted: {contract['canonical_controls']['accepted']}/{contract['canonical_controls']['attempted']}.",
+        f"Legacy authored answers accepted: {contract['legacy_authored_answers_accepted']}/{c['authored_probes']}.",
+        "This contract also rejects true paraphrases that are outside the application-owned wording. It does not classify unrestricted prose entailment.",
+        "Controls are authored offline selections, not live model accuracy or recommendation-quality measurements.", "",
         f"Embedding origin: {report['embedding']['origin'] or 'none'}. Generation calls: {report['generation_calls']}. Source refresh calls: {report['source_refresh_calls']}.",
         "Local ranking times exclude network, generation, source refresh, and interface rendering.", "", "## Missed relevant evidence", ""]
     misses = [row for row in report["retrieval_cases"] if row["metrics"]["recall"] is not None and row["metrics"]["recall"] < 1]

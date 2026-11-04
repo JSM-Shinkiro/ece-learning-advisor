@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from src.catalog import load_catalog
-from src.models import GeneratedAnswer, Reason, Recommendation
+from src.models import ExplanationSelection, SelectedRecommendation
 
 
 @pytest.fixture
@@ -33,12 +33,9 @@ class FakeProvider:
     def generate(self, context):
         self.context = context
         rid = context.allowed_record_ids[0]
-        evidence = next(e for e in context.evidence if e.record_id == rid)
-        return GeneratedAnswer(status="answered", recommendations=[
-            Recommendation(record_id=rid, reasons=[
-                Reason(text="Consider this topic as a learning connection.",claim_type="recommendation",
-                       evidence_ids=[evidence.chunk_id])
-            ])
+        statement = next(s for s in context.allowed_statements if s.record_id == rid and s.claim_type == "recommendation")
+        return ExplanationSelection(status="answered", recommendations=[
+            SelectedRecommendation(record_id=rid, statement_ids=[statement.statement_id])
         ])
 
 

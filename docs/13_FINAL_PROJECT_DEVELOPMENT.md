@@ -1,6 +1,6 @@
 # ECE Learning Advisor — Final Project Development
 
-Team P07 · November 3, 2026 · Final presentation and submission: December 11.
+Team P07 · Updated November 4, 2026 · Final presentation and submission: December 11.
 
 ## Repositories and baseline
 
@@ -23,7 +23,7 @@ The baseline provides five courses, two learning resources, two career mappings,
 
 Adzuna live verification and OpenRouter integration remain unfinished. The original source repository passed 80 tests before this development work; historical measurements retain their dates and scope.
 
-Citation membership does not establish claim accuracy. The starter collection's four unresolved ECE conditions and all discovered-course conditions stay unknown. Learning stages are preparation suggestions, not semester assignments or a complete degree audit.
+Citation membership does not establish claim accuracy. Production now limits the provider to [selecting application-owned statements](19_GROUNDED_EXPLANATIONS.md), with exact wording, type, citation, ownership, and context validation. It cannot insert arbitrary prose by calling a fact a recommendation. The starter collection's four unresolved ECE conditions and all discovered-course conditions stay unknown. Learning stages are preparation suggestions, not semester assignments or a complete degree audit.
 
 ## Backend priorities
 
@@ -35,11 +35,11 @@ Work across the app as needed, with backend correctness and source handling firs
 | 2 | More academic-rule evidence and catalog-edition coverage | CSC120 provenance and live revalidation implemented; four ECE conditions and other editions remain unresolved |
 | 3 | Broader course/resource coverage with source provenance | Bounded foundation discovery and both configured resource checks implemented; wider coverage remains |
 | 4 | Actual opportunity results and failure handling | Adapter exists; live Adzuna verification remains |
-| 5 | Retrieval/claim evaluation, performance, and deployment | Frozen development suite and offline baseline implemented; semantic/generation review and independent evaluation remain |
+| 5 | Retrieval/claim evaluation, performance, and deployment | Frozen baseline and bounded explanation contract implemented; actual selection review, semantic comparison, and independent evaluation remain |
 
-The current automated suite passes 316 tests, including 16 Streamlit interactions. The [offline development baseline](18_REVIEWED_EVALUATION.md) covers 16 fully judged queries, 18 roadmap scenarios, and 16 authored answer probes. Keyword Recall@5 is 0.8229 across the small reference set; all roadmap expectations pass. Nine authored unsupported/contradicted claims still pass the current citation checks. These are assistant-authored development references, not independent student or generated-model results.
+The current automated suite passes 386 tests, including 67 dedicated grounding cases and 17 Streamlit interactions. The [offline development baseline](18_REVIEWED_EVALUATION.md) covers 16 fully judged queries, 18 roadmap scenarios, and 16 authored answer probes. Keyword Recall@5 remains 0.8229 and all roadmap expectations pass. Its earlier checker still admits the same nine authored unsupported/contradicted claims for comparison. The [November 4 follow-up](19_GROUNDED_EXPLANATIONS.md) admits zero unsupported reviewed claims and accepts 82/82 canonical statement controls. It also rejects true unlisted paraphrases: this validates a bounded contract, not general entailment or live model accuracy. References remain assistant-authored, without independent student review.
 
-The earlier exploring-profile discovery check added CSC110, ECE201, and ECE220. Later resource checks received HTTP 304 from both resource hosts on repeat. These public-source observations keep their original dates and scope. The next backend unit is factual-answer validation, followed by opt-in semantic/hybrid comparison and review of actual generated answers. Keep paraphrase/coverage-guard behavior under review, and do not translate older department descriptions or Engineering advanced-standing language into current enrollment approval.
+The earlier exploring-profile discovery check added CSC110, ECE201, and ECE220. Later resource checks received HTTP 304 from both resource hosts on repeat. These public-source observations keep their original dates and scope. The November 4 format has controlled integration coverage but has not been retested with live Gemini. The next backend unit is end-to-end paraphrase/coverage-guard behavior, followed by explicit opt-in semantic/hybrid comparison and review of actual provider selections. Do not translate older department descriptions or Engineering advanced-standing language into current enrollment approval.
 
 Continue the report's weekly roadmap: live opportunities November 9–15; source revalidation and coverage November 16–22; reviewed retrieval/answer evaluation and a small voluntary pilot November 23–29; fixes and deployment stability November 30–December 6, with a December 4 feature freeze; final artifacts and rehearsal December 7–11.
 

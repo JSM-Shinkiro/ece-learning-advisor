@@ -267,7 +267,7 @@ with roadmap:
         elif result.generation_status=="insufficient_evidence":
             st.info(result.answer.clarification if result.answer else "More source information is needed for this request.")
         elif result.generation_complete:
-            st.caption("AI explanation available · source links checked")
+            st.caption("AI explanation available · based on selected sources")
         else:
             st.caption("Preview mode · learning suggestions from available sources")
         for issue in result.issues:

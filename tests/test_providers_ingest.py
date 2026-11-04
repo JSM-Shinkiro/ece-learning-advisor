@@ -5,7 +5,7 @@ import pytest
 
 from src.catalog import build_evidence
 from src.ingest import extract_course
-from src.models import GeneratedAnswer, StudentProfile
+from src.models import ExplanationSelection, StudentProfile
 from src.providers import GeminiProvider, ProviderError
 from src.service import recommend
 
@@ -37,14 +37,25 @@ def test_generator_receives_exact_serialized_context(catalog):
     captured={}
     def create(**kwargs):
         captured.update(kwargs)
-        return SimpleNamespace(output_text=GeneratedAnswer(status="insufficient_evidence",
-            clarification="The question is outside this collection.").model_dump_json())
+        return SimpleNamespace(output_text=ExplanationSelection(status="insufficient_evidence",
+            clarification_code="insufficient_evidence").model_dump_json())
     provider=GeminiProvider("fixture",client=SimpleNamespace(interactions=SimpleNamespace(create=create)))
     answer=provider.generate(context)
     assert captured["input"]==context.to_prompt()
     assert captured["response_format"]["mime_type"]=="application/json"
+    assert captured["response_format"]["schema"]==ExplanationSelection.model_json_schema()
+    assert 'allowed_statements' in captured["input"]
     assert captured["store"] is False
     assert answer.status=="insufficient_evidence"
+
+
+@pytest.mark.parametrize("output", ["not JSON", json.dumps({"status": "insufficient_evidence",
+    "clarification": "Unvalidated prose"})])
+def test_generator_rejects_nonselection_output(catalog, output):
+    client = SimpleNamespace(interactions=SimpleNamespace(create=lambda **kwargs: SimpleNamespace(output_text=output)))
+    provider = GeminiProvider("fixture", client=client)
+    with pytest.raises(ProviderError, match="invalid response"):
+        provider.generate(recommend(catalog, StudentProfile()).context)
 
 
 def test_ingestion_parses_data_without_executing_scripts():

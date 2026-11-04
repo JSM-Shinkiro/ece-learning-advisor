@@ -15,13 +15,14 @@ from .providers import EmbeddingCache, ProviderError
 from .planning import coverage_message, learning_phase, needs_programming_foundations
 from .retrieval import Hit, Retriever
 from .rules import dependency_codes, evaluate_course
+from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer, validate_wording
 
 
 class CitationError(ValueError):
     pass
 
 
-def validate_answer(answer: GeneratedAnswer, context: GenerationContext):
+def validate_references(answer: GeneratedAnswer, context: GenerationContext):
     evidence = {e.chunk_id: e for e in context.evidence}
     used = set()
     for recommendation in answer.recommendations:
@@ -43,6 +44,15 @@ def validate_answer(answer: GeneratedAnswer, context: GenerationContext):
     return answer
 
 
+def validate_answer(answer: GeneratedAnswer, context: GenerationContext, catalog: Catalog):
+    try:
+        answer = GeneratedAnswer.model_validate(answer.model_dump())
+    except (ValueError, AttributeError) as exc:
+        raise GroundingError("invalid_answer", "The rendered explanation has an invalid structure") from exc
+    validate_references(answer, context)
+    return validate_wording(answer, context, catalog)
+
+
 @dataclass
 class AdvisorResult:
     context: GenerationContext
@@ -58,6 +68,9 @@ class AdvisorResult:
     vectors: np.ndarray | None = None
     query_vector: np.ndarray | None = None
     cache_state: str = "not_used"
+    selected_statement_ids: list[str] = field(default_factory=list)
+    statement_validation_passed: bool | None = None
+    validation_error: str | None = None
     trace: dict = field(default_factory=dict)
 
 
@@ -150,7 +163,7 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
                 if (absent or omitted) and evaluation.status == "unknown":
                     evaluation.reasons.append("Some supporting requirement records are outside this reviewed context.")
             rule_results[record_id] = evaluation
-    return GenerationContext(
+    context = GenerationContext(
         profile=profile, question=question, query=query,
         allowed_record_ids=allowed, evidence=evidence, rule_results=rule_results,
         source_freshness={s.source_id: SourceFreshness(
@@ -160,6 +173,8 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
         field_sources={rid: records[rid].field_sources for rid in allowed if records[rid].field_sources},
         suggested_phases={rid:learning_phase(records[rid], profile, rule_results.get(rid)) for rid in allowed},
     )
+    context.allowed_statements = build_statements(catalog, context)
+    return context
 
 
 def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
@@ -208,12 +223,19 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     if provider and context.allowed_record_ids:
         before = time.perf_counter()
         try:
-            result.answer = validate_answer(provider.generate(context), context)
+            selection = provider.generate(context)
+            answer = materialize_answer(selection, context, catalog)
+            result.answer = validate_answer(answer, context, catalog)
+            result.selected_statement_ids = [sid for rec in selection.recommendations for sid in rec.statement_ids]
+            result.statement_validation_passed = True
             result.generation_status = result.answer.status
             result.generation_complete = result.answer.status == "answered"
-        except (ProviderError, CitationError, ValueError):
+        except (ProviderError, CitationError, ValueError) as exc:
             result.generation_status = "failed"
-            result.issues.append("The AI explanation was unavailable or failed reference checks. Showing source information.")
+            result.statement_validation_passed = False
+            result.validation_error = (exc.code if isinstance(exc, GroundingError) else
+                                       "invalid_reference" if isinstance(exc, CitationError) else "provider_or_format")
+            result.issues.append("The AI explanation was unavailable or did not match the supported explanation format. Showing source information.")
         timings["generation"] = time.perf_counter() - before
     elif provider:
         result.generation_status = "insufficient_evidence"
@@ -234,6 +256,10 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "field_sources": context.field_sources,
         "resource_versions": {r.record_id: r.resource_version for r in catalog.records
                               if r.kind == "resource" and r.resource_version},
+        "answer_contract": ANSWER_CONTRACT,
+        "selected_statement_ids": result.selected_statement_ids,
+        "statement_validation_passed": result.statement_validation_passed,
+        "validation_error": result.validation_error,
         "generation_complete": result.generation_complete,
         "generation_status": result.generation_status,
         "reference_checks_passed": True if result.answer else (False if result.generation_status=="failed" else None),

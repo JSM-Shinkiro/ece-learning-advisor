@@ -74,7 +74,8 @@ def test_generic_question_is_supported(catalog):
 
 
 def test_abstention_is_not_successful_recommendation(catalog,fake_provider,tmp_path):
-    fake_provider.generate=lambda _:GeneratedAnswer(status="insufficient_evidence",clarification="Which topic do you mean?")
+    from src.models import ExplanationSelection
+    fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")
     result=recommend(catalog,StudentProfile(),provider=fake_provider,cache_dir=tmp_path)
     assert not result.generation_complete
     assert result.generation_status=="insufficient_evidence"

@@ -10,6 +10,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Bounded course discovery](16_COURSE_DISCOVERY.md) | Official program course links, identity checks, field provenance, request budgets, and current verification |
 | [Resource-source checks](17_RESOURCE_SOURCES.md) | Live resource excerpts, published versions, conditional checks, source failures, and verification |
 | [Reviewed development evaluation](18_REVIEWED_EVALUATION.md) | Frozen relevance labels, roadmap scenarios, authored claim audits, measured baseline, and limitations |
+| [Grounded explanations](19_GROUNDED_EXPLANATIONS.md) | Application-owned statements, strict model selections, adversarial tests, follow-up audit, and live verification limits |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

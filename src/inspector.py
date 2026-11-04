@@ -12,7 +12,7 @@ def render_inspector(result, catalog):
     records = {r.record_id:r for r in catalog.records}
     sources = {s.source_id:s for s in catalog.sources}
     with st.expander("How this plan was made"):
-        st.caption("Scores measure relevance, not eligibility or probability. Source-link checks do not prove every generated claim.")
+        st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
         hits = [h for h in result.hits if records[h.record_id].kind!="career"][:10]
@@ -55,5 +55,12 @@ def render_inspector(result, catalog):
             st.text(chunk.text)
             for sid in chunk.source_ids:
                 st.link_button(sources[sid].title,sources[sid].url,key="trace_"+chunk.chunk_id+"_"+sid)
+        if result.context.allowed_statements:
+            with st.expander("Available explanation statements"):
+                selected = set(result.selected_statement_ids)
+                st.dataframe([{"selected": s.statement_id in selected, "statement": s.statement_id,
+                    "record": s.record_id, "field": s.field, "kind": s.claim_type,
+                    "wording": s.text, "evidence": ", ".join(s.evidence_ids)}
+                    for s in result.context.allowed_statements], hide_index=True)
         st.json(result.trace)
         st.download_button("Download request trace",json.dumps(result.trace,indent=2),file_name="request_trace.json",mime="application/json")
