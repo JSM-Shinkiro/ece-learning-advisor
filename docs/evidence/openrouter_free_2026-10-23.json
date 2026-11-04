@@ -1,0 +1,498 @@
+{
+  "checked_date_arizona": "2026-10-23",
+  "policy": "OpenRouter use is restricted to free models; no paid model or paid fallback requests are authorized.",
+  "hello_world": {
+    "check": "free-router hello world",
+    "requested_model": "openrouter/free",
+    "http_status": 200,
+    "elapsed_seconds": 5.901,
+    "model_used": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+    "message": "```python\nprint(\"Hello, World!\")\n```",
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 29,
+      "completion_tokens": 52,
+      "total_tokens": 81,
+      "cost": 0,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 42,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "structured_rag_experiments": [
+    {
+      "checked_at": "2026-10-23T17:31:36.415674+00:00",
+      "check": "Free OpenRouter structured RAG experiment",
+      "requested_model": "openrouter/free",
+      "provider_preferences": {
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "allow_fallbacks": false
+      },
+      "context": {
+        "profile": {
+          "schema_version": 1,
+          "standing": "Incoming",
+          "catalog_version": "2026-2027",
+          "career_id": "ai_ml",
+          "interests": "AI and hardware integration",
+          "experience": "",
+          "question": "",
+          "completed": [],
+          "history_complete": false,
+          "programming_background": "new",
+          "current_enrollment": [],
+          "consents": []
+        },
+        "question": "",
+        "query": "AI and machine learning machine learning deep learning neural networks computer vision introductory programming foundations C AI and hardware integration",
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "evidence": [
+          {
+            "chunk_id": "uofa:ECE101:2026-2027:overview",
+            "record_id": "uofa:ECE101:2026-2027",
+            "source_ids": [
+              "catalog:ECE101"
+            ],
+            "text": "ECE101: Programming 1\nIntroduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019404.\nTeam learning suggestion (not an academic requirement): Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study."
+          },
+          {
+            "chunk_id": "uofa:CSC120:2026-2027:overview",
+            "record_id": "uofa:CSC120:2026-2027",
+            "source_ids": [
+              "catalog:CSC120",
+              "catalog:CS_foundations"
+            ],
+            "text": "CSC120: Introduction to Computer Programming II\nDevelops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: {\"type\":\"any_of\",\"children\":[{\"type\":\"completed\",\"children\":[],\"course_code\":\"CSC110\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE101\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE175\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ISTA130\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]}],\"course_code\":null,\"minimum_grade\":null,\"value\":null,\"note\":\"\",\"evidence_ids\":[]} Enrollment requirement reference: 017083.\nTeam learning suggestion (not an academic requirement): Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment."
+          },
+          {
+            "chunk_id": "uofa:ECE425:2026-2027:overview",
+            "record_id": "uofa:ECE425:2026-2027",
+            "source_ids": [
+              "catalog:ECE425"
+            ],
+            "text": "ECE425: Introduction to Deep Learning: An Engineering Perspective\nIntroduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019593.\nTeam learning suggestion (not an academic requirement): Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed."
+          },
+          {
+            "chunk_id": "resource:cs50:overview",
+            "record_id": "resource:cs50",
+            "source_ids": [
+              "resource:cs50"
+            ],
+            "text": "resource:cs50: CS50 \u2014 Introduction to Computer Science\nBuild programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.\nTeam learning suggestion (not an academic requirement): Use this alongside programming foundations when you want guided practice outside university coursework.\nSuggested first activity: Start with the introduction and its first exercise. Move through the material at your own pace."
+          },
+          {
+            "chunk_id": "resource:pytorch:overview",
+            "record_id": "resource:pytorch",
+            "source_ids": [
+              "resource:pytorch"
+            ],
+            "text": "resource:pytorch: PyTorch Quickstart\nPractice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.\nTeam learning suggestion (not an academic requirement): Use this to connect Python programming with a small deep learning workflow after building programming foundations.\nSuggested first activity: Work through loading data and running the example model. Note how the training and evaluation steps differ."
+          },
+          {
+            "chunk_id": "career:ai_ml:overview",
+            "record_id": "career:ai_ml",
+            "source_ids": [
+              "catalog:ECE425",
+              "catalog:CSC120",
+              "resource:pytorch"
+            ],
+            "text": "career:ai_ml: AI and machine learning\nTeam learning connection: neural-network coursework and practical PyTorch exercises can support an interest in AI and machine learning. Programming and data-structure foundations provide supporting skills. This is a suggested learning direction, not a hiring or degree guarantee.\nThis is a team-authored learning connection, not a university requirement."
+          }
+        ],
+        "rule_results": {
+          "uofa:ECE101:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          },
+          "uofa:CSC120:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "CSC110 is not in the supplied completion history.",
+              "ECE101 is not in the supplied completion history.",
+              "ECE175 is not in the supplied completion history.",
+              "ISTA130 is not in the supplied completion history.",
+              "Some supporting requirement records are outside this reviewed context."
+            ],
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          "uofa:ECE425:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          }
+        },
+        "suggested_phases": {
+          "uofa:ECE101:2026-2027": "next",
+          "uofa:CSC120:2026-2027": "build",
+          "uofa:ECE425:2026-2027": "later",
+          "resource:cs50": "next",
+          "resource:pytorch": "later"
+        },
+        "prompt_version": "p07-v2"
+      },
+      "app_integration": "Not connected to the Streamlit application. This is a direct provider compatibility check.",
+      "http_status": 429,
+      "error": "{'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'xingchen-agi/xing4.0-29b-a4b:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Phala', 'is_byok': False, 'limit_source': 'upstream_provider_shared_pool', 'remedy_hint': 'Retry shortly, add your own provider key (https://openrouter.ai/settings/integrations), or route to another provider with provider routing: https://openrouter.ai/docs/features/provider-routing'}}",
+      "passed": false,
+      "elapsed_seconds": 6.369
+    },
+    {
+      "checked_at": "2026-10-23T17:32:31.842797+00:00",
+      "check": "One bounded retry: free OpenRouter structured RAG",
+      "requested_model": "openrouter/free",
+      "provider_preferences": {
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0,
+          "completion": 0
+        }
+      },
+      "context": {
+        "profile": {
+          "schema_version": 1,
+          "standing": "Incoming",
+          "catalog_version": "2026-2027",
+          "career_id": "ai_ml",
+          "interests": "AI and hardware integration",
+          "experience": "",
+          "question": "",
+          "completed": [],
+          "history_complete": false,
+          "programming_background": "new",
+          "current_enrollment": [],
+          "consents": []
+        },
+        "question": "",
+        "query": "AI and machine learning machine learning deep learning neural networks computer vision introductory programming foundations C AI and hardware integration",
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "evidence": [
+          {
+            "chunk_id": "uofa:ECE101:2026-2027:overview",
+            "record_id": "uofa:ECE101:2026-2027",
+            "source_ids": [
+              "catalog:ECE101"
+            ],
+            "text": "ECE101: Programming 1\nIntroduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019404.\nTeam learning suggestion (not an academic requirement): Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study."
+          },
+          {
+            "chunk_id": "uofa:CSC120:2026-2027:overview",
+            "record_id": "uofa:CSC120:2026-2027",
+            "source_ids": [
+              "catalog:CSC120",
+              "catalog:CS_foundations"
+            ],
+            "text": "CSC120: Introduction to Computer Programming II\nDevelops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: {\"type\":\"any_of\",\"children\":[{\"type\":\"completed\",\"children\":[],\"course_code\":\"CSC110\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE101\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE175\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ISTA130\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]}],\"course_code\":null,\"minimum_grade\":null,\"value\":null,\"note\":\"\",\"evidence_ids\":[]} Enrollment requirement reference: 017083.\nTeam learning suggestion (not an academic requirement): Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment."
+          },
+          {
+            "chunk_id": "uofa:ECE425:2026-2027:overview",
+            "record_id": "uofa:ECE425:2026-2027",
+            "source_ids": [
+              "catalog:ECE425"
+            ],
+            "text": "ECE425: Introduction to Deep Learning: An Engineering Perspective\nIntroduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019593.\nTeam learning suggestion (not an academic requirement): Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed."
+          },
+          {
+            "chunk_id": "resource:cs50:overview",
+            "record_id": "resource:cs50",
+            "source_ids": [
+              "resource:cs50"
+            ],
+            "text": "resource:cs50: CS50 \u2014 Introduction to Computer Science\nBuild programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.\nTeam learning suggestion (not an academic requirement): Use this alongside programming foundations when you want guided practice outside university coursework.\nSuggested first activity: Start with the introduction and its first exercise. Move through the material at your own pace."
+          },
+          {
+            "chunk_id": "resource:pytorch:overview",
+            "record_id": "resource:pytorch",
+            "source_ids": [
+              "resource:pytorch"
+            ],
+            "text": "resource:pytorch: PyTorch Quickstart\nPractice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.\nTeam learning suggestion (not an academic requirement): Use this to connect Python programming with a small deep learning workflow after building programming foundations.\nSuggested first activity: Work through loading data and running the example model. Note how the training and evaluation steps differ."
+          },
+          {
+            "chunk_id": "career:ai_ml:overview",
+            "record_id": "career:ai_ml",
+            "source_ids": [
+              "catalog:ECE425",
+              "catalog:CSC120",
+              "resource:pytorch"
+            ],
+            "text": "career:ai_ml: AI and machine learning\nTeam learning connection: neural-network coursework and practical PyTorch exercises can support an interest in AI and machine learning. Programming and data-structure foundations provide supporting skills. This is a suggested learning direction, not a hiring or degree guarantee.\nThis is a team-authored learning connection, not a university requirement."
+          }
+        ],
+        "rule_results": {
+          "uofa:ECE101:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          },
+          "uofa:CSC120:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "CSC110 is not in the supplied completion history.",
+              "ECE101 is not in the supplied completion history.",
+              "ECE175 is not in the supplied completion history.",
+              "ISTA130 is not in the supplied completion history.",
+              "Some supporting requirement records are outside this reviewed context."
+            ],
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          "uofa:ECE425:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          }
+        },
+        "suggested_phases": {
+          "uofa:ECE101:2026-2027": "next",
+          "uofa:CSC120:2026-2027": "build",
+          "uofa:ECE425:2026-2027": "later",
+          "resource:cs50": "next",
+          "resource:pytorch": "later"
+        },
+        "prompt_version": "p07-v2"
+      },
+      "app_integration": "Not connected to the Streamlit application. This is a direct provider compatibility check.",
+      "http_status": 200,
+      "model_used": "nvidia/nemotron-3.5-super-vl:free",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 2177,
+        "completion_tokens": 1800,
+        "total_tokens": 3977,
+        "cost": 0,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1800,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "raw_content": null,
+      "error_type": "ValidationError",
+      "error": "1 validation error for GeneratedAnswer\n  JSON input should be string, bytes or bytearray [type=json_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/json_type",
+      "passed": false,
+      "elapsed_seconds": 57.201
+    },
+    {
+      "checked_at": "2026-10-23T17:34:14.572089+00:00",
+      "check": "Fixed free model with reasoning disabled",
+      "requested_model": "nvidia/nemotron-3.5-super-vl:free",
+      "provider_preferences": {
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0,
+          "completion": 0
+        }
+      },
+      "reasoning": {
+        "enabled": false
+      },
+      "context": {
+        "profile": {
+          "schema_version": 1,
+          "standing": "Incoming",
+          "catalog_version": "2026-2027",
+          "career_id": "ai_ml",
+          "interests": "AI and hardware integration",
+          "experience": "",
+          "question": "",
+          "completed": [],
+          "history_complete": false,
+          "programming_background": "new",
+          "current_enrollment": [],
+          "consents": []
+        },
+        "question": "",
+        "query": "AI and machine learning machine learning deep learning neural networks computer vision introductory programming foundations C AI and hardware integration",
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "evidence": [
+          {
+            "chunk_id": "uofa:ECE101:2026-2027:overview",
+            "record_id": "uofa:ECE101:2026-2027",
+            "source_ids": [
+              "catalog:ECE101"
+            ],
+            "text": "ECE101: Programming 1\nIntroduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019404.\nTeam learning suggestion (not an academic requirement): Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study."
+          },
+          {
+            "chunk_id": "uofa:CSC120:2026-2027:overview",
+            "record_id": "uofa:CSC120:2026-2027",
+            "source_ids": [
+              "catalog:CSC120",
+              "catalog:CS_foundations"
+            ],
+            "text": "CSC120: Introduction to Computer Programming II\nDevelops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: {\"type\":\"any_of\",\"children\":[{\"type\":\"completed\",\"children\":[],\"course_code\":\"CSC110\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE101\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ECE175\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]},{\"type\":\"completed\",\"children\":[],\"course_code\":\"ISTA130\",\"minimum_grade\":\"C\",\"value\":null,\"note\":\"\",\"evidence_ids\":[\"uofa:CSC120:2026-2027:overview\"]}],\"course_code\":null,\"minimum_grade\":null,\"value\":null,\"note\":\"\",\"evidence_ids\":[]} Enrollment requirement reference: 017083.\nTeam learning suggestion (not an academic requirement): Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment."
+          },
+          {
+            "chunk_id": "uofa:ECE425:2026-2027:overview",
+            "record_id": "uofa:ECE425:2026-2027",
+            "source_ids": [
+              "catalog:ECE425"
+            ],
+            "text": "ECE425: Introduction to Deep Learning: An Engineering Perspective\nIntroduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019593.\nTeam learning suggestion (not an academic requirement): Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed."
+          },
+          {
+            "chunk_id": "resource:cs50:overview",
+            "record_id": "resource:cs50",
+            "source_ids": [
+              "resource:cs50"
+            ],
+            "text": "resource:cs50: CS50 \u2014 Introduction to Computer Science\nBuild programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.\nTeam learning suggestion (not an academic requirement): Use this alongside programming foundations when you want guided practice outside university coursework.\nSuggested first activity: Start with the introduction and its first exercise. Move through the material at your own pace."
+          },
+          {
+            "chunk_id": "resource:pytorch:overview",
+            "record_id": "resource:pytorch",
+            "source_ids": [
+              "resource:pytorch"
+            ],
+            "text": "resource:pytorch: PyTorch Quickstart\nPractice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.\nTeam learning suggestion (not an academic requirement): Use this to connect Python programming with a small deep learning workflow after building programming foundations.\nSuggested first activity: Work through loading data and running the example model. Note how the training and evaluation steps differ."
+          },
+          {
+            "chunk_id": "career:ai_ml:overview",
+            "record_id": "career:ai_ml",
+            "source_ids": [
+              "catalog:ECE425",
+              "catalog:CSC120",
+              "resource:pytorch"
+            ],
+            "text": "career:ai_ml: AI and machine learning\nTeam learning connection: neural-network coursework and practical PyTorch exercises can support an interest in AI and machine learning. Programming and data-structure foundations provide supporting skills. This is a suggested learning direction, not a hiring or degree guarantee.\nThis is a team-authored learning connection, not a university requirement."
+          }
+        ],
+        "rule_results": {
+          "uofa:ECE101:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          },
+          "uofa:CSC120:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "CSC110 is not in the supplied completion history.",
+              "ECE101 is not in the supplied completion history.",
+              "ECE175 is not in the supplied completion history.",
+              "ISTA130 is not in the supplied completion history.",
+              "Some supporting requirement records are outside this reviewed context."
+            ],
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          "uofa:ECE425:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": []
+          }
+        },
+        "suggested_phases": {
+          "uofa:ECE101:2026-2027": "next",
+          "uofa:CSC120:2026-2027": "build",
+          "uofa:ECE425:2026-2027": "later",
+          "resource:cs50": "next",
+          "resource:pytorch": "later"
+        },
+        "prompt_version": "p07-v2"
+      },
+      "app_integration": "Direct compatibility check; not connected to Streamlit.",
+      "http_status": 200,
+      "model_used": "nvidia/nemotron-3.5-super-vl:free",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 2177,
+        "completion_tokens": 123,
+        "total_tokens": 2300,
+        "cost": 0,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "raw_content": "{\"status\": \"insufficient_evidence\", \"recommendations\": [], \"clarification\": \"The profile is marked incoming and the supplied evidence does not include a completed programming course or confirmed enrollment eligibility. Introductory programming foundations appear relevant, but academic prerequisites are unresolved, so no course or resource can be recommended yet. Please clarify whether you have completed any introductory programming course such as CSC110, ECE101, ECE175, or ISTA130, and whether you want immediate next-step recommendations or longer-term AI/ML planning.\"}",
+      "answer": {
+        "status": "insufficient_evidence",
+        "recommendations": [],
+        "clarification": "The profile is marked incoming and the supplied evidence does not include a completed programming course or confirmed enrollment eligibility. Introductory programming foundations appear relevant, but academic prerequisites are unresolved, so no course or resource can be recommended yet. Please clarify whether you have completed any introductory programming course such as CSC110, ECE101, ECE175, or ISTA130, and whether you want immediate next-step recommendations or longer-term AI/ML planning."
+      },
+      "reference_checks_passed": true,
+      "passed": false,
+      "elapsed_seconds": 9.309
+    }
+  ],
+  "app_integration": "Not connected to Streamlit. The existing Gemini generator remains in use.",
+  "manual_review": "The final fixed-free-model response has valid structured JSON but abstains too broadly. Unknown enrollment eligibility should not prevent explaining a suggested learning path or a resource. No recommendations were returned, so citation validation was not meaningfully exercised."
+}

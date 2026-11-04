@@ -1,0 +1,345 @@
+{
+  "version": "starter-2026-10-22-v2",
+  "catalog_version": "2026-2027",
+  "sources": [
+    {
+      "source_id": "catalog:ECE101",
+      "title": "ECE101 \u2014 Programming 1",
+      "url": "https://catalog.arizona.edu/courses/0432351",
+      "retrieved_at": "2026-10-23T04:05:07.731334+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 019404 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "2be26a5ccfd01fd0021a2e848466ea9f64e44f84bd4bbd8f64edd2228e179ffd"
+    },
+    {
+      "source_id": "catalog:ECE369A",
+      "title": "ECE369A \u2014 Fundamentals of Computer Organization",
+      "url": "https://catalog.arizona.edu/courses/0366021",
+      "retrieved_at": "2026-10-23T04:05:12.568170+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 016494 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "28afcc2f1504d4f24adbeec58106b9a368dddb30aabd610acd9f3f4f67692dc0"
+    },
+    {
+      "source_id": "catalog:ECE372A",
+      "title": "ECE372A \u2014 Microprocessor Organization",
+      "url": "https://catalog.arizona.edu/courses/0367521",
+      "retrieved_at": "2026-10-23T04:05:16.945042+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 016495 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "02f8e1fe5128930b0a5414ae21722b7231c7e58b779e2402a55d13ecb11f5c24"
+    },
+    {
+      "source_id": "catalog:ECE425",
+      "title": "ECE425 \u2014 Introduction to Deep Learning: An Engineering Perspective",
+      "url": "https://catalog.arizona.edu/courses/0435981",
+      "retrieved_at": "2026-10-23T04:05:20.982642+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 019593 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "ff6072b497ef55a76474e9507b43f13860f275cf5ee4aeec7b5d21a9c945ec7e"
+    },
+    {
+      "source_id": "catalog:CSC120",
+      "title": "CSC120 \u2014 Introduction to Computer Programming II",
+      "url": "https://catalog.arizona.edu/courses/0393701",
+      "retrieved_at": "2026-10-23T04:05:24.472577+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 017083 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "17f1fa8d8e912b437c097418ca07ff9625aba3f1498d4f09794cee4486ee024b"
+    },
+    {
+      "source_id": "resource:pytorch",
+      "title": "PyTorch Quickstart",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+      "retrieved_at": "2026-10-23T04:01:51.068Z",
+      "section": "Quickstart",
+      "review_note": "Official introductory documentation. Suggested complementary study, not university credit."
+    },
+    {
+      "source_id": "resource:cs50",
+      "title": "CS50's Introduction to Computer Science",
+      "url": "https://cs50.harvard.edu/x/",
+      "retrieved_at": "2026-10-23T04:01:51.068Z",
+      "section": "Welcome and course outline",
+      "review_note": "Official OpenCourseWare. Suggested complementary study, not university credit."
+    },
+    {
+      "source_id": "catalog:CS_foundations",
+      "title": "Computer Science BS \u2014 foundation course requirements",
+      "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+      "retrieved_at": "2026-10-23T05:17:17.327892+00:00",
+      "catalog_version": "2026-2027",
+      "section": "Computer Science Major: Foundation Courses, R1299/L40",
+      "review_note": "The current Computer Science program requirements identify completion of CSC110, ECE101, ECE175, or ISTA130 with C or higher before CSC120. This condition is taken from the current catalog program entry. The direct course entry still exposes requirement reference 017083. Department guidance differs on the listed alternatives, so confirm unusual substitutions with an advisor.",
+      "content_hash": null
+    }
+  ],
+  "records": [
+    {
+      "record_id": "uofa:ECE101:2026-2027",
+      "kind": "course",
+      "code": "ECE101",
+      "title": "Programming 1",
+      "credits": 4,
+      "catalog_version": "2026-2027",
+      "summary": "Introduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.",
+      "source_ids": [
+        "catalog:ECE101"
+      ],
+      "topics": [
+        "C programming",
+        "software foundations"
+      ],
+      "review_status": "source_summary_reviewed",
+      "rule": {
+        "type": "unknown",
+        "note": "Resolve and review enrollment requirement reference 019404 before evaluating eligibility."
+      },
+      "rule_reviewed": false,
+      "requirement_reference": "019404",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study.",
+      "first_activity": ""
+    },
+    {
+      "record_id": "uofa:ECE369A:2026-2027",
+      "kind": "course",
+      "code": "ECE369A",
+      "title": "Fundamentals of Computer Organization",
+      "credits": 4,
+      "catalog_version": "2026-2027",
+      "summary": "Examines processor organization, instruction sets, memory and caches, and computer-design trade-offs. Uses MIPS and reduced-instruction-set examples to connect software with hardware behavior.",
+      "source_ids": [
+        "catalog:ECE369A"
+      ],
+      "topics": [
+        "computer architecture",
+        "embedded systems"
+      ],
+      "review_status": "source_summary_reviewed",
+      "rule": {
+        "type": "unknown",
+        "note": "Resolve and review enrollment requirement reference 016494 before evaluating eligibility."
+      },
+      "rule_reviewed": false,
+      "requirement_reference": "016494",
+      "study_stage": "intermediate",
+      "career_ids": [
+        "embedded"
+      ],
+      "learning_note": "Understanding processor instructions, memory, and caches provides a bridge from programming to embedded hardware.",
+      "first_activity": ""
+    },
+    {
+      "record_id": "uofa:ECE372A:2026-2027",
+      "kind": "course",
+      "code": "ECE372A",
+      "title": "Microprocessor Organization",
+      "credits": 4,
+      "catalog_version": "2026-2027",
+      "summary": "Studies microcontrollers and hardware interfaces through C programming, interrupts, timers, serial communication, and analog conversion. Includes laboratories and a project using a microcontroller platform.",
+      "source_ids": [
+        "catalog:ECE372A"
+      ],
+      "topics": [
+        "microcontrollers",
+        "embedded C",
+        "hardware interfaces"
+      ],
+      "review_status": "source_summary_reviewed",
+      "rule": {
+        "type": "unknown",
+        "note": "Resolve and review enrollment requirement reference 016495 before evaluating eligibility."
+      },
+      "rule_reviewed": false,
+      "requirement_reference": "016495",
+      "study_stage": "advanced",
+      "career_ids": [
+        "embedded"
+      ],
+      "learning_note": "Microcontroller programming and hardware interfaces connect an embedded-systems goal with practical device projects. Prepare programming and processor foundations first.",
+      "first_activity": ""
+    },
+    {
+      "record_id": "uofa:ECE425:2026-2027",
+      "kind": "course",
+      "code": "ECE425",
+      "title": "Introduction to Deep Learning: An Engineering Perspective",
+      "credits": 3,
+      "catalog_version": "2026-2027",
+      "summary": "Introduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.",
+      "source_ids": [
+        "catalog:ECE425"
+      ],
+      "topics": [
+        "deep learning",
+        "machine learning",
+        "neural networks"
+      ],
+      "review_status": "source_summary_reviewed",
+      "rule": {
+        "type": "unknown",
+        "note": "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+      },
+      "rule_reviewed": false,
+      "requirement_reference": "019593",
+      "study_stage": "advanced",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed.",
+      "first_activity": ""
+    },
+    {
+      "record_id": "uofa:CSC120:2026-2027",
+      "kind": "course",
+      "code": "CSC120",
+      "title": "Introduction to Computer Programming II",
+      "credits": 4,
+      "catalog_version": "2026-2027",
+      "summary": "Develops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.",
+      "source_ids": [
+        "catalog:CSC120",
+        "catalog:CS_foundations"
+      ],
+      "topics": [
+        "programming",
+        "data structures"
+      ],
+      "review_status": "source_summary_reviewed",
+      "rule": {
+        "type": "any_of",
+        "children": [
+          {
+            "type": "completed",
+            "course_code": "CSC110",
+            "minimum_grade": "C",
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          {
+            "type": "completed",
+            "course_code": "ECE101",
+            "minimum_grade": "C",
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          {
+            "type": "completed",
+            "course_code": "ECE175",
+            "minimum_grade": "C",
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          },
+          {
+            "type": "completed",
+            "course_code": "ISTA130",
+            "minimum_grade": "C",
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:overview"
+            ]
+          }
+        ]
+      },
+      "rule_reviewed": true,
+      "requirement_reference": "017083",
+      "study_stage": "intermediate",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment.",
+      "first_activity": ""
+    },
+    {
+      "record_id": "resource:pytorch",
+      "kind": "resource",
+      "title": "PyTorch Quickstart",
+      "summary": "Practice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.",
+      "source_ids": [
+        "resource:pytorch"
+      ],
+      "topics": [
+        "deep learning",
+        "PyTorch"
+      ],
+      "study_stage": "intermediate",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Use this to connect Python programming with a small deep learning workflow after building programming foundations.",
+      "first_activity": "Work through loading data and running the example model. Note how the training and evaluation steps differ."
+    },
+    {
+      "record_id": "resource:cs50",
+      "kind": "resource",
+      "title": "CS50 \u2014 Introduction to Computer Science",
+      "summary": "Build programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.",
+      "source_ids": [
+        "resource:cs50"
+      ],
+      "topics": [
+        "C programming",
+        "computer science",
+        "foundations"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Use this alongside programming foundations when you want guided practice outside university coursework.",
+      "first_activity": "Start with the introduction and its first exercise. Move through the material at your own pace."
+    },
+    {
+      "record_id": "career:ai_ml",
+      "kind": "career",
+      "title": "AI and machine learning",
+      "summary": "Team learning connection: neural-network coursework and practical PyTorch exercises can support an interest in AI and machine learning. Programming and data-structure foundations provide supporting skills. This is a suggested learning direction, not a hiring or degree guarantee.",
+      "source_ids": [
+        "catalog:ECE425",
+        "catalog:CSC120",
+        "resource:pytorch"
+      ],
+      "topics": [
+        "machine learning",
+        "deep learning",
+        "neural networks",
+        "computer vision"
+      ],
+      "review_status": "team_mapping",
+      "study_stage": "intermediate"
+    },
+    {
+      "record_id": "career:embedded",
+      "kind": "career",
+      "title": "Embedded systems",
+      "summary": "Team learning connection: C programming, processor architecture, microcontrollers, and hardware interfaces form a useful learning direction for embedded systems. A course match indicates relevant study rather than proven job eligibility.",
+      "source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "topics": [
+        "embedded systems",
+        "microcontrollers",
+        "C programming",
+        "hardware",
+        "interrupts"
+      ],
+      "review_status": "team_mapping",
+      "study_stage": "intermediate"
+    }
+  ]
+}

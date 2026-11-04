@@ -1,0 +1,9 @@
+[project]
+name = "ece-degree-planner"
+version = "0.1.0"
+description = "Team P07 ECE learning and career advisor"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
