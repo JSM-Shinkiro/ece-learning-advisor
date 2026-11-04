@@ -2,7 +2,7 @@
 
 The advisor uses retrieval-augmented generation to explain recommendations using evidence retrieved from official academic sources and relevant learning and career sources. The target is automatic source retrieval with a temporary cache, without requiring a manually maintained course database. Updating the retrieved evidence changes the information available to the model without retraining it.
 
-The backend starts with the bundled reviewed collection and checks relevant configured official course pages when a roadmap is submitted. It overlays validated descriptions and units in the active request catalog. Resource pages, program-rule pages, and catalog-wide discovery are not connected yet. Saved reference files remain development evidence. See [runtime source checks](14_RUNTIME_SOURCES.md).
+The backend starts with the bundled reviewed collection and checks relevant configured official course pages when a roadmap is submitted. It overlays validated descriptions and units in the active request catalog and revalidates explicitly bound prerequisite statements against their reviewed interpretations. Resource pages and catalog-wide discovery are not connected yet. Saved reference files remain development evidence. See [runtime source checks](14_RUNTIME_SOURCES.md) and [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md).
 
 ## Pipeline
 
@@ -42,7 +42,7 @@ If retrieval or revalidation fails, label any cached evidence with its last succ
 5. Embed each chunk separately and build the keyword index from the same text.
 6. Keep a manifest linking vector rows to chunk IDs and the model configuration, in memory or in a rebuildable cache.
 
-Start with one chunk per short course description. Keep prerequisite conditions intact. Remove navigation and repeated footer text.
+Keep one overview chunk per short course description and a separate chunk for each reviewed prerequisite-source statement. Their citation sources remain distinct. Context budgets include a course and all its prerequisite chunks together, or omit the entire bundle. Remove navigation and repeated footer text.
 
 Rebuild affected chunks when sources change. A different embedding model or incompatible configuration requires a new index.
 

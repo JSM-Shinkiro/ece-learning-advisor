@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .models import Record, Rule, RuleEvaluation, StudentProfile, normalize_code
+from .models import Record, Rule, RuleEvaluation, StudentProfile, normalize_code, rule_binding_matches
 
 STANDING = {"Incoming": 0, "Freshman": 1, "Sophomore": 2, "Junior": 3, "Senior": 4}
 GRADES = {"A+": 4.3, "A": 4, "A-": 3.7, "B+": 3.3, "B": 3, "B-": 2.7,
@@ -57,11 +57,28 @@ def evaluate_rule(rule: Rule, profile: StudentProfile) -> RuleEvaluation:
 
 
 def evaluate_course(course: Record, profile: StudentProfile) -> RuleEvaluation:
+    provenance = course.rule_verification if course.rule_reviewed or course.rule_evidence else "unreviewed"
     if not course.rule_reviewed:
-        return RuleEvaluation(status="unknown", reasons=["The catalog rule has not been resolved and reviewed."])
-    if profile.catalog_version != course.catalog_version:
-        return RuleEvaluation(status="unknown", reasons=["The student's catalog edition does not match this reviewed rule."])
-    return evaluate_rule(course.rule, profile)
+        evaluation = RuleEvaluation(status="unknown", reasons=[course.rule.note or "The catalog rule has not been resolved and reviewed."])
+    elif profile.catalog_version != course.catalog_version:
+        provenance = "unsupported"
+        evaluation = RuleEvaluation(status="unknown", reasons=["The student's catalog edition does not match this reviewed rule."])
+    elif course.rule_evidence and not rule_binding_matches(course):
+        provenance = "changed"
+        evaluation = RuleEvaluation(status="unknown", reasons=["The rule interpretation no longer matches its reviewed source evidence."])
+    elif course.rule_verification in {"stale", "changed", "unavailable", "unsupported"}:
+        evaluation = RuleEvaluation(status="unknown", reasons=[
+            "The prerequisite evidence or interpretation needs review." if course.rule_verification == "changed"
+            else "The prerequisite sources could not be verified for this request."])
+    else:
+        evaluation = evaluate_rule(course.rule, profile)
+        if course.rule_verification == "snapshot":
+            evaluation.reasons.append("This evaluates a dated reviewed snapshot, not current enrollment eligibility.")
+    evaluation.verification_status = provenance
+    if course.rule_evidence:
+        evaluation.evidence_ids = [p.evidence_id for p in course.rule_evidence]
+        evaluation.source_ids = list(dict.fromkeys(p.source_id for p in course.rule_evidence))
+    return evaluation
 
 
 def dependency_codes(rule: Rule) -> list[str]:

@@ -1,7 +1,8 @@
 """Bounded, on-use checks of configured official course pages.
 
-Only public course descriptions are cached. Academic rules remain reviewed
-application data; fetching a page never interprets an opaque requirement ID.
+Public course fields and selected prerequisite statements are cached. Academic
+interpretations remain reviewed application data; fetching a page never
+interprets an opaque requirement ID or approves a changed condition.
 """
 
 from __future__ import annotations
@@ -23,13 +24,13 @@ import httpx
 from pydantic import AwareDatetime, Field, field_validator
 
 from .ingest import extract_course
-from .models import Catalog, Record, Rule, Source, StrictModel, StudentProfile, normalize_code
+from .models import Catalog, Record, Rule, Source, SourceCheck, StrictModel, StudentProfile, normalize_code
 from .rules import dependency_codes
+from .rule_sources import prepare_rule_jobs, fetch_rule_source, apply_rule_source, finalize_rule_checks
+from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, failure_kind, read_public_page
 
-MAX_PAGE_BYTES = 3_000_000
 MAX_CACHE_BYTES = 100_000
 MAX_SOURCES = 8
-REQUEST_TIMEOUT = httpx.Timeout(6.0, connect=4.0, pool=4.0)
 
 
 class CourseSnapshot(StrictModel):
@@ -61,23 +62,6 @@ class CachedCourse(StrictModel):
     last_checked_at: AwareDatetime
     etag: str | None = Field(default=None, max_length=512)
     last_modified: str | None = Field(default=None, max_length=100)
-
-
-class SourceCheck(StrictModel):
-    source_id: str
-    code: str
-    url: str
-    status: Literal["updated", "unchanged", "not_modified", "stale_cache",
-                    "bundled_fallback", "unsupported_edition", "skipped"]
-    attempted_at: datetime
-    last_checked_at: datetime | None = None
-    retrieved_at: datetime
-    content_hash: str | None = None
-    content_changed: bool = False
-    cache_saved: bool = False
-    http_status: int | None = None
-    failure_kind: Literal["timeout", "network", "response", "validation"] | None = None
-    message: str = ""
 
 
 @dataclass
@@ -161,36 +145,22 @@ def _fetch_one(source, record, directory, client, now):
             headers["If-None-Match"] = cached.etag
         if cached and cached.last_modified:
             headers["If-Modified-Since"] = cached.last_modified
-        started = time.monotonic()
-        with client.stream("GET", source.url, headers=headers, timeout=REQUEST_TIMEOUT,
-                           follow_redirects=False) as response:
-            check.http_status = response.status_code
-            if response.status_code == 304:
-                if cached is None:
-                    raise ValueError("A not-modified response needs a validated cache")
-                saved = cached.model_copy(update={"last_checked_at": now or datetime.now(timezone.utc)})
-                check.status = "not_modified"
-            else:
-                # Redirects, removed pages, and unfamiliar formats retain dated evidence.
-                if response.status_code != 200 or "text/html" not in response.headers.get("content-type", "").lower():
-                    raise ValueError("The official course page is unavailable")
-                if int(response.headers.get("content-length", "0")) > MAX_PAGE_BYTES:
-                    raise ValueError("The official page exceeds the download limit")
-                body = bytearray()
-                for chunk in response.iter_bytes():
-                    body.extend(chunk)
-                    if len(body) > MAX_PAGE_BYTES or time.monotonic() - started > 12:
-                        raise ValueError("The official page exceeds the request budget")
-                data = _snapshot(body.decode("utf-8"), record, record.catalog_version)
-                fingerprint = snapshot_hash(data)
-                checked = now or datetime.now(timezone.utc)
-                etag, modified = response.headers.get("etag"), response.headers.get("last-modified")
-                saved = CachedCourse(url=source.url, data=data, content_hash=fingerprint,
-                                     retrieved_at=checked, last_checked_at=checked,
-                                     etag=etag if etag and len(etag) <= 512 else None,
-                                     last_modified=modified if modified and len(modified) <= 100 else None)
-                check.content_changed = cached is None or fingerprint != cached.content_hash
-                check.status = "updated" if check.content_changed else "unchanged"
+        page = read_public_page(client, source.url, headers)
+        check.http_status = page.status
+        if page.status == 304:
+            if cached is None:
+                raise ValueError("A not-modified response needs a validated cache")
+            saved = cached.model_copy(update={"last_checked_at": now or datetime.now(timezone.utc)})
+            check.status = "not_modified"
+        else:
+            data = _snapshot(page.text, record, record.catalog_version)
+            fingerprint = snapshot_hash(data)
+            checked = now or datetime.now(timezone.utc)
+            saved = CachedCourse(url=source.url, data=data, content_hash=fingerprint,
+                                 retrieved_at=checked, last_checked_at=checked,
+                                 etag=page.etag, last_modified=page.last_modified)
+            check.content_changed = cached is None or fingerprint != cached.content_hash
+            check.status = "updated" if check.content_changed else "unchanged"
         try:
             _save_cache(path, saved)
             check.cache_saved = True
@@ -201,9 +171,8 @@ def _fetch_one(source, record, directory, client, now):
         check.content_hash = saved.content_hash
         return saved, check
     except (httpx.HTTPError, ValueError, TypeError, KeyError, AttributeError, RecursionError) as exc:
-        check.failure_kind = ("timeout" if isinstance(exc, httpx.TimeoutException) else
-                              "network" if isinstance(exc, httpx.HTTPError) else
-                              "response" if check.http_status not in {None, 200, 304} else "validation")
+        check.http_status = getattr(exc, "http_status", check.http_status)
+        check.failure_kind = failure_kind(exc, check.http_status)
         check.status = "stale_cache" if cached else "bundled_fallback"
         check.message = (f"{record.code}: source check failed. Using dated cached evidence."
                          if cached else f"{record.code}: source check failed. Using the dated bundled snapshot.")
@@ -222,6 +191,7 @@ def _apply(record, source, saved, check):
     data = saved.data
     if record.requirement_reference != data.requirement_reference:
         record.rule_reviewed = False
+        record.rule_verification = "changed"
         record.rule = Rule(type="unknown", note="The source enrollment reference changed and needs review.")
     record.title, record.summary, record.credits = data.title, data.summary, data.credits
     record.requirement_reference = data.requirement_reference
@@ -238,6 +208,8 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
     """Check relevant configured course pages once per explicit submitted request."""
     started = time.perf_counter()
     active = catalog.model_copy(deep=True)
+    for source in active.sources:
+        source.verification_status = "snapshot"
     result = CatalogRefresh(active)
     sources = {s.source_id: s for s in active.sources}
     courses = [r for r in active.records if r.kind == "course" and (
@@ -258,30 +230,46 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
             else:
                 targets.append((source, record))
     if profile.catalog_version != active.catalog_version:
+        for record in courses:
+            if record.rule_evidence:
+                record.rule_verification = "unsupported"
+                for proof in record.rule_evidence:
+                    proof.verification_status = "unsupported"
         result.issues.append("Live source checks do not support your catalog edition yet. "
                              f"Showing dated {active.catalog_version} references; enrollment remains unverified.")
         for source, record in targets:
             result.checks.append(SourceCheck(source_id=source.source_id, code=record.code,
                 url=source.url, status="unsupported_edition", attempted_at=now or datetime.now(timezone.utc),
                 retrieved_at=source.retrieved_at, last_checked_at=source.last_checked_at))
-    elif targets:
+    elif courses:
         selected, omitted = targets[:MAX_SOURCES], targets[MAX_SOURCES:]
-        context = nullcontext(client) if client is not None else httpx.Client(
-            timeout=REQUEST_TIMEOUT, follow_redirects=False,
-            limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
-        with context as http, ThreadPoolExecutor(max_workers=min(3, len(selected))) as pool:
-            futures = [pool.submit(_fetch_one, source, record, Path(cache_dir), http, now)
-                       for source, record in selected]
-            for (source, record), future in zip(selected, futures):
-                saved, check = future.result()
-                _apply(record, source, saved, check)
-                result.checks.append(check)
-                if check.message:
-                    result.issues.append(check.message)
+        jobs, rule_checks, rule_issues = prepare_rule_jobs(active, courses, profile, now)
+        result.checks.extend(rule_checks)
+        result.issues.extend(rule_issues)
+        if selected or jobs:
+            context = nullcontext(client) if client is not None else httpx.Client(
+                timeout=REQUEST_TIMEOUT, follow_redirects=False,
+                limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
+            with context as http, ThreadPoolExecutor(max_workers=min(3, len(selected) + len(jobs))) as pool:
+                futures = [pool.submit(_fetch_one, source, record, Path(cache_dir), http, now)
+                           for source, record in selected]
+                rule_futures = [pool.submit(fetch_rule_source, job, Path(cache_dir), http, now) for job in jobs]
+                for (source, record), future in zip(selected, futures):
+                    saved, check = future.result()
+                    _apply(record, source, saved, check)
+                    result.checks.append(check)
+                    if check.message:
+                        result.issues.append(check.message)
+                for job, future in zip(jobs, rule_futures):
+                    saved, check = future.result()
+                    apply_rule_source(active, job, saved, check)
+                    result.checks.append(check)
         for source, record in omitted:
             result.checks.append(SourceCheck(source_id=source.source_id, code=record.code, url=source.url,
                 status="skipped", attempted_at=now or datetime.now(timezone.utc), retrieved_at=source.retrieved_at))
         if omitted:
             result.issues.append("The source-check limit was reached; remaining records retain dated snapshots.")
+        finalize_rule_checks(active, courses, result.checks)
+        result.issues.extend(check.message for check in result.checks if check.kind == "rule" and check.message)
     result.elapsed = time.perf_counter() - started
     return result

@@ -25,12 +25,15 @@ def main():
     args.output.write_text(json.dumps(result.trace, indent=2), encoding="utf-8")
     checks = result.trace["source_refresh"].get("checks", [])
     for check in checks:
-        print(check["code"], check["status"], "last checked:", check["last_checked_at"] or "not verified")
+        print(check.get("kind", "course"), check["code"], check["status"],
+              "rule status:", check.get("rule_status") or "not applicable",
+              "last checked:", check["last_checked_at"] or "not verified")
     for issue in result.issues:
         print(issue)
     print("Source-check trace:", args.output)
     print("No embedding or generation requests were made.")
-    return 0 if checks and all(c["status"] in {"updated", "unchanged", "not_modified"} for c in checks) else 1
+    return 0 if checks and all(c["status"] in {"updated", "unchanged", "not_modified"}
+                              and c.get("rule_status") in {None, "verified"} for c in checks) else 1
 
 
 if __name__ == "__main__":

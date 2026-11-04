@@ -38,7 +38,7 @@ def description_text(value: str) -> str:
     return " ".join("".join(parser.parts).split())
 
 
-def extract_course(page: str) -> dict:
+def _nuxt_data(page: str):
     match = re.search(r'<script[^>]*id=["\']__NUXT_DATA__["\'][^>]*>(.*?)</script>', page, re.S)
     if not match:
         raise ValueError("The catalog page format is not recognized")
@@ -64,16 +64,10 @@ def extract_course(page: str) -> dict:
             return [resolve(ref, visited + (index,)) for ref in value]
         return value
 
-    raw = next((v for v in table if isinstance(v, dict) and
-                {"code", "longName", "description", "credits", "requirementGroup"} <= set(v)), None)
-    if raw is None:
-        raise ValueError("Course metadata is missing")
-    fields = {key: resolve(raw[key]) for key in
-              ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate"] if key in raw}
-    if not isinstance(fields["description"], str) or len(fields["description"]) > 50000:
-        raise ValueError("The course description is invalid")
-    if not isinstance(fields["credits"], dict):
-        raise ValueError("Course credits are missing")
+    return table, resolve
+
+
+def _active_edition(table, resolve):
     editions = set()
     for value in table:
         if isinstance(value, dict) and {"activeCatalog", "catalogDisplayName"} <= value.keys():
@@ -85,6 +79,21 @@ def extract_course(page: str) -> dict:
                     editions.add(year[1] + "-" + year[2])
     if len(editions) > 1:
         raise ValueError("The active catalog edition is ambiguous")
+    return next(iter(editions), None)
+
+
+def extract_course(page: str) -> dict:
+    table, resolve = _nuxt_data(page)
+    raw = next((v for v in table if isinstance(v, dict) and
+                {"code", "longName", "description", "credits", "requirementGroup"} <= set(v)), None)
+    if raw is None:
+        raise ValueError("Course metadata is missing")
+    fields = {key: resolve(raw[key]) for key in
+              ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate"] if key in raw}
+    if not isinstance(fields["description"], str) or len(fields["description"]) > 50000:
+        raise ValueError("The course description is invalid")
+    if not isinstance(fields["credits"], dict):
+        raise ValueError("Course credits are missing")
     return {
         "code": fields["code"],
         "title": fields["longName"],
@@ -92,8 +101,33 @@ def extract_course(page: str) -> dict:
         "requirement_reference": fields["requirementGroup"],
         "effective_start": fields.get("effectiveStartDate"),
         "summary": description_text(fields["description"]),
-        "catalog_version": next(iter(editions), None),
+        "catalog_version": _active_edition(table, resolve),
         "description_hash": hashlib.sha256(fields["description"].encode()).hexdigest(),
         "page_hash": hashlib.sha256(page.encode()).hexdigest(),
         "review_required": True,
     }
+
+
+def extract_program_statements(page: str, program_code: str, sections: list[str]) -> dict:
+    table, resolve = _nuxt_data(page)
+    primary = next((v for v in table if isinstance(v, dict) and
+                    {"code", "programGroupId", "degreeDesignation", "longName"} <= v.keys()), None)
+    if primary is None or resolve(primary["code"]) != program_code or resolve(primary["programGroupId"]) != program_code:
+        raise ValueError("The primary program identity does not match")
+    statements = {}
+    for section in sections:
+        matches = set()
+        for value in table:
+            if not isinstance(value, dict) or not {"id", "name", "description"} <= value.keys():
+                continue
+            name = resolve(value["name"])
+            if isinstance(name, str) and "(" + section + ")" in name:
+                text = resolve(value["description"])
+                if not isinstance(text, str) or not text.strip() or len(text) > 20000:
+                    raise ValueError("The prerequisite source statement is invalid")
+                matches.add(description_text(text))
+        if len(matches) != 1:
+            raise ValueError("The prerequisite source section is missing or ambiguous")
+        statements[section] = matches.pop()
+    return {"program_code": program_code, "catalog_version": _active_edition(table, resolve),
+            "statements": statements}

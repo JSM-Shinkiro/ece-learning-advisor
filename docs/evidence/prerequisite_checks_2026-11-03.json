@@ -1,0 +1,396 @@
+{
+  "scope": "Two public course/prerequisite-source checks during backend development, using a controlled profile. No embedding, generation, or opportunity-provider calls. Individual observations, not a benchmark. The first partial failure is retained.",
+  "local_development_date": "2026-11-03",
+  "timezone": "America/Phoenix",
+  "profile": {
+    "fixture": true,
+    "career_id": "ai_ml",
+    "catalog_version": "2026-2027",
+    "completed": [
+      {
+        "course_code": "ECE101",
+        "grade": "B"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "case": "first_rule_check",
+      "observed_at": "2026-11-04T04:20:28.897877+00:00",
+      "corpus_hash": "bebc63b56abc98093836ba91c4ab3410603b2673fa87e47c632c663bb603cce3",
+      "source_refresh": {
+        "enabled": true,
+        "catalog_version": "2026-2027",
+        "checks": [
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "stale_cache",
+            "attempted_at": "2026-11-04T04:20:16.470017Z",
+            "last_checked_at": "2026-11-04T03:47:51.875694Z",
+            "retrieved_at": "2026-11-04T03:47:51.875694Z",
+            "content_hash": "43b68dcee47f6de2e35246f8fc6e6d37d8b66f21cce96097cd4ef4632802db56",
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": "timeout",
+            "rule_status": null,
+            "message": "ECE101: source check failed. Using dated cached evidence."
+          },
+          {
+            "source_id": "catalog:ECE425",
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "kind": "course",
+            "status": "stale_cache",
+            "attempted_at": "2026-11-04T04:20:16.473275Z",
+            "last_checked_at": "2026-11-04T03:47:51.741836Z",
+            "retrieved_at": "2026-11-04T03:47:51.741836Z",
+            "content_hash": "87e2c3067085268b53e70e9994dbb4afc2d7dffff3a416a3f0d7b8801cf82b42",
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": "timeout",
+            "rule_status": null,
+            "message": "ECE425: source check failed. Using dated cached evidence."
+          },
+          {
+            "source_id": "catalog:CSC120",
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "kind": "course",
+            "status": "stale_cache",
+            "attempted_at": "2026-11-04T04:20:16.477164Z",
+            "last_checked_at": "2026-11-04T03:47:51.800914Z",
+            "retrieved_at": "2026-11-04T03:47:51.800914Z",
+            "content_hash": "9e05c3b86a56a888e31614260e11df6e18ff1b68650657243f07e5f7eed6c403",
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": "timeout",
+            "rule_status": null,
+            "message": "CSC120: source check failed. Using dated cached evidence."
+          },
+          {
+            "source_id": "catalog:CS_foundations",
+            "code": "COSCBS",
+            "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+            "kind": "rule",
+            "status": "updated",
+            "attempted_at": "2026-11-04T04:20:22.478548Z",
+            "last_checked_at": "2026-11-04T04:20:28.894721Z",
+            "retrieved_at": "2026-11-04T04:20:28.894721Z",
+            "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": "stale",
+            "message": "The affected prerequisite conditions remain unknown until their evidence and interpretation are verified."
+          }
+        ]
+      },
+      "rule_result": {
+        "status": "unknown",
+        "reasons": [
+          "The prerequisite sources could not be verified for this request.",
+          "Some supporting requirement records are outside this reviewed context."
+        ],
+        "evidence_ids": [
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "verification_status": "stale",
+        "source_ids": [
+          "catalog:CS_foundations"
+        ]
+      },
+      "context_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "timings": {
+        "source_refresh": 12.448279135999655,
+        "retrieval": 0.0006410690002667252,
+        "total": 12.449658640000052
+      },
+      "issues": [
+        "ECE101: source check failed. Using dated cached evidence.",
+        "ECE425: source check failed. Using dated cached evidence.",
+        "CSC120: source check failed. Using dated cached evidence.",
+        "The affected prerequisite conditions remain unknown until their evidence and interpretation are verified."
+      ],
+      "generation_status": "not_requested"
+    },
+    {
+      "case": "repeat_rule_check",
+      "observed_at": "2026-11-04T04:20:33.531008+00:00",
+      "corpus_hash": "bebc63b56abc98093836ba91c4ab3410603b2673fa87e47c632c663bb603cce3",
+      "source_refresh": {
+        "enabled": true,
+        "catalog_version": "2026-2027",
+        "checks": [
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "unchanged",
+            "attempted_at": "2026-11-04T04:20:28.901601Z",
+            "last_checked_at": "2026-11-04T04:20:33.009921Z",
+            "retrieved_at": "2026-11-04T04:20:33.009921Z",
+            "content_hash": "43b68dcee47f6de2e35246f8fc6e6d37d8b66f21cce96097cd4ef4632802db56",
+            "content_changed": false,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE425",
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "kind": "course",
+            "status": "unchanged",
+            "attempted_at": "2026-11-04T04:20:28.901947Z",
+            "last_checked_at": "2026-11-04T04:20:32.993684Z",
+            "retrieved_at": "2026-11-04T04:20:32.993684Z",
+            "content_hash": "87e2c3067085268b53e70e9994dbb4afc2d7dffff3a416a3f0d7b8801cf82b42",
+            "content_changed": false,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC120",
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "kind": "course",
+            "status": "unchanged",
+            "attempted_at": "2026-11-04T04:20:28.902869Z",
+            "last_checked_at": "2026-11-04T04:20:33.135452Z",
+            "retrieved_at": "2026-11-04T04:20:33.135452Z",
+            "content_hash": "9e05c3b86a56a888e31614260e11df6e18ff1b68650657243f07e5f7eed6c403",
+            "content_changed": false,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CS_foundations",
+            "code": "COSCBS",
+            "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+            "kind": "rule",
+            "status": "unchanged",
+            "attempted_at": "2026-11-04T04:20:33.010227Z",
+            "last_checked_at": "2026-11-04T04:20:33.528470Z",
+            "retrieved_at": "2026-11-04T04:20:33.528470Z",
+            "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c",
+            "content_changed": false,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "message": ""
+          }
+        ]
+      },
+      "rule_result": {
+        "status": "satisfied",
+        "reasons": [
+          "CSC110 is not in the supplied completion history.",
+          "ECE101: grade B, required C.",
+          "ECE175 is not in the supplied completion history.",
+          "ISTA130 is not in the supplied completion history."
+        ],
+        "evidence_ids": [
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "verification_status": "verified",
+        "source_ids": [
+          "catalog:CS_foundations"
+        ]
+      },
+      "context_chunk_ids": [
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:pytorch:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "career:ai_ml:overview"
+      ],
+      "timings": {
+        "source_refresh": 4.631424367999898,
+        "retrieval": 0.0005388540002968512,
+        "total": 4.6324447200004215
+      },
+      "issues": [],
+      "generation_status": "not_requested"
+    }
+  ],
+  "cli_checks": [
+    {
+      "case": "supported",
+      "exit_code": 0,
+      "generation_status": "not_requested",
+      "source_refresh": {
+        "enabled": true,
+        "catalog_version": "2026-2027",
+        "checks": [
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-04T04:30:07.542851Z",
+            "last_checked_at": "2026-11-04T04:30:14.616465Z",
+            "retrieved_at": "2026-11-04T04:30:14.616465Z",
+            "content_hash": "43b68dcee47f6de2e35246f8fc6e6d37d8b66f21cce96097cd4ef4632802db56",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE425",
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-04T04:30:07.545187Z",
+            "last_checked_at": "2026-11-04T04:30:14.368093Z",
+            "retrieved_at": "2026-11-04T04:30:14.368093Z",
+            "content_hash": "87e2c3067085268b53e70e9994dbb4afc2d7dffff3a416a3f0d7b8801cf82b42",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC120",
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-04T04:30:07.545902Z",
+            "last_checked_at": "2026-11-04T04:30:14.705883Z",
+            "retrieved_at": "2026-11-04T04:30:14.705883Z",
+            "content_hash": "9e05c3b86a56a888e31614260e11df6e18ff1b68650657243f07e5f7eed6c403",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CS_foundations",
+            "code": "COSCBS",
+            "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+            "kind": "rule",
+            "status": "updated",
+            "attempted_at": "2026-11-04T04:30:14.368860Z",
+            "last_checked_at": "2026-11-04T04:30:15.704451Z",
+            "retrieved_at": "2026-11-04T04:30:15.704451Z",
+            "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "message": ""
+          }
+        ]
+      },
+      "timings_seconds": {
+        "source_refresh": 8.1862939979992,
+        "retrieval": 0.0010179379996770876,
+        "total": 8.188197445000696
+      }
+    },
+    {
+      "case": "unsupported",
+      "exit_code": 1,
+      "generation_status": "not_requested",
+      "source_refresh": {
+        "enabled": true,
+        "catalog_version": "2026-2027",
+        "checks": [
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "unsupported_edition",
+            "attempted_at": "2026-11-04T04:30:07.525760Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE425",
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "kind": "course",
+            "status": "unsupported_edition",
+            "attempted_at": "2026-11-04T04:30:07.525791Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:05:20.982642Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC120",
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "kind": "course",
+            "status": "unsupported_edition",
+            "attempted_at": "2026-11-04T04:30:07.525797Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:05:24.472577Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "message": ""
+          }
+        ]
+      },
+      "timings_seconds": {
+        "source_refresh": 0.0007439440005327924,
+        "retrieval": 0.0004974619996573892,
+        "total": 0.0017634440000620089
+      }
+    }
+  ]
+}

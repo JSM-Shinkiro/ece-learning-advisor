@@ -28,6 +28,9 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
             for source in catalog.sources:
                 if source.source_id.startswith("catalog:"):
                     source.verification_status = "stale"
+            for record in catalog.records:
+                if record.rule_reviewed or record.rule_evidence:
+                    record.rule_verification = "unavailable"
             source_trace = {"enabled": True, "error": "unavailable", "checks": []}
             source_issues = ["Official-source checks are unavailable. Showing dated saved evidence."]
         source_elapsed = time.perf_counter() - before

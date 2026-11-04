@@ -1,5 +1,5 @@
 {
-  "version": "starter-2026-10-22-v2",
+  "version": "pilot-2026-11-03-rule-provenance-v1",
   "catalog_version": "2026-2027",
   "sources": [
     {
@@ -72,11 +72,11 @@
       "source_id": "catalog:CS_foundations",
       "title": "Computer Science BS \u2014 foundation course requirements",
       "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
-      "retrieved_at": "2026-10-23T05:17:17.327892+00:00",
+      "retrieved_at": "2026-11-04T04:02:39.295788+00:00",
       "catalog_version": "2026-2027",
       "section": "Computer Science Major: Foundation Courses, R1299/L40",
-      "review_note": "The current Computer Science program requirements identify completion of CSC110, ECE101, ECE175, or ISTA130 with C or higher before CSC120. This condition is taken from the current catalog program entry. The direct course entry still exposes requirement reference 017083. Department guidance differs on the listed alternatives, so confirm unusual substitutions with an advisor.",
-      "content_hash": null
+      "review_note": "Reviewed prerequisite condition from the matching catalog program section R1299/L40. Runtime checks compare this section with its reviewed statement and interpretation; this is not a complete enrollment audit. Department guidance lists different alternatives, so the versioned catalog remains the authority for this condition.",
+      "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c"
     }
   ],
   "records": [
@@ -224,7 +224,7 @@
             "course_code": "CSC110",
             "minimum_grade": "C",
             "evidence_ids": [
-              "uofa:CSC120:2026-2027:overview"
+              "uofa:CSC120:2026-2027:rule:R1299-L40"
             ]
           },
           {
@@ -232,7 +232,7 @@
             "course_code": "ECE101",
             "minimum_grade": "C",
             "evidence_ids": [
-              "uofa:CSC120:2026-2027:overview"
+              "uofa:CSC120:2026-2027:rule:R1299-L40"
             ]
           },
           {
@@ -240,7 +240,7 @@
             "course_code": "ECE175",
             "minimum_grade": "C",
             "evidence_ids": [
-              "uofa:CSC120:2026-2027:overview"
+              "uofa:CSC120:2026-2027:rule:R1299-L40"
             ]
           },
           {
@@ -248,7 +248,7 @@
             "course_code": "ISTA130",
             "minimum_grade": "C",
             "evidence_ids": [
-              "uofa:CSC120:2026-2027:overview"
+              "uofa:CSC120:2026-2027:rule:R1299-L40"
             ]
           }
         ]
@@ -260,7 +260,21 @@
         "ai_ml"
       ],
       "learning_note": "Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment.",
-      "first_activity": ""
+      "first_activity": "",
+      "rule_evidence": [
+        {
+          "evidence_id": "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC120",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L40",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. C or better is required in CSC 110, ECE 101, ECE 175, or ISTA 130 prior to taking CSC 120.",
+          "statement_hash": "137c87c389c60717fe2ba9c912bcf03947d1c6be26c24281e3e1802118ed2dbd",
+          "rule_hash": "ec451cbd0eafae519ea9848d0d2d729166a72a72c28e0376174198c27e4180f4",
+          "reviewed_at": "2026-11-04T04:15:13.541637+00:00"
+        }
+      ]
     },
     {
       "record_id": "resource:pytorch",

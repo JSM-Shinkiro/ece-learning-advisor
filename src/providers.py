@@ -101,6 +101,9 @@ Do not override rule_results. Unknown academic conditions remain unknown.
 Respect source_freshness. Snapshot and stale sources are dated evidence, not
 current verification. A verified course description does not establish that a
 separately sourced academic rule has been checked again.
+Prerequisite statements have separate evidence chunks. A changed or stale
+statement cannot override an unknown application rule result. Cite the rule
+chunk for prerequisite claims, not a course-description chunk.
 Respect suggested_phases: next, build, and later describe learning stages.
 Build and later goals are not immediate next courses. Stage is not enrollment eligibility.
 A team-authored career mapping is a suggested learning connection, not a degree rule.

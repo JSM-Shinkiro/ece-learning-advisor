@@ -72,7 +72,9 @@ def build_query(catalog: Catalog, profile: StudentProfile, question: str):
 def build_context(catalog: Catalog, profile: StudentProfile, question: str, query: str,
                   hits: list[Hit], max_chunks=8, max_characters=16000):
     records = {r.record_id: r for r in catalog.records}
-    chunks = {e.record_id: e for e in build_evidence(catalog)}
+    chunks = {}
+    for chunk in build_evidence(catalog):
+        chunks.setdefault(chunk.record_id, []).append(chunk)
     completed = {c.course_code for c in profile.completed if c.grade not in {"E", "F"}}
     courses, resources = [], []
     for hit in hits:
@@ -122,16 +124,19 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
                 if dependency and dependency.record_id not in seen:
                     dependency_ids.append(dependency.record_id)
                     queue.append(dependency)
-    # A reviewed rule is contained in the course chunk. Additional descriptions
-    # help exploration, but an absent alternative must not invalidate a satisfied OR.
+    # Keep reviewed conditions with their course evidence. Additional dependency
+    # descriptions help exploration; an absent alternative cannot invalidate a satisfied OR.
     ordered = list(dict.fromkeys(selected + dependency_ids + career_ids))
     evidence, consumed = [], 0
     for record_id in ordered:
-        candidate = chunks[record_id]
-        if len(evidence) >= max_chunks or consumed + len(candidate.text) > max_characters:
+        candidates = chunks[record_id]
+        size = sum(len(chunk.text) for chunk in candidates)
+        # A recommendation must not lose its prerequisite-source evidence to
+        # the context cutoff. Include each course's evidence as one bundle.
+        if len(evidence) + len(candidates) > max_chunks or consumed + size > max_characters:
             continue
-        evidence.append(candidate)
-        consumed += len(candidate.text)
+        evidence.extend(candidates)
+        consumed += size
     included = {e.record_id for e in evidence}
     allowed = [r for r in selected if r in included]
     rule_results = {}

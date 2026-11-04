@@ -39,6 +39,7 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
         if record.kind == "course":
             text += f"\nCredits: {record.credits}. Catalog: {record.catalog_version}."
             text += "\nAcademic rule: " + (
+                "Use the separate prerequisite-source evidence and application rule results." if record.rule_evidence else
                 record.rule.model_dump_json() if record.rule_reviewed
                 else "Unresolved. Do not infer enrollment eligibility."
             )
@@ -50,12 +51,21 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
             text += "\nTeam learning suggestion (not an academic requirement): " + record.learning_note
         if record.first_activity:
             text += "\nSuggested first activity: " + record.first_activity
+        rule_sources = {p.source_id for p in record.rule_evidence}
+        description_sources = [sid for sid in record.source_ids if sid not in rule_sources]
         chunks.append(Evidence(
             chunk_id=record.record_id + ":overview",
             record_id=record.record_id,
-            source_ids=record.source_ids,
+            source_ids=description_sources or record.source_ids,
             text=text,
         ))
+        for proof in record.rule_evidence:
+            statement = " ".join((proof.observed_text or proof.reviewed_text).split())
+            chunks.append(Evidence(chunk_id=proof.evidence_id, record_id=record.record_id,
+                source_ids=[proof.source_id], text=(f"Prerequisite source statement for {record.code}. "
+                    f"Catalog: {proof.catalog_version}. Program: {proof.program_code}. Section: {proof.section_id}.\n"
+                    + statement + "\nUse only the application rule results to assess recorded prerequisite satisfaction. "
+                    "A source statement alone does not establish enrollment eligibility.")))
     return chunks
 
 

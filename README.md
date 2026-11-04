@@ -2,7 +2,7 @@
 
 **Team P07 | Fall 2026**
 
-Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, owners, and the next work.
+Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
 
@@ -73,6 +73,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - PCA projection and cosine drill-down when embeddings are available.
 - Versioned public-record embedding cache.
 - Official course checks on submitted roadmaps, with a rebuildable source cache and dated failure fallback.
+- Explicit prerequisite provenance and on-use revalidation for the reviewed CSC120 condition, with separate citation evidence.
 - Reuse of unchanged document vectors when another course changes.
 - Profile export/import, searchable coursework entry, and Mark completed actions.
 - Direction comparison for students who are still exploring.
@@ -85,7 +86,9 @@ Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabric
 
 Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
 
-This first connector covers the five configured course pages, not catalog-wide discovery. Resources and the separately reviewed CSC120 program requirement retain their dated snapshots. Unknown rules remain unknown; a changed enrollment requirement reference revokes the affected reviewed rule. Failed checks use a clearly dated valid cache or the bundled snapshot. See [runtime source checks](docs/14_RUNTIME_SOURCES.md) for limits and verification.
+The connector covers five configured course pages and the reviewed CSC120 program-requirement section. It checks the prerequisite statement against its exact reviewed text, catalog edition, and structured interpretation. Changed, stale, unavailable, or unsupported prerequisite evidence makes the affected academic result unknown. The rule statement has its own source-linked evidence chunk and travels with the course description into the generator context.
+
+Resource pages and catalog-wide discovery remain outside this connector. Failed description checks retain clearly dated valid caches or bundled snapshots. A changed enrollment requirement reference revokes the affected reviewed rule. See [runtime source checks](docs/14_RUNTIME_SOURCES.md) and [prerequisite evidence](docs/15_PREREQUISITE_EVIDENCE.md) for limits and verification.
 
 `ECE_REFRESH_SOURCES=true` is the default. Set it to `false` for an explicit offline run; the app labels its sources as saved evidence. Public source checks do not require a Gemini key. Try:
 
@@ -93,7 +96,7 @@ This first connector covers the five configured course pages, not catalog-wide d
 python scripts/check_sources.py --career exploring
 ```
 
-The command saves a trace under `.cache` and exits unsuccessfully if any requested source could not be verified. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
+The command saves a trace under `.cache` and exits unsuccessfully if a requested source or its bound prerequisite interpretation could not be verified. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 

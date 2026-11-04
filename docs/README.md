@@ -6,6 +6,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | --- | --- |
 | [Final-project handoff](13_FINAL_PROJECT_DEVELOPMENT.md) | Development repository, preserved midproject revision, backend priorities, and next tasks |
 | [Runtime source checks](14_RUNTIME_SOURCES.md) | On-use course checks, freshness, failure recovery, cache identity, and live verification |
+| [Prerequisite evidence](15_PREREQUISITE_EVIDENCE.md) | Reviewed rule provenance, separate citation chunks, live revalidation, and conservative failure behavior |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

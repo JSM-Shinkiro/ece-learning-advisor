@@ -2,6 +2,8 @@
 
 Implemented November 3, 2026. Development work belongs in `ece-learning-advisor`; the submitted repository and midproject snapshot remain unchanged.
 
+**Follow-up, November 3:** [Prerequisite evidence](15_PREREQUISITE_EVIDENCE.md) adds checks of explicitly bound program sections, separate rule chunks, and prompt version `p07-v4-rule-provenance`. The course-only milestone and measurements below retain their original scope and results.
+
 ## Request path
 
 `run_advisor` now checks relevant configured official course pages before retrieval, academic evaluation, and optional generation. `recommend` remains a pure operation on an already selected catalog, so provider comparisons and controlled tests can still use a fixed corpus.

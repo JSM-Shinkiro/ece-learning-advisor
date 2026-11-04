@@ -187,3 +187,35 @@ def test_live_sources_run_on_submission_and_render_the_active_catalog(app, monke
     app.selectbox(key="career_id").set_value("embedded")
     submit(app)
     assert not app.exception and calls == ["ai_ml", "embedded"]
+
+
+def test_changed_prerequisite_replaces_approval_in_cards_and_inspector(app, monkeypatch):
+    from src.sources import CatalogRefresh
+
+    changed = False
+    def refresh(catalog, profile, **kwargs):
+        active = catalog.model_copy(deep=True)
+        course = next(r for r in active.records if r.code == "CSC120")
+        proof = course.rule_evidence[0]
+        course.rule_verification = proof.verification_status = "changed" if changed else "verified"
+        if changed:
+            proof.observed_text = "Changed fixture statement awaiting review."
+        for source in active.sources:
+            if source.source_id in course.source_ids:
+                source.verification_status = "verified"
+        return CatalogRefresh(active)
+
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_area(key="course_text").set_value("ECE101:B")
+    submit(app)
+    assert not app.exception
+    assert any("Recorded prerequisites satisfied" in caption.value for caption in app.caption)
+    changed = True
+    submit(app)
+    assert not app.exception
+    assert not any("Recorded prerequisites satisfied" in caption.value for caption in app.caption)
+    assert any("Enrollment requirements unverified" in caption.value for caption in app.caption)
+    assert any("prerequisite evidence or interpretation needs review" in item.value for item in app.markdown)
+    assert any("Changed fixture statement awaiting review." in item.value for item in app.text)
+    assert any("uofa:CSC120:2026-2027:rule:R1299-L40" in item.value for item in app.markdown)
