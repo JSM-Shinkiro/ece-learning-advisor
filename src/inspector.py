@@ -18,6 +18,12 @@ def render_inspector(result, catalog):
         added_terms = result.trace.get("query_interpretation", {}).get("added_terms", [])
         if added_terms:
             st.caption("Search also uses: " + ", ".join(added_terms) + ". These search terms do not change academic requirements.")
+        discovery = result.trace.get("source_refresh", {}).get("discovery_selection", {})
+        if discovery.get("requested_codes"):
+            st.caption("Course discovery prioritizes explicit course mentions within the configured source scope and download limit.")
+            st.dataframe(discovery["requests"], hide_index=True)
+            if discovery.get("truncated"):
+                st.caption("Only the first 16 distinct course mentions were considered for discovery priority.")
         hits = [h for h in result.hits if records[h.record_id].kind!="career"][:10]
         if hits:
             def hit_label(hit):

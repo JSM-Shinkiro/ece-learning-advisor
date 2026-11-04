@@ -1,5 +1,7 @@
 # CS foundation coverage
 
+Later November 4: [requested-course discovery](25_REQUESTED_COURSE_DISCOVERY.md) now implements literal course-code priority. The source-order defaults, counts, and source-only observations below describe this earlier coverage unit.
+
 Implemented and checked November 4, 2026. Runtime discovery now includes CSC144 and CSC210 with explicitly reviewed, source-bound conditions. The saved five-course corpus, frozen evaluation references, earlier measurements, and submitted midproject deliverables remain unchanged.
 
 ## Source and interpretation

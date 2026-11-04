@@ -358,6 +358,43 @@ def test_expanded_cs_conditions_reach_the_roadmap_picker_and_sources(app, monkey
     assert calls == [code]
 
 
+@pytest.mark.parametrize("code", ["ECE201", "ECE274A"])
+def test_requested_ece_course_gets_a_discovery_slot_and_visible_selection_status(app, monkeypatch, tmp_path, code):
+    from test_discovery_priority import priority_refresh
+    calls = []
+    def refresh(catalog, profile, **kwargs):
+        calls.append(profile.question)
+        return priority_refresh(catalog, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_input(key="question").set_value("How should I prepare for " + code + "?")
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    rid = "uofa:" + code + ":2026-2027"
+    assert rid in result.context.allowed_record_ids
+    assert result.context.rule_results[rid].status == "unknown"
+    table = next(item.value for item in app.dataframe if {"code", "status"} <= set(item.value.columns))
+    assert table[table["code"] == code]["status"].tolist() == ["added"]
+    assert any("prioritizes explicit course mentions" in item.value for item in app.caption)
+    app.run()
+    assert any(option.startswith(code + " · ") for option in app.multiselect(key="completed_courses").options)
+    assert calls == ["How should I prepare for " + code + "?"]
+
+
+def test_unavailable_course_displays_selection_limit_without_a_fabricated_card(app, monkeypatch, tmp_path):
+    from test_discovery_priority import priority_refresh
+    monkeypatch.setattr("src.controller.refresh_catalog", lambda catalog, profile, **kwargs: priority_refresh(catalog, tmp_path, profile))
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_input(key="question").set_value("ECE499")
+    submit(app)
+    assert not app.exception
+    assert app.session_state["result"].coverage_notice
+    table = next(item.value for item in app.dataframe if {"code", "status"} <= set(item.value.columns))
+    assert table[table["code"] == "ECE499"]["status"].tolist() == ["not_available"]
+    assert not any(option.startswith("ECE499 · ") for option in app.multiselect(key="completed_courses").options)
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

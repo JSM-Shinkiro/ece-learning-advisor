@@ -67,6 +67,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Three learning stages, a bridge course for each direction, and explanations of suggested learning connections.
 - Five source-linked courses and two online resources.
 - Up to three additional course descriptions discovered from configured official foundation sections on each submitted roadmap.
+- Explicit course mentions get discovery priority within the verified source scope and existing download cap, with selection outcomes in the inspector.
 - Keyword, semantic, and hybrid retrieval.
 - Independent prerequisite evaluation with blocked courses kept as later goals.
 - Structured Gemini statement selection with application-owned wording, citations, and academic limitations.
@@ -119,7 +120,15 @@ The command saves a trace under `.cache` and exits unsuccessfully if a requested
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 
-Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The November 3 exploring-profile check added CSC110, ECE201, and ECE220. The [later CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210 sections and reviewed conditions. With the current source order and unchanged three-course cap, AI/ML and exploring prioritize CSC110, CSC144, and CSC210; embedded searches retain the configured ECE foundation section. This is bounded coverage, not a complete catalog search. Finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
+Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The November 3 exploring-profile check added CSC110, ECE201, and ECE220. The [later CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210 sections and reviewed conditions. [Requested-course priority](docs/25_REQUESTED_COURSE_DISCOVERY.md) now puts explicitly mentioned configured course codes first, in mention order. Remaining slots keep source order: AI/ML and exploring default to CSC110, CSC144, and CSC210; embedded requests retain the ECE foundation section. For example, an AI/ML question about ECE201 can now reserve a slot for its verified program link. Career/source scope and download limits still apply. This is bounded coverage, not a complete catalog search. Finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
+
+The inspector shows whether a requested course was added, retained as dated cached content, already in the collection, limited by the budget, or unavailable from the selected sources. To exercise this path without model calls:
+
+```bash
+python scripts/check_sources.py --career ai_ml --question "How should I prepare for ECE201?"
+```
+
+The command reports source checks and requested-course outcomes separately. A successful source-check exit does not establish that every mentioned course was found or that prerequisites are satisfied.
 
 The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules remain **unknown**. CSC120 has a reviewed condition in the saved collection. Runtime discovery can attach the reviewed CSC110, CSC144, and CSC210 conditions from matching program sections. The CSC144 condition combines an introductory programming alternative with a mathematics alternative; its placement branch remains unknown. CSC210 requires a confirmed CSC120 grade of C or higher. These checks preserve prior completion, minimum grades, and unknown evidence. Other discovered conditions remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md) and [the CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
 
@@ -149,7 +158,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 639 tests, including 30 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 678 tests, including 33 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 

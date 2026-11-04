@@ -310,6 +310,11 @@
       "ai_ml",
       "embedded"
     ],
-    "study_stage": "foundation"
+    "study_stage": "foundation",
+    "course_codes": {
+      "0432591": "ECE201",
+      "0120881": "ECE220",
+      "0360981": "ECE274A"
+    }
   }
 ]

@@ -7,7 +7,7 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
 
@@ -17,6 +17,10 @@ from .rule_sources import MAX_RULE_SOURCES, RuleJob
 
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
+MAX_REQUESTED_CODES = 16
+DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v1"
+CourseID = Annotated[str, Field(pattern=r"^\d{7}$")]
+CourseCode = Annotated[str, Field(pattern=r"^(?:ECE|CSC)[1-4]\d{2}[A-Z]{0,2}$")]
 
 
 class ReviewedDiscoveryRule(StrictModel):
@@ -44,6 +48,7 @@ class DiscoveryPlan(StrictModel):
     career_ids: list[Literal["ai_ml", "embedded"]] = Field(min_length=1, max_length=2)
     study_stage: Literal["foundation", "intermediate", "advanced"]
     reviewed_rules: list[ReviewedDiscoveryRule] = Field(default_factory=list, max_length=3)
+    course_codes: dict[CourseID, CourseCode] = Field(default_factory=dict, max_length=40)
 
     @model_validator(mode="after")
     def matching_program(self):
@@ -61,7 +66,22 @@ class DiscoveryPlan(StrictModel):
             values = [getattr(entry, key) for entry in self.reviewed_rules]
             if len(values) != len(set(values)):
                 raise ValueError("Duplicate discovered-course interpretation")
+        _check_code_bindings([self])
         return self
+
+    @property
+    def known_course_codes(self):
+        return {**self.course_codes, **{entry.course_id: entry.course_code for entry in self.reviewed_rules}}
+
+
+def _check_code_bindings(plans):
+    by_id, by_code = {}, {}
+    for plan in plans:
+        entries = [*plan.course_codes.items(), *((e.course_id, e.course_code) for e in plan.reviewed_rules)]
+        for identity, code in entries:
+            if by_id.get(identity, code) != code or by_code.get(code, identity) != identity:
+                raise ValueError("Conflicting course-discovery code identities")
+            by_id[identity], by_code[code] = code, identity
 
 
 def load_discovery_plans(path=DEFAULT_PLANS):
@@ -72,6 +92,7 @@ def load_discovery_plans(path=DEFAULT_PLANS):
     ids = [p.source.source_id for p in plans]
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate course-discovery program source")
+    _check_code_bindings(plans)
     return plans
 
 
@@ -114,6 +135,7 @@ class CourseCandidate:
     course_id: str
     plan: DiscoveryPlan
     sections: list[str]
+    expected_code: str | None = None
 
     @property
     def url(self):
@@ -128,7 +150,31 @@ class CourseCandidate:
         return source, record
 
 
-def select_candidates(catalog, plans, program_results, limit):
+@dataclass
+class DiscoverySelection:
+    candidates: list[CourseCandidate]
+    remaining: int
+    trace: dict
+
+    def record_result(self, candidate, record, check):
+        outcome = "unavailable" if record is None else "stale_added" if check.status == "stale_cache" else "added"
+        selected = next(item for item in self.trace["selected"] if item["course_id"] == candidate.course_id)
+        selected.update(outcome=outcome, actual_code=record.code if record else None, source_status=check.status)
+        for request in self.trace["requests"]:
+            if request.get("course_id") == candidate.course_id:
+                request["status"] = outcome
+
+
+def requested_course_codes(profile):
+    if profile is None:
+        return [], "none", False
+    text, origin = (profile.question, "question") if profile.question.strip() else (profile.interests, "interests")
+    codes = list(dict.fromkeys(re.sub(r"\s+", "", match.group()).upper()
+        for match in re.finditer(r"\b(?:ECE|CSC)\s*[1-4]\d{2}[A-Z]{0,2}\b", text, re.I)))
+    return codes[:MAX_REQUESTED_CODES], origin if text.strip() else "none", len(codes) > MAX_REQUESTED_CODES
+
+
+def select_candidates(catalog, plans, program_results, limit, *, profile=None):
     """Use only currently verified link lists; retain no personal query in caches."""
     known = {s.url for s in catalog.sources if "/courses/" in s.url}
     candidates, seen = [], set()
@@ -141,13 +187,33 @@ def select_candidates(catalog, plans, program_results, limit):
             for course_id in saved.data.course_ids.get(section, []):
                 sections_by_id.setdefault(course_id, []).append(section)
         for course_id, sections in sections_by_id.items():
-            candidate = CourseCandidate(course_id, plan, sections)
+            candidate = CourseCandidate(course_id, plan, sections, plan.known_course_codes.get(course_id))
             if candidate.url in known or candidate.url in seen:
                 continue
             seen.add(candidate.url)
             candidates.append(candidate)
     budget = max(0, min(MAX_DISCOVERED_COURSES, limit))
-    return candidates[:budget], len(candidates) - min(budget, len(candidates))
+    codes, origin, truncated = requested_course_codes(profile)
+    rank = {code: index for index, code in enumerate(codes)}
+    candidates.sort(key=lambda candidate: rank.get(candidate.expected_code, len(rank)))
+    selected = candidates[:budget]
+    requests = []
+    for code in codes:
+        candidate = next((item for item in candidates if item.expected_code == code), None)
+        if any(record.kind == "course" and record.code == code for record in catalog.records):
+            request = {"code": code, "status": "in_collection"}
+        elif candidate is None:
+            request = {"code": code, "status": "not_available"}
+        else:
+            request = {"code": code, "course_id": candidate.course_id,
+                "status": "selected" if candidate in selected else "budget_limit"}
+        requests.append(request)
+    trace = {"version": DISCOVERY_POLICY_VERSION, "input": origin, "requested_codes": codes,
+        "truncated": truncated, "requests": requests,
+        "selected": [{"course_id": item.course_id, "code_hint": item.expected_code,
+            "source_id": item.plan.source.source_id, "section_ids": item.sections,
+            "reason": "requested_course" if item.expected_code in rank else "source_order"} for item in selected]}
+    return DiscoverySelection(selected, len(candidates) - len(selected), trace)
 
 
 def add_discovered_course(catalog, candidate, source, saved, check, now=None):
@@ -157,6 +223,11 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
         check.message = "A discovered course could not be verified; no placeholder recommendation was added."
         return None
     data = saved.data
+    if candidate.expected_code is not None and data.code != candidate.expected_code:
+        check.code = candidate.expected_code
+        check.status, check.failure_kind = "unavailable", "validation"
+        check.message = "The linked course did not match its configured code; no course was added."
+        return None
     check.code = data.code
     if check.status == "stale_cache":
         check.message = f"{data.code}: source check failed. Using dated cached evidence."

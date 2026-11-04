@@ -1,5 +1,7 @@
 # Bounded official-course discovery
 
+Later November 4: [requested-course discovery](25_REQUESTED_COURSE_DISCOVERY.md) gives explicit configured course mentions priority within the same source and download limits. Source order remains the fallback.
+
 Later November 4: [CS foundation coverage](24_CS_FOUNDATION_COVERAGE.md) adds two CS sections and bound CSC144/CSC210 conditions. Under the unchanged three-course cap, AI/ML and exploring now prioritize CSC110/CSC144/CSC210. The original two-section milestone and observations below retain their earlier scope.
 
 November 4 follow-up: [reviewed discovered-course conditions](21_DISCOVERED_COURSE_RULES.md) add CSC110's exact math condition, retain unknown placement, and advance program caches to schema 3. The original discovery milestone and schema-2 verification below retain their November 3 scope. Other discovered conditions remain unreviewed.

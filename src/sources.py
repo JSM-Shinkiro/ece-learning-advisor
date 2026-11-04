@@ -73,9 +73,11 @@ class CatalogRefresh:
     checks: list[SourceCheck] = field(default_factory=list)
     issues: list[str] = field(default_factory=list)
     elapsed: float = 0.0
+    discovery_selection: dict = field(default_factory=dict)
 
     def trace(self):
         return {"enabled": True, "catalog_version": self.catalog.catalog_version,
+                "discovery_selection": self.discovery_selection,
                 "discovered_courses": {r.record_id: {"origin": r.discovery.model_dump(mode="json"),
                     "field_sources": r.field_sources, "rule_verification": r.rule_verification,
                     "rule_evidence_ids": [p.evidence_id for p in r.rule_evidence],
@@ -287,15 +289,16 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                     apply_rule_source(active, job, saved, check)
                     program_results[job.source.source_id] = saved, check
                     result.checks.append(check)
-                candidates, remaining = select_candidates(active, plans, program_results, MAX_SOURCES - len(selected))
+                selection = select_candidates(active, plans, program_results, MAX_SOURCES - len(selected), profile=profile)
+                result.discovery_selection = selection.trace
                 candidate_futures = []
-                for candidate in candidates:
+                for candidate in selection.candidates:
                     program = next(s for s in active.sources if s.source_id == candidate.plan.source.source_id)
                     source, placeholder = candidate.placeholder(program.retrieved_at)
                     candidate_futures.append((candidate, source,
                         pool.submit(_fetch_one, source, placeholder, Path(cache_dir), http, now)))
-                if remaining:
-                    result.issues.append(f"Course discovery is limited to this request's download budget; {remaining} additional links were not fetched.")
+                if selection.remaining:
+                    result.issues.append(f"Course discovery is limited to this request's download budget; {selection.remaining} additional links were not fetched.")
                 for (source, record), future in zip(selected, futures):
                     saved, check = future.result()
                     _apply(record, source, saved, check)
@@ -309,6 +312,7 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                         program_saved, program_check = program_results[candidate.plan.source.source_id]
                         apply_discovered_rule(record, candidate, program_saved, program_check)
                         courses.append(record)
+                    selection.record_result(candidate, record, check)
                     result.checks.append(check)
                     if check.message:
                         result.issues.append(check.message)

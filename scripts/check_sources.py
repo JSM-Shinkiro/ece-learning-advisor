@@ -16,10 +16,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--career", choices=["ai_ml", "embedded", "exploring"], default="ai_ml")
     parser.add_argument("--catalog-year", default="2026-2027")
+    parser.add_argument("--question", default="", help="Optional course question for discovery-priority checks (up to 1200 characters)")
     parser.add_argument("--cache-dir", type=Path, default=ROOT / ".cache" / "sources")
     parser.add_argument("--output", type=Path, default=ROOT / ".cache" / "source_check_trace.json")
     args = parser.parse_args()
-    result = run_advisor(load_catalog(), StudentProfile(career_id=args.career, catalog_version=args.catalog_year),
+    if len(args.question) > 1200:
+        parser.error("Keep the question within 1200 characters")
+    result = run_advisor(load_catalog(), StudentProfile(career_id=args.career, catalog_version=args.catalog_year, question=args.question),
                          refresh_sources=True, source_cache_dir=args.cache_dir)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result.trace, indent=2), encoding="utf-8")
@@ -29,6 +32,8 @@ def main():
               "rule status:", check.get("rule_status") or "not applicable",
               "discovery:", check.get("discovery_status") or "not applicable",
               "last checked:", check["last_checked_at"] or "not verified")
+    for request in result.trace["source_refresh"].get("discovery_selection", {}).get("requests", []):
+        print("requested course:", request["code"], request["status"])
     for issue in result.issues:
         print(issue)
     print("Source-check trace:", args.output)
