@@ -1,9 +1,10 @@
 # Project Documentation
 
-Team P07's ECE 425/525 project.
+Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project handoff for development after the midproject package; earlier progress and verification documents retain their original dates.
 
 | File | Contents |
 | --- | --- |
+| [Final-project handoff](13_FINAL_PROJECT_DEVELOPMENT.md) | Development repository, preserved midproject revision, team owners, and next tasks |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

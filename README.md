@@ -2,6 +2,8 @@
 
 **Team P07 | Fall 2026**
 
+Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, owners, and the next work.
+
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
 
 ## Run locally
@@ -9,8 +11,8 @@ An inspectable retrieval-augmented generation (RAG) advisor for prospective and 
 Python 3.11 or newer is required. From the repository root:
 
 ```bash
-git clone https://github.com/JSM-Shinkiro/ai-degree-planner.git
-cd ai-degree-planner
+git clone https://github.com/JSM-Shinkiro/ece-learning-advisor.git
+cd ece-learning-advisor
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
@@ -110,4 +112,4 @@ The evaluation script is a keyword-only smoke check, not a completed research be
 
 Start with [the documentation index](docs/README.md) and [team progress](docs/06_TEAM_PROGRESS.md).
 
-Complete the required six sample-paper and corresponding tool/video reviews before the midproject submission. Broader academic-rule coverage, account-based persistence, and the held-out evaluation remain in the roadmap.
+The six sample papers have a focused review in the project notes. The corresponding tool/video review remains to be completed. Broader academic-rule coverage, account-based persistence, and the held-out evaluation remain in the roadmap.

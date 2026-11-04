@@ -1,7 +1,7 @@
 [project]
-name = "ece-degree-planner"
+name = "ece-learning-advisor"
 version = "0.1.0"
-description = "Team P07 ECE learning and career advisor"
+description = "Team P07 inspectable RAG learning advisor"
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]

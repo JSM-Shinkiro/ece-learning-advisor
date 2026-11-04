@@ -1,7 +1,7 @@
-# ECE 425/525 Project
+# ECE Learning Advisor
 
 **Team P07 | Fall 2026**
-Working concept: ECE Learning and Career Advisor
+Report title: ECE Learning Advisor: An Inspectable RAG System
 
 ## Project idea
 
@@ -55,4 +55,4 @@ The final release keeps job search and saved progress. Graduate advising, a comp
 - **Mid-project:** November 1, 2026, at 11:59 PM MST.
 - **Final presentation and submission:** December 11.
 
-The local prototype and the Astra refinement pass are implemented. The next step is to verify live model access, resolve the remaining catalog requirements, and record the first real RAG demonstration. See [team progress](06_TEAM_PROGRESS.md) for status, [refinement notes](08_REFINEMENT_NOTES.md) for changes, and the repository README for launch instructions.
+The midproject baseline includes real Gemini retrieval/generation checks, browser inspection figures, a four-page report, and a packaged demo. Continued implementation belongs in this development repository. Start with the [final-project handoff](13_FINAL_PROJECT_DEVELOPMENT.md); the earlier verification documents preserve their original measurement dates and limitations. Launch instructions are in the repository README.
