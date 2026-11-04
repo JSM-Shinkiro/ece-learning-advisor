@@ -20,7 +20,15 @@ def load_catalog(path: Path = DEFAULT_CATALOG) -> Catalog:
 
 
 def corpus_hash(catalog: Catalog) -> str:
-    payload = json.dumps(catalog.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
+    # Successful checks change timestamps, not the text embedded by the retriever.
+    # Keep freshness in the generation context/trace instead of the vector identity.
+    content = {
+        "catalog_version": catalog.catalog_version,
+        "evidence": [chunk.model_dump(mode="json") for chunk in build_evidence(catalog)],
+        "sources": [{"source_id": s.source_id, "url": s.url, "catalog_version": s.catalog_version}
+                    for s in catalog.sources],
+    }
+    payload = json.dumps(content, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(payload.encode()).hexdigest()
 
 

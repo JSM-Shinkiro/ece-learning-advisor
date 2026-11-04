@@ -1,5 +1,7 @@
 # Project Roadmap
 
+This document preserves the original milestone plan. Use the [current development handoff](13_FINAL_PROJECT_DEVELOPMENT.md) and [runtime-source notes](14_RUNTIME_SOURCES.md) for backend priorities and implemented work after midproject.
+
 Build one complete RAG interaction first, then expand coverage and the student workflow.
 
 ## Milestones

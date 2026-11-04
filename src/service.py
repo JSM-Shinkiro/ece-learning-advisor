@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from .catalog import build_evidence, code_lookup, corpus_hash
-from .models import Catalog, GeneratedAnswer, GenerationContext, StudentProfile
+from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import EmbeddingCache, ProviderError
 from .planning import coverage_message, learning_phase, needs_programming_foundations
 from .retrieval import Hit, Retriever
@@ -47,6 +47,7 @@ def validate_answer(answer: GeneratedAnswer, context: GenerationContext):
 class AdvisorResult:
     context: GenerationContext
     hits: list[Hit]
+    catalog: Catalog | None = None
     answer: GeneratedAnswer | None = None
     retrieval_mode: str = "keyword"
     generation_complete: bool = False
@@ -147,6 +148,10 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     return GenerationContext(
         profile=profile, question=question, query=query,
         allowed_record_ids=allowed, evidence=evidence, rule_results=rule_results,
+        source_freshness={s.source_id: SourceFreshness(
+            verification_status=s.verification_status, retrieved_at=s.retrieved_at,
+            last_checked_at=s.last_checked_at) for s in catalog.sources
+            if s.source_id in {sid for chunk in evidence for sid in chunk.source_ids}},
         suggested_phases={rid:learning_phase(records[rid], profile, rule_results.get(rid)) for rid in allowed},
     )
 
@@ -161,7 +166,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     if notice:
         context = GenerationContext(profile=profile, question=question, query=question,
                                     allowed_record_ids=[], evidence=[], rule_results={})
-        result = AdvisorResult(context=context, hits=[], coverage_notice=notice,
+        result = AdvisorResult(context=context, hits=[], catalog=catalog, coverage_notice=notice,
                                generation_status="insufficient_evidence")
         result.timings["total"] = time.perf_counter() - started
         result.trace = {"data_version":catalog.version, "prompt_version":context.prompt_version,
@@ -190,7 +195,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     timings["retrieval"] = time.perf_counter() - before
     context = build_context(catalog, profile, question, query, hits)
     result = AdvisorResult(
-        context=context, hits=hits, retrieval_mode=mode,
+        context=context, hits=hits, catalog=catalog, retrieval_mode=mode,
         issues=issues, timings=timings, vectors=vectors,
         query_vector=query_vector, cache_state=cache_state,
     )
@@ -219,6 +224,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "retrieved_chunk_ids": [h.chunk_id for h in hits],
         "context_chunk_ids": [e.chunk_id for e in context.evidence],
         "allowed_record_ids": context.allowed_record_ids,
+        "source_freshness": {sid: status.model_dump(mode="json") for sid, status in context.source_freshness.items()},
         "generation_complete": result.generation_complete,
         "generation_status": result.generation_status,
         "reference_checks_passed": True if result.answer else (False if result.generation_status=="failed" else None),

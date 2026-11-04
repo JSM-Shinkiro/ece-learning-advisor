@@ -2,6 +2,8 @@
 
 Updated October 23, 2026, Arizona time.
 
+This is a historical progress snapshot. Current backend work is tracked in the [development handoff](13_FINAL_PROJECT_DEVELOPMENT.md) and [runtime-source notes](14_RUNTIME_SOURCES.md).
+
 ## Current implementation
 
 The refined prototype includes five real course summaries, two resources, a shorter profile form, a searchable course picker, three learning stages, completion actions, profile export/import, a Gemini RAG adapter, evidence inspection, and an Adzuna adapter. Still exploring shows both career directions. Course and resource cards explain the suggested learning connection.

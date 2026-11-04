@@ -31,7 +31,8 @@ h1 { letter-spacing: -.035em; }
 </style>
 """, unsafe_allow_html=True)
 
-catalog = load_catalog()
+base_catalog = load_catalog()
+catalog = getattr(st.session_state.get("result"), "catalog", None) or base_catalog
 records = {r.record_id:r for r in catalog.records}
 sources = {s.source_id:s for s in catalog.sources}
 course_lookup = {r.code:r for r in catalog.records if r.kind == "course"}
@@ -67,9 +68,17 @@ def restore_uploaded_profile():
 def source_details(record, prefix):
     for sid in record.source_ids:
         source = sources[sid]
-        checked = source.retrieved_at.astimezone(timezone(timedelta(hours=-7))).date().isoformat()
+        local = timezone(timedelta(hours=-7))
+        downloaded = source.retrieved_at.astimezone(local).strftime("%Y-%m-%d %H:%M MST")
+        checked = source.last_checked_at.astimezone(local).strftime("%Y-%m-%d %H:%M MST") if source.last_checked_at else None
         st.link_button(source.title,source.url,key=prefix+"_"+sid)
-        st.caption("Last checked "+checked+" · "+source.review_note)
+        if source.verification_status == "verified":
+            status = "Checked "+(checked or downloaded)+" · downloaded "+downloaded
+        elif source.verification_status == "stale":
+            status = "Source check failed · "+("last successful check "+checked if checked else "saved snapshot "+downloaded)
+        else:
+            status = "Saved source snapshot · retrieved "+downloaded
+        st.caption(status+" · "+source.review_note)
 
 
 def grade_requirements(rule):
@@ -166,11 +175,19 @@ if submitted:
 if st.session_state.pop("refresh_pending",False):
     with st.spinner("Updating your learning plan..."):
         try:
-            st.session_state.result = run_advisor(catalog,profile,api_key=api_key,use_ai=use_ai,
+            st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
                 method=method,embedding_model=embedding_model,generation_model=generation_model,
-                dimensions=int(os.getenv("EMBEDDING_DIMENSION","768")),cache_dir=ROOT/".cache"/"embeddings")
+                dimensions=int(os.getenv("EMBEDDING_DIMENSION","768")),cache_dir=ROOT/".cache"/"embeddings",
+                refresh_sources=os.getenv("ECE_REFRESH_SOURCES","true").lower()=="true",
+                source_cache_dir=ROOT/".cache"/"sources")
         except (ValueError,OSError):
             st.error("The plan could not be updated. Check the configuration and submit your profile again.")
+
+active_result = st.session_state.get("result")
+if active_result is not None:
+    catalog = getattr(active_result, "catalog", None) or base_catalog
+    records = {r.record_id:r for r in catalog.records}
+    sources = {s.source_id:s for s in catalog.sources}
 
 st.caption("ECE LEARNING ADVISOR")
 st.title("Your next step, with a path forward.")
@@ -251,7 +268,7 @@ with roadmap:
         elif result.generation_complete:
             st.caption("AI explanation available · source links checked")
         else:
-            st.caption("Preview mode · saved sources and suggested learning connections")
+            st.caption("Preview mode · learning suggestions from available sources")
         for issue in result.issues:
             st.warning(issue)
         if not result.coverage_notice and result.generation_status!="insufficient_evidence":
@@ -268,7 +285,7 @@ with roadmap:
 
 with collection:
     st.subheader("Courses & resources")
-    st.caption("A reviewed starting collection. Learning connections are suggestions. Four enrollment rules still need review.")
+    st.caption("A starting collection with dated sources. Learning connections are suggestions; unresolved enrollment rules need review.")
     for record in catalog.records:
         if record.kind=="career":
             continue

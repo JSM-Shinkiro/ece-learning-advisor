@@ -2,7 +2,7 @@
 
 The advisor uses retrieval-augmented generation to explain recommendations using evidence retrieved from official academic sources and relevant learning and career sources. The target is automatic source retrieval with a temporary cache, without requiring a manually maintained course database. Updating the retrieved evidence changes the information available to the model without retraining it.
 
-The current prototype reads a bundled, reviewed collection. Runtime source retrieval is planned work. Saved reference files support development and verification rather than supplying the deployed app's only source of information.
+The backend starts with the bundled reviewed collection and checks relevant configured official course pages when a roadmap is submitted. It overlays validated descriptions and units in the active request catalog. Resource pages, program-rule pages, and catalog-wide discovery are not connected yet. Saved reference files remain development evidence. See [runtime source checks](14_RUNTIME_SOURCES.md).
 
 ## Pipeline
 

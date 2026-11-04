@@ -109,7 +109,7 @@ def test_provider_initialization_failure_has_current_profile_fallback(catalog):
     def fail(*args,**kwargs):
         raise ProviderError("Do not display raw provider details")
     profile=StudentProfile(career_id="embedded")
-    result=run_advisor(catalog,profile,use_ai=True,api_key="dummy",provider_factory=fail)
+    result=run_advisor(catalog,profile,use_ai=True,api_key="dummy",provider_factory=fail,refresh_sources=False)
     assert result.context.profile==profile
     assert result.context.allowed_record_ids and result.issues
     assert not result.generation_complete

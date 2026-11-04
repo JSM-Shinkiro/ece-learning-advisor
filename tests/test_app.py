@@ -6,6 +6,7 @@ from streamlit.testing.v1 import AppTest
 @pytest.fixture
 def app(monkeypatch):
     monkeypatch.setattr("dotenv.load_dotenv",lambda *a,**k:False)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "false")
     for name in ["GEMINI_API_KEY","GOOGLE_API_KEY","ADZUNA_APP_ID","ADZUNA_APP_KEY","ECE_DEVELOPMENT_MODE"]:
         monkeypatch.delenv(name,raising=False)
     return AppTest.from_file(Path(__file__).resolve().parents[1]/"app.py",default_timeout=20).run()
@@ -157,3 +158,32 @@ def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,
     assert any("Please clarify" in message.value for message in app.info)
     assert not any("AI explanation available" in message.value for message in app.caption)
     assert not any(button.key and button.key.startswith("complete_") for button in app.button)
+
+
+def test_live_sources_run_on_submission_and_render_the_active_catalog(app, monkeypatch):
+    from datetime import datetime, timezone
+    from src.sources import CatalogRefresh
+
+    calls = []
+    def refresh(catalog, profile, **kwargs):
+        calls.append(profile.career_id)
+        active = catalog.model_copy(deep=True)
+        next(r for r in active.records if r.code == "ECE101").title = "Live HTTP fixture programming"
+        source = next(s for s in active.sources if s.source_id == "catalog:ECE101")
+        source.last_checked_at = datetime(2026, 11, 4, 3, tzinfo=timezone.utc)
+        source.verification_status = "verified"
+        return CatalogRefresh(active)
+
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.run()
+    assert calls == []
+    submit(app)
+    assert not app.exception and calls == ["ai_ml"]
+    assert any("Live HTTP fixture programming" in item.value for item in app.markdown)
+    assert any("Checked 2026-11-03 20:00 MST" in item.value for item in app.caption)
+    app.run()
+    assert calls == ["ai_ml"]
+    app.selectbox(key="career_id").set_value("embedded")
+    submit(app)
+    assert not app.exception and calls == ["ai_ml", "embedded"]

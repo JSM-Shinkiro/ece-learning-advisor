@@ -98,6 +98,9 @@ Recommend only allowed_record_ids. Cite the exact chunk_id values in evidence.
 For each reason, distinguish source_fact from a suggested recommendation.
 Do not invent courses, URLs, requirements, jobs, salaries, or enrollment claims.
 Do not override rule_results. Unknown academic conditions remain unknown.
+Respect source_freshness. Snapshot and stale sources are dated evidence, not
+current verification. A verified course description does not establish that a
+separately sourced academic rule has been checked again.
 Respect suggested_phases: next, build, and later describe learning stages.
 Build and later goals are not immediate next courses. Stage is not enrollment eligibility.
 A team-authored career mapping is a suggested learning connection, not a degree rule.
@@ -114,7 +117,43 @@ class EmbeddingCache:
     def __init__(self, directory: Path):
         self.directory = directory
 
+    @staticmethod
+    def _write(path, vectors, manifest):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        descriptor, temporary = tempfile.mkstemp(prefix="embedding-", suffix=".npz", dir=path.parent)
+        try:
+            with os.fdopen(descriptor, "wb") as handle:
+                np.savez_compressed(handle, manifest=json.dumps(manifest, sort_keys=True), vectors=vectors)
+            os.replace(temporary, path)
+        finally:
+            Path(temporary).unlink(missing_ok=True)
+
+    def _document_vector(self, chunk, provider):
+        manifest = {"record_id": chunk.record_id, "text_hash": hashlib.sha256(chunk.text.encode()).hexdigest(),
+                    "model": provider.embedding_model, "dimensions": provider.dimensions,
+                    "normalization": "l2", "format": self.FORMAT}
+        identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
+        path = self.directory / "documents" / (identity + ".npz")
+        if path.exists():
+            try:
+                with np.load(path, allow_pickle=False) as saved:
+                    vectors = normalized(saved["vectors"])
+                    existing = json.loads(str(saved["manifest"].item()))
+                if existing == manifest and vectors.shape == (1, provider.dimensions):
+                    return vectors[0]
+            except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
+                pass
+        vectors = normalized([provider.embed_document(chunk)])
+        if vectors.shape != (1, provider.dimensions):
+            raise ProviderError("Unexpected document vector dimension")
+        try:
+            self._write(path, vectors, manifest)
+        except OSError:
+            self._write_failed = True
+        return vectors[0]
+
     def get(self, catalog: Catalog, chunks: list[Evidence], provider: GeminiProvider):
+        self._write_failed = False
         manifest = {
             "corpus_hash": corpus_hash(catalog),
             "chunk_ids": [c.chunk_id for c in chunks],
@@ -137,15 +176,13 @@ class EmbeddingCache:
                 return vectors, "hit", manifest
             except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
                 state = "rebuilt_invalid"
-        vectors = normalized([provider.embed_document(c) for c in chunks])
+        vectors = normalized([self._document_vector(c, provider) for c in chunks])
         if vectors.shape != (len(chunks), provider.dimensions):
             raise ProviderError("Vector rows do not match the reviewed collection")
-        self.directory.mkdir(parents=True, exist_ok=True)
-        descriptor, temporary = tempfile.mkstemp(prefix="embedding-", suffix=".npz", dir=self.directory)
         try:
-            with os.fdopen(descriptor, "wb") as handle:
-                np.savez_compressed(handle, manifest=json.dumps(manifest, sort_keys=True), vectors=vectors)
-            os.replace(temporary, path)
-        finally:
-            Path(temporary).unlink(missing_ok=True)
+            self._write(path, vectors, manifest)
+        except OSError:
+            self._write_failed = True
+        if self._write_failed:
+            state += "_uncached"
         return vectors, state, manifest

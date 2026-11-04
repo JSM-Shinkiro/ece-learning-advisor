@@ -57,6 +57,8 @@ python scripts/verify_live.py
 
 Add `--jobs` to also check the configured Adzuna connection. These opt-in checks use real provider quota. Inspect the saved answers against their sources before using them in the report.
 
+That provider-verification script retains the bundled corpus for comparison with the original measurements. Use `scripts/check_sources.py` below to exercise the current official-source path without model calls.
+
 Source exploration is retrieval-only. It does not count as a completed live RAG demonstration.
 
 ## Current features
@@ -70,6 +72,8 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Evidence inspector and ranking chart.
 - PCA projection and cosine drill-down when embeddings are available.
 - Versioned public-record embedding cache.
+- Official course checks on submitted roadmaps, with a rebuildable source cache and dated failure fallback.
+- Reuse of unchanged document vectors when another course changes.
 - Profile export/import, searchable coursework entry, and Mark completed actions.
 - Direction comparison for students who are still exploring.
 - Coverage clarification for clear requests outside the starter collection.
@@ -79,7 +83,17 @@ Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabric
 
 ## Academic data
 
-The development target is automatic retrieval from official academic sources, with source links, retrieval dates, and a temporary cache. Saved PDFs, CSV exports, and screenshots are development references. A permanent course database is optional. The current prototype still uses the bundled collection described below. See [RAG source retrieval](docs/01_RAG_DESIGN.md#obtaining-source-material) for the planned flow.
+Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
+
+This first connector covers the five configured course pages, not catalog-wide discovery. Resources and the separately reviewed CSC120 program requirement retain their dated snapshots. Unknown rules remain unknown; a changed enrollment requirement reference revokes the affected reviewed rule. Failed checks use a clearly dated valid cache or the bundled snapshot. See [runtime source checks](docs/14_RUNTIME_SOURCES.md) for limits and verification.
+
+`ECE_REFRESH_SOURCES=true` is the default. Set it to `false` for an explicit offline run; the app labels its sources as saved evidence. Public source checks do not require a Gemini key. Try:
+
+```bash
+python scripts/check_sources.py --career exploring
+```
+
+The command saves a trace under `.cache` and exits unsuccessfully if any requested source could not be verified. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 
@@ -110,6 +124,6 @@ The evaluation script is a keyword-only smoke check, not a completed research be
 
 **Report title:** ECE Learning Advisor: An Inspectable RAG System.
 
-Start with [the documentation index](docs/README.md) and [team progress](docs/06_TEAM_PROGRESS.md).
+Start with [the documentation index](docs/README.md) and [the current development handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md). The older team-progress document preserves the pre-midproject status.
 
 The six sample papers have a focused review in the project notes. The corresponding tool/video review remains to be completed. Broader academic-rule coverage, account-based persistence, and the held-out evaluation remain in the roadmap.

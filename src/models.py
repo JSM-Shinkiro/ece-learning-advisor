@@ -92,11 +92,16 @@ class StudentProfile(StrictModel):
         return self
 
 
-class Source(StrictModel):
+class SourceFreshness(StrictModel):
+    verification_status: Literal["snapshot", "verified", "stale"] = "snapshot"
+    retrieved_at: datetime
+    last_checked_at: datetime | None = None
+
+
+class Source(SourceFreshness):
     source_id: str
     title: str
     url: str
-    retrieved_at: datetime
     catalog_version: str | None = None
     section: str = ""
     review_note: str = ""
@@ -122,7 +127,7 @@ class Record(StrictModel):
     rule: Rule = Field(default_factory=lambda: Rule(type="unknown"))
     rule_reviewed: bool = False
     topics: list[str] = Field(default_factory=list)
-    review_status: Literal["source_summary_reviewed", "team_mapping", "synthetic_fixture"] = "source_summary_reviewed"
+    review_status: Literal["source_summary_reviewed", "source_fetched", "team_mapping", "synthetic_fixture"] = "source_summary_reviewed"
     requirement_reference: str | None = None
     study_stage: Literal["foundation", "intermediate", "advanced"] = "intermediate"
     career_ids: list[Literal["ai_ml", "embedded"]] = Field(default_factory=list)
@@ -198,8 +203,9 @@ class GenerationContext(StrictModel):
     allowed_record_ids: list[str]
     evidence: list[Evidence]
     rule_results: dict[str, RuleEvaluation]
+    source_freshness: dict[str, SourceFreshness] = Field(default_factory=dict)
     suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
-    prompt_version: str = "p07-v2"
+    prompt_version: str = "p07-v3-source-freshness"
 
     def to_prompt(self) -> str:
         return self.model_dump_json(indent=2)

@@ -19,17 +19,23 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 ## Current implementation
 
-The copied baseline provides five courses, two learning resources, two career mappings, profile export/import, academic-rule checks, keyword/semantic/hybrid ranking, Gemini generation, source references, PCA and cosine inspection, and request traces. Runtime official-source retrieval is still planned. Adzuna live verification and OpenRouter integration remain unfinished. The source repository's last clean test run passed 80 tests; this copy's initial changes only rename project metadata and update documentation.
+The baseline provides five courses, two learning resources, two career mappings, profile export/import, academic-rule checks, keyword/semantic/hybrid ranking, Gemini generation, source references, PCA and cosine inspection, and request traces. The development backend now checks the relevant configured official course pages on a submitted roadmap. It validates identity/edition, keeps separate freshness timestamps, handles source/cache failures, and reuses unchanged document embeddings. Resources and the reviewed program-rule source still use dated snapshots. See [runtime source checks](14_RUNTIME_SOURCES.md).
+
+Adzuna live verification and OpenRouter integration remain unfinished. The original source repository passed 80 tests before this development work; historical measurements retain their dates and scope.
 
 Citation membership does not establish claim accuracy. Four ECE academic rules remain unresolved. Learning stages are preparation suggestions, not semester assignments or a complete degree audit.
 
-## Owners and next work
+## Backend priorities
 
-| Owner | Responsibility | First deliverable, November 2–8 |
+Work across the app as needed, with backend correctness and source handling first. Individual ownership does not constrain the development order.
+
+| Priority | Deliverable | Status |
 | --- | --- | --- |
-| Jose Salinas Meza | RAG, integration, performance, release | One live catalog-fetch path and a passing pipeline trace |
-| Andrew Song | Academic sources, data, rules, reviewed evaluation cases | Pilot source audit with verified fields and review candidates |
-| Julio Luzania | Interface, plots, student pilot, documentation, demo | Revised roadmap/inspector and annotated browser captures |
+| 1 | Official-source checks in the submitted roadmap pipeline | Implemented for the five configured course pages; wider discovery remains |
+| 2 | More academic-rule evidence and catalog-edition coverage | Next; preserve unknown conditions until supported |
+| 3 | Broader course/resource coverage with source provenance | Expand the bounded connector after the pilot cases are reviewed |
+| 4 | Actual opportunity results and failure handling | Adapter exists; live Adzuna verification remains |
+| 5 | Retrieval/claim evaluation, performance, and deployment | Reviewed cases and repeated measurements remain planned |
 
 Continue the report's weekly roadmap: live opportunities November 9–15; source revalidation and coverage November 16–22; reviewed retrieval/answer evaluation and a small voluntary pilot November 23–29; fixes and deployment stability November 30–December 6, with a December 4 feature freeze; final artifacts and rehearsal December 7–11.
 
