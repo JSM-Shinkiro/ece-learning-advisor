@@ -157,6 +157,7 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             verification_status=s.verification_status, retrieved_at=s.retrieved_at,
             last_checked_at=s.last_checked_at) for s in catalog.sources
             if s.source_id in {sid for chunk in evidence for sid in chunk.source_ids}},
+        field_sources={rid: records[rid].field_sources for rid in allowed if records[rid].field_sources},
         suggested_phases={rid:learning_phase(records[rid], profile, rule_results.get(rid)) for rid in allowed},
     )
 
@@ -230,6 +231,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "context_chunk_ids": [e.chunk_id for e in context.evidence],
         "allowed_record_ids": context.allowed_record_ids,
         "source_freshness": {sid: status.model_dump(mode="json") for sid, status in context.source_freshness.items()},
+        "field_sources": context.field_sources,
         "generation_complete": result.generation_complete,
         "generation_status": result.generation_status,
         "reference_checks_passed": True if result.answer else (False if result.generation_status=="failed" else None),

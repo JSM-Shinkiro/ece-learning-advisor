@@ -2,6 +2,8 @@
 
 Implemented November 3, 2026, in the development repository. This extends the [course-source connector](14_RUNTIME_SOURCES.md). The submitted midproject files remain unchanged.
 
+**Follow-up, November 3:** [Bounded course discovery](16_COURSE_DISCOVERY.md) shares program downloads with these prerequisite checks, adds linked descriptions with field provenance, and advances the prompt to `p07-v5-course-discovery`. The prerequisite milestone and measurements below retain their original scope and results.
+
 ## Implemented scope
 
 CSC120's reviewed condition is bound to the [2026–2027 Computer Science BS program requirements](https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj), section `R1299/L40`. The stored interpretation preserves the catalog's four alternatives and minimum grade. It checks a supplied completion history; it does not establish complete enrollment eligibility.

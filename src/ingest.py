@@ -89,13 +89,14 @@ def extract_course(page: str) -> dict:
     if raw is None:
         raise ValueError("Course metadata is missing")
     fields = {key: resolve(raw[key]) for key in
-              ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate"] if key in raw}
+              ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate", "courseGroupId"] if key in raw}
     if not isinstance(fields["description"], str) or len(fields["description"]) > 50000:
         raise ValueError("The course description is invalid")
     if not isinstance(fields["credits"], dict):
         raise ValueError("Course credits are missing")
     return {
         "code": fields["code"],
+        "course_id": fields.get("courseGroupId"),
         "title": fields["longName"],
         "credits": fields["credits"].get("creditHours"),
         "requirement_reference": fields["requirementGroup"],
@@ -131,3 +132,61 @@ def extract_program_statements(page: str, program_code: str, sections: list[str]
         statements[section] = matches.pop()
     return {"program_code": program_code, "catalog_version": _active_edition(table, resolve),
             "statements": statements}
+
+
+def extract_program_courses(page: str, program_code: str, sections: list[str]) -> dict:
+    """Read explicit course-ID lists in visible sections of the primary program.
+
+    A link is a discovery candidate, never an interpreted degree requirement.
+    Unrelated metadata, hidden groups, and free-text numbers cannot supply IDs.
+    """
+    table, resolve = _nuxt_data(page)
+    primary = next((v for v in table if isinstance(v, dict) and
+                    {"code", "programGroupId", "degreeDesignation", "longName"} <= v.keys()), None)
+    if primary is None or resolve(primary["code"]) != program_code or resolve(primary["programGroupId"]) != program_code:
+        raise ValueError("The primary program identity does not match")
+    requisites = resolve(primary.get("requisites"))
+    if not isinstance(requisites, dict) or not isinstance(requisites.get("requisitesSimple"), list):
+        raise ValueError("Program requirement groups are missing")
+    queue = [(group, 0) for group in requisites["requisitesSimple"] if isinstance(group, dict)
+             and group.get("showInCatalog") is True and group.get("requirementLevel") == "programRequirements"]
+    matches = {section: [] for section in sections}
+    visited = 0
+    while queue:
+        node, depth = queue.pop(0)
+        visited += 1
+        if visited > 2000 or depth > 20 or not isinstance(node, dict):
+            raise ValueError("Program requirement traversal exceeds the supported limits")
+        if node.get("showInCatalog") is False:
+            continue
+        name = node.get("name", "")
+        if isinstance(name, str):
+            for section in sections:
+                if "(" + section + ")" in name:
+                    matches[section].append(node)
+        for key in ("rules", "subRules"):
+            children = node.get(key, [])
+            if not isinstance(children, list):
+                raise ValueError("The program requirement structure is invalid")
+            queue.extend((child, depth + 1) for child in children)
+    courses = {}
+    for section, nodes in matches.items():
+        if len(nodes) != 1:
+            raise ValueError("The course-discovery section is missing or ambiguous")
+        value = nodes[0].get("value")
+        if (not isinstance(value, dict) or value.get("condition") != "courses"
+                or value.get("subSelections") not in (None, []) or not isinstance(value.get("values"), list)):
+            raise ValueError("Only explicit course-ID lists can be discovered")
+        ids = []
+        for entry in value["values"]:
+            if not isinstance(entry, dict) or not isinstance(entry.get("value"), list):
+                raise ValueError("The course-ID list is invalid")
+            for course_id in entry["value"]:
+                if not isinstance(course_id, str) or not re.fullmatch(r"\d{7}", course_id):
+                    raise ValueError("The course-ID list contains an unsupported reference")
+                ids.append(course_id)
+        ids = list(dict.fromkeys(ids))
+        if not 1 <= len(ids) <= 40:
+            raise ValueError("The course-ID list exceeds the supported limits")
+        courses[section] = ids
+    return {"program_code": program_code, "catalog_version": _active_edition(table, resolve), "course_ids": courses}

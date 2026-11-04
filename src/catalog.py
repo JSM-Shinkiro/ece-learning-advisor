@@ -52,6 +52,8 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
         if record.first_activity:
             text += "\nSuggested first activity: " + record.first_activity
         rule_sources = {p.source_id for p in record.rule_evidence}
+        if record.discovery:
+            rule_sources.add(record.discovery.source_id)
         description_sources = [sid for sid in record.source_ids if sid not in rule_sources]
         chunks.append(Evidence(
             chunk_id=record.record_id + ":overview",

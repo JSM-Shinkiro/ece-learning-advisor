@@ -166,19 +166,35 @@ class SourceCheck(StrictModel):
     source_id: str
     code: str
     url: str
-    kind: Literal["course", "rule"] = "course"
+    kind: Literal["course", "rule", "discovery"] = "course"
     status: Literal["updated", "unchanged", "not_modified", "stale_cache",
-                    "bundled_fallback", "unsupported_edition", "skipped"]
+                    "bundled_fallback", "unsupported_edition", "skipped", "unavailable"]
     attempted_at: datetime
     last_checked_at: datetime | None = None
-    retrieved_at: datetime
+    retrieved_at: datetime | None = None
     content_hash: str | None = None
     content_changed: bool = False
     cache_saved: bool = False
     http_status: int | None = None
     failure_kind: Literal["timeout", "network", "response", "validation"] | None = None
     rule_status: Literal["verified", "stale", "changed", "unavailable", "unsupported", "unreviewed"] | None = None
+    discovery_status: Literal["verified", "stale", "unavailable"] | None = None
     message: str = ""
+
+
+class CourseOrigin(StrictModel):
+    source_id: str
+    program_code: str = Field(pattern=r"^[A-Z][A-Z0-9]{1,20}$")
+    section_ids: list[str] = Field(min_length=1, max_length=16)
+    course_id: str = Field(pattern=r"^\d{7}$")
+    discovered_at: datetime
+
+    @field_validator("section_ids")
+    @classmethod
+    def section_locators(cls, value):
+        if len(set(value)) != len(value) or any(not re.fullmatch(r"R\d+/L?\d+", section) for section in value):
+            raise ValueError("Course discovery needs unique section locators")
+        return value
 
 
 class Record(StrictModel):
@@ -201,6 +217,8 @@ class Record(StrictModel):
     career_ids: list[Literal["ai_ml", "embedded"]] = Field(default_factory=list)
     learning_note: str = Field(default="", max_length=1200)
     first_activity: str = Field(default="", max_length=600)
+    discovery: CourseOrigin | None = None
+    field_sources: dict[Literal["title", "summary", "credits", "requirement_reference"], str] = Field(default_factory=dict)
 
     @field_validator("code")
     @classmethod
@@ -231,6 +249,17 @@ class Catalog(StrictModel):
         for record in self.records:
             if not set(record.source_ids) <= sources:
                 raise ValueError("Record has an unknown source")
+            if not set(record.field_sources.values()) <= set(record.source_ids):
+                raise ValueError("Field provenance has an unknown record source")
+            if record.discovery:
+                origin = record.discovery
+                reference = next((s for s in self.sources if s.source_id == origin.source_id), None)
+                if (origin.source_id not in record.source_ids or reference is None
+                        or reference.catalog_version != record.catalog_version
+                        or not program_source_url_matches(reference.url, origin.program_code)
+                        or not any(s.url == "https://catalog.arizona.edu/courses/" + origin.course_id
+                                   for s in self.sources if s.source_id in record.source_ids)):
+                    raise ValueError("Course discovery provenance does not match its sources")
             for proof in record.rule_evidence:
                 reference_source = next((s for s in self.sources if s.source_id == proof.source_id), None)
                 if (proof.source_id not in record.source_ids or proof.course_code != record.code
@@ -297,8 +326,9 @@ class GenerationContext(StrictModel):
     evidence: list[Evidence]
     rule_results: dict[str, RuleEvaluation]
     source_freshness: dict[str, SourceFreshness] = Field(default_factory=dict)
+    field_sources: dict[str, dict[str, str]] = Field(default_factory=dict)
     suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
-    prompt_version: str = "p07-v4-rule-provenance"
+    prompt_version: str = "p07-v5-course-discovery"
 
     def to_prompt(self) -> str:
         return self.model_dump_json(indent=2)

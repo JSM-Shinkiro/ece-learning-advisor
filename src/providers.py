@@ -104,6 +104,8 @@ separately sourced academic rule has been checked again.
 Prerequisite statements have separate evidence chunks. A changed or stale
 statement cannot override an unknown application rule result. Cite the rule
 chunk for prerequisite claims, not a course-description chunk.
+Respect field_sources for fetched course fields. Discovering an official course
+link does not establish its prerequisites, degree applicability, or semester placement.
 Respect suggested_phases: next, build, and later describe learning stages.
 Build and later goals are not immediate next courses. Stage is not enrollment eligibility.
 A team-authored career mapping is a suggested learning connection, not a degree rule.

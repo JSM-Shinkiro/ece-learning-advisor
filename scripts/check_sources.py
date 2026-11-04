@@ -27,13 +27,15 @@ def main():
     for check in checks:
         print(check.get("kind", "course"), check["code"], check["status"],
               "rule status:", check.get("rule_status") or "not applicable",
+              "discovery:", check.get("discovery_status") or "not applicable",
               "last checked:", check["last_checked_at"] or "not verified")
     for issue in result.issues:
         print(issue)
     print("Source-check trace:", args.output)
     print("No embedding or generation requests were made.")
     return 0 if checks and all(c["status"] in {"updated", "unchanged", "not_modified"}
-                              and c.get("rule_status") in {None, "verified"} for c in checks) else 1
+                              and c.get("rule_status") in {None, "verified"}
+                              and c.get("discovery_status") in {None, "verified"} for c in checks) else 1
 
 
 if __name__ == "__main__":

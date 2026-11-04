@@ -219,3 +219,34 @@ def test_changed_prerequisite_replaces_approval_in_cards_and_inspector(app, monk
     assert any("prerequisite evidence or interpretation needs review" in item.value for item in app.markdown)
     assert any("Changed fixture statement awaiting review." in item.value for item in app.text)
     assert any("uofa:CSC120:2026-2027:rule:R1299-L40" in item.value for item in app.markdown)
+
+
+def test_discovered_sources_reach_collection_picker_and_trace(app, monkeypatch, catalog, tmp_path):
+    from src.discovery import load_discovery_plans
+    from src.models import Record
+    from src.sources import refresh_catalog
+    from test_discovery import client_for
+
+    plans = load_discovery_plans()
+    new_courses = {identity: Record(record_id="fixture:" + code, kind="course", code=code,
+        title="Discovered fixture " + code, summary="Fixture programming and hardware.", credits=3,
+        source_ids=["fixture"], catalog_version="2026-2027")
+        for identity, code in zip(['7654321', '7654322', '7654323', '7654324'],
+                                  ['ECE175', 'ECE275', 'ECE274A', 'CSC110'])}
+    seen = []
+    def refresh(catalog, profile, **kwargs):
+        assert len(kwargs.pop('discovery_plans')) == 2
+        with client_for(catalog, plans, new_courses, seen=seen) as client:
+            return refresh_catalog(catalog, profile, client=client, discovery_plans=plans,
+                                   cache_dir=tmp_path / 'sources')
+    monkeypatch.setattr('src.controller.refresh_catalog', refresh)
+    monkeypatch.setenv('ECE_REFRESH_SOURCES', 'true')
+    submit(app)
+    assert not app.exception
+    assert any('8 courses' in caption.value for caption in app.caption)
+    assert any('Discovered fixture CSC110' in item.label for item in app.expander)
+    assert len(app.session_state['result'].trace['source_refresh']['discovered_courses']) == 3
+    calls = len(seen)
+    app.run()
+    assert len(seen) == calls
+    assert any(option.startswith('CSC110 · ') for option in app.multiselect(key='completed_courses').options)

@@ -8,6 +8,7 @@ from .planning import coverage_message
 from .providers import GeminiProvider, ProviderError
 from .service import recommend
 from .sources import refresh_catalog
+from .discovery import load_discovery_plans
 
 
 def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
@@ -17,10 +18,14 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     started = time.perf_counter()
     source_trace = {"enabled": False, "reason": "disabled"}
     source_issues, source_elapsed = [], 0.0
-    if refresh_sources and not coverage_message(catalog, profile, profile.question):
+    if refresh_sources and not coverage_message(catalog, profile, profile.question, allow_course_discovery=True):
         before = time.perf_counter()
         try:
-            refreshed = (source_refresher or refresh_catalog)(catalog, profile, cache_dir=source_cache_dir)
+            if source_refresher is not None:
+                refreshed = source_refresher(catalog, profile, cache_dir=source_cache_dir)
+            else:
+                refreshed = refresh_catalog(catalog, profile, cache_dir=source_cache_dir,
+                                            discovery_plans=load_discovery_plans())
             catalog = refreshed.catalog
             source_trace, source_issues = refreshed.trace(), refreshed.issues
         except (httpx.HTTPError, OSError, ValueError):

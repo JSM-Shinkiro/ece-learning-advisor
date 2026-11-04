@@ -154,7 +154,7 @@ with st.sidebar:
         st.file_uploader("Restore a saved profile",type=["json"],max_upload_size=1,
                          key="profile_upload",on_change=restore_uploaded_profile)
         st.download_button("Download my profile",export_profile(profile),file_name="ece_profile.json",mime="application/json",width="stretch")
-    st.caption("Preview collection · 5 courses · 2 resources")
+    collection_summary = st.empty()
 
 if submitted:
     try:
@@ -192,6 +192,7 @@ if active_result is not None:
 st.caption("ECE LEARNING ADVISOR")
 st.title("Your next step, with a path forward.")
 st.caption("Learning suggestions for UofA ECE students. Stages describe preparation, not guaranteed enrollment or semester placement.")
+collection_summary.caption(f"Available collection · {sum(r.kind == 'course' for r in catalog.records)} courses · {sum(r.kind == 'resource' for r in catalog.records)} resources")
 roadmap, collection, opportunities = st.tabs(["My Roadmap","Courses & Resources","Opportunities"])
 
 

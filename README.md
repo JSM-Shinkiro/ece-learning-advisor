@@ -66,6 +66,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Dark dashboard and student profile.
 - Three learning stages, a bridge course for each direction, and explanations of suggested learning connections.
 - Five source-linked courses and two online resources.
+- Up to three additional course descriptions discovered from configured official foundation sections on each submitted roadmap.
 - Keyword, semantic, and hybrid retrieval.
 - Independent prerequisite evaluation with blocked courses kept as later goals.
 - Structured Gemini generation and citation checks.
@@ -86,9 +87,11 @@ Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabric
 
 Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
 
-The connector covers five configured course pages and the reviewed CSC120 program-requirement section. It checks the prerequisite statement against its exact reviewed text, catalog edition, and structured interpretation. Changed, stale, unavailable, or unsupported prerequisite evidence makes the affected academic result unknown. The rule statement has its own source-linked evidence chunk and travels with the course description into the generator context.
+The connector checks five configured course pages, the reviewed CSC120 program-requirement section, and bounded course links from two configured foundation sections. It validates linked course IDs, subject scope, edition, and fixed units before adding a description. Fetched titles, summaries, units, and enrollment references retain their source IDs. Discovered courses keep unreviewed prerequisites unknown.
 
-Resource pages and catalog-wide discovery remain outside this connector. Failed description checks retain clearly dated valid caches or bundled snapshots. A changed enrollment requirement reference revokes the affected reviewed rule. See [runtime source checks](docs/14_RUNTIME_SOURCES.md) and [prerequisite evidence](docs/15_PREREQUISITE_EVIDENCE.md) for limits and verification.
+The CSC120 prerequisite statement is checked against its exact reviewed text, catalog edition, and structured interpretation. Changed, stale, unavailable, or unsupported prerequisite evidence makes the affected academic result unknown. The rule statement has its own source-linked evidence chunk and travels with the course description into the generator context.
+
+Resource pages and catalog-wide discovery remain outside this connector. Failed description checks retain clearly dated valid caches or bundled snapshots; an unfetched new course has no placeholder recommendation. A changed enrollment requirement reference revokes the affected reviewed rule. See [runtime source checks](docs/14_RUNTIME_SOURCES.md), [prerequisite evidence](docs/15_PREREQUISITE_EVIDENCE.md), and [bounded discovery](docs/16_COURSE_DISCOVERY.md) for limits and verification.
 
 `ECE_REFRESH_SOURCES=true` is the default. Set it to `false` for an explicit offline run; the app labels its sources as saved evidence. Public source checks do not require a Gemini key. Try:
 
@@ -99,6 +102,8 @@ python scripts/check_sources.py --career exploring
 The command saves a trace under `.cache` and exits unsuccessfully if a requested source or its bound prerequisite interpretation could not be verified. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
+
+Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The real exploring-profile check added CSC110, ECE201, and ECE220. Candidate selection is limited to the configured foundation sections; finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
 
 The public course entries return internal enrollment requirement IDs. Four ECE rules remain **unknown**. One CSC120 condition is reviewed against the current Computer Science program requirements, with its source linked in the app. Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
 

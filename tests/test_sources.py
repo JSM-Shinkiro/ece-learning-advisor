@@ -16,7 +16,7 @@ NOW = datetime(2026, 11, 4, 3, tzinfo=timezone.utc)
 
 
 def course_page(record, *, edition="2026-2027", code=None, summary=None, reference=None,
-                variable_credits=False, unit_range=None):
+                variable_credits=False, unit_range=None, course_id=None):
     table = []
 
     def ref(value):
@@ -26,7 +26,9 @@ def course_page(record, *, edition="2026-2027", code=None, summary=None, referen
     minimum, maximum = unit_range if unit_range is not None else (
         record.credits, record.credits + 1 if variable_credits else record.credits)
     hours = ref({"min": ref(minimum), "max": ref(maximum)})
+    identity_fields = {"courseGroupId": ref(course_id)} if course_id is not None else {}
     table.append({"code": ref(code or record.code), "longName": ref(record.title + " (HTTP fixture)"),
+                  **identity_fields,
                   "description": ref(summary or f"<p>Fixture source text for {record.code}: programming and hardware.</p>"),
                   "credits": ref({"creditHours": hours}),
                   "requirementGroup": ref(reference or record.requirement_reference)})

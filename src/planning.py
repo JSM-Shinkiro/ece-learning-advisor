@@ -1,5 +1,7 @@
 """Small, explicit learning-stage policies. These do not define enrollment rules."""
 
+import re
+
 from .models import Record, StudentProfile
 from .retrieval import tokenize
 
@@ -31,13 +33,15 @@ def learning_phase(record: Record, profile: StudentProfile, evaluation=None):
     return "build"
 
 
-def coverage_message(catalog, profile, question):
+def coverage_message(catalog, profile, question, *, allow_course_discovery=False):
     """A transparent vocabulary guard before adding default career terms.
 
     This catches clear nonmatches, not semantic intent or every out-of-scope claim.
     The generator must still abstain when the retrieved facts do not answer a query.
     """
     text = question.strip() or profile.interests.strip()
+    if allow_course_discovery and re.search(r"\b(?:ECE|CSC)\s*[1-4]\d{2}[A-Z]{0,2}\b", text, re.I):
+        return None
     generic = {
         "want", "would", "like", "can", "could", "do", "does", "how", "me", "help", "please",
         "start", "get", "need", "needs", "learn", "learning", "study", "studies", "take", "about",

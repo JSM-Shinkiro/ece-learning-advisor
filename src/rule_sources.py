@@ -12,9 +12,9 @@ from pathlib import Path
 from typing import Annotated, Literal
 
 import httpx
-from pydantic import AwareDatetime, Field
+from pydantic import AwareDatetime, Field, model_validator
 
-from .ingest import extract_program_statements
+from .ingest import extract_program_courses, extract_program_statements
 from .models import (Source, SourceCheck, StrictModel, program_source_url_matches, rule_binding_matches, statement_hash)
 from .source_http import failure_kind, read_public_page
 
@@ -26,7 +26,16 @@ Statement = Annotated[str, Field(min_length=1, max_length=3000)]
 class ProgramSnapshot(StrictModel):
     program_code: str = Field(pattern=r"^[A-Z][A-Z0-9]{1,20}$")
     catalog_version: str = Field(pattern=r"^20\d{2}-20\d{2}$")
-    statements: dict[str, Statement] = Field(min_length=1, max_length=16)
+    statements: dict[str, Statement] = Field(default_factory=dict, max_length=16)
+    course_ids: dict[str, list[Annotated[str, Field(pattern=r"^\d{7}$")]]] = Field(default_factory=dict, max_length=16)
+
+    @model_validator(mode="after")
+    def bounded_sections(self):
+        if not self.statements and not self.course_ids:
+            raise ValueError("A program snapshot needs selected evidence")
+        if any(not 1 <= len(ids) <= 40 or len(set(ids)) != len(ids) for ids in self.course_ids.values()):
+            raise ValueError("A program course list is invalid")
+        return self
 
 
 def program_hash(data: ProgramSnapshot):
@@ -35,7 +44,7 @@ def program_hash(data: ProgramSnapshot):
 
 
 class CachedProgram(StrictModel):
-    schema_version: Literal[1] = 1
+    schema_version: Literal[2] = 2
     url: str
     data: ProgramSnapshot
     content_hash: str = Field(pattern=r"^[a-f0-9]{64}$")
@@ -52,6 +61,7 @@ class RuleJob:
     edition: str
     sections: set[str] = field(default_factory=set)
     record_ids: list[str] = field(default_factory=list)
+    discovery_sections: set[str] = field(default_factory=set)
 
 
 def _program_url(job):
@@ -60,7 +70,7 @@ def _program_url(job):
 
 
 def _path(directory, job):
-    identity = json.dumps([job.source.url, job.program_code, job.edition, sorted(job.sections)])
+    identity = json.dumps([job.source.url, job.program_code, job.edition, sorted(job.sections), sorted(job.discovery_sections)])
     return Path(directory) / "rules" / (hashlib.sha256(identity.encode()).hexdigest() + ".json")
 
 
@@ -71,6 +81,7 @@ def _read(path, job):
         saved = CachedProgram.model_validate_json(path.read_bytes())
         if (saved.url != job.source.url or saved.data.program_code != job.program_code
                 or saved.data.catalog_version != job.edition or set(saved.data.statements) != job.sections
+                or set(saved.data.course_ids) != job.discovery_sections
                 or saved.content_hash != program_hash(saved.data) or saved.last_checked_at < saved.retrieved_at):
             return None
         return saved
@@ -134,10 +145,14 @@ def fetch_rule_source(job, directory, client, now=None):
     check = SourceCheck(source_id=source.source_id, code=job.program_code, url=source.url, kind="rule",
         status="bundled_fallback", attempted_at=now or datetime.now(timezone.utc),
         retrieved_at=source.retrieved_at, last_checked_at=source.last_checked_at)
+    if not job.record_ids:
+        check.kind = "discovery"
+    if job.discovery_sections:
+        check.discovery_status = "unavailable"
     cached = None
     try:
         _program_url(job)
-        if not 1 <= len(job.sections) <= 16:
+        if not 1 <= len(job.sections | job.discovery_sections) <= 16:
             raise ValueError("The prerequisite source-section limit was exceeded")
         path = _path(directory, job)
         cached = _read(path, job)
@@ -154,7 +169,16 @@ def fetch_rule_source(job, directory, client, now=None):
             saved = cached.model_copy(update={"last_checked_at": now or datetime.now(timezone.utc)})
             check.status = "not_modified"
         else:
-            data = ProgramSnapshot.model_validate(extract_program_statements(page.text, job.program_code, sorted(job.sections)))
+            fields = (extract_program_statements(page.text, job.program_code, sorted(job.sections)) if job.sections else {})
+            if job.discovery_sections:
+                try:
+                    discovered = extract_program_courses(page.text, job.program_code, sorted(job.discovery_sections))
+                    fields.update(discovered)
+                except (ValueError, TypeError, KeyError, AttributeError, RecursionError):
+                    if not job.sections:
+                        raise
+                    check.message = "Course discovery is unavailable for the selected program section; prerequisite checks are separate."
+            data = ProgramSnapshot.model_validate(fields)
             if data.catalog_version != job.edition:
                 raise ValueError("The prerequisite catalog edition does not match")
             checked = now or datetime.now(timezone.utc)
@@ -163,11 +187,14 @@ def fetch_rule_source(job, directory, client, now=None):
                                   etag=page.etag, last_modified=page.last_modified)
             check.content_changed = cached is None or saved.content_hash != cached.content_hash
             check.status = "updated" if check.content_changed else "unchanged"
-        try:
-            _write(path, saved)
-            check.cache_saved = True
-        except OSError:
-            check.message = "Fresh prerequisite evidence was fetched, but its cache could not be saved."
+        if set(saved.data.course_ids) == job.discovery_sections:
+            if job.discovery_sections:
+                check.discovery_status = "verified"
+            try:
+                _write(path, saved)
+                check.cache_saved = True
+            except OSError:
+                check.message = "Fresh program evidence was fetched, but its cache could not be saved."
         check.retrieved_at, check.last_checked_at = saved.retrieved_at, saved.last_checked_at
         check.content_hash = saved.content_hash
         return saved, check
@@ -179,6 +206,8 @@ def fetch_rule_source(job, directory, client, now=None):
         if cached:
             check.retrieved_at, check.last_checked_at = cached.retrieved_at, cached.last_checked_at
             check.content_hash = cached.content_hash
+            if job.discovery_sections:
+                check.discovery_status = "stale"
         return cached, check
 
 
@@ -189,7 +218,7 @@ def apply_rule_source(catalog, job, saved, check):
     if saved:
         source.retrieved_at, source.last_checked_at = saved.retrieved_at, saved.last_checked_at
         source.content_hash = saved.content_hash
-        source.review_note = ("Selected prerequisite sections fetched from the matching catalog edition. "
+        source.review_note = ("Selected program sections fetched from the matching catalog edition. "
                               "Only unchanged, explicitly reviewed conditions can be evaluated automatically.")
     for record in catalog.records:
         if record.record_id not in job.record_ids:
