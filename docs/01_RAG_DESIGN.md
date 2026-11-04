@@ -68,7 +68,7 @@ Specific questions can prefer one existing course using a keyword lookup without
 
 These are starting settings to evaluate.
 
-The initial implementation includes all three retrieval methods. Live keyword, semantic, and hybrid RAG passed integration checks on October 23 using `gemini-embedding-2` and `gemini-3.5-flash-lite` with the earlier output format. See [live verification](11_GEMINI_LIVE_VERIFICATION.md). The November 4 selection schema still needs live provider verification. The context limit applies to evidence text; profile lengths, the statement registry, and selected output are bounded separately.
+The initial implementation includes all three retrieval methods. Live keyword, semantic, and hybrid RAG passed October 23 checks with the earlier output format and [November 4 checks](22_CURRENT_GEMINI_VERIFICATION.md) with the current statement-selection format, using `gemini-embedding-2` and `gemini-3.5-flash-lite`. The later evidence also includes a real-embedding comparison on the frozen development questions; independent/broader quality evaluation remains open. The context limit applies to evidence text; profile lengths, the statement registry, and selected output are bounded separately.
 
 Normalize vectors and use cosine similarity. For hybrid retrieval, combine ranks rather than adding raw BM25 and cosine values. RRF adds 1 / (60 + rank) for each list containing a chunk. Ranks start at one.
 

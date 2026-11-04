@@ -97,3 +97,7 @@ Current CLI success additionally requires zero unsupported claims admitted by th
 ## Later November 4 query follow-up
 
 [Student wording and coverage](20_QUERY_INTERPRETATION.md) adds explicit domain aliases and a separately labeled `--query-mode expanded` treatment. Raw scoring and frozen labels remain unchanged. Expanded-query Recall@5 is 0.9479 versus the raw 0.8229, with remaining misses preserved in the [new report](evidence/query_expansion_2026-11-04.json). Aliases were authored after known misses, including the named validation examples; the result is development tuning, not held-out improvement. A separate [keyword context comparison](evidence/query_coverage_2026-11-04.json) documents recovered coverage and question-focused course visibility. No provider or source calls were made. The current full suite passes 444 tests; actual neural/provider quality and independent review remain open.
+
+## Subsequent November 4 live comparison
+
+[Current Gemini verification](22_CURRENT_GEMINI_VERIFICATION.md) records actual provider selections and the [real-embedding expanded comparison](evidence/neural_expanded_evaluation_2026-11-04.json). That separate evaluation uses cached real document vectors and 16 actual query embeddings; it generates no answers and refreshes no sources. Semantic/hybrid Recall@5 is 1.0 on the unchanged small reference set. The aliases and labels remain development references, not an independent held-out benchmark. Historical raw/keyword reports and their scope remain unchanged.

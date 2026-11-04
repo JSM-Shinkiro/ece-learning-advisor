@@ -1,0 +1,1465 @@
+{
+  "checked_at": "2026-11-04T20:24:15.528456+00:00",
+  "credential_source": "user-authorized most recent Gemini credential, process memory only",
+  "scope": "Authored integration profiles and actual provider selections. Canonical wording validation is not an independent relevance/accuracy evaluation.",
+  "generation_model": "gemini-3.5-flash-lite",
+  "embedding_model": "gemini-embedding-2",
+  "dimensions": 768,
+  "implementation": {
+    "src/providers.py": "7de5e48828854b30a18672b9d0e4243f698a97d6bee2db707635d4f5dd063fb8",
+    "src/service.py": "aaf1f1fbd6352280f3c2bdfc90cd97734721a3a7fa23ceb62d38e13fc38d1cf1",
+    "src/grounding.py": "99714180ce3bfce542c3333b01c7004aa769eb5ed33eeced6a77b8167f522f65",
+    "src/models.py": "95d4f04392dbc810732072ae3da055b31d4f1c435ec07dea3bd28386efc7c5ab",
+    "src/query.py": "08c2b51b144ae5f9dbb9e6b3a6f59e0d48f47ea82ba4de45c1aa3b1887663ef9",
+    "src/retrieval.py": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006",
+    "src/controller.py": "44e599c89da96ab0ff7892be15911039d1d710ffeed783fb0ed77523d0ef6b96",
+    "src/discovery.py": "9ad2f4c41cda6a3244815f64ec7fe3e70657f21caba6a5db18162a783f415926",
+    "src/ingest.py": "5751e63751675a917a975c850e67b275c6b18ed4dd9b5db98fbbca354a6c336b",
+    "src/rule_sources.py": "0b2b7601b1b0ca82af5c6bde18f0994bac00494651e735669fd2940ab4b459d5",
+    "src/sources.py": "1aeb59d0871417ca44a5a698bb660b6000fd4d381f80b186c27fc757489a1897",
+    "data/connectors/course_discovery.json": "20d5c3f90e6271d2cad5a956064b55d77e61aa077a86a0e036fa4131655da800",
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f"
+  },
+  "checks": [
+    {
+      "case": "ai_keyword",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "train computers to pick out patterns from pictures",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "keyword",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 0,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "visual_learning"
+          ],
+          "added_terms": [
+            "computer vision",
+            "deep learning",
+            "neural networks"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE425:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "career:embedded:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "career:ai_ml:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE425": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:20.982642Z",
+            "last_checked_at": null
+          },
+          "catalog:CSC120": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:24.472577Z",
+            "last_checked_at": null
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-11-04T04:02:39.295788Z",
+            "last_checked_at": null
+          }
+        },
+        "field_sources": {},
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:510e8152fffa47c00282171cb5a1c5bf76a145224621117b7c35d0321961358c",
+          "stmt:b9510f42ab87cfcf3024bd094a222dd52aa6a63b07d3c6225f7d9c58bce61bad",
+          "stmt:3bc907f8b85302ecd6e6b58cc4fa00fe91749c76c1e2ff767d9beca75c11b03d",
+          "stmt:decd058eafeaaf10cff277b3ba2c7b1630b9681e321a1e4c6d14abe670f03400",
+          "stmt:8e2992f7a3d1e7f6712f1746fbcc701df6553a1156492f86ba78e9f6a21e3772",
+          "stmt:e6868309d8950005f44831ce2f81b679a95c10dbdf17c564dcd1d0c7a691fb4b"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "retrieval": 0.0005419179999535118,
+          "generation": 6.968826690000014,
+          "total": 6.9710420420001356
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:ECE425:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE425: Introduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "resource:pytorch",
+            "reasons": [
+              {
+                "text": "Saved source description for PyTorch Quickstart: Practice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Use this to connect Python programming with a small deep learning workflow after building programming foundations.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "uofa:ECE101:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE101: Introduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      }
+    },
+    {
+      "case": "ai_semantic",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "train computers to pick out patterns from pictures",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "semantic",
+      "provider_calls": {
+        "document_embeddings": 10,
+        "query_embeddings": 1,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "visual_learning"
+          ],
+          "added_terms": [
+            "computer vision",
+            "deep learning",
+            "neural networks"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ],
+        "retrieval_mode": "semantic",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "miss",
+        "retrieved_chunk_ids": [
+          "career:ai_ml:overview",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:pytorch:overview",
+          "resource:cs50:overview",
+          "career:embedded:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "career:ai_ml:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE425": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:20.982642Z",
+            "last_checked_at": null
+          },
+          "catalog:CSC120": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:24.472577Z",
+            "last_checked_at": null
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-11-04T04:02:39.295788Z",
+            "last_checked_at": null
+          }
+        },
+        "field_sources": {},
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:510e8152fffa47c00282171cb5a1c5bf76a145224621117b7c35d0321961358c",
+          "stmt:b9510f42ab87cfcf3024bd094a222dd52aa6a63b07d3c6225f7d9c58bce61bad",
+          "stmt:3bc907f8b85302ecd6e6b58cc4fa00fe91749c76c1e2ff767d9beca75c11b03d",
+          "stmt:decd058eafeaaf10cff277b3ba2c7b1630b9681e321a1e4c6d14abe670f03400",
+          "stmt:8e2992f7a3d1e7f6712f1746fbcc701df6553a1156492f86ba78e9f6a21e3772",
+          "stmt:e6868309d8950005f44831ce2f81b679a95c10dbdf17c564dcd1d0c7a691fb4b",
+          "stmt:ab4de703ad53207a978c27679055e50c316c6f3b0a825c1d717ccb047a927082",
+          "stmt:41767cbf1b7c1383213e35d1718d1bab9f5d4a8cedfffd480c442462344ea6e4"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "embedding": 2.354574780000121,
+          "retrieval": 0.0015276770000127726,
+          "generation": 2.0832539809998707,
+          "total": 4.442340540000032
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:ECE425:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE425: Introduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "resource:pytorch",
+            "reasons": [
+              {
+                "text": "Saved source description for PyTorch Quickstart: Practice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Use this to connect Python programming with a small deep learning workflow after building programming foundations.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "uofa:ECE101:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE101: Introduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "resource:cs50",
+            "reasons": [
+              {
+                "text": "Saved source description for CS50 \u2014 Introduction to Computer Science: Build programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "resource:cs50:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Use this alongside programming foundations when you want guided practice outside university coursework.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "resource:cs50:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      }
+    },
+    {
+      "case": "ai_hybrid",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "train computers to pick out patterns from pictures",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "hybrid",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 1,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "visual_learning"
+          ],
+          "added_terms": [
+            "computer vision",
+            "deep learning",
+            "neural networks"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE425:2026-2027"
+        ],
+        "retrieval_mode": "hybrid",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "hit",
+        "retrieved_chunk_ids": [
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "career:embedded:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "career:ai_ml:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE425": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:20.982642Z",
+            "last_checked_at": null
+          },
+          "catalog:CSC120": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:24.472577Z",
+            "last_checked_at": null
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-11-04T04:02:39.295788Z",
+            "last_checked_at": null
+          }
+        },
+        "field_sources": {},
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:510e8152fffa47c00282171cb5a1c5bf76a145224621117b7c35d0321961358c",
+          "stmt:b9510f42ab87cfcf3024bd094a222dd52aa6a63b07d3c6225f7d9c58bce61bad",
+          "stmt:3bc907f8b85302ecd6e6b58cc4fa00fe91749c76c1e2ff767d9beca75c11b03d",
+          "stmt:decd058eafeaaf10cff277b3ba2c7b1630b9681e321a1e4c6d14abe670f03400",
+          "stmt:8e2992f7a3d1e7f6712f1746fbcc701df6553a1156492f86ba78e9f6a21e3772",
+          "stmt:e6868309d8950005f44831ce2f81b679a95c10dbdf17c564dcd1d0c7a691fb4b"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "embedding": 0.26104682400000456,
+          "retrieval": 0.0009531959999549144,
+          "generation": 1.8306860420000248,
+          "total": 2.095854362999944
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:ECE425:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE425: Introduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE425:2026-2027:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "resource:pytorch",
+            "reasons": [
+              {
+                "text": "Saved source description for PyTorch Quickstart: Practice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Use this to connect Python programming with a small deep learning workflow after building programming foundations.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "resource:pytorch:overview"
+                ]
+              }
+            ]
+          },
+          {
+            "record_id": "uofa:ECE101:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE101: Introduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE101:2026-2027:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      }
+    },
+    {
+      "case": "embedded_paraphrase",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "embedded",
+        "interests": "",
+        "experience": "",
+        "question": "make a little board react when a button is pressed without polling",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "experienced",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "hybrid",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 1,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [
+            "board_events"
+          ],
+          "added_terms": [
+            "microcontrollers",
+            "interrupts",
+            "hardware interfaces",
+            "embedded systems"
+          ]
+        },
+        "focused_record_ids": [
+          "uofa:ECE372A:2026-2027"
+        ],
+        "retrieval_mode": "hybrid",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "hit",
+        "retrieved_chunk_ids": [
+          "career:embedded:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "career:ai_ml:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "resource:pytorch:overview",
+          "uofa:ECE425:2026-2027:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "resource:cs50:overview",
+          "career:embedded:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE101:2026-2027",
+          "resource:cs50"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE369A": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:12.568170Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE372A": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:16.945042Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          }
+        },
+        "field_sources": {},
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:fce72db271fbab7cca7a9e7615d2051820933e49651bad08889fcdf13c256e43",
+          "stmt:e4811ff1509196b6f1546d15365638c8ba0a97ea513c3c793f5377d1823b985e"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "embedding": 0.20091213399996377,
+          "retrieval": 0.0011863770000672957,
+          "generation": 1.3395870800000012,
+          "total": 1.5437170709999464
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:ECE372A:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for ECE372A: Studies microcontrollers and hardware interfaces through C programming, interrupts, timers, serial communication, and analog conversion. Includes laboratories and a project using a microcontroller platform.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:ECE372A:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Microcontroller programming and hardware interfaces connect an embedded-systems goal with practical device projects. Prepare programming and processor foundations first.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:ECE372A:2026-2027:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      }
+    },
+    {
+      "case": "completed_foundation",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "CSC120 programming data structures",
+        "completed": [
+          {
+            "course_code": "ECE101",
+            "grade": "B"
+          }
+        ],
+        "history_complete": false,
+        "programming_background": "some",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "hybrid",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 1,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC120:2026-2027"
+        ],
+        "retrieval_mode": "hybrid",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "hit",
+        "retrieved_chunk_ids": [
+          "career:ai_ml:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE101:2026-2027:overview",
+          "career:embedded:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:pytorch:overview",
+          "resource:cs50:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "career:ai_ml:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch",
+          "resource:cs50"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE425": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:20.982642Z",
+            "last_checked_at": null
+          },
+          "catalog:CSC120": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:24.472577Z",
+            "last_checked_at": null
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-11-04T04:02:39.295788Z",
+            "last_checked_at": null
+          }
+        },
+        "field_sources": {},
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:3b278e444e3c234894a61c6d2ddf2ffbbdc081c54e13c2a2734062777992767f",
+          "stmt:39b79c17e2076a6856fa6ffb4202e39ca5d1ac11af19f2a7e8ca65de5d5a57ba",
+          "stmt:903099090677c06a0eda0efad739e8f054e1d0a40d83a910c8fc0365db4feb8e",
+          "stmt:824fceb91651012bb13196b950246177cc6c1f29d0653faa7e3deef5bbac96aa"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "embedding": 0.20770723999999063,
+          "retrieval": 0.0008106840000436932,
+          "generation": 1.569003273999897,
+          "total": 1.779994047999935
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:CSC120:2026-2027",
+            "reasons": [
+              {
+                "text": "Saved source description for CSC120: Develops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:CSC120:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "The recorded coursework satisfies the dated 2026-2027 reviewed condition for CSC120. This does not establish complete enrollment eligibility.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:CSC120:2026-2027:rule:R1299-L40"
+                ]
+              },
+              {
+                "text": "Suggested learning connection: Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:CSC120:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "Consider CSC120 as a starting learning activity. Confirm any university enrollment requirements before registering.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:CSC120:2026-2027:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      }
+    },
+    {
+      "case": "unsupported_guard",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "marine biology and ocean fieldwork",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "hybrid",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 0,
+        "generation": 0
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "prompt_version": "p07-v7-statement-selection",
+        "generation_status": "insufficient_evidence",
+        "generation_complete": false,
+        "coverage_guard": "no_vocabulary_match",
+        "model_calls": 0,
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "context_chunk_ids": [],
+        "allowed_record_ids": [],
+        "timings_seconds": {
+          "total": 0.0009212970001044596
+        }
+      },
+      "issues": [],
+      "answer": null
+    },
+    {
+      "case": "discovered_csc110_condition",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "ai_ml",
+        "interests": "",
+        "experience": "",
+        "question": "CSC110",
+        "completed": [
+          {
+            "course_code": "MATH112",
+            "grade": "B"
+          }
+        ],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [],
+        "consents": []
+      },
+      "requested_retrieval": "keyword",
+      "provider_calls": {
+        "document_embeddings": 0,
+        "query_embeddings": 0,
+        "generation": 1
+      },
+      "passed": true,
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "732539453be469fa9ba09a3ec907fc4824714c39eb7d97ef211da2c2893830e5",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:CSC110:2026-2027"
+        ],
+        "retrieval_mode": "keyword",
+        "embedding_model": "gemini-embedding-2",
+        "generation_model": "gemini-3.5-flash-lite",
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "uofa:ECE425:2026-2027:overview",
+          "career:ai_ml:overview",
+          "resource:pytorch:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE369A:2026-2027:overview",
+          "career:embedded:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40",
+          "uofa:ECE425:2026-2027:overview",
+          "resource:cs50:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:CSC110:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50",
+          "resource:pytorch"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:24:37.833369Z",
+            "last_checked_at": "2026-11-04T20:24:37.833369Z"
+          },
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:24:38.074089Z",
+            "last_checked_at": "2026-11-04T20:24:38.074089Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:24:38.559997Z",
+            "last_checked_at": "2026-11-04T20:24:38.559997Z"
+          },
+          "resource:pytorch": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "resource:cs50": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "last_checked_at": null
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:24:38.012699Z",
+            "last_checked_at": "2026-11-04T20:24:38.012699Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-04T20:24:38.702425Z",
+            "last_checked_at": "2026-11-04T20:24:38.702425Z"
+          }
+        },
+        "field_sources": {
+          "uofa:CSC110:2026-2027": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "uofa:CSC120:2026-2027": {
+            "title": "catalog:CSC120",
+            "summary": "catalog:CSC120",
+            "credits": "catalog:CSC120",
+            "requirement_reference": "catalog:CSC120"
+          },
+          "uofa:ECE425:2026-2027": {
+            "title": "catalog:ECE425",
+            "summary": "catalog:ECE425",
+            "credits": "catalog:ECE425",
+            "requirement_reference": "catalog:ECE425"
+          }
+        },
+        "resource_versions": {},
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [
+          "stmt:cbd4b16cf47cc7121fa42f93af51bf8b233a356d1346073d47799c2ea3fc873a",
+          "stmt:05fe25f56c7fe72f8d069f7d85d8ffebe5cac98fb00f3c8ff6f4d8a546133919",
+          "stmt:3ae3d57551545fb3eb13c835c9be4eee60dd49c7818a649139ceb26a13c223e3"
+        ],
+        "statement_validation_passed": true,
+        "validation_error": null,
+        "generation_complete": true,
+        "generation_status": "answered",
+        "reference_checks_passed": true,
+        "timings_seconds": {
+          "source_refresh": 6.340864078000095,
+          "retrieval": 0.0013143359999503446,
+          "generation": 5.50831227499998,
+          "total": 11.856208243000083
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-04T20:24:38.703038Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "rule_verification": "verified",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ],
+              "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+              "reviewed_statement_hashes": {
+                "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+              }
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:CS_foundations",
+              "code": "COSCBS",
+              "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+              "kind": "rule",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:24:32.369059Z",
+              "last_checked_at": "2026-11-04T20:24:38.012699Z",
+              "retrieved_at": "2026-11-04T20:24:38.012699Z",
+              "content_hash": "8c98b39775c76cd014a6af90f2865b3ad9b5fe9d392ac640fe7e4c13e7e76380",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": "verified",
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:24:32.369484Z",
+              "last_checked_at": "2026-11-04T20:24:37.833369Z",
+              "retrieved_at": "2026-11-04T20:24:37.833369Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE425",
+              "code": "ECE425",
+              "url": "https://catalog.arizona.edu/courses/0435981",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:24:32.371361Z",
+              "last_checked_at": "2026-11-04T20:24:38.074089Z",
+              "retrieved_at": "2026-11-04T20:24:38.074089Z",
+              "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC120",
+              "code": "CSC120",
+              "url": "https://catalog.arizona.edu/courses/0393701",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:24:37.834246Z",
+              "last_checked_at": "2026-11-04T20:24:38.559997Z",
+              "retrieved_at": "2026-11-04T20:24:38.559997Z",
+              "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC110",
+              "code": "CSC110",
+              "url": "https://catalog.arizona.edu/courses/0393681",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-04T20:24:38.023224Z",
+              "last_checked_at": "2026-11-04T20:24:38.702425Z",
+              "retrieved_at": "2026-11-04T20:24:38.702425Z",
+              "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": "verified",
+              "discovery_status": null,
+              "message": ""
+            }
+          ]
+        }
+      },
+      "issues": [],
+      "answer": {
+        "status": "answered",
+        "recommendations": [
+          {
+            "record_id": "uofa:CSC110:2026-2027",
+            "reasons": [
+              {
+                "text": "Source description for CSC110: An introduction to programming with an emphasis on solving problems drawn from a variety of domains. Topics include basic control and data structures, problem solving strategies, and software development tools and techniques.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:CSC110:2026-2027:overview"
+                ]
+              },
+              {
+                "text": "The recorded coursework satisfies the stored reviewed condition for CSC110. This does not establish complete enrollment eligibility.",
+                "claim_type": "source_fact",
+                "evidence_ids": [
+                  "uofa:CSC110:2026-2027:rule:R1299-L30"
+                ]
+              },
+              {
+                "text": "Consider CSC110 as a starting learning activity. Confirm any university enrollment requirements before registering.",
+                "claim_type": "recommendation",
+                "evidence_ids": [
+                  "uofa:CSC110:2026-2027:overview"
+                ]
+              }
+            ]
+          }
+        ],
+        "clarification": null
+      },
+      "csc110_result": {
+        "status": "satisfied",
+        "reasons": [
+          "MATH112: grade B, required C.",
+          "Appropriate math placement requires confirmation; this app does not verify placement scores."
+        ],
+        "evidence_ids": [
+          "uofa:CSC110:2026-2027:rule:R1299-L30"
+        ],
+        "verification_status": "verified",
+        "source_ids": [
+          "catalog:CS_foundations"
+        ]
+      }
+    }
+  ],
+  "provider_calls": {
+    "document_embeddings": 10,
+    "query_embeddings": 4,
+    "generation": 6
+  },
+  "all_integration_checks_passed": true,
+  "initial_credential_preflight": {
+    "checked_at": "2026-11-04T20:22:30.147263+00:00",
+    "credential_label": "most_recent",
+    "generation_model": "gemini-3.5-flash-lite",
+    "prompt_version": "p07-v7-statement-selection",
+    "embedding_calls": 0,
+    "generation_attempts": 1,
+    "success": true,
+    "selection": {
+      "status": "answered",
+      "recommendations": [
+        {
+          "record_id": "uofa:ECE101:2026-2027",
+          "statement_ids": [
+            "stmt:e6868309d8950005f44831ce2f81b679a95c10dbdf17c564dcd1d0c7a691fb4b",
+            "stmt:9f0a28c916213a1ef5e93c90d48b845503cb43d4dc80204711a87f416dea3de1"
+          ]
+        },
+        {
+          "record_id": "uofa:ECE425:2026-2027",
+          "statement_ids": [
+            "stmt:b9510f42ab87cfcf3024bd094a222dd52aa6a63b07d3c6225f7d9c58bce61bad",
+            "stmt:c3e027b63ded742367cc5eb80e4c2b2c30c57d1cae45db0c7519966b6cf27e7b"
+          ]
+        },
+        {
+          "record_id": "resource:pytorch",
+          "statement_ids": [
+            "stmt:decd058eafeaaf10cff277b3ba2c7b1630b9681e321a1e4c6d14abe670f03400",
+            "stmt:c18d1521ba3e61dec9f1be17094f74c270eeb799b3cef709d21c6b6b601f9770",
+            "stmt:0aeca3ad76233bc56903d9f86c1f49ee80b175e507099a8fe47ad6592b07de42"
+          ]
+        }
+      ],
+      "clarification_code": null
+    },
+    "answer": {
+      "status": "answered",
+      "recommendations": [
+        {
+          "record_id": "uofa:ECE101:2026-2027",
+          "reasons": [
+            {
+              "text": "Suggested learning connection: Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "uofa:ECE101:2026-2027:overview"
+              ]
+            },
+            {
+              "text": "Consider ECE101 as a starting learning activity. Confirm any university enrollment requirements before registering.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "uofa:ECE101:2026-2027:overview"
+              ]
+            }
+          ]
+        },
+        {
+          "record_id": "uofa:ECE425:2026-2027",
+          "reasons": [
+            {
+              "text": "Suggested learning connection: Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "uofa:ECE425:2026-2027:overview"
+              ]
+            },
+            {
+              "text": "Keep ECE425 as a later learning goal while developing preparation and checking requirements. This learning stage is not a semester assignment.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "uofa:ECE425:2026-2027:overview"
+              ]
+            }
+          ]
+        },
+        {
+          "record_id": "resource:pytorch",
+          "reasons": [
+            {
+              "text": "Suggested learning connection: Use this to connect Python programming with a small deep learning workflow after building programming foundations.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "resource:pytorch:overview"
+              ]
+            },
+            {
+              "text": "Suggested first activity: Work through loading data and running the example model. Note how the training and evaluation steps differ.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "resource:pytorch:overview"
+              ]
+            },
+            {
+              "text": "Keep PyTorch Quickstart as a later learning goal while developing preparation and checking requirements. This learning stage is not a semester assignment.",
+              "claim_type": "recommendation",
+              "evidence_ids": [
+                "resource:pytorch:overview"
+              ]
+            }
+          ]
+        }
+      ],
+      "clarification": null
+    },
+    "seconds": 9.502588715999991
+  },
+  "implementation_review": {
+    "reviewer": "implementation assistant",
+    "scope": "Selected record relevance and displayed limitations for these authored scenarios; not independent/human academic review.",
+    "cases": [
+      {
+        "case": "ai_keyword",
+        "expected_focus_record": "uofa:ECE425:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      },
+      {
+        "case": "ai_semantic",
+        "expected_focus_record": "uofa:ECE425:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      },
+      {
+        "case": "ai_hybrid",
+        "expected_focus_record": "uofa:ECE425:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      },
+      {
+        "case": "embedded_paraphrase",
+        "expected_focus_record": "uofa:ECE372A:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      },
+      {
+        "case": "completed_foundation",
+        "expected_focus_record": "uofa:CSC120:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      },
+      {
+        "case": "unsupported_guard",
+        "result": "Application guard stopped the request before model calls; this is not model abstention."
+      },
+      {
+        "case": "discovered_csc110_condition",
+        "expected_focus_record": "uofa:CSC110:2026-2027",
+        "focus_selected": true,
+        "wording_contract_passed": true,
+        "review": "Selected statements fit the authored focus and preserve the preparation/enrollment limitations. Wording and citations come from the app; this does not independently verify underlying source correctness."
+      }
+    ]
+  }
+}

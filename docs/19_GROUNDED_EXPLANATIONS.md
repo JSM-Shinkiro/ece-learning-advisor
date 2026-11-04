@@ -65,8 +65,10 @@ The evaluator's current success status additionally requires zero unsupported re
 
 ## Remaining checks
 
-No real Gemini request tested this schema change. October 23's successful model calls used the earlier output format. Run `scripts/verify_live.py` with locally configured credentials to verify current provider compatibility and inspect actual statement selections before describing this contract as live-verified. That script uses the saved corpus for continuity; `scripts/check_sources.py` checks the current public-source path separately.
+At completion of this explanation unit, no real Gemini request had tested the schema change; October 23's successful calls used the earlier format. Later November 4 [live verification](22_CURRENT_GEMINI_VERIFICATION.md) now confirms current provider compatibility and actual selections. `scripts/verify_live.py` uses the saved corpus for continuity; `scripts/check_sources.py` checks the current public-source path separately.
 
 The format cannot correct an inaccurate source, parser, reviewed rule interpretation, or team-authored learning suggestion. It also cannot establish that a valid selected statement answers the student's question well. Review actual selections, add independent judgments and broader cases, and compare opt-in semantic/hybrid retrieval. The known vocabulary/coverage guard and paraphrase misses are the next backend concern. Wider academic evidence, live Adzuna verification, free-only OpenRouter integration, and account persistence remain separate unfinished work.
 
 Later November 4: [query interpretation](20_QUERY_INTERPRETATION.md) implements bounded aliases and question-focused course selection, with a separate development measurement and 444 passing tests. The 386-test count above records this explanation unit's original verification. Source/label identities and its historical report remain unchanged. Live statement-selection verification is still pending.
+
+Subsequent November 4 check: [current Gemini verification](22_CURRENT_GEMINI_VERIFICATION.md) passes seven live integration expectations, including six actual validated selections and a no-call guard. It also records real neural retrieval measurements. The credential blocker is resolved for authorized development; independent answer/selection accuracy remains unevaluated.

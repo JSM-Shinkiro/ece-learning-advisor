@@ -70,3 +70,7 @@ The verification script covers the first three retrieval modes. The additional s
 ## Remaining work
 
 The app still uses bundled academic evidence. Automatic official-source fetching, on-use revalidation, scheduled database refresh if a database is introduced, live Adzuna checks, and browser screenshots remain pending. These provider checks do not complete those features. No keys need to be committed for a teammate to reproduce the tests.
+
+## November 4 development follow-up
+
+The October 23 results above preserve their original scope. The development repository now has on-use source checks, reviewed discovery, and a different explanation contract. [Current Gemini verification](22_CURRENT_GEMINI_VERIFICATION.md) records seven integration expectations for that format and a real-embedding comparison. The user-authorized credential was used in process memory only; no credential value is included in either evidence set.
