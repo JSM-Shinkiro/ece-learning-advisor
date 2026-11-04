@@ -1,0 +1,16 @@
+[
+  {
+    "token": "samsara",
+    "employer": "Samsara",
+    "careers_url": "https://www.samsara.com/company/careers",
+    "job_base_url": "https://www.samsara.com/company/careers/roles/",
+    "url_style": "id_path"
+  },
+  {
+    "token": "nuro",
+    "employer": "Nuro",
+    "careers_url": "https://www.nuro.ai/careers",
+    "job_base_url": "https://nuro.ai/careersitem",
+    "url_style": "id_query"
+  }
+]

@@ -49,10 +49,134 @@ def test_invalid_profile_is_visible_error(app):
     assert app.error
 
 
-def test_unconfigured_jobs_have_clear_state(app):
-    assert next(b for b in app.button if b.label=="Available Opportunities").disabled
+def test_public_opportunities_are_available_without_adzuna_credentials(app):
+    assert not next(b for b in app.button if b.label=="Available Opportunities").disabled
     assert not app.exception
-    assert any("not configured" in x.value for x in app.info)
+    assert app.selectbox(key="opportunity_provider").value == "greenhouse"
+    assert any("Samsara, Nuro" in x.value for x in app.caption)
+
+
+def opportunity_fixture(*, empty=False, provider="greenhouse", issues=None):
+    from src.jobs import JobSearchResult
+    listings = [] if empty else [{"id": "greenhouse:samsara:12", "title": "Fixture Machine Learning Engineer",
+        "employer": "Samsara", "location": "Remote - US", "url": "https://www.samsara.com/company/careers/roles/12?gh_jid=12",
+        "posted_at": "2026-09-01T00:00:00+00:00", "updated_at": "2026-11-03T00:00:00+00:00",
+        "description_snippet": "", "matched_terms": ["machine learning"]}]
+    return JobSearchResult(listings, "2026-11-04T22:00:00+00:00", "machine learning", "Remote - US",
+        provider=provider, total_matches=len(listings), issues=issues or [],
+        checks=[{"board": "samsara", "status": "verified"}])
+
+
+def submit_opportunities(app):
+    next(b for b in app.button if b.label == "Available Opportunities").click()
+    return app.run()
+
+
+def test_opportunity_fetch_is_explicit_fresh_by_default_and_cache_reuse_is_visible(app, monkeypatch):
+    calls = []
+    def search(*args, **kwargs):
+        calls.append((args, kwargs))
+        return opportunity_fixture()
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    app.run()
+    assert calls == []
+    submit_opportunities(app)
+    assert not app.exception and len(calls) == 1
+    assert any(item.value == "Fixture Machine Learning Engineer" for item in app.text)
+    assert any("Provider last update:" in item.value for item in app.caption)
+    assert any("Opportunity source checks" == item.label for item in app.expander)
+    app.run()
+    assert len(calls) == 1
+    submit_opportunities(app)
+    assert len(calls) == 2  # No implicit twenty-minute cache reuse.
+    app.checkbox(key="reuse_opportunities").set_value(True)
+    submit_opportunities(app)
+    assert len(calls) == 2
+    assert any("Reused recent results" in item.value for item in app.caption)
+
+
+def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch):
+    calls = []
+    def search(*args, **kwargs):
+        calls.append((args, kwargs)); return opportunity_fixture(empty=True)
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    app.text_input(key="opportunity_location_greenhouse").set_value("Tucson")
+    app.checkbox(key="opportunity_internship_greenhouse").set_value(True)
+    app.selectbox(key="opportunity_age").set_value(7)
+    submit_opportunities(app)
+    assert not app.exception
+    assert calls == [(("ai_ml", "Tucson", True), {"updated_within": 7})]
+    assert any("No listings were returned" in item.value for item in app.info)
+
+
+def test_failed_opportunity_search_removes_previous_results(app, monkeypatch):
+    failing = False
+    def search(*args, **kwargs):
+        if failing:
+            raise RuntimeError("private provider diagnostic")
+        return opportunity_fixture()
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    submit_opportunities(app)
+    failing = True
+    submit_opportunities(app)
+    assert not app.exception
+    assert any("could not complete this search" in item.value for item in app.warning)
+    assert not any(item.value == "Fixture Machine Learning Engineer" for item in app.text)
+    assert "job_result" not in app.session_state
+    assert not any("private provider diagnostic" in item.value for item in app.warning)
+
+
+def test_partial_opportunity_source_issue_is_shown_with_usable_listings(app, monkeypatch):
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture(issues=["Nuro: this board could not be checked; its listings are omitted."]))
+    submit_opportunities(app)
+    assert not app.exception
+    assert any("Nuro: this board could not be checked" in item.value for item in app.warning)
+    assert any(item.value == "Fixture Machine Learning Engineer" for item in app.text)
+
+
+def test_complete_provider_failure_exposes_source_checks_without_fake_empty_results(app, monkeypatch):
+    from src.opportunities import OpportunitySearchError
+    def fail(*args, **kwargs):
+        raise OpportunitySearchError([{"board": "samsara", "status": "unavailable", "http_status": 429}])
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", fail)
+    submit_opportunities(app)
+    assert not app.exception
+    assert any(item.label == "Last search source checks" for item in app.expander)
+    assert not any("No listings were returned" in item.value for item in app.info)
+
+
+def test_opportunity_search_waits_for_a_career_direction(app, monkeypatch):
+    def forbidden(*args, **kwargs): pytest.fail("Exploring profile must not fetch jobs")
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", forbidden)
+    app.selectbox(key="career_id").set_value("exploring")
+    submit(app)
+    assert not app.exception
+    assert next(b for b in app.button if b.label == "Available Opportunities").disabled
+
+
+def test_adzuna_is_an_explicit_separate_source_when_configured(app, monkeypatch):
+    calls = []
+    def adzuna(*args): calls.append(args); return opportunity_fixture(empty=True, provider="adzuna")
+    def forbidden(*args, **kwargs): pytest.fail("Do not silently switch to employer boards")
+    monkeypatch.setenv("ADZUNA_APP_ID", "fixture-id")
+    monkeypatch.setenv("ADZUNA_APP_KEY", "fixture-key")
+    monkeypatch.setattr("src.jobs.search_jobs", adzuna)
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", forbidden)
+    app.run()
+    app.selectbox(key="opportunity_provider").set_value("adzuna").run()
+    submit_opportunities(app)
+    assert not app.exception
+    assert calls == [("fixture-id", "fixture-key", "ai_ml", "Tucson, AZ", False)]
+    assert app.session_state["job_result"].provider == "adzuna"
+
+
+def test_invalid_employer_configuration_keeps_the_rest_of_the_app_usable(app, monkeypatch):
+    def fail(*a, **k): raise ValueError("configuration detail")
+    monkeypatch.setattr("src.opportunities.load_employer_boards", fail)
+    app.run()
+    assert not app.exception
+    assert any("employer-board connection is unavailable" in item.value for item in app.warning)
+    assert next(b for b in app.button if b.label == "Available Opportunities").disabled
 
 
 def test_live_ui_with_controlled_provider(app,monkeypatch,fake_provider):

@@ -1,0 +1,787 @@
+{
+  "checked_at": "2026-11-04T21:10:28.587892+00:00",
+  "scope": "Actual public Greenhouse employer-board GET requests. Two configured employers only; title/location filters do not establish qualification, geography equivalency, or eligibility.",
+  "model_calls": 0,
+  "credentials_used": false,
+  "implementation": {
+    "src/opportunities.py": "c65c9015f514961202b23d72a8d5c98fc0c7bc67b0e02c9ad9dead91fd582fc4",
+    "src/jobs.py": "460c4bcfe627bacbd7b5a7b22c0029dd1425ea64f3438cafdffde1f8a7fba2ba",
+    "src/session.py": "b7a0de9eded24f91275d6a0da7c73924774fc6828f3a983ef7fd0700450567cb",
+    "data/connectors/employer_boards.json": "93a6c0a4efddf5c4780ab05fffa422a91cbbaa5482a718c2682d0797f5774145",
+    "scripts/check_opportunities.py": "964b00321ff6debd8b1b96ec8c0f57d577440e4b98b7c278ddf27de265b0947e",
+    "app.py": "0be30bdfbb1c17c1b36e933a7ed268acdd49ee2dfe7d30e7673b794ff74415ef"
+  },
+  "initial_run": {
+    "implementation": {
+      "src/opportunities.py": "11830fb3d6148dfa5c735a8e1074d2161ae53ad6434024888826607ec3b222d8",
+      "src/jobs.py": "460c4bcfe627bacbd7b5a7b22c0029dd1425ea64f3438cafdffde1f8a7fba2ba",
+      "data/connectors/employer_boards.json": "93a6c0a4efddf5c4780ab05fffa422a91cbbaa5482a718c2682d0797f5774145",
+      "scripts/check_opportunities.py": "1cb6fdb4f3cc2e62da2222eec269199b8ff6da366161b369a10d7b7f2942303c",
+      "app.py": "d56a92fe6d1abbe124fd7947f84d13ba99e085ffe011603d657188ff26685ba2"
+    },
+    "observations": [
+      {
+        "case": "ai_all",
+        "career": "ai_ml",
+        "location": "",
+        "internship": false,
+        "updated_within": null,
+        "passed": false,
+        "error_type": "RuntimeError",
+        "seconds": 6.029531580999901
+      },
+      {
+        "case": "embedded_all",
+        "career": "embedded",
+        "location": "",
+        "internship": false,
+        "updated_within": null,
+        "result": {
+          "listings": [
+            {
+              "id": "greenhouse:samsara:8246034",
+              "title": "Firmware Engineer",
+              "employer": "Samsara",
+              "location": "Remote - Austin; Remote - Seattle; San Francisco, CA, United States",
+              "url": "https://www.samsara.com/company/careers/roles/8246034?gh_jid=8246034",
+              "posted_at": "2026-10-30T22:52:56+00:00",
+              "updated_at": "2026-10-30T22:53:07+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8213990",
+              "title": "Manager, Firmware Engineering",
+              "employer": "Samsara",
+              "location": "Remote - US",
+              "url": "https://www.samsara.com/company/careers/roles/8213990?gh_jid=8213990",
+              "posted_at": "2026-09-29T17:29:53+00:00",
+              "updated_at": "2026-10-30T15:52:25+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8226602",
+              "title": "Firmware Engineer Co-Op",
+              "employer": "Samsara",
+              "location": "San Francisco - SF9",
+              "url": "https://www.samsara.com/company/careers/roles/8226602?gh_jid=8226602",
+              "posted_at": "2026-09-24T19:18:45+00:00",
+              "updated_at": "2026-10-30T15:47:12+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8163118",
+              "title": "Electrical Engineering Co-Op",
+              "employer": "Samsara",
+              "location": "San Francisco - SF9",
+              "url": "https://www.samsara.com/company/careers/roles/8163118?gh_jid=8163118",
+              "posted_at": "2026-08-31T04:24:42+00:00",
+              "updated_at": "2026-10-30T15:44:46+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "electrical"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8287656",
+              "title": "Staff or Senior Firmware Engineer",
+              "employer": "Samsara",
+              "location": "Remote - SF Bay Area",
+              "url": "https://www.samsara.com/company/careers/roles/8287656?gh_jid=8287656",
+              "posted_at": "2026-10-15T21:54:53+00:00",
+              "updated_at": "2026-10-30T15:32:35+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8074536",
+              "title": "Staff or Senior Firmware Engineer",
+              "employer": "Samsara",
+              "location": "Remote - SF Bay Area",
+              "url": "https://www.samsara.com/company/careers/roles/8074536?gh_jid=8074536",
+              "posted_at": "2026-08-17T02:11:13+00:00",
+              "updated_at": "2026-10-30T15:32:35+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:nuro:8263454",
+              "title": "Senior Embedded Software Engineer",
+              "employer": "Nuro",
+              "location": "Mountain View, California (HQ)",
+              "url": "https://nuro.ai/careersitem?gh_jid=8263454",
+              "posted_at": "2026-10-08T20:41:07+00:00",
+              "updated_at": "2026-10-27T16:25:03+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Nuro",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "matched_terms": [
+                "embedded"
+              ]
+            },
+            {
+              "id": "greenhouse:nuro:8180955",
+              "title": "Embedded Software Engineer",
+              "employer": "Nuro",
+              "location": "Mountain View, California (HQ)",
+              "url": "https://nuro.ai/careersitem?gh_jid=8180955",
+              "posted_at": "2026-09-22T20:51:43+00:00",
+              "updated_at": "2026-10-27T16:24:24+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Nuro",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "matched_terms": [
+                "embedded"
+              ]
+            },
+            {
+              "id": "greenhouse:nuro:8263453",
+              "title": "Senior/Staff Software Engineer, Applied Controls",
+              "employer": "Nuro",
+              "location": "Mountain View, California (HQ)",
+              "url": "https://nuro.ai/careersitem?gh_jid=8263453",
+              "posted_at": "2026-10-12T21:48:09+00:00",
+              "updated_at": "2026-10-16T22:02:34+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Nuro",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "matched_terms": [
+                "controls"
+              ]
+            },
+            {
+              "id": "greenhouse:nuro:8263629",
+              "title": "Senior/Staff Controls Engineer, Core Development",
+              "employer": "Nuro",
+              "location": "Mountain View, California (HQ)",
+              "url": "https://nuro.ai/careersitem?gh_jid=8263629",
+              "posted_at": "2026-10-13T20:30:26+00:00",
+              "updated_at": "2026-10-13T20:30:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Nuro",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "matched_terms": [
+                "controls"
+              ]
+            }
+          ],
+          "retrieved_at": "2026-11-04T21:08:08.750618+00:00",
+          "query": "Embedded Systems",
+          "location": "All listed locations",
+          "provider": "greenhouse",
+          "checks": [
+            {
+              "board": "samsara",
+              "employer": "Samsara",
+              "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "status": "verified",
+              "valid_posts": 322,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:08.750618+00:00",
+              "http_status": 200
+            },
+            {
+              "board": "nuro",
+              "employer": "Nuro",
+              "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "status": "verified",
+              "valid_posts": 93,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:08.750618+00:00",
+              "http_status": 200
+            }
+          ],
+          "issues": [],
+          "total_matches": 11,
+          "cache_state": "fresh"
+        },
+        "passed": true,
+        "seconds": 2.3647957490002227
+      },
+      {
+        "case": "ai_internships",
+        "career": "ai_ml",
+        "location": "",
+        "internship": true,
+        "updated_within": null,
+        "result": {
+          "listings": [
+            {
+              "id": "greenhouse:nuro:7351061",
+              "title": "Software Engineer, AI Platform - Intern",
+              "employer": "Nuro",
+              "location": "Mountain View, California (HQ)",
+              "url": "https://nuro.ai/careersitem?gh_jid=7351061",
+              "posted_at": "2025-10-22T22:23:06+00:00",
+              "updated_at": "2026-10-26T17:53:43+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Nuro",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            }
+          ],
+          "retrieved_at": "2026-11-04T21:08:11.115738+00:00",
+          "query": "AI / Machine Learning",
+          "location": "All listed locations",
+          "provider": "greenhouse",
+          "checks": [
+            {
+              "board": "samsara",
+              "employer": "Samsara",
+              "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "status": "verified",
+              "valid_posts": 322,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:11.115738+00:00",
+              "http_status": 200
+            },
+            {
+              "board": "nuro",
+              "employer": "Nuro",
+              "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "status": "verified",
+              "valid_posts": 93,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:11.115738+00:00",
+              "http_status": 200
+            }
+          ],
+          "issues": [],
+          "total_matches": 1,
+          "cache_state": "fresh"
+        },
+        "passed": true,
+        "seconds": 3.175866378000137
+      },
+      {
+        "case": "embedded_internships",
+        "career": "embedded",
+        "location": "",
+        "internship": true,
+        "updated_within": null,
+        "result": {
+          "listings": [
+            {
+              "id": "greenhouse:samsara:8226602",
+              "title": "Firmware Engineer Co-Op",
+              "employer": "Samsara",
+              "location": "San Francisco - SF9",
+              "url": "https://www.samsara.com/company/careers/roles/8226602?gh_jid=8226602",
+              "posted_at": "2026-09-24T19:18:45+00:00",
+              "updated_at": "2026-10-30T15:47:12+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "firmware"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8163118",
+              "title": "Electrical Engineering Co-Op",
+              "employer": "Samsara",
+              "location": "San Francisco - SF9",
+              "url": "https://www.samsara.com/company/careers/roles/8163118?gh_jid=8163118",
+              "posted_at": "2026-08-31T04:24:42+00:00",
+              "updated_at": "2026-10-30T15:44:46+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "electrical"
+              ]
+            }
+          ],
+          "retrieved_at": "2026-11-04T21:08:14.292065+00:00",
+          "query": "Embedded Systems",
+          "location": "All listed locations",
+          "provider": "greenhouse",
+          "checks": [
+            {
+              "board": "samsara",
+              "employer": "Samsara",
+              "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "status": "verified",
+              "valid_posts": 322,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:14.292065+00:00",
+              "http_status": 200
+            },
+            {
+              "board": "nuro",
+              "employer": "Nuro",
+              "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "status": "verified",
+              "valid_posts": 93,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:14.292065+00:00",
+              "http_status": 200
+            }
+          ],
+          "issues": [],
+          "total_matches": 2,
+          "cache_state": "fresh"
+        },
+        "passed": true,
+        "seconds": 3.213227459999871
+      },
+      {
+        "case": "tucson_literal_filter",
+        "career": "embedded",
+        "location": "Tucson",
+        "internship": false,
+        "updated_within": null,
+        "result": {
+          "listings": [],
+          "retrieved_at": "2026-11-04T21:08:17.505850+00:00",
+          "query": "Embedded Systems",
+          "location": "Tucson",
+          "provider": "greenhouse",
+          "checks": [
+            {
+              "board": "samsara",
+              "employer": "Samsara",
+              "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "status": "verified",
+              "valid_posts": 322,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:17.505850+00:00",
+              "http_status": 200
+            },
+            {
+              "board": "nuro",
+              "employer": "Nuro",
+              "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "status": "verified",
+              "valid_posts": 93,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:17.505850+00:00",
+              "http_status": 200
+            }
+          ],
+          "issues": [],
+          "total_matches": 0,
+          "cache_state": "fresh"
+        },
+        "passed": true,
+        "seconds": 3.7346812019995923
+      },
+      {
+        "case": "ai_updated_7_days",
+        "career": "ai_ml",
+        "location": "",
+        "internship": false,
+        "updated_within": 7,
+        "result": {
+          "listings": [
+            {
+              "id": "greenhouse:samsara:8024110",
+              "title": "AI Engineer, Customer Success",
+              "employer": "Samsara",
+              "location": "Remote - US",
+              "url": "https://www.samsara.com/company/careers/roles/8024110?gh_jid=8024110",
+              "posted_at": "2026-06-26T21:01:26+00:00",
+              "updated_at": "2026-11-04T14:21:30+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8261007",
+              "title": "Director, GTM AI Engineering",
+              "employer": "Samsara",
+              "location": "Remote - US",
+              "url": "https://www.samsara.com/company/careers/roles/8261007?gh_jid=8261007",
+              "posted_at": "2026-10-31T00:37:27+00:00",
+              "updated_at": "2026-11-02T18:21:05+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8113356",
+              "title": "Finance & Strategy AI Engineer",
+              "employer": "Samsara",
+              "location": "San Francisco - SF9",
+              "url": "https://www.samsara.com/company/careers/roles/8113356?gh_jid=8113356",
+              "posted_at": "2026-08-12T22:01:05+00:00",
+              "updated_at": "2026-10-30T15:38:54+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8302004",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - Seattle",
+              "url": "https://www.samsara.com/company/careers/roles/8302004?gh_jid=8302004",
+              "posted_at": "2026-10-19T20:55:24+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281491",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - MA",
+              "url": "https://www.samsara.com/company/careers/roles/8281491?gh_jid=8281491",
+              "posted_at": "2026-10-14T14:43:24+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281490",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - Chicago",
+              "url": "https://www.samsara.com/company/careers/roles/8281490?gh_jid=8281490",
+              "posted_at": "2026-10-14T14:42:51+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281489",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - Austin",
+              "url": "https://www.samsara.com/company/careers/roles/8281489?gh_jid=8281489",
+              "posted_at": "2026-10-14T14:42:13+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281483",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - CA",
+              "url": "https://www.samsara.com/company/careers/roles/8281483?gh_jid=8281483",
+              "posted_at": "2026-10-14T14:41:38+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281482",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - Dallas",
+              "url": "https://www.samsara.com/company/careers/roles/8281482?gh_jid=8281482",
+              "posted_at": "2026-10-14T14:41:08+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            },
+            {
+              "id": "greenhouse:samsara:8281479",
+              "title": "Senior AI Data & Analytics Engineer II",
+              "employer": "Samsara",
+              "location": "Remote - NYC",
+              "url": "https://www.samsara.com/company/careers/roles/8281479?gh_jid=8281479",
+              "posted_at": "2026-10-14T14:40:36+00:00",
+              "updated_at": "2026-10-30T15:22:26+00:00",
+              "description_snippet": "",
+              "source": "Greenhouse / Samsara",
+              "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "matched_terms": [
+                "ai"
+              ]
+            }
+          ],
+          "retrieved_at": "2026-11-04T21:08:21.241019+00:00",
+          "query": "AI / Machine Learning",
+          "location": "All listed locations",
+          "provider": "greenhouse",
+          "checks": [
+            {
+              "board": "samsara",
+              "employer": "Samsara",
+              "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+              "status": "verified",
+              "valid_posts": 322,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:21.241019+00:00",
+              "http_status": 200
+            },
+            {
+              "board": "nuro",
+              "employer": "Nuro",
+              "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+              "status": "verified",
+              "valid_posts": 93,
+              "rejected_posts": 0,
+              "checked_at": "2026-11-04T21:08:21.241019+00:00",
+              "http_status": 200
+            }
+          ],
+          "issues": [],
+          "total_matches": 14,
+          "cache_state": "fresh"
+        },
+        "passed": true,
+        "seconds": 4.915753515999313
+      }
+    ],
+    "checked_at": "2026-11-04T21:08:02.720631+00:00"
+  },
+  "observations": [
+    {
+      "case": "ai_bounded_recheck",
+      "passed": true,
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:samsara:8024110",
+            "title": "AI Engineer, Customer Success",
+            "employer": "Samsara",
+            "location": "Remote - US",
+            "url": "https://www.samsara.com/company/careers/roles/8024110?gh_jid=8024110",
+            "posted_at": "2026-06-26T21:01:26+00:00",
+            "updated_at": "2026-11-04T14:21:30+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8261007",
+            "title": "Director, GTM AI Engineering",
+            "employer": "Samsara",
+            "location": "Remote - US",
+            "url": "https://www.samsara.com/company/careers/roles/8261007?gh_jid=8261007",
+            "posted_at": "2026-10-31T00:37:27+00:00",
+            "updated_at": "2026-11-02T18:21:05+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8113356",
+            "title": "Finance & Strategy AI Engineer",
+            "employer": "Samsara",
+            "location": "San Francisco - SF9",
+            "url": "https://www.samsara.com/company/careers/roles/8113356?gh_jid=8113356",
+            "posted_at": "2026-08-12T22:01:05+00:00",
+            "updated_at": "2026-10-30T15:38:54+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8302004",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - Seattle",
+            "url": "https://www.samsara.com/company/careers/roles/8302004?gh_jid=8302004",
+            "posted_at": "2026-10-19T20:55:24+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281491",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - MA",
+            "url": "https://www.samsara.com/company/careers/roles/8281491?gh_jid=8281491",
+            "posted_at": "2026-10-14T14:43:24+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281490",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - Chicago",
+            "url": "https://www.samsara.com/company/careers/roles/8281490?gh_jid=8281490",
+            "posted_at": "2026-10-14T14:42:51+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281489",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - Austin",
+            "url": "https://www.samsara.com/company/careers/roles/8281489?gh_jid=8281489",
+            "posted_at": "2026-10-14T14:42:13+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281483",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - CA",
+            "url": "https://www.samsara.com/company/careers/roles/8281483?gh_jid=8281483",
+            "posted_at": "2026-10-14T14:41:38+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281482",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - Dallas",
+            "url": "https://www.samsara.com/company/careers/roles/8281482?gh_jid=8281482",
+            "posted_at": "2026-10-14T14:41:08+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8281479",
+            "title": "Senior AI Data & Analytics Engineer II",
+            "employer": "Samsara",
+            "location": "Remote - NYC",
+            "url": "https://www.samsara.com/company/careers/roles/8281479?gh_jid=8281479",
+            "posted_at": "2026-10-14T14:40:36+00:00",
+            "updated_at": "2026-10-30T15:22:26+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-04T21:10:28.588041+00:00",
+        "query": "AI / Machine Learning",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 322,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-04T21:10:28.588041+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 93,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-04T21:10:28.588041+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 41,
+        "cache_state": "fresh"
+      },
+      "seconds": 3.476849048999611
+    }
+  ],
+  "automated_verification": {
+    "command": "python -m pytest -q",
+    "passed": 586,
+    "failed": 0,
+    "seconds": 10.43,
+    "scope": "Controlled backend and Streamlit checks; no live model or job-source calls in this test run."
+  }
+}

@@ -90,9 +90,9 @@ def test_profile_edit_preserves_fields_not_in_form():
 
 
 def test_restore_and_completion_invalidate_dependent_state():
-    state={"profile":StudentProfile(),"result":"old","job_result":"old","jobs_cache":"old"}
+    state={"profile":StudentProfile(),"result":"old","job_result":"old","jobs_cache":"old","job_error":"old"}
     restore_profile(state,export_profile(StudentProfile(career_id="embedded",current_enrollment=["MATH129"])).encode())
-    assert not {"result","job_result","jobs_cache"} & state.keys()
+    assert not {"result","job_result","jobs_cache","job_error"} & state.keys()
     complete_course(state,"ECE101")
     complete_course(state,"ECE101")
     assert len(state["profile"].completed)==1

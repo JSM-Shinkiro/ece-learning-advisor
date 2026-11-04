@@ -1,9 +1,6 @@
 """Run with: python -m streamlit run app.py."""
 
-import html
 import os
-import re
-import time
 from datetime import timedelta, timezone
 
 import streamlit as st
@@ -14,6 +11,7 @@ from src.catalog import ROOT, load_catalog
 from src.controller import run_advisor
 from src.inspector import render_inspector
 from src.jobs import search_jobs
+from src.opportunities import load_employer_boards, request_opportunities, search_employer_jobs
 from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions
@@ -298,40 +296,68 @@ with opportunities:
     st.subheader("Explore opportunities")
     st.caption("Direction: "+CAREER_NAMES[profile.career_id]+" · uses your saved profile")
     configured = bool(os.getenv("ADZUNA_APP_ID") and os.getenv("ADZUNA_APP_KEY"))
+    provider_names = {"greenhouse": "Employer boards", "adzuna": "Adzuna location search"}
+    provider = st.selectbox("Opportunity source", ["greenhouse", "adzuna"] if configured else ["greenhouse"],
+                            format_func=provider_names.get, key="opportunity_provider")
+    board_available = True
+    if provider == "greenhouse":
+        try:
+            employer_names = ", ".join(b.employer for b in load_employer_boards())
+            st.caption("Searches the configured employer boards: " + employer_names + ".")
+        except (OSError, ValueError):
+            board_available = False
+            st.warning("The employer-board connection is unavailable.")
+        st.caption("Matches title keywords for your direction. Location filters match the employer's wording; leave blank to include all listed locations.")
     if profile.career_id=="exploring":
         st.info("Choose AI/ML or Embedded Systems in your roadmap before searching for relevant opportunities.")
-    elif not configured:
-        st.info("Job search is not configured yet. The team needs to enable its provider connection.")
     with st.form("jobs_form"):
-        location = st.text_input("Location",value="Tucson, AZ")
-        internship = st.checkbox("Prefer internship search terms",help="This changes the search phrase. Provider listings may include other roles.")
-        requested = st.form_submit_button("Available Opportunities",disabled=not configured or profile.career_id=="exploring")
-    if requested and configured and profile.career_id!="exploring":
-        st.session_state.pop("job_result",None)
-        job_key = (profile.career_id,location,internship)
-        cached = st.session_state.get("jobs_cache")
+        location = st.text_input("Location contains (optional)" if provider == "greenhouse" else "Location",
+                                 value="" if provider == "greenhouse" else "Tucson, AZ", max_chars=120, key="opportunity_location_" + provider)
+        internship = st.checkbox("Internship / co-op titles only" if provider == "greenhouse" else "Prefer internship search terms",
+            help="Matches internship and co-op words in the job title." if provider == "greenhouse" else "Changes the search phrase; provider listings may include other roles.",
+            key="opportunity_internship_" + provider)
+        updated_within = st.selectbox("Listing updated within", [None, 7, 30, 90],
+            format_func=lambda days: "Any date" if days is None else str(days) + " days",
+            key="opportunity_age", disabled=provider != "greenhouse")
+        reuse = st.checkbox("Reuse matching results from the last 20 minutes", value=False, key="reuse_opportunities")
+        requested = st.form_submit_button("Available Opportunities",disabled=profile.career_id=="exploring" or not board_available)
+    if requested and profile.career_id!="exploring":
         try:
-            if cached and cached["key"]==job_key and time.time()-cached["created"]<1200:
-                jobs = cached["result"]
-            else:
-                with st.spinner("Searching opportunities..."):
-                    jobs = search_jobs(os.getenv("ADZUNA_APP_ID",""),os.getenv("ADZUNA_APP_KEY",""),
-                                       profile.career_id,location,internship)
-                st.session_state.jobs_cache = {"key":job_key,"created":time.time(),"result":jobs}
-            st.session_state.job_result = jobs
+            with st.spinner("Searching opportunities..."):
+                request_opportunities(st.session_state, profile.career_id, location, internship, provider=provider,
+                    updated_within=updated_within if provider == "greenhouse" else None, reuse=reuse,
+                    public_search=search_employer_jobs, adzuna_search=search_jobs,
+                    app_id=os.getenv("ADZUNA_APP_ID", ""), app_key=os.getenv("ADZUNA_APP_KEY", ""))
         except (ValueError,RuntimeError):
             st.warning("The provider could not complete this search. Try again later.")
     jobs = st.session_state.get("job_result")
-    if jobs:
-        st.caption(f"Query: {jobs.query} · Location: {jobs.location} · Retrieved: {jobs.retrieved_at}")
+    job_error = st.session_state.get("job_error")
+    if not jobs and job_error and job_error["provider"] == provider:
+        with st.expander("Last search source checks"):
+            st.dataframe(job_error["checks"], hide_index=True)
+    if jobs and jobs.provider == provider:
+        st.caption(f"Source: {provider_names[jobs.provider]} · Query: {jobs.query} · Location: {jobs.location} · Retrieved: {jobs.retrieved_at}")
+        st.caption("Reused recent results; sources were not checked again." if jobs.cache_state == "reused" else "Sources requested for this search.")
+        for issue in jobs.issues:
+            st.warning(issue)
         if not jobs.listings:
             st.info("No listings were returned for these filters.")
+        elif jobs.total_matches is not None:
+            st.caption(f"Showing {len(jobs.listings)} of {jobs.total_matches} matching listings, sorted by last update.")
         for job in jobs.listings:
             with st.container(border=True):
-                st.markdown("**"+job["title"]+"**")
-                st.caption(job["employer"]+" · "+job["location"])
+                st.text(job["title"])
+                st.text(job["employer"]+" · "+job["location"])
                 if job["posted_at"]:
                     st.caption("Provider posting date: "+str(job["posted_at"]))
-                st.write(re.sub("<[^>]+>","",html.unescape(job["description_snippet"]))[:700])
+                if job.get("updated_at"):
+                    st.caption("Provider last update: "+job["updated_at"])
+                if job["description_snippet"]:
+                    st.text(job["description_snippet"][:700])
+                if job.get("matched_terms"):
+                    st.caption("Title matches: " + ", ".join(job["matched_terms"]))
                 st.link_button("View original opportunity",job["url"])
-        st.caption("Listings may be snippets. Check the original opportunity for current availability and requirements.")
+        if jobs.checks:
+            with st.expander("Opportunity source checks"):
+                st.dataframe(jobs.checks, hide_index=True)
+        st.caption("These are source listings, not eligibility decisions. Check the original opportunity for current availability and requirements.")

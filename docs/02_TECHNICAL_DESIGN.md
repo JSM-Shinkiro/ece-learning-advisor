@@ -7,11 +7,11 @@
 | Interface | Python, Streamlit, Plotly |
 | Semantic retrieval | Gemini Embedding 2 adapter, NumPy cosine ranking |
 | Keyword and hybrid retrieval | BM25, Reciprocal Rank Fusion |
-| Explanations | Gemini selects application-owned statements; default `gemini-3.5-flash-lite`; new schema needs live verification |
+| Explanations | Gemini selects application-owned statements; default `gemini-3.5-flash-lite`; current schema verified November 4 |
 | Records and validation | JSON, Pydantic, exact statement/wording and citation checks |
 | Academic rules | Python predicates and three-state evaluation |
 | Profiles | Export/import first, then authenticated durable storage |
-| Opportunities | One job API, initially Adzuna if access and coverage work |
+| Opportunities | Public Greenhouse employer boards; optional configured Adzuna adapter |
 
 Use one Python application. A separate frontend service and vector database are unnecessary for the initial collection. Model IDs are configurable and the tested top-level dependencies are pinned.
 
@@ -44,7 +44,10 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | rules.py | Prerequisite evaluation |
 | src/service.py | Query/context assembly, orchestration, reference checks, and validated answer rendering |
 | src/inspector.py / src/retrieval.py | Inspection UI, statement selections, scores, and embedding projection |
-| profiles.py / jobs.py | Saved progress and opportunity search |
+| src/profiles.py | Saved progress |
+| src/jobs.py | Shared opportunity result and optional Adzuna adapter |
+| src/opportunities.py / data/connectors/employer_boards.json | Bounded public employer-board requests, validated postings, local filters, and explicit session reuse |
+| scripts/check_opportunities.py | Public-source observation report, with no credentials or model calls |
 
 Provider calls run only after explicit actions, behind service adapters. Scripts build the index, refresh source candidates, and run smoke evaluation. Reviewed records and synthetic test fixtures are separate.
 
@@ -120,4 +123,8 @@ Explicit roadmap updates perform on-use revalidation. If a source cannot be chec
 
 Session State supports the current interaction. Profile export/import can preserve progress without a server database. Account-based return visits would need separate durable profile storage. Choose that hosting and sign-in path after the local baseline works. Profile storage does not require a permanent course database.
 
-Job results contain provider/query metadata, retrieval time, listing IDs, titles, employers, locations, original application links, available posting dates, and descriptions as supplied. Distinguish snippets from full descriptions. Start with a roughly 20-minute cache, subject to provider terms.
+Job results contain provider/query metadata, retrieval time, listing IDs, titles, employers, locations, original application links, available publication/update dates, source checks, issues, total matches, and fresh/reused status. The public-board path requests metadata only and supplies no description snippet. The legacy Adzuna path can supply a snippet; it is not a full job description.
+
+`request_opportunities` runs only on the search action. Default searches request the sources; explicit reuse can select the same provider/career/literal-location/internship/update-window result younger than 20 minutes. Reuse preserves the original retrieval timestamp. A new request clears visible results and old error state before validation; a source failure cannot silently display the old search as current. Profile changes clear both the opportunity result and its session cache.
+
+The public adapter supports one to three configured Greenhouse boards, at most three workers, 4,000 raw posts and 3 MB decoded JSON per board, and ten displayed matches. Posting links must bind the configured employer/board and exact job ID. Prospect posts are omitted. Titles are filtered locally, locations use a case-insensitive literal substring, internship/co-op is a title filter, and the optional 7/30/90-day window uses the provider's update date. These filters do not infer qualifications, geographic equivalence, or enrollment eligibility. Partial failures retain labeled valid-source results; all-source failure raises a sanitized error with source-check metadata. See [live opportunities](23_LIVE_OPPORTUNITIES.md).

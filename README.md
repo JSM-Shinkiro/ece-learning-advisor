@@ -82,9 +82,22 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Direction comparison for students who are still exploring.
 - Coverage clarification for clear requests outside the starter collection.
 - Bounded domain aliases for student wording, with visible added search terms and question-focused course selection.
-- On-demand Adzuna search adapter with a short session cache.
+- On-demand employer-board opportunities with source checks, original links, separate posting/update dates, and title/location filters.
+- Fresh opportunity requests by default, with optional explicit reuse of matching results for 20 minutes.
 
-Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabricated when the provider is unavailable.
+## Opportunities
+
+Open **Opportunities** and select **Available Opportunities** to check the configured Samsara and Nuro employer boards. This public-source path needs no API key or language model. It matches AI/ML or embedded engineering terms in titles; it does not assess your qualifications. Leave the location filter blank for all listed locations, or enter text that must occur in the employer's location field. Internship/co-op and last-update filters are optional.
+
+Each search requests the sources unless you explicitly select recent-result reuse. Results show retrieval time and available provider dates. Source failures are visible; a failed search removes the previous visible results. Coverage is limited to the configured employers. A zero-match location search does not establish that the wider market has no jobs.
+
+Run the public-source check separately with:
+
+```bash
+python scripts/check_opportunities.py --career embedded --internship
+```
+
+The command saves its source checks under `.cache` and returns a failure status if any source is unavailable or has rejected records, even when other results remain usable. See [live opportunities](docs/23_LIVE_OPPORTUNITIES.md) for verification and limits. The separate Adzuna location-search adapter appears only when `ADZUNA_APP_ID` and `ADZUNA_APP_KEY` are configured; live Adzuna verification remains pending.
 
 ## Academic data
 
@@ -136,7 +149,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 482 tests. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 586 tests, including 28 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 

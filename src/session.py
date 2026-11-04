@@ -23,7 +23,7 @@ def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
             notices.append("Career direction updated. The learning plan was refreshed.")
     state["profile"] = profile
     state["profile_notices"] = notices
-    for key in ["result", "job_result", "jobs_cache"]:
+    for key in ["result", "job_result", "jobs_cache", "job_error"]:
         state.pop(key, None)
     state["refresh_pending"] = refresh
     if reset_widgets:
