@@ -1,6 +1,5 @@
 """Run with: python -m streamlit run app.py."""
 
-import os
 from datetime import timedelta, timezone
 
 import streamlit as st
@@ -16,9 +15,15 @@ from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions
 from src.session import PROFILE_WIDGET_KEYS, apply_profile, choose_direction, complete_course, restore_profile
+from src.settings import ConfigurationError, load_settings
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="ECE Learning Advisor · P07", page_icon="🧭", layout="wide")
+try:
+    settings = load_settings()
+except ConfigurationError as exc:
+    st.error(str(exc))
+    st.stop()
 st.markdown("""
 <style>
 .block-container { max-width: 1180px; padding-top: 3rem; padding-bottom: 2rem; }
@@ -126,10 +131,10 @@ with st.sidebar:
             question = st.text_input("A question about your next step",value=profile.question,key="question",max_chars=1200)
 
     # Credentials from the server never become widget defaults or session values.
-    server_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY","")
+    server_key = settings.gemini_key.get_secret_value()
     if server_key:
         st.session_state.pop("gemini_key", None)
-    development = os.getenv("ECE_DEVELOPMENT_MODE","false").lower() == "true"
+    development = settings.development_mode
     with st.expander("AI and ranking options"):
         session_key = ""
         if development and not server_key:
@@ -141,8 +146,8 @@ with st.sidebar:
             st.caption("AI is configured. A submitted profile and selected evidence are sent to Gemini when enabled.")
         use_ai = st.checkbox("Generate AI explanations",value=False,disabled=not bool(api_key),key="use_ai")
         method = st.selectbox("Ranking method",["hybrid","semantic","keyword"],disabled=not (use_ai and api_key),key="ranking_method")
-        generation_model = os.getenv("GENERATION_MODEL","gemini-3.5-flash-lite")
-        embedding_model = os.getenv("EMBEDDING_MODEL","gemini-embedding-2")
+        generation_model = settings.generation_model
+        embedding_model = settings.embedding_model
         if development:
             generation_model = st.text_input("Generation model",value=generation_model)
             embedding_model = st.text_input("Embedding model",value=embedding_model)
@@ -175,9 +180,9 @@ if st.session_state.pop("refresh_pending",False):
         try:
             st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
                 method=method,embedding_model=embedding_model,generation_model=generation_model,
-                dimensions=int(os.getenv("EMBEDDING_DIMENSION","768")),cache_dir=ROOT/".cache"/"embeddings",
-                refresh_sources=os.getenv("ECE_REFRESH_SOURCES","true").lower()=="true",
-                source_cache_dir=ROOT/".cache"/"sources")
+                dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
+                refresh_sources=settings.refresh_sources,
+                source_cache_dir=settings.cache_root/"sources")
         except (ValueError,OSError):
             st.error("The plan could not be updated. Check the configuration and submit your profile again.")
 
@@ -295,7 +300,7 @@ with collection:
 with opportunities:
     st.subheader("Explore opportunities")
     st.caption("Direction: "+CAREER_NAMES[profile.career_id]+" · uses your saved profile")
-    configured = bool(os.getenv("ADZUNA_APP_ID") and os.getenv("ADZUNA_APP_KEY"))
+    configured = settings.adzuna_configured
     provider_names = {"greenhouse": "Employer boards", "adzuna": "Adzuna location search"}
     provider = st.selectbox("Opportunity source", ["greenhouse", "adzuna"] if configured else ["greenhouse"],
                             format_func=provider_names.get, key="opportunity_provider")
@@ -327,7 +332,7 @@ with opportunities:
                 request_opportunities(st.session_state, profile.career_id, location, internship, provider=provider,
                     updated_within=updated_within if provider == "greenhouse" else None, reuse=reuse,
                     public_search=search_employer_jobs, adzuna_search=search_jobs,
-                    app_id=os.getenv("ADZUNA_APP_ID", ""), app_key=os.getenv("ADZUNA_APP_KEY", ""))
+                    app_id=settings.adzuna_app_id.get_secret_value(), app_key=settings.adzuna_app_key.get_secret_value())
         except (ValueError,RuntimeError):
             st.warning("The provider could not complete this search. Try again later.")
     jobs = st.session_state.get("job_result")

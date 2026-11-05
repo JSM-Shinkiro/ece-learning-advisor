@@ -1,0 +1,187 @@
+{
+  "checked_at": "2026-11-05T23:12:29.635162+00:00",
+  "scope": "Fresh isolated Python 3.12 environment installed from production requirements, dependency consistency check, local Streamlit liveness and credential-free offline AppTest preview. No public hosting, remote source, or real provider check.",
+  "environment": {
+    "python": "3.12.14",
+    "system": "Linux",
+    "system_site_packages": false,
+    "production_packages": {
+      "click": "8.5.0",
+      "python-dotenv": "1.2.4",
+      "idna": "3.20",
+      "requests": "2.34.2",
+      "python-dateutil": "4.0.0",
+      "cryptography": "50.0.2",
+      "charset-normalizer": "3.5.2",
+      "google-genai": "2.33.0",
+      "socksio": "1.0.0",
+      "annotated-types": "0.8.0",
+      "httpcore": "1.0.9",
+      "websockets": "17.4",
+      "pyarrow": "26.0.1",
+      "packaging": "26.3",
+      "starlette": "1.10.0",
+      "certifi": "2026.10.23",
+      "pydantic_core": "2.50.0",
+      "pandas": "3.1.1",
+      "protobuf": "7.36.2",
+      "referencing": "0.37.0",
+      "sniffio": "1.3.1",
+      "pyasn1_modules": "0.4.2",
+      "pip": "25.0.1",
+      "h11": "0.16.0",
+      "streamlit": "1.66.1",
+      "pycparser": "3.12",
+      "Jinja2": "3.1.6",
+      "tenacity": "9.1.4",
+      "typing-inspection": "0.4.5",
+      "attrs": "26.1.0",
+      "pydeck": "0.9.3",
+      "tzdata": "2026.6",
+      "jsonschema-specifications": "2025.9.1",
+      "jsonschema": "4.26.0",
+      "cffi": "2.1.1",
+      "watchdog": "6.0.0",
+      "distro": "1.9.0",
+      "numpy": "2.3.5",
+      "plotly": "7.1.0",
+      "typing_extensions": "4.16.0",
+      "pillow": "13.0.0",
+      "uvicorn": "0.54.0",
+      "rpds-py": "2026.9.1",
+      "python-multipart": "0.0.33",
+      "urllib3": "2.8.0",
+      "pyasn1": "0.6.5",
+      "anyio": "4.16.0",
+      "google-auth": "2.62.1",
+      "pydantic": "2.14.0",
+      "altair": "6.3.0",
+      "narwhals": "2.28.0",
+      "MarkupSafe": "3.0.4",
+      "httpx": "0.28.1",
+      "itsdangerous": "2.2.0"
+    }
+  },
+  "implementation": {
+    "app.py": "4313335839c9be8bfd9810985f85923ae19fb2c7b0dea8b9835d46905ff2dc3e",
+    "src/settings.py": "b7e8e9127e3e1c30840759936cce73d045e67a48edce17629c29f36b9f7e2f18",
+    "src/deployment.py": "82edd25648eaa9a713203870e121235168110e28c13497126e35eb1ec3f515b5",
+    "scripts/check_deployment.py": "044113c2f241accc966b87963e4a541181f7bdfb3bcd1a56046e32be70bbb892",
+    ".env.example": "14b94200f54f325f17e4ff2efb11e3e163970c0d0d3e1efd759324a9e270aaed",
+    "requirements.txt": "654d81f7c02cf6916a737f396e2765f22d45b1439075483c1e4ecd4fe5dab64c"
+  },
+  "frozen_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "command": [
+    "python",
+    "scripts/check_deployment.py",
+    "--smoke"
+  ],
+  "smoke_exit_code": 0,
+  "pip_check_exit_code": 0,
+  "report": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Reviewed catalog and evidence validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-05T23:12:33.001115+00:00"
+  },
+  "seconds": 3.8590167990000737,
+  "model_calls": 0,
+  "external_source_requests": 0,
+  "passed": true,
+  "automated_verification": {
+    "checked_at": "2026-11-05T23:17:30.493361+00:00",
+    "command": "python -m pytest -q --tb=short",
+    "passed": 789,
+    "failed": 0,
+    "seconds": 20.69,
+    "scope": "Controlled backend, configuration, deployment, and Streamlit checks; separate from the fresh production runtime smoke."
+  },
+  "test_implementation": {
+    "tests/test_settings.py": "a6cc1bc8a6719c7177e1722f118d154197b6970c582b5010899805dd80aa221d",
+    "tests/test_deployment.py": "f57b663cb070632d4cc836c8d6b7f4a5c0dec6e3098cf38cb9aedc4aea41f6b6",
+    "tests/test_app.py": "e6313f2eb5abf2178d57cd018767435d9d08bbfb0209ec3369a8f965d2e8b39f"
+  }
+}

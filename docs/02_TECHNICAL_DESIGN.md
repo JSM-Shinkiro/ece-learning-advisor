@@ -30,6 +30,8 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | Module | Responsibility |
 | --- | --- |
 | app.py | Forms, action buttons, and rendered results |
+| src/settings.py | Validated runtime settings, protected credentials, and cache-root resolution |
+| src/deployment.py / scripts/check_deployment.py | Local configuration/dependency/data/cache checks and bounded server/offline-preview smoke test |
 | src/models.py | Validated data contracts |
 | src/catalog.py / src/ingest.py | Reviewed collection, evidence chunks, and source parsing |
 | src/sources.py / src/rule_sources.py / src/source_http.py | Bounded course/rule checks, source caches, and shared HTTP limits |
@@ -120,6 +122,10 @@ A reviewed phrase can open the pre-retrieval source gate, but generation still n
 ## Configuration, caching, and storage
 
 Use configuration for providers, model IDs, dimensions, retrieval method, candidate count, context budget, recommendation count, timeouts, data version, and explicit fixture mode. Keep secrets outside source control.
+
+The Streamlit app loads `RuntimeSettings` before profile widgets. Environment flags accept true/false or 1/0, model IDs use the supported Gemini naming format, and embedding dimensions are locally bounded to 1–3072. Invalid values produce sanitized setting-name errors. Secret fields are excluded from representation and exports; presence flags do not establish valid credentials. `ECE_CACHE_DIR` resolves relative to the project root, with separate public source and embedding subdirectories. This changes cache placement, not cache schemas or academic interpretations.
+
+The [runtime-readiness command](27_DEPLOYMENT_READINESS.md) checks local production dependencies, evidence/connectors, writable cache paths, a loopback Streamlit health response, and an offline AppTest submission. Smoke children receive blank credentials and fixed offline/development flags, preserve validated model settings, and block the application's synchronous HTTP clients. Processes terminate after the check. These checks do not verify hosting, external-source availability, model access, or authentication.
 
 Cache index data by corpus and model configuration. Request caches include the relevant profile, query, prompt, model, and data versions. Updating completed coursework invalidates dependent recommendations.
 

@@ -49,6 +49,34 @@ def test_invalid_profile_is_visible_error(app):
     assert app.error
 
 
+@pytest.mark.parametrize("variable,value", [("EMBEDDING_DIMENSION", "private-invalid-dimension"),
+    ("ECE_REFRESH_SOURCES", "private-invalid-flag"), ("GENERATION_MODEL", "private-invalid-model")])
+def test_invalid_server_configuration_is_a_sanitized_startup_error(app, monkeypatch, variable, value):
+    monkeypatch.setenv(variable, value)
+    app.run()
+    assert not app.exception
+    assert any(variable in item.value for item in app.error)
+    assert not any(value in item.value for item in app.error)
+    monkeypatch.delenv(variable)
+    app.run()
+    assert not app.exception and not app.error
+
+
+def test_configured_cache_root_reaches_the_submitted_backend(app, monkeypatch, tmp_path):
+    import src.controller
+    original = src.controller.run_advisor
+    called = []
+    def run(*args, **kwargs):
+        called.append(kwargs)
+        return original(*args, **kwargs)
+    monkeypatch.setattr("src.controller.run_advisor", run)
+    monkeypatch.setenv("ECE_CACHE_DIR", str(tmp_path))
+    submit(app)
+    assert not app.exception
+    assert called[0]["cache_dir"] == tmp_path / "embeddings"
+    assert called[0]["source_cache_dir"] == tmp_path / "sources"
+
+
 def test_public_opportunities_are_available_without_adzuna_credentials(app):
     assert not next(b for b in app.button if b.label=="Available Opportunities").disabled
     assert not app.exception

@@ -33,6 +33,12 @@ py -3.12 -m venv .venv
 
 If Python 3.12 is missing, install it first with `winget install --exact --id Python.Python.3.12 --source winget`, then reopen PowerShell. To update an existing clone, stop the app with Ctrl+C, run `git pull`, and launch it again.
 
+## Check runtime before hosting
+
+Run `python scripts/check_deployment.py --smoke` to validate configuration, pinned production dependencies, bundled evidence/connectors, writable caches, local server liveness, and an offline preview roadmap. The smoke test uses no provider credentials or external source requests. Its report defaults to `deployment_check.json` in the configured cache directory. See [runtime readiness](docs/27_DEPLOYMENT_READINESS.md) for hosting settings and verification scope.
+
+`ECE_CACHE_DIR` selects the source/embedding cache root; relative paths resolve from the project directory. The default is `.cache`. Invalid server configuration stops with a sanitized message naming the setting. Shared-hosting readiness requires `ECE_DEVELOPMENT_MODE=false`; API keys remain optional for preview mode.
+
 ## Enable live RAG
 
 Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.5-flash-lite`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
@@ -159,7 +165,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 725 tests, including 35 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 789 tests, including 39 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 ## Project documents
 
