@@ -20,7 +20,7 @@ def render_inspector(result, catalog):
             st.caption("Search also uses: " + ", ".join(added_terms) + ". These search terms do not change academic requirements.")
         discovery = result.trace.get("source_refresh", {}).get("discovery_selection", {})
         if discovery.get("requested_codes"):
-            st.caption("Course discovery prioritizes explicit course mentions within the configured source scope and download limit.")
+            st.caption("Course discovery prioritizes explicit course mentions and reviewed phrases within the configured source scope and download limit.")
             st.dataframe(discovery["requests"], hide_index=True)
             if discovery.get("truncated"):
                 st.caption("Only the first 16 distinct course mentions were considered for discovery priority.")

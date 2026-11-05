@@ -12,7 +12,7 @@ import numpy as np
 from .catalog import build_evidence, code_lookup, corpus_hash
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import EmbeddingCache, ProviderError
-from .planning import coverage_message, learning_phase, needs_programming_foundations
+from .planning import coverage_message, learning_phase, needs_programming_foundations, requested_record_ids
 from .retrieval import Hit, Retriever, tokenize
 from .rules import dependency_codes, evaluate_course
 from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer, validate_wording
@@ -187,14 +187,15 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
 
 
 def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
-              provider=None, method="hybrid", cache_dir=Path(".cache/embeddings")) -> AdvisorResult:
+              provider=None, method="hybrid", cache_dir=Path(".cache/embeddings"), *, preferred_course_codes=()) -> AdvisorResult:
     started = time.perf_counter()
     question = question or profile.question
     if len(question) > 1200:
         raise ValueError("Keep the learning question within 1,200 characters")
     interpretation = interpret_query(question.strip() or profile.interests.strip(), catalog)
+    preferred = requested_record_ids(catalog, profile, preferred_course_codes)
     notice = coverage_message(catalog, profile, question)
-    if notice:
+    if notice and not preferred:
         context = GenerationContext(profile=profile, question=question, query=question,
                                     allowed_record_ids=[], evidence=[], rule_results={})
         result = AdvisorResult(context=context, hits=[], catalog=catalog, coverage_notice=notice,
@@ -208,6 +209,11 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         return result
     chunks = build_evidence(catalog)
     query = build_query(catalog, profile, question, interpretation=interpretation)
+    records = {r.record_id: r for r in catalog.records}
+    discovery_terms = [records[rid].code for rid in preferred if records[rid].code.lower() not in set(tokenize(query))]
+    if discovery_terms:
+        suffix = " ".join(discovery_terms)
+        query = query[:5000 - len(suffix) - 1] + " " + suffix
     vectors, query_vector, manifest = None, None, {}
     issues, timings = [], {}
     mode, cache_state = "keyword", "not_used"
@@ -224,11 +230,10 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     before = time.perf_counter()
     retriever = Retriever(chunks, vectors)
     hits = retriever.search(query, mode, query_vector)
-    focused = []
-    records = {r.record_id: r for r in catalog.records}
+    focused = preferred[:1]
     question_terms = set(tokenize(question))
     named_course = any(r.code and r.code.lower() in question_terms for r in catalog.records if r.kind == "course")
-    if question.strip():
+    if question.strip() and not focused:
         for hit in retriever.keyword(interpretation.expand(question)):
             record = records[hit.record_id]
             if record.kind != "course" or (profile.career_id != "exploring" and record.career_ids
@@ -271,7 +276,7 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "corpus_hash": corpus_hash(catalog),
         "prompt_version": context.prompt_version,
         "query_interpretation": interpretation.trace(),
-        "focused_record_ids": focused,
+        "focused_record_ids": focused, "discovery_query_terms": discovery_terms,
         "retrieval_mode": mode,
         "embedding_model": getattr(provider, "embedding_model", None),
         "generation_model": getattr(provider, "generation_model", None),

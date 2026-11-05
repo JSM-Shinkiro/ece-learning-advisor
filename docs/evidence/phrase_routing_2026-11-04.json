@@ -1,0 +1,762 @@
+{
+  "checked_at": "2026-11-04T22:06:55.669510+00:00",
+  "scope": "One normal source-check CLI request with reviewed topic phrases, both configured programs and both resource checks; keyword preview only. Separate resource transport probes retain their own dates, implementation hashes and scope.",
+  "model_calls": 0,
+  "credentials_used": false,
+  "command": [
+    "python",
+    "scripts/check_sources.py",
+    "--career",
+    "ai_ml",
+    "--question",
+    "How can I learn phasors and unit testing?",
+    "--cache-dir",
+    ".cache/phrase_routing_verification",
+    "--output",
+    ".cache/phrase_routing_trace.json"
+  ],
+  "seconds": 16.609853849999126,
+  "exit_code": 0,
+  "implementation": {
+    "src/discovery.py": "f7a12681d122a8b126a122370d9d2f188cf3eaf1d08e16a1d000714092f3815b",
+    "src/planning.py": "e60ce9c7fd21e152b6880a174ed9dd25eec93ce8ed8754c1b52bb4722744bf29",
+    "src/controller.py": "aea0dee47388fb64c652bde30cbe2f029b9dd0c1b14f70a4b0ee05f56bc4766a",
+    "src/service.py": "3f327583872e1c631402272d5fbeae19285ad893617b81e2bbcb2249d53b6641",
+    "src/inspector.py": "a91f5c2c1254cb33ad229b80feecd9b8e3f25373021d8aea9121c7f54b7e7820",
+    "data/connectors/course_discovery.json": "3f67a9392ab3ea718165c2d4dd196861ade2a760e81bb178379d0161d139ddd1"
+  },
+  "frozen_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "expected_discovered_order": [
+    "ECE220",
+    "CSC210",
+    "CSC110"
+  ],
+  "actual_discovered_order": [
+    "ECE220",
+    "CSC210",
+    "CSC110"
+  ],
+  "trace": {
+    "data_version": "pilot-2026-11-03-rule-provenance-v1",
+    "corpus_hash": "c1029dff9f979a05efe141b9311b9779458c141617fa9b0f09452221a0cd242e",
+    "prompt_version": "p07-v7-statement-selection",
+    "query_interpretation": {
+      "version": "p07-domain-aliases-v1",
+      "matched_aliases": [],
+      "added_terms": []
+    },
+    "focused_record_ids": [
+      "uofa:ECE220:2026-2027"
+    ],
+    "discovery_query_terms": [
+      "ECE220",
+      "CSC210"
+    ],
+    "retrieval_mode": "keyword",
+    "embedding_model": null,
+    "generation_model": null,
+    "cache_state": "not_used",
+    "retrieved_chunk_ids": [
+      "career:ai_ml:overview",
+      "uofa:ECE425:2026-2027:overview",
+      "resource:pytorch:overview",
+      "resource:cs50:overview",
+      "uofa:CSC210:2026-2027:overview",
+      "uofa:CSC120:2026-2027:overview",
+      "uofa:ECE220:2026-2027:overview",
+      "uofa:CSC210:2026-2027:rule:R1299-L70",
+      "uofa:ECE101:2026-2027:overview",
+      "uofa:ECE372A:2026-2027:overview",
+      "uofa:ECE369A:2026-2027:overview",
+      "career:embedded:overview",
+      "uofa:CSC110:2026-2027:overview",
+      "uofa:CSC120:2026-2027:rule:R1299-L40",
+      "uofa:CSC110:2026-2027:rule:R1299-L30"
+    ],
+    "context_chunk_ids": [
+      "uofa:ECE220:2026-2027:overview",
+      "uofa:CSC210:2026-2027:overview",
+      "uofa:CSC210:2026-2027:rule:R1299-L70",
+      "uofa:ECE425:2026-2027:overview",
+      "resource:cs50:overview",
+      "resource:pytorch:overview",
+      "uofa:CSC120:2026-2027:overview",
+      "uofa:CSC120:2026-2027:rule:R1299-L40"
+    ],
+    "allowed_record_ids": [
+      "uofa:ECE220:2026-2027",
+      "uofa:CSC210:2026-2027",
+      "uofa:ECE425:2026-2027",
+      "resource:cs50",
+      "resource:pytorch"
+    ],
+    "source_freshness": {
+      "catalog:ECE425": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:02.313766Z",
+        "last_checked_at": "2026-11-04T22:07:02.313766Z"
+      },
+      "catalog:CSC120": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:02.243740Z",
+        "last_checked_at": "2026-11-04T22:07:02.243740Z"
+      },
+      "resource:pytorch": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:06.035669Z",
+        "last_checked_at": "2026-11-04T22:07:06.035669Z"
+      },
+      "resource:cs50": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:08.108615Z",
+        "last_checked_at": "2026-11-04T22:07:08.108615Z"
+      },
+      "catalog:CS_foundations": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:01.667269Z",
+        "last_checked_at": "2026-11-04T22:07:01.667269Z"
+      },
+      "catalog:ECE220": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:05.873848Z",
+        "last_checked_at": "2026-11-04T22:07:05.873848Z"
+      },
+      "catalog:CSC210": {
+        "verification_status": "verified",
+        "retrieved_at": "2026-11-04T22:07:06.679929Z",
+        "last_checked_at": "2026-11-04T22:07:06.679929Z"
+      }
+    },
+    "field_sources": {
+      "uofa:ECE220:2026-2027": {
+        "title": "catalog:ECE220",
+        "summary": "catalog:ECE220",
+        "credits": "catalog:ECE220",
+        "requirement_reference": "catalog:ECE220"
+      },
+      "uofa:CSC210:2026-2027": {
+        "title": "catalog:CSC210",
+        "summary": "catalog:CSC210",
+        "credits": "catalog:CSC210",
+        "requirement_reference": "catalog:CSC210"
+      },
+      "uofa:ECE425:2026-2027": {
+        "title": "catalog:ECE425",
+        "summary": "catalog:ECE425",
+        "credits": "catalog:ECE425",
+        "requirement_reference": "catalog:ECE425"
+      },
+      "resource:cs50": {
+        "title": "resource:cs50",
+        "summary": "resource:cs50",
+        "resource_version": "resource:cs50"
+      },
+      "resource:pytorch": {
+        "title": "resource:pytorch",
+        "summary": "resource:pytorch",
+        "resource_version": "resource:pytorch"
+      }
+    },
+    "resource_versions": {
+      "resource:pytorch": "2.15.0+cu132",
+      "resource:cs50": "2026"
+    },
+    "answer_contract": "statement-selection-v1",
+    "selected_statement_ids": [],
+    "statement_validation_passed": null,
+    "validation_error": null,
+    "generation_complete": false,
+    "generation_status": "not_requested",
+    "reference_checks_passed": null,
+    "timings_seconds": {
+      "source_refresh": 16.289815653000005,
+      "retrieval": 0.0011738109997168067,
+      "total": 16.29605997300041
+    },
+    "source_refresh": {
+      "enabled": true,
+      "catalog_version": "2026-2027",
+      "discovery_selection": {
+        "version": "p07-course-request-priority-v2",
+        "input": "question",
+        "requested_codes": [
+          "ECE220",
+          "CSC210"
+        ],
+        "truncated": false,
+        "phrase_matches": {
+          "ECE220": [
+            "phasors"
+          ],
+          "CSC210": [
+            "unit testing"
+          ]
+        },
+        "requests": [
+          {
+            "code": "ECE220",
+            "course_id": "0120881",
+            "status": "added",
+            "matched_phrases": [
+              "phasors"
+            ]
+          },
+          {
+            "code": "CSC210",
+            "course_id": "0393711",
+            "status": "added",
+            "matched_phrases": [
+              "unit testing"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "course_id": "0120881",
+            "code_hint": "ECE220",
+            "source_id": "catalog:ECE_program",
+            "section_ids": [
+              "R17348/L320"
+            ],
+            "reason": "reviewed_phrase",
+            "outcome": "added",
+            "actual_code": "ECE220",
+            "source_status": "updated"
+          },
+          {
+            "course_id": "0393711",
+            "code_hint": "CSC210",
+            "source_id": "catalog:CS_foundations",
+            "section_ids": [
+              "R1299/L70"
+            ],
+            "reason": "reviewed_phrase",
+            "outcome": "added",
+            "actual_code": "CSC210",
+            "source_status": "updated"
+          },
+          {
+            "course_id": "0393681",
+            "code_hint": "CSC110",
+            "source_id": "catalog:CS_foundations",
+            "section_ids": [
+              "R1299/L30"
+            ],
+            "reason": "source_order",
+            "outcome": "added",
+            "actual_code": "CSC110",
+            "source_status": "updated"
+          }
+        ]
+      },
+      "discovered_courses": {
+        "uofa:ECE220:2026-2027": {
+          "origin": {
+            "source_id": "catalog:ECE_program",
+            "program_code": "ECEBSECE",
+            "section_ids": [
+              "R17348/L320"
+            ],
+            "course_id": "0120881",
+            "discovered_at": "2026-11-04T22:07:05.875186Z"
+          },
+          "field_sources": {
+            "title": "catalog:ECE220",
+            "summary": "catalog:ECE220",
+            "credits": "catalog:ECE220",
+            "requirement_reference": "catalog:ECE220"
+          },
+          "rule_verification": "snapshot",
+          "rule_evidence_ids": [],
+          "rule_hash": null,
+          "reviewed_statement_hashes": {}
+        },
+        "uofa:CSC210:2026-2027": {
+          "origin": {
+            "source_id": "catalog:CS_foundations",
+            "program_code": "COSCBS",
+            "section_ids": [
+              "R1299/L70"
+            ],
+            "course_id": "0393711",
+            "discovered_at": "2026-11-04T22:07:06.680639Z"
+          },
+          "field_sources": {
+            "title": "catalog:CSC210",
+            "summary": "catalog:CSC210",
+            "credits": "catalog:CSC210",
+            "requirement_reference": "catalog:CSC210"
+          },
+          "rule_verification": "verified",
+          "rule_evidence_ids": [
+            "uofa:CSC210:2026-2027:rule:R1299-L70"
+          ],
+          "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+          "reviewed_statement_hashes": {
+            "uofa:CSC210:2026-2027:rule:R1299-L70": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be"
+          }
+        },
+        "uofa:CSC110:2026-2027": {
+          "origin": {
+            "source_id": "catalog:CS_foundations",
+            "program_code": "COSCBS",
+            "section_ids": [
+              "R1299/L30"
+            ],
+            "course_id": "0393681",
+            "discovered_at": "2026-11-04T22:07:12.213080Z"
+          },
+          "field_sources": {
+            "title": "catalog:CSC110",
+            "summary": "catalog:CSC110",
+            "credits": "catalog:CSC110",
+            "requirement_reference": "catalog:CSC110"
+          },
+          "rule_verification": "verified",
+          "rule_evidence_ids": [
+            "uofa:CSC110:2026-2027:rule:R1299-L30"
+          ],
+          "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+          "reviewed_statement_hashes": {
+            "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+          }
+        }
+      },
+      "checks": [
+        {
+          "source_id": "catalog:CS_foundations",
+          "code": "COSCBS",
+          "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+          "kind": "rule",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:06:55.949768Z",
+          "last_checked_at": "2026-11-04T22:07:01.667269Z",
+          "retrieved_at": "2026-11-04T22:07:01.667269Z",
+          "content_hash": "12336590731161849c5df2beccfc4bbee1061d2aeef63a88fdf26c95e6b79ff4",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": "verified",
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE_program",
+          "code": "ECEBSECE",
+          "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+          "kind": "discovery",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:06:55.951700Z",
+          "last_checked_at": "2026-11-04T22:07:01.864456Z",
+          "retrieved_at": "2026-11-04T22:07:01.864456Z",
+          "content_hash": "3b915ebb4220db61de89e1bb696123e64eef3163056cb03c9019c186ee606dc2",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": "verified",
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE101",
+          "code": "ECE101",
+          "url": "https://catalog.arizona.edu/courses/0432351",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:06:55.953706Z",
+          "last_checked_at": "2026-11-04T22:07:01.423335Z",
+          "retrieved_at": "2026-11-04T22:07:01.423335Z",
+          "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE425",
+          "code": "ECE425",
+          "url": "https://catalog.arizona.edu/courses/0435981",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:01.633447Z",
+          "last_checked_at": "2026-11-04T22:07:02.313766Z",
+          "retrieved_at": "2026-11-04T22:07:02.313766Z",
+          "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC120",
+          "code": "CSC120",
+          "url": "https://catalog.arizona.edu/courses/0393701",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:01.668475Z",
+          "last_checked_at": "2026-11-04T22:07:02.243740Z",
+          "retrieved_at": "2026-11-04T22:07:02.243740Z",
+          "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:ECE220",
+          "code": "ECE220",
+          "url": "https://catalog.arizona.edu/courses/0120881",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:02.314392Z",
+          "last_checked_at": "2026-11-04T22:07:05.873848Z",
+          "retrieved_at": "2026-11-04T22:07:05.873848Z",
+          "content_hash": "4f759badc7e8d724700bbdf5b3a9f965a72e212c9e08eb6637ac300a0118b118",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC210",
+          "code": "CSC210",
+          "url": "https://catalog.arizona.edu/courses/0393711",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:05.874413Z",
+          "last_checked_at": "2026-11-04T22:07:06.679929Z",
+          "retrieved_at": "2026-11-04T22:07:06.679929Z",
+          "content_hash": "0c16813fdb89a5810029d48df090bdce25fff9cc89f706d49d66ae5493aea781",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "catalog:CSC110",
+          "code": "CSC110",
+          "url": "https://catalog.arizona.edu/courses/0393681",
+          "kind": "course",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:06.059047Z",
+          "last_checked_at": "2026-11-04T22:07:12.212180Z",
+          "retrieved_at": "2026-11-04T22:07:12.212180Z",
+          "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": null,
+          "failure_kind": null,
+          "rule_status": "verified",
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "resource:pytorch",
+          "code": "resource:pytorch",
+          "url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+          "kind": "resource",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:01.865274Z",
+          "last_checked_at": "2026-11-04T22:07:06.035669Z",
+          "retrieved_at": "2026-11-04T22:07:06.035669Z",
+          "content_hash": "772263d5fa129424a2c60bd55f85ea21ba0d98335efb2781be96b581d1454a1f",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        {
+          "source_id": "resource:cs50",
+          "code": "resource:cs50",
+          "url": "https://cs50.harvard.edu/x/",
+          "kind": "resource",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:07:02.245212Z",
+          "last_checked_at": "2026-11-04T22:07:08.108615Z",
+          "retrieved_at": "2026-11-04T22:07:08.108615Z",
+          "content_hash": "edfb3e6658ec5690fcdb32a096a3b83e568285330fd39c8d33c8fc8f6a1ac915",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": "https://cs50.harvard.edu/x/",
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        }
+      ]
+    }
+  },
+  "resource_transport_probe": {
+    "checked_at": "2026-11-04T22:01:13.990291+00:00",
+    "scope": "One bounded resource-adapter request per source with transport event names only; no transport settings, raw exception text, headers, cookies, credentials, or response bodies are recorded.",
+    "model_calls": 0,
+    "implementation": {
+      "src/resource_sources.py": "30accf8eb886fe31ccb7669d2cf779b28683886f85a1a87eba811e65c1f383e5",
+      "src/source_http.py": "e681053b991ac5b06fc9e5abb19769c5d3fea21602c9d446e3955ef698ccf4e0"
+    },
+    "observations": [
+      {
+        "source_id": "resource:pytorch",
+        "check": {
+          "source_id": "resource:pytorch",
+          "code": "resource:pytorch",
+          "url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+          "kind": "resource",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:01:14.011270Z",
+          "last_checked_at": "2026-11-04T22:01:18.711585Z",
+          "retrieved_at": "2026-11-04T22:01:18.711585Z",
+          "content_hash": "772263d5fa129424a2c60bd55f85ea21ba0d98335efb2781be96b581d1454a1f",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        "events": [
+          {
+            "event": "connection.connect_tcp.started",
+            "seconds": 0.0004
+          },
+          {
+            "event": "connection.connect_tcp.complete",
+            "seconds": 0.0022
+          },
+          {
+            "event": "http11.send_request_headers.started",
+            "seconds": 0.0022
+          },
+          {
+            "event": "http11.send_request_headers.complete",
+            "seconds": 0.0023
+          },
+          {
+            "event": "http11.send_request_body.started",
+            "seconds": 0.0023
+          },
+          {
+            "event": "http11.send_request_body.complete",
+            "seconds": 0.0024
+          },
+          {
+            "event": "http11.receive_response_headers.started",
+            "seconds": 0.0024
+          },
+          {
+            "event": "http11.receive_response_headers.complete",
+            "seconds": 4.3505
+          },
+          {
+            "event": "proxy.start_tls.started",
+            "seconds": 4.3506
+          },
+          {
+            "event": "proxy.start_tls.complete",
+            "seconds": 4.3566
+          },
+          {
+            "event": "http11.send_request_headers.started",
+            "seconds": 4.3566
+          },
+          {
+            "event": "http11.send_request_headers.complete",
+            "seconds": 4.3569
+          },
+          {
+            "event": "http11.send_request_body.started",
+            "seconds": 4.3569
+          },
+          {
+            "event": "http11.send_request_body.complete",
+            "seconds": 4.357
+          },
+          {
+            "event": "http11.receive_response_headers.started",
+            "seconds": 4.357
+          },
+          {
+            "event": "http11.receive_response_headers.complete",
+            "seconds": 4.6573
+          },
+          {
+            "event": "http11.receive_response_body.started",
+            "seconds": 4.6577
+          },
+          {
+            "event": "http11.receive_response_body.complete",
+            "seconds": 4.6999
+          },
+          {
+            "event": "http11.response_closed.started",
+            "seconds": 4.7
+          },
+          {
+            "event": "http11.response_closed.complete",
+            "seconds": 4.7
+          }
+        ],
+        "parsed": {
+          "title": "PyTorch Quickstart",
+          "version": "2.15.0+cu132"
+        }
+      },
+      {
+        "source_id": "resource:cs50",
+        "check": {
+          "source_id": "resource:cs50",
+          "code": "resource:cs50",
+          "url": "https://cs50.harvard.edu/x/",
+          "kind": "resource",
+          "status": "updated",
+          "attempted_at": "2026-11-04T22:01:14.011943Z",
+          "last_checked_at": "2026-11-04T22:01:18.111895Z",
+          "retrieved_at": "2026-11-04T22:01:18.111895Z",
+          "content_hash": "edfb3e6658ec5690fcdb32a096a3b83e568285330fd39c8d33c8fc8f6a1ac915",
+          "content_changed": true,
+          "cache_saved": true,
+          "http_status": 200,
+          "resolved_url": "https://cs50.harvard.edu/x/",
+          "failure_kind": null,
+          "rule_status": null,
+          "discovery_status": null,
+          "message": ""
+        },
+        "events": [
+          {
+            "event": "connection.connect_tcp.started",
+            "seconds": 0.0004
+          },
+          {
+            "event": "connection.connect_tcp.complete",
+            "seconds": 0.0019
+          },
+          {
+            "event": "http11.send_request_headers.started",
+            "seconds": 0.002
+          },
+          {
+            "event": "http11.send_request_headers.complete",
+            "seconds": 0.0021
+          },
+          {
+            "event": "http11.send_request_body.started",
+            "seconds": 0.0021
+          },
+          {
+            "event": "http11.send_request_body.complete",
+            "seconds": 0.0023
+          },
+          {
+            "event": "http11.receive_response_headers.started",
+            "seconds": 0.0023
+          },
+          {
+            "event": "http11.receive_response_headers.complete",
+            "seconds": 3.844
+          },
+          {
+            "event": "proxy.start_tls.started",
+            "seconds": 3.8441
+          },
+          {
+            "event": "proxy.start_tls.complete",
+            "seconds": 3.8501
+          },
+          {
+            "event": "http11.send_request_headers.started",
+            "seconds": 3.8502
+          },
+          {
+            "event": "http11.send_request_headers.complete",
+            "seconds": 3.8504
+          },
+          {
+            "event": "http11.send_request_body.started",
+            "seconds": 3.8504
+          },
+          {
+            "event": "http11.send_request_body.complete",
+            "seconds": 3.8504
+          },
+          {
+            "event": "http11.receive_response_headers.started",
+            "seconds": 3.8504
+          },
+          {
+            "event": "http11.receive_response_headers.complete",
+            "seconds": 4.0987
+          },
+          {
+            "event": "http11.receive_response_body.started",
+            "seconds": 4.0995
+          },
+          {
+            "event": "http11.receive_response_body.complete",
+            "seconds": 4.0998
+          },
+          {
+            "event": "http11.response_closed.started",
+            "seconds": 4.0998
+          },
+          {
+            "event": "http11.response_closed.complete",
+            "seconds": 4.0998
+          }
+        ],
+        "parsed": {
+          "title": "CS50\u2019s Introduction to Computer Science",
+          "version": "2026"
+        }
+      }
+    ]
+  },
+  "selection_passed": true,
+  "all_source_checks_passed": true,
+  "passed": true,
+  "public_caches_omit_question": true,
+  "automated_verification": {
+    "checked_at": "2026-11-05T22:38:43.220563+00:00",
+    "command": "python -m pytest -q --tb=short",
+    "passed": 725,
+    "failed": 0,
+    "seconds": 19.47,
+    "scope": "Controlled backend/provider and Streamlit cases without public requests or real model calls; distinct from the November 4 live observations."
+  },
+  "test_implementation": {
+    "tests/test_discovery_phrases.py": "f238c005bd4b65677468881db690c40ac0a01f848426c5c36bb352e2180ebc48",
+    "tests/test_app.py": "7cfafee639b74dd5de01be63be6ea5a61777474c626eaba91d55a1e1ecf77104"
+  }
+}

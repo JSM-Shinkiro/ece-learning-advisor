@@ -395,6 +395,27 @@ def test_unavailable_course_displays_selection_limit_without_a_fabricated_card(a
     assert not any(option.startswith("ECE499 · ") for option in app.multiselect(key="completed_courses").options)
 
 
+@pytest.mark.parametrize("phrase,code", [("phasors", "ECE220"), ("unit testing", "CSC210")])
+def test_reviewed_phrase_can_populate_the_roadmap_without_a_course_code(app, monkeypatch, tmp_path, phrase, code):
+    from test_discovery_priority import priority_refresh
+    calls = []
+    def refresh(catalog, profile, **kwargs):
+        calls.append(profile.question)
+        return priority_refresh(catalog, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_input(key="question").set_value(phrase)
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    assert "uofa:" + code + ":2026-2027" in result.context.allowed_record_ids
+    table = next(item.value for item in app.dataframe if {"code", "matched_phrases"} <= set(item.value.columns))
+    assert table[table["code"] == code]["status"].tolist() == ["added"]
+    assert any("reviewed phrases" in item.value for item in app.caption)
+    app.run()
+    assert calls == [phrase]
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

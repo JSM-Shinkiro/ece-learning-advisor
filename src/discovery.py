@@ -18,9 +18,15 @@ from .rule_sources import MAX_RULE_SOURCES, RuleJob
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
 MAX_REQUESTED_CODES = 16
-DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v1"
+DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v2"
 CourseID = Annotated[str, Field(pattern=r"^\d{7}$")]
 CourseCode = Annotated[str, Field(pattern=r"^(?:ECE|CSC)[1-4]\d{2}[A-Z]{0,2}$")]
+RoutingPhrase = Annotated[str, Field(min_length=3, max_length=80)]
+
+
+def phrase_key(text):
+    """Whole words, preserving language names such as C++; hyphens separate words."""
+    return " ".join(re.findall(r"[a-z0-9]+(?:\+\+|#)?", text.casefold()))
 
 
 class ReviewedDiscoveryRule(StrictModel):
@@ -49,6 +55,7 @@ class DiscoveryPlan(StrictModel):
     study_stage: Literal["foundation", "intermediate", "advanced"]
     reviewed_rules: list[ReviewedDiscoveryRule] = Field(default_factory=list, max_length=3)
     course_codes: dict[CourseID, CourseCode] = Field(default_factory=dict, max_length=40)
+    course_phrases: dict[CourseCode, Annotated[list[RoutingPhrase], Field(min_length=1, max_length=8)]] = Field(default_factory=dict, max_length=40)
 
     @model_validator(mode="after")
     def matching_program(self):
@@ -66,6 +73,12 @@ class DiscoveryPlan(StrictModel):
             values = [getattr(entry, key) for entry in self.reviewed_rules]
             if len(values) != len(set(values)):
                 raise ValueError("Duplicate discovered-course interpretation")
+        for code, phrases in self.course_phrases.items():
+            keys = [phrase_key(phrase) for phrase in phrases]
+            if (code not in self.known_course_codes.values() or len(set(keys)) != len(keys)
+                    or any(not key or key in {"programming", "math", "software", "engineering", "logic",
+                        "systems", "learning", "design", "computer", "course", "courses"} for key in keys)):
+                raise ValueError("Course phrases need distinct, specific phrases and a bound course identity")
         _check_code_bindings([self])
         return self
 
@@ -75,13 +88,19 @@ class DiscoveryPlan(StrictModel):
 
 
 def _check_code_bindings(plans):
-    by_id, by_code = {}, {}
+    by_id, by_code, by_phrase = {}, {}, {}
     for plan in plans:
         entries = [*plan.course_codes.items(), *((e.course_id, e.course_code) for e in plan.reviewed_rules)]
         for identity, code in entries:
             if by_id.get(identity, code) != code or by_code.get(code, identity) != identity:
                 raise ValueError("Conflicting course-discovery code identities")
             by_id[identity], by_code[code] = code, identity
+        for code, phrases in plan.course_phrases.items():
+            for phrase in phrases:
+                key = phrase_key(phrase)
+                if by_phrase.get(key, code) != code:
+                    raise ValueError("Ambiguous course-discovery phrases")
+                by_phrase[key] = code
 
 
 def load_discovery_plans(path=DEFAULT_PLANS):
@@ -174,6 +193,39 @@ def requested_course_codes(profile):
     return codes[:MAX_REQUESTED_CODES], origin if text.strip() else "none", len(codes) > MAX_REQUESTED_CODES
 
 
+@dataclass
+class CourseRequests:
+    codes: list[str]
+    origin: str
+    truncated: bool
+    phrases: dict[str, list[str]]
+
+
+def match_course_requests(profile, plans):
+    codes, origin, truncated = requested_course_codes(profile)
+    if profile is None:
+        return CourseRequests(codes, origin, truncated, {})
+    text = profile.question if profile.question.strip() else profile.interests
+    text = " " + phrase_key(text) + " "
+    phrases, positions = {}, {}
+    for plan in plans:
+        if (plan.source.catalog_version != profile.catalog_version
+                or profile.career_id != "exploring" and profile.career_id not in plan.career_ids):
+            continue
+        for code, aliases in plan.course_phrases.items():
+            if code in codes:
+                continue  # Explicit codes take precedence over phrase hints.
+            for alias in aliases:
+                position = text.find(" " + phrase_key(alias) + " ")
+                if position >= 0:
+                    positions[code] = min(position, positions.get(code, position))
+                    if alias not in phrases.setdefault(code, []):
+                        phrases[code].append(alias)
+    combined = codes + sorted(phrases, key=lambda code: positions[code])
+    return CourseRequests(combined[:MAX_REQUESTED_CODES], origin, truncated or len(combined) > MAX_REQUESTED_CODES,
+        {code: phrases[code] for code in combined[:MAX_REQUESTED_CODES] if code in phrases})
+
+
 def select_candidates(catalog, plans, program_results, limit, *, profile=None):
     """Use only currently verified link lists; retain no personal query in caches."""
     known = {s.url for s in catalog.sources if "/courses/" in s.url}
@@ -193,7 +245,8 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
             seen.add(candidate.url)
             candidates.append(candidate)
     budget = max(0, min(MAX_DISCOVERED_COURSES, limit))
-    codes, origin, truncated = requested_course_codes(profile)
+    mentions = match_course_requests(profile, plans)
+    codes, origin, truncated = mentions.codes, mentions.origin, mentions.truncated
     rank = {code: index for index, code in enumerate(codes)}
     candidates.sort(key=lambda candidate: rank.get(candidate.expected_code, len(rank)))
     selected = candidates[:budget]
@@ -207,12 +260,15 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
         else:
             request = {"code": code, "course_id": candidate.course_id,
                 "status": "selected" if candidate in selected else "budget_limit"}
+        if code in mentions.phrases:
+            request["matched_phrases"] = mentions.phrases[code]
         requests.append(request)
     trace = {"version": DISCOVERY_POLICY_VERSION, "input": origin, "requested_codes": codes,
-        "truncated": truncated, "requests": requests,
+        "truncated": truncated, "phrase_matches": mentions.phrases, "requests": requests,
         "selected": [{"course_id": item.course_id, "code_hint": item.expected_code,
             "source_id": item.plan.source.source_id, "section_ids": item.sections,
-            "reason": "requested_course" if item.expected_code in rank else "source_order"} for item in selected]}
+            "reason": "reviewed_phrase" if item.expected_code in mentions.phrases else
+                "requested_course" if item.expected_code in rank else "source_order"} for item in selected]}
     return DiscoverySelection(selected, len(candidates) - len(selected), trace)
 
 

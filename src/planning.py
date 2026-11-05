@@ -11,6 +11,15 @@ PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later go
 BASIC_CODES = {"ECE101", "ECE175", "CSC110", "CSC120", "ISTA130"}
 
 
+def requested_record_ids(catalog, profile, codes):
+    """Resolve routing hints only to available, relevant, incomplete courses."""
+    completed = {item.course_code for item in profile.completed}
+    return list(dict.fromkeys(record.record_id for code in codes for record in catalog.records
+        if record.kind == "course" and record.code == code and code not in completed
+        and record.catalog_version == profile.catalog_version
+        and (profile.career_id == "exploring" or not record.career_ids or profile.career_id in record.career_ids)))
+
+
 def needs_programming_foundations(profile: StudentProfile):
     completed = {c.course_code for c in profile.completed if c.grade not in {"E", "F"}}
     return profile.programming_background == "new" and not (completed & BASIC_CODES)

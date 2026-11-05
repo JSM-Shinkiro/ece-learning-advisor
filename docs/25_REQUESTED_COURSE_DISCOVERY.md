@@ -1,5 +1,7 @@
 # Requested-course discovery
 
+Follow-up: [course phrase routing](26_COURSE_PHRASE_ROUTING.md) advances this policy to version 2 with reviewed title/topic phrases and validated query preferences. The literal-code unit and its resource timeouts below retain their original scope and results.
+
 Implemented and checked November 4, 2026. An explicit configured course mention can now reserve a discovery slot before source-order defaults consume the three-course cap. The saved corpus, frozen evaluation references, submitted midproject files, academic interpretations, and dependency versions remain unchanged.
 
 ## Behavior

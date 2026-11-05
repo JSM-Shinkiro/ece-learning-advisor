@@ -287,7 +287,26 @@
         },
         "study_stage": "intermediate"
       }
-    ]
+    ],
+    "course_phrases": {
+      "CSC110": [
+        "introduction to computer programming i",
+        "introductory computer programming"
+      ],
+      "CSC144": [
+        "discrete mathematics for computer science i",
+        "discrete mathematics",
+        "discrete math",
+        "predicate logic"
+      ],
+      "CSC210": [
+        "software development",
+        "unit testing",
+        "design patterns",
+        "source code control",
+        "version control"
+      ]
+    }
   },
   {
     "source": {
@@ -315,6 +334,26 @@
       "0432591": "ECE201",
       "0120881": "ECE220",
       "0360981": "ECE274A"
+    },
+    "course_phrases": {
+      "ECE201": [
+        "programming 2",
+        "object oriented programming",
+        "c++ programming",
+        "data abstraction"
+      ],
+      "ECE220": [
+        "basic circuits",
+        "circuit analysis",
+        "linear circuits",
+        "phasors"
+      ],
+      "ECE274A": [
+        "digital logic",
+        "logic design",
+        "sequential systems",
+        "register transfer language"
+      ]
     }
   }
 ]

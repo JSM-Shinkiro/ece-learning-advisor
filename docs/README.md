@@ -17,6 +17,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Live opportunities](23_LIVE_OPPORTUNITIES.md) | Public employer-board requests, title/location/date filters, explicit cache reuse, failure handling, and observed coverage |
 | [CS foundation coverage](24_CS_FOUNDATION_COVERAGE.md) | CSC144/CSC210 discovery, exact source bindings, coursework/grade alternatives, learning annotations, and real-source verification |
 | [Requested-course discovery](25_REQUESTED_COURSE_DISCOVERY.md) | Literal course-code priority, validated code/ID routing, bounded source selection, inspector outcomes, and live observations |
+| [Course phrase routing](26_COURSE_PHRASE_ROUTING.md) | Reviewed title/topic matches, source/coverage gates, query preference, controlled cases, and resource transport recovery |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

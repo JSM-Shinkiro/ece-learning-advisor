@@ -1,5 +1,7 @@
 # Runtime learning-resource checks
 
+Later checks: [requested-course discovery](25_REQUESTED_COURSE_DISCOVERY.md) retains November 4 resource timeouts; [phrase routing and transport probes](26_COURSE_PHRASE_ROUTING.md) record later successful checks under unchanged HTTP limits. The original resource milestone below retains its own scope and measurements.
+
 Implemented November 3, 2026, in the development repository. This extends [bounded course discovery](16_COURSE_DISCOVERY.md). The submitted repository and midproject artifacts remain unchanged.
 
 **Follow-up, November 3:** [Reviewed development evaluation](18_REVIEWED_EVALUATION.md) adds fixed-corpus relevance and roadmap cases plus authored claim probes. The resource checks and measurements below retain their original scope and results.
