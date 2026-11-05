@@ -1,0 +1,72 @@
+{
+  "checked_at": "2026-11-05T23:36:46.504200+00:00",
+  "scope": "Production-only Python environment; local review CLI export, rejection of an incomplete form, and score reproduction using existing assistant-authored labels marked controlled_fixture. No real reviewer or held-out quality measurement.",
+  "environment": {
+    "python": "3.12.14",
+    "pytest_installed": false
+  },
+  "packet": {
+    "questions": 16,
+    "evidence_chunks": 10,
+    "all_template_grades_blank": true,
+    "question_origin": "existing_development_questions",
+    "packet_hash": "a45fde16704d29eb721da630fa805a8e3ee9478f8b0ea0f7bf848088e7689d6f"
+  },
+  "commands": [
+    {
+      "action": "prepare",
+      "query_mode": null,
+      "exit_code": 0
+    },
+    {
+      "action": "score",
+      "query_mode": null,
+      "exit_code": 2
+    },
+    {
+      "action": "score",
+      "query_mode": "raw",
+      "exit_code": 0
+    },
+    {
+      "action": "score",
+      "query_mode": "expanded",
+      "exit_code": 0
+    }
+  ],
+  "controlled_fixture_metrics": {
+    "raw": {
+      "recall": 0.8229166666666666,
+      "matches_existing_fixture_metric": true
+    },
+    "expanded": {
+      "recall": 0.9479166666666666,
+      "matches_existing_fixture_metric": true
+    }
+  },
+  "real_reviewer_judgments": 0,
+  "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "labels_hash": "025eea97ee864e5dfda13bbe03bff2c93645ab87d9a53d19073ded45e4f7561b",
+  "embedding_calls": 0,
+  "generation_calls": 0,
+  "source_refresh_calls": 0,
+  "seconds": 1.4196788090002883,
+  "implementation": {
+    "src/review.py": "0705dc84de4dd4f38e6358ee538ca24d3e42aca04df7d4629283b7e892e2c6ca",
+    "scripts/review_retrieval.py": "961e355deaa4c446b07bc2481555d268d6aa9c5904e556cb1fa5984a624b02b2",
+    "tests/test_review.py": "a1e727c18f5dae277ff0d3afa14cea6ae69b1088c6b50a3c2d041dffe8ecad15",
+    "src/evaluation.py": "8a5323eb422681c980c92d63f9841e5235e3bb24b15242409ce409df778f0aad",
+    "src/catalog.py": "9b251c47689ec368c28c4c917830b6d3930a0507eaf133c8001e17ff41637813",
+    "src/query.py": "08c2b51b144ae5f9dbb9e6b3a6f59e0d48f47ea82ba4de45c1aa3b1887663ef9",
+    "src/retrieval.py": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006",
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "automated_verification": {
+    "command": "python -m pytest -q --tb=short",
+    "passed": 848,
+    "failed": 0,
+    "seconds": 27.48
+  },
+  "passed": true
+}

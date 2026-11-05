@@ -19,6 +19,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Requested-course discovery](25_REQUESTED_COURSE_DISCOVERY.md) | Literal course-code priority, validated code/ID routing, bounded source selection, inspector outcomes, and live observations |
 | [Course phrase routing](26_COURSE_PHRASE_ROUTING.md) | Reviewed title/topic matches, source/coverage gates, query preference, controlled cases, and resource transport recovery |
 | [Runtime readiness](27_DEPLOYMENT_READINESS.md) | Central settings, cache location, secret-safe preflight, local liveness/offline preview, fresh-install evidence, and hosting limits |
+| [Reviewer workflow](28_REVIEWER_WORKFLOW.md) | Unscored evidence packets, separate relevance forms, strict snapshot/judgment binding, offline keyword scoring, and review limits |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

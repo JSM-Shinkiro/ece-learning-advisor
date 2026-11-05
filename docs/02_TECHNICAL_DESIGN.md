@@ -38,6 +38,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/discovery.py / data/connectors/course_discovery.json | Validated program-section configuration, course candidates, and provenance |
 | src/resource_sources.py | Resource identity, introductory excerpts, versions, bounded redirects, and caches |
 | src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
+| src/review.py / scripts/review_retrieval.py | Unscored review packets, separate complete judgments, snapshot binding, and offline keyword metrics |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
 | src/query.py | Versioned whole-token domain aliases and bounded source-vocabulary query expansion |
@@ -118,6 +119,10 @@ The [CS coverage extension](24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210
 `DiscoverySelection` records candidate reasons, matched reviewed phrases, and final request outcomes; `CatalogRefresh.trace()` exposes it under `discovery_selection`. The inspector shows these outcomes separately from source freshness and academic status. A failed target has no substitute request beyond the existing budget and no fabricated record. Stale cached descriptions are labeled separately. This policy allocates source downloads; it does not interpret natural-language intent, broaden career scope, or change enrollment rules.
 
 A reviewed phrase can open the pre-retrieval source gate, but generation still needs an available target in the active collection. `requested_record_ids` filters resolved targets by identity, edition, career scope, and recorded completion. Only successful/dated additions or already collected targets can supply preferences to `recommend`. Validated preferred codes missing from the retrieval query are appended within its 5,000-character bound and recorded as `discovery_query_terms`; the first eligible target supplies the focus preference. Missing or out-of-scope records cannot bypass the generation guard. Offline mode receives no new discovery preferences. The frozen evaluator and domain-alias policy remain unchanged.
+
+## External relevance review
+
+The [reviewer workflow](28_REVIEWER_WORKFLOW.md) exports exact saved evidence and source metadata, shuffled candidate orders, and blank grades without rankings or prior labels. Separate completed forms bind a packet fingerprint. Scoring requires every question/chunk pair, strict grades, unique JSON keys, and the matching full catalog snapshot. Default questions remain development material; custom question provenance and reviewer independence are not authenticated. Raw/expanded keyword reports retain grades, exact rankings, undefined-metric counts, and implementation identities. No model or source calls occur. This does not change the live recommendation path or certify a held-out study.
 
 ## Configuration, caching, and storage
 
