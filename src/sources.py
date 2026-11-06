@@ -29,7 +29,7 @@ from .rules import dependency_codes
 from .rule_sources import prepare_rule_jobs, fetch_rule_source, apply_rule_source, finalize_rule_checks
 from .discovery import prepare_discovery_jobs, select_candidates, add_discovered_course, apply_discovered_rule
 from .resource_sources import prepare_resource_jobs, fetch_resource_source, apply_resource_source
-from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, failure_kind, read_public_page
+from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, SourceRequest, failure_kind, read_public_page
 
 MAX_CACHE_BYTES = 100_000
 MAX_SOURCES = 8
@@ -153,6 +153,7 @@ def _fetch_one(source, record, directory, client, now):
     attempted = now or datetime.now(timezone.utc)
     path = _cache_path(directory, source, record)
     cached = None
+    request = SourceRequest()
     check = SourceCheck(source_id=source.source_id, code=record.code or source.source_id, url=source.url,
                         status="bundled_fallback", attempted_at=attempted,
                         retrieved_at=source.retrieved_at, last_checked_at=source.last_checked_at)
@@ -164,7 +165,7 @@ def _fetch_one(source, record, directory, client, now):
             headers["If-None-Match"] = cached.etag
         if cached and cached.last_modified:
             headers["If-Modified-Since"] = cached.last_modified
-        page = read_public_page(client, source.url, headers)
+        page = read_public_page(client, source.url, headers, request=request)
         check.http_status = page.status
         if page.status == 304:
             if cached is None:
@@ -202,6 +203,8 @@ def _fetch_one(source, record, directory, client, now):
             check.last_checked_at = cached.last_checked_at
             check.content_hash = cached.content_hash
         return cached, check
+    finally:
+        request.apply(check)
 
 
 def _apply(record, source, saved, check):

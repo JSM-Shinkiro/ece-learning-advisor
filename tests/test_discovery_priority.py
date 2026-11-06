@@ -204,7 +204,9 @@ def test_failed_target_has_no_hidden_extra_download_or_placeholder(catalog, tmp_
         courses={"0432591": 503}, seen=seen)
     assert added(result) == ["CSC110", "CSC144"]
     assert request_status(result, "ECE201") == "unavailable"
-    assert len([url for url in seen if "/courses/" in url]) == 6
+    assert len({url for url in seen if "/courses/" in url}) == 6
+    assert sum(url.endswith("0432591") for url in seen) == 2
+    assert next(c for c in result.checks if c.url.endswith("0432591")).retry_count == 1
 
 
 def test_cached_target_failure_is_labeled_stale_without_academic_approval(catalog, tmp_path):

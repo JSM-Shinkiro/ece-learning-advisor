@@ -162,6 +162,13 @@ class Source(SourceFreshness):
         return value
 
 
+class SourceAttempt(StrictModel):
+    outcome: Literal["success", "not_modified", "redirect", "timeout", "network", "response", "validation"]
+    http_status: int | None = None
+    seconds: float = Field(ge=0, allow_inf_nan=False)
+    retry: bool = False
+
+
 class SourceCheck(StrictModel):
     source_id: str
     code: str
@@ -180,6 +187,9 @@ class SourceCheck(StrictModel):
     failure_kind: Literal["timeout", "network", "response", "validation"] | None = None
     rule_status: Literal["verified", "stale", "changed", "unavailable", "unsupported", "unreviewed"] | None = None
     discovery_status: Literal["verified", "stale", "unavailable"] | None = None
+    attempts: list[SourceAttempt] = Field(default_factory=list, max_length=3)
+    retry_count: int = Field(default=0, ge=0, le=1)
+    transport_seconds: float = Field(default=0, ge=0, allow_inf_nan=False)
     message: str = ""
 
 

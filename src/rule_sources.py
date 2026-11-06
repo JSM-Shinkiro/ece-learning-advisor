@@ -16,7 +16,7 @@ from pydantic import AwareDatetime, Field, model_validator
 
 from .ingest import extract_program_courses, extract_visible_program_statements
 from .models import (Source, SourceCheck, StrictModel, program_source_url_matches, rule_binding_matches, statement_hash)
-from .source_http import failure_kind, read_public_page
+from .source_http import SourceRequest, failure_kind, read_public_page
 
 MAX_RULE_SOURCES = 2
 MAX_RULE_CACHE_BYTES = 200_000
@@ -146,6 +146,7 @@ def prepare_rule_jobs(catalog, courses, profile, now=None):
 
 def fetch_rule_source(job, directory, client, now=None):
     source = job.source
+    request = SourceRequest()
     check = SourceCheck(source_id=source.source_id, code=job.program_code, url=source.url, kind="rule",
         status="bundled_fallback", attempted_at=now or datetime.now(timezone.utc),
         retrieved_at=source.retrieved_at, last_checked_at=source.last_checked_at)
@@ -165,7 +166,7 @@ def fetch_rule_source(job, directory, client, now=None):
             headers["If-None-Match"] = cached.etag
         if cached and cached.last_modified:
             headers["If-Modified-Since"] = cached.last_modified
-        page = read_public_page(client, source.url, headers)
+        page = read_public_page(client, source.url, headers, request=request)
         check.http_status = page.status
         if page.status == 304:
             if cached is None:
@@ -221,6 +222,8 @@ def fetch_rule_source(job, directory, client, now=None):
             if job.discovery_sections:
                 check.discovery_status = "stale"
         return cached, check
+    finally:
+        request.apply(check)
 
 
 def apply_rule_source(catalog, job, saved, check):

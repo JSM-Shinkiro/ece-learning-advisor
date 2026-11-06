@@ -18,7 +18,7 @@ import httpx
 from pydantic import AwareDatetime, Field, model_validator
 
 from .models import Source, SourceCheck, StrictModel
-from .source_http import SourcePageError, failure_kind, read_public_page
+from .source_http import SourcePageError, SourceRequest, failure_kind, read_public_page
 
 MAX_RESOURCE_SOURCES = 2
 MAX_RESOURCE_CACHE_BYTES = 30_000
@@ -226,7 +226,7 @@ def _write(path, saved):
         Path(temporary).unlink(missing_ok=True)
 
 
-def _download(client, job, cached):
+def _download(client, job, cached, request):
     requested = RESOURCE_URLS[job.record_id]
     def headers(url):
         result = {"User-Agent": "ECE-Learning-Advisor/0.2", "Accept": "text/html"}
@@ -237,16 +237,17 @@ def _download(client, job, cached):
                 result["If-Modified-Since"] = cached.last_modified
         return result
     try:
-        return read_public_page(client, requested, headers(requested)), requested
+        return read_public_page(client, requested, headers(requested), request=request), requested
     except SourcePageError as exc:
         target = urljoin(requested, exc.location or "")
         if (job.record_id != "resource:cs50" or exc.http_status not in {301, 302, 307, 308}
                 or target == requested or not resource_url_matches(job.record_id, target)):
             raise
-        return read_public_page(client, target, headers(target)), target
+        return read_public_page(client, target, headers(target), request=request), target
 
 
 def fetch_resource_source(job, directory, client, now=None):
+    request = SourceRequest()
     requested = RESOURCE_URLS[job.record_id]
     check = SourceCheck(source_id=job.source.source_id, code=job.record_id, url=requested, kind="resource",
         status="bundled_fallback", attempted_at=now or datetime.now(timezone.utc),
@@ -257,7 +258,7 @@ def fetch_resource_source(job, directory, client, now=None):
             raise ValueError("The resource source binding is unsupported")
         path = _cache_path(directory, job)
         cached = _read(path, job)
-        page, resolved = _download(client, job, cached)
+        page, resolved = _download(client, job, cached, request)
         check.http_status, check.resolved_url = page.status, resolved
         checked = now or datetime.now(timezone.utc)
         if page.status == 304:
@@ -288,6 +289,8 @@ def fetch_resource_source(job, directory, client, now=None):
             check.retrieved_at, check.last_checked_at = cached.retrieved_at, cached.last_checked_at
             check.content_hash, check.resolved_url = cached.content_hash, cached.data.resolved_url
         return cached, check
+    finally:
+        request.apply(check)
 
 
 def apply_resource_source(catalog, job, saved, check):

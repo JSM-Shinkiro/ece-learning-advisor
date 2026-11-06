@@ -50,3 +50,7 @@ Exercise the normal request in PowerShell with:
 ```
 
 For completion filtering, select Embedded Systems in the app, record ECE201/ECE220/ECE274A as completed, and update the roadmap. Inspect the source checks and skipped-completion caption. Remote failures remain visible and can prevent discovery. Next work remains exact ECE prerequisite/edition evidence, broader independent review, and source/deployment reliability.
+
+## Later November 5 recovery observation
+
+The [bounded recovery follow-up](30_SOURCE_RECOVERY.md) retains the failed attempts above and records a later completed-foundation request passing all seven source checks and producing the expected ECE310/ECE311/ECE320A additions. A separate normal request recovered four initial timeouts and passed all ten checks. These later successes verify those requests under the new policy; they do not rewrite the earlier failures or establish permanent availability.

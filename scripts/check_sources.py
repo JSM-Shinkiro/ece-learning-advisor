@@ -31,6 +31,7 @@ def main():
         print(check.get("kind", "course"), check["code"], check["status"],
               "rule status:", check.get("rule_status") or "not applicable",
               "discovery:", check.get("discovery_status") or "not applicable",
+              "attempts:", len(check.get("attempts", [])), "retries:", check.get("retry_count", 0),
               "last checked:", check["last_checked_at"] or "not verified")
     for request in result.trace["source_refresh"].get("discovery_selection", {}).get("requests", []):
         print("requested course:", request["code"], request["status"])

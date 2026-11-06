@@ -485,6 +485,36 @@ def test_completed_foundations_skip_download_slots_and_are_visible_in_inspector(
     assert calls == ["embedded"]
 
 
+def test_recovered_source_attempts_are_visible_and_rerenders_do_not_retry(app, monkeypatch, tmp_path):
+    import httpx
+    from collections import Counter
+    from src.sources import refresh_catalog
+    from test_sources import course_page
+    calls, submitted = Counter(), []
+    def refresh(catalog, profile, **kwargs):
+        submitted.append(profile.question)
+        active = catalog.model_copy(deep=True)
+        record = next(r for r in active.records if r.code == "ECE101")
+        active.records = [record]
+        active.sources = [s for s in active.sources if s.source_id in record.source_ids]
+        def respond(request):
+            calls[str(request.url)] += 1
+            if calls[str(request.url)] == 1: raise httpx.ConnectTimeout("private-retry-detail")
+            return httpx.Response(200, text=course_page(record), headers={"Content-Type": "text/html"})
+        with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+            return refresh_catalog(active, profile, client=client, cache_dir=tmp_path)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    submit(app)
+    assert not app.exception
+    assert any("1 check retried · 1 recovered" in caption.value for caption in app.caption)
+    check = app.session_state["result"].trace["source_refresh"]["checks"][0]
+    assert check["retry_count"] == 1 and [a["outcome"] for a in check["attempts"]] == ["timeout", "success"]
+    assert "private-retry-detail" not in str(check)
+    app.run()
+    assert submitted == [""] and sum(calls.values()) == 2
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")

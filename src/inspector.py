@@ -15,6 +15,12 @@ def render_inspector(result, catalog):
         st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
+        checks = result.trace.get("source_refresh", {}).get("checks", [])
+        retried = [check for check in checks if check.get("retry_count", 0)]
+        if retried:
+            recovered = sum(check["status"] in {"updated", "unchanged", "not_modified"} for check in retried)
+            label = "check" if len(retried) == 1 else "checks"
+            st.caption(f"Source recovery: {len(retried)} {label} retried · {recovered} recovered. Attempt details are in the request trace.")
         added_terms = result.trace.get("query_interpretation", {}).get("added_terms", [])
         if added_terms:
             st.caption("Search also uses: " + ", ".join(added_terms) + ". These search terms do not change academic requirements.")
