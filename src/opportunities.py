@@ -6,7 +6,6 @@ import html
 import hashlib
 import json
 import re
-import time
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
@@ -20,11 +19,12 @@ from pydantic import Field, model_validator
 from .ingest import description_text
 from .jobs import JobSearchResult, MAX_SNAPSHOT_MATCHES, OPPORTUNITY_PAGE_SIZE
 from .models import StrictModel
+from .source_http import (MAX_PAGE_BYTES, REQUEST_TIMEOUT, SourceRequest, failure_kind, read_public_json)
 
 DEFAULT_BOARDS = Path(__file__).resolve().parents[1] / "data/connectors/employer_boards.json"
 MAX_BOARDS, MAX_POSTS, MAX_RESULTS = 3, 4000, OPPORTUNITY_PAGE_SIZE
-MAX_JSON_BYTES = 3_000_000
-TIMEOUT = httpx.Timeout(6.0, connect=4.0, pool=4.0)
+MAX_JSON_BYTES = MAX_PAGE_BYTES
+TIMEOUT = REQUEST_TIMEOUT
 CACHE_SECONDS = 1200
 OPPORTUNITY_POLICY_VERSION = "p07-opportunity-pages-v3"
 CAREER_PATTERNS = {
@@ -36,12 +36,6 @@ EXCLUDED_ROLES = r"\b(?:recruit(?:er|ing|ment)|sales|marketing|talent|account|ex
 INTERN_PATTERN = r"\b(?:intern(?:ship)?|co[ -]?op)\b"
 EARLY_PATTERN = r"\b(?:new[ -]+grad(?:uate)?s?|recent[ -]+grad(?:uate)?s?|university[ -]+grad(?:uate)?s?|entry[ -]+level|early[ -]+career|junior)\b"
 SENIOR_PATTERN = r"\b(?:senior|sr|staff|principal|lead|manager|director|head|distinguished|executive)\b"
-
-
-class OpportunityResponseError(ValueError):
-    def __init__(self, status):
-        super().__init__("Employer board returned an unsupported response")
-        self.http_status = status
 
 
 class OpportunitySearchError(RuntimeError):
@@ -179,34 +173,21 @@ def normalize_post(item, board, now):
         "source": "Greenhouse / " + board.employer, "source_url": board.endpoint}
 
 
-def _read_json(client, url):
-    started = time.monotonic()
-    with client.stream("GET", url, headers={"Accept": "application/json", "User-Agent": "ECE-Learning-Advisor/0.3"},
-                       timeout=TIMEOUT, follow_redirects=False) as response:
-        if time.monotonic() - started > 12:
-            raise ValueError("Employer response exceeds its request limit")
-        if response.status_code != 200:
-            raise OpportunityResponseError(response.status_code)
-        if "application/json" not in response.headers.get("content-type", "").lower():
-            raise ValueError("Employer board did not return JSON")
-        length = int(response.headers.get("content-length", "0"))
-        if not 0 <= length <= MAX_JSON_BYTES:
-            raise ValueError("Employer response exceeds its size limit")
-        body = bytearray()
-        for chunk in response.iter_bytes(chunk_size=65536):
-            body.extend(chunk)
-            if len(body) > MAX_JSON_BYTES or time.monotonic() - started > 12:
-                raise ValueError("Employer response exceeds its request limit")
-        if time.monotonic() - started > 12:
-            raise ValueError("Employer response exceeds its request limit")
-        return json.loads(body)
+def _read_json(client, url, *, request=None):
+    return read_public_json(client, url,
+        {"Accept": "application/json", "User-Agent": "ECE-Learning-Advisor/0.3"}, request=request)
+
+
+def opportunity_failure_kind(exc, status):
+    return "response" if status == 304 else failure_kind(exc, status)
 
 
 def _fetch_board(client, board, now):
+    request = SourceRequest()
     check = {"board": board.token, "employer": board.employer, "url": board.endpoint,
              "status": "unavailable", "valid_posts": 0, "rejected_posts": 0, "checked_at": None, "http_status": None}
     try:
-        payload = _read_json(client, board.endpoint)
+        payload = _read_json(client, board.endpoint, request=request)
         if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list) or len(payload["jobs"]) > MAX_POSTS:
             raise ValueError("Invalid employer-board response")
         posts, seen = [], set()
@@ -224,10 +205,10 @@ def _fetch_board(client, board, now):
         check.update(status="verified", valid_posts=len(posts), checked_at=now.isoformat(), http_status=200)
         return posts, check
     except (httpx.HTTPError, ValueError, TypeError, RecursionError, OSError) as exc:
-        check["http_status"] = getattr(exc, "http_status", None)
-        check["failure_kind"] = ("timeout" if isinstance(exc, httpx.TimeoutException) else
-            "network" if isinstance(exc, httpx.HTTPError) else "response" if isinstance(exc, OpportunityResponseError) else "validation")
+        check["failure_kind"] = opportunity_failure_kind(exc, request.diagnostics()["http_status"])
         return [], check
+    finally:
+        check.update(request.diagnostics())
 
 
 def search_employer_jobs(career, location="", internship=False, *, updated_within=None, early_career=False, client=None, boards=None, now=None):

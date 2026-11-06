@@ -18,9 +18,10 @@ import httpx
 from pydantic import AwareDatetime, Field, model_validator
 
 from .jobs import JobSearchResult
-from .models import StrictModel
-from .opportunities import (TIMEOUT, EmployerBoard, OpportunityResponseError, _read_json,
+from .models import SourceAttempt, StrictModel
+from .opportunities import (TIMEOUT, EmployerBoard, _read_json, opportunity_failure_kind,
     board_scope_hash, load_employer_boards, normalize_post, valid_posting_url)
+from .source_http import SourceRequest
 
 MAX_CONTENT_CHARS = 200_000
 MAX_DESCRIPTION_CHARS = 50_000
@@ -82,6 +83,9 @@ class PostingDetailCheck(StrictModel):
     failure_kind: Literal["timeout", "network", "response", "validation"] | None = None
     changed_fields: list[str] = Field(default_factory=list)
     posting: PostingContent | None = None
+    attempts: list[SourceAttempt] = Field(default_factory=list, max_length=2)
+    retry_count: int = Field(default=0, ge=0, le=1)
+    transport_seconds: float = Field(default=0, ge=0, allow_inf_nan=False)
 
     @model_validator(mode="after")
     def consistent_outcome(self):
@@ -110,19 +114,18 @@ def posting_binding(job, boards):
 
 
 def fetch_posting_detail(job, *, boards=None, client=None, now=None):
-    """One bounded public GET; a failed check contains no old description."""
+    """One bounded public check, with one transient retry and no old description."""
     boards = load_employer_boards() if boards is None else boards
     board, identity, endpoint = posting_binding(job, boards)
     requested_at = now or datetime.now(timezone.utc)
     if requested_at.tzinfo is None:
         raise ValueError("The posting-check time needs a timezone")
     base = dict(posting_id=job["id"], source_url=endpoint, requested_at=requested_at)
-    status_code = None
+    request = SourceRequest()
     context = nullcontext(client) if client is not None else httpx.Client(timeout=TIMEOUT, follow_redirects=False)
     try:
         with context as http:
-            payload = _read_json(http, endpoint)
-        status_code = 200
+            payload = _read_json(http, endpoint, request=request)
         # Bind both public posting identity and its returned source link.
         post = normalize_post(payload, board, requested_at)
         if post is None or post["id"] != job["id"]:
@@ -137,15 +140,14 @@ def fetch_posting_detail(job, *, boards=None, client=None, now=None):
         content = PostingContent(**{key: post[key] for key in ("title", "employer", "location", "url", "posted_at", "updated_at")},
             description=text[:MAX_DESCRIPTION_CHARS], description_chars=len(text),
             description_sha256=hashlib.sha256(text.encode()).hexdigest(), truncated=len(text) > MAX_DESCRIPTION_CHARS)
-        return PostingDetailCheck(**base, status="verified", http_status=200,
+        return PostingDetailCheck(**base, status="verified", **request.diagnostics(),
             checked_at=now or datetime.now(timezone.utc), posting=content,
             changed_fields=[key for key in CHANGED_FIELDS if job.get(key) != post[key]])
     except (httpx.HTTPError, ValueError, TypeError, RecursionError, OSError) as exc:
-        status_code = getattr(exc, "http_status", status_code)
-        kind = ("timeout" if isinstance(exc, httpx.TimeoutException) else
-            "network" if isinstance(exc, httpx.HTTPError) else "response" if isinstance(exc, OpportunityResponseError) else "validation")
+        status_code = request.diagnostics()["http_status"]
+        kind = opportunity_failure_kind(exc, status_code)
         status = "not_listed" if status_code in {404, 410} else "invalid_response" if kind == "validation" else "unavailable"
-        return PostingDetailCheck(**base, status=status, http_status=status_code, failure_kind=kind)
+        return PostingDetailCheck(**base, status=status, **request.diagnostics(), failure_kind=kind)
 
 
 def request_posting_detail(state, posting_id, *, fetcher=None, now=None):

@@ -1,0 +1,839 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-11-06T07:32:22.239410+00:00",
+  "client_date": "2026-11-06",
+  "client_timezone": "America/Phoenix",
+  "scope": "Bounded public JSON transport recovery, strict source validation, safe diagnostics, and current live paging/detail/reuse verification. Live success is separate from controlled retry verification.",
+  "implementation_parent": "6021c69b8358ef15be23b752ac88835011661290",
+  "implementation": {
+    "app.py": "6a60e61f481143aebe56a57d75b5141070b5012793946a38252e22db7aa467db",
+    "src/source_http.py": "dc528feb1277212ec2500098d3ebdc554eddc6f367aa4a0d4ec6f6c2939149a6",
+    "src/opportunities.py": "d06029f73a476a84f828a051dc9f2176c1af7e27baa849a0b7c9131095d939ba",
+    "src/opportunity_details.py": "eb5db5a280a17ea4fe396e1a71cc63a1a7552dd7327b380944e7962b6bfcb219",
+    "src/jobs.py": "ae127e50be4a4ae0483d2d31c570b6021f42f13184af636478d561735d818007",
+    "src/opportunity_pages.py": "08e58de882c839be6a26a58f750599e5fd792083ab7c4ca0ff9f1423897ac02a",
+    "src/session.py": "884566e0095ea4f532769a9d17d7e80d470d5f3d3503ebd98e3b10b848ad44e0",
+    "scripts/check_opportunities.py": "275521f241cb4f423958fb5dbd148aa74a1eb8892462377c941540e9c6cb3629",
+    "tests/test_opportunity_recovery.py": "9f8c572fa94ce4493de6e1d0e78cce15a61742c014dffffb3a31519631aca75e",
+    "tests/test_opportunity_details.py": "34ac3f426ff511f41524be20ae72fd7732c76bf49ee07489b3dc157654801aa1",
+    "tests/test_app.py": "def0465b5c09de4313370b7032b4370606afa982019d5d5285def5da2a52d9fe",
+    "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+  },
+  "automated_tests": {
+    "command": "python -m pytest -q",
+    "passed": 1136,
+    "seconds": 133.41,
+    "new_opportunity_recovery_cases": 42,
+    "existing_academic_transport_cases": 52,
+    "streamlit_interactions": 61,
+    "new_streamlit_cases": 2
+  },
+  "runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Reviewed catalog and evidence validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T07:27:46.474987+00:00"
+  },
+  "pre_change_single_source_probe": {
+    "requested_at": "2026-11-06T07:20:29.255626+00:00",
+    "scope": "One unchanged-limit single-board transport probe; event names/times only, no headers, exception text, addresses or body saved.",
+    "credentials_used": false,
+    "model_calls": 0,
+    "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+    "passed": true,
+    "records": 305,
+    "seconds": 5.41003844900024,
+    "events": [
+      {
+        "event": "connection.connect_tcp.started",
+        "seconds": 0.0309
+      },
+      {
+        "event": "connection.connect_tcp.complete",
+        "seconds": 0.0323
+      },
+      {
+        "event": "http11.send_request_headers.started",
+        "seconds": 0.0324
+      },
+      {
+        "event": "http11.send_request_headers.complete",
+        "seconds": 0.0325
+      },
+      {
+        "event": "http11.send_request_body.started",
+        "seconds": 0.0325
+      },
+      {
+        "event": "http11.send_request_body.complete",
+        "seconds": 0.0325
+      },
+      {
+        "event": "http11.receive_response_headers.started",
+        "seconds": 0.0325
+      },
+      {
+        "event": "http11.receive_response_headers.complete",
+        "seconds": 5.1842
+      },
+      {
+        "event": "proxy.start_tls.started",
+        "seconds": 5.1842
+      },
+      {
+        "event": "proxy.start_tls.complete",
+        "seconds": 5.2004
+      },
+      {
+        "event": "http11.send_request_headers.started",
+        "seconds": 5.2005
+      },
+      {
+        "event": "http11.send_request_headers.complete",
+        "seconds": 5.2007
+      },
+      {
+        "event": "http11.send_request_body.started",
+        "seconds": 5.2007
+      },
+      {
+        "event": "http11.send_request_body.complete",
+        "seconds": 5.2008
+      },
+      {
+        "event": "http11.receive_response_headers.started",
+        "seconds": 5.2008
+      },
+      {
+        "event": "http11.receive_response_headers.complete",
+        "seconds": 5.4034
+      },
+      {
+        "event": "http11.receive_response_body.started",
+        "seconds": 5.4049
+      },
+      {
+        "event": "http11.receive_response_body.complete",
+        "seconds": 5.4064
+      },
+      {
+        "event": "http11.response_closed.started",
+        "seconds": 5.4065
+      },
+      {
+        "event": "http11.response_closed.complete",
+        "seconds": 5.4065
+      }
+    ],
+    "implementation_commit": "6021c69b8358ef15be23b752ac88835011661290",
+    "implementation": {
+      "src/opportunities.py": "d9639baa678be7f26231300c3df8acd68ffaf788655316c5ca78b9fc354ea9a5",
+      "src/source_http.py": "2d15345cab3f4f68977c1c641a9bb97484c2c2c3e6876729105fee2b34b4a4dd"
+    }
+  },
+  "current_live_observation": {
+    "scope": "One current recovery-and-paging check: explicit embedded all-level search, local traversal of all retained pages, one later-page detail check, and explicit cache reuse; no qualification or market-wide claim.",
+    "requested_at": "2026-11-06T07:25:25.504680+00:00",
+    "credentials_used": false,
+    "model_calls": 0,
+    "implementation": {
+      "src/jobs.py": "ae127e50be4a4ae0483d2d31c570b6021f42f13184af636478d561735d818007",
+      "src/opportunities.py": "d06029f73a476a84f828a051dc9f2176c1af7e27baa849a0b7c9131095d939ba",
+      "src/source_http.py": "dc528feb1277212ec2500098d3ebdc554eddc6f367aa4a0d4ec6f6c2939149a6",
+      "src/opportunity_pages.py": "08e58de882c839be6a26a58f750599e5fd792083ab7c4ca0ff9f1423897ac02a",
+      "src/opportunity_details.py": "eb5db5a280a17ea4fe396e1a71cc63a1a7552dd7327b380944e7962b6bfcb219",
+      "src/session.py": "884566e0095ea4f532769a9d17d7e80d470d5f3d3503ebd98e3b10b848ad44e0",
+      "app.py": "6a60e61f481143aebe56a57d75b5141070b5012793946a38252e22db7aa467db",
+      "scripts/check_opportunities.py": "275521f241cb4f423958fb5dbd148aa74a1eb8892462377c941540e9c6cb3629",
+      "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs"
+      },
+      {
+        "method": "GET",
+        "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs"
+      },
+      {
+        "method": "GET",
+        "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs"
+      },
+      {
+        "method": "GET",
+        "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs/4797357007"
+      }
+    ],
+    "checks": [
+      {
+        "board": "samsara",
+        "employer": "Samsara",
+        "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+        "status": "verified",
+        "valid_posts": 305,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-06T07:25:25.553875+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 6.066874473000098,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 6.06690126400008
+      },
+      {
+        "board": "nuro",
+        "employer": "Nuro",
+        "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+        "status": "verified",
+        "valid_posts": 94,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-06T07:25:25.553875+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 6.03494007900008,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 6.0349436530000276
+      },
+      {
+        "board": "andurilindustries",
+        "employer": "Anduril Industries",
+        "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+        "status": "verified",
+        "valid_posts": 2593,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-06T07:25:25.553875+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 6.122680915999808,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 6.12268280499984
+      }
+    ],
+    "issues": [],
+    "initial_page": {
+      "number": 1,
+      "pages": 20,
+      "first": 1,
+      "last": 10,
+      "retained": 200,
+      "total_matches": 262,
+      "truncated": true
+    },
+    "retrieved_at": "2026-11-06T07:25:25.553875+00:00",
+    "source_requests_before_paging": 3,
+    "pages": [
+      {
+        "number": 1,
+        "pages": 20,
+        "first": 1,
+        "last": 10,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5214017007",
+          "greenhouse:andurilindustries:5242647007",
+          "greenhouse:andurilindustries:5214015007",
+          "greenhouse:andurilindustries:5138451007",
+          "greenhouse:andurilindustries:5138405007",
+          "greenhouse:andurilindustries:5228352007",
+          "greenhouse:andurilindustries:5219512007",
+          "greenhouse:andurilindustries:5218761007",
+          "greenhouse:andurilindustries:5186725007",
+          "greenhouse:andurilindustries:5271821007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 2,
+        "pages": 20,
+        "first": 11,
+        "last": 20,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:4797357007",
+          "greenhouse:andurilindustries:5246592007",
+          "greenhouse:andurilindustries:5283764007",
+          "greenhouse:andurilindustries:5200729007",
+          "greenhouse:andurilindustries:5178470007",
+          "greenhouse:andurilindustries:5283704007",
+          "greenhouse:andurilindustries:5283093007",
+          "greenhouse:andurilindustries:5282384007",
+          "greenhouse:andurilindustries:5282178007",
+          "greenhouse:andurilindustries:5277047007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 3,
+        "pages": 20,
+        "first": 21,
+        "last": 30,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5203389007",
+          "greenhouse:andurilindustries:5203392007",
+          "greenhouse:andurilindustries:5281740007",
+          "greenhouse:andurilindustries:5281154007",
+          "greenhouse:andurilindustries:5281153007",
+          "greenhouse:andurilindustries:5281150007",
+          "greenhouse:andurilindustries:5280572007",
+          "greenhouse:andurilindustries:5280559007",
+          "greenhouse:andurilindustries:5280548007",
+          "greenhouse:andurilindustries:5280544007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 4,
+        "pages": 20,
+        "first": 31,
+        "last": 40,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5279980007",
+          "greenhouse:andurilindustries:5278217007",
+          "greenhouse:andurilindustries:5274685007",
+          "greenhouse:andurilindustries:5273775007",
+          "greenhouse:andurilindustries:5272794007",
+          "greenhouse:andurilindustries:5272501007",
+          "greenhouse:andurilindustries:5271945007",
+          "greenhouse:andurilindustries:5270752007",
+          "greenhouse:andurilindustries:5270349007",
+          "greenhouse:andurilindustries:5270335007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 5,
+        "pages": 20,
+        "first": 41,
+        "last": 50,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5268736007",
+          "greenhouse:andurilindustries:5268635007",
+          "greenhouse:andurilindustries:5268196007",
+          "greenhouse:andurilindustries:5267927007",
+          "greenhouse:andurilindustries:5267908007",
+          "greenhouse:andurilindustries:5267617007",
+          "greenhouse:andurilindustries:5267616007",
+          "greenhouse:andurilindustries:5267615007",
+          "greenhouse:andurilindustries:5267498007",
+          "greenhouse:andurilindustries:5267495007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 6,
+        "pages": 20,
+        "first": 51,
+        "last": 60,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5266558007",
+          "greenhouse:andurilindustries:5266463007",
+          "greenhouse:andurilindustries:5266460007",
+          "greenhouse:andurilindustries:5266146007",
+          "greenhouse:andurilindustries:5265435007",
+          "greenhouse:andurilindustries:5265158007",
+          "greenhouse:andurilindustries:5264336007",
+          "greenhouse:andurilindustries:5262877007",
+          "greenhouse:andurilindustries:5262876007",
+          "greenhouse:andurilindustries:5262870007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 7,
+        "pages": 20,
+        "first": 61,
+        "last": 70,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5262868007",
+          "greenhouse:andurilindustries:5262590007",
+          "greenhouse:andurilindustries:5261685007",
+          "greenhouse:andurilindustries:5261431007",
+          "greenhouse:andurilindustries:5260260007",
+          "greenhouse:andurilindustries:5260197007",
+          "greenhouse:andurilindustries:5257656007",
+          "greenhouse:andurilindustries:5257653007",
+          "greenhouse:andurilindustries:5257652007",
+          "greenhouse:andurilindustries:5257400007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 8,
+        "pages": 20,
+        "first": 71,
+        "last": 80,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5256229007",
+          "greenhouse:andurilindustries:5256023007",
+          "greenhouse:andurilindustries:5254958007",
+          "greenhouse:andurilindustries:5254408007",
+          "greenhouse:andurilindustries:5254402007",
+          "greenhouse:andurilindustries:5254399007",
+          "greenhouse:andurilindustries:5254382007",
+          "greenhouse:andurilindustries:5254381007",
+          "greenhouse:andurilindustries:5254377007",
+          "greenhouse:andurilindustries:5253602007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 9,
+        "pages": 20,
+        "first": 81,
+        "last": 90,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5253515007",
+          "greenhouse:andurilindustries:5253033007",
+          "greenhouse:andurilindustries:5252097007",
+          "greenhouse:andurilindustries:5252087007",
+          "greenhouse:andurilindustries:5252062007",
+          "greenhouse:andurilindustries:5252059007",
+          "greenhouse:andurilindustries:5249125007",
+          "greenhouse:andurilindustries:5249096007",
+          "greenhouse:andurilindustries:5249094007",
+          "greenhouse:andurilindustries:5246780007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 10,
+        "pages": 20,
+        "first": 91,
+        "last": 100,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5246141007",
+          "greenhouse:andurilindustries:5244110007",
+          "greenhouse:andurilindustries:5242928007",
+          "greenhouse:andurilindustries:5242927007",
+          "greenhouse:andurilindustries:5241352007",
+          "greenhouse:andurilindustries:5240664007",
+          "greenhouse:andurilindustries:5238892007",
+          "greenhouse:andurilindustries:5238891007",
+          "greenhouse:andurilindustries:5238330007",
+          "greenhouse:andurilindustries:5237799007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 11,
+        "pages": 20,
+        "first": 101,
+        "last": 110,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5237016007",
+          "greenhouse:andurilindustries:5236565007",
+          "greenhouse:andurilindustries:5236154007",
+          "greenhouse:andurilindustries:5236153007",
+          "greenhouse:andurilindustries:5235513007",
+          "greenhouse:andurilindustries:5235507007",
+          "greenhouse:andurilindustries:5235374007",
+          "greenhouse:andurilindustries:5234683007",
+          "greenhouse:andurilindustries:5234680007",
+          "greenhouse:andurilindustries:5234670007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 12,
+        "pages": 20,
+        "first": 111,
+        "last": 120,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5234595007",
+          "greenhouse:andurilindustries:5234592007",
+          "greenhouse:andurilindustries:5234589007",
+          "greenhouse:andurilindustries:5234588007",
+          "greenhouse:andurilindustries:5234587007",
+          "greenhouse:andurilindustries:5234582007",
+          "greenhouse:andurilindustries:5234579007",
+          "greenhouse:andurilindustries:5234578007",
+          "greenhouse:andurilindustries:5234573007",
+          "greenhouse:andurilindustries:5234570007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 13,
+        "pages": 20,
+        "first": 121,
+        "last": 130,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5234569007",
+          "greenhouse:andurilindustries:5234566007",
+          "greenhouse:andurilindustries:5234565007",
+          "greenhouse:andurilindustries:5234563007",
+          "greenhouse:andurilindustries:5234556007",
+          "greenhouse:andurilindustries:5234542007",
+          "greenhouse:andurilindustries:5234541007",
+          "greenhouse:andurilindustries:5234534007",
+          "greenhouse:andurilindustries:5234527007",
+          "greenhouse:andurilindustries:5234526007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 14,
+        "pages": 20,
+        "first": 131,
+        "last": 140,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5234512007",
+          "greenhouse:andurilindustries:5233989007",
+          "greenhouse:andurilindustries:5233680007",
+          "greenhouse:andurilindustries:5233468007",
+          "greenhouse:andurilindustries:5232440007",
+          "greenhouse:andurilindustries:5232438007",
+          "greenhouse:andurilindustries:5228707007",
+          "greenhouse:andurilindustries:5228068007",
+          "greenhouse:andurilindustries:5225979007",
+          "greenhouse:andurilindustries:5225623007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 15,
+        "pages": 20,
+        "first": 141,
+        "last": 150,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5225618007",
+          "greenhouse:andurilindustries:5225306007",
+          "greenhouse:andurilindustries:5225303007",
+          "greenhouse:andurilindustries:5224716007",
+          "greenhouse:andurilindustries:5224713007",
+          "greenhouse:andurilindustries:5223378007",
+          "greenhouse:andurilindustries:5223377007",
+          "greenhouse:andurilindustries:5214416007",
+          "greenhouse:andurilindustries:5214058007",
+          "greenhouse:andurilindustries:5214038007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 16,
+        "pages": 20,
+        "first": 151,
+        "last": 160,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5214025007",
+          "greenhouse:andurilindustries:5214005007",
+          "greenhouse:andurilindustries:5213967007",
+          "greenhouse:andurilindustries:5213955007",
+          "greenhouse:andurilindustries:5212828007",
+          "greenhouse:andurilindustries:5210670007",
+          "greenhouse:andurilindustries:5206616007",
+          "greenhouse:andurilindustries:5206527007",
+          "greenhouse:andurilindustries:5201685007",
+          "greenhouse:andurilindustries:5200192007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 17,
+        "pages": 20,
+        "first": 161,
+        "last": 170,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5199526007",
+          "greenhouse:andurilindustries:5198305007",
+          "greenhouse:andurilindustries:5195227007",
+          "greenhouse:andurilindustries:5194664007",
+          "greenhouse:andurilindustries:5191467007",
+          "greenhouse:andurilindustries:5186660007",
+          "greenhouse:andurilindustries:5186602007",
+          "greenhouse:andurilindustries:5186581007",
+          "greenhouse:andurilindustries:5186566007",
+          "greenhouse:andurilindustries:5186562007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 18,
+        "pages": 20,
+        "first": 171,
+        "last": 180,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5186084007",
+          "greenhouse:andurilindustries:5182108007",
+          "greenhouse:andurilindustries:5180899007",
+          "greenhouse:andurilindustries:5180703007",
+          "greenhouse:andurilindustries:5180404007",
+          "greenhouse:andurilindustries:5179761007",
+          "greenhouse:andurilindustries:5179521007",
+          "greenhouse:andurilindustries:5176765007",
+          "greenhouse:andurilindustries:5176763007",
+          "greenhouse:andurilindustries:5174864007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 19,
+        "pages": 20,
+        "first": 181,
+        "last": 190,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5174848007",
+          "greenhouse:andurilindustries:5165038007",
+          "greenhouse:andurilindustries:5165008007",
+          "greenhouse:andurilindustries:5163328007",
+          "greenhouse:andurilindustries:5163327007",
+          "greenhouse:andurilindustries:5160284007",
+          "greenhouse:andurilindustries:5160053007",
+          "greenhouse:andurilindustries:5156575007",
+          "greenhouse:andurilindustries:5153003007",
+          "greenhouse:andurilindustries:5148518007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      },
+      {
+        "number": 20,
+        "pages": 20,
+        "first": 191,
+        "last": 200,
+        "retained": 200,
+        "total_matches": 262,
+        "truncated": true,
+        "posting_ids": [
+          "greenhouse:andurilindustries:5148101007",
+          "greenhouse:andurilindustries:5147059007",
+          "greenhouse:andurilindustries:5138444007",
+          "greenhouse:andurilindustries:5138441007",
+          "greenhouse:andurilindustries:5138393007",
+          "greenhouse:andurilindustries:5137239007",
+          "greenhouse:andurilindustries:5136925007",
+          "greenhouse:andurilindustries:5131979007",
+          "greenhouse:andurilindustries:5120698007",
+          "greenhouse:andurilindustries:5118041007"
+        ],
+        "retrieved_at": "2026-11-06T07:25:25.553875+00:00"
+      }
+    ],
+    "source_requests_after_paging": 3,
+    "paging_checks": {
+      "no_added_requests": true,
+      "stable_dates": true,
+      "complete_retained_order": true,
+      "no_duplicates": true,
+      "multiple_pages": true
+    },
+    "later_page_detail": {
+      "posting_id": "greenhouse:andurilindustries:4797357007",
+      "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs/4797357007",
+      "requested_at": "2026-11-06T07:25:31.831433Z",
+      "checked_at": "2026-11-06T07:25:31.909825Z",
+      "status": "verified",
+      "http_status": 200,
+      "failure_kind": null,
+      "changed_fields": [],
+      "posting": {
+        "title": "Senior Firmware Engineer, Manufacturing Test",
+        "employer": "Anduril Industries",
+        "location": "Costa Mesa, California, United States",
+        "url": "https://boards.greenhouse.io/andurilindustries/jobs/4797357007?gh_jid=4797357007",
+        "posted_at": "2025-07-23T18:51:52+00:00",
+        "updated_at": "2026-11-04T20:55:57+00:00",
+        "description_chars": 7047,
+        "description_sha256": "6c9561bc1f4c4ca2958f5bd9a36050b75e55e7b6a6ad2f921f9c6c645cbf5084",
+        "truncated": false
+      },
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 0.07659241200008182,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 0.07659450700020898
+    },
+    "reuse": {
+      "cache_state": "reused",
+      "page": 0,
+      "retrieved_at": "2026-11-06T07:25:25.553875+00:00",
+      "detail_state_cleared": true
+    },
+    "passed": true,
+    "seconds": 6.405698940000093
+  },
+  "live_paging_verified": true,
+  "spontaneous_live_retry_observed": false,
+  "credentials_used": false,
+  "model_calls": 0,
+  "earlier_evidence_preserved": [
+    "docs/evidence/opportunity_paging_2026-11-05.json",
+    "docs/evidence/posting_details_2026-11-06.json",
+    "docs/evidence/student_opportunities_2026-11-05.json"
+  ],
+  "preserved_inputs": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "technical_sources": [
+    "https://www.python-httpx.org/advanced/timeouts/",
+    "https://www.python-httpx.org/advanced/transports/"
+  ],
+  "limitations": [
+    "All current live attempts succeeded first time; controlled failures verify the retry policy.",
+    "The pre-change probe also succeeded; observations do not identify a root cause, prove retry causation, or establish permanent availability.",
+    "The 12-second guard is cooperative around synchronous I/O, not a hard wall-clock deadline for the whole search.",
+    "Transport success precedes JSON/posting/source validation and is not qualification approval.",
+    "Earlier failed source observations remain unchanged; no independent student judgments, wider provider coverage, persistent database, or public hosting added."
+  ]
+}

@@ -139,6 +139,58 @@ def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch
     assert any("No listings were returned" in item.value for item in app.info)
 
 
+def test_recovered_employer_requests_show_attempt_history_without_retrying_on_rerenders(app, monkeypatch):
+    import httpx
+    from collections import Counter
+    from src.opportunities import load_employer_boards, search_employer_jobs
+    from test_opportunities import NOW, post
+    calls = Counter()
+    boards = {b.token: b for b in load_employer_boards()}
+    def search(*args, **kwargs):
+        def respond(request):
+            token = request.url.path.split("/")[3]
+            calls[token] += 1
+            if calls[token] == 1: return httpx.Response(503)
+            return httpx.Response(200, json={"jobs": [post(boards[token])]})
+        with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+            return search_employer_jobs(*args, **kwargs, client=client, now=NOW)
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    submit_opportunities(app)
+    assert not app.exception and set(calls.values()) == {2}
+    result = app.session_state["job_result"]
+    assert all(c["retry_count"] == 1 and len(c["attempts"]) == 2 for c in result.checks)
+    table = next(item.value for item in app.dataframe if "retry_count" in item.value.columns)
+    assert table["retry_count"].tolist() == [1, 1, 1]
+    assert sum("HTTP attempts" in c.value for c in app.caption) == 3
+    app.run()
+    assert not app.exception and set(calls.values()) == {2}
+
+
+def test_recovered_posting_details_show_safe_attempts_and_do_not_recheck_on_rerender(app, monkeypatch):
+    import httpx
+    from src.opportunity_details import fetch_posting_detail
+    from test_opportunities import NOW, post
+    calls = []
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
+    def fetch(job, **kwargs):
+        def respond(request):
+            calls.append(1)
+            if len(calls) == 1: raise httpx.ReadTimeout("private-detail-diagnostic")
+            return httpx.Response(200, json={**post(), "content": "Checked recovered description"})
+        with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+            return fetch_posting_detail(job, **{**kwargs, "now": NOW}, client=client)
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", fetch)
+    submit_opportunities(app)
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    assert not app.exception and len(calls) == 2
+    assert any("2 HTTP attempt(s) · 1 retry" in c.value for c in app.caption)
+    assert any(e.label == "Posting request attempts" for e in app.expander)
+    assert any(t.value == "Checked recovered description" for t in app.text)
+    assert "private-detail-diagnostic" not in app.session_state["job_detail"].model_dump_json()
+    app.run()
+    assert not app.exception and len(calls) == 2
+
+
 def test_opportunity_page_controls_browse_the_same_snapshot_without_network_or_unsubmitted_filters(app, monkeypatch):
     import httpx
     from test_opportunity_pages import paged_result

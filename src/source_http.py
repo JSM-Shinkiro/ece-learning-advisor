@@ -1,5 +1,6 @@
-"""Shared bounded downloads for configured public academic sources."""
+"""Shared bounded HTML/JSON downloads for configured public sources."""
 
+import json
 import time
 from dataclasses import dataclass, field
 
@@ -72,6 +73,13 @@ class SourceRequest:
         if self.attempts:
             check.http_status = self.attempts[-1].http_status
 
+    def diagnostics(self):
+        """JSON-safe transport history; no response bodies or exception text."""
+        return {"attempts": [a.model_dump(mode="json") for a in self.attempts],
+            "retry_count": sum(a.retry for a in self.attempts),
+            "transport_seconds": max(0, (self._finished or 0) - (self._started or 0)) if self._started is not None else 0,
+            "http_status": self.attempts[-1].http_status if self.attempts else None}
+
 
 @dataclass
 class PublicPage:
@@ -81,7 +89,7 @@ class PublicPage:
     last_modified: str | None
 
 
-def _read_once(client, url, headers, request):
+def _read_once(client, url, headers, request, *, content_type="text/html", allow_not_modified=True):
     remaining = request.remaining()
     if remaining <= 0:
         raise SourceBudgetError("The source elapsed guard was exhausted")
@@ -94,9 +102,12 @@ def _read_once(client, url, headers, request):
         etag, modified = response.headers.get("etag"), response.headers.get("last-modified")
         etag = etag if etag and len(etag) <= 512 else None
         modified = modified if modified and len(modified) <= 100 else None
-        if status == 304:
+        if status == 304 and allow_not_modified:
             return PublicPage(status, None, etag, modified)
-        if status != 200 or "text/html" not in response.headers.get("content-type", "").lower():
+        media = response.headers.get("content-type", "").lower()
+        matching_type = (media.split(";", 1)[0].strip() == content_type if content_type == "application/json"
+                         else content_type in media)
+        if status != 200 or not matching_type:
             raise SourcePageError("The official source page is unavailable", status, response.headers.get("location"),
                 retryable=status in RETRY_STATUSES and "retry-after" not in response.headers)
         try:
@@ -118,18 +129,21 @@ def _read_once(client, url, headers, request):
                 raise SourcePageError("The official page exceeds the request budget", status)
             body.extend(chunk)
             request.ensure_time()
+        request.ensure_time()
         return PublicPage(status, body.decode("utf-8"), etag, modified)
 
 
-def read_public_page(client, url, headers, *, request=None):
+def _read_with_recovery(client, url, headers, *, request=None, content_type="text/html", allow_not_modified=True):
     request = request if request is not None else SourceRequest()
     retry = False
     while True:
         started = request.begin()
         try:
-            page = _read_once(client, url, headers, request)
+            page = _read_once(client, url, headers, request,
+                content_type=content_type, allow_not_modified=allow_not_modified)
         except (httpx.HTTPError, ValueError) as exc:
             kind = ("redirect" if isinstance(exc, SourcePageError) and exc.http_status in {301, 302, 303, 307, 308}
+                    else "response" if isinstance(exc, SourcePageError) and exc.http_status == 304
                     else failure_kind(exc, request._http_status))
             request.record(kind, started, retry)
             transient = isinstance(exc, RETRY_EXCEPTIONS) or isinstance(exc, SourcePageError) and exc.retryable
@@ -147,6 +161,26 @@ def read_public_page(client, url, headers, *, request=None):
         else:
             request.record("not_modified" if page.status == 304 else "success", started, retry)
             return page
+
+
+def read_public_page(client, url, headers, *, request=None):
+    return _read_with_recovery(client, url, headers, request=request)
+
+
+def read_public_json(client, url, headers, *, request=None):
+    """Recover transport only; malformed/ambiguous JSON never triggers a retry."""
+    page = _read_with_recovery(client, url, headers, request=request,
+        content_type="application/json", allow_not_modified=False)
+    def unique_keys(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Public JSON contains duplicate keys")
+            result[key] = value
+        return result
+    def finite_constant(value):
+        raise ValueError("Public JSON contains a nonfinite number")
+    return json.loads(page.text, object_pairs_hook=unique_keys, parse_constant=finite_constant)
 
 
 def failure_kind(exc, http_status):

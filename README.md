@@ -93,6 +93,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Fresh opportunity requests by default, with optional explicit reuse of matching results for 20 minutes.
 - On-demand posting descriptions with separate check times, source identity validation, change notices, and visible failures.
 - Ten opportunities per page, with up to 200 retained matches from the same dated search and no source requests while paging.
+- One bounded retry for selected transient employer-source failures, with visible attempt history and unchanged per-source time/download guards.
 
 ## Opportunities
 
@@ -103,6 +104,8 @@ Each search requests the sources unless you explicitly select recent-result reus
 Use **Next listings** and **Previous listings** to browse ten matches at a time. A search retains the first 200 matches in update order and shows the full matching count; narrow the filters if more matches were found. Paging uses the same dated search without checking sources again. A new search or explicit matching-result reuse starts on page one. See [opportunity paging](docs/33_OPPORTUNITY_PAGING.md).
 
 Select **Check posting details** on a result to request that posting's description. Each click checks the source again, separately from the search timestamp. Descriptions appear as plain text, with a notice if posting information changed or the text was shortened. A failed recheck removes the previous description. Review the employer's wording and original page for requirements; the app does not turn them into eligibility decisions. See [posting details](docs/32_POSTING_DETAILS.md).
+
+Employer metadata and posting checks may retry once after a selected transient connection/read/write failure or HTTP 502/503/504, within the same source time/download guards. Rate limits, Retry-After responses, redirects, and invalid content stop the check. Attempt outcomes and timings appear in the source checks and posting details. See [opportunity request recovery](docs/34_OPPORTUNITY_RECOVERY.md).
 
 Run the public-source check separately with:
 

@@ -27,10 +27,10 @@ def main():
     parser.add_argument("--updated-within", type=int, choices=[7, 30, 90])
     parser.add_argument("--page", type=int, choices=range(1, (MAX_SNAPSHOT_MATCHES + OPPORTUNITY_PAGE_SIZE - 1) // OPPORTUNITY_PAGE_SIZE + 1),
         default=1, help="Select a page from the returned snapshot; no additional board requests")
-    parser.add_argument("--check-first-detail", action="store_true", help="Also check the first displayed posting; one additional public GET")
+    parser.add_argument("--check-first-detail", action="store_true", help="Also check the first displayed posting; at most two public GET attempts")
     parser.add_argument("--output", type=Path, default=ROOT / ".cache/opportunity_checks.json")
     args = parser.parse_args()
-    paths = ["src/opportunities.py", "src/opportunity_details.py", "src/opportunity_pages.py", "src/jobs.py", "data/connectors/employer_boards.json"]
+    paths = ["src/opportunities.py", "src/opportunity_details.py", "src/opportunity_pages.py", "src/source_http.py", "src/jobs.py", "data/connectors/employer_boards.json"]
     report = {"scope": "Configured public employer boards and literal title/location filters; not an eligibility decision.",
         "requested_at": datetime.now(timezone.utc).isoformat(),
         "model_calls": 0, "credentials_used": False,

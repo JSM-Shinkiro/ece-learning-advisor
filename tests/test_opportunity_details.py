@@ -108,7 +108,8 @@ def test_non_success_statuses_do_not_retry_redirect_or_claim_a_closed_job(status
 def test_transport_failure_is_sanitized_and_never_reuses_a_description(error, kind):
     seen = []
     result = checked(error, seen=seen)
-    assert result.status == "unavailable" and result.failure_kind == kind and len(seen) == 1
+    assert result.status == "unavailable" and result.failure_kind == kind and len(seen) == 2
+    assert result.retry_count == 1 and len(result.attempts) == 2
     assert "private diagnostic" not in result.model_dump_json() and result.posting is None
 
 
@@ -126,19 +127,34 @@ def test_partial_stream_is_closed_and_discarded():
             yield b'{"content":"partial private body'
             raise httpx.ReadError("private stream error")
         def close(self): self.closed = True
-    stream = Interrupted()
-    result = checked(httpx.Response(200, stream=stream, headers={"content-type": "application/json"}))
-    assert stream.closed and result.status == "unavailable" and result.posting is None
+    streams = []
+    def respond(request):
+        stream = Interrupted()
+        streams.append(stream)
+        return httpx.Response(200, stream=stream, headers={"content-type": "application/json"})
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = fetch_posting_detail(selected(), client=client, now=NOW)
+    assert len(streams) == 2 and all(stream.closed for stream in streams)
+    assert result.status == "unavailable" and result.posting is None
     assert "private" not in result.model_dump_json()
 
 
-@pytest.mark.parametrize("moments", [[0, 13], [0, 1, 13]])
-def test_elapsed_guard_rejects_late_headers_and_end_of_empty_body(monkeypatch, moments):
-    import src.opportunities
-    ticks = iter(moments)
-    monkeypatch.setattr(src.opportunities.time, "monotonic", lambda: next(ticks))
-    result = checked(httpx.Response(200, content=b"", headers={"content-type": "application/json"}))
-    assert result.status == "invalid_response" and result.checked_at is None
+@pytest.mark.parametrize("phase", ["headers", "body_end"])
+def test_elapsed_guard_rejects_late_headers_and_end_of_empty_body(monkeypatch, phase):
+    import src.source_http as transport
+    clock = [0.0]
+    monkeypatch.setattr(transport, "_now", lambda: clock[0])
+    class LateEmpty(httpx.SyncByteStream):
+        def __iter__(self):
+            clock[0] = 13.0
+            return iter(())
+    def respond(request):
+        if phase == "headers": clock[0] = 13.0
+        return httpx.Response(200, stream=LateEmpty(), headers={"content-type": "application/json"})
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = fetch_posting_detail(selected(), client=client, now=NOW)
+    assert result.status == "unavailable" and result.failure_kind == "timeout" and result.checked_at is None
+    assert result.retry_count == 0 and len(result.attempts) == 1
 
 
 @pytest.mark.parametrize("change", [{"id": "greenhouse:samsara:012"}, {"id": "greenhouse:other:12"},

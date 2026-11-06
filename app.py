@@ -409,6 +409,10 @@ with opportunities:
                         st.warning("This posting could not be checked. Run a new search and try again.")
                     detail = st.session_state.get("job_detail")
                     if detail and detail.posting_id == job["id"]:
+                        st.caption(f"Posting check: {len(detail.attempts)} HTTP attempt(s) · {detail.retry_count} retry · {detail.transport_seconds:.2f}s transport")
+                        if detail.attempts:
+                            with st.expander("Posting request attempts"):
+                                st.dataframe([a.model_dump() for a in detail.attempts], hide_index=True)
                         if detail.status == "verified" and detail.posting:
                             st.caption("Posting details checked: " + detail.checked_at.isoformat())
                             if detail.changed_fields:
@@ -434,5 +438,9 @@ with opportunities:
                                 + (" · HTTP " + str(detail.http_status) if detail.http_status else ""))
         if jobs.checks:
             with st.expander("Opportunity source checks"):
-                st.dataframe(jobs.checks, hide_index=True)
+                st.dataframe([{k: v for k, v in check.items() if k != "attempts"} for check in jobs.checks], hide_index=True)
+                for check in jobs.checks:
+                    if check.get("attempts"):
+                        st.caption(check.get("employer", check.get("board", "Source")) + " · HTTP attempts")
+                        st.dataframe(check["attempts"], hide_index=True)
         st.caption("These are source listings, not eligibility decisions. Check the original opportunity for current availability and requirements.")
