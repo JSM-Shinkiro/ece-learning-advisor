@@ -84,14 +84,14 @@ def test_public_opportunities_are_available_without_adzuna_credentials(app):
     assert any("Samsara, Nuro" in x.value for x in app.caption)
 
 
-def opportunity_fixture(*, empty=False, provider="greenhouse", issues=None):
+def opportunity_fixture(*, empty=False, provider="greenhouse", issues=None, role_filter="all"):
     from src.jobs import JobSearchResult
     listings = [] if empty else [{"id": "greenhouse:samsara:12", "title": "Fixture Machine Learning Engineer",
         "employer": "Samsara", "location": "Remote - US", "url": "https://www.samsara.com/company/careers/roles/12?gh_jid=12",
         "posted_at": "2026-09-01T00:00:00+00:00", "updated_at": "2026-11-03T00:00:00+00:00",
         "description_snippet": "", "matched_terms": ["machine learning"]}]
     return JobSearchResult(listings, "2026-11-04T22:00:00+00:00", "machine learning", "Remote - US",
-        provider=provider, total_matches=len(listings), issues=issues or [],
+        provider=provider, total_matches=len(listings), issues=issues or [], role_filter=role_filter,
         checks=[{"board": "samsara", "status": "verified"}])
 
 
@@ -129,11 +129,13 @@ def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch
         calls.append((args, kwargs)); return opportunity_fixture(empty=True)
     monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
     app.text_input(key="opportunity_location_greenhouse").set_value("Tucson")
-    app.checkbox(key="opportunity_internship_greenhouse").set_value(True)
+    app.selectbox(key="opportunity_role_titles").set_value("internship")
     app.selectbox(key="opportunity_age").set_value(7)
     submit_opportunities(app)
     assert not app.exception
-    assert calls == [(("ai_ml", "Tucson", True), {"updated_within": 7})]
+    assert len(calls) == 1 and calls[0][0] == ("ai_ml", "Tucson", True)
+    assert calls[0][1]["updated_within"] == 7 and calls[0][1]["early_career"] is False
+    assert [b.token for b in calls[0][1]["boards"]] == ["samsara", "nuro", "andurilindustries"]
     assert any("No listings were returned" in item.value for item in app.info)
 
 
@@ -152,6 +154,41 @@ def test_failed_opportunity_search_removes_previous_results(app, monkeypatch):
     assert not any(item.value == "Fixture Machine Learning Engineer" for item in app.text)
     assert "job_result" not in app.session_state
     assert not any("private provider diagnostic" in item.value for item in app.warning)
+
+
+@pytest.mark.parametrize("role,internship,early,label", [("early_career", False, True, "New grad / entry-level"),
+    ("internship", True, False, "Internship / co-op")])
+def test_student_role_choices_reach_the_backend_and_reuse_only_matching_results(app, monkeypatch, role, internship, early, label):
+    calls = []
+    def search(*a, **k):
+        calls.append((a, k))
+        return opportunity_fixture(role_filter="internship" if a[2] else "early_career" if k["early_career"] else "all")
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    assert any("Anduril Industries" in c.value for c in app.caption)
+    app.selectbox(key="opportunity_role_titles").set_value(role)
+    submit_opportunities(app)
+    assert not app.exception and len(calls) == 1
+    assert calls[0][0][2] is internship and calls[0][1]["early_career"] is early
+    assert any("Results title filter: " + label in c.value for c in app.caption)
+    app.run()
+    assert len(calls) == 1
+    app.checkbox(key="reuse_opportunities").set_value(True)
+    submit_opportunities(app)
+    assert len(calls) == 1
+    app.selectbox(key="opportunity_role_titles").set_value("all")
+    submit_opportunities(app)
+    assert len(calls) == 2 and any("Results title filter: All levels" in c.value for c in app.caption)
+
+
+def test_unsubmitted_role_change_keeps_the_displayed_result_filter_label(app, monkeypatch):
+    calls = []
+    def search(*a, **k): calls.append(1); return opportunity_fixture(role_filter="all")
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    submit_opportunities(app)
+    app.selectbox(key="opportunity_role_titles").set_value("early_career").run()
+    assert not app.exception and calls == [1]
+    assert any("Results title filter: All levels" in c.value for c in app.caption)
+    assert not any("Results title filter: New grad / entry-level" in c.value for c in app.caption)
 
 
 def test_partial_opportunity_source_issue_is_shown_with_usable_listings(app, monkeypatch):

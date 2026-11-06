@@ -23,6 +23,8 @@ class JobSearchResult:
     issues: list[str] = field(default_factory=list)
     total_matches: int | None = None
     cache_state: str = "fresh"
+    role_filter: str = "all"
+    source_scope_hash: str | None = None
 
 
 def search_jobs(app_id: str, app_key: str, career: str, location: str,

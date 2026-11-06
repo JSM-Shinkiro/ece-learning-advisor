@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import re
 import time
@@ -25,6 +26,7 @@ MAX_BOARDS, MAX_POSTS, MAX_RESULTS = 3, 4000, 10
 MAX_JSON_BYTES = 3_000_000
 TIMEOUT = httpx.Timeout(6.0, connect=4.0, pool=4.0)
 CACHE_SECONDS = 1200
+OPPORTUNITY_POLICY_VERSION = "p07-opportunity-title-filters-v2"
 CAREER_PATTERNS = {
     "ai_ml": r"\b(?:machine[ -]learning|deep[ -]learning|artificial intelligence|computer vision|perception|ML|AI|autonomy|autonomous)\b",
     "embedded": r"\b(?:embedded|firmware|microcontrollers?|FPGA|ASIC|RTL|hardware|electrical|controls?)\b",
@@ -32,6 +34,8 @@ CAREER_PATTERNS = {
 ROLE_PATTERN = r"\b(?:engineer(?:ing)?|developer|scientist|research(?:er)?|technician|intern(?:ship)?|co[ -]?op)\b"
 EXCLUDED_ROLES = r"\b(?:recruit(?:er|ing|ment)|sales|marketing|talent|account|executive assistant)\b"
 INTERN_PATTERN = r"\b(?:intern(?:ship)?|co[ -]?op)\b"
+EARLY_PATTERN = r"\b(?:new[ -]+grad(?:uate)?s?|recent[ -]+grad(?:uate)?s?|university[ -]+grad(?:uate)?s?|entry[ -]+level|early[ -]+career|junior)\b"
+SENIOR_PATTERN = r"\b(?:senior|sr|staff|principal|lead|manager|director|head|distinguished|executive)\b"
 
 
 class OpportunityResponseError(ValueError):
@@ -46,14 +50,24 @@ class OpportunitySearchError(RuntimeError):
         self.checks = checks
 
 
-def validate_filters(career, location, internship, updated_within):
+def validate_filters(career, location, internship, updated_within, early_career=False):
     if not isinstance(career, str) or career not in CAREER_PATTERNS:
         raise ValueError("Choose AI/ML or Embedded Systems before searching")
     if not isinstance(location, str) or len(location) > 120 or any(ord(c) < 32 for c in location):
         raise ValueError("Keep the location filter within 120 characters")
-    if (type(internship) is not bool or updated_within is not None
+    if (type(internship) is not bool or type(early_career) is not bool or internship and early_career or updated_within is not None
             and (type(updated_within) is not int or updated_within not in {7, 30, 90})):
         raise ValueError("Invalid opportunity filters")
+
+
+def normalized_title(title):
+    return re.sub(r"[\u2010-\u2015]", "-", title)
+
+
+def early_career_title(title):
+    text = normalized_title(title)
+    return bool(re.search(EARLY_PATTERN, text, re.I) and not re.search(SENIOR_PATTERN, text, re.I)
+                and not re.search(INTERN_PATTERN, text, re.I))
 
 
 def safe_https(value):
@@ -76,8 +90,10 @@ class EmployerBoard(StrictModel):
     @model_validator(mode="after")
     def match_employer_host(self):
         careers, jobs = safe_https(self.careers_url), safe_https(self.job_base_url)
-        if (careers.hostname.removeprefix("www.") != jobs.hostname.removeprefix("www.")
-                or careers.query or jobs.query or not jobs.path.startswith("/")
+        hosted = jobs.hostname in {"boards.greenhouse.io", "job-boards.greenhouse.io"}
+        matching = (jobs.path == "/" + self.token + "/jobs/" and self.url_style == "id_path") if hosted else (
+            careers.hostname.removeprefix("www.") == jobs.hostname.removeprefix("www."))
+        if (not matching or careers.query or jobs.query or not jobs.path.startswith("/")
                 or self.url_style == "id_path" and not jobs.path.endswith("/")):
             raise ValueError("Employer-board URL binding is invalid")
         return self
@@ -95,6 +111,11 @@ def load_employer_boards(path=DEFAULT_BOARDS):
     if len({b.token for b in boards}) != len(boards):
         raise ValueError("Duplicate employer board")
     return boards
+
+
+def board_scope_hash(boards):
+    payload = {"policy": OPPORTUNITY_POLICY_VERSION, "boards": [b.model_dump(mode="json") for b in boards]}
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
 def valid_posting_url(value, board, identity):
@@ -205,8 +226,8 @@ def _fetch_board(client, board, now):
         return [], check
 
 
-def search_employer_jobs(career, location="", internship=False, *, updated_within=None, client=None, boards=None, now=None):
-    validate_filters(career, location, internship, updated_within)
+def search_employer_jobs(career, location="", internship=False, *, updated_within=None, early_career=False, client=None, boards=None, now=None):
+    validate_filters(career, location, internship, updated_within, early_career)
     now = now or datetime.now(timezone.utc)
     if now.tzinfo is None:
         raise ValueError("The source-check time needs a timezone")
@@ -227,7 +248,7 @@ def search_employer_jobs(career, location="", internship=False, *, updated_withi
     found = []
     for posts, _ in results:
         for post in posts:
-            title = post["title"]
+            title = normalized_title(post["title"])
             matches = re.findall(CAREER_PATTERNS[career], title, re.I)
             if not matches or not re.search(ROLE_PATTERN, title, re.I) or re.search(EXCLUDED_ROLES, title, re.I):
                 continue
@@ -235,27 +256,32 @@ def search_employer_jobs(career, location="", internship=False, *, updated_withi
                 continue
             if internship and not re.search(INTERN_PATTERN, title, re.I):
                 continue
+            if early_career and not early_career_title(title):
+                continue
             if updated_within is not None and (post["updated_at"] is None
                     or datetime.fromisoformat(post["updated_at"]) < now - timedelta(days=updated_within)):
                 continue
             found.append({**post, "matched_terms": list(dict.fromkeys(m.casefold() for m in matches))})
     found.sort(key=lambda post: (post["updated_at"] or "", post["id"]), reverse=True)
     return JobSearchResult(found[:MAX_RESULTS], now.isoformat(), "AI / Machine Learning" if career == "ai_ml" else "Embedded Systems",
-        location.strip() or "All listed locations", provider="greenhouse", checks=checks, issues=issues, total_matches=len(found))
+        location.strip() or "All listed locations", provider="greenhouse", checks=checks, issues=issues, total_matches=len(found),
+        role_filter="internship" if internship else "early_career" if early_career else "all", source_scope_hash=board_scope_hash(boards))
 
 
 def request_opportunities(state, career, location, internship, *, provider="greenhouse", updated_within=None,
-                          reuse=False, now=None, public_search=None, adzuna_search=None, app_id="", app_key=""):
+                          early_career=False, reuse=False, now=None, public_search=None, adzuna_search=None, app_id="", app_key=""):
     """One explicit action, with optional recent-result reuse and no stale fallback."""
     from .jobs import search_jobs
     state.pop("job_result", None)
     state.pop("job_error", None)
-    validate_filters(career, location, internship, updated_within)
+    validate_filters(career, location, internship, updated_within, early_career)
     now = now or datetime.now(timezone.utc)
     if (now.tzinfo is None or not isinstance(provider, str) or provider not in {"greenhouse", "adzuna"} or type(reuse) is not bool
-            or provider == "adzuna" and updated_within is not None):
+            or provider == "adzuna" and (updated_within is not None or early_career)):
         raise ValueError("Unsupported opportunity source or filters")
-    key = (provider, career, location.strip().casefold(), internship, updated_within)
+    boards = load_employer_boards() if provider == "greenhouse" else None
+    scope = board_scope_hash(boards) if boards else None
+    key = (provider, career, location.strip().casefold(), internship, updated_within, early_career, scope)
     cached = state.get("jobs_cache")
     if not isinstance(cached, dict) or not isinstance(cached.get("result"), JobSearchResult):
         cached = None
@@ -265,7 +291,8 @@ def request_opportunities(state, career, location, internship, *, provider="gree
         result = replace(cached["result"], cache_state="reused")
     elif provider == "greenhouse":
         try:
-            result = (public_search or search_employer_jobs)(career, location, internship, updated_within=updated_within)
+            result = (public_search or search_employer_jobs)(career, location, internship, updated_within=updated_within,
+                early_career=early_career, boards=boards)
         except OpportunitySearchError as exc:
             state["job_error"] = {"provider": provider, "checks": exc.checks}
             raise
@@ -275,6 +302,8 @@ def request_opportunities(state, career, location, internship, *, provider="gree
         raise ValueError("Unsupported opportunity source")
     if not isinstance(result, JobSearchResult) or result.provider != provider:
         raise ValueError("Opportunity response does not match its selected source")
+    if provider == "greenhouse" and result.source_scope_hash not in {None, scope}:
+        raise ValueError("Opportunity response does not match its configured boards")
     if result.cache_state != "reused":
         state["jobs_cache"] = {"key": key, "created": now.timestamp(), "result": result}
     state["job_result"] = result

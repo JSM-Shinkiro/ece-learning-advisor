@@ -18,7 +18,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--career", choices=["ai_ml", "embedded"], default="ai_ml")
     parser.add_argument("--location", default="")
-    parser.add_argument("--internship", action="store_true")
+    roles = parser.add_mutually_exclusive_group()
+    roles.add_argument("--internship", action="store_true")
+    roles.add_argument("--early-career", action="store_true")
     parser.add_argument("--updated-within", type=int, choices=[7, 30, 90])
     parser.add_argument("--output", type=Path, default=ROOT / ".cache/opportunity_checks.json")
     args = parser.parse_args()
@@ -27,11 +29,13 @@ def main():
         "requested_at": datetime.now(timezone.utc).isoformat(),
         "model_calls": 0, "credentials_used": False,
         "filters": {"career": args.career, "location": args.location, "internship": args.internship,
+                    "early_career": args.early_career,
                     "updated_within": args.updated_within},
         "implementation": {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in paths}}
     started = time.perf_counter()
     try:
-        result = search_employer_jobs(args.career, args.location, args.internship, updated_within=args.updated_within)
+        result = search_employer_jobs(args.career, args.location, args.internship, updated_within=args.updated_within,
+            early_career=args.early_career)
         report["result"] = asdict(result)
         report["passed"] = not result.issues and all(c["status"] == "verified" for c in result.checks)
         print("Listings:", len(result.listings), "Matching posts:", result.total_matches)

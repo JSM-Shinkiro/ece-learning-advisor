@@ -50,11 +50,11 @@ def test_live_contract_normalizes_sources_and_dates_without_career_data_in_reque
     seen = []
     with client_for({b.token: {"jobs": [post(b)]} for b in boards}, seen) as client:
         result = search_employer_jobs("ai_ml", client=client, now=NOW)
-    assert len(seen) == 2 and all(r.method == "GET" and not r.url.query for r in seen)
+    assert len(seen) == len(boards) == 3 and all(r.method == "GET" and not r.url.query for r in seen)
     assert all(r.url.host == "boards-api.greenhouse.io" for r in seen)
-    assert len(result.listings) == 2  # Same numeric ID in two boards remains distinct.
-    assert len({j["id"] for j in result.listings}) == 2
-    assert result.provider == "greenhouse" and result.total_matches == 2
+    assert len(result.listings) == 3  # Equal numeric IDs in separate boards remain distinct.
+    assert len({j["id"] for j in result.listings}) == 3
+    assert result.provider == "greenhouse" and result.total_matches == 3
     assert all(c["status"] == "verified" for c in result.checks)
     assert result.listings[0]["posted_at"] != result.listings[0]["updated_at"]
     assert result.listings[0]["description_snippet"] == ""
@@ -162,7 +162,9 @@ def test_http_failures_do_not_follow_redirects_or_become_empty_success(status):
 
 def test_partial_failure_retains_only_checked_boards_with_a_visible_issue():
     boards = load_employer_boards()
-    with client_for({boards[0].token: {"jobs": [post(boards[0])]}, boards[1].token: httpx.Response(429)}) as client:
+    payloads = {b.token: httpx.Response(429) for b in boards}
+    payloads[boards[0].token] = {"jobs": [post(boards[0])]}
+    with client_for(payloads) as client:
         result = search_employer_jobs("ai_ml", client=client, now=NOW)
     assert len(result.listings) == 1 and result.issues
     assert result.checks[1]["http_status"] == 429 and result.checks[1]["checked_at"] is None

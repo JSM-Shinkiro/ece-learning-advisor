@@ -59,3 +59,7 @@ python scripts/check_opportunities.py --career ai_ml --updated-within 7
 The CLI saves a dated JSON report to `.cache/opportunity_checks.json` by default, including implementation hashes and source checks. `--output` changes the destination. Exit zero means all configured boards were verified and no records were rejected; a valid empty search can pass. Exit one retains failed or degraded observations, including safe per-source diagnostics when available. Current results may differ from the saved November 4 observations.
 
 Next, expand and review employer/role coverage, decide whether a broader geography-aware provider is needed, and run independent student checks. Live Adzuna verification remains pending credentials. Wider employment coverage and qualification matching are separate future work.
+
+## November 5 coverage follow-up
+
+The [student-opportunity extension](31_STUDENT_OPPORTUNITIES.md) adds Anduril Industries as the third configured board, explicit new-grad/entry-level title filtering, and cache identity tied to board configuration and title policy. Its dated observations retain an initial all-source timeout and a successful bounded recheck. The November 4 counts, limits, and evidence above remain historical observations rather than current availability claims.

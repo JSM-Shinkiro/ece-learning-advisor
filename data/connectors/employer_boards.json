@@ -12,5 +12,12 @@
     "careers_url": "https://www.nuro.ai/careers",
     "job_base_url": "https://nuro.ai/careersitem",
     "url_style": "id_query"
+  },
+  {
+    "token": "andurilindustries",
+    "employer": "Anduril Industries",
+    "careers_url": "https://www.anduril.com/open-roles",
+    "job_base_url": "https://job-boards.greenhouse.io/andurilindustries/jobs/",
+    "url_style": "id_path"
   }
 ]

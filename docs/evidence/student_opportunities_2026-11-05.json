@@ -1,0 +1,525 @@
+{
+  "checked_at": "2026-11-06T04:53:28.682774+00:00",
+  "development_date": "2026-11-05",
+  "timezone": "America/Phoenix",
+  "scope": "Third reviewed employer board and explicit student title filters. Public metadata validation and filter behavior; not a job-market, qualification, or independent-review measurement.",
+  "new_board_review": {
+    "employer": "Anduril Industries",
+    "careers_url": "https://www.anduril.com/open-roles",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+    "checked_at": "2026-11-06T04:41:35.734933+00:00",
+    "raw_posts": 2592,
+    "observed_employers": [
+      "Anduril Industries"
+    ],
+    "observed_posting_hosts": [
+      "boards.greenhouse.io"
+    ],
+    "metadata_snapshot_hash": "4e3e43b67f9c9ea8899a4d7a8b4b4bb2726beded785a8a87e8302b9380020983"
+  },
+  "policy": "p07-opportunity-title-filters-v2",
+  "automated_verification": {
+    "command": "python -m pytest -q --tb=short",
+    "passed": 992,
+    "failed": 0,
+    "seconds": 41.62,
+    "student_opportunity_cases": 47,
+    "streamlit_cases": 46
+  },
+  "live_requests": [
+    {
+      "case": "embedded_internships",
+      "requested_at": "2026-11-06T04:49:05.674554+00:00",
+      "filters": {
+        "career": "embedded",
+        "internship": true
+      },
+      "model_calls": 0,
+      "credentials_used": false,
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:andurilindustries:5268736007",
+            "title": "2027 Guidance, Navigation, & Control Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5268736007?gh_jid=5268736007",
+            "posted_at": "2026-10-19T19:37:17+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "control"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5265158007",
+            "title": "2027 Firmware Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5265158007?gh_jid=5265158007",
+            "posted_at": "2026-10-13T22:43:34+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "firmware"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5236565007",
+            "title": "Winter 2027 Electrical Engineer Co-op",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States; Quincy, Massachusetts, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5236565007?gh_jid=5236565007",
+            "posted_at": "2026-09-15T17:29:50+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5148101007",
+            "title": "2027 Electrical Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Atlanta, Georgia, United States; Boston, Massachusetts, United States; Broomfield, Colorado, United States; Colorado Springs, Colorado, United States; Costa Mesa, California, United States; Fort Collins, Colorado, United States; Irvine, California, United States; Reston, Virginia, United States; Seattle, Washington, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5148101007?gh_jid=5148101007",
+            "posted_at": "2026-06-11T17:00:56+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8226602",
+            "title": "Firmware Engineer Co-Op",
+            "employer": "Samsara",
+            "location": "San Francisco - SF9",
+            "url": "https://www.samsara.com/company/careers/roles/8226602?gh_jid=8226602",
+            "posted_at": "2026-09-24T19:18:45+00:00",
+            "updated_at": "2026-10-30T15:47:12+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "firmware"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8163118",
+            "title": "Electrical Engineering Co-Op",
+            "employer": "Samsara",
+            "location": "San Francisco - SF9",
+            "url": "https://www.samsara.com/company/careers/roles/8163118?gh_jid=8163118",
+            "posted_at": "2026-08-31T04:24:42+00:00",
+            "updated_at": "2026-10-30T15:44:46+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-06T04:49:05.674572+00:00",
+        "query": "Embedded Systems",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 305,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:05.674572+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 94,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:05.674572+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "andurilindustries",
+            "employer": "Anduril Industries",
+            "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "status": "verified",
+            "valid_posts": 2592,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:05.674572+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 6,
+        "cache_state": "fresh",
+        "role_filter": "internship",
+        "source_scope_hash": "bd5e8e38ad9bd45a9c682a93e3b5d3aee076ab38499ae5b85631be300aaa6936"
+      },
+      "passed": true,
+      "seconds": 5.193579590999889
+    },
+    {
+      "case": "embedded_early_career",
+      "requested_at": "2026-11-06T04:49:10.874215+00:00",
+      "filters": {
+        "career": "embedded",
+        "early_career": true
+      },
+      "model_calls": 0,
+      "credentials_used": false,
+      "passed": false,
+      "error": "The public search could not complete.",
+      "checks": [
+        {
+          "board": "samsara",
+          "employer": "Samsara",
+          "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+          "status": "unavailable",
+          "valid_posts": 0,
+          "rejected_posts": 0,
+          "checked_at": null,
+          "http_status": null,
+          "failure_kind": "timeout"
+        },
+        {
+          "board": "nuro",
+          "employer": "Nuro",
+          "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+          "status": "unavailable",
+          "valid_posts": 0,
+          "rejected_posts": 0,
+          "checked_at": null,
+          "http_status": null,
+          "failure_kind": "timeout"
+        },
+        {
+          "board": "andurilindustries",
+          "employer": "Anduril Industries",
+          "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+          "status": "unavailable",
+          "valid_posts": 0,
+          "rejected_posts": 0,
+          "checked_at": null,
+          "http_status": null,
+          "failure_kind": "timeout"
+        }
+      ],
+      "seconds": 6.014510569000322
+    },
+    {
+      "case": "ai_early_career",
+      "requested_at": "2026-11-06T04:49:16.890314+00:00",
+      "filters": {
+        "career": "ai_ml",
+        "early_career": true
+      },
+      "model_calls": 0,
+      "credentials_used": false,
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:nuro:7351066",
+            "title": "Software Engineer, AI Platform - New Grad",
+            "employer": "Nuro",
+            "location": "Mountain View, California (HQ)",
+            "url": "https://nuro.ai/careersitem?gh_jid=7351066",
+            "posted_at": "2025-10-22T23:06:45+00:00",
+            "updated_at": "2026-10-26T17:54:47+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Nuro",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-06T04:49:16.890351+00:00",
+        "query": "AI / Machine Learning",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 305,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:16.890351+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 94,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:16.890351+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "andurilindustries",
+            "employer": "Anduril Industries",
+            "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "status": "verified",
+            "valid_posts": 2592,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:49:16.890351+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 1,
+        "cache_state": "fresh",
+        "role_filter": "early_career",
+        "source_scope_hash": "bd5e8e38ad9bd45a9c682a93e3b5d3aee076ab38499ae5b85631be300aaa6936"
+      },
+      "passed": true,
+      "seconds": 4.303302406999592
+    },
+    {
+      "case": "embedded_early_career_bounded_recheck",
+      "requested_at": "2026-11-06T04:50:56.963751+00:00",
+      "scope": "One explicit recheck after all three sources timed out; opportunity request limits and no-automatic-retry behavior are unchanged.",
+      "filters": {
+        "career": "embedded",
+        "early_career": true
+      },
+      "model_calls": 0,
+      "credentials_used": false,
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:andurilindustries:5272501007",
+            "title": "2027 Early Career Electrical Engineer",
+            "employer": "Anduril Industries",
+            "location": "Dublin, Dublin, Ireland",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5272501007?gh_jid=5272501007",
+            "posted_at": "2026-10-22T17:23:53+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5246141007",
+            "title": "2027 Early Career Firmware Engineer",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5246141007?gh_jid=5246141007",
+            "posted_at": "2026-09-22T18:27:15+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "firmware"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5136925007",
+            "title": "2027 Early Career Electrical Engineer",
+            "employer": "Anduril Industries",
+            "location": "Atlanta, Georgia, United States; Boston, Massachusetts, United States; Broomfield, Colorado, United States; Colorado Springs, Colorado, United States; Costa Mesa, California, United States; Fort Collins, Colorado, United States; Irvine, California, United States; Reston, Virginia, United States; Seattle, Washington, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5136925007?gh_jid=5136925007",
+            "posted_at": "2026-05-13T18:47:36+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:4802172007",
+            "title": "2026 Early Career Electrical Engineer",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States; Fort Collins, Colorado, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/4802172007?gh_jid=4802172007",
+            "posted_at": "2025-08-11T17:41:15+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-06T04:50:56.963772+00:00",
+        "query": "Embedded Systems",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 305,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:50:56.963772+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 94,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:50:56.963772+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "andurilindustries",
+            "employer": "Anduril Industries",
+            "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "status": "verified",
+            "valid_posts": 2592,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T04:50:56.963772+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 4,
+        "cache_state": "fresh",
+        "role_filter": "early_career",
+        "source_scope_hash": "bd5e8e38ad9bd45a9c682a93e3b5d3aee076ab38499ae5b85631be300aaa6936"
+      },
+      "passed": true,
+      "seconds": 6.319645164999201
+    }
+  ],
+  "runtime_readiness": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Reviewed catalog and evidence validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T04:51:03.896263+00:00"
+  },
+  "model_calls": 0,
+  "credentials_used": false,
+  "implementation": {
+    "app.py": "17506124c2873d482cb166c7a42e2e73267745c5b1eeb26c17c8c7e76eeadc67",
+    "src/opportunities.py": "ce41b38363b4cbbddcc059d6b1b3a2f7e6734536941ac01040b44cba871493ee",
+    "src/jobs.py": "42216bf5e86328ccab0ef15e75b4e30755d2456924094d27d655c69260692020",
+    "scripts/check_opportunities.py": "d17f14273a0662e9f399994589ca18ca0c2e0a5ed0356e80e7ade2a4788816a9",
+    "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0",
+    "tests/test_student_opportunities.py": "5171c3e106e9f7d0697a5ff5eb13543abb7c6b2fe51aa57b85f7cb6d1f7a7c94",
+    "tests/test_opportunities.py": "72560d60fa45b4591c143c39be4d36d474aeeb5240a75ba4546d7deb61407302",
+    "tests/test_app.py": "a1ec92022051fa136e2b428a7cd430b117302982597a273e0426352cf0445480",
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+    "requirements.txt": "654d81f7c02cf6916a737f396e2765f22d45b1439075483c1e4ecd4fe5dab64c"
+  },
+  "earlier_evidence_preserved": "docs/evidence/opportunity_checks_2026-11-04.json",
+  "limitations": "Three curated boards and local title/location/date filters only. Initial all-source timeout retained separately from the successful explicit recheck. No automatic opportunity retry, qualification inference, general availability guarantee, or new academic interpretation.",
+  "automated_and_runtime_passed": true,
+  "all_initial_live_cases_passed": false,
+  "bounded_recheck_passed": true
+}

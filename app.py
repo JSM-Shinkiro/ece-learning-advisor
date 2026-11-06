@@ -318,9 +318,15 @@ with opportunities:
     with st.form("jobs_form"):
         location = st.text_input("Location contains (optional)" if provider == "greenhouse" else "Location",
                                  value="" if provider == "greenhouse" else "Tucson, AZ", max_chars=120, key="opportunity_location_" + provider)
-        internship = st.checkbox("Internship / co-op titles only" if provider == "greenhouse" else "Prefer internship search terms",
-            help="Matches internship and co-op words in the job title." if provider == "greenhouse" else "Changes the search phrase; provider listings may include other roles.",
-            key="opportunity_internship_" + provider)
+        if provider == "greenhouse":
+            role_labels = {"all": "All levels", "internship": "Internship / co-op", "early_career": "New grad / entry-level"}
+            role_filter = st.selectbox("Role titles", list(role_labels), format_func=role_labels.get,
+                help="Filters explicit title words. New-grad/entry-level excludes internship and senior/leadership titles; requirements still need review.", key="opportunity_role_titles")
+            internship, early_career = role_filter == "internship", role_filter == "early_career"
+        else:
+            internship = st.checkbox("Prefer internship search terms", help="Changes the search phrase; provider listings may include other roles.",
+                key="opportunity_internship_adzuna")
+            early_career = False
         updated_within = st.selectbox("Listing updated within", [None, 7, 30, 90],
             format_func=lambda days: "Any date" if days is None else str(days) + " days",
             key="opportunity_age", disabled=provider != "greenhouse")
@@ -331,6 +337,7 @@ with opportunities:
             with st.spinner("Searching opportunities..."):
                 request_opportunities(st.session_state, profile.career_id, location, internship, provider=provider,
                     updated_within=updated_within if provider == "greenhouse" else None, reuse=reuse,
+                    early_career=early_career,
                     public_search=search_employer_jobs, adzuna_search=search_jobs,
                     app_id=settings.adzuna_app_id.get_secret_value(), app_key=settings.adzuna_app_key.get_secret_value())
         except (ValueError,RuntimeError):
@@ -342,6 +349,8 @@ with opportunities:
             st.dataframe(job_error["checks"], hide_index=True)
     if jobs and jobs.provider == provider:
         st.caption(f"Source: {provider_names[jobs.provider]} · Query: {jobs.query} · Location: {jobs.location} · Retrieved: {jobs.retrieved_at}")
+        if provider == "greenhouse":
+            st.caption("Results title filter: " + role_labels.get(jobs.role_filter, "All levels") + ".")
         st.caption("Reused recent results; sources were not checked again." if jobs.cache_state == "reused" else "Sources requested for this search.")
         for issue in jobs.issues:
             st.warning(issue)
