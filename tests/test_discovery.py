@@ -18,8 +18,8 @@ from src.sources import refresh_catalog
 from test_sources import course_page
 
 NOW = datetime(2026, 11, 4, 5, tzinfo=timezone.utc)
-CS_ID = "7654324"
-ECE_IDS = ["7654321", "7654322", "7654323"]
+CS_ID = "0393681"
+ECE_IDS = ["7654321", "7654322", "0360981"]
 
 
 def encoded_page(primary, extras=(), edition="2026-2027"):
@@ -84,7 +84,7 @@ def client_for(catalog, plans, new_courses, *, programs=None, courses=None, seen
                 proofs=proofs if plan.program_code == "COSCBS" else ()))
         else:
             identity = url.rsplit('/', 1)[-1]
-            body = (courses or {}).get(identity, course_page(known[identity], course_id=identity))
+            body = (courses or {})[identity] if identity in (courses or {}) else course_page(known[identity], course_id=identity)
         if isinstance(body, int):
             return httpx.Response(body)
         return httpx.Response(200, text=body, headers={"Content-Type": "text/html", **(headers or {})})
@@ -241,7 +241,11 @@ def test_conditional_program_and_course_checks_reuse_vectors(catalog, plans, new
 
 def test_duplicate_course_identity_does_not_overwrite_configured_record(catalog, plans, new_courses, tmp_path):
     original = next(r for r in catalog.records if r.code == 'ECE101')
-    with client_for(catalog, plans, new_courses, courses={CS_ID: course_page(original, course_id=CS_ID)}) as client:
+    unbound_id = '7654324'
+    proofs = next(r for r in catalog.records if r.code == 'CSC120').rule_evidence
+    page = program_page(plans[0], ids=[unbound_id], proofs=proofs)
+    with client_for(catalog, plans, new_courses, programs={'COSCBS': page},
+                    courses={unbound_id: course_page(original, course_id=unbound_id)}) as client:
         result = refresh(catalog, plans[:1], client, tmp_path)
     assert len([r for r in result.catalog.records if r.code == 'ECE101']) == 1
     assert not discovered(result)

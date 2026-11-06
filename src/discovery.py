@@ -18,7 +18,7 @@ from .rule_sources import MAX_RULE_SOURCES, RuleJob
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
 MAX_REQUESTED_CODES = 16
-DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v2"
+DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v3"
 CourseID = Annotated[str, Field(pattern=r"^\d{7}$")]
 CourseCode = Annotated[str, Field(pattern=r"^(?:ECE|CSC)[1-4]\d{2}[A-Z]{0,2}$")]
 RoutingPhrase = Annotated[str, Field(min_length=3, max_length=80)]
@@ -55,6 +55,7 @@ class DiscoveryPlan(StrictModel):
     study_stage: Literal["foundation", "intermediate", "advanced"]
     reviewed_rules: list[ReviewedDiscoveryRule] = Field(default_factory=list, max_length=3)
     course_codes: dict[CourseID, CourseCode] = Field(default_factory=dict, max_length=40)
+    course_stages: dict[CourseCode, Literal["foundation", "intermediate", "advanced"]] = Field(default_factory=dict, max_length=40)
     course_phrases: dict[CourseCode, Annotated[list[RoutingPhrase], Field(min_length=1, max_length=8)]] = Field(default_factory=dict, max_length=40)
 
     @model_validator(mode="after")
@@ -73,6 +74,11 @@ class DiscoveryPlan(StrictModel):
             values = [getattr(entry, key) for entry in self.reviewed_rules]
             if len(values) != len(set(values)):
                 raise ValueError("Duplicate discovered-course interpretation")
+        if not set(self.course_stages) <= set(self.known_course_codes.values()):
+            raise ValueError("Course stages need a bound course identity")
+        if any(entry.study_stage is not None and entry.course_code in self.course_stages
+               and entry.study_stage != self.course_stages[entry.course_code] for entry in self.reviewed_rules):
+            raise ValueError("Conflicting discovered-course learning stages")
         for code, phrases in self.course_phrases.items():
             keys = [phrase_key(phrase) for phrase in phrases]
             if (code not in self.known_course_codes.values() or len(set(keys)) != len(keys)
@@ -245,6 +251,11 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
             seen.add(candidate.url)
             candidates.append(candidate)
     budget = max(0, min(MAX_DISCOVERED_COURSES, limit))
+    completed = {item.course_code for item in profile.completed} if profile is not None else set()
+    skipped_completed = sorted({item.expected_code for item in candidates if item.expected_code in completed})
+    # Only known ID/code bindings can skip a download. Completion histories do
+    # not create source URLs, change public caches, or prove academic readiness.
+    candidates = [item for item in candidates if item.expected_code not in completed]
     mentions = match_course_requests(profile, plans)
     codes, origin, truncated = mentions.codes, mentions.origin, mentions.truncated
     rank = {code: index for index, code in enumerate(codes)}
@@ -253,7 +264,9 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
     requests = []
     for code in codes:
         candidate = next((item for item in candidates if item.expected_code == code), None)
-        if any(record.kind == "course" and record.code == code for record in catalog.records):
+        if code in completed:
+            request = {"code": code, "status": "completed"}
+        elif any(record.kind == "course" and record.code == code for record in catalog.records):
             request = {"code": code, "status": "in_collection"}
         elif candidate is None:
             request = {"code": code, "status": "not_available"}
@@ -265,6 +278,7 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
         requests.append(request)
     trace = {"version": DISCOVERY_POLICY_VERSION, "input": origin, "requested_codes": codes,
         "truncated": truncated, "phrase_matches": mentions.phrases, "requests": requests,
+        "skipped_completed_codes": skipped_completed,
         "selected": [{"course_id": item.course_id, "code_hint": item.expected_code,
             "source_id": item.plan.source.source_id, "section_ids": item.sections,
             "reason": "reviewed_phrase" if item.expected_code in mentions.phrases else
@@ -279,8 +293,10 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
         check.message = "A discovered course could not be verified; no placeholder recommendation was added."
         return None
     data = saved.data
-    if candidate.expected_code is not None and data.code != candidate.expected_code:
-        check.code = candidate.expected_code
+    bound_id = next((identity for identity, code in candidate.plan.known_course_codes.items() if code == data.code), None)
+    if (candidate.expected_code is not None and data.code != candidate.expected_code
+            or bound_id is not None and bound_id != candidate.course_id):
+        check.code = candidate.expected_code or data.code
         check.status, check.failure_kind = "unavailable", "validation"
         check.message = "The linked course did not match its configured code; no course was added."
         return None
@@ -306,6 +322,8 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
                   and e.course_code == data.code and e.proof.catalog_version == data.catalog_version), None)
     # This explicit learning annotation is separate from academic satisfaction.
     stage = entry.study_stage if entry is not None and entry.study_stage is not None else candidate.plan.study_stage
+    if candidate.expected_code == data.code:
+        stage = candidate.plan.course_stages.get(data.code, stage)
     record = Record(record_id="uofa:" + data.code + ":" + data.catalog_version, kind="course", code=data.code,
         title=data.title, summary=data.summary, credits=data.credits, catalog_version=data.catalog_version,
         source_ids=[source.source_id, candidate.plan.source.source_id], requirement_reference=data.requirement_reference,

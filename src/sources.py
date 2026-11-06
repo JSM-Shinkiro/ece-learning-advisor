@@ -79,7 +79,8 @@ class CatalogRefresh:
         return {"enabled": True, "catalog_version": self.catalog.catalog_version,
                 "discovery_selection": self.discovery_selection,
                 "discovered_courses": {r.record_id: {"origin": r.discovery.model_dump(mode="json"),
-                    "field_sources": r.field_sources, "rule_verification": r.rule_verification,
+                    "field_sources": r.field_sources, "study_stage": r.study_stage,
+                    "stage_origin": "team_learning_annotation", "rule_verification": r.rule_verification,
                     "rule_evidence_ids": [p.evidence_id for p in r.rule_evidence],
                     "rule_hash": rule_hash(r.rule) if r.rule_reviewed else None,
                     "reviewed_statement_hashes": {p.evidence_id: p.statement_hash for p in r.rule_evidence}}

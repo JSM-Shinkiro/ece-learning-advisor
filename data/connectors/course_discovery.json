@@ -311,19 +311,21 @@
   {
     "source": {
       "verification_status": "snapshot",
-      "retrieved_at": "2026-11-04T04:48:36.657093Z",
+      "retrieved_at": "2026-11-06T00:55:31.672693Z",
       "last_checked_at": null,
       "source_id": "catalog:ECE_program",
-      "title": "Electrical and Computer Engineering BSECE \u2014 foundation course links",
+      "title": "Electrical and Computer Engineering BSECE \u2014 foundation, core, and computer-engineering course links",
       "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
-      "section": "Engineering foundation coursework, R17348/L320",
-      "review_note": "Program identity, edition, and explicit course links inspected for bounded discovery. No prerequisite or degree audit interpretation is approved by this connector.",
+      "section": "Engineering foundation R17348/L320, core R15612/L10, computer engineering R15487/L10",
+      "review_note": "Program identity, edition, explicit section links, and six new course identities inspected. Per-course preparation stages and routing phrases are team annotations; no prerequisite, advanced-standing, or degree-audit interpretation is approved by this connector.",
       "content_hash": null
     },
     "program_code": "ECEBSECE",
     "section_ids": [
-      "R17348/L320"
+      "R17348/L320",
+      "R15612/L10",
+      "R15487/L10"
     ],
     "career_ids": [
       "ai_ml",
@@ -333,7 +335,13 @@
     "course_codes": {
       "0432591": "ECE201",
       "0120881": "ECE220",
-      "0360981": "ECE274A"
+      "0360981": "ECE274A",
+      "0362401": "ECE310",
+      "0397381": "ECE311",
+      "0121101": "ECE320A",
+      "0377871": "ECE340A",
+      "0366011": "ECE351C",
+      "0121261": "ECE373"
     },
     "course_phrases": {
       "ECE201": [
@@ -353,7 +361,47 @@
         "logic design",
         "sequential systems",
         "register transfer language"
+      ],
+      "ECE310": [
+        "applications of engineering mathematics",
+        "eigenvalues",
+        "eigenvectors",
+        "probability and statistics"
+      ],
+      "ECE311": [
+        "engineering ethics",
+        "engineering ethics and contemporary issues"
+      ],
+      "ECE320A": [
+        "circuit theory",
+        "transformed networks",
+        "two port network parameters"
+      ],
+      "ECE340A": [
+        "introduction to communications",
+        "analog modulation",
+        "digital carrier modulation",
+        "pulse shaping"
+      ],
+      "ECE351C": [
+        "electronic circuits",
+        "diode circuits",
+        "small signal models"
+      ],
+      "ECE373": [
+        "object oriented software design",
+        "class hierarchies",
+        "sequence diagrams",
+        "unified modeling language"
       ]
+    },
+    "course_stages": {
+      "ECE310": "intermediate",
+      "ECE311": "intermediate",
+      "ECE320A": "intermediate",
+      "ECE340A": "intermediate",
+      "ECE351C": "intermediate",
+      "ECE373": "intermediate"
     }
   }
 ]

@@ -114,9 +114,15 @@ def test_unrelated_metadata_cannot_supply_or_replace_visible_condition(catalog, 
 
 
 @pytest.mark.parametrize("options", [{"identity": "7654324"}, {"reference": "999999"}])
-def test_matching_code_without_exact_course_and_enrollment_binding_stays_unreviewed(catalog, tmp_path, options):
+def test_wrong_course_identity_is_rejected_and_changed_reference_stays_unreviewed(catalog, tmp_path, options):
     with rule_client(catalog, **options) as client:
-        record = discovered(refresh(catalog, client, tmp_path, math_profile()))
+        result = refresh(catalog, client, tmp_path, math_profile())
+    if 'identity' in options:
+        assert not any(r.record_id == RID for r in result.catalog.records)
+        check = next(c for c in result.checks if c.code == 'CSC110')
+        assert check.status == 'unavailable' and check.failure_kind == 'validation'
+        return
+    record = discovered(result)
     assert not record.rule_reviewed and not record.rule_evidence
     assert evaluate_course(record, math_profile()).status == "unknown"
 

@@ -137,6 +137,11 @@ def test_new_conditions_need_their_own_unchanged_visible_section(catalog, tmp_pa
 def test_same_course_code_is_insufficient_without_the_bound_course_and_reference(catalog, tmp_path, code, mismatch):
     options = {"identities" if mismatch == "identity" else "references": {code: "7654321"}}
     result = expanded_refresh(catalog, tmp_path, profile_with(("ECE101", "B"), ("MATH112", "B"), ("CSC120", "B")), **options)
+    if mismatch == "identity":
+        assert not any(r.code == code for r in result.catalog.records)
+        check = next(c for c in result.checks if c.code == code)
+        assert check.status == "unavailable" and check.failure_kind == "validation"
+        return
     record = course(result, code)
     assert not record.rule_reviewed and not record.rule_evidence
     assert evaluate_course(record, StudentProfile()).status == "unknown"

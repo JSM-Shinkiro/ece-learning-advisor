@@ -444,6 +444,47 @@ def test_reviewed_phrase_can_populate_the_roadmap_without_a_course_code(app, mon
     assert calls == [phrase]
 
 
+@pytest.mark.parametrize("phrase,code", [("eigenvalues", "ECE310"), ("class hierarchies", "ECE373")])
+def test_ece_core_appears_as_preparation_with_unverified_enrollment(app, monkeypatch, tmp_path, phrase, code):
+    from test_ece_core import core_refresh
+    calls = []
+    def refresh(catalog, profile, **kwargs):
+        calls.append(profile.question)
+        return core_refresh(catalog, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.text_input(key="question").set_value(phrase)
+    submit(app)
+    assert not app.exception
+    result = app.session_state["result"]
+    rid = "uofa:" + code + ":2026-2027"
+    assert rid in result.context.allowed_record_ids and result.context.suggested_phases[rid] == "build"
+    assert result.context.rule_results[rid].status == "unknown"
+    assert any("Enrollment requirements unverified" in caption.value for caption in app.caption)
+    app.run()
+    assert any(option.startswith(code + " · ") for option in app.multiselect(key="completed_courses").options)
+    assert calls == [phrase]
+
+
+def test_completed_foundations_skip_download_slots_and_are_visible_in_inspector(app, monkeypatch, tmp_path):
+    from test_ece_core import core_refresh
+    calls = []
+    def refresh(catalog, profile, **kwargs):
+        calls.append(profile.career_id)
+        return core_refresh(catalog, tmp_path, profile)
+    monkeypatch.setattr("src.controller.refresh_catalog", refresh)
+    monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
+    app.selectbox(key="career_id").set_value("embedded")
+    app.text_area(key="course_text").set_value("ECE201:B, ECE220:B, ECE274A:B")
+    submit(app)
+    assert not app.exception
+    selection = app.session_state["result"].trace["source_refresh"]["discovery_selection"]
+    assert selection["skipped_completed_codes"] == ["ECE201", "ECE220", "ECE274A"]
+    assert any("Discovery slots skip courses recorded as completed" in caption.value for caption in app.caption)
+    app.run()
+    assert calls == ["embedded"]
+
+
 def test_ai_abstention_does_not_show_success_or_recommendations(app,monkeypatch,fake_provider):
     from src.models import ExplanationSelection
     fake_provider.generate=lambda _:ExplanationSelection(status="insufficient_evidence",clarification_code="more_details")
@@ -524,13 +565,13 @@ def test_discovered_sources_reach_collection_picker_and_trace(app, monkeypatch, 
     from src.discovery import load_discovery_plans
     from src.models import Record
     from src.sources import refresh_catalog
-    from test_discovery import client_for
+    from test_discovery import CS_ID, ECE_IDS, client_for
 
     plans = load_discovery_plans()
     new_courses = {identity: Record(record_id="fixture:" + code, kind="course", code=code,
         title="Discovered fixture " + code, summary="Fixture programming and hardware.", credits=3,
         source_ids=["fixture"], catalog_version="2026-2027")
-        for identity, code in zip(['7654321', '7654322', '7654323', '7654324'],
+        for identity, code in zip([*ECE_IDS, CS_ID],
                                   ['ECE175', 'ECE275', 'ECE274A', 'CSC110'])}
     seen = []
     def refresh(catalog, profile, **kwargs):
