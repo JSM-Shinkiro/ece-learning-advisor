@@ -183,6 +183,8 @@ def _read_json(client, url):
     started = time.monotonic()
     with client.stream("GET", url, headers={"Accept": "application/json", "User-Agent": "ECE-Learning-Advisor/0.3"},
                        timeout=TIMEOUT, follow_redirects=False) as response:
+        if time.monotonic() - started > 12:
+            raise ValueError("Employer response exceeds its request limit")
         if response.status_code != 200:
             raise OpportunityResponseError(response.status_code)
         if "application/json" not in response.headers.get("content-type", "").lower():
@@ -195,6 +197,8 @@ def _read_json(client, url):
             body.extend(chunk)
             if len(body) > MAX_JSON_BYTES or time.monotonic() - started > 12:
                 raise ValueError("Employer response exceeds its request limit")
+        if time.monotonic() - started > 12:
+            raise ValueError("Employer response exceeds its request limit")
         return json.loads(body)
 
 
@@ -274,6 +278,8 @@ def request_opportunities(state, career, location, internship, *, provider="gree
     from .jobs import search_jobs
     state.pop("job_result", None)
     state.pop("job_error", None)
+    state.pop("job_detail", None)
+    state.pop("job_detail_error", None)
     validate_filters(career, location, internship, updated_within, early_career)
     now = now or datetime.now(timezone.utc)
     if (now.tzinfo is None or not isinstance(provider, str) or provider not in {"greenhouse", "adzuna"} or type(reuse) is not bool

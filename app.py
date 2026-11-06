@@ -11,6 +11,7 @@ from src.controller import run_advisor
 from src.inspector import render_inspector
 from src.jobs import search_jobs
 from src.opportunities import load_employer_boards, request_opportunities, search_employer_jobs
+from src.opportunity_details import fetch_posting_detail, request_posting_detail
 from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions
@@ -54,6 +55,13 @@ def show_profile_error(exc):
     if isinstance(exc, ValidationError):
         return exc.errors()[0]["msg"].removeprefix("Value error, ")
     return str(exc)
+
+
+def check_selected_posting(posting_id):
+    try:
+        request_posting_detail(st.session_state, posting_id, fetcher=fetch_posting_detail)
+    except (ValueError, RuntimeError, OSError):
+        st.session_state["job_detail_error"] = posting_id
 
 
 def restore_uploaded_profile():
@@ -371,6 +379,36 @@ with opportunities:
                 if job.get("matched_terms"):
                     st.caption("Title matches: " + ", ".join(job["matched_terms"]))
                 st.link_button("View original opportunity",job["url"])
+                if provider == "greenhouse":
+                    st.button("Check posting details", key="job_detail_" + job["id"],
+                        on_click=check_selected_posting, args=(job["id"],))
+                    if st.session_state.get("job_detail_error") == job["id"]:
+                        st.warning("This posting could not be checked. Run a new search and try again.")
+                    detail = st.session_state.get("job_detail")
+                    if detail and detail.posting_id == job["id"]:
+                        if detail.status == "verified" and detail.posting:
+                            st.caption("Posting details checked: " + detail.checked_at.isoformat())
+                            if detail.changed_fields:
+                                st.info("Posting information changed since this search: " + ", ".join(detail.changed_fields)
+                                    + ". Search filters have not been rerun; review the checked posting below.")
+                            with st.expander("Checked posting description", expanded=True):
+                                st.text(detail.posting.title)
+                                st.text(detail.posting.employer + " · " + detail.posting.location)
+                                if detail.posting.posted_at:
+                                    st.caption("Checked posting's publication date: " + detail.posting.posted_at)
+                                if detail.posting.updated_at:
+                                    st.caption("Checked posting's provider update: " + detail.posting.updated_at)
+                                st.text(detail.posting.description)
+                                if detail.posting.truncated:
+                                    st.warning("This description is shortened. Open the original for the complete posting.")
+                                st.link_button("Open checked posting", detail.posting.url)
+                        else:
+                            messages = {"not_listed": "This posting was not found at the source. Run a new search or check the employer's careers page.",
+                                "unavailable": "This posting could not be reached. Its requirements have not been checked.",
+                                "invalid_response": "The returned posting could not be validated. Its requirements have not been checked."}
+                            st.warning(messages[detail.status])
+                            st.caption("Posting check attempted: " + detail.requested_at.isoformat()
+                                + (" · HTTP " + str(detail.http_status) if detail.http_status else ""))
         if jobs.checks:
             with st.expander("Opportunity source checks"):
                 st.dataframe(jobs.checks, hide_index=True)

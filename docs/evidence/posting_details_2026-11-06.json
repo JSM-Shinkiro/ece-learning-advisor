@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-11-06T05:12:52.116173+00:00",
+  "scope": "Explicit public posting-description checks, source identity, session freshness boundaries, and production runtime. Controlled failures are not live removal/rate-limit observations.",
+  "implementation_parent": "7203f49d9f3b2a59ba36941c45573b4ade04669a",
+  "implementation": {
+    "app.py": "6d2e3833484bd80fdca968402fcd83c278aa9422f47a42a5cd700e2a63cd08fe",
+    "src/opportunity_details.py": "723cd7f7a7ec098504d0bb32d6bc6486649685b4154e067bae779d0bf239d205",
+    "src/opportunities.py": "4991b43ef8227af7909dec8cfd3540f8f4b17438dd188726c488a16095b7e396",
+    "src/jobs.py": "42216bf5e86328ccab0ef15e75b4e30755d2456924094d27d655c69260692020",
+    "src/session.py": "a0775b3afdbc8737b5296ebd1e3abbd24d725f0010d3d0c79c8392d1f518b591",
+    "scripts/check_opportunities.py": "e1fb3ec6da52c23c6ccef120428328f3b790d6298200473b7dcd12c74750e499",
+    "tests/test_opportunity_details.py": "a468acfbcf8092fb0b8d435462679280d7a96a311f111ce66bb45a954edf1c50",
+    "tests/test_app.py": "9b6e7a59440ec29f52829869d3b26892dd07bf8a6b4a4826ac8547f5587731d4",
+    "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+  },
+  "automated_tests": {
+    "command": "python -m pytest -q",
+    "passed": 1049,
+    "seconds": 39.57,
+    "posting_detail_cases": 52,
+    "streamlit_interactions": 51,
+    "new_streamlit_cases": 5,
+    "full_suite_implementation": {
+      "app.py": "35cb9cecab271a3433a4275fe208b08dae27f2af400687430739b715b857a3db",
+      "src/opportunity_details.py": "723cd7f7a7ec098504d0bb32d6bc6486649685b4154e067bae779d0bf239d205",
+      "src/opportunities.py": "4991b43ef8227af7909dec8cfd3540f8f4b17438dd188726c488a16095b7e396",
+      "src/jobs.py": "42216bf5e86328ccab0ef15e75b4e30755d2456924094d27d655c69260692020",
+      "src/session.py": "a0775b3afdbc8737b5296ebd1e3abbd24d725f0010d3d0c79c8392d1f518b591",
+      "scripts/check_opportunities.py": "e1fb3ec6da52c23c6ccef120428328f3b790d6298200473b7dcd12c74750e499",
+      "tests/test_opportunity_details.py": "a468acfbcf8092fb0b8d435462679280d7a96a311f111ce66bb45a954edf1c50",
+      "tests/test_app.py": "156dcd5e76a96e60ee0350326aa6bd2a896f073f98f7cc7908cdfc77acb3771e",
+      "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+    },
+    "follow_up": {
+      "command": "python -m pytest -q tests/test_app.py",
+      "passed": 51,
+      "seconds": 20.11,
+      "reason": "Final checked-publication-date caption and corresponding UI assertion."
+    }
+  },
+  "runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Reviewed catalog and evidence validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T05:07:53.371615+00:00"
+  },
+  "live_observations": [
+    {
+      "scope": "Configured public employer boards and literal title/location filters; not an eligibility decision.",
+      "requested_at": "2026-11-06T05:07:03.322729+00:00",
+      "model_calls": 0,
+      "credentials_used": false,
+      "filters": {
+        "career": "embedded",
+        "location": "",
+        "internship": true,
+        "early_career": false,
+        "updated_within": null
+      },
+      "implementation": {
+        "src/opportunities.py": "4991b43ef8227af7909dec8cfd3540f8f4b17438dd188726c488a16095b7e396",
+        "src/opportunity_details.py": "723cd7f7a7ec098504d0bb32d6bc6486649685b4154e067bae779d0bf239d205",
+        "src/jobs.py": "42216bf5e86328ccab0ef15e75b4e30755d2456924094d27d655c69260692020",
+        "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+      },
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:andurilindustries:5268736007",
+            "title": "2027 Guidance, Navigation, & Control Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5268736007?gh_jid=5268736007",
+            "posted_at": "2026-10-19T19:37:17+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "control"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5265158007",
+            "title": "2027 Firmware Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5265158007?gh_jid=5265158007",
+            "posted_at": "2026-10-13T22:43:34+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "firmware"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5236565007",
+            "title": "Winter 2027 Electrical Engineer Co-op",
+            "employer": "Anduril Industries",
+            "location": "Costa Mesa, California, United States; Quincy, Massachusetts, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5236565007?gh_jid=5236565007",
+            "posted_at": "2026-09-15T17:29:50+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:andurilindustries:5148101007",
+            "title": "2027 Electrical Engineer Intern",
+            "employer": "Anduril Industries",
+            "location": "Atlanta, Georgia, United States; Boston, Massachusetts, United States; Broomfield, Colorado, United States; Colorado Springs, Colorado, United States; Costa Mesa, California, United States; Fort Collins, Colorado, United States; Irvine, California, United States; Reston, Virginia, United States; Seattle, Washington, United States",
+            "url": "https://boards.greenhouse.io/andurilindustries/jobs/5148101007?gh_jid=5148101007",
+            "posted_at": "2026-06-11T17:00:56+00:00",
+            "updated_at": "2026-11-02T21:27:19+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Anduril Industries",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8226602",
+            "title": "Firmware Engineer Co-Op",
+            "employer": "Samsara",
+            "location": "San Francisco - SF9",
+            "url": "https://www.samsara.com/company/careers/roles/8226602?gh_jid=8226602",
+            "posted_at": "2026-09-24T19:18:45+00:00",
+            "updated_at": "2026-10-30T15:47:12+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "firmware"
+            ]
+          },
+          {
+            "id": "greenhouse:samsara:8163118",
+            "title": "Electrical Engineering Co-Op",
+            "employer": "Samsara",
+            "location": "San Francisco - SF9",
+            "url": "https://www.samsara.com/company/careers/roles/8163118?gh_jid=8163118",
+            "posted_at": "2026-08-31T04:24:42+00:00",
+            "updated_at": "2026-10-30T15:44:46+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Samsara",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "matched_terms": [
+              "electrical"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-06T05:07:03.323790+00:00",
+        "query": "Embedded Systems",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 305,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.323790+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 94,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.323790+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "andurilindustries",
+            "employer": "Anduril Industries",
+            "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "status": "verified",
+            "valid_posts": 2592,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.323790+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 6,
+        "cache_state": "fresh",
+        "role_filter": "internship",
+        "source_scope_hash": "bd5e8e38ad9bd45a9c682a93e3b5d3aee076ab38499ae5b85631be300aaa6936"
+      },
+      "passed": true,
+      "detail": {
+        "posting_id": "greenhouse:andurilindustries:5268736007",
+        "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs/5268736007",
+        "requested_at": "2026-11-06T05:07:08.590501Z",
+        "checked_at": "2026-11-06T05:07:14.217107Z",
+        "status": "verified",
+        "http_status": 200,
+        "failure_kind": null,
+        "changed_fields": [],
+        "posting": {
+          "title": "2027 Guidance, Navigation, & Control Engineer Intern",
+          "employer": "Anduril Industries",
+          "location": "Costa Mesa, California, United States",
+          "url": "https://boards.greenhouse.io/andurilindustries/jobs/5268736007?gh_jid=5268736007",
+          "posted_at": "2026-10-19T19:37:17+00:00",
+          "updated_at": "2026-11-02T21:27:19+00:00",
+          "description_chars": 6017,
+          "description_sha256": "6cec4d2e89f24542ca04219517a030348b6f8b17931667cbce9d83c30fd6ebd9",
+          "truncated": false
+        }
+      },
+      "seconds": 10.893812002999766
+    },
+    {
+      "scope": "Configured public employer boards and literal title/location filters; not an eligibility decision.",
+      "requested_at": "2026-11-06T05:07:03.109947+00:00",
+      "model_calls": 0,
+      "credentials_used": false,
+      "filters": {
+        "career": "ai_ml",
+        "location": "",
+        "internship": false,
+        "early_career": true,
+        "updated_within": null
+      },
+      "implementation": {
+        "src/opportunities.py": "4991b43ef8227af7909dec8cfd3540f8f4b17438dd188726c488a16095b7e396",
+        "src/opportunity_details.py": "723cd7f7a7ec098504d0bb32d6bc6486649685b4154e067bae779d0bf239d205",
+        "src/jobs.py": "42216bf5e86328ccab0ef15e75b4e30755d2456924094d27d655c69260692020",
+        "data/connectors/employer_boards.json": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+      },
+      "result": {
+        "listings": [
+          {
+            "id": "greenhouse:nuro:7351066",
+            "title": "Software Engineer, AI Platform - New Grad",
+            "employer": "Nuro",
+            "location": "Mountain View, California (HQ)",
+            "url": "https://nuro.ai/careersitem?gh_jid=7351066",
+            "posted_at": "2025-10-22T23:06:45+00:00",
+            "updated_at": "2026-10-26T17:54:47+00:00",
+            "description_snippet": "",
+            "source": "Greenhouse / Nuro",
+            "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "matched_terms": [
+              "ai"
+            ]
+          }
+        ],
+        "retrieved_at": "2026-11-06T05:07:03.110267+00:00",
+        "query": "AI / Machine Learning",
+        "location": "All listed locations",
+        "provider": "greenhouse",
+        "checks": [
+          {
+            "board": "samsara",
+            "employer": "Samsara",
+            "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+            "status": "verified",
+            "valid_posts": 305,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.110267+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "nuro",
+            "employer": "Nuro",
+            "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+            "status": "verified",
+            "valid_posts": 94,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.110267+00:00",
+            "http_status": 200
+          },
+          {
+            "board": "andurilindustries",
+            "employer": "Anduril Industries",
+            "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+            "status": "verified",
+            "valid_posts": 2592,
+            "rejected_posts": 0,
+            "checked_at": "2026-11-06T05:07:03.110267+00:00",
+            "http_status": 200
+          }
+        ],
+        "issues": [],
+        "total_matches": 1,
+        "cache_state": "fresh",
+        "role_filter": "early_career",
+        "source_scope_hash": "bd5e8e38ad9bd45a9c682a93e3b5d3aee076ab38499ae5b85631be300aaa6936"
+      },
+      "passed": true,
+      "detail": {
+        "posting_id": "greenhouse:nuro:7351066",
+        "source_url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs/7351066",
+        "requested_at": "2026-11-06T05:07:08.997922Z",
+        "checked_at": "2026-11-06T05:07:13.799488Z",
+        "status": "verified",
+        "http_status": 200,
+        "failure_kind": null,
+        "changed_fields": [],
+        "posting": {
+          "title": "Software Engineer, AI Platform - New Grad",
+          "employer": "Nuro",
+          "location": "Mountain View, California (HQ)",
+          "url": "https://nuro.ai/careersitem?gh_jid=7351066",
+          "posted_at": "2025-10-22T23:06:45+00:00",
+          "updated_at": "2026-10-26T17:54:47+00:00",
+          "description_chars": 4603,
+          "description_sha256": "c219b1010cc06913431ac2f682f5c0542b28283888e7247ed3f2a6b9b768df9f",
+          "truncated": false
+        }
+      },
+      "seconds": 10.691024939000272
+    }
+  ],
+  "all_live_checks_passed": true,
+  "model_calls": 0,
+  "credentials_used": false,
+  "preserved_inputs": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "limitations": [
+    "Two live descriptions (Anduril and Nuro); Samsara details verified with controlled responses only.",
+    "HTTP success and exact source identity do not establish qualification fit or future availability.",
+    "No source descriptions, applicant data, credentials, or raw exception bodies saved in this evidence.",
+    "No independent student judgments, wider employer coverage, Adzuna integration check, public hosting, or database schedule added."
+  ]
+}

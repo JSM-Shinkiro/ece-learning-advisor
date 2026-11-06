@@ -191,6 +191,75 @@ def test_unsubmitted_role_change_keeps_the_displayed_result_filter_label(app, mo
     assert not any("Results title filter: New grad / entry-level" in c.value for c in app.caption)
 
 
+def test_posting_details_require_an_explicit_action_and_rerenders_keep_the_original_check_time(app, monkeypatch):
+    from test_opportunity_details import checked
+    calls = []
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
+    def fetch(job, **kwargs): calls.append(job["id"]); return checked()
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", fetch)
+    submit_opportunities(app)
+    assert calls == []
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    assert not app.exception and calls == ["greenhouse:samsara:12"]
+    assert any("Review degree requirements" in item.value for item in app.text)
+    assert any("Checked posting's publication date:" in item.value for item in app.caption)
+    first = app.session_state["job_detail"].checked_at
+    app.run()
+    assert calls == ["greenhouse:samsara:12"] and app.session_state["job_detail"].checked_at == first
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    assert len(calls) == 2 and not app.exception
+    app.checkbox(key="reuse_opportunities").set_value(True)
+    submit_opportunities(app)
+    assert "job_detail" not in app.session_state
+    assert not any("Review degree requirements" in item.value for item in app.text)
+
+
+@pytest.mark.parametrize("status,phrase", [(404, "not found at the source"), (429, "could not be reached")])
+def test_failed_posting_recheck_removes_old_description_and_shows_a_dated_failure(app, monkeypatch, status, phrase):
+    import httpx
+    from test_opportunity_details import checked
+    outcomes = iter([checked(), checked(httpx.Response(status))])
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", lambda *a, **k: next(outcomes))
+    submit_opportunities(app)
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    assert not app.exception and any(phrase in item.value for item in app.warning)
+    assert any("Posting check attempted:" in item.value for item in app.caption)
+    assert not any("Review degree requirements" in item.value for item in app.text)
+
+
+def test_changed_posting_title_is_displayed_with_a_search_snapshot_warning(app, monkeypatch):
+    from test_opportunity_details import checked
+    from test_opportunities import post
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", lambda *a, **k:
+        checked({**post(), "title": "Senior Firmware Engineer", "content": "Updated requirements"}))
+    submit_opportunities(app)
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    assert not app.exception and any("Senior Firmware Engineer" == item.value for item in app.text)
+    assert any("Search filters have not been rerun" in item.value for item in app.info)
+    submit(app)
+    assert "job_detail" not in app.session_state
+
+
+def test_selecting_a_second_posting_shows_only_its_checked_description(app, monkeypatch):
+    from test_opportunity_details import checked, selected
+    from test_opportunities import post
+    jobs = opportunity_fixture()
+    jobs.listings.append(selected(identity=13))
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: jobs)
+    def fetch(job, **kwargs):
+        identity = int(job["id"].split(":")[-1])
+        return checked({**post(identity=identity), "content": "Description " + str(identity)}, job=job)
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", fetch)
+    submit_opportunities(app)
+    app.button(key="job_detail_greenhouse:samsara:12").click().run()
+    app.button(key="job_detail_greenhouse:samsara:13").click().run()
+    assert not app.exception and any(item.value == "Description 13" for item in app.text)
+    assert not any(item.value == "Description 12" for item in app.text)
+
+
 def test_partial_opportunity_source_issue_is_shown_with_usable_listings(app, monkeypatch):
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture(issues=["Nuro: this board could not be checked; its listings are omitted."]))
     submit_opportunities(app)

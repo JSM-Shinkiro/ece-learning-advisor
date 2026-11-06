@@ -23,6 +23,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [ECE core coverage](29_ECE_CORE_COVERAGE.md) | Six new course identities, core/track sections, bound preparation stages, completed-candidate filtering, and source observations |
 | [Source recovery](30_SOURCE_RECOVERY.md) | One retry for selected transient failures, shared guards, attempt diagnostics, freshness protection, and live recovery observations |
 | [Student opportunities](31_STUDENT_OPPORTUNITIES.md) | Third employer, early-career/internship title choices, board/policy cache identity, and dated source checks |
+| [Posting details](32_POSTING_DETAILS.md) | Explicit source-bound description checks, separate freshness, metadata changes, failure handling, and live verification |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |
