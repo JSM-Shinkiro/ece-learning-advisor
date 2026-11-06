@@ -1,0 +1,956 @@
+{
+  "version": "runtime-2026-11-06-v1",
+  "baseline_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "catalog_version": "2026-2027",
+  "sources": [
+    {
+      "retrieved_at": "2026-11-06T17:59:18.692742Z",
+      "source_id": "catalog:CSC110",
+      "title": "CSC110 — Introduction to Computer Programming I",
+      "url": "https://catalog.arizona.edu/courses/0393681",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "f5758dec2274633710b5c4994621f2a167c78d38b01f0fa1b6ebe0cb6effbe58"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:18.129831Z",
+      "source_id": "catalog:CSC144",
+      "title": "CSC144 — Discrete Mathematics for Computer Science I",
+      "url": "https://catalog.arizona.edu/courses/0420001",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "0b93e5b4c49890195cc90a238e2087f7625fb0b490b51fbea43de3291640fac4"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:18.343903Z",
+      "source_id": "catalog:CSC210",
+      "title": "CSC210 — Software Development",
+      "url": "https://catalog.arizona.edu/courses/0393711",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "3fe9a69cec490279a8181a2ee8c940cf0bd64cfe14ddb5671ead12fbe2a351cb"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:24.075135Z",
+      "source_id": "catalog:ECE201",
+      "title": "ECE201 — Programming 2",
+      "url": "https://catalog.arizona.edu/courses/0432591",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "fe294ef174e6231a194e8b74c2c9bdcf55e7d1d56c69d655aa25a6594cff8d0b"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:24.072438Z",
+      "source_id": "catalog:ECE220",
+      "title": "ECE220 — Basic Circuits",
+      "url": "https://catalog.arizona.edu/courses/0120881",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "da4ae2a9e28728bd9cf370f8454fb7734ed14769c0dc29d0c873be5cf69b85d7"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:23.927280Z",
+      "source_id": "catalog:ECE274A",
+      "title": "ECE274A — Digital Logic",
+      "url": "https://catalog.arizona.edu/courses/0360981",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "ab7311a3b5a29e41fcd681d4a19ac9658e9155e7f4b9dd0d06811257111daa74"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:29.708836Z",
+      "source_id": "catalog:ECE310",
+      "title": "ECE310 — Applications of Engineering Mathematics",
+      "url": "https://catalog.arizona.edu/courses/0362401",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "37d89dd629320ff915282de28a331bb5625d4345d704d891a86780bb83a0b31e"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:29.771042Z",
+      "source_id": "catalog:ECE311",
+      "title": "ECE311 — Engineering Ethics and Contemporary Issues",
+      "url": "https://catalog.arizona.edu/courses/0397381",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "6073c9412cf723bfcfb0cc2f4717f9d701f04d3638730ed1122c107ac9d76acb"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:29.880125Z",
+      "source_id": "catalog:ECE320A",
+      "title": "ECE320A — Circuit Theory",
+      "url": "https://catalog.arizona.edu/courses/0121101",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "64932d5da5ebeb99d63d6be84cec0ccda16c88d0ad14efd6f72df3f63293266c"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:34.985632Z",
+      "source_id": "catalog:ECE340A",
+      "title": "ECE340A — Introduction to Communications",
+      "url": "https://catalog.arizona.edu/courses/0377871",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "f9450195ae2a196488fd1429f1b0997f53d1de26becfe86698e45769ad1c0212"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:34.413377Z",
+      "source_id": "catalog:ECE351C",
+      "title": "ECE351C — Electronic Circuits",
+      "url": "https://catalog.arizona.edu/courses/0366011",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "9e65fe990a788c36a549a4185efe595077b91963d47ef73ad796b312e57419b0"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:59:34.913497Z",
+      "source_id": "catalog:ECE373",
+      "title": "ECE373 — Object-Oriented Software Design",
+      "url": "https://catalog.arizona.edu/courses/0121261",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "c9226a7460f1e88d470d2680b11a08f6683e32aff497439dbc6f288d7c234ede"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:55:04.056600Z",
+      "source_id": "catalog:ECE_program",
+      "title": "Electrical and Computer Engineering BSECE — foundation, core, and computer-engineering course links",
+      "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+      "catalog_version": "2026-2027",
+      "section": "Reviewed course links in R17348/L320, R15612/L10, R15487/L10",
+      "review_note": "Official program sections establish these course links. They do not establish enrollment eligibility; team preparation labels remain separate."
+    },
+    {
+      "retrieved_at": "2026-11-06T17:55:03.324334Z",
+      "source_id": "resource:python",
+      "title": "The Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "section": "Introduction",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "71cf036e80a7e3bdb53ea3297513bc75740f3c143b3a192ebd0771d3b668696d"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:55:07.123770Z",
+      "source_id": "resource:numpy",
+      "title": "NumPy quickstart",
+      "url": "https://numpy.org/doc/stable/user/quickstart.html",
+      "section": "Prerequisites",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "b50e01e946986d834255d3414453ff727e9249d6f4471487619f6591488985e0"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:55:07.912673Z",
+      "source_id": "resource:sklearn",
+      "title": "scikit-learn Getting Started",
+      "url": "https://scikit-learn.org/stable/getting_started.html",
+      "section": "Introduction",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "74899433a93d4aa25ea486a24e07b70b4920355798325623716342aeb1e04762"
+    },
+    {
+      "retrieved_at": "2026-11-06T17:55:07.656760Z",
+      "source_id": "resource:pico",
+      "title": "Raspberry Pi Pico C/C++ SDK",
+      "url": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+      "section": "Raspberry Pi Pico C/C++ SDK",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "dcbb2a6d68ab1748f796e40494d468ca7ccdd8322acf60a1a7a610b73cf82f86"
+    }
+  ],
+  "records": [
+    {
+      "record_id": "uofa:CSC110:2026-2027",
+      "kind": "course",
+      "title": "Introduction to Computer Programming I",
+      "summary": "Programming fundamentals through problem solving, basic control and data structures, and development tools.",
+      "source_ids": [
+        "catalog:CSC110",
+        "catalog:CS_foundations"
+      ],
+      "code": "CSC110",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "rule": {
+        "type": "any_of",
+        "children": [
+          {
+            "type": "completed",
+            "course_code": "MATH112",
+            "minimum_grade": "C",
+            "evidence_ids": [
+              "uofa:CSC110:2026-2027:rule:R1299-L30"
+            ]
+          },
+          {
+            "type": "unknown",
+            "note": "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+            "evidence_ids": [
+              "uofa:CSC110:2026-2027:rule:R1299-L30"
+            ]
+          }
+        ]
+      },
+      "rule_reviewed": true,
+      "rule_evidence": [
+        {
+          "evidence_id": "uofa:CSC110:2026-2027:rule:R1299-L30",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC110",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L30",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. Appropriate math placement score or C or better in MATH 112 required prior to taking CSC 110. Only one course from CSC 110, ECE 101, ECE 175, and ISTA 130 may be used towards the program.",
+          "statement_hash": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c",
+          "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+          "reviewed_at": "2026-11-04T20:03:52.996567Z"
+        }
+      ],
+      "topics": [
+        "programming fundamentals",
+        "problem solving",
+        "control flow"
+      ],
+      "requirement_reference": "017080",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Use this as an introductory programming option; confirm program applicability and enrollment separately.",
+      "first_activity": "Write and test a small program that processes a list of measurements.",
+      "discovery": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L30"
+        ],
+        "course_id": "0393681",
+        "discovered_at": "2026-11-06T17:59:18.692742Z"
+      },
+      "field_sources": {
+        "title": "catalog:CSC110",
+        "summary": "catalog:CSC110",
+        "credits": "catalog:CSC110",
+        "requirement_reference": "catalog:CSC110"
+      }
+    },
+    {
+      "record_id": "uofa:CSC144:2026-2027",
+      "kind": "course",
+      "title": "Discrete Mathematics for Computer Science I",
+      "summary": "Introduces discrete mathematics for computing, including logical statements, proofs, sets, relations, matrices, functions, and modular arithmetic.",
+      "source_ids": [
+        "catalog:CSC144",
+        "catalog:CS_foundations"
+      ],
+      "code": "CSC144",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "rule": {
+        "type": "all_of",
+        "children": [
+          {
+            "type": "any_of",
+            "children": [
+              {
+                "type": "completed",
+                "course_code": "CSC110",
+                "minimum_grade": "C",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "ECE101",
+                "minimum_grade": "C",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "ECE175",
+                "minimum_grade": "C",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "ISTA130",
+                "minimum_grade": "C",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "any_of",
+            "children": [
+              {
+                "type": "unknown",
+                "note": "Appropriate math placement requires confirmation; this app does not verify placement scores.",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH112",
+                "minimum_grade": "C",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH113",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH116",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH120R",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH122A",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH122B",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              },
+              {
+                "type": "completed",
+                "course_code": "MATH125",
+                "evidence_ids": [
+                  "uofa:CSC144:2026-2027:rule:R1299-L50"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rule_reviewed": true,
+      "rule_evidence": [
+        {
+          "evidence_id": "uofa:CSC144:2026-2027:rule:R1299-L50",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC144",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L50",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. C or higher in CSC 110 (or ECE 101 or ECE 175 or ISTA 130) and [appropriate math placement or (C or higher in MATH 112) or one course from MATH 113, 116, 120R, 122A, 122B, or 125], prior to taking CSC 144. Only one course from CSC 144, MATH 243 and MATH 323 may be used towards the program.",
+          "statement_hash": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac",
+          "rule_hash": "d4f516efae1a7bfd19eaf71a8df389ea53c6b0a9c97d59d2480924bc9506fa09",
+          "reviewed_at": "2026-11-04T21:27:52.872996Z"
+        }
+      ],
+      "topics": [
+        "discrete mathematics",
+        "logic",
+        "proofs",
+        "sets",
+        "modular arithmetic"
+      ],
+      "requirement_reference": "018647",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Practice discrete reasoning alongside programming; this annotation does not replace the reviewed mathematics and programming conditions.",
+      "first_activity": "Translate a simple program condition into a logical statement and check a truth table.",
+      "discovery": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L50"
+        ],
+        "course_id": "0420001",
+        "discovered_at": "2026-11-06T17:59:18.129831Z"
+      },
+      "field_sources": {
+        "title": "catalog:CSC144",
+        "summary": "catalog:CSC144",
+        "credits": "catalog:CSC144",
+        "requirement_reference": "catalog:CSC144"
+      }
+    },
+    {
+      "record_id": "uofa:CSC210:2026-2027",
+      "kind": "course",
+      "title": "Software Development",
+      "summary": "Developing larger software systems with modular design, patterns, documentation, unit tests, version control, build tools, debugging, and performance analysis.",
+      "source_ids": [
+        "catalog:CSC210",
+        "catalog:CS_foundations"
+      ],
+      "code": "CSC210",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "rule": {
+        "type": "completed",
+        "course_code": "CSC120",
+        "minimum_grade": "C",
+        "evidence_ids": [
+          "uofa:CSC210:2026-2027:rule:R1299-L70"
+        ]
+      },
+      "rule_reviewed": true,
+      "rule_evidence": [
+        {
+          "evidence_id": "uofa:CSC210:2026-2027:rule:R1299-L70",
+          "source_id": "catalog:CS_foundations",
+          "course_code": "CSC210",
+          "program_code": "COSCBS",
+          "section_id": "R1299/L70",
+          "catalog_version": "2026-2027",
+          "reviewed_text": "Complete 1 course. C or better is required in CSC 120 prior to taking CSC 210.",
+          "statement_hash": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be",
+          "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+          "reviewed_at": "2026-11-04T21:27:52.872996Z"
+        }
+      ],
+      "topics": [
+        "software development",
+        "unit testing",
+        "version control",
+        "design patterns"
+      ],
+      "requirement_reference": "017084",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Build on programming experience by organizing and testing a project with several modules.",
+      "first_activity": "Split a small program into modules and add a repeatable unit test.",
+      "discovery": {
+        "source_id": "catalog:CS_foundations",
+        "program_code": "COSCBS",
+        "section_ids": [
+          "R1299/L70"
+        ],
+        "course_id": "0393711",
+        "discovered_at": "2026-11-06T17:59:18.343903Z"
+      },
+      "field_sources": {
+        "title": "catalog:CSC210",
+        "summary": "catalog:CSC210",
+        "credits": "catalog:CSC210",
+        "requirement_reference": "catalog:CSC210"
+      }
+    },
+    {
+      "record_id": "uofa:ECE201:2026-2027",
+      "kind": "course",
+      "title": "Programming 2",
+      "summary": "C++ programming with classes and data abstraction, inheritance and polymorphism, exceptions, linked structures, and the complexity of searching, sorting, and traversal algorithms.",
+      "source_ids": [
+        "catalog:ECE201",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE201",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "C++",
+        "object oriented programming",
+        "data structures",
+        "algorithms"
+      ],
+      "requirement_reference": "019415",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Connect introductory programming to data structures and C++ abstractions; foundation is a preparation label, not first-course eligibility.",
+      "first_activity": "Implement a small stack class and test its empty and nonempty cases.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R17348/L320"
+        ],
+        "course_id": "0432591",
+        "discovered_at": "2026-11-06T17:59:24.075135Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE201",
+        "summary": "catalog:ECE201",
+        "credits": "catalog:ECE201",
+        "requirement_reference": "catalog:ECE201"
+      }
+    },
+    {
+      "record_id": "uofa:ECE220:2026-2027",
+      "kind": "course",
+      "title": "Basic Circuits",
+      "summary": "Circuit analysis with laboratory work, covering node and mesh methods, equivalent circuits, operational amplifiers, transient responses, sinusoidal signals, impedance, and simulation.",
+      "source_ids": [
+        "catalog:ECE220",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE220",
+      "credits": 5.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "circuits",
+        "phasors",
+        "impedance",
+        "transients",
+        "operational amplifiers"
+      ],
+      "requirement_reference": "016467",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Develop circuit-analysis skills before exploring more specialized electronics.",
+      "first_activity": "Solve a small resistor network with node equations and compare the result with a simulation.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R17348/L320"
+        ],
+        "course_id": "0120881",
+        "discovered_at": "2026-11-06T17:59:24.072438Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE220",
+        "summary": "catalog:ECE220",
+        "credits": "catalog:ECE220",
+        "requirement_reference": "catalog:ECE220"
+      }
+    },
+    {
+      "record_id": "uofa:ECE274A:2026-2027",
+      "kind": "course",
+      "title": "Digital Logic",
+      "summary": "Covers number representations, coding, combinational logic design, sequential systems, and register-transfer descriptions.",
+      "source_ids": [
+        "catalog:ECE274A",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE274A",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "digital logic",
+        "number systems",
+        "sequential systems",
+        "register transfer"
+      ],
+      "requirement_reference": "016468",
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Use logic design to connect programming ideas with digital hardware.",
+      "first_activity": "Draw and check a truth table for a small combinational circuit.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R17348/L320"
+        ],
+        "course_id": "0360981",
+        "discovered_at": "2026-11-06T17:59:23.927280Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE274A",
+        "summary": "catalog:ECE274A",
+        "credits": "catalog:ECE274A",
+        "requirement_reference": "catalog:ECE274A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE310:2026-2027",
+      "kind": "course",
+      "title": "Applications of Engineering Mathematics",
+      "summary": "Engineering mathematics covering linear systems, vector spaces, eigenvalues, probability distributions, estimation, and confidence intervals, with MATLAB projects.",
+      "source_ids": [
+        "catalog:ECE310",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE310",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "linear algebra",
+        "probability",
+        "statistics",
+        "MATLAB",
+        "eigenvalues"
+      ],
+      "requirement_reference": "016491",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Use mathematics exercises to support later work in signals, hardware, and machine learning.",
+      "first_activity": "Compute a matrix projection and summarize the mean and variance of a small dataset.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15612/L10"
+        ],
+        "course_id": "0362401",
+        "discovered_at": "2026-11-06T17:59:29.708836Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE310",
+        "summary": "catalog:ECE310",
+        "credits": "catalog:ECE310",
+        "requirement_reference": "catalog:ECE310"
+      }
+    },
+    {
+      "record_id": "uofa:ECE311:2026-2027",
+      "kind": "course",
+      "title": "Engineering Ethics and Contemporary Issues",
+      "summary": "Introduces professional engineering ethics and contemporary questions about the effects of technology and engineered systems on everyday life.",
+      "source_ids": [
+        "catalog:ECE311",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE311",
+      "credits": 1.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "engineering ethics",
+        "professional responsibility",
+        "technology and society"
+      ],
+      "requirement_reference": "017368",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Include ethical reasoning when discussing a technical design. The unresolved requirement reference remains separate from descriptive prerequisite wording.",
+      "first_activity": "Compare two design choices by identifying stakeholders, possible harms, and tradeoffs.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15612/L10"
+        ],
+        "course_id": "0397381",
+        "discovered_at": "2026-11-06T17:59:29.771042Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE311",
+        "summary": "catalog:ECE311",
+        "credits": "catalog:ECE311",
+        "requirement_reference": "catalog:ECE311"
+      }
+    },
+    {
+      "record_id": "uofa:ECE320A:2026-2027",
+      "kind": "course",
+      "title": "Circuit Theory",
+      "summary": "Analyzes circuits using frequency-domain techniques, Laplace and Fourier methods, convolution, power systems, transformed networks, poles and zeros, and two-port parameters.",
+      "source_ids": [
+        "catalog:ECE320A",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE320A",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "circuit theory",
+        "Laplace",
+        "Fourier",
+        "convolution",
+        "power",
+        "frequency domain"
+      ],
+      "requirement_reference": "016492",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Connect time-domain circuit behavior with transforms and frequency responses.",
+      "first_activity": "Sketch the poles and frequency response of a simple RC circuit.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15612/L10"
+        ],
+        "course_id": "0121101",
+        "discovered_at": "2026-11-06T17:59:29.880125Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE320A",
+        "summary": "catalog:ECE320A",
+        "credits": "catalog:ECE320A",
+        "requirement_reference": "catalog:ECE320A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE340A:2026-2027",
+      "kind": "course",
+      "title": "Introduction to Communications",
+      "summary": "Communication-system analysis and design using Fourier methods, filtering and spectra, analog and digital modulation, quantization, line coding, and transmitter/receiver concepts.",
+      "source_ids": [
+        "catalog:ECE340A",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE340A",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "communications",
+        "modulation",
+        "signal processing",
+        "Fourier",
+        "filtering"
+      ],
+      "requirement_reference": "016474",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Explore how signal representations and modulation choices affect a communication link.",
+      "first_activity": "Compare a message signal with a simple amplitude-modulated waveform.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15612/L10"
+        ],
+        "course_id": "0377871",
+        "discovered_at": "2026-11-06T17:59:34.985632Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE340A",
+        "summary": "catalog:ECE340A",
+        "credits": "catalog:ECE340A",
+        "requirement_reference": "catalog:ECE340A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE351C:2026-2027",
+      "kind": "course",
+      "title": "Electronic Circuits",
+      "summary": "Studies diodes, bipolar and MOS transistors, operational amplifiers, small-signal amplifier models, digital circuit elements, and circuit simulation.",
+      "source_ids": [
+        "catalog:ECE351C",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE351C",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "electronic circuits",
+        "diodes",
+        "transistors",
+        "MOS",
+        "amplifiers"
+      ],
+      "requirement_reference": "016474",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Move from linear circuit exercises toward device models and amplifier design.",
+      "first_activity": "Compare a transistor operating point with its small-signal approximation.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15612/L10"
+        ],
+        "course_id": "0366011",
+        "discovered_at": "2026-11-06T17:59:34.413377Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE351C",
+        "summary": "catalog:ECE351C",
+        "credits": "catalog:ECE351C",
+        "requirement_reference": "catalog:ECE351C"
+      }
+    },
+    {
+      "record_id": "uofa:ECE373:2026-2027",
+      "kind": "course",
+      "title": "Object-Oriented Software Design",
+      "summary": "Object-oriented design and implementation using classes, inheritance, polymorphism, abstract data types, design architectures, use cases, sequence diagrams, and UML.",
+      "source_ids": [
+        "catalog:ECE373",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE373",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "object oriented design",
+        "UML",
+        "polymorphism",
+        "software architecture"
+      ],
+      "requirement_reference": "016496",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Use software modeling to explain the structure of a larger implementation.",
+      "first_activity": "Draw a class diagram for a small device controller and implement one class.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15487/L10"
+        ],
+        "course_id": "0121261",
+        "discovered_at": "2026-11-06T17:59:34.913497Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE373",
+        "summary": "catalog:ECE373",
+        "credits": "catalog:ECE373",
+        "requirement_reference": "catalog:ECE373"
+      }
+    },
+    {
+      "record_id": "resource:python",
+      "kind": "resource",
+      "title": "The Python Tutorial",
+      "summary": "Official Python language tutorial covering core programming concepts, data structures, modules, and classes. It is written for readers with basic programming knowledge who are new to Python.",
+      "source_ids": [
+        "resource:python"
+      ],
+      "topics": [
+        "Python",
+        "programming",
+        "data structures",
+        "classes"
+      ],
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Practice Python after learning general programming basics; this tutorial expects some programming experience.",
+      "first_activity": "Run a short Python script that reads numbers into a list and computes a summary.",
+      "field_sources": {
+        "title": "resource:python",
+        "summary": "resource:python",
+        "resource_version": "resource:python"
+      },
+      "resource_version": "3.15.2"
+    },
+    {
+      "record_id": "resource:numpy",
+      "kind": "resource",
+      "title": "NumPy quickstart",
+      "summary": "Official NumPy quickstart for numerical arrays. Its introductory prerequisites call for some Python knowledge and matplotlib for the examples.",
+      "source_ids": [
+        "resource:numpy"
+      ],
+      "topics": [
+        "NumPy",
+        "numerical arrays",
+        "Python",
+        "matrices"
+      ],
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Use arrays to connect mathematical exercises with Python numerical code after basic Python practice.",
+      "first_activity": "Create a small array and compare element-wise multiplication with matrix multiplication.",
+      "field_sources": {
+        "title": "resource:numpy",
+        "summary": "resource:numpy",
+        "resource_version": "resource:numpy"
+      },
+      "resource_version": "2.5"
+    },
+    {
+      "record_id": "resource:sklearn",
+      "kind": "resource",
+      "title": "scikit-learn Getting Started",
+      "summary": "Official introduction to scikit-learn workflows for fitting models, preprocessing data, choosing models, and evaluating predictions. The guide assumes basic familiarity with machine-learning practice.",
+      "source_ids": [
+        "resource:sklearn"
+      ],
+      "topics": [
+        "scikit-learn",
+        "machine learning",
+        "model evaluation",
+        "preprocessing"
+      ],
+      "career_ids": [
+        "ai_ml"
+      ],
+      "learning_note": "Practice a simple measured learning workflow after studying basic machine-learning concepts.",
+      "first_activity": "Fit a small example classifier and explain why evaluation uses data separate from fitting.",
+      "field_sources": {
+        "title": "resource:sklearn",
+        "summary": "resource:sklearn",
+        "resource_version": "resource:sklearn"
+      },
+      "resource_version": "1.9.1"
+    },
+    {
+      "record_id": "resource:pico",
+      "kind": "resource",
+      "title": "Raspberry Pi Pico C/C++ SDK",
+      "summary": "Official Raspberry Pi Pico C/C++ SDK guide describing development tools, example projects, SDK documentation, and initial programs for a microcontroller board.",
+      "source_ids": [
+        "resource:pico"
+      ],
+      "topics": [
+        "Raspberry Pi Pico",
+        "C++",
+        "embedded systems",
+        "microcontrollers",
+        "SDK"
+      ],
+      "career_ids": [
+        "embedded"
+      ],
+      "learning_note": "Use a small microcontroller project to connect C/C++ programming with device behavior; hardware and toolchain setup are separate practical requirements.",
+      "first_activity": "Read the board-specific setup instructions and trace the supplied LED blink example before adapting it.",
+      "field_sources": {
+        "title": "resource:pico",
+        "summary": "resource:pico",
+        "resource_version": "resource:pico"
+      },
+      "resource_version": "unversioned documentation"
+    }
+  ]
+}

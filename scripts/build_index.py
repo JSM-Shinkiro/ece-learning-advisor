@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dotenv import load_dotenv
-from src.catalog import ROOT, build_evidence, load_catalog
+from src.catalog import ROOT, build_evidence, load_runtime_catalog
 from src.providers import EmbeddingCache, GeminiProvider
 
 
@@ -21,7 +21,7 @@ def main():
         dimensions=int(os.getenv("EMBEDDING_DIMENSION","768")),
     )
     try:
-        catalog = load_catalog()
+        catalog = load_runtime_catalog()
         vectors, state, manifest = EmbeddingCache(ROOT/".cache/embeddings").get(catalog,build_evidence(catalog),provider)
         print("Index:", vectors.shape, "cache:", state, "model:", manifest["model"])
     finally:

@@ -23,7 +23,9 @@ Add source adapters that resolve official program and course links, fetch the re
 
 Keep source URLs, parser rules, and trusted domains in configuration. Build the active evidence index in memory and use a rebuildable cache for fetched content and embeddings. A permanent academic or vector database is optional. Query a job provider separately when the student requests opportunities.
 
-The current app starts with bundled reviewed JSON, then checks relevant configured course/resource pages and explicitly bound prerequisite-source sections before retrieval. It overlays validated public fields in a request-local catalog and discovers additional course descriptions from configured foundation/core/track sections. Catalog-wide discovery remains planned. See [runtime checks](14_RUNTIME_SOURCES.md), [prerequisite evidence](15_PREREQUISITE_EVIDENCE.md), [bounded discovery](16_COURSE_DISCOVERY.md), and [resource checks](17_RESOURCE_SOURCES.md).
+The app loads the unchanged evaluation baseline plus `data/reviewed/runtime_extension.json`, giving 17 courses, six resources, two career mappings, and 29 evidence chunks. The extension is bound to the baseline corpus hash and cannot replace baseline identities or URLs. `load_catalog()` retains the frozen input; `load_runtime_catalog()` serves the app, index builder, and production preflight. Historical evaluation scripts retain their original inputs.
+
+Before retrieval, up to eight course pages, two program pages, and two resources are checked. Explicit codes and reviewed phrases prioritize saved-course checks even when the requested course is already in the collection. Reviewed-rule records then precede other courses; remaining ties favor unfinished records. A skipped course description cannot acquire verified academic status solely because its program statement was checked. Named resources share one preference policy between source checks and context selection. Public fields overlay a request-local catalog; omitted records remain dated snapshots. See [expanded runtime coverage](36_RUNTIME_CATALOG_EXPANSION.md). Catalog-wide discovery remains planned.
 
 ## Code organization
 
@@ -33,7 +35,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/settings.py | Validated runtime settings, protected credentials, and cache-root resolution |
 | src/deployment.py / scripts/check_deployment.py | Local configuration/dependency/data/cache checks and bounded server/offline-preview smoke test |
 | src/models.py | Validated data contracts |
-| src/catalog.py / src/ingest.py | Reviewed collection, evidence chunks, and source parsing |
+| src/catalog.py / src/ingest.py | Frozen baseline, additive runtime coverage, evidence chunks, and source parsing |
 | src/sources.py / src/rule_sources.py / src/source_http.py | Bounded course/rule checks, source caches, and shared HTTP limits |
 | src/discovery.py / data/connectors/course_discovery.json | Validated program-section configuration, course candidates, and provenance |
 | src/resource_sources.py | Resource identity, introductory excerpts, versions, bounded redirects, and caches |
@@ -59,7 +61,7 @@ Provider calls run only after explicit actions, behind service adapters. Scripts
 
 ## Data design
 
-The table describes the intended record design. The pilot schema is smaller. It has source dates/hashes, course summaries and credits, rules, team topic/stage annotations, profile background, evidence IDs, and cache manifests. Explicit rule provenance binds a source section and reviewed statement to an interpretation hash. Publication dates, costs, skill mapping reviews, and durable profile IDs need further work. CSC120 has a reviewed saved condition; runtime discovery can attach CSC110's bound math condition with unknown placement. The four ECE conditions stay unknown.
+The table describes the intended record design. The pilot schema is smaller. It has source dates/hashes, course summaries and credits, rules, team topic/stage annotations, profile background, evidence IDs, and cache manifests. Explicit rule provenance binds a source section and reviewed statement to an interpretation hash. Publication dates, costs, skill mapping reviews, and durable profile IDs need further work. The runtime collection includes the four reviewed CS conditions; placement alternatives remain unknown. All thirteen ECE conditions stay unknown.
 
 | Record | Main fields |
 | --- | --- |

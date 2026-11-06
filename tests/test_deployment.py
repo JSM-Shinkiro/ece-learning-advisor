@@ -51,7 +51,7 @@ def test_missing_dependency_is_a_structured_failure(tmp_path, monkeypatch):
 
 def test_corrupt_catalog_does_not_expose_raw_parser_diagnostics(tmp_path, monkeypatch):
     def fail(*a, **k): raise ValueError("private-parser-diagnostic")
-    monkeypatch.setattr("src.deployment.load_catalog", fail)
+    monkeypatch.setattr("src.deployment.load_runtime_catalog", fail)
     report = check_deployment(environ={"ECE_CACHE_DIR": str(tmp_path)})
     assert not report["passed"] and not checks(report)["catalog_and_connectors"]
     assert "private-parser-diagnostic" not in json.dumps(report)

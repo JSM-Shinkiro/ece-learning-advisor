@@ -71,8 +71,9 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 
 - Dark dashboard and student profile.
 - Three learning stages, a bridge course for each direction, and explanations of suggested learning connections.
-- Five source-linked courses and two online resources.
-- Up to three additional course descriptions discovered from configured official foundation sections on each submitted roadmap.
+- Seventeen source-linked courses and six official learning resources in the app, with a separate frozen collection for historical evaluation.
+- On-use checks prioritize requested course codes, reviewed topic phrases, and named resources within the existing download limits.
+- Up to three additional course descriptions can be discovered from configured official sections when they are absent from the loaded collection and download slots remain.
 - Explicit course codes and reviewed title/topic phrases get discovery priority within the verified source scope and existing download cap, with matched phrases and outcomes in the inspector.
 - Keyword, semantic, and hybrid retrieval.
 - Independent prerequisite evaluation with blocked courses kept as later goals.
@@ -83,7 +84,7 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - Official course checks on submitted roadmaps, with a rebuildable source cache and dated failure fallback.
 - Explicit prerequisite provenance and on-use revalidation for the reviewed CSC120 condition, with separate citation evidence.
 - Reviewed-rule attachment during discovery for CSC110, CSC144, and CSC210, with edition-bound coursework/grade conditions and unknown placement alternatives.
-- On-use checks of PyTorch Quickstart and CS50, with short source excerpts, published versions, and dated failure fallback.
+- On-use checks for PyTorch, CS50, Python, NumPy, scikit-learn, and the Pico C/C++ SDK guide, with source excerpts, version labels, and dated failure fallback.
 - Reuse of unchanged document vectors when another course changes.
 - Profile export/import, searchable coursework entry, and Mark completed actions.
 - Direction comparison for students who are still exploring.
@@ -119,25 +120,28 @@ The command saves its source checks under `.cache` and returns a failure status 
 
 Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
 
-The connector checks five configured course pages, the reviewed CSC120 program-requirement section, and bounded course links from six configured sections across two programs. It validates linked course IDs, subject scope, edition, and fixed units before adding a description. Fetched titles, summaries, units, and enrollment references retain their source IDs. Discovered courses keep unreviewed prerequisites unknown; only exact configured interpretations can acquire verified conditions.
+The app loads 17 courses and six resources by adding reviewed coverage to the unchanged five-course/two-resource evaluation baseline. The additional courses are CSC110, CSC144, CSC210, ECE201, ECE220, ECE274A, ECE310, ECE311, ECE320A, ECE340A, ECE351C, and ECE373. Title, summary, units, and enrollment references retain source IDs and catalog edition. All 13 ECE course conditions remain unknown; only the four exact reviewed CS interpretations can acquire verified conditions. See [expanded runtime coverage](docs/36_RUNTIME_CATALOG_EXPANSION.md).
+
+At most eight course pages, two program pages, and two resource pages are checked per submitted roadmap. Explicit course requests and reviewed phrases come first; saved courses with reviewed prerequisite evidence then take priority over other records. Remaining ties favor unfinished courses. Courses beyond the budget remain visibly dated snapshots. Six configured program sections remain available for bounded discovery; the current expanded collection already contains their configured course identities.
 
 [Bounded source recovery](docs/30_SOURCE_RECOVERY.md) allows one retry for selected transient public-source failures. Attempts share elapsed/size guards, and the inspector/CLI retain retry outcomes. Rate limits and invalid evidence are not retried; unsuccessful checks keep labeled dated fallbacks. Source limits count distinct checks, while a retry adds a bounded HTTP attempt.
 
 The CSC120 prerequisite statement is checked against its exact reviewed text, catalog edition, and structured interpretation. Changed, stale, unavailable, or unsupported prerequisite evidence makes the affected academic result unknown. The rule statement has its own source-linked evidence chunk and travels with the course description into the generator context.
 
-The two configured learning resources are also checked on relevant submissions. Their titles, introductory excerpts, and published versions come from validated resource pages. Resource versions remain separate from academic catalog years and do not establish university credit. Failed checks retain clearly dated valid caches or bundled snapshots; an unfetched new course has no placeholder recommendation. A changed enrollment requirement reference revokes the affected reviewed rule. Catalog-wide discovery remains planned. See [runtime source checks](docs/14_RUNTIME_SOURCES.md), [prerequisite evidence](docs/15_PREREQUISITE_EVIDENCE.md), [bounded discovery](docs/16_COURSE_DISCOVERY.md), and [resource checks](docs/17_RESOURCE_SOURCES.md) for limits and verification.
+Named resources are prioritized in both the two resource-check slots and the explanation context. Their titles, introductory excerpts, and published versions come from validated pages. Pico's page supplies no release version, so its label explicitly says `unversioned documentation`. Resource versions remain separate from academic catalog years and do not establish university credit. Failed checks retain dated caches or bundled snapshots; a changed enrollment reference revokes the affected reviewed rule. Catalog-wide discovery remains planned. Earlier [runtime checks](docs/14_RUNTIME_SOURCES.md), [prerequisite evidence](docs/15_PREREQUISITE_EVIDENCE.md), [bounded discovery](docs/16_COURSE_DISCOVERY.md), and [resource checks](docs/17_RESOURCE_SOURCES.md) retain their original measurements.
 
 `ECE_REFRESH_SOURCES=true` is the default. Set it to `false` for an explicit offline run; the app labels its sources as saved evidence. Public source checks do not require a Gemini key. Try:
 
 ```bash
 python scripts/check_sources.py --career exploring
+python scripts/check_sources.py --collection runtime --career ai_ml --question "CSC210 with NumPy and scikit-learn"
 ```
 
-The command saves a trace under `.cache` and exits unsuccessfully if a requested source or its bound prerequisite interpretation could not be verified. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
+The command defaults to the frozen baseline for reproducible historical checks; `--collection runtime` uses the app's expanded collection. It saves a trace under `.cache` and uses a strict exit: any unverified check, including an expected budget skip, returns failure. Inspect selected checks and skipped snapshots separately. It makes no embedding or generation calls. A permanent content database is still optional; if introduced, it must also refresh automatically on a configurable schedule.
 
-The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
+The frozen starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the 2026–2027 catalog. Its records and evaluation labels remain unchanged. The app and `scripts/build_index.py` now use the expanded runtime collection; historical provider/retrieval evaluation scripts continue to use the frozen baseline. Earlier quality measurements do not measure the expanded corpus.
 
-Live discovery can expand the request's collection by up to three courses within the shared eight-course download budget. The November 3 exploring-profile check added CSC110, ECE201, and ECE220. The [later CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md) adds CSC144 and CSC210 sections and reviewed conditions. [Requested-course priority](docs/25_REQUESTED_COURSE_DISCOVERY.md) now puts explicitly mentioned configured course codes first, in mention order. Remaining slots keep source order: AI/ML and exploring default to CSC110, CSC144, and CSC210; embedded requests try ECE foundation links first. For example, an AI/ML question about ECE201 can now reserve a slot for its verified program link. Career/source scope and download limits still apply. This is bounded coverage, not a complete catalog search. Finding a link does not approve a prerequisite, degree requirement, or semester assignment. Offline mode retains the bundled collection.
+Live discovery can expand a request's collection by up to three courses within the shared eight-course download budget. The November 3 exploring-profile check added CSC110, ECE201, and ECE220. The [CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md), [requested-course priority](docs/25_REQUESTED_COURSE_DISCOVERY.md), and [ECE core coverage](docs/29_ECE_CORE_COVERAGE.md) retain their dated scope. Those configured identities are now also available from reviewed runtime snapshots in offline mode. Career scope and download limits still apply. Finding a link does not approve a prerequisite, degree requirement, or semester assignment.
 
 The inspector shows whether a requested course was added, retained as dated cached content, already in the collection, limited by the budget, or unavailable from the selected sources. [Reviewed phrase routing](docs/26_COURSE_PHRASE_ROUTING.md) recognizes configured phrases such as “phasors,” “unit testing,” and “object-oriented programming.” Explicit codes come first; matched phrases then follow mention order. These are reviewed routing hints, not general natural-language understanding or academic evidence. To exercise this path without model calls:
 
@@ -150,7 +154,7 @@ python scripts/check_sources.py --career ai_ml --question "How can I learn phaso
 
 The command reports source checks and requested-course outcomes separately. A successful source-check exit does not establish that every mentioned course was found or that prerequisites are satisfied.
 
-The public course entries return internal enrollment requirement IDs. The starter collection's four unresolved ECE rules remain **unknown**. CSC120 has a reviewed condition in the saved collection. Runtime discovery can attach the reviewed CSC110, CSC144, and CSC210 conditions from matching program sections. The CSC144 condition combines an introductory programming alternative with a mathematics alternative; its placement branch remains unknown. CSC210 requires a confirmed CSC120 grade of C or higher. These checks preserve prior completion, minimum grades, and unknown evidence. Other discovered conditions remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md) and [the CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
+The public course entries return internal enrollment requirement IDs. All thirteen ECE conditions in the runtime collection remain **unknown**. The saved runtime records include the four exact reviewed CS interpretations; discovery can also attach those interpretations when starting from the smaller baseline. The CSC144 condition combines an introductory programming alternative with a mathematics alternative; its placement branch remains unknown. CSC210 requires a confirmed CSC120 grade of C or higher. These checks preserve prior completion, minimum grades, and unknown evidence. Other discovered conditions remain unreviewed. See [discovered-course conditions](docs/21_DISCOVERED_COURSE_RULES.md) and [the CS expansion](docs/24_CS_FOUNDATION_COVERAGE.md). Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
 
 Failed grades cannot be entered as successful completions. Missing prerequisite grades remain unknown. Learning-stage annotations are team suggestions and do not place courses into semesters.
 

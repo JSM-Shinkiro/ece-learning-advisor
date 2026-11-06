@@ -27,6 +27,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Opportunity paging](33_OPPORTUNITY_PAGING.md) | Bounded search snapshots, local page navigation, cache/detail transitions, CLI selection, and verification limits |
 | [Opportunity recovery](34_OPPORTUNITY_RECOVERY.md) | Shared HTML/JSON guards, bounded transient retries, safe attempt diagnostics, and current live paging verification |
 | [Review method comparison](35_REVIEW_METHOD_COMPARISON.md) | Packet-bound embedding snapshots, offline keyword/semantic/hybrid scoring, explicit creation opt-in, and evaluation limits |
+| [Expanded runtime coverage](36_RUNTIME_CATALOG_EXPANSION.md) | Seventeen courses, six resources, frozen baseline isolation, requested-source priority, and source-only integration checks |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

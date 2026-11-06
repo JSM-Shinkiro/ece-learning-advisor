@@ -6,16 +6,49 @@ import hashlib
 import json
 from pathlib import Path
 
-from .models import Catalog, Evidence
+from pydantic import Field
+
+from .models import Catalog, Evidence, Record, Source, StrictModel
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "data" / "reviewed" / "catalog.json"
+
+
+class RuntimeExtension(StrictModel):
+    version: str = Field(min_length=1, max_length=100)
+    baseline_corpus_hash: str = Field(pattern=r"^[a-f0-9]{64}$")
+    catalog_version: str
+    sources: list[Source] = Field(max_length=40)
+    records: list[Record] = Field(max_length=40)
 
 
 def load_catalog(path: Path = DEFAULT_CATALOG) -> Catalog:
     catalog = Catalog.model_validate_json(path.read_text(encoding="utf-8"))
     if any(r.review_status == "synthetic_fixture" for r in catalog.records):
         raise ValueError("Synthetic fixtures cannot be loaded as the live catalog")
+    return catalog
+
+
+def load_runtime_catalog(root: Path = ROOT) -> Catalog:
+    """Add reviewed runtime coverage without altering the frozen evaluation input."""
+    baseline = load_catalog(Path(root) / "data/reviewed/catalog.json")
+    extension = RuntimeExtension.model_validate_json(
+        (Path(root) / "data/reviewed/runtime_extension.json").read_text(encoding="utf-8"))
+    if (extension.catalog_version != baseline.catalog_version
+            or extension.baseline_corpus_hash != corpus_hash(baseline)):
+        raise ValueError("Runtime coverage does not match the frozen baseline")
+    if ({s.source_id for s in baseline.sources} & {s.source_id for s in extension.sources}
+            or {r.record_id for r in baseline.records} & {r.record_id for r in extension.records}
+            or {s.url for s in baseline.sources} & {s.url for s in extension.sources}):
+        raise ValueError("Runtime coverage must not replace baseline identities")
+    catalog = Catalog(version=baseline.version + "+" + extension.version,
+        catalog_version=baseline.catalog_version, sources=baseline.sources + extension.sources,
+        records=baseline.records + extension.records)
+    codes = [(r.code, r.catalog_version) for r in catalog.records if r.kind == "course"]
+    if (len(codes) != len(set(codes)) or len({s.url for s in catalog.sources}) != len(catalog.sources)
+            or any(r.review_status == "synthetic_fixture" for r in catalog.records)
+            or any(r.kind == "course" and r.catalog_version != catalog.catalog_version for r in catalog.records)):
+        raise ValueError("Runtime coverage has conflicting courses, editions, sources, or synthetic fixtures")
     return catalog
 
 

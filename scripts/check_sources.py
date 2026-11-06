@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.catalog import ROOT, load_catalog
+from src.catalog import ROOT, load_catalog, load_runtime_catalog
 from src.controller import run_advisor
 from src.models import StudentProfile
 
@@ -16,13 +16,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--career", choices=["ai_ml", "embedded", "exploring"], default="ai_ml")
     parser.add_argument("--catalog-year", default="2026-2027")
+    parser.add_argument("--collection", choices=["baseline", "runtime"], default="baseline",
+                        help="Baseline preserves historical checks; runtime checks the expanded app collection")
     parser.add_argument("--question", default="", help="Optional course question for discovery-priority checks (up to 1200 characters)")
     parser.add_argument("--cache-dir", type=Path, default=ROOT / ".cache" / "sources")
     parser.add_argument("--output", type=Path, default=ROOT / ".cache" / "source_check_trace.json")
     args = parser.parse_args()
     if len(args.question) > 1200:
         parser.error("Keep the question within 1200 characters")
-    result = run_advisor(load_catalog(), StudentProfile(career_id=args.career, catalog_version=args.catalog_year, question=args.question),
+    catalog = load_runtime_catalog() if args.collection == "runtime" else load_catalog()
+    result = run_advisor(catalog, StudentProfile(career_id=args.career, catalog_version=args.catalog_year, question=args.question),
                          refresh_sources=True, source_cache_dir=args.cache_dir)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result.trace, indent=2), encoding="utf-8")

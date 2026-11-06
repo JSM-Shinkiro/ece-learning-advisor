@@ -1,4 +1,4 @@
-"""Identity-checked introductions from the two configured learning resources."""
+"""Identity-checked introductions from configured official learning resources."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ import httpx
 from pydantic import AwareDatetime, Field, model_validator
 
 from .models import Source, SourceCheck, StrictModel
+from .planning import requested_resource_ids
 from .source_http import SourcePageError, SourceRequest, failure_kind, read_public_page
 
 MAX_RESOURCE_SOURCES = 2
@@ -25,6 +26,30 @@ MAX_RESOURCE_CACHE_BYTES = 30_000
 RESOURCE_URLS = {
     "resource:pytorch": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
     "resource:cs50": "https://cs50.harvard.edu/x/",
+    "resource:python": "https://docs.python.org/3/tutorial/index.html",
+    "resource:numpy": "https://numpy.org/doc/stable/user/quickstart.html",
+    "resource:sklearn": "https://scikit-learn.org/stable/getting_started.html",
+    "resource:pico": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+}
+
+@dataclass(frozen=True)
+class ResourceSpec:
+    title: str
+    heading: str
+    document_pattern: str
+    version_pattern: str
+    introduction_section: str | None = None
+
+
+RESOURCE_SPECS = {
+    "resource:python": ResourceSpec("The Python Tutorial", "The Python Tutorial",
+        r"The Python Tutorial\s*[—–-]\s*Python (\d+\.\d+\.\d+[A-Za-z0-9.+-]*) documentation", r"\d+\.\d+\.\d+[A-Za-z0-9.+-]*"),
+    "resource:numpy": ResourceSpec("NumPy quickstart", "NumPy quickstart",
+        r"NumPy quickstart\s*[—–-]\s*NumPy v(\d+\.\d+(?:\.\d+)?[A-Za-z0-9.+-]*) Manual", r"\d+\.\d+(?:\.\d+)?[A-Za-z0-9.+-]*", "Prerequisites"),
+    "resource:sklearn": ResourceSpec("scikit-learn Getting Started", "Getting Started",
+        r"Getting Started\s*[—–-]\s*scikit-learn (\d+\.\d+\.\d+[A-Za-z0-9.+-]*) documentation", r"\d+\.\d+\.\d+[A-Za-z0-9.+-]*"),
+    "resource:pico": ResourceSpec("Raspberry Pi Pico C/C++ SDK", "The C/C++ SDK",
+        r"The C/C\+\+ SDK - Raspberry Pi Documentation", r"unversioned documentation", "Raspberry Pi Pico C/C++ SDK"),
 }
 
 
@@ -41,7 +66,7 @@ def resource_url_matches(resource_id, url):
 
 
 class ResourceSnapshot(StrictModel):
-    resource_id: Literal["resource:pytorch", "resource:cs50"]
+    resource_id: Literal["resource:pytorch", "resource:cs50", "resource:python", "resource:numpy", "resource:sklearn", "resource:pico"]
     resolved_url: str
     title: str = Field(min_length=1, max_length=300)
     summary: str = Field(min_length=40, max_length=1500)
@@ -53,11 +78,14 @@ class ResourceSnapshot(StrictModel):
             raise ValueError("The resource snapshot has an unsupported URL")
         if self.resource_id == "resource:pytorch":
             valid = self.title == "PyTorch Quickstart" and re.fullmatch(r"\d+\.\d+\.\d+[A-Za-z0-9.+-]*", self.resource_version)
-        else:
+        elif self.resource_id == "resource:cs50":
             path_year = re.fullmatch(r"/x/(20\d{2})/", urlparse(self.resolved_url).path)
             valid = (self.title.replace("’", "'") == "CS50's Introduction to Computer Science"
                 and re.fullmatch(r"20\d{2}", self.resource_version)
                 and (path_year is None or path_year[1] == self.resource_version))
+        else:
+            spec = RESOURCE_SPECS[self.resource_id]
+            valid = self.title == spec.title and re.fullmatch(spec.version_pattern, self.resource_version)
         if not valid or not self.summary.strip():
             raise ValueError("The resource snapshot identity or version is invalid")
         return self
@@ -98,9 +126,16 @@ class _ResourcePage(HTMLParser):
         hidden = (parent["hidden"] or tag in {"script", "style", "noscript", "nav", "footer"}
             or "hidden" in attrs or attrs.get("aria-hidden", "").lower() == "true"
             or "display:none" in style or "visibility:hidden" in style)
-        blocked = parent["blocked"] or tag in {"aside", "pre"} or "admonition" in attrs.get("class", "").split()
-        root = (tag == "article" and "bd-article" in attrs.get("class", "").split()
-                if self.resource_id == "resource:pytorch" else tag == "main")
+        classes = attrs.get("class", "").split()
+        blocked = parent["blocked"] or tag in {"aside", "pre"} or any(c in classes for c in ("admonition", "edit-link"))
+        if self.resource_id == "resource:python":
+            root = tag == "div" and "body" in classes and attrs.get("role") == "main"
+        elif self.resource_id == "resource:pico":
+            root = tag == "section" and attrs.get("id") == "content" and attrs.get("role") == "main"
+        elif self.resource_id == "resource:cs50":
+            root = tag == "main"
+        else:
+            root = tag == "article" and "bd-article" in classes
         if root and not hidden:
             self.roots += 1
         context = {"tag": tag, "hidden": hidden, "blocked": blocked, "root": parent["root"] or root}
@@ -108,7 +143,8 @@ class _ResourcePage(HTMLParser):
             self.canonicals.append(attrs.get("href", ""))
         if tag not in self.VOID:
             self.stack.append(context)
-        if tag in {"title", "h1", "h2", "p"} and not hidden:
+        document_title = tag == "title" and any(node["tag"] == "head" for node in self.stack)
+        if (document_title or tag in {"h1", "h2", "p"}) and not hidden:
             if self.capture is not None:
                 raise ValueError("The resource content structure is ambiguous")
             if tag != "p" or context["root"] and not blocked:
@@ -134,6 +170,8 @@ class _ResourcePage(HTMLParser):
 
 
 def extract_resource(page, resource_id, resolved_url):
+    if not resource_url_matches(resource_id, resolved_url):
+        raise ValueError("The resource URL is unsupported")
     parser = _ResourcePage(resource_id)
     parser.feed(page)
     parser.close()
@@ -146,7 +184,7 @@ def extract_resource(page, resource_id, resolved_url):
     if resource_id == "resource:pytorch":
         match = re.fullmatch(r"Quickstart\s*[—–-]\s*PyTorch Tutorials (\d+\.\d+\.\d+[A-Za-z0-9.+-]*) documentation", titles[0])
         heading, title = "Quickstart", "PyTorch Quickstart"
-    else:
+    elif resource_id == "resource:cs50":
         match = re.fullmatch(r"CS50x (20\d{2})", titles[0])
         heading = "Welcome"
         titles2 = [text for tag, text, _ in parser.blocks if tag == "h2"
@@ -154,13 +192,25 @@ def extract_resource(page, resource_id, resolved_url):
         if len(titles2) != 1:
             raise ValueError("The CS50 course identity does not match")
         title = titles2[0]
+    else:
+        spec = RESOURCE_SPECS[resource_id]
+        match = re.fullmatch(spec.document_pattern, titles[0])
+        heading, title = spec.heading, spec.title
     if not match:
         raise ValueError("The resource document identity or edition is unsupported")
     starts = [index for index, (tag, text, body) in enumerate(parser.blocks) if body and tag == "h1" and text == heading]
     if len(starts) != 1:
         raise ValueError("The resource introduction is missing or ambiguous")
+    start = starts[0]
+    spec = RESOURCE_SPECS.get(resource_id)
+    if spec and spec.introduction_section:
+        sections = [index for index, (tag, text, body) in enumerate(parser.blocks)
+                    if index > start and body and tag == "h2" and text == spec.introduction_section]
+        if len(sections) != 1:
+            raise ValueError("The resource introductory section is missing or ambiguous")
+        start = sections[0]
     paragraphs = []
-    for tag, text, body in parser.blocks[starts[0] + 1:]:
+    for tag, text, body in parser.blocks[start + 1:]:
         if body and tag in {"h1", "h2"}:
             break
         if body and tag == "p" and len(text) >= 40 and not text.startswith(("Created On:", "Last Updated:", "Last Verified:")):
@@ -170,7 +220,7 @@ def extract_resource(page, resource_id, resolved_url):
             if len(paragraphs) == 2:
                 break
     return ResourceSnapshot(resource_id=resource_id, resolved_url=resolved_url, title=title,
-        summary=" ".join(paragraphs), resource_version=match[1])
+        summary=" ".join(paragraphs), resource_version="unversioned documentation" if resource_id == "resource:pico" else match[1])
 
 
 @dataclass
@@ -182,9 +232,13 @@ class ResourceJob:
 def prepare_resource_jobs(catalog, profile, now=None):
     sources = {s.source_id: s for s in catalog.sources}
     jobs, checks = [], []
-    for record in catalog.records:
-        if record.kind != "resource" or record.career_ids and profile.career_id != "exploring" and profile.career_id not in record.career_ids:
-            continue
+    records = [record for record in catalog.records if record.kind == "resource"
+        and (not record.career_ids or profile.career_id == "exploring" or profile.career_id in record.career_ids)]
+    # Whole phrases in the explicit question (or interests when no question)
+    # select checks before the stable default order. The cap remains two.
+    preferred = {rid: index for index, rid in enumerate(requested_resource_ids(catalog, profile))}
+    records.sort(key=lambda record: preferred.get(record.record_id, len(preferred)))
+    for record in records:
         source = sources[record.source_ids[0]]
         if (record.record_id not in RESOURCE_URLS or source.source_id != record.record_id
                 or not resource_url_matches(record.record_id, source.url)

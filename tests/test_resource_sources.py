@@ -16,6 +16,7 @@ from src.sources import refresh_catalog
 
 NOW = datetime(2026, 11, 4, 5, 30, tzinfo=timezone.utc)
 INTRO = "Fixture introduction describes programming practice and a short machine learning workflow."
+BASELINE_RESOURCES = ["resource:pytorch", "resource:cs50"]
 
 
 def resource_page(resource_id, *, intro=INTRO, version=None, document_title=None, heading=None,
@@ -64,7 +65,7 @@ def refresh(catalog, client, tmp_path, profile=None, now=NOW):
                            resource_checks=True, now=now)
 
 
-@pytest.mark.parametrize('rid', list(RESOURCE_URLS))
+@pytest.mark.parametrize('rid', BASELINE_RESOURCES)
 def test_resource_intro_has_independent_identity_and_version(rid):
     data = extract_resource(resource_page(rid), rid, RESOURCE_URLS[rid])
     assert data.summary == INTRO
@@ -73,7 +74,7 @@ def test_resource_intro_has_independent_identity_and_version(rid):
 
 
 @pytest.mark.parametrize('bad', ['document_title', 'heading', 'root', 'canonical', 'empty_intro', 'duplicate_root'])
-@pytest.mark.parametrize('rid', list(RESOURCE_URLS))
+@pytest.mark.parametrize('rid', BASELINE_RESOURCES)
 def test_wrong_identity_or_unsupported_layout_is_rejected(rid, bad):
     options = {'document_title': 'A different resource'} if bad == 'document_title' else (
         {'heading': 'Different resource'} if bad == 'heading' else {'root': False} if bad == 'root'

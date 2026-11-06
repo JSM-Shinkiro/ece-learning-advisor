@@ -9,6 +9,30 @@ from .query import catalog_vocabulary, interpret_query
 CAREER_NAMES = {"ai_ml": "AI / Machine Learning", "embedded": "Embedded Systems", "exploring": "Still exploring"}
 PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later goals"}
 BASIC_CODES = {"ECE101", "ECE175", "CSC110", "CSC120", "ISTA130"}
+RESOURCE_TERMS = {
+    "resource:pytorch": ("pytorch",), "resource:cs50": ("cs50",),
+    "resource:python": ("python tutorial", "python"),
+    "resource:numpy": ("numpy", "numerical arrays"),
+    "resource:sklearn": ("scikit learn", "sklearn"),
+    "resource:pico": ("raspberry pi pico", "pico", "c/c++ sdk"),
+}
+
+
+def requested_resource_ids(catalog, profile, *, question=None):
+    """Explicit, whole-phrase resource preferences shared by checking and context."""
+    def words(value):
+        return " " + " ".join(re.findall(r"[a-z0-9]+(?:\+\+)?", value.casefold())) + " "
+    value = profile.question if question is None else question
+    text = words(value if value.strip() else profile.interests)
+    positions = {}
+    for record in catalog.records:
+        if (record.kind != "resource" or record.career_ids and profile.career_id != "exploring"
+                and profile.career_id not in record.career_ids):
+            continue
+        matches = [text.find(words(term)) for term in RESOURCE_TERMS.get(record.record_id, ()) if words(term) in text]
+        if matches:
+            positions[record.record_id] = min(matches)
+    return sorted(positions, key=positions.get)
 
 
 def requested_record_ids(catalog, profile, codes):

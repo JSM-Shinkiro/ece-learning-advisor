@@ -6,7 +6,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from pydantic import ValidationError
 
-from src.catalog import ROOT, load_catalog
+from src.catalog import ROOT, load_runtime_catalog
 from src.controller import run_advisor
 from src.inspector import render_inspector
 from src.jobs import search_jobs
@@ -36,7 +36,7 @@ h1 { letter-spacing: -.035em; }
 </style>
 """, unsafe_allow_html=True)
 
-base_catalog = load_catalog()
+base_catalog = load_runtime_catalog()
 catalog = getattr(st.session_state.get("result"), "catalog", None) or base_catalog
 records = {r.record_id:r for r in catalog.records}
 sources = {s.source_id:s for s in catalog.sources}
@@ -223,9 +223,8 @@ def direction_cards():
             st.markdown("**"+CAREER_NAMES[career]+"**")
             st.write("Neural networks, programming, and practical model building." if career=="ai_ml"
                      else "C programming, processor architecture, and connected devices.")
-            path = sorted([r for r in catalog.records if r.kind=="course" and career in r.career_ids],
-                          key=lambda r:{"foundation":0,"intermediate":1,"advanced":2}[r.study_stage])
-            st.caption("Learning connections: "+" → ".join(r.code for r in path))
+            example_codes = ["ECE101", "CSC120", "ECE425"] if career == "ai_ml" else ["ECE101", "ECE369A", "ECE372A"]
+            st.caption("Example learning connection: "+" → ".join(code for code in example_codes if code in course_lookup))
             st.button("Explore "+CAREER_NAMES[career],key="choose_"+career,width="stretch",
                       on_click=choose_direction,args=(st.session_state,career))
 

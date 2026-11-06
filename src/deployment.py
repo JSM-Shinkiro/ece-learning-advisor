@@ -13,11 +13,11 @@ import time
 
 import httpx
 
-from .catalog import ROOT, build_evidence, load_catalog
+from .catalog import ROOT, build_evidence, load_runtime_catalog
 from .discovery import load_discovery_plans
 from .models import StudentProfile
 from .opportunities import load_employer_boards
-from .resource_sources import prepare_resource_jobs
+from .resource_sources import MAX_RESOURCE_SOURCES, RESOURCE_URLS, prepare_resource_jobs, resource_url_matches
 from .settings import ConfigurationError, load_settings
 
 
@@ -150,12 +150,18 @@ def check_deployment(*, root=ROOT, environ=None, smoke=False):
     except (OSError, ValueError, metadata.PackageNotFoundError):
         result("dependencies", False, "Install the pinned production requirements.")
     try:
-        catalog = load_catalog(root / "data/reviewed/catalog.json")
-        result("catalog", bool(build_evidence(catalog)), "Reviewed catalog and evidence validated.")
+        catalog = load_runtime_catalog(root)
+        result("catalog", bool(build_evidence(catalog)), "Expanded runtime catalog and frozen baseline validated.")
         plans = load_discovery_plans(root / "data/connectors/course_discovery.json")
         boards = load_employer_boards(root / "data/connectors/employer_boards.json")
         resources, skipped = prepare_resource_jobs(catalog, StudentProfile(career_id="exploring"))
-        result("connectors", bool(plans and boards and len(resources) == 2 and not skipped),
+        source_map = {source.source_id: source for source in catalog.sources}
+        resource_records = [record for record in catalog.records if record.kind == "resource"]
+        result("connectors", bool(plans and boards and len(resources) == min(MAX_RESOURCE_SOURCES, len(resource_records))
+            and all(check.status == "skipped" for check in skipped)
+            and all(record.record_id in RESOURCE_URLS and record.source_ids[0] == record.record_id
+                    and resource_url_matches(record.record_id, source_map[record.source_ids[0]].url)
+                    for record in resource_records)),
                "Connector configuration validated without network requests.")
     except (OSError, ValueError, TypeError, KeyError):
         result("catalog_and_connectors", False, "Reviewed data or connector configuration could not be validated.")

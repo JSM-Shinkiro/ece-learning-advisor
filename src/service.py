@@ -12,7 +12,8 @@ import numpy as np
 from .catalog import build_evidence, code_lookup, corpus_hash
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import EmbeddingCache, ProviderError
-from .planning import coverage_message, learning_phase, needs_programming_foundations, requested_record_ids
+from .planning import (coverage_message, learning_phase, needs_programming_foundations,
+                       requested_record_ids, requested_resource_ids)
 from .retrieval import Hit, Retriever, tokenize
 from .rules import dependency_codes, evaluate_course
 from .grounding import ANSWER_CONTRACT, GroundingError, build_statements, materialize_answer, validate_wording
@@ -109,6 +110,10 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     beginner = needs_programming_foundations(profile)
     if beginner:
         foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
+        # Preserve the ECE introduction as the default starting point when the
+        # larger catalog adds alternative foundation courses. An explicit
+        # question can still choose another foundation.
+        foundations.sort(key=lambda rid: (rid not in focused_record_ids, records[rid].code != "ECE101"))
         bridges=[rid for rid in courses if records[rid].study_stage=="intermediate"]
         goals=[rid for rid in courses if records[rid].study_stage=="advanced"]
         courses=(foundations[:1]+bridges[:1]+goals[:1])[:3]
@@ -125,6 +130,9 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             goals.extend(matches[:1])
         focused = [rid for rid in courses if rid in focused_record_ids]
         courses=list(dict.fromkeys(foundations[:1]+focused[:1]+goals+courses))[:3]
+    # Keep explicit resource choices aligned with the two on-use check slots.
+    # Learning-stage labels and credit/equivalency boundaries still apply.
+    resources = list(dict.fromkeys(requested_resource_ids(catalog, profile, question=question) + resources))
     selected = courses[:3] + resources[:2]
     career_ids = [
         r.record_id for r in catalog.records
@@ -276,7 +284,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "corpus_hash": corpus_hash(catalog),
         "prompt_version": context.prompt_version,
         "query_interpretation": interpretation.trace(),
-        "focused_record_ids": focused, "discovery_query_terms": discovery_terms,
+        "focused_record_ids": focused, "requested_resource_ids": requested_resource_ids(catalog, profile, question=question),
+        "discovery_query_terms": discovery_terms,
         "retrieval_mode": mode,
         "embedding_model": getattr(provider, "embedding_model", None),
         "generation_model": getattr(provider, "generation_model", None),
