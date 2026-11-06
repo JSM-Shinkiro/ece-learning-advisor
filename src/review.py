@@ -24,6 +24,7 @@ from .query import QUERY_POLICY_VERSION, interpret_query
 from .retrieval import Retriever
 
 MAX_REVIEW_BYTES = 2_000_000
+MAX_VECTOR_BYTES = 24_000_000
 Identity = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$")]
 Fingerprint = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
 Grade = Annotated[int, Field(strict=True, ge=0, le=3)]
@@ -169,7 +170,7 @@ def validate_review(form, packet):
     return form
 
 
-def load_review_json(path):
+def load_review_json(path, *, max_bytes=MAX_REVIEW_BYTES):
     """Reject duplicate JSON keys instead of silently discarding judgments."""
     def unique_keys(pairs):
         result = {}
@@ -179,31 +180,52 @@ def load_review_json(path):
             result[key] = value
         return result
 
+    if type(max_bytes) is not int or not 1 <= max_bytes <= MAX_VECTOR_BYTES:
+        raise ValueError("Invalid review input size limit")
     with Path(path).open("rb") as handle:
-        raw = handle.read(MAX_REVIEW_BYTES + 1)
-    if len(raw) > MAX_REVIEW_BYTES:
+        raw = handle.read(max_bytes + 1)
+    if len(raw) > max_bytes:
         raise ValueError("Review file exceeds the size limit")
     return json.loads(raw.decode("utf-8"), object_pairs_hook=unique_keys)
 
 
-def score_review(catalog, packet, form, *, k=5, query_mode="raw"):
-    packet = validate_packet(packet, catalog)
-    form = validate_review(form, packet)
-    if query_mode not in {"raw", "expanded"}:
+def review_queries(catalog, packet, query_mode):
+    if not isinstance(query_mode, str) or query_mode not in {"raw", "expanded"}:
         raise ValueError("Choose raw or expanded query evaluation")
-    rank_metrics([], form.cases[0].relevance, k=k)
-    retriever = Retriever(build_evidence(catalog))
-    judgments = {case.case_id: case for case in form.cases}
     rows = []
     for question in packet.questions:
-        case = judgments[question.case_id]
         interpretation = interpret_query(question.query, catalog) if query_mode == "expanded" else None
-        query = interpretation.expand(question.query) if interpretation else question.query
-        hits = retriever.search(query, method="keyword", limit=100)
+        rows.append({"case_id": question.case_id, "query": question.query,
+            "effective_query": interpretation.expand(question.query) if interpretation else question.query,
+            "query_interpretation": interpretation.trace() if interpretation else None})
+    return rows
+
+
+def score_review(catalog, packet, form, *, k=5, query_mode="raw", method="keyword", embeddings=None):
+    packet = validate_packet(packet, catalog)
+    form = validate_review(form, packet)
+    queries = review_queries(catalog, packet, query_mode)
+    rank_metrics([], form.cases[0].relevance, k=k)
+    if not isinstance(method, str) or method not in {"keyword", "semantic", "hybrid"} or (method == "keyword") != (embeddings is None):
+        raise ValueError("Semantic/hybrid scoring requires a bound embedding snapshot; keyword uses none")
+    vectors, query_vectors, embedding_info = None, {}, None
+    if embeddings is not None:
+        from .review_vectors import validate_vectors
+        snapshot = validate_vectors(embeddings, catalog, packet, query_mode)
+        vectors = snapshot.document_vectors
+        query_vectors = {q.case_id: q.vector for q in snapshot.questions}
+        embedding_info = snapshot.model_dump(mode="json", exclude={"document_vectors", "questions", "chunk_ids", "chunk_text_hashes"})
+    retriever = Retriever(build_evidence(catalog), vectors)
+    judgments = {case.case_id: case for case in form.cases}
+    rows = []
+    for query in queries:
+        case = judgments[query["case_id"]]
+        hits = retriever.search(query["effective_query"], method=method,
+            query_vector=query_vectors.get(case.case_id), limit=100)
         relevant = [key for key, grade in case.relevance.items() if grade >= 2]
-        rows.append({"case_id": case.case_id, "query": question.query, "effective_query": query,
-            "query_interpretation": interpretation.trace() if interpretation else None,
+        rows.append({**query,
             "ranked_chunk_ids": [h.chunk_id for h in hits], "scores": [h.score for h in hits],
+            "component_scores": [{"keyword": h.keyword_score, "cosine": h.cosine_score} for h in hits],
             "judgments": case.relevance, "review_note": case.note, "relevant_chunk_ids": relevant,
             "precision_ceiling": min(k, len(relevant)) / k,
             "metrics": rank_metrics([h.chunk_id for h in hits], case.relevance, k=k)})
@@ -214,8 +236,8 @@ def score_review(catalog, packet, form, *, k=5, query_mode="raw"):
         defined[metric] = len(values)
     implementation = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in (
         "src/review.py", "scripts/review_retrieval.py", "src/catalog.py", "src/evaluation.py",
-        "src/query.py", "src/retrieval.py", "src/models.py")}
-    return {"schema_version": 1, "created_at": datetime.now(timezone.utc).isoformat(),
+        "src/query.py", "src/retrieval.py", "src/models.py", "src/review_vectors.py", "src/providers.py")}
+    return {"schema_version": 2, "created_at": datetime.now(timezone.utc).isoformat(),
         "packet_id": packet.packet_id, "packet_hash": packet.packet_hash, "review_hash": fingerprint(form),
         "corpus_hash": packet.corpus_hash, "catalog_snapshot_hash": packet.catalog_snapshot_hash,
         "source_suite_hash": packet.source_suite_hash, "question_origin": packet.question_origin,
@@ -223,9 +245,11 @@ def score_review(catalog, packet, form, *, k=5, query_mode="raw"):
                      "reviewed_at": form.reviewed_at.isoformat()},
         "limitations": "Reviewer identity, independence, and question provenance are not authenticated. "
             "Reused development questions are not held out; custom questions have unverified provenance. "
-            "Controlled fixture labels verify tooling only. This measures keyword retrieval on the supplied "
+            "Controlled fixture labels verify tooling only. Vector provenance and model identity are not authenticated. "
+            "This measures retrieval on the supplied "
             "snapshot, not answer accuracy, enrollment eligibility, source freshness, or live discovery.",
-        "method": "keyword", "cutoff": k, "query_mode": query_mode, "runtime_query_policy": QUERY_POLICY_VERSION,
+        "method": method, "cutoff": k, "query_mode": query_mode, "runtime_query_policy": QUERY_POLICY_VERSION,
+        "embedding_snapshot": embedding_info,
         "metric_conventions": {"unit": "evidence chunk", "binary_relevance_minimum": 2,
             "precision_denominator": "fixed cutoff", "ndcg_gain": "linear grade / log2(rank + 1)",
             "aggregation": "equal query weights; undefined values excluded with counts"},

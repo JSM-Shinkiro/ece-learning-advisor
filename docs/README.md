@@ -26,6 +26,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Posting details](32_POSTING_DETAILS.md) | Explicit source-bound description checks, separate freshness, metadata changes, failure handling, and live verification |
 | [Opportunity paging](33_OPPORTUNITY_PAGING.md) | Bounded search snapshots, local page navigation, cache/detail transitions, CLI selection, and verification limits |
 | [Opportunity recovery](34_OPPORTUNITY_RECOVERY.md) | Shared HTML/JSON guards, bounded transient retries, safe attempt diagnostics, and current live paging verification |
+| [Review method comparison](35_REVIEW_METHOD_COMPARISON.md) | Packet-bound embedding snapshots, offline keyword/semantic/hybrid scoring, explicit creation opt-in, and evaluation limits |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

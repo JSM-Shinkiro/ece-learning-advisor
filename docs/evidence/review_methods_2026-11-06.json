@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-11-06T07:58:13.558855+00:00",
+  "client_date": "2026-11-06",
+  "client_timezone": "America/Phoenix",
+  "scope": "All-method scoring of separately supplied judgments using packet-bound vector snapshots. Controlled vectors/labels verify tooling, not new quality or independent review.",
+  "implementation_parent": "bfc4f52054cc41e1c81e390a73df987a87895cf8",
+  "implementation": {
+    "src/review.py": "993971dbeab0f8205cec8314492472d592614417de87d5e865cb0bdeb57fdd8c",
+    "src/review_vectors.py": "f0199e4f2c15b17576c7e0ca6960cd74626df87f32711261ab4f022737fc8e60",
+    "scripts/review_retrieval.py": "495705d7e360896620e718c6ab54e32b3166fc8f9a69564118e41a57394f0439",
+    "tests/test_review_vectors.py": "c0542f60c35f0bbb975020e3ec9513a309558d195434932e7eaf8c244e9781bb",
+    "src/providers.py": "7de5e48828854b30a18672b9d0e4243f698a97d6bee2db707635d4f5dd063fb8",
+    "src/catalog.py": "9b251c47689ec368c28c4c917830b6d3930a0507eaf133c8001e17ff41637813",
+    "src/evaluation.py": "8a5323eb422681c980c92d63f9841e5235e3bb24b15242409ce409df778f0aad",
+    "src/query.py": "08c2b51b144ae5f9dbb9e6b3a6f59e0d48f47ea82ba4de45c1aa3b1887663ef9",
+    "src/retrieval.py": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006",
+    "src/models.py": "c1c57cfc0dcf7385f93373048a1914600716611be4914fc72b26ab69fd9e6e33"
+  },
+  "automated_tests": {
+    "command": "python -m pytest -q",
+    "passed": 1183,
+    "seconds": 50.38,
+    "new_vector_review_cases": 47,
+    "existing_reviewer_workflow_cases": 59,
+    "streamlit_interactions": 61
+  },
+  "runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Reviewed catalog and evidence validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T07:51:09.130875+00:00"
+  },
+  "production_roundtrip": {
+    "verified_at": "2026-11-06T07:52:26.072501+00:00",
+    "scope": "Production-only controlled adapter and existing assistant-authored labels; no live provider or independent reviewer result.",
+    "passed": true,
+    "pytest_installed": false,
+    "counts": {
+      "documents": 10,
+      "queries": 32,
+      "generation": 0,
+      "provider_initializations": 2,
+      "closed": 2,
+      "network_attempts": 0
+    },
+    "snapshots": [
+      {
+        "query_mode": "raw",
+        "snapshot_hash": "6fd4983d2422ca744f2a26e9d840a5bcdc5c6ddc9b8297c3fcef8264d02bbec3",
+        "document_embedding_calls": 10,
+        "query_embedding_calls": 16,
+        "cache_state": "miss",
+        "vector_provenance": "operator_supplied_unverified"
+      },
+      {
+        "query_mode": "expanded",
+        "snapshot_hash": "35f5f3a1a3cacf2d632b1fbb666f3dd0c3c223c0bbb331945548ade824aecc92",
+        "document_embedding_calls": 0,
+        "query_embedding_calls": 16,
+        "cache_state": "hit",
+        "vector_provenance": "operator_supplied_unverified"
+      }
+    ],
+    "reports": [
+      {
+        "method": "keyword",
+        "query_mode": "raw",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": null,
+        "scoring_embedding_calls": 0
+      },
+      {
+        "method": "semantic",
+        "query_mode": "raw",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": "6fd4983d2422ca744f2a26e9d840a5bcdc5c6ddc9b8297c3fcef8264d02bbec3",
+        "scoring_embedding_calls": 0
+      },
+      {
+        "method": "hybrid",
+        "query_mode": "raw",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": "6fd4983d2422ca744f2a26e9d840a5bcdc5c6ddc9b8297c3fcef8264d02bbec3",
+        "scoring_embedding_calls": 0
+      },
+      {
+        "method": "keyword",
+        "query_mode": "expanded",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": null,
+        "scoring_embedding_calls": 0
+      },
+      {
+        "method": "semantic",
+        "query_mode": "expanded",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": "35f5f3a1a3cacf2d632b1fbb666f3dd0c3c223c0bbb331945548ade824aecc92",
+        "scoring_embedding_calls": 0
+      },
+      {
+        "method": "hybrid",
+        "query_mode": "expanded",
+        "cases": 16,
+        "review_hash": "287373f530430ca4361c37a47f4f6e45f8cbbc571fea2c5a5aeb30c9cde0bf74",
+        "packet_hash": "1c48469d9466ee812b080afee5a8ba3ae84428ca9442564a9ddbe2adfbc475d2",
+        "self_reported_role": "controlled_fixture",
+        "schema_version": 2,
+        "embedding_snapshot_hash": "35f5f3a1a3cacf2d632b1fbb666f3dd0c3c223c0bbb331945548ade824aecc92",
+        "scoring_embedding_calls": 0
+      }
+    ],
+    "commands": [
+      {
+        "command": "prepare",
+        "exit_code": 0
+      },
+      {
+        "command": "embed",
+        "exit_code": 2
+      },
+      {
+        "command": "embed",
+        "exit_code": 0
+      },
+      {
+        "command": "embed",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 0
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      },
+      {
+        "command": "score",
+        "exit_code": 2
+      }
+    ],
+    "root": "/workspace/scratch/ae2ce8d90b1d/tmp/review_vectors_roundtrip_20261106T075225",
+    "live_provider_calls": 0,
+    "source_requests": 0,
+    "new_human_judgments": 0,
+    "embedding_opt_in_enforced": true,
+    "blank_review_rejected": true,
+    "existing_reports_preserved": true
+  },
+  "live_provider_calls": 0,
+  "source_requests": 0,
+  "generation_calls": 0,
+  "real_credentials_used": false,
+  "new_human_judgments": 0,
+  "preserved_inputs": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "keyword_controls": {
+    "origin": "Unchanged assistant-authored development labels; controlled verification only.",
+    "raw_recall_at_5": 0.8229166666666666,
+    "expanded_recall_at_5": 0.9479166666666666
+  },
+  "limitations": [
+    "No actual independent judgments, new held-out question set, or retrieval-quality improvement measured.",
+    "Real Gemini snapshot creation was not rerun; controlled adapters test creation/cleanup and the unchanged provider adapter is reused.",
+    "Vector fingerprints bind inputs but do not authenticate provider/model identity or vector origin.",
+    "Keep vector files/reports separate from the unscored material supplied to reviewers.",
+    "No application UI, academic-rule, database, or public-hosting changes made."
+  ]
+}

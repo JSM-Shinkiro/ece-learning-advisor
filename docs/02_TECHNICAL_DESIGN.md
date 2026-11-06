@@ -52,6 +52,7 @@ The current app starts with bundled reviewed JSON, then checks relevant configur
 | src/opportunities.py / data/connectors/employer_boards.json | Bounded public employer-board requests, validated postings, local filters, and explicit session reuse |
 | src/opportunity_pages.py | Validated local pages of one dated search snapshot, preserving source dates and the original cache |
 | src/source_http.py | Shared HTML/JSON GET recovery, phase/elapsed/download guards, and sanitized attempt records |
+| src/review.py / src/review_vectors.py | Separate judgments, exact snapshot/vector binding, and offline scoring across all three retrieval methods |
 | scripts/check_opportunities.py | Public-source observation report, with no credentials or model calls |
 
 Provider calls run only after explicit actions, behind service adapters. Scripts build the index, refresh source candidates, and run smoke evaluation. Reviewed records and synthetic test fixtures are separate.
