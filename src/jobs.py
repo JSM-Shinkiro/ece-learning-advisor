@@ -10,6 +10,8 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 MAX_JOB_BYTES = 3_000_000
+OPPORTUNITY_PAGE_SIZE = 10
+MAX_SNAPSHOT_MATCHES = 200
 
 
 @dataclass
@@ -25,6 +27,8 @@ class JobSearchResult:
     cache_state: str = "fresh"
     role_filter: str = "all"
     source_scope_hash: str | None = None
+    snapshot_listings: list[dict] | None = field(default=None, repr=False)
+    page: int = 0
 
 
 def search_jobs(app_id: str, app_key: str, career: str, location: str,

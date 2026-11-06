@@ -18,15 +18,15 @@ import httpx
 from pydantic import Field, model_validator
 
 from .ingest import description_text
-from .jobs import JobSearchResult
+from .jobs import JobSearchResult, MAX_SNAPSHOT_MATCHES, OPPORTUNITY_PAGE_SIZE
 from .models import StrictModel
 
 DEFAULT_BOARDS = Path(__file__).resolve().parents[1] / "data/connectors/employer_boards.json"
-MAX_BOARDS, MAX_POSTS, MAX_RESULTS = 3, 4000, 10
+MAX_BOARDS, MAX_POSTS, MAX_RESULTS = 3, 4000, OPPORTUNITY_PAGE_SIZE
 MAX_JSON_BYTES = 3_000_000
 TIMEOUT = httpx.Timeout(6.0, connect=4.0, pool=4.0)
 CACHE_SECONDS = 1200
-OPPORTUNITY_POLICY_VERSION = "p07-opportunity-title-filters-v2"
+OPPORTUNITY_POLICY_VERSION = "p07-opportunity-pages-v3"
 CAREER_PATTERNS = {
     "ai_ml": r"\b(?:machine[ -]learning|deep[ -]learning|artificial intelligence|computer vision|perception|ML|AI|autonomy|autonomous)\b",
     "embedded": r"\b(?:embedded|firmware|microcontrollers?|FPGA|ASIC|RTL|hardware|electrical|controls?)\b",
@@ -269,7 +269,8 @@ def search_employer_jobs(career, location="", internship=False, *, updated_withi
     found.sort(key=lambda post: (post["updated_at"] or "", post["id"]), reverse=True)
     return JobSearchResult(found[:MAX_RESULTS], now.isoformat(), "AI / Machine Learning" if career == "ai_ml" else "Embedded Systems",
         location.strip() or "All listed locations", provider="greenhouse", checks=checks, issues=issues, total_matches=len(found),
-        role_filter="internship" if internship else "early_career" if early_career else "all", source_scope_hash=board_scope_hash(boards))
+        role_filter="internship" if internship else "early_career" if early_career else "all", source_scope_hash=board_scope_hash(boards),
+        snapshot_listings=found[:MAX_SNAPSHOT_MATCHES])
 
 
 def request_opportunities(state, career, location, internship, *, provider="greenhouse", updated_within=None,
@@ -280,6 +281,7 @@ def request_opportunities(state, career, location, internship, *, provider="gree
     state.pop("job_error", None)
     state.pop("job_detail", None)
     state.pop("job_detail_error", None)
+    state.pop("job_page_error", None)
     validate_filters(career, location, internship, updated_within, early_career)
     now = now or datetime.now(timezone.utc)
     if (now.tzinfo is None or not isinstance(provider, str) or provider not in {"greenhouse", "adzuna"} or type(reuse) is not bool
@@ -310,6 +312,11 @@ def request_opportunities(state, career, location, internship, *, provider="gree
         raise ValueError("Opportunity response does not match its selected source")
     if provider == "greenhouse" and result.source_scope_hash not in {None, scope}:
         raise ValueError("Opportunity response does not match its configured boards")
+    if result.snapshot_listings is not None:
+        from dataclasses import replace
+        from .opportunity_pages import page_info
+        page_info(result)
+        result = replace(result, listings=result.snapshot_listings[:MAX_RESULTS], page=0)
     if result.cache_state != "reused":
         state["jobs_cache"] = {"key": key, "created": now.timestamp(), "result": result}
     state["job_result"] = result

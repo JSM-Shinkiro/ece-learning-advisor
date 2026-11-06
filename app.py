@@ -12,6 +12,7 @@ from src.inspector import render_inspector
 from src.jobs import search_jobs
 from src.opportunities import load_employer_boards, request_opportunities, search_employer_jobs
 from src.opportunity_details import fetch_posting_detail, request_posting_detail
+from src.opportunity_pages import page_info, request_opportunity_page
 from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions
@@ -62,6 +63,13 @@ def check_selected_posting(posting_id):
         request_posting_detail(st.session_state, posting_id, fetcher=fetch_posting_detail)
     except (ValueError, RuntimeError, OSError):
         st.session_state["job_detail_error"] = posting_id
+
+
+def change_opportunity_page(page):
+    try:
+        request_opportunity_page(st.session_state, page)
+    except (ValueError, OSError):
+        st.session_state["job_page_error"] = "This saved search page could not be opened. Run a new search."
 
 
 def restore_uploaded_profile():
@@ -360,12 +368,27 @@ with opportunities:
         if provider == "greenhouse":
             st.caption("Results title filter: " + role_labels.get(jobs.role_filter, "All levels") + ".")
         st.caption("Reused recent results; sources were not checked again." if jobs.cache_state == "reused" else "Sources requested for this search.")
+        if st.session_state.get("job_page_error"):
+            st.warning(st.session_state["job_page_error"])
         for issue in jobs.issues:
             st.warning(issue)
         if not jobs.listings:
             st.info("No listings were returned for these filters.")
         elif jobs.total_matches is not None:
-            st.caption(f"Showing {len(jobs.listings)} of {jobs.total_matches} matching listings, sorted by last update.")
+            pagination = page_info(jobs)
+            if pagination:
+                st.caption(f"Showing {pagination.first}–{pagination.last} of {pagination.total_matches} matching listings, sorted by last update.")
+                if pagination.truncated:
+                    st.info(f"This search retains the first {pagination.retained} matches. Narrow the filters to find more specific results.")
+                if pagination.pages > 1:
+                    st.caption(f"Page {pagination.number} of {pagination.pages} · Saved search results; paging does not check sources again.")
+                    previous, following = st.columns(2)
+                    previous.button("Previous listings", key="opportunity_previous", disabled=jobs.page == 0,
+                        on_click=change_opportunity_page, args=(jobs.page - 1,))
+                    following.button("Next listings", key="opportunity_next", disabled=pagination.number == pagination.pages,
+                        on_click=change_opportunity_page, args=(jobs.page + 1,))
+            else:
+                st.caption(f"Showing {len(jobs.listings)} of {jobs.total_matches} matching listings, sorted by last update.")
         for job in jobs.listings:
             with st.container(border=True):
                 st.text(job["title"])

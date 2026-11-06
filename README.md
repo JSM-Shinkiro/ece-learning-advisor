@@ -92,12 +92,15 @@ Source exploration is retrieval-only. It does not count as a completed live RAG 
 - On-demand employer-board opportunities with source checks, original links, separate posting/update dates, and title/location filters.
 - Fresh opportunity requests by default, with optional explicit reuse of matching results for 20 minutes.
 - On-demand posting descriptions with separate check times, source identity validation, change notices, and visible failures.
+- Ten opportunities per page, with up to 200 retained matches from the same dated search and no source requests while paging.
 
 ## Opportunities
 
 Open **Opportunities** and select **Available Opportunities** to check the configured Samsara, Nuro, and Anduril Industries employer boards. This public-source path needs no API key or language model. It matches AI/ML or embedded engineering terms in titles; it does not assess your qualifications. Leave the location filter blank for all listed locations, or enter text that must occur in the employer's location field. Choose all levels, internship/co-op, or explicit new-grad/entry-level title labels; the last-update filter is optional.
 
 Each search requests the sources unless you explicitly select recent-result reuse. Results show retrieval time and available provider dates. Source failures are visible; a failed search removes the previous visible results. Coverage is limited to the configured employers. A zero-match location search does not establish that the wider market has no jobs.
+
+Use **Next listings** and **Previous listings** to browse ten matches at a time. A search retains the first 200 matches in update order and shows the full matching count; narrow the filters if more matches were found. Paging uses the same dated search without checking sources again. A new search or explicit matching-result reuse starts on page one. See [opportunity paging](docs/33_OPPORTUNITY_PAGING.md).
 
 Select **Check posting details** on a result to request that posting's description. Each click checks the source again, separately from the search timestamp. Descriptions appear as plain text, with a notice if posting information changed or the text was shortened. A failed recheck removes the previous description. Review the employer's wording and original page for requirements; the app does not turn them into eligibility decisions. See [posting details](docs/32_POSTING_DETAILS.md).
 

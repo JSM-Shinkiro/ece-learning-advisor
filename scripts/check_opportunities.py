@@ -11,8 +11,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.catalog import ROOT
+from src.jobs import MAX_SNAPSHOT_MATCHES, OPPORTUNITY_PAGE_SIZE
 from src.opportunities import search_employer_jobs
 from src.opportunity_details import request_posting_detail
+from src.opportunity_pages import page_info, request_opportunity_page
 
 
 def main():
@@ -23,13 +25,16 @@ def main():
     roles.add_argument("--internship", action="store_true")
     roles.add_argument("--early-career", action="store_true")
     parser.add_argument("--updated-within", type=int, choices=[7, 30, 90])
+    parser.add_argument("--page", type=int, choices=range(1, (MAX_SNAPSHOT_MATCHES + OPPORTUNITY_PAGE_SIZE - 1) // OPPORTUNITY_PAGE_SIZE + 1),
+        default=1, help="Select a page from the returned snapshot; no additional board requests")
     parser.add_argument("--check-first-detail", action="store_true", help="Also check the first displayed posting; one additional public GET")
     parser.add_argument("--output", type=Path, default=ROOT / ".cache/opportunity_checks.json")
     args = parser.parse_args()
-    paths = ["src/opportunities.py", "src/opportunity_details.py", "src/jobs.py", "data/connectors/employer_boards.json"]
+    paths = ["src/opportunities.py", "src/opportunity_details.py", "src/opportunity_pages.py", "src/jobs.py", "data/connectors/employer_boards.json"]
     report = {"scope": "Configured public employer boards and literal title/location filters; not an eligibility decision.",
         "requested_at": datetime.now(timezone.utc).isoformat(),
         "model_calls": 0, "credentials_used": False,
+        "requested_page": args.page,
         "filters": {"career": args.career, "location": args.location, "internship": args.internship,
                     "early_career": args.early_career,
                     "updated_within": args.updated_within},
@@ -38,7 +43,12 @@ def main():
     try:
         result = search_employer_jobs(args.career, args.location, args.internship, updated_within=args.updated_within,
             early_career=args.early_career)
+        if args.page != 1:
+            result = request_opportunity_page({"job_result": result}, args.page - 1)
         report["result"] = asdict(result)
+        report["result"].pop("snapshot_listings", None)
+        info = page_info(result)
+        report["pagination"] = asdict(info) if info else None
         report["passed"] = not result.issues and all(c["status"] == "verified" for c in result.checks)
         if args.check_first_detail:
             if not result.listings:

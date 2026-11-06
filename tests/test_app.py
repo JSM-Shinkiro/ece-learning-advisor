@@ -139,6 +139,104 @@ def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch
     assert any("No listings were returned" in item.value for item in app.info)
 
 
+def test_opportunity_page_controls_browse_the_same_snapshot_without_network_or_unsubmitted_filters(app, monkeypatch):
+    import httpx
+    from test_opportunity_pages import paged_result
+    result, calls = paged_result(), []
+    def search(*a, **k): calls.append(1); return result
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    submit_opportunities(app)
+    assert not app.exception and app.button(key="opportunity_previous").disabled
+    assert any("Showing 1–10 of 23" in item.value for item in app.caption)
+    monkeypatch.setattr(httpx.Client, "send", lambda *a, **k: pytest.fail("Navigation must not fetch"))
+    app.selectbox(key="opportunity_role_titles").set_value("early_career")
+    app.button(key="opportunity_next").click().run()
+    assert not app.exception and app.session_state["job_result"].page == 1
+    assert any("Showing 11–20 of 23" in item.value for item in app.caption)
+    assert any("Results title filter: All levels" in item.value for item in app.caption)
+    assert not any("Results title filter: New grad" in item.value for item in app.caption)
+    assert app.session_state["job_result"].retrieved_at == result.retrieved_at
+    assert not any(item.value == result.listings[0]["title"] for item in app.text)
+    app.button(key="opportunity_next").click().run()
+    assert not app.exception and app.button(key="opportunity_next").disabled
+    assert any("Showing 21–23 of 23" in item.value for item in app.caption)
+    assert len(app.session_state["job_result"].listings) == 3
+    app.button(key="opportunity_previous").click().run()
+    app.run()
+    assert not app.exception and calls == [1] and app.session_state["job_result"].page == 1
+
+
+def test_page_changes_clear_checked_descriptions_and_later_page_detail_actions_still_work(app, monkeypatch):
+    from test_opportunity_pages import paged_result
+    from test_opportunity_details import checked
+    from test_opportunities import post
+    result, calls = paged_result(), []
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: result)
+    def fetch(job, **kwargs):
+        calls.append(job["id"])
+        return checked({**post(identity=int(job["id"].split(":")[-1])), "content": "Checked description " + job["id"]}, job=job)
+    monkeypatch.setattr("src.opportunity_details.fetch_posting_detail", fetch)
+    submit_opportunities(app)
+    first_id = result.listings[0]["id"]
+    app.button(key="job_detail_" + first_id).click().run()
+    app.button(key="opportunity_next").click().run()
+    assert not app.exception and "job_detail" not in app.session_state
+    assert not any("Checked description" in item.value for item in app.text)
+    selected_id = app.session_state["job_result"].listings[0]["id"]
+    app.button(key="job_detail_" + selected_id).click().run()
+    assert not app.exception and calls == [first_id, selected_id]
+    assert any(item.value == "Checked description " + selected_id for item in app.text)
+
+
+def test_fresh_search_and_explicit_result_reuse_both_restart_at_page_one(app, monkeypatch):
+    from test_opportunity_pages import paged_result
+    calls = []
+    def search(*a, **k): calls.append(1); return paged_result()
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
+    submit_opportunities(app)
+    app.button(key="opportunity_next").click().run()
+    app.checkbox(key="reuse_opportunities").set_value(True)
+    submit_opportunities(app)
+    assert not app.exception and calls == [1] and app.session_state["job_result"].page == 0
+    assert any("Reused recent results" in item.value for item in app.caption)
+    app.button(key="opportunity_next").click().run()
+    app.checkbox(key="reuse_opportunities").set_value(False)
+    submit_opportunities(app)
+    assert not app.exception and calls == [1, 1] and app.session_state["job_result"].page == 0
+
+
+@pytest.mark.parametrize("count", [0, 1, 10])
+def test_one_page_or_empty_opportunity_results_do_not_offer_navigation(app, monkeypatch, count):
+    from test_opportunity_pages import paged_result
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result(count))
+    submit_opportunities(app)
+    assert not app.exception
+    assert not any(b.key in {"opportunity_previous", "opportunity_next"} for b in app.button)
+
+
+def test_capped_snapshot_explains_that_additional_matches_need_narrower_filters(app, monkeypatch):
+    from test_opportunity_pages import paged_result
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result(201))
+    submit_opportunities(app)
+    assert not app.exception and any("retains the first 200 matches" in item.value for item in app.info)
+    assert any("Page 1 of 20" in item.value for item in app.caption)
+
+
+def test_rejected_navigation_is_visible_and_a_new_search_clears_the_page_error(app, monkeypatch):
+    from test_opportunity_pages import paged_result
+    from src.opportunities import load_employer_boards
+    monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result())
+    submit_opportunities(app)
+    boards = load_employer_boards()
+    boards[0].employer = "Changed configuration"
+    monkeypatch.setattr("src.opportunity_pages.load_employer_boards", lambda: boards)
+    app.button(key="opportunity_next").click().run()
+    assert not app.exception and app.session_state["job_result"].page == 0
+    assert any("saved search page could not be opened" in item.value for item in app.warning)
+    submit_opportunities(app)
+    assert not app.exception and "job_page_error" not in app.session_state
+
+
 def test_failed_opportunity_search_removes_previous_results(app, monkeypatch):
     failing = False
     def search(*args, **kwargs):
