@@ -40,7 +40,7 @@ Before retrieval, up to eight course pages, two program pages, and two resources
 | src/discovery.py / data/connectors/course_discovery.json | Validated program-section configuration, course candidates, and provenance |
 | src/resource_sources.py | Resource identity, introductory excerpts, versions, bounded redirects, and caches |
 | src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
-| src/review.py / scripts/review_retrieval.py | Unscored review packets, separate complete judgments, snapshot binding, and offline keyword metrics |
+| src/review.py / scripts/review_retrieval.py | Unscored review packets, archived catalog inputs, complete judgments, and offline all-method scoring |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
 | src/providers.py | Gemini calls, vectors, and versioned embedding cache |
 | src/query.py | Versioned whole-token domain aliases and bounded source-vocabulary query expansion |
@@ -60,6 +60,8 @@ Before retrieval, up to eight course pages, two program pages, and two resources
 Provider calls run only after explicit actions, behind service adapters. Scripts build the index, refresh source candidates, and run smoke evaluation. Reviewed records and synthetic test fixtures are separate.
 
 ## Data design
+
+Review preparation can select baseline, runtime, or an exported catalog. Default question provenance is bound to the original question bank independently of the selected evidence; prior grades are not transferred. Exports include a full catalog snapshot, and later scoring/embedding can use it after repository data changes. Exact source/evidence/rule/date fingerprints remain required. Packet/form/vector schemas remain 1; schema-2 reports add catalog counts and identity. See [expanded review inputs](38_EXPANDED_REVIEW_COLLECTIONS.md).
 
 The table describes the intended record design. The pilot schema is smaller. It has source dates/hashes, course summaries and credits, rules, team topic/stage annotations, profile background, evidence IDs, and cache manifests. Explicit rule provenance binds a source section and reviewed statement to an interpretation hash. Publication dates, costs, skill mapping reviews, and durable profile IDs need further work. The runtime collection includes the four reviewed CS conditions; placement alternatives remain unknown. All fifteen ECE conditions and CSC372 stay unknown.
 

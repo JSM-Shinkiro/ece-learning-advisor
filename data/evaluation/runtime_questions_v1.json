@@ -1,0 +1,14 @@
+[
+  {"case_id": "edge-hardware", "query": "I want to put small machine-learning models on hardware. What should I study first?"},
+  {"case_id": "software-quality", "query": "How can I learn to organize a bigger program and write unit tests?"},
+  {"case_id": "engineering-math", "query": "Which learning activities connect linear algebra and probability with engineering?"},
+  {"case_id": "device-physics", "query": "I want to understand semiconductor behavior and electronic devices."},
+  {"case_id": "fields-and-waves", "query": "Where can I study electric and magnetic fields and transmission lines?"},
+  {"case_id": "language-choices", "query": "I would like to compare programming languages and how they express the same task."},
+  {"case_id": "numerical-arrays", "query": "I already use Python and want to practice with numerical arrays."},
+  {"case_id": "model-evaluation", "query": "How should I practice preprocessing data and evaluating machine-learning predictions?"},
+  {"case_id": "microcontroller-project", "query": "I want a small C/C++ microcontroller project using a Pico board."},
+  {"case_id": "digital-systems-resource", "query": "What does MIT 6.004 cover, and what preparation does its syllabus assume?"},
+  {"case_id": "algorithms-resource", "query": "Can MIT 6.006 help me practice algorithms and analyze performance?"},
+  {"case_id": "enrollment-limits", "query": "Can this collection confirm my exact graduation semester and guarantee enrollment?"}
+]

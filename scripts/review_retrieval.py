@@ -8,8 +8,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.catalog import load_catalog
-from src.review import (MAX_VECTOR_BYTES, ReviewForm, ReviewPacket, blank_form, load_review_json, make_packet,
+from src.catalog import load_catalog, load_runtime_catalog
+from src.review import (MAX_VECTOR_BYTES, ReviewForm, ReviewPacket, blank_form, load_catalog_snapshot, load_review_json, make_packet,
                         packet_markdown, score_review)
 from src.review_vectors import ReviewVectors, make_vectors
 from src.providers import EmbeddingCache, GeminiProvider
@@ -36,11 +36,18 @@ def main():
     score.add_argument("--k", type=int, default=5)
     score.add_argument("--method", choices=["keyword", "semantic", "hybrid"], default="keyword")
     score.add_argument("--embeddings", type=Path, help="Required packet-bound snapshot for semantic/hybrid; keyword uses none")
+    for command in (prepare, embed, score):
+        selection = command.add_mutually_exclusive_group()
+        selection.add_argument("--collection", choices=["baseline", "runtime"],
+                               help="Saved collection to bind; defaults to the frozen baseline")
+        selection.add_argument("--catalog-snapshot", type=Path,
+                               help="Use an exported catalog_snapshot.json instead of the current repository collection")
     args = parser.parse_args()
     if args.command == "embed" and not args.live_embeddings:
         parser.error("Embedding creation requires the explicit --live-embeddings option; scoring remains offline.")
     try:
-        catalog = load_catalog()
+        catalog = (load_catalog_snapshot(args.catalog_snapshot) if args.catalog_snapshot else
+                   load_runtime_catalog() if args.collection == "runtime" else load_catalog())
         if args.command == "prepare":
             questions = load_review_json(args.questions) if args.questions else None
             if args.questions and not isinstance(questions, list):
@@ -48,11 +55,13 @@ def main():
             packet = make_packet(catalog, packet_id=args.packet_id, questions=questions, seed=args.seed)
             form = blank_form(packet)
             guide = packet_markdown(packet)
+            snapshot = catalog.model_dump_json(indent=2) + "\n"
             # Prepare all content before reserving a new destination.
             args.output.mkdir(parents=True, exist_ok=False)
             (args.output / "packet.json").write_text(packet.model_dump_json(indent=2) + "\n", encoding="utf-8")
             (args.output / "review_template.json").write_text(form.model_dump_json(indent=2) + "\n", encoding="utf-8")
             (args.output / "review_guide.md").write_text(guide, encoding="utf-8")
+            (args.output / "catalog_snapshot.json").write_text(snapshot, encoding="utf-8")
             print(f"Prepared {len(packet.questions)} questions and {len(packet.evidence)} evidence chunks; all grades are blank.")
         elif args.command == "embed":
             from dotenv import load_dotenv

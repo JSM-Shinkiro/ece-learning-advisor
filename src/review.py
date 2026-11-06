@@ -17,9 +17,9 @@ from typing import Annotated, Literal
 
 from pydantic import AwareDatetime, Field, model_validator
 
-from .catalog import ROOT, build_evidence, corpus_hash
+from .catalog import ROOT, build_evidence, corpus_hash, load_catalog
 from .evaluation import catalog_snapshot_hash, load_suite, rank_metrics, suite_hash
-from .models import Evidence, Source, StrictModel
+from .models import Catalog, Evidence, Source, StrictModel
 from .query import QUERY_POLICY_VERSION, interpret_query
 from .retrieval import Retriever
 
@@ -94,12 +94,17 @@ def packet_hash(packet):
     return fingerprint(data)
 
 
+def _development_questions():
+    # The frozen suite identifies only the reused question bank here. Its
+    # relevance grades do not transfer to a larger evidence collection.
+    suite = load_suite(load_catalog())
+    return [ReviewQuestion(case_id=c.case_id, query=c.query) for c in suite.retrieval_cases], suite_hash(suite)
+
+
 def make_packet(catalog, *, packet_id="p07-review-v1", questions=None, seed=7, now=None):
     source_hash = None
     if questions is None:
-        suite = load_suite(catalog)
-        questions = [ReviewQuestion(case_id=c.case_id, query=c.query) for c in suite.retrieval_cases]
-        source_hash = suite_hash(suite)
+        questions, source_hash = _development_questions()
     else:
         questions = [ReviewQuestion.model_validate(q) for q in questions]
     _question_identities(questions)
@@ -135,9 +140,9 @@ def validate_packet(packet, catalog):
         if len(question.candidate_ids) != len(ids) or set(question.candidate_ids) != ids:
             raise ValueError("Every review question needs every evidence chunk exactly once")
     if packet.question_origin == "existing_development_questions":
-        suite = load_suite(catalog)
-        expected_questions = [(c.case_id, c.query) for c in suite.retrieval_cases]
-        if packet.source_suite_hash != suite_hash(suite) or [(q.case_id, q.query) for q in packet.questions] != expected_questions:
+        originals, source_hash = _development_questions()
+        expected_questions = [(q.case_id, q.query) for q in originals]
+        if packet.source_suite_hash != source_hash or [(q.case_id, q.query) for q in packet.questions] != expected_questions:
             raise ValueError("Existing development questions must match their frozen suite")
     elif packet.source_suite_hash is not None:
         raise ValueError("Custom questions cannot claim a frozen-suite origin")
@@ -187,6 +192,14 @@ def load_review_json(path, *, max_bytes=MAX_REVIEW_BYTES):
     if len(raw) > max_bytes:
         raise ValueError("Review file exceeds the size limit")
     return json.loads(raw.decode("utf-8"), object_pairs_hook=unique_keys)
+
+
+def load_catalog_snapshot(path):
+    """Load a bounded, duplicate-key-checked saved catalog, without source calls."""
+    catalog = Catalog.model_validate(load_review_json(path))
+    if any(record.review_status == "synthetic_fixture" for record in catalog.records):
+        raise ValueError("Synthetic fixture catalogs cannot supply review evidence")
+    return catalog
 
 
 def review_queries(catalog, packet, query_mode):
@@ -240,6 +253,10 @@ def score_review(catalog, packet, form, *, k=5, query_mode="raw", method="keywor
     return {"schema_version": 2, "created_at": datetime.now(timezone.utc).isoformat(),
         "packet_id": packet.packet_id, "packet_hash": packet.packet_hash, "review_hash": fingerprint(form),
         "corpus_hash": packet.corpus_hash, "catalog_snapshot_hash": packet.catalog_snapshot_hash,
+        "catalog": {"data_version": catalog.version, "catalog_year": catalog.catalog_version,
+                    "records": len(catalog.records), "evidence_chunks": len(packet.evidence),
+                    "courses": sum(r.kind == "course" for r in catalog.records),
+                    "resources": sum(r.kind == "resource" for r in catalog.records)},
         "source_suite_hash": packet.source_suite_hash, "question_origin": packet.question_origin,
         "reviewer": {"alias": form.reviewer_id, "self_reported_role": form.reviewer_role,
                      "reviewed_at": form.reviewed_at.isoformat()},
@@ -264,7 +281,11 @@ def packet_markdown(packet):
     """A reading guide, separate from both grading and score reports."""
     sources = {s.source_id: s for s in packet.sources}
     lines = ["# Retrieval relevance review", "", f"Packet: `{packet.packet_id}`",
-        f"Packet fingerprint: `{packet.packet_hash}`", "",
+        f"Packet fingerprint: `{packet.packet_hash}`",
+        f"Corpus fingerprint: `{packet.corpus_hash}`",
+        f"Catalog snapshot fingerprint: `{packet.catalog_snapshot_hash}`",
+        f"Saved evidence: {len(packet.evidence)} chunks from {len(packet.sources)} sources.",
+        f"Review workload: {len(packet.questions)} questions × {len(packet.evidence)} chunks = {len(packet.questions) * len(packet.evidence)} grades.", "",
         "Read the saved evidence below, then fill review_template.json. Use an alias; no name or email is needed.",
         "Set reviewer_role to independent_reviewer, project_contributor, or controlled_fixture, and reviewed_at to an ISO timestamp with timezone.",
         "Grade every chunk for every question. null means unfinished, not irrelevant. Optional notes can explain uncertainty.",
@@ -285,4 +306,4 @@ def packet_markdown(packet):
             source = sources[sid]
             lines.append(f"- {sid}: {source.title} — {source.url} (snapshot retrieved {source.retrieved_at.isoformat()})")
         lines.append("")
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines).rstrip("\n") + "\n"

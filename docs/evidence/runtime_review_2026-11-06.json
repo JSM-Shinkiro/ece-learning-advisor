@@ -1,0 +1,315 @@
+{
+  "checked_at": "2026-11-06T19:54:59.791384+00:00",
+  "development_date": "2026-11-06 America/Phoenix",
+  "scope": "Expanded collection selection, immutable review input export, and offline scoring verification. Assistant-authored questions; no independent grades, actual provider call, or expanded-corpus quality result.",
+  "application_behavior_changed": false,
+  "frozen_baseline_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "runtime_corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+  "frozen_file_sha256": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "prepared_review": {
+    "directory": "data/reviews/runtime_v1",
+    "packet_id": "p07-runtime-review-v1",
+    "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+    "catalog_snapshot_hash": "bfbc448044df4eea9d2cde260f1e06e3f21f1296a239a5e168fe939dc0224758",
+    "question_origin": "custom_questions_unverified",
+    "question_authorship": "Assistant-authored development examples, unverified provenance; not held out.",
+    "questions": 12,
+    "chunks": 34,
+    "sources": 30,
+    "blank_grades": 408,
+    "all_grades_blank": true,
+    "reviewer_fields_blank": true,
+    "no_rankings_or_prior_grades_in_packet": true,
+    "catalog_courses": 20,
+    "catalog_resources": 8
+  },
+  "legacy_compatibility": {
+    "packet_form_vector_schema": 1,
+    "score_report_schema": 2,
+    "prechange_packet_hash": "f3290347bdf4d7bb6e0dd1e64b90b50adef09efb4b089dfbe7e96b45ce56b8f2",
+    "legacy_packet_validates": true,
+    "old_relevance_labels_not_transferred": true
+  },
+  "production_controlled_roundtrip": {
+    "checked_at": "2026-11-06T19:54:25.293144+00:00",
+    "scope": "Production-only controlled CLI round trip; no real embeddings, judgments, source requests, credentials, or quality result.",
+    "pytest_installed": false,
+    "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+    "legacy_packet_hash": "f3290347bdf4d7bb6e0dd1e64b90b50adef09efb4b089dfbe7e96b45ce56b8f2",
+    "legacy_packet_validates": true,
+    "published_bundle_unchanged": true,
+    "bundle_file_sha256": {
+      "review_template.json": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "packet.json": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "review_guide.md": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "catalog_snapshot.json": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb"
+    },
+    "questions": 12,
+    "chunks": 34,
+    "blank_grades": 408,
+    "question_origin": "custom_questions_unverified",
+    "commands": [
+      {
+        "name": "blank_runtime_form",
+        "exit_code": 2,
+        "expected": 2
+      },
+      {
+        "name": "wrong_default_collection",
+        "exit_code": 2,
+        "expected": 2
+      },
+      {
+        "name": "runtime_default_questions",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "raw_embed",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "raw_keyword",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "raw_semantic",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "raw_hybrid",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "expanded_embed",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "expanded_keyword",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "expanded_semantic",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "expanded_hybrid",
+        "exit_code": 0,
+        "expected": 0
+      },
+      {
+        "name": "existing_vector_preserved",
+        "exit_code": 2,
+        "expected": 2
+      },
+      {
+        "name": "wrong_vector_treatment",
+        "exit_code": 2,
+        "expected": 2
+      }
+    ],
+    "controlled_adapter_calls": {
+      "network_attempts": 0,
+      "documents": 34,
+      "queries": 24,
+      "generation": 0,
+      "closed": 2
+    },
+    "actual_model_calls": 0,
+    "actual_credentials_used": false,
+    "vectors": [
+      {
+        "query_mode": "raw",
+        "document_embedding_calls": 34,
+        "query_embedding_calls": 12,
+        "cache_state": "miss",
+        "dimensions": 3,
+        "vector_provenance": "operator_supplied_unverified"
+      },
+      {
+        "query_mode": "expanded",
+        "document_embedding_calls": 0,
+        "query_embedding_calls": 12,
+        "cache_state": "hit",
+        "dimensions": 3,
+        "vector_provenance": "operator_supplied_unverified"
+      }
+    ],
+    "reports": [
+      {
+        "path": "raw_keyword.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "keyword",
+        "query_mode": "raw",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      },
+      {
+        "path": "raw_semantic.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "semantic",
+        "query_mode": "raw",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      },
+      {
+        "path": "raw_hybrid.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "hybrid",
+        "query_mode": "raw",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      },
+      {
+        "path": "expanded_keyword.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "keyword",
+        "query_mode": "expanded",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      },
+      {
+        "path": "expanded_semantic.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "semantic",
+        "query_mode": "expanded",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      },
+      {
+        "path": "expanded_hybrid.json",
+        "review_hash": "a851444f0596794042bfd3c45cdec173839a6adc52b3feb32f5e891dac0a81a4",
+        "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229",
+        "method": "hybrid",
+        "query_mode": "expanded",
+        "embedding_calls": 0,
+        "generation_calls": 0,
+        "source_refresh_calls": 0
+      }
+    ],
+    "metric_values": "Not reported: controlled all-zero labels verify the workflow and are not relevance-quality judgments."
+  },
+  "automated_tests": {
+    "passed": 1344,
+    "seconds": 44.07,
+    "new_runtime_review_cases": 39,
+    "streamlit_interactions_total": 62,
+    "final_focused_review_tests": 145
+  },
+  "production_runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T19:44:26.919966+00:00"
+  },
+  "limitations": [
+    "No actual independent review, reviewer identity authentication, held-out question provenance, or quality improvement claimed.",
+    "Default questions still reuse the original development bank; custom question provenance is unverified.",
+    "Controlled embedding calls are a local test adapter, not real provider/model measurements.",
+    "The snapshot preserves reviewed data; reports still record the ranking implementation and query policy used.",
+    "No new enrollment interpretation, source freshness check, public deployment, or student pilot is included."
+  ]
+}

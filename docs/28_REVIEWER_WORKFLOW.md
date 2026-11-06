@@ -1,5 +1,7 @@
 # Retrieval reviewer workflow
 
+Later November 6 follow-up: [expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) now supports runtime/archived inputs and adds an operator catalog snapshot. The milestone below retains its original scope and measurements.
+
 Implemented and verified November 5, 2026. A separate offline command now prepares unscored evidence packets and evaluates completed relevance judgments. It enables an external review; **no real reviewer judgments have been collected in this unit**. The existing frozen references, published measurements, application behavior, and submitted midproject files are unchanged.
 
 ## What the reviewer receives

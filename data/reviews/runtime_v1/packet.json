@@ -1,0 +1,1133 @@
+{
+  "schema_version": 1,
+  "packet_id": "p07-runtime-review-v1",
+  "created_at": "2026-11-06T19:44:24.045418Z",
+  "question_origin": "custom_questions_unverified",
+  "source_suite_hash": null,
+  "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+  "catalog_snapshot_hash": "bfbc448044df4eea9d2cde260f1e06e3f21f1296a239a5e168fe939dc0224758",
+  "evidence": [
+    {
+      "chunk_id": "uofa:ECE101:2026-2027:overview",
+      "record_id": "uofa:ECE101:2026-2027",
+      "source_ids": [
+        "catalog:ECE101"
+      ],
+      "text": "ECE101: Programming 1\nIntroduces C programming, control flow, software design, memory management, and elementary data structures. Provides a foundation for further programming study.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019404.\nTeam learning suggestion (not an academic requirement): Programming foundations support both directions. Use this to build confidence with C, control flow, and memory before more specialized study."
+    },
+    {
+      "chunk_id": "uofa:ECE369A:2026-2027:overview",
+      "record_id": "uofa:ECE369A:2026-2027",
+      "source_ids": [
+        "catalog:ECE369A"
+      ],
+      "text": "ECE369A: Fundamentals of Computer Organization\nExamines processor organization, instruction sets, memory and caches, and computer-design trade-offs. Uses MIPS and reduced-instruction-set examples to connect software with hardware behavior.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016494.\nTeam learning suggestion (not an academic requirement): Understanding processor instructions, memory, and caches provides a bridge from programming to embedded hardware."
+    },
+    {
+      "chunk_id": "uofa:ECE372A:2026-2027:overview",
+      "record_id": "uofa:ECE372A:2026-2027",
+      "source_ids": [
+        "catalog:ECE372A"
+      ],
+      "text": "ECE372A: Microprocessor Organization\nStudies microcontrollers and hardware interfaces through C programming, interrupts, timers, serial communication, and analog conversion. Includes laboratories and a project using a microcontroller platform.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016495.\nTeam learning suggestion (not an academic requirement): Microcontroller programming and hardware interfaces connect an embedded-systems goal with practical device projects. Prepare programming and processor foundations first."
+    },
+    {
+      "chunk_id": "uofa:ECE425:2026-2027:overview",
+      "record_id": "uofa:ECE425:2026-2027",
+      "source_ids": [
+        "catalog:ECE425"
+      ],
+      "text": "ECE425: Introduction to Deep Learning: An Engineering Perspective\nIntroduces neural-network principles, optimization, and engineering applications. Covers perceptrons, convolutional and attention models, and methods for efficient model training and inference.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019593.\nTeam learning suggestion (not an academic requirement): Neural-network principles and engineering applications connect to an AI/ML goal. Treat this as a later goal until the relevant academic preparation and enrollment requirements are confirmed."
+    },
+    {
+      "chunk_id": "uofa:CSC120:2026-2027:overview",
+      "record_id": "uofa:CSC120:2026-2027",
+      "source_ids": [
+        "catalog:CSC120"
+      ],
+      "text": "CSC120: Introduction to Computer Programming II\nDevelops programming and problem-solving skills through data structures and their implementations. Topics include lists, stacks, queues, trees, searching, sorting, and exceptions.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Use the separate prerequisite-source evidence and application rule results. Enrollment requirement reference: 017083.\nTeam learning suggestion (not an academic requirement): Data structures connect introductory programming with the software skills used in later AI work. Check the recorded grade requirement before considering enrollment."
+    },
+    {
+      "chunk_id": "uofa:CSC120:2026-2027:rule:R1299-L40",
+      "record_id": "uofa:CSC120:2026-2027",
+      "source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "text": "Prerequisite source statement for CSC120. Catalog: 2026-2027. Program: COSCBS. Section: R1299/L40.\nComplete 1 course. C or better is required in CSC 110, ECE 101, ECE 175, or ISTA 130 prior to taking CSC 120.\nUse only the application rule results to assess recorded prerequisite satisfaction. A source statement alone does not establish enrollment eligibility."
+    },
+    {
+      "chunk_id": "resource:pytorch:overview",
+      "record_id": "resource:pytorch",
+      "source_ids": [
+        "resource:pytorch"
+      ],
+      "text": "resource:pytorch: PyTorch Quickstart\nPractice a basic deep learning workflow with data loading, neural-network construction, optimization, and saved model parameters. A useful hands-on companion to introductory neural-network coursework.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Use this to connect Python programming with a small deep learning workflow after building programming foundations.\nSuggested first activity: Work through loading data and running the example model. Note how the training and evaluation steps differ."
+    },
+    {
+      "chunk_id": "resource:cs50:overview",
+      "record_id": "resource:cs50",
+      "source_ids": [
+        "resource:cs50"
+      ],
+      "text": "resource:cs50: CS50 — Introduction to Computer Science\nBuild programming foundations through C, algorithms, memory, and data structures, then progress to Python and web topics. OpenCourseWare provides material for independent study.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Use this alongside programming foundations when you want guided practice outside university coursework.\nSuggested first activity: Start with the introduction and its first exercise. Move through the material at your own pace."
+    },
+    {
+      "chunk_id": "career:ai_ml:overview",
+      "record_id": "career:ai_ml",
+      "source_ids": [
+        "catalog:ECE425",
+        "catalog:CSC120",
+        "resource:pytorch"
+      ],
+      "text": "career:ai_ml: AI and machine learning\nTeam learning connection: neural-network coursework and practical PyTorch exercises can support an interest in AI and machine learning. Programming and data-structure foundations provide supporting skills. This is a suggested learning direction, not a hiring or degree guarantee.\nThis is a team-authored learning connection, not a university requirement."
+    },
+    {
+      "chunk_id": "career:embedded:overview",
+      "record_id": "career:embedded",
+      "source_ids": [
+        "catalog:ECE101",
+        "catalog:ECE369A",
+        "catalog:ECE372A"
+      ],
+      "text": "career:embedded: Embedded systems\nTeam learning connection: C programming, processor architecture, microcontrollers, and hardware interfaces form a useful learning direction for embedded systems. A course match indicates relevant study rather than proven job eligibility.\nThis is a team-authored learning connection, not a university requirement."
+    },
+    {
+      "chunk_id": "uofa:CSC110:2026-2027:overview",
+      "record_id": "uofa:CSC110:2026-2027",
+      "source_ids": [
+        "catalog:CSC110"
+      ],
+      "text": "CSC110: Introduction to Computer Programming I\nProgramming fundamentals through problem solving, basic control and data structures, and development tools.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Use the separate prerequisite-source evidence and application rule results. Enrollment requirement reference: 017080.\nTeam learning suggestion (not an academic requirement): Use this as an introductory programming option; confirm program applicability and enrollment separately.\nSuggested first activity: Write and test a small program that processes a list of measurements."
+    },
+    {
+      "chunk_id": "uofa:CSC110:2026-2027:rule:R1299-L30",
+      "record_id": "uofa:CSC110:2026-2027",
+      "source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "text": "Prerequisite source statement for CSC110. Catalog: 2026-2027. Program: COSCBS. Section: R1299/L30.\nComplete 1 course. Appropriate math placement score or C or better in MATH 112 required prior to taking CSC 110. Only one course from CSC 110, ECE 101, ECE 175, and ISTA 130 may be used towards the program.\nUse only the application rule results to assess recorded prerequisite satisfaction. A source statement alone does not establish enrollment eligibility."
+    },
+    {
+      "chunk_id": "uofa:CSC144:2026-2027:overview",
+      "record_id": "uofa:CSC144:2026-2027",
+      "source_ids": [
+        "catalog:CSC144"
+      ],
+      "text": "CSC144: Discrete Mathematics for Computer Science I\nIntroduces discrete mathematics for computing, including logical statements, proofs, sets, relations, matrices, functions, and modular arithmetic.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Use the separate prerequisite-source evidence and application rule results. Enrollment requirement reference: 018647.\nTeam learning suggestion (not an academic requirement): Practice discrete reasoning alongside programming; this annotation does not replace the reviewed mathematics and programming conditions.\nSuggested first activity: Translate a simple program condition into a logical statement and check a truth table."
+    },
+    {
+      "chunk_id": "uofa:CSC144:2026-2027:rule:R1299-L50",
+      "record_id": "uofa:CSC144:2026-2027",
+      "source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "text": "Prerequisite source statement for CSC144. Catalog: 2026-2027. Program: COSCBS. Section: R1299/L50.\nComplete 1 course. C or higher in CSC 110 (or ECE 101 or ECE 175 or ISTA 130) and [appropriate math placement or (C or higher in MATH 112) or one course from MATH 113, 116, 120R, 122A, 122B, or 125], prior to taking CSC 144. Only one course from CSC 144, MATH 243 and MATH 323 may be used towards the program.\nUse only the application rule results to assess recorded prerequisite satisfaction. A source statement alone does not establish enrollment eligibility."
+    },
+    {
+      "chunk_id": "uofa:CSC210:2026-2027:overview",
+      "record_id": "uofa:CSC210:2026-2027",
+      "source_ids": [
+        "catalog:CSC210"
+      ],
+      "text": "CSC210: Software Development\nDeveloping larger software systems with modular design, patterns, documentation, unit tests, version control, build tools, debugging, and performance analysis.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Use the separate prerequisite-source evidence and application rule results. Enrollment requirement reference: 017084.\nTeam learning suggestion (not an academic requirement): Build on programming experience by organizing and testing a project with several modules.\nSuggested first activity: Split a small program into modules and add a repeatable unit test."
+    },
+    {
+      "chunk_id": "uofa:CSC210:2026-2027:rule:R1299-L70",
+      "record_id": "uofa:CSC210:2026-2027",
+      "source_ids": [
+        "catalog:CS_foundations"
+      ],
+      "text": "Prerequisite source statement for CSC210. Catalog: 2026-2027. Program: COSCBS. Section: R1299/L70.\nComplete 1 course. C or better is required in CSC 120 prior to taking CSC 210.\nUse only the application rule results to assess recorded prerequisite satisfaction. A source statement alone does not establish enrollment eligibility."
+    },
+    {
+      "chunk_id": "uofa:ECE201:2026-2027:overview",
+      "record_id": "uofa:ECE201:2026-2027",
+      "source_ids": [
+        "catalog:ECE201"
+      ],
+      "text": "ECE201: Programming 2\nC++ programming with classes and data abstraction, inheritance and polymorphism, exceptions, linked structures, and the complexity of searching, sorting, and traversal algorithms.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 019415.\nTeam learning suggestion (not an academic requirement): Connect introductory programming to data structures and C++ abstractions; foundation is a preparation label, not first-course eligibility.\nSuggested first activity: Implement a small stack class and test its empty and nonempty cases."
+    },
+    {
+      "chunk_id": "uofa:ECE220:2026-2027:overview",
+      "record_id": "uofa:ECE220:2026-2027",
+      "source_ids": [
+        "catalog:ECE220"
+      ],
+      "text": "ECE220: Basic Circuits\nCircuit analysis with laboratory work, covering node and mesh methods, equivalent circuits, operational amplifiers, transient responses, sinusoidal signals, impedance, and simulation.\nCredits: 5.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016467.\nTeam learning suggestion (not an academic requirement): Develop circuit-analysis skills before exploring more specialized electronics.\nSuggested first activity: Solve a small resistor network with node equations and compare the result with a simulation."
+    },
+    {
+      "chunk_id": "uofa:ECE274A:2026-2027:overview",
+      "record_id": "uofa:ECE274A:2026-2027",
+      "source_ids": [
+        "catalog:ECE274A"
+      ],
+      "text": "ECE274A: Digital Logic\nCovers number representations, coding, combinational logic design, sequential systems, and register-transfer descriptions.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016468.\nTeam learning suggestion (not an academic requirement): Use logic design to connect programming ideas with digital hardware.\nSuggested first activity: Draw and check a truth table for a small combinational circuit."
+    },
+    {
+      "chunk_id": "uofa:ECE310:2026-2027:overview",
+      "record_id": "uofa:ECE310:2026-2027",
+      "source_ids": [
+        "catalog:ECE310"
+      ],
+      "text": "ECE310: Applications of Engineering Mathematics\nEngineering mathematics covering linear systems, vector spaces, eigenvalues, probability distributions, estimation, and confidence intervals, with MATLAB projects.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016491.\nTeam learning suggestion (not an academic requirement): Use mathematics exercises to support later work in signals, hardware, and machine learning.\nSuggested first activity: Compute a matrix projection and summarize the mean and variance of a small dataset."
+    },
+    {
+      "chunk_id": "uofa:ECE311:2026-2027:overview",
+      "record_id": "uofa:ECE311:2026-2027",
+      "source_ids": [
+        "catalog:ECE311"
+      ],
+      "text": "ECE311: Engineering Ethics and Contemporary Issues\nIntroduces professional engineering ethics and contemporary questions about the effects of technology and engineered systems on everyday life.\nCredits: 1.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 017368.\nTeam learning suggestion (not an academic requirement): Include ethical reasoning when discussing a technical design. The unresolved requirement reference remains separate from descriptive prerequisite wording.\nSuggested first activity: Compare two design choices by identifying stakeholders, possible harms, and tradeoffs."
+    },
+    {
+      "chunk_id": "uofa:ECE320A:2026-2027:overview",
+      "record_id": "uofa:ECE320A:2026-2027",
+      "source_ids": [
+        "catalog:ECE320A"
+      ],
+      "text": "ECE320A: Circuit Theory\nAnalyzes circuits using frequency-domain techniques, Laplace and Fourier methods, convolution, power systems, transformed networks, poles and zeros, and two-port parameters.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016492.\nTeam learning suggestion (not an academic requirement): Connect time-domain circuit behavior with transforms and frequency responses.\nSuggested first activity: Sketch the poles and frequency response of a simple RC circuit."
+    },
+    {
+      "chunk_id": "uofa:ECE340A:2026-2027:overview",
+      "record_id": "uofa:ECE340A:2026-2027",
+      "source_ids": [
+        "catalog:ECE340A"
+      ],
+      "text": "ECE340A: Introduction to Communications\nCommunication-system analysis and design using Fourier methods, filtering and spectra, analog and digital modulation, quantization, line coding, and transmitter/receiver concepts.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016474.\nTeam learning suggestion (not an academic requirement): Explore how signal representations and modulation choices affect a communication link.\nSuggested first activity: Compare a message signal with a simple amplitude-modulated waveform."
+    },
+    {
+      "chunk_id": "uofa:ECE351C:2026-2027:overview",
+      "record_id": "uofa:ECE351C:2026-2027",
+      "source_ids": [
+        "catalog:ECE351C"
+      ],
+      "text": "ECE351C: Electronic Circuits\nStudies diodes, bipolar and MOS transistors, operational amplifiers, small-signal amplifier models, digital circuit elements, and circuit simulation.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016474.\nTeam learning suggestion (not an academic requirement): Move from linear circuit exercises toward device models and amplifier design.\nSuggested first activity: Compare a transistor operating point with its small-signal approximation."
+    },
+    {
+      "chunk_id": "uofa:ECE373:2026-2027:overview",
+      "record_id": "uofa:ECE373:2026-2027",
+      "source_ids": [
+        "catalog:ECE373"
+      ],
+      "text": "ECE373: Object-Oriented Software Design\nObject-oriented design and implementation using classes, inheritance, polymorphism, abstract data types, design architectures, use cases, sequence diagrams, and UML.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016496.\nTeam learning suggestion (not an academic requirement): Use software modeling to explain the structure of a larger implementation.\nSuggested first activity: Draw a class diagram for a small device controller and implement one class."
+    },
+    {
+      "chunk_id": "resource:python:overview",
+      "record_id": "resource:python",
+      "source_ids": [
+        "resource:python"
+      ],
+      "text": "resource:python: The Python Tutorial\nOfficial Python language tutorial covering core programming concepts, data structures, modules, and classes. It is written for readers with basic programming knowledge who are new to Python.\nResource edition/version: 3.15.2.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Practice Python after learning general programming basics; this tutorial expects some programming experience.\nSuggested first activity: Run a short Python script that reads numbers into a list and computes a summary."
+    },
+    {
+      "chunk_id": "resource:numpy:overview",
+      "record_id": "resource:numpy",
+      "source_ids": [
+        "resource:numpy"
+      ],
+      "text": "resource:numpy: NumPy quickstart\nOfficial NumPy quickstart for numerical arrays. Its introductory prerequisites call for some Python knowledge and matplotlib for the examples.\nResource edition/version: 2.5.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Use arrays to connect mathematical exercises with Python numerical code after basic Python practice.\nSuggested first activity: Create a small array and compare element-wise multiplication with matrix multiplication."
+    },
+    {
+      "chunk_id": "resource:sklearn:overview",
+      "record_id": "resource:sklearn",
+      "source_ids": [
+        "resource:sklearn"
+      ],
+      "text": "resource:sklearn: scikit-learn Getting Started\nOfficial introduction to scikit-learn workflows for fitting models, preprocessing data, choosing models, and evaluating predictions. The guide assumes basic familiarity with machine-learning practice.\nResource edition/version: 1.9.1.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Practice a simple measured learning workflow after studying basic machine-learning concepts.\nSuggested first activity: Fit a small example classifier and explain why evaluation uses data separate from fitting."
+    },
+    {
+      "chunk_id": "resource:pico:overview",
+      "record_id": "resource:pico",
+      "source_ids": [
+        "resource:pico"
+      ],
+      "text": "resource:pico: Raspberry Pi Pico C/C++ SDK\nOfficial Raspberry Pi Pico C/C++ SDK guide describing development tools, example projects, SDK documentation, and initial programs for a microcontroller board.\nResource edition/version: unversioned documentation.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Use a small microcontroller project to connect C/C++ programming with device behavior; hardware and toolchain setup are separate practical requirements.\nSuggested first activity: Read the board-specific setup instructions and trace the supplied LED blink example before adapting it."
+    },
+    {
+      "chunk_id": "uofa:ECE352:2026-2027:overview",
+      "record_id": "uofa:ECE352:2026-2027",
+      "source_ids": [
+        "catalog:ECE352"
+      ],
+      "text": "ECE352: Device Electronics\nExamines semiconductor electronic properties, charge-carrier transport, junction behavior, and several classes of electronic, microwave, and photonic devices.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016472.\nTeam learning suggestion (not an academic requirement): Connect circuit models with semiconductor-device behavior; the preparation label does not resolve enrollment conditions.\nSuggested first activity: Sketch a qualitative junction diagram and explain the direction of charge-carrier motion."
+    },
+    {
+      "chunk_id": "uofa:ECE381A:2026-2027:overview",
+      "record_id": "uofa:ECE381A:2026-2027",
+      "source_ids": [
+        "catalog:ECE381A"
+      ],
+      "text": "ECE381A: Introductory Electromagnetics\nIntroduces electric and magnetic fields, Maxwell equations, wave propagation, transmission lines, and electromagnetic sources.\nCredits: 4.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 016497.\nTeam learning suggestion (not an academic requirement): Connect circuit and signal exercises with field and wave descriptions before more specialized hardware study.\nSuggested first activity: Compare the assumptions of a lumped circuit model with a transmission-line model."
+    },
+    {
+      "chunk_id": "uofa:CSC372:2026-2027:overview",
+      "record_id": "uofa:CSC372:2026-2027",
+      "source_ids": [
+        "catalog:CSC372"
+      ],
+      "text": "CSC372: Comparative Programming Languages\nCompares several high-level programming languages and their characteristics, with programming projects using at least three languages.\nCredits: 3.0. Catalog: 2026-2027.\nAcademic rule: Unresolved. Do not infer enrollment eligibility. Enrollment requirement reference: 017273.\nTeam learning suggestion (not an academic requirement): Compare language choices and express the same idea in different programming styles; this is a learning connection, not a prerequisite interpretation.\nSuggested first activity: Implement a small data-processing task in two languages and compare their type and control-flow conventions."
+    },
+    {
+      "chunk_id": "resource:mit_algorithms:overview",
+      "record_id": "resource:mit_algorithms",
+      "source_ids": [
+        "resource:mit_algorithms"
+      ],
+      "text": "resource:mit_algorithms: MIT 6.006 — Introduction to Algorithms\nArchived MIT algorithms course covering data structures, problem modeling, algorithmic techniques, and computational performance analysis.\nResource edition/version: Spring 2020.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Archived Spring 2020 material expects Python programming and discrete mathematics. Use it for complementary practice, not university credit or course equivalency.\nSuggested first activity: Trace a small sorting algorithm and compare its operation count with a second approach."
+    },
+    {
+      "chunk_id": "resource:mit_structures:overview",
+      "record_id": "resource:mit_structures",
+      "source_ids": [
+        "resource:mit_structures"
+      ],
+      "text": "resource:mit_structures: MIT 6.004 — Computation Structures\nArchived MIT digital-systems course connecting transistor-level behavior to logic, sequential circuits, state machines, and computers through hardware/software design examples.\nResource edition/version: Spring 2017.\nComplementary learning resource; this does not establish university credit or course equivalency.\nTeam learning suggestion (not an academic requirement): Archived Spring 2017 material assumes programming concepts and electrical fundamentals; review its syllabus preparation before using the exercises.\nSuggested first activity: Trace how a logic circuit stores state and relate it to a small processor building block."
+    }
+  ],
+  "sources": [
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:05:07.731334Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE101",
+      "title": "ECE101 — Programming 1",
+      "url": "https://catalog.arizona.edu/courses/0432351",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 019404 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "2be26a5ccfd01fd0021a2e848466ea9f64e44f84bd4bbd8f64edd2228e179ffd"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:05:12.568170Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE369A",
+      "title": "ECE369A — Fundamentals of Computer Organization",
+      "url": "https://catalog.arizona.edu/courses/0366021",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 016494 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "28afcc2f1504d4f24adbeec58106b9a368dddb30aabd610acd9f3f4f67692dc0"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:05:16.945042Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE372A",
+      "title": "ECE372A — Microprocessor Organization",
+      "url": "https://catalog.arizona.edu/courses/0367521",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 016495 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "02f8e1fe5128930b0a5414ae21722b7231c7e58b779e2402a55d13ecb11f5c24"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:05:20.982642Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE425",
+      "title": "ECE425 — Introduction to Deep Learning: An Engineering Perspective",
+      "url": "https://catalog.arizona.edu/courses/0435981",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 019593 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "ff6072b497ef55a76474e9507b43f13860f275cf5ee4aeec7b5d21a9c945ec7e"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:05:24.472577Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CSC120",
+      "title": "CSC120 — Introduction to Computer Programming II",
+      "url": "https://catalog.arizona.edu/courses/0393701",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Title, credit value, and paraphrased description checked against the current catalog. The public field exposes requirement reference 017083 without a resolved rule. Eligibility remains unknown. The content hash covers the source description text.",
+      "content_hash": "17f1fa8d8e912b437c097418ca07ff9625aba3f1498d4f09794cee4486ee024b"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:01:51.068000Z",
+      "last_checked_at": null,
+      "source_id": "resource:pytorch",
+      "title": "PyTorch Quickstart",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+      "catalog_version": null,
+      "section": "Quickstart",
+      "review_note": "Official introductory documentation. Suggested complementary study, not university credit.",
+      "content_hash": null
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-10-23T04:01:51.068000Z",
+      "last_checked_at": null,
+      "source_id": "resource:cs50",
+      "title": "CS50's Introduction to Computer Science",
+      "url": "https://cs50.harvard.edu/x/",
+      "catalog_version": null,
+      "section": "Welcome and course outline",
+      "review_note": "Official OpenCourseWare. Suggested complementary study, not university credit.",
+      "content_hash": null
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-04T04:02:39.295788Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CS_foundations",
+      "title": "Computer Science BS — foundation course requirements",
+      "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+      "catalog_version": "2026-2027",
+      "section": "Computer Science Major: Foundation Courses, R1299/L40",
+      "review_note": "Reviewed prerequisite condition from the matching catalog program section R1299/L40. Runtime checks compare this section with its reviewed statement and interpretation; this is not a complete enrollment audit. Department guidance lists different alternatives, so the versioned catalog remains the authority for this condition.",
+      "content_hash": "08d157c74ab64414f82af35ea94ee98fd15c87e64810806dd7978b755b769a8c"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:18.692742Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CSC110",
+      "title": "CSC110 — Introduction to Computer Programming I",
+      "url": "https://catalog.arizona.edu/courses/0393681",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "f5758dec2274633710b5c4994621f2a167c78d38b01f0fa1b6ebe0cb6effbe58"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:18.129831Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CSC144",
+      "title": "CSC144 — Discrete Mathematics for Computer Science I",
+      "url": "https://catalog.arizona.edu/courses/0420001",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "0b93e5b4c49890195cc90a238e2087f7625fb0b490b51fbea43de3291640fac4"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:18.343903Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CSC210",
+      "title": "CSC210 — Software Development",
+      "url": "https://catalog.arizona.edu/courses/0393711",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "3fe9a69cec490279a8181a2ee8c940cf0bd64cfe14ddb5671ead12fbe2a351cb"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:24.075135Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE201",
+      "title": "ECE201 — Programming 2",
+      "url": "https://catalog.arizona.edu/courses/0432591",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "fe294ef174e6231a194e8b74c2c9bdcf55e7d1d56c69d655aa25a6594cff8d0b"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:24.072438Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE220",
+      "title": "ECE220 — Basic Circuits",
+      "url": "https://catalog.arizona.edu/courses/0120881",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "da4ae2a9e28728bd9cf370f8454fb7734ed14769c0dc29d0c873be5cf69b85d7"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:23.927280Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE274A",
+      "title": "ECE274A — Digital Logic",
+      "url": "https://catalog.arizona.edu/courses/0360981",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "ab7311a3b5a29e41fcd681d4a19ac9658e9155e7f4b9dd0d06811257111daa74"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:29.708836Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE310",
+      "title": "ECE310 — Applications of Engineering Mathematics",
+      "url": "https://catalog.arizona.edu/courses/0362401",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "37d89dd629320ff915282de28a331bb5625d4345d704d891a86780bb83a0b31e"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:29.771042Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE311",
+      "title": "ECE311 — Engineering Ethics and Contemporary Issues",
+      "url": "https://catalog.arizona.edu/courses/0397381",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "6073c9412cf723bfcfb0cc2f4717f9d701f04d3638730ed1122c107ac9d76acb"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:29.880125Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE320A",
+      "title": "ECE320A — Circuit Theory",
+      "url": "https://catalog.arizona.edu/courses/0121101",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "64932d5da5ebeb99d63d6be84cec0ccda16c88d0ad14efd6f72df3f63293266c"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:34.985632Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE340A",
+      "title": "ECE340A — Introduction to Communications",
+      "url": "https://catalog.arizona.edu/courses/0377871",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "f9450195ae2a196488fd1429f1b0997f53d1de26becfe86698e45769ad1c0212"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:34.413377Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE351C",
+      "title": "ECE351C — Electronic Circuits",
+      "url": "https://catalog.arizona.edu/courses/0366011",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "9e65fe990a788c36a549a4185efe595077b91963d47ef73ad796b312e57419b0"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:59:34.913497Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE373",
+      "title": "ECE373 — Object-Oriented Software Design",
+      "url": "https://catalog.arizona.edu/courses/0121261",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased course description and fixed units checked against the official 2026–2027 page. Learning annotations are team suggestions. Enrollment conditions require separate reviewed evidence.",
+      "content_hash": "c9226a7460f1e88d470d2680b11a08f6683e32aff497439dbc6f288d7c234ede"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:36:40.436615Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE_program",
+      "title": "Electrical and Computer Engineering BSECE — foundation, core, and computer-engineering course links",
+      "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+      "catalog_version": "2026-2027",
+      "section": "Engineering foundation R17348/L320, core R15612/L10, computer/electrical tracks R15487/L10, R15487/L20, R15487/L30",
+      "review_note": "Current program identity and eight configured sections across two plans checked. Track section preparation labels and bound course annotations are team suggestions, not prerequisite, advanced-standing, or degree-audit approval.",
+      "content_hash": null
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:55:03.324334Z",
+      "last_checked_at": null,
+      "source_id": "resource:python",
+      "title": "The Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "catalog_version": null,
+      "section": "Introduction",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "71cf036e80a7e3bdb53ea3297513bc75740f3c143b3a192ebd0771d3b668696d"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:55:07.123770Z",
+      "last_checked_at": null,
+      "source_id": "resource:numpy",
+      "title": "NumPy quickstart",
+      "url": "https://numpy.org/doc/stable/user/quickstart.html",
+      "catalog_version": null,
+      "section": "Prerequisites",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "b50e01e946986d834255d3414453ff727e9249d6f4471487619f6591488985e0"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:55:07.912673Z",
+      "last_checked_at": null,
+      "source_id": "resource:sklearn",
+      "title": "scikit-learn Getting Started",
+      "url": "https://scikit-learn.org/stable/getting_started.html",
+      "catalog_version": null,
+      "section": "Introduction",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "74899433a93d4aa25ea486a24e07b70b4920355798325623716342aeb1e04762"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T17:55:07.656760Z",
+      "last_checked_at": null,
+      "source_id": "resource:pico",
+      "title": "Raspberry Pi Pico C/C++ SDK",
+      "url": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+      "catalog_version": null,
+      "section": "Raspberry Pi Pico C/C++ SDK",
+      "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
+      "content_hash": "dcbb2a6d68ab1748f796e40494d468ca7ccdd8322acf60a1a7a610b73cf82f86"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:37:35.201440Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE352",
+      "title": "ECE352 — Device Electronics",
+      "url": "https://catalog.arizona.edu/courses/0121181",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "d00a64b46ed3b5af008e47e29306c0514b782d03d152ac0b7b639d3c25eef34a"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:37:34.703180Z",
+      "last_checked_at": null,
+      "source_id": "catalog:ECE381A",
+      "title": "ECE381A — Introductory Electromagnetics",
+      "url": "https://catalog.arizona.edu/courses/0375981",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "db012cfbb36286fc91f5d2216178ebbfed74a46b3179ff18754006e3ea820857"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:37:40.264676Z",
+      "last_checked_at": null,
+      "source_id": "catalog:CSC372",
+      "title": "CSC372 — Comparative Programming Languages",
+      "url": "https://catalog.arizona.edu/courses/0098011",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "5a02b292bcc3c8f3bf8e66433bcdf2ff1eea3ecadcdcd0dd617cb975d711b24b"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:36:36.957974Z",
+      "last_checked_at": null,
+      "source_id": "resource:mit_algorithms",
+      "title": "MIT 6.006 — Introduction to Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+      "catalog_version": null,
+      "section": "Syllabus: Course Description",
+      "review_note": "Official archived offering. Exact syllabus URL, visible course banner, number, teaching term, title, and description verified. Teaching term is not an academic catalog year or a claim of current enrollment availability.",
+      "content_hash": "68e615b3bf807cbd5cae137e6a8c055725c239b53982f85200d8edda39e72d95"
+    },
+    {
+      "verification_status": "snapshot",
+      "retrieved_at": "2026-11-06T18:36:36.954953Z",
+      "last_checked_at": null,
+      "source_id": "resource:mit_structures",
+      "title": "MIT 6.004 — Computation Structures",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+      "catalog_version": null,
+      "section": "Syllabus: Course Description",
+      "review_note": "Official archived offering. Exact syllabus URL, visible course banner, number, teaching term, title, and description verified. Teaching term is not an academic catalog year or a claim of current enrollment availability.",
+      "content_hash": "622b6706e6b85c5dd60afa47502536767d134ed564be877d807885027d8aae35"
+    }
+  ],
+  "questions": [
+    {
+      "case_id": "edge-hardware",
+      "query": "I want to put small machine-learning models on hardware. What should I study first?",
+      "candidate_ids": [
+        "resource:cs50:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "resource:sklearn:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "resource:pico:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "resource:numpy:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "resource:python:overview",
+        "career:embedded:overview",
+        "uofa:ECE311:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "software-quality",
+      "query": "How can I learn to organize a bigger program and write unit tests?",
+      "candidate_ids": [
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "resource:python:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "resource:numpy:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "resource:pytorch:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "resource:pico:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "career:embedded:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "resource:sklearn:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "engineering-math",
+      "query": "Which learning activities connect linear algebra and probability with engineering?",
+      "candidate_ids": [
+        "career:ai_ml:overview",
+        "resource:pico:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "resource:sklearn:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:numpy:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:python:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "device-physics",
+      "query": "I want to understand semiconductor behavior and electronic devices.",
+      "candidate_ids": [
+        "resource:pico:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "resource:pytorch:overview",
+        "resource:sklearn:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:CSC144:2026-2027:overview",
+        "resource:python:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "career:ai_ml:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:numpy:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "fields-and-waves",
+      "query": "Where can I study electric and magnetic fields and transmission lines?",
+      "candidate_ids": [
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "career:embedded:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:numpy:overview",
+        "resource:cs50:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "resource:python:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "resource:sklearn:overview",
+        "resource:pico:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:CSC120:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC372:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "language-choices",
+      "query": "I would like to compare programming languages and how they express the same task.",
+      "candidate_ids": [
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "career:embedded:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:CSC372:2026-2027:overview",
+        "resource:numpy:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "resource:python:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "resource:sklearn:overview",
+        "resource:pico:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE311:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "numerical-arrays",
+      "query": "I already use Python and want to practice with numerical arrays.",
+      "candidate_ids": [
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "resource:pytorch:overview",
+        "resource:pico:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:python:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview",
+        "resource:numpy:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "resource:sklearn:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "career:ai_ml:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:CSC120:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "model-evaluation",
+      "query": "How should I practice preprocessing data and evaluating machine-learning predictions?",
+      "candidate_ids": [
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "resource:python:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "resource:pico:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "resource:cs50:overview",
+        "resource:numpy:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:ECE201:2026-2027:overview",
+        "career:ai_ml:overview",
+        "resource:sklearn:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE310:2026-2027:overview",
+        "resource:mit_structures:overview"
+      ]
+    },
+    {
+      "case_id": "microcontroller-project",
+      "query": "I want a small C/C++ microcontroller project using a Pico board.",
+      "candidate_ids": [
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "career:embedded:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:ECE201:2026-2027:overview",
+        "resource:sklearn:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "resource:numpy:overview",
+        "resource:python:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "resource:pytorch:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "resource:pico:overview"
+      ]
+    },
+    {
+      "case_id": "digital-systems-resource",
+      "query": "What does MIT 6.004 cover, and what preparation does its syllabus assume?",
+      "candidate_ids": [
+        "resource:cs50:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "resource:pico:overview",
+        "career:embedded:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "resource:numpy:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "resource:sklearn:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "resource:python:overview",
+        "uofa:ECE352:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "algorithms-resource",
+      "query": "Can MIT 6.006 help me practice algorithms and analyze performance?",
+      "candidate_ids": [
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:CSC372:2026-2027:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:ECE311:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE351C:2026-2027:overview",
+        "resource:pico:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "resource:sklearn:overview",
+        "resource:numpy:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE310:2026-2027:overview",
+        "resource:python:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:ECE220:2026-2027:overview",
+        "career:ai_ml:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "resource:mit_algorithms:overview",
+        "uofa:ECE274A:2026-2027:overview"
+      ]
+    },
+    {
+      "case_id": "enrollment-limits",
+      "query": "Can this collection confirm my exact graduation semester and guarantee enrollment?",
+      "candidate_ids": [
+        "uofa:CSC210:2026-2027:rule:R1299-L70",
+        "uofa:ECE310:2026-2027:overview",
+        "career:embedded:overview",
+        "uofa:ECE373:2026-2027:overview",
+        "uofa:ECE274A:2026-2027:overview",
+        "uofa:CSC144:2026-2027:rule:R1299-L50",
+        "uofa:CSC120:2026-2027:rule:R1299-L40",
+        "uofa:ECE351C:2026-2027:overview",
+        "uofa:ECE340A:2026-2027:overview",
+        "uofa:CSC144:2026-2027:overview",
+        "resource:mit_structures:overview",
+        "resource:python:overview",
+        "resource:sklearn:overview",
+        "uofa:CSC120:2026-2027:overview",
+        "uofa:CSC110:2026-2027:rule:R1299-L30",
+        "resource:numpy:overview",
+        "uofa:CSC110:2026-2027:overview",
+        "uofa:ECE320A:2026-2027:overview",
+        "uofa:ECE372A:2026-2027:overview",
+        "uofa:ECE101:2026-2027:overview",
+        "uofa:ECE352:2026-2027:overview",
+        "uofa:CSC210:2026-2027:overview",
+        "uofa:ECE201:2026-2027:overview",
+        "uofa:ECE425:2026-2027:overview",
+        "resource:mit_algorithms:overview",
+        "career:ai_ml:overview",
+        "uofa:CSC372:2026-2027:overview",
+        "resource:cs50:overview",
+        "uofa:ECE369A:2026-2027:overview",
+        "uofa:ECE220:2026-2027:overview",
+        "resource:pico:overview",
+        "resource:pytorch:overview",
+        "uofa:ECE381A:2026-2027:overview",
+        "uofa:ECE311:2026-2027:overview"
+      ]
+    }
+  ],
+  "shuffle_seed": 7,
+  "packet_hash": "8942e29a4c7279d771fdbd7e5b4a1d016a88b4a56354f9a9866d895a3f4d5229"
+}

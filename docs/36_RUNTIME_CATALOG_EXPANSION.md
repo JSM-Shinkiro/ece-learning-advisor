@@ -1,5 +1,7 @@
 # Expanded runtime coverage
 
+Later November 6 follow-up: [expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) now supports runtime/archived inputs and adds an operator catalog snapshot. The milestone below retains its original scope and measurements.
+
 Implemented November 6, 2026 MST in the development repository. Submitted midproject artifacts and frozen evaluation inputs remain unchanged.
 
 ## Available collection

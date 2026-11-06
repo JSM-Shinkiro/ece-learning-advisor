@@ -1,5 +1,7 @@
 # Track courses and archived open-course resources
 
+Later November 6 follow-up: [expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) now supports runtime/archived inputs and adds an operator catalog snapshot. The milestone below retains its original scope and measurements.
+
 Implemented November 6, 2026 MST in the development repository, following [runtime collection expansion](36_RUNTIME_CATALOG_EXPANSION.md). Historical evaluation inputs, measurements, and submitted midproject artifacts remain unchanged.
 
 The runtime collection now contains **20 courses, eight resources, two career mappings, and 34 evidence chunks**. This meets the lower end of the original 20–30-course/8–12-resource ambition. It does not complete academic-rule coverage or independently validate the recommendations. Initial corpus hash: `bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7`.

@@ -29,6 +29,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Review method comparison](35_REVIEW_METHOD_COMPARISON.md) | Packet-bound embedding snapshots, offline keyword/semantic/hybrid scoring, explicit creation opt-in, and evaluation limits |
 | [Expanded runtime coverage](36_RUNTIME_CATALOG_EXPANSION.md) | Seventeen courses, six resources, frozen baseline isolation, requested-source priority, and source-only integration checks |
 | [Track and open-course coverage](37_TRACK_AND_OPEN_COURSE_COVERAGE.md) | Twenty courses/eight resources, exact MIT offering checks, section preparation labels, ECE evidence limits, and live failures/rechecks |
+| [Expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) | Current/archived inputs, immutable catalog export, blank 34-chunk judgments, and all-method scoring limits |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

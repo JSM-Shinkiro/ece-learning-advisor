@@ -1,5 +1,7 @@
 # Comparing retrieval methods with the same review
 
+Later November 6 follow-up: [expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) now supports runtime/archived inputs and adds an operator catalog snapshot. The milestone below retains its original scope and measurements.
+
 Implemented and verified November 6, 2026. The external-review scorer now accepts keyword, semantic, and hybrid retrieval. The same completed relevance form can score each method without provider or source requests. Semantic/hybrid methods read a separately created embedding snapshot bound to the exact packet, saved evidence, and raw/expanded query treatment.
 
 This prepares the comparison workflow. **No actual independent judgments or new retrieval-quality result were collected in this unit.** Existing development questions and assistant-authored labels retain that origin.
