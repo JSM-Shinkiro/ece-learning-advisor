@@ -30,7 +30,23 @@ RESOURCE_URLS = {
     "resource:numpy": "https://numpy.org/doc/stable/user/quickstart.html",
     "resource:sklearn": "https://scikit-learn.org/stable/getting_started.html",
     "resource:pico": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+    "resource:mit_algorithms": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+    "resource:mit_structures": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
 }
+
+
+@dataclass(frozen=True)
+class OpenCourseSpec:
+    number: str
+    title: str
+    term: str
+
+
+OPEN_COURSES = {
+    "resource:mit_algorithms": OpenCourseSpec("6.006", "Introduction to Algorithms", "Spring 2020"),
+    "resource:mit_structures": OpenCourseSpec("6.004", "Computation Structures", "Spring 2017"),
+}
+
 
 @dataclass(frozen=True)
 class ResourceSpec:
@@ -66,7 +82,8 @@ def resource_url_matches(resource_id, url):
 
 
 class ResourceSnapshot(StrictModel):
-    resource_id: Literal["resource:pytorch", "resource:cs50", "resource:python", "resource:numpy", "resource:sklearn", "resource:pico"]
+    resource_id: Literal["resource:pytorch", "resource:cs50", "resource:python", "resource:numpy", "resource:sklearn", "resource:pico",
+                         "resource:mit_algorithms", "resource:mit_structures"]
     resolved_url: str
     title: str = Field(min_length=1, max_length=300)
     summary: str = Field(min_length=40, max_length=1500)
@@ -83,6 +100,9 @@ class ResourceSnapshot(StrictModel):
             valid = (self.title.replace("’", "'") == "CS50's Introduction to Computer Science"
                 and re.fullmatch(r"20\d{2}", self.resource_version)
                 and (path_year is None or path_year[1] == self.resource_version))
+        elif self.resource_id in OPEN_COURSES:
+            spec = OPEN_COURSES[self.resource_id]
+            valid = self.title == "MIT " + spec.number + " — " + spec.title and self.resource_version == spec.term
         else:
             spec = RESOURCE_SPECS[self.resource_id]
             valid = self.title == spec.title and re.fullmatch(spec.version_pattern, self.resource_version)
@@ -116,6 +136,8 @@ class _ResourcePage(HTMLParser):
         self.stack, self.blocks, self.canonicals = [], [], []
         self.capture = None
         self.roots = 0
+        self.capture_banner = False
+        self.banner_headings, self.banner_terms = [], []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -128,7 +150,10 @@ class _ResourcePage(HTMLParser):
             or "display:none" in style or "visibility:hidden" in style)
         classes = attrs.get("class", "").split()
         blocked = parent["blocked"] or tag in {"aside", "pre"} or any(c in classes for c in ("admonition", "edit-link"))
-        if self.resource_id == "resource:python":
+        banner = parent.get("banner", False) or tag == "div" and attrs.get("id") == "course-banner"
+        if self.resource_id in OPEN_COURSES:
+            root = tag == "main" and attrs.get("id") == "course-content-section"
+        elif self.resource_id == "resource:python":
             root = tag == "div" and "body" in classes and attrs.get("role") == "main"
         elif self.resource_id == "resource:pico":
             root = tag == "section" and attrs.get("id") == "content" and attrs.get("role") == "main"
@@ -138,17 +163,19 @@ class _ResourcePage(HTMLParser):
             root = tag == "article" and "bd-article" in classes
         if root and not hidden:
             self.roots += 1
-        context = {"tag": tag, "hidden": hidden, "blocked": blocked, "root": parent["root"] or root}
+        context = {"tag": tag, "hidden": hidden, "blocked": blocked, "root": parent["root"] or root, "banner": banner}
         if tag == "link" and not hidden and attrs.get("rel") == "canonical":
             self.canonicals.append(attrs.get("href", ""))
         if tag not in self.VOID:
             self.stack.append(context)
         document_title = tag == "title" and any(node["tag"] == "head" for node in self.stack)
-        if (document_title or tag in {"h1", "h2", "p"}) and not hidden:
+        course_term = (self.resource_id in OPEN_COURSES and banner and tag == "span" and "course-number-term-detail" in classes)
+        if (document_title or course_term or tag in {"h1", "h2", "h3", "h4", "p"}) and not hidden:
             if self.capture is not None:
                 raise ValueError("The resource content structure is ambiguous")
             if tag != "p" or context["root"] and not blocked:
                 self.capture = (tag, [], context["root"] and not blocked)
+                self.capture_banner = banner and not blocked
         if len(self.stack) > 100 or len(self.blocks) > 2000 or self.roots > 1:
             raise ValueError("The resource page exceeds the parser limits")
 
@@ -161,7 +188,12 @@ class _ResourcePage(HTMLParser):
     def handle_endtag(self, tag):
         if self.capture is not None and self.capture[0] == tag:
             kind, parts, in_body = self.capture
-            self.blocks.append((kind, " ".join("".join(parts).split()).rstrip("#¶").strip(), in_body))
+            text = " ".join("".join(parts).split()).rstrip("#¶").strip()
+            self.blocks.append((kind, text, in_body))
+            if self.capture_banner and kind == "h1":
+                self.banner_headings.append(text)
+            if self.capture_banner and kind == "span":
+                self.banner_terms.append(text)
             self.capture = None
         for index in range(len(self.stack) - 1, -1, -1):
             if self.stack[index]["tag"] == tag:
@@ -181,7 +213,16 @@ def extract_resource(page, resource_id, resolved_url):
     for canonical in parser.canonicals:
         if urljoin(resolved_url, canonical) != resolved_url:
             raise ValueError("The resource canonical identity does not match")
-    if resource_id == "resource:pytorch":
+    open_course = OPEN_COURSES.get(resource_id)
+    heading_tag = "h1"
+    if open_course:
+        expected_title = "Syllabus | " + open_course.title + " | Electrical Engineering and Computer Science | MIT OpenCourseWare"
+        if (titles[0] != expected_title or parser.banner_headings != [open_course.title]
+                or parser.banner_terms != [open_course.number + " | " + open_course.term + " | Undergraduate"]):
+            raise ValueError("The open course title, number, or teaching term does not match")
+        match, heading_tag, heading = True, "h3", "Course Description"
+        title = "MIT " + open_course.number + " — " + open_course.title
+    elif resource_id == "resource:pytorch":
         match = re.fullmatch(r"Quickstart\s*[—–-]\s*PyTorch Tutorials (\d+\.\d+\.\d+[A-Za-z0-9.+-]*) documentation", titles[0])
         heading, title = "Quickstart", "PyTorch Quickstart"
     elif resource_id == "resource:cs50":
@@ -198,7 +239,7 @@ def extract_resource(page, resource_id, resolved_url):
         heading, title = spec.heading, spec.title
     if not match:
         raise ValueError("The resource document identity or edition is unsupported")
-    starts = [index for index, (tag, text, body) in enumerate(parser.blocks) if body and tag == "h1" and text == heading]
+    starts = [index for index, (tag, text, body) in enumerate(parser.blocks) if body and tag == heading_tag and text == heading]
     if len(starts) != 1:
         raise ValueError("The resource introduction is missing or ambiguous")
     start = starts[0]
@@ -211,7 +252,7 @@ def extract_resource(page, resource_id, resolved_url):
         start = sections[0]
     paragraphs = []
     for tag, text, body in parser.blocks[start + 1:]:
-        if body and tag in {"h1", "h2"}:
+        if body and tag in {"h1", "h2", "h3", "h4"}:
             break
         if body and tag == "p" and len(text) >= 40 and not text.startswith(("Created On:", "Last Updated:", "Last Verified:")):
             if len(" ".join(paragraphs + [text])) > 1500:
@@ -219,8 +260,9 @@ def extract_resource(page, resource_id, resolved_url):
             paragraphs.append(text)
             if len(paragraphs) == 2:
                 break
+    version = open_course.term if open_course else "unversioned documentation" if resource_id == "resource:pico" else match[1]
     return ResourceSnapshot(resource_id=resource_id, resolved_url=resolved_url, title=title,
-        summary=" ".join(paragraphs), resource_version="unversioned documentation" if resource_id == "resource:pico" else match[1])
+        summary=" ".join(paragraphs), resource_version=version)
 
 
 @dataclass
@@ -240,12 +282,13 @@ def prepare_resource_jobs(catalog, profile, now=None):
     records.sort(key=lambda record: preferred.get(record.record_id, len(preferred)))
     for record in records:
         source = sources[record.source_ids[0]]
-        if (record.record_id not in RESOURCE_URLS or source.source_id != record.record_id
-                or not resource_url_matches(record.record_id, source.url)
-                or len(jobs) >= MAX_RESOURCE_SOURCES):
+        unsupported = (record.record_id not in RESOURCE_URLS or source.source_id != record.record_id
+                       or not resource_url_matches(record.record_id, source.url))
+        if unsupported or len(jobs) >= MAX_RESOURCE_SOURCES:
             checks.append(SourceCheck(source_id=source.source_id, code=record.record_id, url=source.url,
                 kind="resource", status="skipped", attempted_at=now or datetime.now(timezone.utc),
-                retrieved_at=source.retrieved_at, message="The resource identity or check budget is unsupported; retaining dated evidence."))
+                retrieved_at=source.retrieved_at, message=("The resource identity is unsupported; retaining dated evidence." if unsupported else
+                    "The resource-check limit was reached; remaining resources retain dated snapshots.")))
             continue
         jobs.append(ResourceJob(record.record_id, source.model_copy(deep=True)))
     return jobs, checks

@@ -311,21 +311,23 @@
   {
     "source": {
       "verification_status": "snapshot",
-      "retrieved_at": "2026-11-06T00:55:31.672693Z",
+      "retrieved_at": "2026-11-06T18:36:40.436615+00:00",
       "last_checked_at": null,
       "source_id": "catalog:ECE_program",
       "title": "Electrical and Computer Engineering BSECE \u2014 foundation, core, and computer-engineering course links",
       "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
-      "section": "Engineering foundation R17348/L320, core R15612/L10, computer engineering R15487/L10",
-      "review_note": "Program identity, edition, explicit section links, and six new course identities inspected. Per-course preparation stages and routing phrases are team annotations; no prerequisite, advanced-standing, or degree-audit interpretation is approved by this connector.",
+      "section": "Engineering foundation R17348/L320, core R15612/L10, computer/electrical tracks R15487/L10, R15487/L20, R15487/L30",
+      "review_note": "Current program identity and eight configured sections across two plans checked. Track section preparation labels and bound course annotations are team suggestions, not prerequisite, advanced-standing, or degree-audit approval.",
       "content_hash": null
     },
     "program_code": "ECEBSECE",
     "section_ids": [
       "R17348/L320",
       "R15612/L10",
-      "R15487/L10"
+      "R15487/L10",
+      "R15487/L20",
+      "R15487/L30"
     ],
     "career_ids": [
       "ai_ml",
@@ -341,7 +343,10 @@
       "0121101": "ECE320A",
       "0377871": "ECE340A",
       "0366011": "ECE351C",
-      "0121261": "ECE373"
+      "0121261": "ECE373",
+      "0121181": "ECE352",
+      "0375981": "ECE381A",
+      "0098011": "CSC372"
     },
     "course_phrases": {
       "ECE201": [
@@ -393,6 +398,20 @@
         "class hierarchies",
         "sequence diagrams",
         "unified modeling language"
+      ],
+      "ECE352": [
+        "device electronics",
+        "semiconductor transport",
+        "p-n junctions"
+      ],
+      "ECE381A": [
+        "introductory electromagnetics",
+        "electromagnetic fields",
+        "maxwell equations"
+      ],
+      "CSC372": [
+        "comparative programming languages",
+        "language paradigms"
       ]
     },
     "course_stages": {
@@ -401,7 +420,14 @@
       "ECE320A": "intermediate",
       "ECE340A": "intermediate",
       "ECE351C": "intermediate",
-      "ECE373": "intermediate"
+      "ECE373": "intermediate",
+      "ECE352": "intermediate",
+      "ECE381A": "intermediate",
+      "CSC372": "intermediate"
+    },
+    "section_stages": {
+      "R15487/L20": "advanced",
+      "R15487/L30": "intermediate"
     }
   }
 ]

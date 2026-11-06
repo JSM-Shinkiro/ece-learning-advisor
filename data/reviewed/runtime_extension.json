@@ -1,5 +1,5 @@
 {
-  "version": "runtime-2026-11-06-v1",
+  "version": "runtime-2026-11-06-v2",
   "baseline_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
   "catalog_version": "2026-2027",
   "sources": [
@@ -124,13 +124,13 @@
       "content_hash": "c9226a7460f1e88d470d2680b11a08f6683e32aff497439dbc6f288d7c234ede"
     },
     {
-      "retrieved_at": "2026-11-06T17:55:04.056600Z",
+      "retrieved_at": "2026-11-06T18:36:40.436615+00:00",
       "source_id": "catalog:ECE_program",
       "title": "Electrical and Computer Engineering BSECE — foundation, core, and computer-engineering course links",
       "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
       "catalog_version": "2026-2027",
-      "section": "Reviewed course links in R17348/L320, R15612/L10, R15487/L10",
-      "review_note": "Official program sections establish these course links. They do not establish enrollment eligibility; team preparation labels remain separate."
+      "section": "Engineering foundation R17348/L320, core R15612/L10, computer/electrical tracks R15487/L10, R15487/L20, R15487/L30",
+      "review_note": "Current program identity and eight configured sections across two plans checked. Track section preparation labels and bound course annotations are team suggestions, not prerequisite, advanced-standing, or degree-audit approval."
     },
     {
       "retrieved_at": "2026-11-06T17:55:03.324334Z",
@@ -167,6 +167,54 @@
       "section": "Raspberry Pi Pico C/C++ SDK",
       "review_note": "Official resource identity and introductory section checked; summary paraphrased. Published documentation version is separate from catalog year. Pico documentation publishes no SDK release here. Complementary study does not establish credit or equivalency.",
       "content_hash": "dcbb2a6d68ab1748f796e40494d468ca7ccdd8322acf60a1a7a610b73cf82f86"
+    },
+    {
+      "retrieved_at": "2026-11-06T18:37:35.201440Z",
+      "source_id": "catalog:ECE352",
+      "title": "ECE352 — Device Electronics",
+      "url": "https://catalog.arizona.edu/courses/0121181",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "d00a64b46ed3b5af008e47e29306c0514b782d03d152ac0b7b639d3c25eef34a"
+    },
+    {
+      "retrieved_at": "2026-11-06T18:37:34.703180Z",
+      "source_id": "catalog:ECE381A",
+      "title": "ECE381A — Introductory Electromagnetics",
+      "url": "https://catalog.arizona.edu/courses/0375981",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "db012cfbb36286fc91f5d2216178ebbfed74a46b3179ff18754006e3ea820857"
+    },
+    {
+      "retrieved_at": "2026-11-06T18:37:40.264676Z",
+      "source_id": "catalog:CSC372",
+      "title": "CSC372 — Comparative Programming Languages",
+      "url": "https://catalog.arizona.edu/courses/0098011",
+      "catalog_version": "2026-2027",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Paraphrased description, fixed units, identity, edition, and program link checked. Internal enrollment reference is unresolved; learning annotations do not grant enrollment approval.",
+      "content_hash": "5a02b292bcc3c8f3bf8e66433bcdf2ff1eea3ecadcdcd0dd617cb975d711b24b"
+    },
+    {
+      "retrieved_at": "2026-11-06T18:36:36.957974Z",
+      "source_id": "resource:mit_algorithms",
+      "title": "MIT 6.006 — Introduction to Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+      "section": "Syllabus: Course Description",
+      "review_note": "Official archived offering. Exact syllabus URL, visible course banner, number, teaching term, title, and description verified. Teaching term is not an academic catalog year or a claim of current enrollment availability.",
+      "content_hash": "68e615b3bf807cbd5cae137e6a8c055725c239b53982f85200d8edda39e72d95"
+    },
+    {
+      "retrieved_at": "2026-11-06T18:36:36.954953Z",
+      "source_id": "resource:mit_structures",
+      "title": "MIT 6.004 — Computation Structures",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+      "section": "Syllabus: Course Description",
+      "review_note": "Official archived offering. Exact syllabus URL, visible course banner, number, teaching term, title, and description verified. Teaching term is not an academic catalog year or a claim of current enrollment availability.",
+      "content_hash": "622b6706e6b85c5dd60afa47502536767d134ed564be877d807885027d8aae35"
     }
   ],
   "records": [
@@ -951,6 +999,184 @@
         "resource_version": "resource:pico"
       },
       "resource_version": "unversioned documentation"
+    },
+    {
+      "record_id": "uofa:ECE352:2026-2027",
+      "kind": "course",
+      "title": "Device Electronics",
+      "summary": "Examines semiconductor electronic properties, charge-carrier transport, junction behavior, and several classes of electronic, microwave, and photonic devices.",
+      "source_ids": [
+        "catalog:ECE352",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE352",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "semiconductors",
+        "device electronics",
+        "carrier transport",
+        "p-n junctions"
+      ],
+      "requirement_reference": "016472",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Connect circuit models with semiconductor-device behavior; the preparation label does not resolve enrollment conditions.",
+      "first_activity": "Sketch a qualitative junction diagram and explain the direction of charge-carrier motion.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15487/L30"
+        ],
+        "course_id": "0121181",
+        "discovered_at": "2026-11-06T18:37:35.201440Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE352",
+        "summary": "catalog:ECE352",
+        "credits": "catalog:ECE352",
+        "requirement_reference": "catalog:ECE352"
+      }
+    },
+    {
+      "record_id": "uofa:ECE381A:2026-2027",
+      "kind": "course",
+      "title": "Introductory Electromagnetics",
+      "summary": "Introduces electric and magnetic fields, Maxwell equations, wave propagation, transmission lines, and electromagnetic sources.",
+      "source_ids": [
+        "catalog:ECE381A",
+        "catalog:ECE_program"
+      ],
+      "code": "ECE381A",
+      "credits": 4.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "electromagnetics",
+        "electric fields",
+        "magnetic fields",
+        "Maxwell equations",
+        "transmission lines"
+      ],
+      "requirement_reference": "016497",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Connect circuit and signal exercises with field and wave descriptions before more specialized hardware study.",
+      "first_activity": "Compare the assumptions of a lumped circuit model with a transmission-line model.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15487/L30"
+        ],
+        "course_id": "0375981",
+        "discovered_at": "2026-11-06T18:37:34.703180Z"
+      },
+      "field_sources": {
+        "title": "catalog:ECE381A",
+        "summary": "catalog:ECE381A",
+        "credits": "catalog:ECE381A",
+        "requirement_reference": "catalog:ECE381A"
+      }
+    },
+    {
+      "record_id": "uofa:CSC372:2026-2027",
+      "kind": "course",
+      "title": "Comparative Programming Languages",
+      "summary": "Compares several high-level programming languages and their characteristics, with programming projects using at least three languages.",
+      "source_ids": [
+        "catalog:CSC372",
+        "catalog:ECE_program"
+      ],
+      "code": "CSC372",
+      "credits": 3.0,
+      "catalog_version": "2026-2027",
+      "topics": [
+        "programming languages",
+        "language paradigms",
+        "comparative programming"
+      ],
+      "requirement_reference": "017273",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Compare language choices and express the same idea in different programming styles; this is a learning connection, not a prerequisite interpretation.",
+      "first_activity": "Implement a small data-processing task in two languages and compare their type and control-flow conventions.",
+      "discovery": {
+        "source_id": "catalog:ECE_program",
+        "program_code": "ECEBSECE",
+        "section_ids": [
+          "R15487/L20"
+        ],
+        "course_id": "0098011",
+        "discovered_at": "2026-11-06T18:37:40.264676Z"
+      },
+      "field_sources": {
+        "title": "catalog:CSC372",
+        "summary": "catalog:CSC372",
+        "credits": "catalog:CSC372",
+        "requirement_reference": "catalog:CSC372"
+      }
+    },
+    {
+      "record_id": "resource:mit_algorithms",
+      "kind": "resource",
+      "title": "MIT 6.006 — Introduction to Algorithms",
+      "summary": "Archived MIT algorithms course covering data structures, problem modeling, algorithmic techniques, and computational performance analysis.",
+      "source_ids": [
+        "resource:mit_algorithms"
+      ],
+      "topics": [
+        "algorithms",
+        "data structures",
+        "performance analysis",
+        "MIT 6.006"
+      ],
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Archived Spring 2020 material expects Python programming and discrete mathematics. Use it for complementary practice, not university credit or course equivalency.",
+      "first_activity": "Trace a small sorting algorithm and compare its operation count with a second approach.",
+      "field_sources": {
+        "title": "resource:mit_algorithms",
+        "summary": "resource:mit_algorithms",
+        "resource_version": "resource:mit_algorithms"
+      },
+      "resource_version": "Spring 2020"
+    },
+    {
+      "record_id": "resource:mit_structures",
+      "kind": "resource",
+      "title": "MIT 6.004 — Computation Structures",
+      "summary": "Archived MIT digital-systems course connecting transistor-level behavior to logic, sequential circuits, state machines, and computers through hardware/software design examples.",
+      "source_ids": [
+        "resource:mit_structures"
+      ],
+      "topics": [
+        "digital systems",
+        "computer architecture",
+        "logic gates",
+        "state machines",
+        "MIT 6.004"
+      ],
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "learning_note": "Archived Spring 2017 material assumes programming concepts and electrical fundamentals; review its syllabus preparation before using the exercises.",
+      "first_activity": "Trace how a logic circuit stores state and relate it to a small processor building block.",
+      "field_sources": {
+        "title": "resource:mit_structures",
+        "summary": "resource:mit_structures",
+        "resource_version": "resource:mit_structures"
+      },
+      "resource_version": "Spring 2017"
     }
   ]
 }

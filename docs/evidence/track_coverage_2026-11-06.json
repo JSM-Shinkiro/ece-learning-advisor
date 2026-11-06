@@ -1,0 +1,2017 @@
+{
+  "checked_at": "2026-11-06T18:49:29.936145+00:00",
+  "development_date": "2026-11-06 America/Phoenix",
+  "scope": "Track and archived resource coverage, edition-bound identity review, controlled contracts, and dated source-only integration. Assistant-authored review; no independent quality claim.",
+  "counts": {
+    "courses": 20,
+    "resources": 8,
+    "career_mappings": 2,
+    "evidence_chunks": 34
+  },
+  "baseline_corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+  "runtime_corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+  "frozen_file_sha256": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
+  },
+  "model_calls": 0,
+  "credentials_used": false,
+  "transport_policy_changed": false,
+  "limits": {
+    "course_pages": 8,
+    "program_pages": 2,
+    "resource_pages": 2,
+    "workers": 3
+  },
+  "discovery_policy": "p07-course-request-priority-v4",
+  "configured_sections": {
+    "COSCBS": [
+      "R1299/L30",
+      "R1299/L50",
+      "R1299/L70"
+    ],
+    "ECEBSECE": [
+      "R17348/L320",
+      "R15612/L10",
+      "R15487/L10",
+      "R15487/L20",
+      "R15487/L30"
+    ]
+  },
+  "section_preparation_policy": {
+    "R15487/L20": "advanced",
+    "R15487/L30": "intermediate",
+    "precedence": "Exact reviewed/per-course annotations override section defaults; multiple section defaults use the most advanced preparation stage. No academic satisfaction is inferred."
+  },
+  "initial_inspection": [
+    {
+      "name": "algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+      "passed": true,
+      "checked_at": "2026-11-06T18:36:36.957974+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 5.198946156999682,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 5.198950440999852,
+      "http_status": 200
+    },
+    {
+      "name": "structures",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+      "passed": true,
+      "checked_at": "2026-11-06T18:36:36.954953+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 5.1973011959998985,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 5.197305626999878,
+      "http_status": 200
+    },
+    {
+      "name": "program",
+      "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+      "passed": true,
+      "checked_at": "2026-11-06T18:36:40.436615+00:00",
+      "attempts": [
+        {
+          "outcome": "timeout",
+          "http_status": null,
+          "seconds": 6.011207294999622,
+          "retry": false
+        },
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 2.408506372999909,
+          "retry": true
+        }
+      ],
+      "retry_count": 1,
+      "transport_seconds": 8.670038491000014,
+      "http_status": 200
+    }
+  ],
+  "program_links": {
+    "program_code": "ECEBSECE",
+    "catalog_version": "2026-2027",
+    "course_ids": {
+      "R17348/L320": [
+        "0432351",
+        "0432591",
+        "0120881",
+        "0360981"
+      ],
+      "R15612/L10": [
+        "0362401",
+        "0397381",
+        "0121101",
+        "0377871",
+        "0366011",
+        "0367521"
+      ],
+      "R15487/L10": [
+        "0366021",
+        "0121261"
+      ],
+      "R15487/L20": [
+        "0363621",
+        "0098011",
+        "0121962",
+        "0403791",
+        "0434811",
+        "0396851",
+        "0121801",
+        "0378351",
+        "0378411",
+        "0394621",
+        "0121941",
+        "0121961",
+        "0122011",
+        "0122041"
+      ],
+      "R15487/L30": [
+        "0121181",
+        "0375981"
+      ]
+    }
+  },
+  "course_probes": [
+    {
+      "url": "https://catalog.arizona.edu/courses/0121181",
+      "course_id": "0121181",
+      "passed": true,
+      "checked_at": "2026-11-06T18:37:35.201440+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 5.164259045000108,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 5.164264685000035,
+      "http_status": 200,
+      "observed": {
+        "code": "ECE352",
+        "title": "Device Electronics",
+        "credits": {
+          "min": 3,
+          "max": 3,
+          "operator": ""
+        },
+        "catalog_version": "2026-2027",
+        "requirement_reference": "016472",
+        "description_hash": "d00a64b46ed3b5af008e47e29306c0514b782d03d152ac0b7b639d3c25eef34a"
+      },
+      "added_to_runtime": true
+    },
+    {
+      "url": "https://catalog.arizona.edu/courses/0375981",
+      "course_id": "0375981",
+      "passed": true,
+      "checked_at": "2026-11-06T18:37:34.703180+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 4.659858851000081,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 4.659861110999827,
+      "http_status": 200,
+      "observed": {
+        "code": "ECE381A",
+        "title": "Introductory Electromagnetics",
+        "credits": {
+          "min": 4,
+          "max": 4,
+          "operator": ""
+        },
+        "catalog_version": "2026-2027",
+        "requirement_reference": "016497",
+        "description_hash": "db012cfbb36286fc91f5d2216178ebbfed74a46b3179ff18754006e3ea820857"
+      },
+      "added_to_runtime": true
+    },
+    {
+      "url": "https://catalog.arizona.edu/courses/0363621",
+      "course_id": "0363621",
+      "passed": true,
+      "checked_at": "2026-11-06T18:37:34.880043+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 4.865570112999649,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 4.865575974999956,
+      "http_status": 200,
+      "observed": {
+        "code": "CSC337",
+        "title": "Web Programming",
+        "credits": {
+          "min": 3,
+          "max": 3,
+          "operator": ""
+        },
+        "catalog_version": "2026-2027",
+        "requirement_reference": "017114",
+        "description_hash": "937c5c3339f7cc6070cda26c37f4efb16a40546ce5c7a0f6b08876af0f0d7462"
+      },
+      "added_to_runtime": false
+    },
+    {
+      "url": "https://catalog.arizona.edu/courses/0098011",
+      "course_id": "0098011",
+      "passed": true,
+      "checked_at": "2026-11-06T18:37:40.264676+00:00",
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 5.480223007999939,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 5.48022548300014,
+      "http_status": 200,
+      "observed": {
+        "code": "CSC372",
+        "title": "Comparative Programming Languages",
+        "credits": {
+          "min": 3,
+          "max": 3,
+          "operator": ""
+        },
+        "catalog_version": "2026-2027",
+        "requirement_reference": "017273",
+        "description_hash": "5a02b292bcc3c8f3bf8e66433bcdf2ff1eea3ecadcdcd0dd617cb975d711b24b"
+      },
+      "added_to_runtime": true
+    }
+  ],
+  "department_evidence_audit": [
+    {
+      "course": "ECE369A",
+      "url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE369A",
+      "declared_catalog_data": "2021-2022",
+      "syllabus_updated": "2022-03-29",
+      "decision": "Not a matching 2026\u20132027 interpretation. Engineering advanced standing also remains a separate unknown condition."
+    },
+    {
+      "course": "ECE201",
+      "url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE201",
+      "declared_catalog_data": null,
+      "syllabus_updated": "2024-08-05",
+      "decision": "No matching 2026\u20132027 condition established; do not use the site copyright year as catalog provenance."
+    }
+  ],
+  "initial_live_integration": {
+    "checked_at": "2026-11-06T18:44:38.788410+00:00",
+    "scope": "Source-only runtime checks of the expanded collection; no quality or enrollment approval claim.",
+    "model_calls": 0,
+    "credentials_used": false,
+    "cases": [
+      {
+        "career": "ai_ml",
+        "question": "CSC372 and ECE352; study with MIT 6.006 and MIT 6.004.",
+        "selected_checks": 12,
+        "selected_checks_passed": true,
+        "focus_in_context": true,
+        "requested_resources_in_context": true,
+        "requested_resources_verified": true,
+        "allowed_record_ids": [
+          "uofa:CSC372:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "uofa:CSC120:2026-2027",
+          "resource:mit_algorithms",
+          "resource:mit_structures"
+        ],
+        "course_check_selection": {
+          "version": "p07-saved-course-checks-v1",
+          "limit": 8,
+          "requested_codes": [
+            "CSC372",
+            "ECE352"
+          ],
+          "phrase_matches": {},
+          "reviewed_rule_codes": [
+            "CSC120",
+            "CSC110",
+            "CSC144",
+            "CSC210"
+          ],
+          "selected_codes": [
+            "CSC372",
+            "ECE352",
+            "CSC120",
+            "CSC110",
+            "CSC144",
+            "CSC210",
+            "ECE101",
+            "ECE425"
+          ],
+          "snapshot_codes": [
+            "ECE201",
+            "ECE220",
+            "ECE274A",
+            "ECE310",
+            "ECE311",
+            "ECE320A",
+            "ECE340A",
+            "ECE351C",
+            "ECE373",
+            "ECE381A"
+          ]
+        },
+        "discovery_selection": {
+          "version": "p07-course-request-priority-v4",
+          "input": "question",
+          "requested_codes": [
+            "CSC372",
+            "ECE352"
+          ],
+          "truncated": false,
+          "phrase_matches": {},
+          "requests": [
+            {
+              "code": "CSC372",
+              "status": "in_collection"
+            },
+            {
+              "code": "ECE352",
+              "status": "in_collection"
+            }
+          ],
+          "skipped_completed_codes": [],
+          "selected": []
+        },
+        "checks": [
+          {
+            "source_id": "resource:pytorch",
+            "code": "resource:pytorch",
+            "url": "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:38.798644Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:cs50",
+            "code": "resource:cs50",
+            "url": "https://cs50.harvard.edu/x/",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:38.798675Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:python",
+            "code": "resource:python",
+            "url": "https://docs.python.org/3/tutorial/index.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:38.798689Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:03.324334Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:numpy",
+            "code": "resource:numpy",
+            "url": "https://numpy.org/doc/stable/user/quickstart.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:38.798699Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.123770Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:sklearn",
+            "code": "resource:sklearn",
+            "url": "https://scikit-learn.org/stable/getting_started.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:38.798707Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.912673Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "catalog:CS_foundations",
+            "code": "COSCBS",
+            "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+            "kind": "rule",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:38.835236Z",
+            "last_checked_at": "2026-11-06T18:44:47.824545Z",
+            "retrieved_at": "2026-11-06T18:44:47.824545Z",
+            "content_hash": "9d2852bdc4fcf9005a84fd96a427626dace273799a974fa3576b2f2d629d1ebb",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "discovery_status": "verified",
+            "attempts": [
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 6.013049665999915,
+                "retry": false
+              },
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 1.82948212600013,
+                "retry": true
+              }
+            ],
+            "retry_count": 1,
+            "transport_seconds": 8.094338459000028,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE_program",
+            "code": "ECEBSECE",
+            "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+            "kind": "discovery",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:38.837127Z",
+            "last_checked_at": "2026-11-06T18:44:47.740985Z",
+            "retrieved_at": "2026-11-06T18:44:47.740985Z",
+            "content_hash": "d67cb85ced834efeeca8468ce31a06d7103179e7e4f617ccf4a144ff9ddc6dc0",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": "verified",
+            "attempts": [
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 6.012247092000052,
+                "retry": false
+              },
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 2.0793986890003,
+                "retry": true
+              }
+            ],
+            "retry_count": 1,
+            "transport_seconds": 8.342120767000324,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC372",
+            "code": "CSC372",
+            "url": "https://catalog.arizona.edu/courses/0098011",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:38.839169Z",
+            "last_checked_at": "2026-11-06T18:44:47.885582Z",
+            "retrieved_at": "2026-11-06T18:44:47.885582Z",
+            "content_hash": "3f6815adbb230cffbaceabf555df138a4ee55d6f46572054249faffaf5bd552f",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 6.009592653999789,
+                "retry": false
+              },
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 2.7450351580000643,
+                "retry": true
+              }
+            ],
+            "retry_count": 1,
+            "transport_seconds": 9.004826646999845,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE352",
+            "code": "ECE352",
+            "url": "https://catalog.arizona.edu/courses/0121181",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:47.827742Z",
+            "last_checked_at": "2026-11-06T18:44:48.587746Z",
+            "retrieved_at": "2026-11-06T18:44:48.587746Z",
+            "content_hash": "609c102a8aa53aec298b5651ba64f1a35e4bb5ffafad63de8b211562b300ee79",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.7085241700001461,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.7085261770002944,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC120",
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:47.828537Z",
+            "last_checked_at": "2026-11-06T18:44:48.649842Z",
+            "retrieved_at": "2026-11-06T18:44:48.649842Z",
+            "content_hash": "6f044997a7705d9ced4d0910de3abda7f5d8ee1722e86bb116cf0577dfb30422",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.7594319800000449,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.7594345090001298,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC110",
+            "code": "CSC110",
+            "url": "https://catalog.arizona.edu/courses/0393681",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:47.886635Z",
+            "last_checked_at": "2026-11-06T18:44:48.530759Z",
+            "retrieved_at": "2026-11-06T18:44:48.530759Z",
+            "content_hash": "3df041f04f4c0bfdfe136cd55001d6d31a553a447465e623e7752af7208e7f04",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.5911709199999677,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.591172970000116,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC144",
+            "code": "CSC144",
+            "url": "https://catalog.arizona.edu/courses/0420001",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:48.531897Z",
+            "last_checked_at": "2026-11-06T18:44:49.174111Z",
+            "retrieved_at": "2026-11-06T18:44:49.174111Z",
+            "content_hash": "a27a363a4458cec1df9d20156772f31e8cb0494408e6815f26c67db995ed4471",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.585123380999903,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.5851246209999772,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC210",
+            "code": "CSC210",
+            "url": "https://catalog.arizona.edu/courses/0393711",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:48.639765Z",
+            "last_checked_at": "2026-11-06T18:44:49.233814Z",
+            "retrieved_at": "2026-11-06T18:44:49.233814Z",
+            "content_hash": "0c16813fdb89a5810029d48df090bdce25fff9cc89f706d49d66ae5493aea781",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": "verified",
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.5548996410002474,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.5549017530001947,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:48.650245Z",
+            "last_checked_at": "2026-11-06T18:44:49.316670Z",
+            "retrieved_at": "2026-11-06T18:44:49.316670Z",
+            "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.6177375950001078,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.6177398660001927,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE425",
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:49.175044Z",
+            "last_checked_at": "2026-11-06T18:44:49.877741Z",
+            "retrieved_at": "2026-11-06T18:44:49.877741Z",
+            "content_hash": "bc63368283540147f927822ff4fdcdf8a30b5e0590d4e097b61100596607a4ec",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.626554126999963,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.626556194999921,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE201",
+            "code": "ECE201",
+            "url": "https://catalog.arizona.edu/courses/0432591",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591213Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:24.075135Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE220",
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591255Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:24.072438Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE274A",
+            "code": "ECE274A",
+            "url": "https://catalog.arizona.edu/courses/0360981",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591263Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:23.927280Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE310",
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591268Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.708836Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE311",
+            "code": "ECE311",
+            "url": "https://catalog.arizona.edu/courses/0397381",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591288Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.771042Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE320A",
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591302Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.880125Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE340A",
+            "code": "ECE340A",
+            "url": "https://catalog.arizona.edu/courses/0377871",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591307Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE351C",
+            "code": "ECE351C",
+            "url": "https://catalog.arizona.edu/courses/0366011",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591311Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE373",
+            "code": "ECE373",
+            "url": "https://catalog.arizona.edu/courses/0121261",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591315Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE381A",
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.591344Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:34.703180Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "resource:mit_algorithms",
+            "code": "resource:mit_algorithms",
+            "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+            "kind": "resource",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:49.234946Z",
+            "last_checked_at": "2026-11-06T18:44:54.499182Z",
+            "retrieved_at": "2026-11-06T18:44:54.499182Z",
+            "content_hash": "68e615b3bf807cbd5cae137e6a8c055725c239b53982f85200d8edda39e72d95",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 5.263996365999901,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 5.263998361999711,
+            "message": ""
+          },
+          {
+            "source_id": "resource:mit_structures",
+            "code": "resource:mit_structures",
+            "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+            "kind": "resource",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:49.317183Z",
+            "last_checked_at": "2026-11-06T18:44:54.563110Z",
+            "retrieved_at": "2026-11-06T18:44:54.563110Z",
+            "content_hash": "622b6706e6b85c5dd60afa47502536767d134ed564be877d807885027d8aae35",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 5.2455786840000656,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 5.245580367000002,
+            "message": ""
+          }
+        ],
+        "context_freshness": {
+          "catalog:ECE425": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:49.877741Z",
+            "last_checked_at": "2026-11-06T18:44:49.877741Z"
+          },
+          "catalog:CSC120": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:48.649842Z",
+            "last_checked_at": "2026-11-06T18:44:48.649842Z"
+          },
+          "catalog:CS_foundations": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:47.824545Z",
+            "last_checked_at": "2026-11-06T18:44:47.824545Z"
+          },
+          "catalog:CSC110": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:48.530759Z",
+            "last_checked_at": "2026-11-06T18:44:48.530759Z"
+          },
+          "catalog:CSC372": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:47.885582Z",
+            "last_checked_at": "2026-11-06T18:44:47.885582Z"
+          },
+          "resource:mit_algorithms": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:54.499182Z",
+            "last_checked_at": "2026-11-06T18:44:54.499182Z"
+          },
+          "resource:mit_structures": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:54.563110Z",
+            "last_checked_at": "2026-11-06T18:44:54.563110Z"
+          }
+        },
+        "rule_results": {
+          "uofa:CSC372:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": [],
+            "verification_status": "unreviewed",
+            "source_ids": []
+          },
+          "uofa:ECE425:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "Resolve and review enrollment requirement reference 019593 before evaluating eligibility."
+            ],
+            "evidence_ids": [],
+            "verification_status": "unreviewed",
+            "source_ids": []
+          },
+          "uofa:CSC120:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "CSC110 is not in the supplied completion history.",
+              "ECE101 is not in the supplied completion history.",
+              "ECE175 is not in the supplied completion history.",
+              "ISTA130 is not in the supplied completion history.",
+              "Some supporting requirement records are outside this reviewed context."
+            ],
+            "evidence_ids": [
+              "uofa:CSC120:2026-2027:rule:R1299-L40"
+            ],
+            "verification_status": "verified",
+            "source_ids": [
+              "catalog:CS_foundations"
+            ]
+          }
+        },
+        "timings_seconds": {
+          "source_refresh": 15.800169811999695,
+          "retrieval": 0.002404519999799959,
+          "total": 15.817255689000376
+        },
+        "issues": [
+          "Course discovery is limited to this request's download budget; 13 additional links were not fetched.",
+          "The source-check limit was reached; remaining records retain dated snapshots.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence."
+        ]
+      },
+      {
+        "career": "embedded",
+        "question": "ECE381A; study with MIT 6.004 and MIT 6.006.",
+        "selected_checks": 11,
+        "selected_checks_passed": false,
+        "focus_in_context": true,
+        "requested_resources_in_context": true,
+        "requested_resources_verified": false,
+        "allowed_record_ids": [
+          "uofa:ECE381A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "resource:mit_structures",
+          "resource:mit_algorithms"
+        ],
+        "course_check_selection": {
+          "version": "p07-saved-course-checks-v1",
+          "limit": 8,
+          "requested_codes": [
+            "ECE381A"
+          ],
+          "phrase_matches": {},
+          "reviewed_rule_codes": [],
+          "selected_codes": [
+            "ECE381A",
+            "ECE101",
+            "ECE369A",
+            "ECE372A",
+            "ECE201",
+            "ECE220",
+            "ECE274A",
+            "ECE310"
+          ],
+          "snapshot_codes": [
+            "ECE311",
+            "ECE320A",
+            "ECE340A",
+            "ECE351C",
+            "ECE373",
+            "ECE352",
+            "CSC372"
+          ]
+        },
+        "discovery_selection": {
+          "version": "p07-course-request-priority-v4",
+          "input": "question",
+          "requested_codes": [
+            "ECE381A"
+          ],
+          "truncated": false,
+          "phrase_matches": {},
+          "requests": [
+            {
+              "code": "ECE381A",
+              "status": "in_collection"
+            }
+          ],
+          "skipped_completed_codes": [],
+          "selected": []
+        },
+        "checks": [
+          {
+            "source_id": "resource:cs50",
+            "code": "resource:cs50",
+            "url": "https://cs50.harvard.edu/x/",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.650242Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:01:51.068000Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:python",
+            "code": "resource:python",
+            "url": "https://docs.python.org/3/tutorial/index.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.650419Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:03.324334Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "resource:pico",
+            "code": "resource:pico",
+            "url": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+            "kind": "resource",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:44:54.650445Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.656760Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": "The resource identity or check budget is unsupported; retaining dated evidence."
+          },
+          {
+            "source_id": "catalog:ECE_program",
+            "code": "ECEBSECE",
+            "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+            "kind": "discovery",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:54.674695Z",
+            "last_checked_at": "2026-11-06T18:44:58.948712Z",
+            "retrieved_at": "2026-11-06T18:44:58.948712Z",
+            "content_hash": "d67cb85ced834efeeca8468ce31a06d7103179e7e4f617ccf4a144ff9ddc6dc0",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": "verified",
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 3.9715942389998418,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 3.9715971380001065,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE381A",
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:54.675197Z",
+            "last_checked_at": "2026-11-06T18:44:58.999665Z",
+            "retrieved_at": "2026-11-06T18:44:58.999665Z",
+            "content_hash": "a8de45f58c70433b2aff4809661a77cd2b68bd0c196d31bfe7a4b9b468d87880",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 4.276006030999724,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 4.276008657999682,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE101",
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:54.676928Z",
+            "last_checked_at": "2026-11-06T18:44:58.949449Z",
+            "retrieved_at": "2026-11-06T18:44:58.949449Z",
+            "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 4.130338281000149,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 4.130361340000036,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE369A",
+            "code": "ECE369A",
+            "url": "https://catalog.arizona.edu/courses/0366021",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:58.971433Z",
+            "last_checked_at": "2026-11-06T18:44:59.830785Z",
+            "retrieved_at": "2026-11-06T18:44:59.830785Z",
+            "content_hash": "968094a5068e4f61e63cf4d445384f33b4f0f0f9606500ca59a3831c01a131cb",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.7771487159998287,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.7771520669998608,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE372A",
+            "code": "ECE372A",
+            "url": "https://catalog.arizona.edu/courses/0367521",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:58.993293Z",
+            "last_checked_at": "2026-11-06T18:44:59.822531Z",
+            "retrieved_at": "2026-11-06T18:44:59.822531Z",
+            "content_hash": "6ecd63c1751fe2e3d9b49dd57dd1a5d8cf94918ba7f63357e754eb90769752d4",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.72005542099987,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.7200576200002615,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE201",
+            "code": "ECE201",
+            "url": "https://catalog.arizona.edu/courses/0432591",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:59.000106Z",
+            "last_checked_at": "2026-11-06T18:44:59.656843Z",
+            "retrieved_at": "2026-11-06T18:44:59.656843Z",
+            "content_hash": "9e73a6e4a38bc9d40c709f6f16f8c70cfaa1e4ec17fdf212e67ff3138f7b2081",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.6170262979999279,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.6170281940003406,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE220",
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:59.657520Z",
+            "last_checked_at": "2026-11-06T18:45:00.331598Z",
+            "retrieved_at": "2026-11-06T18:45:00.331598Z",
+            "content_hash": "4f759badc7e8d724700bbdf5b3a9f965a72e212c9e08eb6637ac300a0118b118",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.638850236000053,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.6388520850000532,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE274A",
+            "code": "ECE274A",
+            "url": "https://catalog.arizona.edu/courses/0360981",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:59.829851Z",
+            "last_checked_at": "2026-11-06T18:45:01.044823Z",
+            "retrieved_at": "2026-11-06T18:45:01.044823Z",
+            "content_hash": "bc274afe2ad19e3bec2c3de94f3508db9c51c7452cc1d86c7566ca00dc35619a",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 1.174323584999911,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 1.1743256749996362,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE310",
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "kind": "course",
+            "status": "updated",
+            "attempted_at": "2026-11-06T18:44:59.831353Z",
+            "last_checked_at": "2026-11-06T18:45:00.523185Z",
+            "retrieved_at": "2026-11-06T18:45:00.523185Z",
+            "content_hash": "6db0005357fd0356f2c1313e6ba0a44415209346f4fd16baa812eff97bf3d401",
+            "content_changed": true,
+            "cache_saved": true,
+            "http_status": 200,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "success",
+                "http_status": 200,
+                "seconds": 0.6557636910001747,
+                "retry": false
+              }
+            ],
+            "retry_count": 0,
+            "transport_seconds": 0.6557655500000692,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE311",
+            "code": "ECE311",
+            "url": "https://catalog.arizona.edu/courses/0397381",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545172Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.771042Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE320A",
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545470Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.880125Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE340A",
+            "code": "ECE340A",
+            "url": "https://catalog.arizona.edu/courses/0377871",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545558Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE351C",
+            "code": "ECE351C",
+            "url": "https://catalog.arizona.edu/courses/0366011",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545565Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE373",
+            "code": "ECE373",
+            "url": "https://catalog.arizona.edu/courses/0121261",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545570Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:ECE352",
+            "code": "ECE352",
+            "url": "https://catalog.arizona.edu/courses/0121181",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545613Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:35.201440Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "catalog:CSC372",
+            "code": "CSC372",
+            "url": "https://catalog.arizona.edu/courses/0098011",
+            "kind": "course",
+            "status": "skipped",
+            "attempted_at": "2026-11-06T18:45:12.545620Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:40.264676Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": null,
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [],
+            "retry_count": 0,
+            "transport_seconds": 0.0,
+            "message": ""
+          },
+          {
+            "source_id": "resource:mit_structures",
+            "code": "resource:mit_structures",
+            "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+            "kind": "resource",
+            "status": "bundled_fallback",
+            "attempted_at": "2026-11-06T18:45:00.332086Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": "timeout",
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 6.01083759400035,
+                "retry": false
+              },
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 5.748624256999847,
+                "retry": true
+              }
+            ],
+            "retry_count": 1,
+            "transport_seconds": 12.009652566000113,
+            "message": "resource:mit_structures: resource check failed; showing dated saved evidence."
+          },
+          {
+            "source_id": "resource:mit_algorithms",
+            "code": "resource:mit_algorithms",
+            "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+            "kind": "resource",
+            "status": "bundled_fallback",
+            "attempted_at": "2026-11-06T18:45:00.523712Z",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "content_hash": null,
+            "content_changed": false,
+            "cache_saved": false,
+            "http_status": null,
+            "resolved_url": null,
+            "failure_kind": "timeout",
+            "rule_status": null,
+            "discovery_status": null,
+            "attempts": [
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 6.005313355999988,
+                "retry": false
+              },
+              {
+                "outcome": "timeout",
+                "http_status": null,
+                "seconds": 5.757992950999778,
+                "retry": true
+              }
+            ],
+            "retry_count": 1,
+            "transport_seconds": 12.02031441600002,
+            "message": "resource:mit_algorithms: resource check failed; showing dated saved evidence."
+          }
+        ],
+        "context_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:58.949449Z",
+            "last_checked_at": "2026-11-06T18:44:58.949449Z"
+          },
+          "catalog:ECE369A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:59.830785Z",
+            "last_checked_at": "2026-11-06T18:44:59.830785Z"
+          },
+          "catalog:ECE372A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:59.822531Z",
+            "last_checked_at": "2026-11-06T18:44:59.822531Z"
+          },
+          "catalog:ECE381A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-06T18:44:58.999665Z",
+            "last_checked_at": "2026-11-06T18:44:58.999665Z"
+          },
+          "resource:mit_algorithms": {
+            "verification_status": "stale",
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "last_checked_at": null
+          },
+          "resource:mit_structures": {
+            "verification_status": "stale",
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "last_checked_at": null
+          }
+        },
+        "rule_results": {
+          "uofa:ECE381A:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "The catalog rule has not been resolved and reviewed."
+            ],
+            "evidence_ids": [],
+            "verification_status": "unreviewed",
+            "source_ids": []
+          },
+          "uofa:ECE372A:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "Resolve and review enrollment requirement reference 016495 before evaluating eligibility."
+            ],
+            "evidence_ids": [],
+            "verification_status": "unreviewed",
+            "source_ids": []
+          },
+          "uofa:ECE369A:2026-2027": {
+            "status": "unknown",
+            "reasons": [
+              "Resolve and review enrollment requirement reference 016494 before evaluating eligibility."
+            ],
+            "evidence_ids": [],
+            "verification_status": "unreviewed",
+            "source_ids": []
+          }
+        },
+        "timings_seconds": {
+          "source_refresh": 17.93685874699986,
+          "retrieval": 0.0026685230000111915,
+          "total": 17.950511105999794
+        },
+        "issues": [
+          "Course discovery is limited to this request's download budget; 13 additional links were not fetched.",
+          "The source-check limit was reached; remaining records retain dated snapshots.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "The resource identity or check budget is unsupported; retaining dated evidence.",
+          "resource:mit_structures: resource check failed; showing dated saved evidence.",
+          "resource:mit_algorithms: resource check failed; showing dated saved evidence."
+        ]
+      }
+    ]
+  },
+  "bounded_resource_followup": {
+    "checked_at": "2026-11-06T18:46:12.059595+00:00",
+    "scope": "One bounded recheck of the two MIT resource failures from the embedded request. Academic pages were not re-requested.",
+    "model_calls": 0,
+    "credentials_used": false,
+    "checks": [
+      {
+        "source_id": "resource:mit_structures",
+        "code": "resource:mit_structures",
+        "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+        "kind": "resource",
+        "status": "updated",
+        "attempted_at": "2026-11-06T18:46:07.802508Z",
+        "last_checked_at": "2026-11-06T18:46:12.040156Z",
+        "retrieved_at": "2026-11-06T18:46:12.040156Z",
+        "content_hash": "622b6706e6b85c5dd60afa47502536767d134ed564be877d807885027d8aae35",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.2374696229999245,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 4.237473001000126,
+        "message": ""
+      },
+      {
+        "source_id": "resource:mit_algorithms",
+        "code": "resource:mit_algorithms",
+        "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+        "kind": "resource",
+        "status": "updated",
+        "attempted_at": "2026-11-06T18:46:07.804090Z",
+        "last_checked_at": "2026-11-06T18:46:12.021672Z",
+        "retrieved_at": "2026-11-06T18:46:12.021672Z",
+        "content_hash": "68e615b3bf807cbd5cae137e6a8c055725c239b53982f85200d8edda39e72d95",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.217319407999639,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 4.217321834999893,
+        "message": ""
+      }
+    ],
+    "issues": [],
+    "seconds": 4.2960081960000025,
+    "all_checks_passed": true
+  },
+  "resource_notice_followup": "Initial live requests retain their old repeated budget notices. After inspection, expected resource skips were separated from unsupported bindings and consolidated into one notice, verified by controlled integrated tests. No transport or source-cap change.",
+  "automated_tests": {
+    "passed": 1305,
+    "seconds": 57.96,
+    "new_track_open_course_cases": 44,
+    "streamlit_interactions_total": 62
+  },
+  "production_runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-06T18:48:45.585063+00:00"
+  },
+  "limitations": [
+    "Fifteen ECE conditions and CSC372 remain unknown; four existing reviewed CS conditions retain prior limitations.",
+    "MIT resources are archived Spring 2020 and Spring 2017 offerings. Current fetch dates are not new teaching terms or course equivalency.",
+    "The embedded request failed both resource checks; the resource-only follow-up does not relabel the original request as successful.",
+    "Omitted records remain snapshots and thirteen additional program links were outside the live download budget.",
+    "Historical evaluation and reviewer CLI still use the frozen collection; no independent expanded-corpus score, new provider verification, hosting, or student pilot is claimed."
+  ]
+}

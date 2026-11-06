@@ -15,6 +15,8 @@ RESOURCE_TERMS = {
     "resource:numpy": ("numpy", "numerical arrays"),
     "resource:sklearn": ("scikit learn", "sklearn"),
     "resource:pico": ("raspberry pi pico", "pico", "c/c++ sdk"),
+    "resource:mit_algorithms": ("mit 6.006", "6.006", "mit algorithms"),
+    "resource:mit_structures": ("mit 6.004", "6.004", "mit computation structures", "computation structures"),
 }
 
 

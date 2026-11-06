@@ -17,6 +17,7 @@ from test_sources import course_page
 CORE = {"0362401": "ECE310", "0397381": "ECE311", "0121101": "ECE320A",
         "0377871": "ECE340A", "0366011": "ECE351C", "0121261": "ECE373"}
 FOUNDATIONS = {"0432591": "ECE201", "0120881": "ECE220", "0360981": "ECE274A"}
+TRACKS = {"0121181": "ECE352", "0375981": "ECE381A", "0098011": "CSC372"}
 
 
 def core_refresh(catalog, path, profile, *, seen=None, programs=None, courses=None, headers=None, omit=None, plans=None):
@@ -33,10 +34,11 @@ def core_refresh(catalog, path, profile, *, seen=None, programs=None, courses=No
                     node["description"] = entry.proof.reviewed_text
             pages[plan.program_code] = program_page(plan, ids_by_section=ids, proofs=proofs, modify=descriptions)
         else:
-            labels, refs = {**FOUNDATIONS, **CORE}, {}
+            labels, refs = {**FOUNDATIONS, **CORE, **TRACKS}, {}
             ids = {"R17348/L320": ["0432351", *FOUNDATIONS],
                    "R15612/L10": [*list(CORE)[:5], "0367521"],
-                   "R15487/L10": ["0366021", "0121261"]}
+                   "R15487/L10": ["0366021", "0121261"],
+                   "R15487/L20": ["0098011"], "R15487/L30": ["0121181", "0375981"]}
             ids = {section: [identity for identity in values if identity != omit] for section, values in ids.items()}
             pages[plan.program_code] = program_page(plan, ids_by_section=ids)
         for identity, code in labels.items():

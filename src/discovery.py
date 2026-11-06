@@ -18,7 +18,7 @@ from .rule_sources import MAX_RULE_SOURCES, RuleJob
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
 MAX_REQUESTED_CODES = 16
-DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v3"
+DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v4"
 CourseID = Annotated[str, Field(pattern=r"^\d{7}$")]
 CourseCode = Annotated[str, Field(pattern=r"^(?:ECE|CSC)[1-4]\d{2}[A-Z]{0,2}$")]
 RoutingPhrase = Annotated[str, Field(min_length=3, max_length=80)]
@@ -56,6 +56,7 @@ class DiscoveryPlan(StrictModel):
     reviewed_rules: list[ReviewedDiscoveryRule] = Field(default_factory=list, max_length=3)
     course_codes: dict[CourseID, CourseCode] = Field(default_factory=dict, max_length=40)
     course_stages: dict[CourseCode, Literal["foundation", "intermediate", "advanced"]] = Field(default_factory=dict, max_length=40)
+    section_stages: dict[str, Literal["foundation", "intermediate", "advanced"]] = Field(default_factory=dict, max_length=16)
     course_phrases: dict[CourseCode, Annotated[list[RoutingPhrase], Field(min_length=1, max_length=8)]] = Field(default_factory=dict, max_length=40)
 
     @model_validator(mode="after")
@@ -76,6 +77,8 @@ class DiscoveryPlan(StrictModel):
                 raise ValueError("Duplicate discovered-course interpretation")
         if not set(self.course_stages) <= set(self.known_course_codes.values()):
             raise ValueError("Course stages need a bound course identity")
+        if not set(self.section_stages) <= set(self.section_ids):
+            raise ValueError("Section stages need a configured source section")
         if any(entry.study_stage is not None and entry.course_code in self.course_stages
                and entry.study_stage != self.course_stages[entry.course_code] for entry in self.reviewed_rules):
             raise ValueError("Conflicting discovered-course learning stages")
@@ -321,7 +324,10 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
     entry = next((e for e in candidate.plan.reviewed_rules if e.course_id == candidate.course_id
                   and e.course_code == data.code and e.proof.catalog_version == data.catalog_version), None)
     # This explicit learning annotation is separate from academic satisfaction.
-    stage = entry.study_stage if entry is not None and entry.study_stage is not None else candidate.plan.study_stage
+    stages = [candidate.plan.section_stages[section] for section in candidate.sections if section in candidate.plan.section_stages]
+    stage = max(stages, key={"foundation": 0, "intermediate": 1, "advanced": 2}.get) if stages else candidate.plan.study_stage
+    if entry is not None and entry.study_stage is not None:
+        stage = entry.study_stage
     if candidate.expected_code == data.code:
         stage = candidate.plan.course_stages.get(data.code, stage)
     record = Record(record_id="uofa:" + data.code + ":" + data.catalog_version, kind="course", code=data.code,

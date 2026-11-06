@@ -356,6 +356,8 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
         saved, check = future.result()
         apply_resource_source(active, job, saved, check)
         result.checks.append(check)
-    result.issues.extend(check.message for check in result.checks if check.kind == "resource" and check.message)
+    for check in result.checks:
+        if check.kind == "resource" and check.message and check.message not in result.issues:
+            result.issues.append(check.message)
     result.elapsed = time.perf_counter() - started
     return result

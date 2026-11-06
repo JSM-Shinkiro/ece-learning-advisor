@@ -22,9 +22,9 @@ def test_runtime_expansion_preserves_the_frozen_collection_and_labels():
     frozen, runtime = load_catalog(), load_runtime_catalog()
     assert corpus_hash(frozen) == "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d"
     assert hashlib.sha256((ROOT / "data/evaluation/reviewed_v1.json").read_bytes()).hexdigest() == "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248"
-    assert sum(r.kind == "course" for r in runtime.records) == 17
-    assert sum(r.kind == "resource" for r in runtime.records) == 6
-    assert len(build_evidence(frozen)) == 10 and len(build_evidence(runtime)) == 29
+    assert sum(r.kind == "course" for r in runtime.records) == 20
+    assert sum(r.kind == "resource" for r in runtime.records) == 8
+    assert len(build_evidence(frozen)) == 10 and len(build_evidence(runtime)) == 34
     assert runtime.records[:len(frozen.records)] == frozen.records
     assert runtime.sources[:len(frozen.sources)] == frozen.sources
     assert corpus_hash(runtime) != corpus_hash(frozen)
@@ -201,7 +201,7 @@ def test_app_uses_expanded_collection_without_network_on_rerender(expanded_app, 
     monkeypatch.setattr("httpx.Client.send", forbidden)
     app = expanded_app
     assert not app.exception
-    assert any("17 courses · 6 resources" in caption.value for caption in app.caption)
+    assert any("20 courses · 8 resources" in caption.value for caption in app.caption)
     app.text_input(key="question").set_value("CSC210")
     next(b for b in app.button if b.label == "Update my roadmap").click()
     app.run()
