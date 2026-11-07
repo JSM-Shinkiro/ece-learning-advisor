@@ -41,6 +41,17 @@ A separate local AppTest rendering probe used the same prebuilt preview before a
 
 Detailed results and verification belong in [the dated evidence record](evidence/responsiveness_2026-11-07.json).
 
+## Verification
+
+Verified code revision: `3a8c7a8ae37f47455830ba5cdf8868cde0eefe2d` in [successful CI run 42403841774](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42403841774).
+
+- All **1,580 tests** and **nine readiness checks** pass on both Linux and Windows; there are 18 new regression cases in this step, including four student UI scenarios.
+- All **ten student-browser** and **six reviewer-browser** gates pass in real Chromium. The added inspector gate observes two fragment completions, no full-app rerun, no chart while closed and an unchanged profile.
+- Reuse tests cover HTTP elimination, recomputation for the current profile, expiry, future timestamps, explicit refresh, a changed source, failed force-check invalidation, corrupt caches, process restart, resource/discovery identity, exact reviewed statements, monotonic expiry and bounded memory.
+- Eight frozen/review inputs retain their hashes; all 408 actual review-template grades remain blank.
+
+The inspector browser gate took 3.192 seconds for its full scripted open/close sequence, including the first chart load and waits. This is a useful remaining distinction: work has been deferred out of normal roadmap interactions; opening detailed analysis can still have a first-use cost. The preview browser sequence does not test real AI, networked source checks, public hosting or human usability.
+
 ## Highest-value remaining improvements
 
 | Priority | Improvement | Why it matters / acceptance check |

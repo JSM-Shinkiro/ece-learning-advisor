@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · November 7, 2026
 
-Based on application revision `93136eab1d33ede222c97bcd55272ba951747e02`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
+Based on application revision `3a8c7a8ae37f47455830ba5cdf8868cde0eefe2d`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
 
 ## Purpose
 
@@ -16,6 +16,7 @@ The app uses a **file-based knowledge base and caches**, rather than a SQL/NoSQL
 | --- | --- | --- |
 | Reviewed courses, resources, career mappings, source metadata | Versioned JSON files under `data/reviewed/` | Saved with the repository |
 | Downloaded public-source evidence and freshness metadata | JSON cache files under the configured source-cache directory | Depends on keeping the server's cache storage |
+| Recent successful source-check identities | Bounded server-process memory; no personal profiles | Up to five minutes; fresh checks required after restart |
 | Public document embeddings and index manifests | Compressed NumPy `.npz` files under the embedding-cache directory | Reused across requests while the cache remains available |
 | Student profile, current/completed coursework, active roadmap, opportunity search state | Streamlit session state in server memory | Current session; not automatically stored in an account |
 | Portable profiles and reviewer drafts/completed forms | Explicit JSON downloads and uploads | Kept by the person who downloads the file |
@@ -27,7 +28,7 @@ There are no login accounts or database-backed profile/history records. Session 
 
 1. **Collect and validate the profile.** The student enters their standing, catalog year, direction, interests, experience, completed/current courses, optional grades, and learning question. Changes are applied on submission. Profile validation rejects conflicting or malformed course histories.
 2. **Check topic coverage.** Requests outside the supported collection receive a clarification instead of triggering unrelated source/model work.
-3. **Refresh selected official evidence.** The app checks relevant configured catalog/program/resource sources, validates identity and edition, and records freshness. Downloads and course discovery are bounded. Failed or omitted checks keep labeled saved evidence; missing academic interpretations remain unknown.
+3. **Check selected official evidence.** The app selects relevant configured catalog/program/resource sources, validates identity and edition, and records freshness. Successfully checked public pages may be reused for up to five minutes without changing their check times; **Check sources again** bypasses that reuse for the submitted profile. Downloads and course discovery are bounded. Failed or omitted checks keep labeled saved evidence; missing academic interpretations remain unknown.
 4. **Retrieve relevant evidence.** Keyword search uses BM25. With AI configured and enabled, semantic search compares Gemini embeddings with cosine similarity. Hybrid retrieval combines keyword and semantic rankings using reciprocal rank fusion. The vector search is implemented with NumPy rather than a database service.
 5. **Build the learning context.** The app filters completed/current courses out of next-step suggestions, checks recorded preparation against reviewed rules, and selects a bounded set of courses, resources and supporting evidence. Current enrollment counts as a prerequisite only where an explicit reviewed concurrent condition permits it.
 6. **Optionally prepare AI explanations.** Gemini selects from application-owned, source-bound statements. The app validates statement ownership, wording and citations before displaying explanations. The AI phase has a shared default 45-second cooperative budget after source checks; failures/timeouts preserve the available source roadmap.
@@ -41,7 +42,7 @@ Preview mode works without model credentials using keyword retrieval and saved/r
 | --- | --- |
 | Courses & Resources | Browse the saved collection and its source metadata |
 | Opportunities | Explicitly search public employer boards for Samsara, Nuro and Anduril, with direction/title/location filters, paging, source status and posting-detail checks |
-| Inspector | Show retrieval rankings, full-dimensional cosine calculations, a PCA visualization, source checks, cache status, request timings and a downloadable trace |
+| Inspector | On opening, show retrieval rankings, full-dimensional cosine calculations, PCA, source checks, cache status, timings and a trace download; its controls update independently |
 | Live request feedback | Show the actual work attempted and an expandable stage history; record sequential server phase durations |
 | Human review workspace | Separate local app for reading saved evidence, entering explicit relevance grades/notes, downloading/resuming drafts, and exporting completed forms for the offline scorer |
 
@@ -52,7 +53,7 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection:** 20 courses, eight learning resources, two career mappings, and 34 evidence chunks.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; fifteen ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, Plotly inspection charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** 1,562 tests and nine runtime checks pass on Linux and Windows, plus nine student-app and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Verification:** 1,580 tests and nine runtime checks pass on Linux and Windows, plus ten student-app and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
 - **Submission:** engineering estimates remain approximately 90% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
 

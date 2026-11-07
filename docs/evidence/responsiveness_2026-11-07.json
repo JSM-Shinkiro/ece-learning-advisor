@@ -1030,7 +1030,7 @@
       "unchanged": true
     }
   ],
-  "ci_status": "Not yet run for this revision",
+  "ci_status": "All Linux/Windows tests and readiness checks pass; ten student and six reviewer Chromium gates pass.",
   "targeted_new_and_existing_cases": {
     "passed": 79,
     "seconds": 28.14
@@ -1039,5 +1039,187 @@
     "passed": 11,
     "seconds": 5.62,
     "scope": "AI budget and current coursework scenarios, including all three previously failing inspector assertions"
-  }
+  },
+  "ci": {
+    "revision": "3a8c7a8ae37f47455830ba5cdf8868cde0eefe2d",
+    "run_id": 42403841774,
+    "conclusion": "success",
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42403841774",
+    "linux": {
+      "job_id": 128497199115,
+      "tests_passed": 1580,
+      "seconds": 65.91,
+      "readiness_passed": 9
+    },
+    "windows": {
+      "job_id": 128497199246,
+      "tests_passed": 1580,
+      "seconds": 85.78,
+      "readiness_passed": 9
+    },
+    "browser": {
+      "job_id": 128497198905,
+      "artifact_id": 13586533385,
+      "zip_sha256": "25e3da78f280ff851cc86051dc80ed32a19659bed1d62b659e451aeeb7ae56ea",
+      "download_digest_verified": true,
+      "reports": {
+        "browser.json": {
+          "passed": true,
+          "mode": "local_offline",
+          "checks": [
+            {
+              "name": "initial_roadmap",
+              "passed": true,
+              "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+              "seconds": 2.263
+            },
+            {
+              "name": "request_progress",
+              "passed": true,
+              "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+              "seconds": 0.097
+            },
+            {
+              "name": "lazy_inspector",
+              "passed": true,
+              "detail": "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.",
+              "seconds": 3.192
+            },
+            {
+              "name": "current_course_filtering",
+              "passed": true,
+              "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+              "seconds": 0.96
+            },
+            {
+              "name": "completion_transition",
+              "passed": true,
+              "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+              "seconds": 0.532
+            },
+            {
+              "name": "profile_export",
+              "passed": true,
+              "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+              "seconds": 0.719
+            },
+            {
+              "name": "profile_restore",
+              "passed": true,
+              "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+              "seconds": 1.261
+            },
+            {
+              "name": "session_isolation",
+              "passed": true,
+              "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+              "seconds": 2.154
+            },
+            {
+              "name": "unsupported_request",
+              "passed": true,
+              "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+              "seconds": 0.724
+            },
+            {
+              "name": "websocket_sessions",
+              "passed": true,
+              "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+              "seconds": 0.01
+            }
+          ],
+          "sessions": [
+            {
+              "stream_connections": 1,
+              "frames_sent": 10,
+              "frames_received": 1986,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 7,
+              "fragments_finished": 2
+            },
+            {
+              "stream_connections": 1,
+              "frames_sent": 3,
+              "frames_received": 751,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 3,
+              "fragments_finished": 0
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "external_browser_requests_blocked": 0,
+          "limits": [
+            "Preview mode only; no AI, relevance, or participant evaluation.",
+            "Local checks do not establish public-host availability or TLS/proxy behavior.",
+            "Browser request counts do not measure server-side network calls."
+          ],
+          "seconds": 12.67,
+          "checked_at": "2026-11-07T18:58:35.525178+00:00"
+        },
+        "reviewer-browser.json": {
+          "passed": true,
+          "mode": "controlled_reviewer_fixture",
+          "checks": [
+            {
+              "name": "blank_review",
+              "passed": true,
+              "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+            },
+            {
+              "name": "explicit_grades",
+              "passed": true,
+              "detail": "Blank saves do not grade; explicit zero and three save separate evidence judgments."
+            },
+            {
+              "name": "draft_download",
+              "passed": true,
+              "detail": "A real download retains two explicit fixture ratings, notes schema, and draft provenance."
+            },
+            {
+              "name": "incomplete_completion_blocked",
+              "passed": true,
+              "detail": "An incomplete draft cannot be exported as a completed review."
+            },
+            {
+              "name": "resume_and_isolation",
+              "passed": true,
+              "detail": "A separate session starts blank and restores the downloaded draft exactly."
+            },
+            {
+              "name": "wrong_packet_rejected",
+              "passed": true,
+              "detail": "A foreign packet hash is rejected without replacing saved ratings or producing page errors."
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "sessions": [
+            {
+              "scripts_finished": 7,
+              "page_errors": 0
+            },
+            {
+              "scripts_finished": 4,
+              "page_errors": 0
+            }
+          ],
+          "blocked_external_browser_requests": 0,
+          "limits": [
+            "Only controlled fixture actions; no independent judgments or quality score.",
+            "No supplied-host, participant, or public hosting validation."
+          ],
+          "seconds": 4.724,
+          "checked_at": "2026-11-07T18:58:41.386304+00:00"
+        }
+      }
+    }
+  },
+  "review_grades": "All 408 remain blank; no independent quality result."
 }
