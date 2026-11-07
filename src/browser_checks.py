@@ -46,8 +46,10 @@ def stop_server(process):
 
 
 @contextmanager
-def local_browser_server(*, root=ROOT, timeout=25, reviewer=False):
+def local_browser_server(*, root=ROOT, timeout=25, reviewer=False, progressive_control=None):
     """Start an isolated loopback advisor or reviewer with a URL prefix."""
+    if reviewer and progressive_control is not None:
+        raise ValueError("Choose one isolated browser workflow")
     with tempfile.TemporaryDirectory(prefix="ece-browser-server-") as temporary:
         env = os.environ.copy()
         env.update({key: "" for key in (
@@ -56,14 +58,19 @@ def local_browser_server(*, root=ROOT, timeout=25, reviewer=False):
                    STREAMLIT_BROWSER_GATHER_USAGE_STATS="false")
         if reviewer:
             env["ECE_REVIEW_PACKET_DIR"] = str(Path(root) / "data/reviews/runtime_v1")
+        if progressive_control is not None:
+            env["ECE_BROWSER_CONTROL_DIR"] = str(Path(progressive_control).resolve())
+            env["GEMINI_API_KEY"] = "controlled-browser-placeholder"
         with socket.socket() as listener:
             listener.bind(("127.0.0.1", 0))
             port = listener.getsockname()[1]
         url = f"http://127.0.0.1:{port}/advisor-check/"
-        command = ([sys.executable, "-m", "streamlit", "run", str(Path(root) / "reviewer_app.py"),
+        entrypoint = (Path(root) / "tests/fixtures/progressive_app.py" if progressive_control is not None else
+                      Path(root) / "reviewer_app.py")
+        command = ([sys.executable, "-m", "streamlit", "run", str(entrypoint),
                     "--server.address", "127.0.0.1", "--server.port", str(port),
                     "--server.baseUrlPath", "advisor-check", "--browser.gatherUsageStats", "false"]
-                   if reviewer else [sys.executable, str(Path(root) / "scripts/serve.py"), "--address", "127.0.0.1",
+                   if reviewer or progressive_control is not None else [sys.executable, str(Path(root) / "scripts/serve.py"), "--address", "127.0.0.1",
                                      "--port", str(port), "--base-path", "advisor-check"])
         process = subprocess.Popen(command,
             cwd=root, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

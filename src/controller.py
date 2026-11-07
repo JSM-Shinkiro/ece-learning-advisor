@@ -17,9 +17,10 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None,
                 refresh_sources=True, source_cache_dir=Path(".cache/sources"), source_refresher=None,
-                ai_time_budget_seconds=45, progress=None, source_reuse_seconds=SOURCE_REUSE_SECONDS):
+                ai_time_budget_seconds=45, progress=None, source_reuse_seconds=SOURCE_REUSE_SECONDS,
+                on_plan=None, cancelled=None):
     started = time.perf_counter()
-    phases = RequestProgress(progress)
+    phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
     source_trace = {"enabled": False, "reason": "disabled"}
     source_issues, source_elapsed = [], 0.0
@@ -72,15 +73,33 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         source_issues = ["Official-source checks are disabled. Showing dated saved evidence."]
     preferred_codes = [item["code"] for item in source_trace.get("discovery_selection", {}).get("requests", [])
                        if item["status"] in {"added", "stale_added", "in_collection"}]
+    will_use_ai = bool(use_ai and api_key and (requested_record_ids(catalog, profile, preferred_codes)
+                              or not coverage_message(catalog, profile, profile.question)))
+    early_plan = None
+    if will_use_ai and on_plan is not None:
+        phases.ensure_active()
+        preview = recommend(catalog, profile, cache_dir=cache_dir, preferred_course_codes=preferred_codes,
+                            progress=phases)
+        preview.issues.extend(source_issues)
+        preview.timings = {"source_refresh": source_elapsed, **preview.timings,
+                           "total": time.perf_counter() - started}
+        preview.trace["source_refresh"] = source_trace
+        preview.trace["timings_seconds"] = preview.timings
+        preview.trace["request_phases"] = phases.snapshot()
+        preview.trace["early_source_plan"] = True
+        early_plan = {"ready_seconds": time.perf_counter() - started, "observer_failed": False}
+        try:
+            on_plan(preview)
+        except Exception:
+            early_plan["observer_failed"] = True
     provider, issue, budget = None, None, None
-    if use_ai and api_key and (requested_record_ids(catalog, profile, preferred_codes)
-                              or not coverage_message(catalog, profile, profile.question)):
+    if will_use_ai:
         try:
             phases.start("ai_setup")
             budget = AIRequestBudget(ai_time_budget_seconds)
             provider = (provider_factory or GeminiProvider)(api_key, embedding_model=embedding_model,
                 generation_model=generation_model, dimensions=dimensions)
-            provider = BudgetedProvider(provider, budget)
+            provider = BudgetedProvider(provider, budget, ensure_active=phases.ensure_active)
         except (ProviderError, ImportError, ValueError):
             if provider is not None:
                 try:
@@ -102,6 +121,8 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         result.trace["timings_seconds"] = result.timings
         if budget is not None:
             result.trace["ai_budget"] = budget.trace()
+        if early_plan is not None:
+            result.trace["early_plan"] = early_plan
         result.trace["request_phases"] = phases.finish()
         return result
     finally:

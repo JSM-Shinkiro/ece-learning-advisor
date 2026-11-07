@@ -2,6 +2,7 @@
 
 from .models import Completion
 from .profiles import edit_profile, import_profile
+from .advisor_jobs import discard_advisor_job
 
 PROFILE_WIDGET_KEYS = [
     "standing", "programming_background", "career_id", "interests", "completed_courses",
@@ -34,6 +35,7 @@ def sync_profile_widgets(state, profile, course_codes):
 
 
 def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
+    discard_advisor_job(state)
     previous = state.get("profile")
     notices = []
     if previous:

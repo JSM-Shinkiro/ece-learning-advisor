@@ -19,6 +19,8 @@ from src.profiles import edit_profile, export_profile, merge_completions, parse_
 from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
 from src.source_reuse import SOURCE_REUSE_SECONDS
+from src.advisor_jobs import (AdvisorBusy, start_advisor_job, collect_advisor_job, keep_source_plan)
+from src.progress import PHASE_LABELS
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="ECE Learning Advisor · P07", page_icon="🧭", layout="wide")
@@ -202,24 +204,65 @@ if submitted or recheck:
 
 if st.session_state.pop("refresh_pending",False):
     force_source_check = st.session_state.pop("force_source_check",False)
-    request_status = st.status("Updating your learning plan...",expanded=True)
-    def show_request_phase(phase, label):
-        request_status.update(label=label)
-        request_status.write(label)
-    try:
-        st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
+    request_options = dict(api_key=api_key,use_ai=use_ai,
             method=method,embedding_model=embedding_model,generation_model=generation_model,
             dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
             ai_time_budget_seconds=settings.ai_time_budget_seconds,
             refresh_sources=settings.refresh_sources,
             source_reuse_seconds=0 if force_source_check else SOURCE_REUSE_SECONDS,
-            source_cache_dir=settings.cache_root/"sources",progress=show_request_phase)
-        request_status.update(label="More detail needed" if (st.session_state.result.coverage_notice
-                              or st.session_state.result.generation_status=="insufficient_evidence")
-                              else "Learning plan ready",state="complete",expanded=False)
-    except (ValueError,OSError):
-        request_status.update(label="The plan could not be updated",state="error",expanded=True)
-        st.error("The plan could not be updated. Check the configuration and submit your profile again.")
+            source_cache_dir=settings.cache_root/"sources")
+    background = bool(use_ai and api_key)
+    if background:
+        try:
+            st.session_state.advisor_job = start_advisor_job(base_catalog,profile,runner=run_advisor,**request_options)
+        except (AdvisorBusy,RuntimeError,OSError):
+            background = False
+            request_options["use_ai"] = False
+            st.warning("AI assistance is busy. Showing the source plan; update again to try AI.")
+    if not background:
+        request_status = st.status("Updating your learning plan...",expanded=True)
+        def show_request_phase(phase, label):
+            request_status.update(label=label)
+            request_status.write(label)
+        try:
+            st.session_state.result = run_advisor(base_catalog,profile,**request_options,progress=show_request_phase)
+            request_status.update(label="More detail needed" if (st.session_state.result.coverage_notice
+                                  or st.session_state.result.generation_status=="insufficient_evidence")
+                                  else "Learning plan ready",state="complete",expanded=False)
+        except (ValueError,OSError):
+            request_status.update(label="The plan could not be updated",state="error",expanded=True)
+            st.error("The plan could not be updated. Check the configuration and submit your profile again.")
+
+
+@st.fragment(run_every=0.5 if st.session_state.get("advisor_job") else None)
+def advisor_activity():
+    job = st.session_state.get("advisor_job")
+    if job is not None:
+        if collect_advisor_job(st.session_state,job):
+            st.rerun()
+        snapshot = job.snapshot()
+        ready = st.session_state.get("result") is not None
+        with st.status("Source plan ready · AI assistance is running" if ready else "Updating your learning plan...",expanded=True):
+            for phase in snapshot.phases:
+                st.write(PHASE_LABELS[phase])
+            if ready:
+                st.caption("You can use the plan below or update your profile while AI finishes.")
+                if st.button("Keep source plan",key="keep_source_plan"):
+                    keep_source_plan(st.session_state)
+                    st.rerun()
+    else:
+        activity = st.session_state.get("advisor_activity")
+        if activity:
+            with st.status(activity["label"],state="error" if activity["error"] else "complete",expanded=activity["error"]):
+                for phase in activity["phases"]:
+                    st.write(PHASE_LABELS[phase])
+            if activity["notice"]:
+                st.info(activity["notice"])
+            if activity["error"]:
+                st.error("The plan could not be updated. Submit your profile again.")
+
+
+advisor_activity()
 
 active_result = st.session_state.get("result")
 if active_result is not None:
@@ -306,7 +349,8 @@ with roadmap:
     if profile.career_id=="exploring" or result is None:
         direction_cards()
     if result is None:
-        st.info("Complete your starting point and select Update my roadmap, or choose a direction above.")
+        st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
+                "Complete your starting point and select Update my roadmap, or choose a direction above.")
     else:
         if result.coverage_notice:
             st.info(result.coverage_notice)
@@ -314,6 +358,8 @@ with roadmap:
             st.info(result.answer.clarification if result.answer else "More source information is needed for this request.")
         elif result.generation_complete:
             st.caption("AI explanation available · based on selected sources")
+        elif st.session_state.get("advisor_job"):
+            st.caption("Source plan ready · AI assistance is still running")
         else:
             st.caption("Preview mode · learning suggestions from available sources")
         for issue in result.issues:

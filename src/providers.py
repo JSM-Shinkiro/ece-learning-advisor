@@ -59,8 +59,9 @@ class AIRequestBudget:
 class BudgetedProvider:
     """Preserve provider protocols while preventing new or late accepted calls."""
 
-    def __init__(self, provider, budget):
+    def __init__(self, provider, budget, *, ensure_active=None):
         self.provider, self.request_budget = provider, budget
+        self.ensure_active = ensure_active
         configure = getattr(provider, "set_request_budget", None)
         if callable(configure):
             configure(budget)
@@ -69,12 +70,18 @@ class BudgetedProvider:
         return getattr(self.provider, name)
 
     def _call(self, method, value):
+        if self.ensure_active is not None:
+            self.ensure_active()
         self.request_budget.remaining()
         try:
             result = method(value)
         except Exception:
+            if self.ensure_active is not None:
+                self.ensure_active()
             self.request_budget.remaining()
             raise
+        if self.ensure_active is not None:
+            self.ensure_active()
         self.request_budget.remaining()
         return result
 

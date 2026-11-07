@@ -18,6 +18,10 @@ PHASE_LABELS = {
 }
 
 
+class AdvisorCancelled(Exception):
+    """A superseded request must stop before starting or accepting more work."""
+
+
 class RequestProgress:
     """Record sequential phase boundaries on the request thread, without user text.
 
@@ -26,15 +30,21 @@ class RequestProgress:
     Times run through final result assembly, excluding provider cleanup/rendering.
     """
 
-    def __init__(self, callback=None, *, clock=None):
+    def __init__(self, callback=None, *, clock=None, cancelled=None):
         self.clock = clock or time.perf_counter
         self.started = self.clock()
         self.callback = callback
         self.phases = []
         self.observer_failed = False
         self.finished = None
+        self.cancelled = cancelled
+
+    def ensure_active(self):
+        if self.cancelled is not None and self.cancelled():
+            raise AdvisorCancelled()
 
     def start(self, phase):
+        self.ensure_active()
         if phase not in PHASE_LABELS:
             raise ValueError("Unknown request phase")
         if self.finished is not None or (self.phases and self.phases[-1]["phase"] == phase):
@@ -56,7 +66,14 @@ class RequestProgress:
             self.finished = max(0.0, self.clock() - self.started)
             if self.phases:
                 self.phases[-1]["seconds"] = max(0.0, self.finished - self.phases[-1]["started_seconds"])
-        return {"version": "p07-request-phases-v1", "elapsed_seconds": self.finished,
+        return self.snapshot()
+
+    def snapshot(self):
+        elapsed = self.finished if self.finished is not None else max(0.0, self.clock() - self.started)
+        phases = [dict(phase) for phase in self.phases]
+        if phases:
+            phases[-1]["seconds"] = max(0.0, elapsed - phases[-1]["started_seconds"])
+        return {"version": "p07-request-phases-v1", "elapsed_seconds": elapsed,
                 "scope": "controller_until_result_before_provider_cleanup_and_browser_rendering",
                 "observer_failed": self.observer_failed,
-                "phases": [dict(phase) for phase in self.phases]}
+                "phases": phases}

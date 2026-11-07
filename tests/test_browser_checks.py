@@ -45,6 +45,23 @@ def test_reviewer_checks_cannot_target_a_running_host(tmp_path, monkeypatch):
     assert main() == 1 and not output.exists()
 
 
+def test_progressive_checks_reserve_the_report_before_starting_any_server(tmp_path,monkeypatch):
+    from scripts.check_progressive_browser import main as progressive_main
+    output=tmp_path/"keep.json";output.write_text("earlier evidence")
+    def forbidden(**kwargs):pytest.fail("An existing report must not start a control server")
+    monkeypatch.setattr("src.browser_checks.local_browser_server",forbidden)
+    monkeypatch.setattr(sys,"argv",["check_progressive_browser.py","--output",str(output)])
+    assert progressive_main()==1 and output.read_text()=="earlier evidence"
+
+
+def test_progressive_checks_never_accept_a_running_host(tmp_path,monkeypatch):
+    from scripts.check_progressive_browser import main as progressive_main
+    output=tmp_path/"new.json"
+    monkeypatch.setattr(sys,"argv",["check_progressive_browser.py","--output",str(output),"--url","https://example.org"])
+    with pytest.raises(SystemExit):progressive_main()
+    assert not output.exists()
+
+
 def test_browser_failure_is_saved_without_raw_errors_urls_or_profile_data(tmp_path, monkeypatch):
     original = builtins.__import__
     secret = "fixture-private-diagnostic"

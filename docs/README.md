@@ -42,6 +42,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Request progress](46_REQUEST_PROGRESS.md) | Visible work stages, request-local phase timings, observer isolation, real-source observations, and verification |
 | [Human review workspace](47_REVIEW_WORKSPACE.md) | Local evidence grading, explicit drafts/resume, completion safeguards, scorer compatibility, and review limitations |
 | [Responsiveness review](48_RESPONSIVENESS_REVIEW.md) | Recent source reuse, explicit rechecks, lazy inspection, measured timings and prioritized app improvements |
+| [Progressive AI requests](49_PROGRESSIVE_AI_REQUESTS.md) | Source plans before AI completion, owned background requests, cancellation, capacity and UI checks |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

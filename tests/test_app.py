@@ -1,4 +1,5 @@
 import pytest
+import time
 from pathlib import Path
 from streamlit.testing.v1 import AppTest
 
@@ -18,7 +19,17 @@ def app(monkeypatch):
 
 def submit(app):
     next(b for b in app.button if b.label=="Update my roadmap").click()
-    return app.run()
+    app.run()
+    return settle_advisor(app)
+
+
+def settle_advisor(app, timeout=10):
+    deadline = time.monotonic() + timeout
+    while "advisor_job" in app.session_state:
+        assert time.monotonic() < deadline, "The controlled advisor request did not finish"
+        app.session_state["advisor_job"].wait(0.05)
+        app.run()
+    return app
 
 
 def open_inspector(app):
