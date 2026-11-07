@@ -86,7 +86,9 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 wait_until(lambda:counts["full_runs"]>0)
                 expand("AI and ranking options")
                 checkbox=page.get_by_role("checkbox",name="Generate AI explanations",exact=True)
-                expect(checkbox).to_be_enabled();before=counts["full_runs"];checkbox.check()
+                expect(checkbox).to_be_enabled()
+                before=counts["full_runs"]
+                page.get_by_text("Generate AI explanations",exact=True).click()
                 wait_until(lambda:counts["full_runs"]>before)
 
                 stage="source_plan_before_ai";begin=time.monotonic()

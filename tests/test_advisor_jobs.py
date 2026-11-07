@@ -104,11 +104,14 @@ def test_cancel_during_source_work_prevents_provider_initialization(catalog,tmp_
     def sources(cat,profile,**options):
         entered.set(); assert release.wait(5)
         return CatalogRefresh(cat.model_copy(deep=True))
-    def forbidden(*a,**k): pytest.fail("Superseded source work must not start a provider")
+    calls=[]
+    def forbidden(*a,**k):
+        calls.append(1)
+        raise RuntimeError("Superseded source work must not start a provider")
     job=start(catalog,api_key="controlled",use_ai=True,source_refresher=sources,provider_factory=forbidden,cache_dir=tmp_path)
     try:
         assert entered.wait(5);job.cancel();release.set();assert job.wait(5)
-        assert job.snapshot().cancelled and job.snapshot().result is None
+        assert job.snapshot().cancelled and job.snapshot().result is None and not calls
     finally:
         release.set();job.wait(5)
 
@@ -150,6 +153,16 @@ def test_two_sessions_can_only_collect_their_own_job(catalog):
     assert not collect_advisor_job(first,two) and not collect_advisor_job(second,one)
     assert collect_advisor_job(first,one) and collect_advisor_job(second,two)
     assert first["result"].context.profile==a and second["result"].context.profile==b
+
+
+def test_resubmitting_identical_profile_still_rejects_the_old_request(catalog):
+    profile=StudentProfile()
+    old,new=AdvisorJob(profile),AdvisorJob(profile)
+    old.publish(recommend(catalog,profile),done=True)
+    latest=recommend(catalog,profile)
+    state={"profile":profile,"advisor_job":new,"result":latest}
+    assert old.request_id!=new.request_id and old.profile_identity==new.profile_identity
+    assert not collect_advisor_job(state,old) and state["result"] is latest
 
 
 def test_thread_start_failure_releases_admission(catalog,monkeypatch):
