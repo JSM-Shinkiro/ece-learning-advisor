@@ -80,7 +80,7 @@ def local_browser_server(*, root=ROOT, timeout=25):
             stop_server(process)
 
 
-def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=20000):
+def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=20000, diagnostics_dir=None):
     """Exercise two real sessions; return no profile data, frame payloads, or raw errors."""
     report = {"passed": False, "mode": "local_offline" if local else "provided_host",
               "checks": [], "sessions": [], "browser": None,
@@ -137,6 +137,11 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     context.route("**/*", route_request)
                     page = context.new_page()
                     session_counts[page] = counts
+                    page.add_init_script("""window.__eceRoadmapClicks = 0;
+                        document.addEventListener('click', event => {
+                            const button = event.target.closest('button');
+                            if (button?.textContent.trim() === 'Update my roadmap') window.__eceRoadmapClicks++;
+                        }, true);""")
                     page.set_default_timeout(timeout_ms)
                     page.set_default_navigation_timeout(timeout_ms)
 
@@ -297,6 +302,23 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                            and item["page_errors"] == 0 for item in report["sessions"])
                 passed(stage, "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.", begin)
                 report["passed"] = True
+            except Exception:
+                # Only the isolated, credential-free local fixture may produce a UI image.
+                # Never capture screenshots or field values from an explicitly supplied host.
+                if local and contexts:
+                    page = contexts[-1].pages[-1]
+                    report["local_ui_diagnostics"] = {
+                        "roadmap_button_clicks": page.evaluate("window.__eceRoadmapClicks || 0"),
+                        "invalid_controls": page.locator('[aria-invalid="true"]').count(),
+                        "app_exceptions": page.get_by_test_id("stException").count(),
+                        "profile_validation_error": page.get_by_text(re.compile(r"^Please check your profile\\.")).count() > 0,
+                        "expected_direction_selected": page.get_by_role("combobox", name="Career direction", exact=True).input_value() == "Embedded Systems",
+                    }
+                    if diagnostics_dir is not None:
+                        image_path = Path(diagnostics_dir) / "browser_failure.png"
+                        page.screenshot(path=str(image_path))
+                        report["local_ui_diagnostics"]["screenshot"] = image_path.name
+                raise
             finally:
                 # Snapshot the in-session counters before intentional cleanup closes sockets.
                 report["sessions"] = [dict(item) for item in report["sessions"]]

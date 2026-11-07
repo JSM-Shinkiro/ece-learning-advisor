@@ -29,7 +29,8 @@ def main():
         with args.output.open("x", encoding="utf-8") as handle:
             try:
                 with (nullcontext(url) if url else local_browser_server()) as target:
-                    report = run_browser_checks(target, local=url is None, executable_path=args.executable_path)
+                    report = run_browser_checks(target, local=url is None, executable_path=args.executable_path,
+                                                diagnostics_dir=args.output.parent if url is None else None)
             except Exception as exc:
                 report = {"passed": False, "checks": [{"name": "server_startup", "passed": False,
                           "detail": "The production server could not start or stop cleanly.", "error_type": type(exc).__name__}]}
@@ -46,6 +47,8 @@ def main():
         if not check["passed"]:
             print("Failure type:", check.get("error_type", "unknown"), "· checker line:", check.get("failure_line", "n/a"))
     print("Saved", args.output)
+    if "local_ui_diagnostics" in report:
+        print("Local fixture diagnostics:", json.dumps(report["local_ui_diagnostics"]))
     return 0 if report["passed"] else 1
 
 

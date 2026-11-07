@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "Initial run failed after the initial roadmap; follow-up awaiting real Chromium verification.",
+  "ci_browser_status": "Two real Chromium attempts fail at the second form submission; collecting local-fixture diagnostics.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -246,5 +246,54 @@
     "errors": "0",
     "skipped": "0",
     "time": "45.607"
+  },
+  "first_followup_ci": {
+    "revision": "d54667ce19e56f6f6bb4b283f521c7d4a40895c2",
+    "run_id": 42362437254,
+    "browser": {
+      "passed": false,
+      "mode": "local_offline",
+      "checks": [
+        {
+          "name": "initial_roadmap",
+          "passed": true,
+          "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+          "seconds": 3.919
+        },
+        {
+          "name": "current_course_filtering",
+          "passed": false,
+          "detail": "Browser check failed; inspect the named workflow step locally.",
+          "error_type": "AssertionError",
+          "failure_line": 120
+        }
+      ],
+      "sessions": [
+        {
+          "stream_connections": 1,
+          "frames_sent": 2,
+          "frames_received": 529,
+          "streams_closed": 0,
+          "page_errors": 0,
+          "scripts_finished": 2
+        }
+      ],
+      "browser": {
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      },
+      "external_browser_requests_blocked": 0,
+      "limits": [
+        "Preview mode only; no AI, relevance, or participant evaluation.",
+        "Local checks do not establish public-host availability or TLS/proxy behavior.",
+        "Browser request counts do not measure server-side network calls."
+      ],
+      "seconds": 25.751,
+      "checked_at": "2026-11-07T10:06:25.392478+00:00"
+    },
+    "artifact": {
+      "id": 13569694579,
+      "sha256": "37af08d6ce375b25ed3245ff27ef4d8d6ea11ce4e06928c90d4f45e1e85d6b39"
+    }
   }
 }
