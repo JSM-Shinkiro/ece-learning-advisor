@@ -197,7 +197,12 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
 
                 def submit(page):
                     before = session_counts[page]["scripts_finished"]
-                    page.get_by_role("button", name="Update my roadmap", exact=True).click()
+                    button = page.get_by_role("button", name="Update my roadmap", exact=True)
+                    # Finish the field's blur before choosing a click point: a focused
+                    # multiselect can shrink when focus leaves its search input.
+                    button.focus()
+                    expect(button).to_be_focused()
+                    button.click()
                     settled(page, after=before)
 
                 def course_cards(page):
@@ -311,7 +316,7 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                         "roadmap_button_clicks": page.evaluate("window.__eceRoadmapClicks || 0"),
                         "invalid_controls": page.locator('[aria-invalid="true"]').count(),
                         "app_exceptions": page.get_by_test_id("stException").count(),
-                        "profile_validation_error": page.get_by_text(re.compile(r"^Please check your profile\\.")).count() > 0,
+                        "profile_validation_error": page.get_by_text(re.compile(r"^Please check your profile\.")).count() > 0,
                         "expected_direction_selected": page.get_by_role("combobox", name="Career direction", exact=True).input_value() == "Embedded Systems",
                     }
                     if diagnostics_dir is not None:

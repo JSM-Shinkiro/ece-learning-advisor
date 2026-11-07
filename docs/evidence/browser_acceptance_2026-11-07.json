@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "Two real Chromium attempts fail at the second form submission; collecting local-fixture diagnostics.",
+  "ci_browser_status": "Diagnostic run observes only one actual roadmap-button click after two click actions. Follow-up focuses the button before clicking to complete field blur and stabilize the multiselect layout.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -294,6 +294,70 @@
     "artifact": {
       "id": 13569694579,
       "sha256": "37af08d6ce375b25ed3245ff27ef4d8d6ea11ce4e06928c90d4f45e1e85d6b39"
+    },
+    "linux": {
+      "tests_passed": 1524,
+      "readiness_passed": 9,
+      "seconds": 48.41
+    },
+    "windows": {
+      "tests_passed": 1524,
+      "readiness_passed": 9,
+      "seconds": 76.1
     }
+  },
+  "diagnostic_ci": {
+    "revision": "71b133953000974273738d3c391ddf4c7311f4e4",
+    "run_id": 42362743799,
+    "browser": {
+      "passed": false,
+      "mode": "local_offline",
+      "checks": [
+        {
+          "name": "initial_roadmap",
+          "passed": true,
+          "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+          "seconds": 2.748
+        },
+        {
+          "name": "current_course_filtering",
+          "passed": false,
+          "detail": "Browser check failed; inspect the named workflow step locally.",
+          "error_type": "AssertionError",
+          "failure_line": 120
+        }
+      ],
+      "sessions": [
+        {
+          "stream_connections": 1,
+          "frames_sent": 2,
+          "frames_received": 531,
+          "streams_closed": 0,
+          "page_errors": 0,
+          "scripts_finished": 2
+        }
+      ],
+      "browser": {
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      },
+      "external_browser_requests_blocked": 0,
+      "limits": [
+        "Preview mode only; no AI, relevance, or participant evaluation.",
+        "Local checks do not establish public-host availability or TLS/proxy behavior.",
+        "Browser request counts do not measure server-side network calls."
+      ],
+      "local_ui_diagnostics": {
+        "roadmap_button_clicks": 1,
+        "invalid_controls": 0,
+        "app_exceptions": 0,
+        "profile_validation_error": false,
+        "expected_direction_selected": true,
+        "screenshot": "browser_failure.png"
+      },
+      "seconds": 24.084,
+      "checked_at": "2026-11-07T10:10:29.861569+00:00"
+    },
+    "artifact_id": 13570525746
   }
 }
