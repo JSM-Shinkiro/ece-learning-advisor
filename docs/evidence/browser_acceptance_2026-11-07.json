@@ -176,5 +176,75 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "Pending real Chromium run; inspect GitHub Actions before claiming acceptance."
+  "ci_browser_status": "Initial run failed after the initial roadmap; follow-up awaiting real Chromium verification.",
+  "initial_ci": {
+    "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
+    "run_id": 42361087214,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42361087214",
+    "linux": {
+      "tests_passed": 1524,
+      "seconds": 41.11,
+      "readiness_passed": 9,
+      "job_id": 128369430156
+    },
+    "windows": {
+      "tests_passed": 1523,
+      "tests_failed": 1,
+      "seconds": 69.27,
+      "readiness_passed": 9,
+      "job_id": 128369430011,
+      "failure": "New checker test assumed forward-slash path separators."
+    },
+    "browser": {
+      "passed": false,
+      "mode": "local_offline",
+      "checks": [
+        {
+          "name": "initial_roadmap",
+          "passed": true,
+          "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+          "seconds": 2.328
+        },
+        {
+          "name": "current_course_filtering",
+          "passed": false,
+          "detail": "Browser check failed; inspect the named workflow step locally.",
+          "error_type": "AssertionError",
+          "failure_line": 158
+        }
+      ],
+      "sessions": [
+        {
+          "stream_connections": 1,
+          "frames_sent": 2,
+          "frames_received": 528,
+          "streams_closed": 0,
+          "page_errors": 0
+        }
+      ],
+      "browser": {
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      },
+      "external_browser_requests_blocked": 0,
+      "limits": [
+        "Preview mode only; no AI, relevance, or participant evaluation.",
+        "Local checks do not establish public-host availability or TLS/proxy behavior.",
+        "Browser request counts do not measure server-side network calls."
+      ],
+      "seconds": 25.061,
+      "checked_at": "2026-11-07T09:46:54.908646+00:00"
+    },
+    "artifact": {
+      "id": 13569483889,
+      "sha256": "a4087e34bb3f5e1a11d51a7bf51e6e55dc1b0b2d54bab035dbff2e99240e50b1"
+    }
+  },
+  "followup_local_tests": {
+    "tests": "1524",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "45.607"
+  }
 }

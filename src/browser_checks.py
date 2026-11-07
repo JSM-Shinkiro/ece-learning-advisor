@@ -98,6 +98,8 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
     try:
         # Keep this optional dependency out of production and the ordinary pytest suite.
         from playwright.sync_api import expect, sync_playwright
+        from google.protobuf.message import DecodeError
+        from streamlit.proto.ForwardMsg_pb2 import ForwardMsg
 
         url = browser_url(url)
         origin = urlsplit(url)
@@ -106,12 +108,22 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
             browser = driver.chromium.launch(executable_path=executable_path)
             report["browser"] = {"engine": "chromium", "version": browser.version}
             contexts = []
+            session_counts = {}
             try:
+                def settled(page, *, after=0):
+                    # A visible card can arrive before a Streamlit rerun finishes rebuilding
+                    # the form. Wait for the real protocol completion before editing again.
+                    counts = session_counts[page]
+                    deadline = time.monotonic() + timeout_ms / 1000
+                    while counts["scripts_finished"] <= after and time.monotonic() < deadline:
+                        page.wait_for_timeout(50)
+                    assert counts["scripts_finished"] > after
+
                 def new_session():
                     context = browser.new_context(accept_downloads=True, viewport={"width": 1500, "height": 1100})
                     contexts.append(context)
                     counts = {"stream_connections": 0, "frames_sent": 0, "frames_received": 0,
-                              "streams_closed": 0, "page_errors": 0}
+                              "streams_closed": 0, "page_errors": 0, "scripts_finished": 0}
                     report["sessions"].append(counts)
 
                     def route_request(route):
@@ -124,6 +136,7 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
 
                     context.route("**/*", route_request)
                     page = context.new_page()
+                    session_counts[page] = counts
                     page.set_default_timeout(timeout_ms)
                     page.set_default_navigation_timeout(timeout_ms)
 
@@ -134,13 +147,25 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                         if urlsplit(stream.url).path == stream_path:
                             increment("stream_connections")
                             stream.on("framesent", lambda _: increment("frames_sent"))
-                            stream.on("framereceived", lambda _: increment("frames_received"))
+                            def received(payload):
+                                increment("frames_received")
+                                if not isinstance(payload, bytes):
+                                    return
+                                message = ForwardMsg()
+                                try:
+                                    message.ParseFromString(payload)
+                                except DecodeError:
+                                    return
+                                if message.WhichOneof("type") == "script_finished" and message.script_finished == 0:
+                                    increment("scripts_finished")
+                            stream.on("framereceived", received)
                             stream.on("close", lambda: increment("streams_closed"))
 
                     page.on("websocket", websocket)
                     page.on("pageerror", lambda _: increment("page_errors"))
                     page.goto(url, wait_until="domcontentloaded")
                     expect(page.get_by_role("heading", name="Your next step, with a path forward.", exact=True)).to_be_visible(timeout=timeout_ms)
+                    settled(page)
                     return page
 
                 def expand(page, label):
@@ -166,7 +191,9 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     return path, json.loads(path.read_text(encoding="utf-8"))
 
                 def submit(page):
+                    before = session_counts[page]["scripts_finished"]
                     page.get_by_role("button", name="Update my roadmap", exact=True).click()
+                    settled(page, after=before)
 
                 def course_cards(page):
                     return page.get_by_role("tabpanel", name="My Roadmap").locator("strong").filter(
@@ -193,6 +220,8 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 current.fill("ECE101")
                 a.get_by_role("option").filter(has_text=re.compile(r"^ECE101 · ")).click()
                 current.press("Escape")
+                expect(a.get_by_role("combobox", name="Career direction", exact=True)).to_have_value("Embedded Systems")
+                expect(a.get_by_test_id("stMultiSelect").filter(has=a.get_by_text("Currently taking (optional)", exact=True)).get_by_role("group", name="Selected values")).to_contain_text("ECE101")
                 submit(a)
                 saved(a, "Embedded Systems", 0, 1)
                 expect(a.get_by_text("Currently taking (1)", exact=True)).to_be_visible()
@@ -201,7 +230,9 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
 
                 stage, begin = "completion_transition", time.monotonic()
                 current_section = a.get_by_test_id("stExpander").filter(has=a.get_by_text("Currently taking (1)", exact=True))
+                before = session_counts[a]["scripts_finished"]
                 current_section.get_by_role("button", name="Mark completed", exact=True).click()
+                settled(a, after=before)
                 saved(a, "Embedded Systems", 1, 0)
                 expect(a.get_by_text("Completed coursework (1)", exact=True)).to_be_visible()
                 _, completed = export(a, "completed.json")
@@ -225,7 +256,9 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 submit(a)
                 saved(a, "AI / Machine Learning", 1, 1)
                 expand(a, "Saved profile")
-                a.get_by_label("Restore a saved profile", exact=True).set_input_files(original_path)
+                before = session_counts[a]["scripts_finished"]
+                a.get_by_test_id("stFileUploaderDropzoneInput").set_input_files(original_path)
+                settled(a, after=before)
                 saved(a, "Embedded Systems", 1, 1)
                 expect(a.get_by_role("textbox", name="What interests you?", exact=True)).to_have_value("Microcontrollers and robotics")
                 _, restored = export(a, "restored.json")
@@ -267,9 +300,11 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
             finally:
                 # Snapshot the in-session counters before intentional cleanup closes sockets.
                 report["sessions"] = [dict(item) for item in report["sessions"]]
-                for context in reversed(contexts):
-                    context.close()
-                browser.close()
+                try:
+                    for context in reversed(contexts):
+                        context.close()
+                finally:
+                    browser.close()
     except Exception as exc:
         # Browser/server diagnostics can contain URLs or application data. Keep them out of artifacts.
         report["passed"] = False

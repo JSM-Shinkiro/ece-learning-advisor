@@ -87,7 +87,7 @@ def test_local_browser_server_uses_offline_environment_and_cleans_up_on_workflow
             assert all(env[name] == "" for name in ("GEMINI_API_KEY", "GOOGLE_API_KEY", "OPENROUTER_API_KEY", "ADZUNA_APP_ID", "ADZUNA_APP_KEY"))
             assert env["ECE_REFRESH_SOURCES"] == env["ECE_DEVELOPMENT_MODE"] == "false"
             assert Path(env["ECE_CACHE_DIR"]).is_dir()
-            assert "scripts/serve.py" in captured["command"][1]
+            assert Path(captured["command"][1]).parts[-2:] == ("scripts", "serve.py")
             raise RuntimeError("controlled flow failure")
     assert process.stopped and not Path(captured["env"]["ECE_CACHE_DIR"]).exists()
 

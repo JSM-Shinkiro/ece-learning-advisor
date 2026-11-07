@@ -180,7 +180,7 @@ with st.sidebar:
         st.caption("Carry your progress between sessions with a JSON file, up to 1 MB.")
         st.file_uploader("Restore a saved profile",type=["json"],max_upload_size=1,
                          key="profile_upload",on_change=restore_uploaded_profile)
-        st.download_button("Download my profile",export_profile(profile),file_name="ece_profile.json",mime="application/json",width="stretch")
+        st.download_button("Download my profile",export_profile(profile),file_name="ece_profile.json",mime="application/json",width="stretch",on_click="ignore")
     collection_summary = st.empty()
 
 if submitted:
