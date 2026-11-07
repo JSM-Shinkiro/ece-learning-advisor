@@ -87,7 +87,7 @@ def test_smoke_child_gets_no_credentials_and_is_terminated_on_timeout(monkeypatc
         def terminate(self): self.terminated = True
         def wait(self, **kwargs): return 0
     process = Process()
-    def start(*args, **kwargs): captured.update(kwargs); return process
+    def start(*args, **kwargs): captured.update(kwargs); captured["command"] = args[0]; return process
     monkeypatch.setenv("GEMINI_API_KEY", "fixture-private-parent-key")
     monkeypatch.setattr("src.deployment.subprocess.Popen", start)
     settings = load_settings({"EMBEDDING_DIMENSION": "1536", "GENERATION_MODEL": "gemini-fixture-model"})
@@ -97,6 +97,8 @@ def test_smoke_child_gets_no_credentials_and_is_terminated_on_timeout(monkeypatc
     assert captured["env"]["ECE_REFRESH_SOURCES"] == captured["env"]["ECE_DEVELOPMENT_MODE"] == "false"
     assert captured["env"]["EMBEDDING_DIMENSION"] == "1536"
     assert captured["env"]["GENERATION_MODEL"] == "gemini-fixture-model"
+    assert captured["command"][:2] == [sys.executable, str(ROOT / "scripts/serve.py")]
+    assert captured["command"][-2:] == ["--base-path", ""]
 
 
 def test_cli_report_uses_the_configured_cache_even_from_another_directory(tmp_path):

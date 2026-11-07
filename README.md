@@ -41,6 +41,15 @@ Run `python scripts/check_deployment.py --smoke` to validate configuration, pinn
 
 [Shared embedding-cache coordination](docs/40_SHARED_EMBEDDING_CACHE.md) now lets concurrent requests in one server process reuse a successful public document build, including unchanged chunks across source overlays. Query embeddings, profiles, answers, and source checks stay request-local. Waiting is bounded; a busy cache uses the existing keyword fallback. A production-only controlled check completes eight simultaneous controller requests with 34 document calls, eight separate query/generation calls, and no real model/HTTP requests. Public hosting and multi-process coordination remain separate.
 
+For a shared host, the [production launcher](docs/41_PRODUCTION_LAUNCHER.md) runs the local preflight before opening the server:
+
+```bash
+python scripts/serve.py --check
+python scripts/serve.py
+```
+
+It accepts a host-supplied `PORT`, validates the address and optional URL prefix, and starts one Streamlit process using the current Python environment. Use `--address 127.0.0.1` for a loopback-only launch. The full readiness smoke now exercises this same command and passes nine checks. Host HTTPS/access settings, remote browser sessions, and the actual hosted pilot remain open.
+
 ## Enable live RAG
 
 Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.5-flash-lite`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
@@ -186,7 +195,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 1,391 tests, including 62 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 1,433 tests, including 62 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 For external review, [the expanded-catalog workflow](docs/38_EXPANDED_REVIEW_COLLECTIONS.md) supports `--collection runtime` and archived `--catalog-snapshot` inputs across preparation, embedding, and scoring. The default remains the frozen baseline. A [prepared runtime packet](data/reviews/runtime_v1) contains 12 assistant-authored development questions, 34 evidence chunks, and 408 blank grades. These are not held-out questions or independent judgments. New exports include the exact catalog snapshot so grades remain usable after repository data changes. Use that snapshot for later embedding/scoring; old forms or vectors cannot silently substitute. Keyword, semantic, and hybrid methods use the same completed form. Preparation/scoring stay offline; optional Gemini vectors still require `embed --live-embeddings`. Keep the catalog snapshot, vectors, and score reports with the operator, separate from reviewer materials. Earlier [reviewer](docs/28_REVIEWER_WORKFLOW.md) and [method-comparison](docs/35_REVIEW_METHOD_COMPARISON.md) notes retain their historical observations.
 

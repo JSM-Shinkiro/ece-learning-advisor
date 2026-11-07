@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "saved_at": "2026-11-07T03:00:05.172603+00:00",
+  "development_date": "2026-11-06 America/Phoenix",
+  "scope": "Local production launcher/preflight, process replacement, and loopback checks. No public hosting, remote browser session, provider authentication, source verification, or independent quality result.",
+  "repository_parent": "b9fbe47ffa81f674c1c4a2d94f28275c7579c19e",
+  "dependency_changes": false,
+  "implementation_sha256": {
+    "src/hosting.py": "101c6536202d57653fad10aceff322da7806299bc2bceb59dab4029f30660eea",
+    "src/deployment.py": "f51481e42e6516159cfb81bfefc7527912a67a0f0061fd179f939adacec7fb4b",
+    "scripts/serve.py": "88c4d22e751287e8996dd8f545b88de1056f098e39091401c130edf5dbac3f2b",
+    "tests/test_hosting.py": "0fd45d0ff65b06768c35ac4f8f42b3f956337f3bd4b65c08ac217958ec7574fb",
+    "tests/test_deployment.py": "4b8f1d197f24989942635c7fb43d78e352f72f9cf645aa8dabbf252d09bf1005"
+  },
+  "production_probe_sha256": "66b327631c03090ea165e7ebfb7ccf85bacc82417c297d1f51c663621b5847a6",
+  "launcher": {
+    "entrypoint": "scripts/serve.py",
+    "check_only_flag": "--check",
+    "preflight_checks_before_listening": 7,
+    "port_precedence": [
+      "--port",
+      "PORT",
+      "STREAMLIT_SERVER_PORT",
+      "8501"
+    ],
+    "default_address": "0.0.0.0",
+    "default_prefix": "",
+    "address_validation": "IP literal or localhost",
+    "prefix_validation": "simple path segments, no URLs/dot segments/encoded or repeated separators",
+    "command": "current Python interpreter, absolute app path, argument list, no shell",
+    "process_replacement": "os.execve after changing to repository root",
+    "single_process": true,
+    "development_mode_must_be_false": true,
+    "headless": true,
+    "file_watching": false,
+    "usage_statistics": false,
+    "credentials_in_arguments_or_reports": false,
+    "provider_credentials_required_for_preview": false,
+    "provider_or_source_requests_during_preflight": false,
+    "smoke_uses_this_entrypoint": true,
+    "smoke_binds_configured_public_socket": false
+  },
+  "automated_verification": {
+    "passed": 1433,
+    "seconds": 40.97,
+    "new_hosting_cases": 42,
+    "existing_streamlit_interactions": 62,
+    "focused_passed": 102,
+    "focused_seconds": 0.82,
+    "actual_model_requests": 0,
+    "public_source_requests": 0
+  },
+  "production_runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T02:55:31.818035+00:00"
+  },
+  "production_launcher_probe": {
+    "checked_at": "2026-11-07T02:57:02.337784+00:00",
+    "scope": "Production-only launcher and loopback checks. No public hosting, real credentials, actual model requests, public-source checks or participant evaluation.",
+    "python": "3.12.14",
+    "pytest_installed": false,
+    "commands": [
+      {
+        "name": "check_from_other_directory",
+        "exit_code": 0,
+        "private_fixture_value_absent": true,
+        "passed": true,
+        "server": {
+          "address": "127.0.0.1",
+          "port": 8305,
+          "base_path": "advisor",
+          "health_path": "/advisor/_stcore/health"
+        },
+        "checks": {
+          "configuration": true,
+          "shared_mode": true,
+          "server_configuration": true,
+          "dependencies": true,
+          "catalog": true,
+          "connectors": true,
+          "cache": true
+        }
+      },
+      {
+        "name": "explicit_port_overrides_invalid_host_port",
+        "exit_code": 0,
+        "private_fixture_value_absent": true,
+        "passed": true,
+        "server": {
+          "address": "127.0.0.1",
+          "port": 8306,
+          "base_path": "advisor",
+          "health_path": "/advisor/_stcore/health"
+        },
+        "checks": {
+          "configuration": true,
+          "shared_mode": true,
+          "server_configuration": true,
+          "dependencies": true,
+          "catalog": true,
+          "connectors": true,
+          "cache": true
+        }
+      },
+      {
+        "name": "invalid_host_port_rejected",
+        "exit_code": 1,
+        "private_fixture_value_absent": true
+      },
+      {
+        "name": "development_mode_rejected",
+        "exit_code": 1,
+        "private_fixture_value_absent": true,
+        "passed": false,
+        "server": {
+          "address": "127.0.0.1",
+          "port": 8305,
+          "base_path": "advisor",
+          "health_path": "/advisor/_stcore/health"
+        },
+        "checks": {
+          "configuration": true,
+          "shared_mode": false,
+          "server_configuration": true,
+          "dependencies": true,
+          "catalog": true,
+          "connectors": true,
+          "cache": true
+        }
+      },
+      {
+        "name": "unwritable_cache_rejected",
+        "exit_code": 1,
+        "private_fixture_value_absent": true,
+        "passed": false,
+        "server": {
+          "address": "127.0.0.1",
+          "port": 8305,
+          "base_path": "advisor",
+          "health_path": "/advisor/_stcore/health"
+        },
+        "checks": {
+          "configuration": true,
+          "shared_mode": true,
+          "server_configuration": true,
+          "dependencies": true,
+          "catalog": true,
+          "connectors": true,
+          "cache": false
+        }
+      },
+      {
+        "name": "native_prefixed_server",
+        "exit_code": 0,
+        "checked_health_and_static_page": true
+      },
+      {
+        "name": "occupied_port_cannot_start_server",
+        "exit_code": 1,
+        "existing_listener_preserved": true
+      }
+    ],
+    "existing_file_preserved": true,
+    "native_launch": {
+      "host_port_precedes_streamlit_port": true,
+      "prefix_normalized": true,
+      "prefixed_health_status": 200,
+      "prefixed_health_body": "ok",
+      "unprefixed_health_status": 404,
+      "prefixed_page_status": 200,
+      "started_from_other_directory": true,
+      "health_attempts": 13,
+      "process_alive_during_probe": true,
+      "terminated_and_reaped": true,
+      "listener_closed": true
+    },
+    "actual_model_requests": 0,
+    "public_source_requests": 0,
+    "only_loopback_http_targets": true,
+    "all_checks_passed": true
+  },
+  "preserved_file_sha256": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+    "data/reviews/runtime_v1/catalog_snapshot.json": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+    "data/reviews/runtime_v1/packet.json": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+    "data/reviews/runtime_v1/review_guide.md": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+    "data/reviews/runtime_v1/review_template.json": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870"
+  },
+  "limitations": [
+    "Syntax and local dependency/data/cache validation do not establish provider access, source availability, or a free socket.",
+    "The readiness smoke uses explicit isolated loopback bindings, root prefix, blank credentials, offline sources and a temporary cache; it does not bind the report configured public endpoint.",
+    "The separate native launcher probe validates the host PORT and URL prefix on loopback, an HTTP static page/health endpoint, startup rejection and cleanup. A remotely connected browser/WebSocket session remains untested.",
+    "The production environment is existing Linux/Python 3.12.14 with no pytest. No separately executed Windows or container/remote-host validation is asserted.",
+    "Host HTTPS, access/network settings, WebSocket/prefix routing, public availability, real-user pilot results, independent grading and remaining ECE/edition evidence stay open.",
+    "No database, background service, academic interpretation, frozen label change or independent quality score is added. All 408 prepared review grades remain blank."
+  ]
+}

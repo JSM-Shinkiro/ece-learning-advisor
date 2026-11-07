@@ -32,6 +32,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Expanded catalog review](38_EXPANDED_REVIEW_COLLECTIONS.md) | Current/archived inputs, immutable catalog export, blank 34-chunk judgments, and all-method scoring limits |
 | [Runtime Gemini verification](39_RUNTIME_PROVIDER_VERIFICATION.md) | Authored 34-chunk integration controls, real model/source observations, call budgets, failure/recheck evidence, and quality limits |
 | [Shared embedding-cache coordination](40_SHARED_EMBEDDING_CACHE.md) | In-process cache builds, bounded waits, changed-source reuse, isolated student requests, and controlled concurrency evidence |
+| [Production launcher](41_PRODUCTION_LAUNCHER.md) | Host port/prefix validation, preflight before startup, common smoke entrypoint, process cleanup, and production-only loopback observations |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

@@ -15,6 +15,7 @@ import httpx
 
 from .catalog import ROOT, build_evidence, load_runtime_catalog
 from .discovery import load_discovery_plans
+from .hosting import load_server_options
 from .models import StudentProfile
 from .opportunities import load_employer_boards
 from .resource_sources import MAX_RESOURCE_SOURCES, RESOURCE_URLS, prepare_resource_jobs, resource_url_matches
@@ -86,9 +87,8 @@ def startup_smoke(root=ROOT, *, timeout=20, settings=None):
         with socket.socket() as listener:
             listener.bind(("127.0.0.1", 0))
             port = listener.getsockname()[1]
-        command = [sys.executable, "-m", "streamlit", "run", str(root / "app.py"),
-            "--server.address=127.0.0.1", "--server.port=" + str(port), "--server.headless=true",
-            "--server.fileWatcherType=none", "--browser.gatherUsageStats=false"]
+        command = [sys.executable, str(root / "scripts/serve.py"), "--address", "127.0.0.1",
+                   "--port", str(port), "--base-path", ""]
         process, live = None, False
         try:
             process = subprocess.Popen(command, cwd=root, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -143,6 +143,11 @@ def check_deployment(*, root=ROOT, environ=None, smoke=False):
         result("configuration", False, str(exc))
         report["passed"] = False
         return report
+    try:
+        report["server"] = load_server_options(environ).public_summary()
+        result("server_configuration", True, "Listen address, port, and URL prefix validated; no socket opened.")
+    except ConfigurationError as exc:
+        result("server_configuration", False, str(exc))
     try:
         report["dependencies"] = dependency_versions(root)
         result("dependencies", bool(report["dependencies"]) and all(v["required"] == v["installed"] for v in report["dependencies"].values()),
