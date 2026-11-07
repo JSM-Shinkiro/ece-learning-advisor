@@ -179,8 +179,11 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                         summary.click()
 
                 def choose(page, label, value):
-                    page.get_by_role("combobox", name=label, exact=True).click()
+                    control = page.get_by_role("combobox", name=label, exact=True)
+                    control.focus()
+                    control.press("ArrowDown")
                     page.get_by_role("option", name=value, exact=True).click()
+                    expect(control).to_have_value(value)
 
                 def saved(page, career, completed, current):
                     expect(page.get_by_text(

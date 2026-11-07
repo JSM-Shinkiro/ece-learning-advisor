@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "A real stale-form regression is reproduced. Explicit profile-to-widget assignments and client-value assertions are added; full verification pending.",
+  "ci_browser_status": "The real stale-form regression is fixed through a later edit/export. The dropdown harness uses focus/ArrowDown before selecting; full restore/isolation verification pending.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -534,5 +534,20 @@
     },
     "passed": true,
     "checked_at": "2026-11-07T10:18:34.586559+00:00"
+  },
+  "profile_sync_ci": {
+    "revision": "d45515c7b0e660bde1a4c60a5969aa7181bc098e",
+    "run_id": 42363431156,
+    "browser_passed_checks": [
+      "initial_roadmap",
+      "current_course_filtering",
+      "completion_transition",
+      "profile_export"
+    ],
+    "browser_failed_check": "profile_restore",
+    "failure_type": "TimeoutError",
+    "failure_line": 183,
+    "finding": "The completion remains in both pickers and the exported profile after a later manual-current edit. The next dropdown interaction does not locate its target option.",
+    "artifact_id": 13569674377
   }
 }
