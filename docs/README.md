@@ -5,6 +5,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | File | Contents |
 | --- | --- |
 | [Final-project handoff](13_FINAL_PROJECT_DEVELOPMENT.md) | Development repository, preserved midproject revision, backend priorities, and next tasks |
+| [App summary](APP_SUMMARY.md) | Purpose, storage/database answer, request flow, technology, current scope and limits |
 | [Final readiness](FINAL_READINESS.md) | App/submission estimates, acceptance gates, and the remaining final deliverables |
 | [Runtime source checks](14_RUNTIME_SOURCES.md) | On-use course checks, freshness, failure recovery, cache identity, and live verification |
 | [Prerequisite evidence](15_PREREQUISITE_EVIDENCE.md) | Reviewed rule provenance, separate citation chunks, live revalidation, and conservative failure behavior |
