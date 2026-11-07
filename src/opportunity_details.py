@@ -165,7 +165,11 @@ def request_posting_detail(state, posting_id, *, fetcher=None, now=None):
         raise ValueError("Choose a posting displayed in the current search")
     job = matches[0]
     _, _, endpoint = posting_binding(job, boards)
+    selected_page = jobs.page
     result = (fetcher or fetch_posting_detail)(job, boards=boards, now=now)
+    if (state.get("job_result") is not jobs or jobs.page != selected_page
+            or sum(item.get("id") == posting_id for item in jobs.listings) != 1):
+        return None  # A new search, page or profile superseded the selection.
     if isinstance(result, PostingDetailCheck):
         result = PostingDetailCheck.model_validate(result.model_dump(warnings=False))
     if (not isinstance(result, PostingDetailCheck) or result.posting_id != posting_id

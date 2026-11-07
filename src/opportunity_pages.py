@@ -51,6 +51,7 @@ def request_opportunity_page(state, page):
     state.pop("job_detail", None)
     state.pop("job_detail_error", None)
     state.pop("job_page_error", None)
+    state.pop("pending_posting_detail", None)
     result = state.get("job_result")
     info = page_info(result)
     if info is None or type(page) is not int or not 0 <= page < info.pages:

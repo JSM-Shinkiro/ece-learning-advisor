@@ -14,6 +14,8 @@ Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with
 
 [AI-enabled requests](docs/49_PROGRESSIVE_AI_REQUESTS.md) keep the page interactive and show a source plan before optional AI explanations finish. **Keep source plan** stops accepting that AI result; new profile submissions supersede older work.
 
+[Collection browsing and posting feedback](docs/50_COLLECTION_AND_POSTING_UX.md) add local course/resource search and filters, on-demand source details, and loading feedback beside a selected opportunity. These panel controls run independently of the roadmap.
+
 A separate [human review workspace](docs/47_REVIEW_WORKSPACE.md) supports explicit relevance grades, notes, draft download/resume and validated completed-review exports. Run `python -m streamlit run reviewer_app.py --server.address 127.0.0.1 --server.port 8502` locally. Reviewing uses saved evidence and needs no model credentials; actual independent judgments remain to be collected.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.

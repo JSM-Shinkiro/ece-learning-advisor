@@ -26,6 +26,8 @@ class ControlledProvider:
         return np.arange(1,self.dimensions+1,dtype=float)
 
     def generate(self,context):
+        with (self.control/"provider.calls").open("a") as handle:
+            handle.write("called\n")
         self.case = CASES.get(context.profile.question)
         if self.case:
             (self.control / (self.case+".started")).touch()

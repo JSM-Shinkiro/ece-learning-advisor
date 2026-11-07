@@ -127,6 +127,84 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 assert export("stopped.json")["question"]=="ECE372A controlled stop request"
                 passed("Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",begin)
 
+                stage="collection_filters";begin=time.monotonic()
+                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                full_runs=counts["full_runs"]
+                provider_calls=(control/"provider.calls").read_text()
+                draft.fill("Unsubmitted collection draft")
+                query=page.get_by_role("textbox",name="Search courses and resources",exact=True)
+                fragment_runs=counts["fragment_runs"]
+                query.fill("ece 372a");query.press("Enter")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(page.get_by_text("Showing 1 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                result_panel=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE372A · "))
+                expect(result_panel.get_by_role("link")).to_have_count(0)
+                fragment_runs=counts["fragment_runs"];result_panel.locator("summary").click()
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(result_panel.get_by_text("University course · 4 credits · Catalog 2026-2027",exact=True)).to_be_visible()
+                expect(result_panel.get_by_role("link")).not_to_have_count(0)
+                fragment_runs=counts["fragment_runs"];choose("Type","Resources only")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                fragment_runs=counts["fragment_runs"];choose("Direction","Embedded Systems")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                fragment_runs=counts["fragment_runs"]
+                query.fill("pico");query.press("Enter")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(page.get_by_text("Showing 1 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.locator("summary").filter(has_text="Raspberry Pi Pico C/C++ SDK")).to_be_visible()
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                expect(draft).to_have_value("Unsubmitted collection draft")
+                passed("Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",begin)
+
+                stage="mobile_collection";begin=time.monotonic()
+                page.set_viewport_size({"width":390,"height":844})
+                collapse=page.get_by_test_id("stSidebarCollapseButton").get_by_role("button")
+                for index in range(collapse.count()):
+                    if collapse.nth(index).is_visible():
+                        collapse.nth(index).click()
+                        break
+                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                expect(query).to_have_value("pico")
+                expect(page.get_by_role("combobox",name="Type",exact=True)).to_have_value("Resources only")
+                fragment_runs=counts["fragment_runs"]
+                query.fill("impossible-collection-match");query.press("Enter")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(page.get_by_text("No courses or resources match these filters. Try a broader search or reset the filters.",exact=True)).to_be_visible()
+                fragment_runs=counts["fragment_runs"];page.get_by_role("button",name="Reset filters",exact=True).click()
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(query).to_have_value("")
+                expect(page.get_by_text("Showing 28 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                page.set_viewport_size({"width":1500,"height":1100})
+                passed("Filters and reset work at a 390-pixel phone width without horizontal page overflow or a full-app request.",begin)
+
+                stage="posting_progress";begin=time.monotonic()
+                page.get_by_role("tab",name="Opportunities",exact=True).click()
+                page.get_by_role("button",name="Available Opportunities",exact=True).click()
+                expect(page.get_by_text("Controlled Embedded Intern",exact=True)).to_be_visible()
+                check_button=page.get_by_role("button",name="Check posting details",exact=True)
+                check_button.click()
+                wait_until(lambda:(control/"posting.started").exists())
+                expect(page.get_by_text("Checking posting details...",exact=True)).to_be_visible()
+                (control/"posting.release").touch()
+                description=page.get_by_text("Controlled posting description: embedded programming practice.",exact=True)
+                expect(description).to_be_visible()
+                assert len((control/"opportunity_search.calls").read_text().splitlines())==1
+                assert len((control/"posting_detail.calls").read_text().splitlines())==1
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                passed("A deliberately delayed detail request shows feedback beside the selected listing and does not rerun the roadmap.",begin)
+
+                stage="posting_failure_retains_search";begin=time.monotonic()
+                check_button.click()
+                expect(page.get_by_text("This posting could not be reached. Its requirements have not been checked.",exact=True)).to_be_visible()
+                expect(description).to_have_count(0)
+                expect(page.get_by_text("Controlled Embedded Intern",exact=True)).to_be_visible()
+                assert len((control/"opportunity_search.calls").read_text().splitlines())==1
+                assert len((control/"posting_detail.calls").read_text().splitlines())==2
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                passed("A failed recheck clears verified content while retaining the saved search; neither search nor AI is repeated.",begin)
+
                 stage="browser_health";begin=time.monotonic()
                 assert counts["stream_connections"]==1 and counts["page_errors"]==0 and counts["fragment_runs"]>0
                 report["protocol_counts"]=counts

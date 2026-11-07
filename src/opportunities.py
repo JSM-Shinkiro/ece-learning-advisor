@@ -263,6 +263,7 @@ def request_opportunities(state, career, location, internship, *, provider="gree
     state.pop("job_detail", None)
     state.pop("job_detail_error", None)
     state.pop("job_page_error", None)
+    state.pop("pending_posting_detail", None)
     validate_filters(career, location, internship, updated_within, early_career)
     now = now or datetime.now(timezone.utc)
     if (now.tzinfo is None or not isinstance(provider, str) or provider not in {"greenhouse", "adzuna"} or type(reuse) is not bool
