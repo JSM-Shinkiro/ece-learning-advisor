@@ -195,7 +195,7 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
 
 
 def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
-              provider=None, method="hybrid", cache_dir=Path(".cache/embeddings"), *, preferred_course_codes=()) -> AdvisorResult:
+              provider=None, method="hybrid", cache_dir=Path(".cache/embeddings"), *, preferred_course_codes=(), progress=None) -> AdvisorResult:
     started = time.perf_counter()
     question = question or profile.question
     if len(question) > 1200:
@@ -227,6 +227,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     mode, cache_state = "keyword", "not_used"
     budget_exhausted = False
     if provider and method in {"semantic", "hybrid"}:
+        if progress is not None:
+            progress.start("embeddings")
         before = time.perf_counter()
         try:
             vectors, cache_state, manifest = EmbeddingCache(cache_dir).get(catalog, chunks, provider)
@@ -242,6 +244,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
             issues.append("Semantic retrieval is unavailable. Using keyword retrieval for this request.")
             vectors, query_vector = None, None
         timings["embedding"] = time.perf_counter() - before
+    if progress is not None:
+        progress.start("ranking")
     before = time.perf_counter()
     retriever = Retriever(chunks, vectors)
     hits = retriever.search(query, mode, query_vector)
@@ -260,6 +264,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
                 focused = [record.record_id]
                 break
     timings["retrieval"] = time.perf_counter() - before
+    if progress is not None:
+        progress.start("requirements")
     context = build_context(catalog, profile, question, query, hits, focused_record_ids=focused)
     result = AdvisorResult(
         context=context, hits=hits, catalog=catalog, retrieval_mode=mode,
@@ -269,9 +275,13 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     if budget_exhausted:
         result.generation_status = "time_budget_exceeded"
     elif provider and context.allowed_record_ids:
+        if progress is not None:
+            progress.start("generation")
         before = time.perf_counter()
         try:
             selection = provider.generate(context)
+            if progress is not None:
+                progress.start("validation")
             answer = materialize_answer(selection, context, catalog)
             answer = validate_answer(answer, context, catalog)
             request_budget = getattr(provider, "request_budget", None)

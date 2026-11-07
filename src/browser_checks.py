@@ -232,6 +232,16 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     expect(a.get_by_text("Official-source checks are disabled. Showing dated saved evidence.", exact=True)).to_be_visible()
                 passed(stage, "Production UI renders and submits a preview roadmap; AI remains off.", begin)
 
+                stage, begin = "request_progress", time.monotonic()
+                expect(a.get_by_text("Learning plan ready", exact=True)).to_be_visible()
+                status = a.locator("details").filter(has=a.get_by_text("Learning plan ready", exact=True))
+                status.locator("summary").click()
+                if local:
+                    expect(status.get_by_text("Using saved source snapshots", exact=True)).to_be_visible()
+                expect(status.get_by_text("Preparing AI explanations", exact=True)).to_have_count(0)
+                status.locator("summary").click()
+                passed(stage, "The completed request retains visible stage feedback without claiming AI generation.", begin)
+
                 stage, begin = "current_course_filtering", time.monotonic()
                 choose(a, "Career direction", "Embedded Systems")
                 a.get_by_role("textbox", name="What interests you?", exact=True).fill("Microcontrollers and robotics")

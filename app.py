@@ -195,16 +195,23 @@ if submitted:
         st.error("Please check your profile. "+show_profile_error(exc))
 
 if st.session_state.pop("refresh_pending",False):
-    with st.spinner("Updating your learning plan..."):
-        try:
-            st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
-                method=method,embedding_model=embedding_model,generation_model=generation_model,
-                dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
-                ai_time_budget_seconds=settings.ai_time_budget_seconds,
-                refresh_sources=settings.refresh_sources,
-                source_cache_dir=settings.cache_root/"sources")
-        except (ValueError,OSError):
-            st.error("The plan could not be updated. Check the configuration and submit your profile again.")
+    request_status = st.status("Updating your learning plan...",expanded=True)
+    def show_request_phase(phase, label):
+        request_status.update(label=label)
+        request_status.write(label)
+    try:
+        st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
+            method=method,embedding_model=embedding_model,generation_model=generation_model,
+            dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
+            ai_time_budget_seconds=settings.ai_time_budget_seconds,
+            refresh_sources=settings.refresh_sources,
+            source_cache_dir=settings.cache_root/"sources",progress=show_request_phase)
+        request_status.update(label="More detail needed" if (st.session_state.result.coverage_notice
+                              or st.session_state.result.generation_status=="insufficient_evidence")
+                              else "Learning plan ready",state="complete",expanded=False)
+    except (ValueError,OSError):
+        request_status.update(label="The plan could not be updated",state="error",expanded=True)
+        st.error("The plan could not be updated. Check the configuration and submit your profile again.")
 
 active_result = st.session_state.get("result")
 if active_result is not None:

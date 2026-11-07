@@ -6,6 +6,7 @@ import httpx
 
 from .planning import coverage_message, requested_record_ids
 from .providers import AIRequestBudget, BudgetedProvider, GeminiProvider, ProviderError
+from .progress import RequestProgress
 from .service import recommend
 from .sources import refresh_catalog
 from .discovery import load_discovery_plans, match_course_requests
@@ -15,8 +16,10 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None,
                 refresh_sources=True, source_cache_dir=Path(".cache/sources"), source_refresher=None,
-                ai_time_budget_seconds=45):
+                ai_time_budget_seconds=45, progress=None):
     started = time.perf_counter()
+    phases = RequestProgress(progress)
+    phases.start("request")
     source_trace = {"enabled": False, "reason": "disabled"}
     source_issues, source_elapsed = [], 0.0
     plans = None
@@ -29,6 +32,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         except (OSError, ValueError):
             pass  # Unsupported text cannot force source requests through bad configuration.
     if refresh_sources and not outside:
+        phases.start("sources")
         before = time.perf_counter()
         try:
             if source_refresher is not None:
@@ -52,6 +56,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     elif refresh_sources:
         source_trace = {"enabled": False, "reason": "outside_supported_collection"}
     else:
+        phases.start("snapshots")
         catalog = catalog.model_copy(deep=True)
         for source in catalog.sources:
             source.verification_status = "snapshot"
@@ -68,6 +73,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     if use_ai and api_key and (requested_record_ids(catalog, profile, preferred_codes)
                               or not coverage_message(catalog, profile, profile.question)):
         try:
+            phases.start("ai_setup")
             budget = AIRequestBudget(ai_time_budget_seconds)
             provider = (provider_factory or GeminiProvider)(api_key, embedding_model=embedding_model,
                 generation_model=generation_model, dimensions=dimensions)
@@ -83,7 +89,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     try:
         result = recommend(catalog, profile, provider=provider,
                            method=method if provider else "keyword", cache_dir=cache_dir,
-                           preferred_course_codes=preferred_codes)
+                           preferred_course_codes=preferred_codes, progress=phases)
         if issue:
             result.issues.append(issue)
         result.issues.extend(source_issues)
@@ -93,6 +99,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         result.trace["timings_seconds"] = result.timings
         if budget is not None:
             result.trace["ai_budget"] = budget.trace()
+        result.trace["request_phases"] = phases.finish()
         return result
     finally:
         if provider is not None:

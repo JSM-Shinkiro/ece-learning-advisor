@@ -24,7 +24,9 @@ Core features are close to complete. The largest remaining work is independent e
 
 ## Current development step
 
-The browser step adds an optional real Chromium workflow through the production launcher at a URL prefix. It covers current-course filtering, completion with unknown grades, real download/upload restore, two isolated Streamlit sessions, unsupported-request clarification, and bidirectional WebSocket activity. The local environment blocks Chromium startup, so the Linux CI browser job is the acceptance environment. All eight checks pass in [run 42363890309](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42363890309), along with 1,524 tests and nine readiness checks on both Linux and Windows. It also uncovers and fixes a stale-form bug that could undo a completed course on the next edit. The verified code revision is `11e26d567b503d79dee0ef437cf369918aba1d83`. See [browser acceptance](45_BROWSER_ACCEPTANCE.md) for retained failures and scope.
+[Request progress](46_REQUEST_PROGRESS.md) now exposes the actual work attempted and records sequential server phase durations. Preview and fallback paths avoid claiming skipped AI stages; callback failures cannot change request results. All 1,539 local tests and nine readiness checks pass. A real source-only fresh/reused-cache pair observes 13.924/10.693 seconds, with eleven selected checks passing in each request. Public-network variability and the two-request sample limit interpretation. A ninth browser gate checks the visible stage history; its CI result is pending.
+
+Readiness stays at approximately 90% for the app and 70% for the full submission. This step improves feedback and profiling; independent judgments, voluntary student feedback, final-revision performance evidence and final deliverables still determine completion.
 
 ## Next steps toward the submission
 

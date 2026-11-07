@@ -15,6 +15,11 @@ def render_inspector(result, catalog):
         st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
+        phases = result.trace.get("request_phases")
+        if phases:
+            st.caption("Request stages are timed on the server through result assembly, before provider cleanup and browser rendering.")
+            st.dataframe([{"Stage": phase["label"], "Seconds": round(phase["seconds"], 4)}
+                          for phase in phases["phases"]], hide_index=True)
         budget = result.trace.get("ai_budget")
         if budget:
             st.caption(f"AI time budget: {budget['limit_seconds']} s · {format_duration(budget['elapsed_seconds'])} used. Source checks are timed separately.")

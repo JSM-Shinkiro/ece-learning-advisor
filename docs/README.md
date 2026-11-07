@@ -38,6 +38,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Current coursework](43_CURRENT_COURSEWORK.md) | Editable current courses, next-step exclusion, completion transitions, source lookup, and verification |
 | [AI time budget](44_AI_TIME_BUDGET.md) | Shared request allowance, SDK timeouts, bounded cache waits, source fallback, and controlled verification |
 | [Real-browser acceptance](45_BROWSER_ACCEPTANCE.md) | Production-browser workflow, profile portability, isolated WebSocket sessions, optional host checks, and verification limits |
+| [Request progress](46_REQUEST_PROGRESS.md) | Visible work stages, request-local phase timings, observer isolation, real-source observations, and verification |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |
