@@ -74,7 +74,7 @@ def run_review_browser_checks(url, *, executable_path=None, timeout_ms=20000):
 
                 def save(page, label=None):
                     if label is not None:
-                        page.get_by_role("radio", name=label, exact=True).check()
+                        page.get_by_text(label, exact=True).click()
                     button = page.get_by_role("button", name="Save grade and next", exact=True)
                     button.focus()
                     act(page, button.click)
@@ -112,7 +112,7 @@ def run_review_browser_checks(url, *, executable_path=None, timeout_ms=20000):
                     alias.fill("browser_fixture")
                     alias.press("Enter")
                 act(a, set_alias)
-                act(a, lambda: a.get_by_role("radio", name="Controlled fixture (testing only)", exact=True).check())
+                act(a, lambda: a.get_by_text("Controlled fixture (testing only)", exact=True).click())
                 draft_path, draft = download(a, "draft.json")
                 grades = [grade for case in draft["cases"] for grade in case["relevance"].values() if grade is not None]
                 assert sorted(grades) == [0, 3] and draft["reviewed_at"] is None

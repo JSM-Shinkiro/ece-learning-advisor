@@ -52,7 +52,8 @@ def test_restored_drafts_require_exact_case_and_chunk_binding(packet, change):
     with pytest.raises(ValueError): restore_draft(json.dumps(data).encode(), packet)
 
 
-@pytest.mark.parametrize("raw", [b'{"packet_hash":"one","packet_hash":"two"}', b'\xff', b' ' * (MAX_REVIEW_BYTES + 1)])
+@pytest.mark.parametrize("raw", [b'{"packet_hash":"one","packet_hash":"two"}', b'\xff', b' ' * (MAX_REVIEW_BYTES + 1)],
+                         ids=["duplicate_keys", "invalid_utf8", "oversized"])
 def test_uploaded_review_bytes_are_bounded_and_duplicate_key_checked(packet, raw):
     with pytest.raises(ValueError): restore_draft(raw, packet)
 

@@ -157,5 +157,155 @@
   ],
   "saved_review_grades": "All 408 template grades remain null. No genuine reviewer judgments were collected.",
   "fixture_limits": "Controlled AppTest/backend forms validate tooling only. No independent quality scores or participant results.",
-  "ci_status": "Pending Linux/Windows, nine student browser gates and six reviewer browser gates."
+  "ci_status": "Initial Linux tests and nine student browser gates pass; Windows oversized test-ID and reviewer radio actions fail. Follow-up uses short IDs and visible option labels.",
+  "initial_ci": {
+    "revision": "3cce0de4f6e0f6336c10370af23356334a037957",
+    "run_id": 42399446917,
+    "linux": {
+      "tests_passed": 1562,
+      "seconds": 52.13,
+      "readiness_passed": 9,
+      "job_id": 128483839797
+    },
+    "windows": {
+      "tests_passed": 1561,
+      "setup_teardown_errors": 2,
+      "seconds": 84.03,
+      "readiness_passed": 9,
+      "job_id": 128483839816,
+      "finding": "Pytest used the oversized bytes parameter as an environment test ID exceeding the Windows 32767-character limit."
+    },
+    "browser_reports": {
+      "browser.json": {
+        "passed": true,
+        "mode": "local_offline",
+        "checks": [
+          {
+            "name": "initial_roadmap",
+            "passed": true,
+            "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+            "seconds": 2.593
+          },
+          {
+            "name": "request_progress",
+            "passed": true,
+            "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+            "seconds": 0.868
+          },
+          {
+            "name": "current_course_filtering",
+            "passed": true,
+            "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+            "seconds": 1.062
+          },
+          {
+            "name": "completion_transition",
+            "passed": true,
+            "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+            "seconds": 0.592
+          },
+          {
+            "name": "profile_export",
+            "passed": true,
+            "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+            "seconds": 0.648
+          },
+          {
+            "name": "profile_restore",
+            "passed": true,
+            "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+            "seconds": 1.283
+          },
+          {
+            "name": "session_isolation",
+            "passed": true,
+            "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+            "seconds": 2.849
+          },
+          {
+            "name": "unsupported_request",
+            "passed": true,
+            "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+            "seconds": 0.717
+          },
+          {
+            "name": "websocket_sessions",
+            "passed": true,
+            "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+            "seconds": 0.014
+          }
+        ],
+        "sessions": [
+          {
+            "stream_connections": 1,
+            "frames_sent": 8,
+            "frames_received": 2097,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 7
+          },
+          {
+            "stream_connections": 1,
+            "frames_sent": 3,
+            "frames_received": 789,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 3
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "external_browser_requests_blocked": 0,
+        "limits": [
+          "Preview mode only; no AI, relevance, or participant evaluation.",
+          "Local checks do not establish public-host availability or TLS/proxy behavior.",
+          "Browser request counts do not measure server-side network calls."
+        ],
+        "seconds": 11.389,
+        "checked_at": "2026-11-07T18:05:33.739078+00:00"
+      },
+      "reviewer-browser.json": {
+        "passed": false,
+        "mode": "controlled_reviewer_fixture",
+        "checks": [
+          {
+            "name": "blank_review",
+            "passed": true,
+            "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+          },
+          {
+            "name": "explicit_grades",
+            "passed": false,
+            "detail": "Reviewer browser check failed.",
+            "error_type": "TimeoutError",
+            "failure_line": 77
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "sessions": [
+          {
+            "scripts_finished": 2,
+            "page_errors": 0
+          }
+        ],
+        "blocked_external_browser_requests": 0,
+        "limits": [
+          "Only controlled fixture actions; no independent judgments or quality score.",
+          "No supplied-host, participant, or public hosting validation."
+        ],
+        "seconds": 22.056,
+        "checked_at": "2026-11-07T18:05:56.868552+00:00"
+      }
+    },
+    "browser_artifact": {
+      "id": 13584328568,
+      "zip_sha256": "4e634a4bb2dd6a489dcc696d3906dee2c46af4c5d929a6689471f1dc6380da63",
+      "download_digest_verified": true
+    }
+  }
 }
