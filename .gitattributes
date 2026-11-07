@@ -1,0 +1,2 @@
+# Keep archived JSON inputs and their byte fingerprints stable across checkouts.
+*.json text eol=lf
