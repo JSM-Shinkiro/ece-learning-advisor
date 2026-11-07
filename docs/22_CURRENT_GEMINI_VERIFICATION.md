@@ -1,5 +1,7 @@
 # Current Gemini development verification
 
+Later verification: [November 6 runtime checks](39_RUNTIME_PROVIDER_VERIFICATION.md) cover the expanded 34-chunk collection and a fresh-source request, retaining an initial proxy failure and a scoped follow-up. The November 4 observations below retain their original ten-chunk scope and measurements.
+
 Verified November 4, 2026, using the latest Gemini credential explicitly authorized by the user. It was supplied to transient processes through hidden input and was not written to environment files, repository files, or saved results. OpenRouter was not used. The submitted midproject repository and all earlier measurements remain preserved.
 
 No application change was needed: the existing pinned adapter accepted the current statement-selection schema and completed real retrieval/generation requests.
