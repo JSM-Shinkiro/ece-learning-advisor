@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "saved_at": "2026-11-07T02:01:26.233618+00:00",
+  "development_date": "2026-11-06 America/Phoenix",
+  "scope": "Process-local public document cache coordination; controlled adapters only. Not public hosting, real-user capacity, provider throughput, relevance, or general accuracy measurement.",
+  "repository_parent": "5d3d5716bd5f6c892387a8d773cf092270d612e1",
+  "dependency_changes": false,
+  "implementation_sha256": {
+    "src/providers.py": "ec2920523003849be3a4ff888705764328d9e144dcca23fe6f37781fd9ca4a51",
+    "tests/test_shared_cache.py": "80cd2a3ffbce805790c3e78b48a94a132f360c44eae535fef361b79b1e43bee7"
+  },
+  "production_probe_sha256": "caa5bc49bac63c30167175abc193b65ffff963333ef2774e1d2becae2f8d8edc",
+  "coordination": {
+    "scope": "one Python process",
+    "index_and_document_locks": true,
+    "resolved_path_identity": true,
+    "wait_deadline_seconds_from_cache_get_start": 30.0,
+    "total_model_or_request_timeout": false,
+    "idle_lock_registry": "guarded weak-value mapping",
+    "cache_schema_changed": false,
+    "query_embeddings_cached": false,
+    "profiles_or_answers_cached": false,
+    "source_refresh_bypassed_by_embedding_hit": false,
+    "per_request_write_failure_status": true,
+    "cross_process_or_replica_coordination": false,
+    "provider_or_source_retry_policy_changed": false
+  },
+  "prechange_controlled_reproduction": {
+    "checked_at": "2026-11-07T01:53:29.631623+00:00",
+    "scope": "Controlled pre-change concurrent cache reproduction; zero actual provider/source calls.",
+    "simultaneous_requests": 2,
+    "catalog_chunks": 34,
+    "document_calls": 68,
+    "cache_states": [
+      "miss",
+      "miss"
+    ],
+    "actual_model_calls": 0,
+    "source_requests": 0
+  },
+  "production_controlled_verification": {
+    "checked_at": "2026-11-07T01:59:26.547082+00:00",
+    "scope": "Production-only controlled adapters. No actual provider/source calls, student participants, live multi-user hosting, or quality grades.",
+    "python": "3.12.14",
+    "pytest_installed": false,
+    "controlled_dimensions": 7,
+    "catalog_chunks": 34,
+    "two_cold_cache_requests": {
+      "documents": 34,
+      "queries": 0,
+      "generations": 0,
+      "closed": 0,
+      "refresh_invocations": 0,
+      "cache_states": [
+        "miss",
+        "hit"
+      ],
+      "shape": [
+        34,
+        7
+      ]
+    },
+    "two_warm_cache_requests": {
+      "documents": 0,
+      "queries": 0,
+      "generations": 0,
+      "closed": 0,
+      "refresh_invocations": 0,
+      "cache_states": [
+        "hit",
+        "hit"
+      ]
+    },
+    "two_overlapping_catalog_requests": {
+      "documents": 35,
+      "queries": 0,
+      "generations": 0,
+      "closed": 0,
+      "refresh_invocations": 0,
+      "cache_states": [
+        "miss",
+        "miss"
+      ],
+      "distinct_catalog_hashes": 2
+    },
+    "eight_concurrent_controller_requests": {
+      "documents": 34,
+      "queries": 8,
+      "generations": 8,
+      "closed": 8,
+      "refresh_invocations": 8,
+      "cache_states": [
+        "hit",
+        "hit",
+        "hit",
+        "hit",
+        "hit",
+        "hit",
+        "hit",
+        "miss"
+      ],
+      "all_completed": true,
+      "all_statement_checks_passed": true,
+      "distinct_contexts": 8,
+      "distinct_answers": 8,
+      "profile_completion_isolation_passed": true,
+      "controlled_source_refresh_invocations_remain_per_request": true,
+      "waiters_observed": 7
+    },
+    "cache_archives_checked_for_public_document_only_manifests": 107,
+    "actual_model_requests": 0,
+    "actual_http_requests": 0,
+    "in_process_only": true,
+    "all_checks_passed": true
+  },
+  "automated_verification": {
+    "passed": 1391,
+    "seconds": 42.12,
+    "new_concurrent_cache_cases": 17,
+    "existing_streamlit_interactions": 62,
+    "focused_passed": 98,
+    "focused_seconds": 4.08,
+    "actual_model_requests": 0,
+    "actual_source_requests": 0
+  },
+  "production_runtime": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": true,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T01:58:23.407811+00:00"
+  },
+  "preserved_file_sha256": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+    "data/reviews/runtime_v1/catalog_snapshot.json": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+    "data/reviews/runtime_v1/packet.json": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+    "data/reviews/runtime_v1/review_guide.md": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+    "data/reviews/runtime_v1/review_template.json": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870"
+  },
+  "limitations": [
+    "No real provider credentials, model calls, public-source HTTP requests, participant judgments, or independent relevance scores were used in this unit.",
+    "Controlled vectors have seven dimensions and do not measure actual neural relevance or live-provider throughput. Earlier real Gemini observations are separate and unchanged.",
+    "Successful builds are reused through validated public disk caches. If a build fails or cache persistence fails, a later caller may need another document call.",
+    "Lock waiting shares a deadline; existing source and provider work have separate bounds. Busy waits use the existing keyword fallback and normal generation may still run.",
+    "Coordination applies only within one Python process. Multiple processes or replicas may still make duplicate document calls; files continue to use atomic replacement.",
+    "Production observation is Linux/Python 3.12.14 without pytest. No separate Windows concurrency execution, public hosting, student pilot, or complete enrollment approval is claimed.",
+    "The prepared 408 independent review grades remain blank, and academic interpretations and benchmark inputs remain unchanged."
+  ]
+}

@@ -1,5 +1,7 @@
 # Runtime and deployment readiness
 
+Later backend preparation: [November 6 shared-cache coordination](40_SHARED_EMBEDDING_CACHE.md) adds bounded public document-build reuse within one server process and controlled concurrent-request checks. The November 5 observations below retain their original scope and measurements.
+
 Implemented and verified November 5, 2026. Runtime configuration is now validated before the app renders profile widgets. A separate preflight command checks local inputs and can verify both a real Streamlit server and the app's offline preview. This unit prepares the Python runtime; public hosting and live source/provider verification are separate steps.
 
 ## Configuration

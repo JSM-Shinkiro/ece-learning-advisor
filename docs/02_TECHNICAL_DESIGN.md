@@ -42,7 +42,7 @@ Before retrieval, up to eight course pages, two program pages, and two resources
 | src/evaluation.py / scripts/evaluate_reviewed.py | Frozen-corpus metrics, roadmap references, authored claim probes, and explicit embedding opt-in |
 | src/review.py / scripts/review_retrieval.py | Unscored review packets, archived catalog inputs, complete judgments, and offline all-method scoring |
 | src/controller.py | One submitted request, source refresh, provider setup, and failure recovery |
-| src/providers.py | Gemini calls, vectors, and versioned embedding cache |
+| src/providers.py | Bounded Gemini adapter, versioned public document cache, and in-process index/document build coordination |
 | src/runtime_checks.py / scripts/verify_runtime.py | Bounded opt-in integration scenarios, adapter counts, safe errors, and source/fallback verification |
 | src/query.py | Versioned whole-token domain aliases and bounded source-vocabulary query expansion |
 | src/grounding.py | Canonical explanation statements, context binding, model selections, and exact wording validation |

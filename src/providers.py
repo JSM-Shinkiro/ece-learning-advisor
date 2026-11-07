@@ -6,7 +6,11 @@ import hashlib
 import json
 import os
 import tempfile
+import threading
+import time
+import weakref
 import zipfile
+from contextlib import contextmanager
 from pathlib import Path
 
 import numpy as np
@@ -18,6 +22,37 @@ from .retrieval import normalized
 
 class ProviderError(RuntimeError):
     """A sanitized error suitable for the UI."""
+
+
+_CACHE_WAIT_SECONDS = 30.0
+_CACHE_LOCKS = weakref.WeakValueDictionary()
+_CACHE_LOCKS_GUARD = threading.Lock()
+
+
+def _cache_lock_for(path):
+    """Share active locks across cache instances without retaining idle keys."""
+    try:
+        key = str(path.resolve())
+    except (OSError, RuntimeError):
+        raise ProviderError("The public embedding cache could not be coordinated.") from None
+    with _CACHE_LOCKS_GUARD:
+        lock = _CACHE_LOCKS.get(key)
+        if lock is None:
+            lock = threading.Lock()
+            _CACHE_LOCKS[key] = lock
+    return lock
+
+
+@contextmanager
+def _cache_build_lock(path, deadline):
+    """Coordinate one process; every wait shares the cache request's deadline."""
+    lock = _cache_lock_for(path)
+    if not lock.acquire(timeout=max(0.0, deadline - time.monotonic())):
+        raise ProviderError("Public document embeddings are busy. Try updating the roadmap again.")
+    try:
+        yield
+    finally:
+        lock.release()
 
 
 class GeminiProvider:
@@ -129,32 +164,35 @@ class EmbeddingCache:
         finally:
             Path(temporary).unlink(missing_ok=True)
 
-    def _document_vector(self, chunk, provider):
+    def _document_vector(self, chunk, provider, deadline):
         manifest = {"record_id": chunk.record_id, "text_hash": hashlib.sha256(chunk.text.encode()).hexdigest(),
                     "model": provider.embedding_model, "dimensions": provider.dimensions,
                     "normalization": "l2", "format": self.FORMAT}
         identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
         path = self.directory / "documents" / (identity + ".npz")
-        if path.exists():
+        with _cache_build_lock(path, deadline):
+            # Recheck after waiting: another request may have just written it.
+            if path.exists():
+                try:
+                    with np.load(path, allow_pickle=False) as saved:
+                        vectors = normalized(saved["vectors"])
+                        existing = json.loads(str(saved["manifest"].item()))
+                    if existing == manifest and vectors.shape == (1, provider.dimensions):
+                        return vectors[0], False
+                except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
+                    pass
+            vectors = normalized([provider.embed_document(chunk)])
+            if vectors.shape != (1, provider.dimensions):
+                raise ProviderError("Unexpected document vector dimension")
+            write_failed = False
             try:
-                with np.load(path, allow_pickle=False) as saved:
-                    vectors = normalized(saved["vectors"])
-                    existing = json.loads(str(saved["manifest"].item()))
-                if existing == manifest and vectors.shape == (1, provider.dimensions):
-                    return vectors[0]
-            except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
-                pass
-        vectors = normalized([provider.embed_document(chunk)])
-        if vectors.shape != (1, provider.dimensions):
-            raise ProviderError("Unexpected document vector dimension")
-        try:
-            self._write(path, vectors, manifest)
-        except OSError:
-            self._write_failed = True
-        return vectors[0]
+                self._write(path, vectors, manifest)
+            except OSError:
+                write_failed = True
+            return vectors[0], write_failed
 
     def get(self, catalog: Catalog, chunks: list[Evidence], provider: GeminiProvider):
-        self._write_failed = False
+        deadline = time.monotonic() + _CACHE_WAIT_SECONDS
         manifest = {
             "corpus_hash": corpus_hash(catalog),
             "chunk_ids": [c.chunk_id for c in chunks],
@@ -166,24 +204,28 @@ class EmbeddingCache:
         }
         identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
         path = self.directory / (identity + ".npz")
-        state = "miss"
-        if path.exists():
+        # Hold at most one index lock and one document lock, in that order.
+        with _cache_build_lock(path, deadline):
+            state = "miss"
+            if path.exists():
+                try:
+                    with np.load(path, allow_pickle=False) as saved:
+                        existing = json.loads(str(saved["manifest"].item()))
+                        vectors = normalized(saved["vectors"])
+                    if existing != manifest or vectors.shape != (len(chunks), provider.dimensions):
+                        raise ValueError("Incompatible embedding index")
+                    return vectors, "hit", manifest
+                except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
+                    state = "rebuilt_invalid"
+            documents = [self._document_vector(c, provider, deadline) for c in chunks]
+            vectors = normalized([vector for vector, _ in documents])
+            write_failed = any(failed for _, failed in documents)
+            if vectors.shape != (len(chunks), provider.dimensions):
+                raise ProviderError("Vector rows do not match the reviewed collection")
             try:
-                with np.load(path, allow_pickle=False) as saved:
-                    existing = json.loads(str(saved["manifest"].item()))
-                    vectors = normalized(saved["vectors"])
-                if existing != manifest or vectors.shape != (len(chunks), provider.dimensions):
-                    raise ValueError("Incompatible embedding index")
-                return vectors, "hit", manifest
-            except (ValueError, KeyError, OSError, EOFError, zipfile.BadZipFile):
-                state = "rebuilt_invalid"
-        vectors = normalized([self._document_vector(c, provider) for c in chunks])
-        if vectors.shape != (len(chunks), provider.dimensions):
-            raise ProviderError("Vector rows do not match the reviewed collection")
-        try:
-            self._write(path, vectors, manifest)
-        except OSError:
-            self._write_failed = True
-        if self._write_failed:
-            state += "_uncached"
-        return vectors, state, manifest
+                self._write(path, vectors, manifest)
+            except OSError:
+                write_failed = True
+            if write_failed:
+                state += "_uncached"
+            return vectors, state, manifest
