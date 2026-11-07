@@ -2,6 +2,8 @@
 
 Team P07 · Updated November 7, 2026 MST · Final presentation and submission: December 11.
 
+For each development step, update [final readiness](FINAL_READINESS.md) with separate app/submission estimates, the acceptance gate resolved, and the main remaining work. These are planning judgments against the scoped project, not measured quality or instructor grades.
+
 ## Repositories and baseline
 
 | Purpose | Repository or revision |
@@ -46,6 +48,8 @@ The [query-interpretation follow-up](20_QUERY_INTERPRETATION.md) adds bounded do
 [A shared AI time budget](44_AI_TIME_BUDGET.md) now limits submitted AI phases after source checks. Model timeouts and cache waits use the remaining allowance, late answers are rejected, and expiry preserves the source roadmap with a clear notice. The default is 45 seconds, configurable from 5–120 seconds; it is a cooperative limit rather than a hard whole-interaction deadline. The runtime verifier uses the same setting.
 
 ## Backend priorities
+
+The optional [real-browser acceptance workflow](45_BROWSER_ACCEPTANCE.md) now tests the production launcher, profile download/upload, current-course completion, unsupported requests, and two actual Streamlit/WebSocket sessions. Local Chromium startup is blocked in this workspace; the new Linux CI job is the acceptance environment. Public hosting and participant evaluation remain separate, unverified work.
 
 Work across the app as needed, with backend correctness and source handling first. Individual ownership does not constrain the development order.
 

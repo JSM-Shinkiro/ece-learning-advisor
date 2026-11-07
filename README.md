@@ -6,6 +6,8 @@
 
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
+[Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
+
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
 
 ## Run locally
@@ -38,6 +40,8 @@ If Python 3.12 is missing, install it first with `winget install --exact --id Py
 ## Check runtime before hosting
 
 Run `python scripts/check_deployment.py --smoke` to validate configuration, pinned production dependencies, bundled evidence/connectors, writable caches, local server liveness, and an offline preview roadmap. The smoke test uses no provider credentials or external source requests. Its report defaults to `deployment_check.json` in the configured cache directory. See [runtime readiness](docs/27_DEPLOYMENT_READINESS.md) for hosting settings and verification scope.
+
+For the optional [real-browser acceptance check](docs/45_BROWSER_ACCEPTANCE.md), install `requirements-browser.txt` and Chromium with `python -m playwright install --with-deps --only-shell chromium`, then run `python scripts/check_browser.py --output output/browser-first.json`. It exercises profile download/upload, current-course completion, two isolated sessions, and actual WebSocket activity through the production launcher. Use a new report path each time. Linux browser CI runs separately from the Linux/Windows backend checks.
 
 `ECE_CACHE_DIR` selects the source/embedding cache root; relative paths resolve from the project directory. The default is `.cache`. Invalid server configuration stops with a sanitized message naming the setting. Shared-hosting readiness requires `ECE_DEVELOPMENT_MODE=false`; API keys remain optional for preview mode.
 
@@ -201,7 +205,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current local suite passes 1,511 tests, including 73 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current local suite passes 1,524 tests, including 73 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 For external review, [the expanded-catalog workflow](docs/38_EXPANDED_REVIEW_COLLECTIONS.md) supports `--collection runtime` and archived `--catalog-snapshot` inputs across preparation, embedding, and scoring. The default remains the frozen baseline. A [prepared runtime packet](data/reviews/runtime_v1) contains 12 assistant-authored development questions, 34 evidence chunks, and 408 blank grades. These are not held-out questions or independent judgments. New exports include the exact catalog snapshot so grades remain usable after repository data changes. Use that snapshot for later embedding/scoring; old forms or vectors cannot silently substitute. Keyword, semantic, and hybrid methods use the same completed form. Preparation/scoring stay offline; optional Gemini vectors still require `embed --live-embeddings`. Keep the catalog snapshot, vectors, and score reports with the operator, separate from reviewer materials. Earlier [reviewer](docs/28_REVIEWER_WORKFLOW.md) and [method-comparison](docs/35_REVIEW_METHOD_COMPARISON.md) notes retain their historical observations.
 

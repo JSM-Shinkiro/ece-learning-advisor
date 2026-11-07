@@ -5,6 +5,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | File | Contents |
 | --- | --- |
 | [Final-project handoff](13_FINAL_PROJECT_DEVELOPMENT.md) | Development repository, preserved midproject revision, backend priorities, and next tasks |
+| [Final readiness](FINAL_READINESS.md) | App/submission estimates, acceptance gates, and the remaining final deliverables |
 | [Runtime source checks](14_RUNTIME_SOURCES.md) | On-use course checks, freshness, failure recovery, cache identity, and live verification |
 | [Prerequisite evidence](15_PREREQUISITE_EVIDENCE.md) | Reviewed rule provenance, separate citation chunks, live revalidation, and conservative failure behavior |
 | [Bounded course discovery](16_COURSE_DISCOVERY.md) | Official program course links, identity checks, field provenance, request budgets, and current verification |
@@ -36,6 +37,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Automatic backend checks](42_BACKEND_CI.md) | Linux/Windows Python checks, retained reports, blank credentials, JSON checkout identity, and the Windows launcher follow-up |
 | [Current coursework](43_CURRENT_COURSEWORK.md) | Editable current courses, next-step exclusion, completion transitions, source lookup, and verification |
 | [AI time budget](44_AI_TIME_BUDGET.md) | Shared request allowance, SDK timeouts, bounded cache waits, source fallback, and controlled verification |
+| [Real-browser acceptance](45_BROWSER_ACCEPTANCE.md) | Production-browser workflow, profile portability, isolated WebSocket sessions, optional host checks, and verification limits |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

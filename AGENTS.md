@@ -5,3 +5,4 @@
 - Use **ECE Learning Advisor** as the app/project name and `ece-learning-advisor` as the package/repository name.
 - Start with `docs/13_FINAL_PROJECT_DEVELOPMENT.md`. Preserve the original dates and results in historical verification evidence.
 - Keep midproject report, figures, links, and video unchanged. Prepare final-submission documents separately.
+- After each development step, report how close the app and the full final submission are to completion, what the step resolves, and the main remaining gaps. Maintain `docs/FINAL_READINESS.md`; label estimates as planning judgments, not measured quality or rubric grades.
