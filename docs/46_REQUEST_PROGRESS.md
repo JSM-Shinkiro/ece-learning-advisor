@@ -22,7 +22,7 @@ Phase durations are sequential server intervals through result assembly, before 
 
 All **1,539 local tests** pass, including 15 new cases: eleven backend cases and four Streamlit interactions. There are now 77 Streamlit interactions overall. All nine local readiness checks and dependency consistency pass. New controls cover actual-call ordering, skipped AI phases, source failure, budget fallback, generation failure/abstention, observer failures, sanitized reports, independent concurrent requests, measured callback time, immutable snapshots, and UI completion/clarification/error states.
 
-The real-browser check adds a ninth gate: the completed preview status is visible and can be expanded to read the snapshot stage without claiming AI explanations. Linux/Windows backend and Linux Chromium CI verification will be recorded after the actual run.
+The real-browser check adds a ninth gate: the completed preview status is visible and can be expanded to read the snapshot stage without claiming AI explanations. Revision `df85062fd06692cc0816c529b84a41b09bbd6688` passes [CI run 42365142275](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42365142275): all 1,539 tests and nine readiness checks on both Linux and Windows, plus all nine Chromium gates. The browser artifact was downloaded and its ZIP SHA-256 verified. The existing completion, profile restore and two-session WebSocket checks also pass.
 
 A real source-only embedded-profile probe makes two submitted requests with the same synthetic question and a temporary source cache:
 

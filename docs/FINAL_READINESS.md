@@ -14,17 +14,18 @@ Core features are close to complete. The largest remaining work is independent e
 | Course/resource coverage and provenance | Implemented with limits | 20 courses, eight resources, 34 chunks; four reviewed CS conditions; 15 ECE conditions and CSC372 remain unknown |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
 | Reproducible runtime | Verified | Pinned setup, production launcher, Linux/Windows CI, nine readiness checks |
-| Actual browser workflow and concurrent sessions | Verified locally in CI | Eight Chromium gates pass: real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
+| Actual browser workflow and concurrent sessions | Verified locally in CI | Nine Chromium gates pass: stage history, real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
+| Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development review bundle has 408 blank grades; obtain genuine independent judgments and separately identify held-out cases |
-| Performance evidence | Partial | Earlier runtime observations exist; measure cold/warm and browser-visible paths on the frozen final revision, distinguish source work from AI time |
+| Performance evidence | Partial | Real source-only fresh/reused-cache observations are recorded; broader cold/warm and browser-visible measurements on the frozen final revision, including AI, remain |
 | Student pilot | Open | Run 3–5 voluntary tasks, record failures and feedback without inventing participants or results |
 | Final report, slides, new demo | Open | Prepare separately from preserved midproject artifacts; explain scope, evaluation, math/inspection, responsiveness and limitations |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
 
 ## Current development step
 
-[Request progress](46_REQUEST_PROGRESS.md) now exposes the actual work attempted and records sequential server phase durations. Preview and fallback paths avoid claiming skipped AI stages; callback failures cannot change request results. All 1,539 local tests and nine readiness checks pass. A real source-only fresh/reused-cache pair observes 13.924/10.693 seconds, with eleven selected checks passing in each request. Public-network variability and the two-request sample limit interpretation. A ninth browser gate checks the visible stage history; its CI result is pending.
+[Request progress](46_REQUEST_PROGRESS.md) now exposes the actual work attempted and records sequential server phase durations. Preview and fallback paths avoid claiming skipped AI stages; ordinary observer exceptions disable the observer without failing the request or retrying external work. All 1,539 tests and nine readiness checks pass locally and on Linux/Windows. All nine Chromium gates pass in [run 42365142275](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42365142275), verified code revision `df85062fd06692cc0816c529b84a41b09bbd6688`. A real source-only fresh/reused-cache pair observes 13.924/10.693 seconds, with eleven selected checks passing in each request. Public-network variability and the two-request sample limit interpretation.
 
 Readiness stays at approximately 90% for the app and 70% for the full submission. This step improves feedback and profiling; independent judgments, voluntary student feedback, final-revision performance evidence and final deliverables still determine completion.
 

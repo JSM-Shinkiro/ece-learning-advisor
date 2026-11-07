@@ -45,6 +45,8 @@ The browser checks assert both pickers immediately after completion and verify t
 
 ## Verified result
 
+The later [request-progress unit](46_REQUEST_PROGRESS.md) adds a ninth browser gate for visible stage history and passes 1,539 tests on both OSes. The original browser milestone's dated results below are retained.
+
 Revision `11e26d567b503d79dee0ef437cf369918aba1d83` passes [run 42363890309](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42363890309):
 
 | Environment | Observed result |

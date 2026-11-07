@@ -519,5 +519,119 @@
     }
   ],
   "review_grades": "All 408 remain blank; no independent quality result.",
-  "ci_status": "Pending Linux/Windows and ninth real-browser gate."
+  "ci_status": "All Linux/Windows backend and readiness checks pass; all nine Chromium gates pass.",
+  "ci": {
+    "revision": "df85062fd06692cc0816c529b84a41b09bbd6688",
+    "run_id": 42365142275,
+    "conclusion": "success",
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42365142275",
+    "linux": {
+      "job_id": 128381511393,
+      "tests_passed": 1539,
+      "readiness_passed": 9,
+      "seconds": 63.47
+    },
+    "windows": {
+      "job_id": 128381511597,
+      "tests_passed": 1539,
+      "readiness_passed": 9,
+      "seconds": 81.07
+    },
+    "browser": {
+      "job_id": 128381511631,
+      "report": {
+        "passed": true,
+        "mode": "local_offline",
+        "checks": [
+          {
+            "name": "initial_roadmap",
+            "passed": true,
+            "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+            "seconds": 3.232
+          },
+          {
+            "name": "request_progress",
+            "passed": true,
+            "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+            "seconds": 1.148
+          },
+          {
+            "name": "current_course_filtering",
+            "passed": true,
+            "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+            "seconds": 1.434
+          },
+          {
+            "name": "completion_transition",
+            "passed": true,
+            "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+            "seconds": 0.762
+          },
+          {
+            "name": "profile_export",
+            "passed": true,
+            "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+            "seconds": 0.845
+          },
+          {
+            "name": "profile_restore",
+            "passed": true,
+            "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+            "seconds": 1.56
+          },
+          {
+            "name": "session_isolation",
+            "passed": true,
+            "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+            "seconds": 3.99
+          },
+          {
+            "name": "unsupported_request",
+            "passed": true,
+            "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+            "seconds": 0.849
+          },
+          {
+            "name": "websocket_sessions",
+            "passed": true,
+            "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+            "seconds": 0.012
+          }
+        ],
+        "sessions": [
+          {
+            "stream_connections": 1,
+            "frames_sent": 8,
+            "frames_received": 2100,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 7
+          },
+          {
+            "stream_connections": 1,
+            "frames_sent": 3,
+            "frames_received": 763,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 3
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "external_browser_requests_blocked": 0,
+        "limits": [
+          "Preview mode only; no AI, relevance, or participant evaluation.",
+          "Local checks do not establish public-host availability or TLS/proxy behavior.",
+          "Browser request counts do not measure server-side network calls."
+        ],
+        "seconds": 14.833,
+        "checked_at": "2026-11-07T10:44:17.608323+00:00"
+      },
+      "artifact_id": 13571118822,
+      "zip_sha256": "480d0f0305b2c00b9831d564c3087e232328d04ce296580de155e2a37cac7932",
+      "download_digest_verified": true
+    }
+  }
 }
