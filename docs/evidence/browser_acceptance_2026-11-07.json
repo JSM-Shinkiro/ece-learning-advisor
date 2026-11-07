@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "Four browser gates pass; restoring the profile remains blocked by the dropdown harness. Explicit toggle/expanded-state verification added.",
+  "ci_browser_status": "All eight real-browser gates pass; Linux/Windows each pass all 1,524 tests and nine readiness checks. Local production browser acceptance is verified; public-host and independent-quality validation remain open.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -622,5 +622,115 @@
     },
     "artifact_id": 13569839323,
     "finding": "The combobox remains collapsed after focus/ArrowDown following sidebar scrolling. The next checker uses its explicit Open button and asserts aria-expanded before locating an option."
+  },
+  "successful_ci": {
+    "revision": "11e26d567b503d79dee0ef437cf369918aba1d83",
+    "run_id": 42363890309,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42363890309",
+    "conclusion": "success",
+    "linux": {
+      "job_id": 128377753703,
+      "tests_passed": 1524,
+      "seconds": 47.96,
+      "readiness_passed": 9
+    },
+    "windows": {
+      "job_id": 128377753746,
+      "tests_passed": 1524,
+      "seconds": 68.52,
+      "readiness_passed": 9
+    },
+    "browser": {
+      "job_id": 128377753551,
+      "report": {
+        "passed": true,
+        "mode": "local_offline",
+        "checks": [
+          {
+            "name": "initial_roadmap",
+            "passed": true,
+            "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+            "seconds": 2.631
+          },
+          {
+            "name": "current_course_filtering",
+            "passed": true,
+            "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+            "seconds": 1.104
+          },
+          {
+            "name": "completion_transition",
+            "passed": true,
+            "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+            "seconds": 0.55
+          },
+          {
+            "name": "profile_export",
+            "passed": true,
+            "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+            "seconds": 0.649
+          },
+          {
+            "name": "profile_restore",
+            "passed": true,
+            "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+            "seconds": 1.12
+          },
+          {
+            "name": "session_isolation",
+            "passed": true,
+            "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+            "seconds": 2.308
+          },
+          {
+            "name": "unsupported_request",
+            "passed": true,
+            "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+            "seconds": 1.087
+          },
+          {
+            "name": "websocket_sessions",
+            "passed": true,
+            "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+            "seconds": 0.008
+          }
+        ],
+        "sessions": [
+          {
+            "stream_connections": 1,
+            "frames_sent": 8,
+            "frames_received": 2030,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 7
+          },
+          {
+            "stream_connections": 1,
+            "frames_sent": 3,
+            "frames_received": 761,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 3
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "external_browser_requests_blocked": 0,
+        "limits": [
+          "Preview mode only; no AI, relevance, or participant evaluation.",
+          "Local checks do not establish public-host availability or TLS/proxy behavior.",
+          "Browser request counts do not measure server-side network calls."
+        ],
+        "seconds": 10.076,
+        "checked_at": "2026-11-07T10:26:16.362755+00:00"
+      }
+    },
+    "browser_artifact": {
+      "id": 13571081336,
+      "sha256": "c3bba19b11eef3496b628d3d49e7848fcf6bf324c25526769019b2b26ce44bef",
+      "download_digest_verified": true
+    }
   }
 }
