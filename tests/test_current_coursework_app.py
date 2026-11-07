@@ -35,6 +35,11 @@ def test_finishing_current_course_moves_pickers_and_waits_for_required_grade(app
     assert profile.completed == [Completion(course_code="ECE101")]
     assert app.multiselect(key="current_courses").value == []
     assert "ECE101" in app.multiselect(key="completed_courses").value
+    # The real browser needs an explicit value update, not just changed defaults.
+    assert app.multiselect(key="current_courses").proto.set_value
+    assert app.multiselect(key="completed_courses").proto.set_value
+    assert not app.multiselect(key="current_courses").proto.raw_values
+    assert any(value.startswith("ECE101 · ") for value in app.multiselect(key="completed_courses").proto.raw_values)
     assert app.text_area(key="current_course_text").value == "MATH129"
     csc120 = "uofa:CSC120:2026-2027"
     assert app.session_state["result"].context.rule_results[csc120].status == "unknown"

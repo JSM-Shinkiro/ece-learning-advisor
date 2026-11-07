@@ -245,6 +245,10 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 settled(a, after=before)
                 saved(a, "Embedded Systems", 1, 0)
                 expect(a.get_by_text("Completed coursework (1)", exact=True)).to_be_visible()
+                completed_picker = a.get_by_test_id("stMultiSelect").filter(has=a.get_by_text("Completed courses (optional)", exact=True))
+                current_picker = a.get_by_test_id("stMultiSelect").filter(has=a.get_by_text("Currently taking (optional)", exact=True))
+                expect(completed_picker.get_by_role("group", name="Selected values")).to_contain_text("ECE101")
+                expect(current_picker.get_by_role("group", name="Selected values")).to_have_count(0)
                 _, completed = export(a, "completed.json")
                 assert completed["completed"] == [{"course_code": "ECE101", "grade": None}]
                 assert completed["current_enrollment"] == []

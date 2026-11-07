@@ -16,7 +16,7 @@ from src.opportunity_pages import page_info, request_opportunity_page
 from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions, parse_current_courses
-from src.session import PROFILE_WIDGET_KEYS, apply_profile, choose_direction, complete_course, restore_profile
+from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
 
 load_dotenv(ROOT / ".env")
@@ -45,11 +45,10 @@ standings = ["Incoming", "Freshman", "Sophomore", "Junior", "Senior", "Other"]
 background_names = {"new":"Getting started", "some":"Some programming experience", "experienced":"Comfortable with programming"}
 if "profile" not in st.session_state:
     st.session_state.profile = StudentProfile()
-if st.session_state.pop("reset_profile_widgets", False):
-    for key in list(st.session_state):
-        if key in PROFILE_WIDGET_KEYS or key.startswith("grade_"):
-            st.session_state.pop(key, None)
+    st.session_state.reset_profile_widgets = True
 profile = st.session_state.profile
+if st.session_state.pop("reset_profile_widgets", False):
+    sync_profile_widgets(st.session_state, profile, course_lookup)
 
 
 def show_profile_error(exc):
@@ -115,44 +114,39 @@ with st.sidebar:
     if "profile_message" in st.session_state:
         st.success(st.session_state.pop("profile_message"))
     with st.form("profile_form"):
-        standing = st.selectbox("Academic standing",standings,index=standings.index(profile.standing),key="standing")
-        career_id = st.selectbox("Career direction",list(CAREER_NAMES),index=list(CAREER_NAMES).index(profile.career_id),
+        standing = st.selectbox("Academic standing",standings,key="standing")
+        career_id = st.selectbox("Career direction",list(CAREER_NAMES),
                                  format_func=lambda k:CAREER_NAMES[k],key="career_id")
         background = st.selectbox("Programming background",list(background_names),
-            index=list(background_names).index(profile.programming_background),format_func=lambda k:background_names[k],key="programming_background")
-        interests = st.text_area("What interests you?",value=profile.interests,max_chars=1500,
+            format_func=lambda k:background_names[k],key="programming_background")
+        interests = st.text_area("What interests you?",max_chars=1500,
                                  placeholder="AI and hardware integration, robotics, computer vision...",height=85,key="interests")
         selected = st.multiselect("Completed courses (optional)",list(course_lookup),
-            default=[c.course_code for c in profile.completed if c.course_code in course_lookup],
             format_func=lambda code:code+" · "+course_lookup[code].title,key="completed_courses")
         current_selected = st.multiselect("Currently taking (optional)",list(course_lookup),
-            default=[code for code in profile.current_enrollment if code in course_lookup],
             format_func=lambda code:code+" · "+course_lookup[code].title,key="current_courses",
             help="Keep these courses out of your next-step suggestions. Taking a course does not count as passing it.")
         submitted = st.form_submit_button("Update my roadmap",type="primary",width="stretch")
         with st.expander("Optional details"):
-            catalog_version = st.text_input("Catalog year",value=profile.catalog_version,key="catalog_version",
+            catalog_version = st.text_input("Catalog year",key="catalog_version",
                                            help="Use your admitted catalog year. Enter Not sure if you do not know it.")
             manual_text = st.text_area("Other course codes or optional grades",
-                value=", ".join(c.course_code+(":"+c.grade if c.grade else "") for c in profile.completed if c.course_code not in course_lookup),
                 placeholder="MATH129, CSC110:B",key="course_text",
                 help="Separate codes with commas. A grade can be supplied as CODE:B. List successful completions only.")
             current_text = st.text_area("Other current course codes",
-                value=", ".join(code for code in profile.current_enrollment if code not in course_lookup),
                 placeholder="MATH129, PHYS241",key="current_course_text",
                 help="Separate courses you are taking with commas. Add grades after successful completion.")
             needed_grades = set().union(*(grade_requirements(r.rule) for r in catalog.records if r.rule_reviewed))
-            previous_grades = {c.course_code:c.grade for c in profile.completed}
             grade_values = {}
             grade_options = [None,"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","P","S","CR"]
             for code in selected:
                 if code in needed_grades:
                     grade_values[code] = st.selectbox("Grade for "+code,grade_options,
-                        index=grade_options.index(previous_grades.get(code)),format_func=lambda g:g or "Not recorded",
+                        format_func=lambda g:g or "Not recorded",
                         key="grade_"+code,help="A reviewed prerequisite uses the grade for this course.")
-            history_complete = st.checkbox("I listed all my completed courses",value=profile.history_complete,key="history_complete")
-            experience = st.text_area("Projects or experience",value=profile.experience,key="experience",max_chars=2000)
-            question = st.text_input("A question about your next step",value=profile.question,key="question",max_chars=1200)
+            history_complete = st.checkbox("I listed all my completed courses",key="history_complete")
+            experience = st.text_area("Projects or experience",key="experience",max_chars=2000)
+            question = st.text_input("A question about your next step",key="question",max_chars=1200)
 
     # Credentials from the server never become widget defaults or session values.
     server_key = settings.gemini_key.get_secret_value()

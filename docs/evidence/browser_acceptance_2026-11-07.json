@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "Diagnostic run observes only one actual roadmap-button click after two click actions. Follow-up focuses the button before clicking to complete field blur and stabilize the multiselect layout.",
+  "ci_browser_status": "A real stale-form regression is reproduced. Explicit profile-to-widget assignments and client-value assertions are added; full verification pending.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -359,5 +359,180 @@
       "checked_at": "2026-11-07T10:10:29.861569+00:00"
     },
     "artifact_id": 13570525746
+  },
+  "focused_click_ci": {
+    "revision": "261ed0be6a81f77b4612057e34bd3c322234fde5",
+    "run_id": 42362982355,
+    "browser": {
+      "passed": false,
+      "mode": "local_offline",
+      "checks": [
+        {
+          "name": "initial_roadmap",
+          "passed": true,
+          "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+          "seconds": 3.748
+        },
+        {
+          "name": "current_course_filtering",
+          "passed": true,
+          "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+          "seconds": 1.336
+        },
+        {
+          "name": "completion_transition",
+          "passed": true,
+          "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+          "seconds": 0.7
+        },
+        {
+          "name": "profile_export",
+          "passed": false,
+          "detail": "Browser check failed; inspect the named workflow step locally.",
+          "error_type": "AssertionError",
+          "failure_line": 188
+        }
+      ],
+      "sessions": [
+        {
+          "stream_connections": 1,
+          "frames_sent": 5,
+          "frames_received": 1521,
+          "streams_closed": 0,
+          "page_errors": 0,
+          "scripts_finished": 5
+        }
+      ],
+      "browser": {
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      },
+      "external_browser_requests_blocked": 0,
+      "limits": [
+        "Preview mode only; no AI, relevance, or participant evaluation.",
+        "Local checks do not establish public-host availability or TLS/proxy behavior.",
+        "Browser request counts do not measure server-side network calls."
+      ],
+      "local_ui_diagnostics": {
+        "roadmap_button_clicks": 3,
+        "invalid_controls": 0,
+        "app_exceptions": 0,
+        "profile_validation_error": false,
+        "expected_direction_selected": true,
+        "screenshot": "browser_failure.png"
+      },
+      "seconds": 27.6,
+      "checked_at": "2026-11-07T10:13:57.270790+00:00"
+    },
+    "artifact_id": 13569903391,
+    "finding": "The completed profile exported correctly, but the visible form still held ECE101 as current. Submitting manual MATH129 reverted the completion: zero completed and two current courses."
+  },
+  "profile_sync_local_tests": {
+    "tests": "1524",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "46.114"
+  },
+  "profile_sync_readiness": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "ai_time_budget_seconds": 45,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T10:18:34.586559+00:00"
   }
 }

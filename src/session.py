@@ -9,6 +9,30 @@ PROFILE_WIDGET_KEYS = [
 ]
 
 
+def sync_profile_widgets(state, profile, course_codes):
+    """Publish authoritative values to keyed widgets after a profile transition.
+
+    Deleting a key and changing its default can leave the browser's retained value
+    intact. Explicit assignments make Streamlit send a value update to the client.
+    Call before creating widgets, and only when applying a saved profile change.
+    """
+    known = set(course_codes)
+    for key in list(state):
+        if key.startswith("grade_"):
+            state.pop(key, None)
+    values = {key: getattr(profile, key) for key in (
+        "standing", "career_id", "programming_background", "interests", "catalog_version",
+        "history_complete", "experience", "question")}
+    values.update(
+        completed_courses=[item.course_code for item in profile.completed if item.course_code in known],
+        current_courses=[code for code in profile.current_enrollment if code in known],
+        course_text=", ".join(item.course_code + (":" + item.grade if item.grade else "")
+                              for item in profile.completed if item.course_code not in known),
+        current_course_text=", ".join(code for code in profile.current_enrollment if code not in known))
+    values.update({"grade_" + item.course_code: item.grade for item in profile.completed if item.course_code in known})
+    state.update(values)
+
+
 def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
     previous = state.get("profile")
     notices = []
@@ -35,6 +59,7 @@ def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
         for key in list(state):
             if key in PROFILE_WIDGET_KEYS or key.startswith("grade_"):
                 state.pop(key, None)
+        state["reset_profile_widgets"] = True
 
 
 def restore_profile(state, raw):
