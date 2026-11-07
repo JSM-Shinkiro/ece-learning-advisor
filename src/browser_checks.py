@@ -128,7 +128,7 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     context = browser.new_context(accept_downloads=True, viewport={"width": 1500, "height": 1100})
                     contexts.append(context)
                     counts = {"stream_connections": 0, "frames_sent": 0, "frames_received": 0,
-                              "streams_closed": 0, "page_errors": 0, "scripts_finished": 0}
+                              "streams_closed": 0, "page_errors": 0, "scripts_finished": 0, "fragments_finished": 0}
                     report["sessions"].append(counts)
 
                     def route_request(route):
@@ -168,6 +168,8 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                                     return
                                 if message.WhichOneof("type") == "script_finished" and message.script_finished == 0:
                                     increment("scripts_finished")
+                                elif message.WhichOneof("type") == "script_finished" and message.script_finished == 3:
+                                    increment("fragments_finished")
                             stream.on("framereceived", received)
                             stream.on("close", lambda: increment("streams_closed"))
 
@@ -246,6 +248,22 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 expect(status.get_by_text("Preparing AI explanations", exact=True)).to_have_count(0)
                 status.locator("summary").click()
                 passed(stage, "The completed request retains visible stage feedback without claiming AI generation.", begin)
+
+                stage, begin = "lazy_inspector", time.monotonic()
+                counts = session_counts[a]
+                full_runs = counts["scripts_finished"]
+                expect(a.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                for opening in (True, False):
+                    before = counts["fragments_finished"]
+                    a.locator("summary").filter(has=a.get_by_text("How this plan was made", exact=True)).click()
+                    deadline = time.monotonic() + timeout_ms / 1000
+                    while counts["fragments_finished"] <= before and time.monotonic() < deadline:
+                        a.wait_for_timeout(50)
+                    assert counts["fragments_finished"] > before
+                    expect(a.get_by_test_id("stPlotlyChart")).to_have_count(1 if opening else 0)
+                    assert counts["scripts_finished"] == full_runs
+                saved(a, "AI / Machine Learning", 0, 0)
+                passed(stage, "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.", begin)
 
                 stage, begin = "current_course_filtering", time.monotonic()
                 choose(a, "Career direction", "Embedded Systems")

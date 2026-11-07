@@ -3,7 +3,7 @@
 import pytest
 
 from conftest import FakeProvider
-from test_app import app, submit
+from test_app import app, open_inspector, submit
 
 
 class ControlledTimeout(FakeProvider):
@@ -41,6 +41,7 @@ def test_time_limit_shows_current_source_cards_and_explicit_budget_notice(app, m
     app.multiselect(key="current_courses").select("ECE101")
     app.selectbox(key="career_id").set_value("embedded")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     assert app.session_state["profile"].current_enrollment == ["ECE101"]
     result = app.session_state["result"]

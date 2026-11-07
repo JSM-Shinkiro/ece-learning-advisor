@@ -10,6 +10,8 @@ Development copy for the final project on December 11. The midproject baseline i
 
 Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with an expandable history and server phase timings in the inspector. Preview, clarification and fallback paths report only the work actually attempted.
 
+[Responsiveness improvements](docs/48_RESPONSIVENESS_REVIEW.md) reuse successful public-source checks for up to five minutes and render the inspector only when opened. **Check sources again** bypasses recent reuse for the submitted profile; source timestamps remain unchanged when reused.
+
 A separate [human review workspace](docs/47_REVIEW_WORKSPACE.md) supports explicit relevance grades, notes, draft download/resume and validated completed-review exports. Run `python -m streamlit run reviewer_app.py --server.address 127.0.0.1 --server.port 8502` locally. Reviewing uses saved evidence and needs no model credentials; actual independent judgments remain to be collected.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
@@ -49,7 +51,7 @@ For the optional [real-browser acceptance check](docs/45_BROWSER_ACCEPTANCE.md),
 
 `ECE_CACHE_DIR` selects the source/embedding cache root; relative paths resolve from the project directory. The default is `.cache`. Invalid server configuration stops with a sanitized message naming the setting. Shared-hosting readiness requires `ECE_DEVELOPMENT_MODE=false`; API keys remain optional for preview mode.
 
-[Shared embedding-cache coordination](docs/40_SHARED_EMBEDDING_CACHE.md) now lets concurrent requests in one server process reuse a successful public document build, including unchanged chunks across source overlays. Query embeddings, profiles, answers, and source checks stay request-local. Waiting is bounded; a busy cache uses the existing keyword fallback. A production-only controlled check completes eight simultaneous controller requests with 34 document calls, eight separate query/generation calls, and no real model/HTTP requests. Public hosting and multi-process coordination remain separate.
+[Shared embedding-cache coordination](docs/40_SHARED_EMBEDDING_CACHE.md) now lets concurrent requests in one server process reuse a successful public document build, including unchanged chunks across source overlays. Query embeddings, profiles, answers, and source-selection traces stay request-local. Successful public-source checks can also be reused briefly under the [source reuse policy](docs/48_RESPONSIVENESS_REVIEW.md). Waiting is bounded; a busy cache uses the existing keyword fallback. A production-only controlled check completes eight simultaneous controller requests with 34 document calls, eight separate query/generation calls, and no real model/HTTP requests. Public hosting and multi-process coordination remain separate.
 
 For a shared host, the [production launcher](docs/41_PRODUCTION_LAUNCHER.md) runs the local preflight before opening the server:
 

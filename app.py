@@ -18,6 +18,7 @@ from src.planning import CAREER_NAMES, PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions, parse_current_courses
 from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
+from src.source_reuse import SOURCE_REUSE_SECONDS
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="ECE Learning Advisor · P07", page_icon="🧭", layout="wide")
@@ -127,6 +128,10 @@ with st.sidebar:
             format_func=lambda code:code+" · "+course_lookup[code].title,key="current_courses",
             help="Keep these courses out of your next-step suggestions. Taking a course does not count as passing it.")
         submitted = st.form_submit_button("Update my roadmap",type="primary",width="stretch")
+        recheck = st.form_submit_button("Check sources again",disabled=not settings.refresh_sources,
+            help="Update the roadmap from these profile details and recheck selected official pages now.")
+        if settings.refresh_sources:
+            st.caption("Recent source checks are reused for up to 5 minutes. Check sources again to refresh them now.")
         with st.expander("Optional details"):
             catalog_version = st.text_input("Catalog year",key="catalog_version",
                                            help="Use your admitted catalog year. Enter Not sure if you do not know it.")
@@ -177,7 +182,7 @@ with st.sidebar:
         st.download_button("Download my profile",export_profile(profile),file_name="ece_profile.json",mime="application/json",width="stretch",on_click="ignore")
     collection_summary = st.empty()
 
-if submitted:
+if submitted or recheck:
     try:
         completed = merge_completions(selected,manual_text,profile.completed)
         manual_codes = {c.course_code for c in parse_completions(manual_text)}
@@ -189,12 +194,14 @@ if submitted:
             history_complete=history_complete,experience=experience,question=question)
         apply_profile(st.session_state,updated,reset_widgets=False)
         st.session_state.reset_profile_widgets = True
+        st.session_state.force_source_check = recheck
         st.session_state.pop("profile_error",None)
         st.rerun()
     except (ValueError,TypeError) as exc:
         st.error("Please check your profile. "+show_profile_error(exc))
 
 if st.session_state.pop("refresh_pending",False):
+    force_source_check = st.session_state.pop("force_source_check",False)
     request_status = st.status("Updating your learning plan...",expanded=True)
     def show_request_phase(phase, label):
         request_status.update(label=label)
@@ -205,6 +212,7 @@ if st.session_state.pop("refresh_pending",False):
             dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
             ai_time_budget_seconds=settings.ai_time_budget_seconds,
             refresh_sources=settings.refresh_sources,
+            source_reuse_seconds=0 if force_source_check else SOURCE_REUSE_SECONDS,
             source_cache_dir=settings.cache_root/"sources",progress=show_request_phase)
         request_status.update(label="More detail needed" if (st.session_state.result.coverage_notice
                               or st.session_state.result.generation_status=="insufficient_evidence")
@@ -310,6 +318,10 @@ with roadmap:
             st.caption("Preview mode · learning suggestions from available sources")
         for issue in result.issues:
             st.warning(issue)
+        reused = sum(check["status"] == "recent_cache"
+                     for check in result.trace.get("source_refresh", {}).get("checks", []))
+        if reused:
+            st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
         if not result.coverage_notice and result.generation_status!="insufficient_evidence":
             st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
             for phase,title in PHASE_NAMES.items():

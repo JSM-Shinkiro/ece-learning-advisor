@@ -11,6 +11,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
 
+from .source_reuse import VERIFIED_CHECKS
 from .models import (CourseOrigin, Record, Rule, RuleEvidence, Source, SourceCheck, StrictModel,
                      program_source_url_matches, rule_citation_ids, rule_hash, statement_hash)
 from .rule_sources import MAX_RULE_SOURCES, RuleJob
@@ -326,7 +327,7 @@ def add_discovered_course(catalog, candidate, source, saved, check, now=None):
     source.title = data.code + " — " + data.title
     source.retrieved_at, source.last_checked_at = saved.retrieved_at, saved.last_checked_at
     source.content_hash = saved.content_hash
-    source.verification_status = "verified" if check.status in {"updated", "unchanged", "not_modified"} else "stale"
+    source.verification_status = "verified" if check.status in VERIFIED_CHECKS else "stale"
     source.review_note = "Course fields fetched from an official program link. Prerequisites and degree applicability remain unreviewed."
     fields = {key: source.source_id for key in ("title", "summary", "credits", "requirement_reference")}
     entry = next((e for e in candidate.plan.reviewed_rules if e.course_id == candidate.course_id
@@ -374,7 +375,7 @@ def apply_discovered_rule(record, candidate, saved, check):
     elif statement_hash(proof.observed_text) != proof.statement_hash:
         proof.verification_status = "changed"
     else:
-        proof.verification_status = ("verified" if check.status in {"updated", "unchanged", "not_modified"}
+        proof.verification_status = ("verified" if check.status in VERIFIED_CHECKS
                                      and check.discovery_status == "verified" else "stale")
     record.rule_reviewed, record.rule_evidence = True, [proof]
     record.rule_verification = proof.verification_status

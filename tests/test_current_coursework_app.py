@@ -4,7 +4,7 @@ import pytest
 
 from src.models import Completion, StudentProfile
 from src.profiles import export_profile, import_profile
-from test_app import app, submit
+from test_app import app, open_inspector, submit
 
 
 def test_current_picker_and_other_codes_update_only_after_submission(app):
@@ -99,6 +99,7 @@ def test_current_discovery_omissions_are_visible_without_promoting_completion(ap
     app.selectbox(key="career_id").set_value("embedded")
     app.text_area(key="current_course_text").set_value("ECE201, ECE220, ECE274A")
     submit(app)
+    open_inspector(app)
     assert not app.exception and len(calls) == 1
     assert app.session_state["profile"].completed == []
     assert app.session_state["result"].trace["source_refresh"]["discovery_selection"]["skipped_enrolled_codes"] == [

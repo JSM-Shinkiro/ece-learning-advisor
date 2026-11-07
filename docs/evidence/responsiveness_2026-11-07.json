@@ -1,0 +1,1043 @@
+{
+  "date": "2026-11-07",
+  "base_revision": "fc4bd9fbab27ad04ff1ab28e94d7ccb8fc1a3314",
+  "scope": "Recent public-source reuse and on-demand inspector; no independent quality results or new live AI calls.",
+  "local_initial_full_suite": {
+    "tests": "1580",
+    "failures": "3",
+    "errors": "0",
+    "time": "69.814"
+  },
+  "initial_failure_explanation": "Three legacy inspector assertions expected hidden contents without opening the panel; updated those scenarios to open the inspector explicitly.",
+  "live_sources": {
+    "checked_at": "2026-11-07T18:53:57.069493+00:00",
+    "scope": "Four source-only observations, one server process, real public HTTP, no provider calls; not a controlled benchmark or hosted-browser latency",
+    "observations": [
+      {
+        "case": "fresh_selected_sources",
+        "wall_seconds": 13.020508923999841,
+        "source_seconds": 13.008836744999826,
+        "statuses": {
+          "skipped": 10,
+          "updated": 11
+        },
+        "http_attempts": 11,
+        "checks": [
+          {
+            "code": "resource:pico",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.656760Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_algorithms",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_structures",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECEBSECE",
+            "kind": "discovery",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.309830Z",
+            "retrieved_at": "2026-11-07T18:53:37.309830Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE101",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.401619Z",
+            "retrieved_at": "2026-11-07T18:53:37.401619Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.358375Z",
+            "retrieved_at": "2026-11-07T18:53:37.358375Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE372A",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.834722Z",
+            "retrieved_at": "2026-11-07T18:53:37.834722Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE201",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.893860Z",
+            "retrieved_at": "2026-11-07T18:53:37.893860Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:37.944280Z",
+            "retrieved_at": "2026-11-07T18:53:37.944280Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:38.339601Z",
+            "retrieved_at": "2026-11-07T18:53:38.339601Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE310",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:38.389690Z",
+            "retrieved_at": "2026-11-07T18:53:38.389690Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE311",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:38.469642Z",
+            "retrieved_at": "2026-11-07T18:53:38.469642Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE320A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.880125Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE340A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE373",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:35.201440Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE381A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:34.703180Z",
+            "attempts": 0
+          },
+          {
+            "code": "CSC372",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:40.264676Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:cs50",
+            "kind": "resource",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:43.676531Z",
+            "retrieved_at": "2026-11-07T18:53:43.676531Z",
+            "attempts": 1
+          },
+          {
+            "code": "resource:python",
+            "kind": "resource",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:42.178209Z",
+            "retrieved_at": "2026-11-07T18:53:42.178209Z",
+            "attempts": 1
+          }
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ],
+        "academic_states": {
+          "uofa:ECE101:2026-2027": "unknown",
+          "uofa:ECE369A:2026-2027": "unknown",
+          "uofa:ECE372A:2026-2027": "unknown"
+        },
+        "ai_budget_created": false,
+        "generation_complete": false
+      },
+      {
+        "case": "recent_public_checks",
+        "wall_seconds": 0.01961507700070797,
+        "source_seconds": 0.011824002000139444,
+        "statuses": {
+          "skipped": 10,
+          "recent_cache": 11
+        },
+        "http_attempts": 0,
+        "checks": [
+          {
+            "code": "resource:pico",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.656760Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_algorithms",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_structures",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECEBSECE",
+            "kind": "discovery",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.309830Z",
+            "retrieved_at": "2026-11-07T18:53:37.309830Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE101",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.401619Z",
+            "retrieved_at": "2026-11-07T18:53:37.401619Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.358375Z",
+            "retrieved_at": "2026-11-07T18:53:37.358375Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE372A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.834722Z",
+            "retrieved_at": "2026-11-07T18:53:37.834722Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE201",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.893860Z",
+            "retrieved_at": "2026-11-07T18:53:37.893860Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.944280Z",
+            "retrieved_at": "2026-11-07T18:53:37.944280Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.339601Z",
+            "retrieved_at": "2026-11-07T18:53:38.339601Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE310",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.389690Z",
+            "retrieved_at": "2026-11-07T18:53:38.389690Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE311",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.469642Z",
+            "retrieved_at": "2026-11-07T18:53:38.469642Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE320A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.880125Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE340A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE373",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:35.201440Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE381A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:34.703180Z",
+            "attempts": 0
+          },
+          {
+            "code": "CSC372",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:40.264676Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:cs50",
+            "kind": "resource",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:43.676531Z",
+            "retrieved_at": "2026-11-07T18:53:43.676531Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:python",
+            "kind": "resource",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:42.178209Z",
+            "retrieved_at": "2026-11-07T18:53:42.178209Z",
+            "attempts": 0
+          }
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ],
+        "academic_states": {
+          "uofa:ECE101:2026-2027": "unknown",
+          "uofa:ECE369A:2026-2027": "unknown",
+          "uofa:ECE372A:2026-2027": "unknown"
+        },
+        "ai_budget_created": false,
+        "generation_complete": false
+      },
+      {
+        "case": "changed_current_course",
+        "wall_seconds": 3.789326080000137,
+        "source_seconds": 3.7744537430007767,
+        "statuses": {
+          "skipped": 10,
+          "recent_cache": 10,
+          "updated": 1
+        },
+        "http_attempts": 1,
+        "checks": [
+          {
+            "code": "resource:pico",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.656760Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_algorithms",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_structures",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECEBSECE",
+            "kind": "discovery",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.309830Z",
+            "retrieved_at": "2026-11-07T18:53:37.309830Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.358375Z",
+            "retrieved_at": "2026-11-07T18:53:37.358375Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE372A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.834722Z",
+            "retrieved_at": "2026-11-07T18:53:37.834722Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE201",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.893860Z",
+            "retrieved_at": "2026-11-07T18:53:37.893860Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:37.944280Z",
+            "retrieved_at": "2026-11-07T18:53:37.944280Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.339601Z",
+            "retrieved_at": "2026-11-07T18:53:38.339601Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE310",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.389690Z",
+            "retrieved_at": "2026-11-07T18:53:38.389690Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE311",
+            "kind": "course",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:38.469642Z",
+            "retrieved_at": "2026-11-07T18:53:38.469642Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE320A",
+            "kind": "course",
+            "status": "updated",
+            "last_checked_at": "2026-11-07T18:53:47.483605Z",
+            "retrieved_at": "2026-11-07T18:53:47.483605Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE340A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE373",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:35.201440Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE381A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:34.703180Z",
+            "attempts": 0
+          },
+          {
+            "code": "CSC372",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:40.264676Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE101",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:cs50",
+            "kind": "resource",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:43.676531Z",
+            "retrieved_at": "2026-11-07T18:53:43.676531Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:python",
+            "kind": "resource",
+            "status": "recent_cache",
+            "last_checked_at": "2026-11-07T18:53:42.178209Z",
+            "retrieved_at": "2026-11-07T18:53:42.178209Z",
+            "attempts": 0
+          }
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE274A:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ],
+        "academic_states": {
+          "uofa:ECE274A:2026-2027": "unknown",
+          "uofa:ECE369A:2026-2027": "unknown",
+          "uofa:ECE372A:2026-2027": "unknown"
+        },
+        "ai_budget_created": false,
+        "generation_complete": false
+      },
+      {
+        "case": "explicit_recheck",
+        "wall_seconds": 9.570153147000383,
+        "source_seconds": 9.536398687000656,
+        "statuses": {
+          "skipped": 10,
+          "unchanged": 9,
+          "not_modified": 2
+        },
+        "http_attempts": 11,
+        "checks": [
+          {
+            "code": "resource:pico",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:55:07.656760Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_algorithms",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.957974Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:mit_structures",
+            "kind": "resource",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:36:36.954953Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECEBSECE",
+            "kind": "discovery",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:51.750276Z",
+            "retrieved_at": "2026-11-07T18:53:51.750276Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE101",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:51.492598Z",
+            "retrieved_at": "2026-11-07T18:53:51.492598Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:51.529055Z",
+            "retrieved_at": "2026-11-07T18:53:51.529055Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE372A",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.043534Z",
+            "retrieved_at": "2026-11-07T18:53:52.043534Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE201",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.019495Z",
+            "retrieved_at": "2026-11-07T18:53:52.019495Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.159492Z",
+            "retrieved_at": "2026-11-07T18:53:52.159492Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.593703Z",
+            "retrieved_at": "2026-11-07T18:53:52.593703Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE310",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.591131Z",
+            "retrieved_at": "2026-11-07T18:53:52.591131Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE311",
+            "kind": "course",
+            "status": "unchanged",
+            "last_checked_at": "2026-11-07T18:53:52.642319Z",
+            "retrieved_at": "2026-11-07T18:53:52.642319Z",
+            "attempts": 1
+          },
+          {
+            "code": "ECE320A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:29.880125Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE340A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.985632Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.413377Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE373",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T17:59:34.913497Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:35.201440Z",
+            "attempts": 0
+          },
+          {
+            "code": "ECE381A",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:34.703180Z",
+            "attempts": 0
+          },
+          {
+            "code": "CSC372",
+            "kind": "course",
+            "status": "skipped",
+            "last_checked_at": null,
+            "retrieved_at": "2026-11-06T18:37:40.264676Z",
+            "attempts": 0
+          },
+          {
+            "code": "resource:cs50",
+            "kind": "resource",
+            "status": "not_modified",
+            "last_checked_at": "2026-11-07T18:53:57.035061Z",
+            "retrieved_at": "2026-11-07T18:53:43.676531Z",
+            "attempts": 1
+          },
+          {
+            "code": "resource:python",
+            "kind": "resource",
+            "status": "not_modified",
+            "last_checked_at": "2026-11-07T18:53:56.786710Z",
+            "retrieved_at": "2026-11-07T18:53:42.178209Z",
+            "attempts": 1
+          }
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ],
+        "academic_states": {
+          "uofa:ECE101:2026-2027": "unknown",
+          "uofa:ECE369A:2026-2027": "unknown",
+          "uofa:ECE372A:2026-2027": "unknown"
+        },
+        "ai_budget_created": false,
+        "generation_complete": false
+      }
+    ]
+  },
+  "ui_before": {
+    "scope": "AppTest render with a prebuilt preview; not browser latency or AI/network timing",
+    "observations": [
+      {
+        "run": 0,
+        "seconds": 1.035964554000202,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      },
+      {
+        "run": 1,
+        "seconds": 0.10412995399974534,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      },
+      {
+        "run": 2,
+        "seconds": 0.09042502900001637,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      },
+      {
+        "run": 3,
+        "seconds": 0.19059610699969198,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      },
+      {
+        "run": 4,
+        "seconds": 0.11773976499989658,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      },
+      {
+        "run": 5,
+        "seconds": 0.21779823599990777,
+        "charts": 1,
+        "dataframes": 3,
+        "json_blocks": 1
+      }
+    ]
+  },
+  "ui_after": {
+    "scope": "AppTest render with a prebuilt preview; not browser latency or AI/network timing",
+    "observations": [
+      {
+        "run": 0,
+        "seconds": 0.33851498199965135,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      },
+      {
+        "run": 1,
+        "seconds": 0.12159229400003824,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      },
+      {
+        "run": 2,
+        "seconds": 0.07664672499959124,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      },
+      {
+        "run": 3,
+        "seconds": 0.07540966199940158,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      },
+      {
+        "run": 4,
+        "seconds": 0.07191050300025381,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      },
+      {
+        "run": 5,
+        "seconds": 0.07212018100017303,
+        "charts": 0,
+        "dataframes": 0,
+        "json_blocks": 0
+      }
+    ]
+  },
+  "deployment": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "ai_time_budget_seconds": 45,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T18:54:30.235810+00:00"
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "ci_status": "Not yet run for this revision",
+  "targeted_new_and_existing_cases": {
+    "passed": 79,
+    "seconds": 28.14
+  },
+  "local_followup": {
+    "passed": 11,
+    "seconds": 5.62,
+    "scope": "AI budget and current coursework scenarios, including all three previously failing inspector assertions"
+  }
+}

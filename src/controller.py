@@ -10,13 +10,14 @@ from .progress import RequestProgress
 from .service import recommend
 from .sources import refresh_catalog
 from .discovery import load_discovery_plans, match_course_requests
+from .source_reuse import SOURCE_REUSE_SECONDS
 
 
 def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None,
                 refresh_sources=True, source_cache_dir=Path(".cache/sources"), source_refresher=None,
-                ai_time_budget_seconds=45, progress=None):
+                ai_time_budget_seconds=45, progress=None, source_reuse_seconds=SOURCE_REUSE_SECONDS):
     started = time.perf_counter()
     phases = RequestProgress(progress)
     phases.start("request")
@@ -36,10 +37,12 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         before = time.perf_counter()
         try:
             if source_refresher is not None:
-                refreshed = source_refresher(catalog, profile, cache_dir=source_cache_dir)
+                refreshed = source_refresher(catalog, profile, cache_dir=source_cache_dir,
+                                             reuse_seconds=source_reuse_seconds)
             else:
                 refreshed = refresh_catalog(catalog, profile, cache_dir=source_cache_dir,
-                                            discovery_plans=load_discovery_plans() if plans is None else plans, resource_checks=True)
+                                            discovery_plans=load_discovery_plans() if plans is None else plans,
+                                            resource_checks=True, reuse_seconds=source_reuse_seconds)
             catalog = refreshed.catalog
             source_trace, source_issues = refreshed.trace(), refreshed.issues
         except (httpx.HTTPError, OSError, ValueError):

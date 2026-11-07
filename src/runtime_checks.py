@@ -164,7 +164,7 @@ def verify_runtime(catalog, api_key, *, embedding_model="gemini-embedding-2", ge
                 embedding_model=embedding_model, generation_model=generation_model, dimensions=dimensions,
                 cache_dir=cache_dir, source_cache_dir=source_cache_dir, provider_factory=factory,
                 refresh_sources=case.refresh_sources, source_refresher=source_refresher,
-                ai_time_budget_seconds=ai_time_budget_seconds)
+                ai_time_budget_seconds=ai_time_budget_seconds, source_reuse_seconds=0)
             delta = {key: counts[key] - before[key] for key in before}
             selected = [item.record_id for item in result.answer.recommendations] if result.answer else []
             checks = result.trace.get("source_refresh", {}).get("checks", [])

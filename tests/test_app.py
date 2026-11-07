@@ -21,6 +21,12 @@ def submit(app):
     return app.run()
 
 
+def open_inspector(app):
+    app.session_state["plan_inspector"] = True
+    app.run()
+    assert not app.exception
+
+
 def test_profile_to_roadmap_and_goal_change(app):
     assert not app.exception
     submit(app)
@@ -484,6 +490,7 @@ def test_live_ui_with_controlled_provider(app,monkeypatch,fake_provider):
     app.checkbox(key="use_ai").set_value(True)
     app.run()
     submit(app)
+    open_inspector(app)
     assert not app.exception
     assert app.session_state["result"].generation_complete
     assert fake_provider.context is app.session_state["result"].context
@@ -592,6 +599,7 @@ def test_paraphrased_interest_reaches_roadmap_and_visible_search_terms(app, care
     app.selectbox(key="career_id").set_value(career)
     app.text_input(key="question").set_value(question)
     submit(app)
+    open_inspector(app)
     assert not app.exception
     result = app.session_state["result"]
     assert not result.coverage_notice and f"uofa:{code}:2026-2027" in result.context.allowed_record_ids
@@ -611,6 +619,7 @@ def test_discovered_reviewed_condition_reaches_picker_card_and_inspector(app, mo
     app.text_area(key="course_text").set_value("MATH112:B")
     app.text_input(key="question").set_value("CSC110")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     result = app.session_state["result"]
     assert result.context.rule_results["uofa:CSC110:2026-2027"].status == "satisfied"
@@ -634,6 +643,7 @@ def test_expanded_cs_conditions_reach_the_roadmap_picker_and_sources(app, monkey
     app.selectbox(key="programming_background").set_value("experienced")
     app.text_input(key="question").set_value(code)
     submit(app)
+    open_inspector(app)
     assert not app.exception
     result = app.session_state["result"]
     rid = "uofa:" + code + ":2026-2027"
@@ -657,6 +667,7 @@ def test_requested_ece_course_gets_a_discovery_slot_and_visible_selection_status
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
     app.text_input(key="question").set_value("How should I prepare for " + code + "?")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     result = app.session_state["result"]
     rid = "uofa:" + code + ":2026-2027"
@@ -676,6 +687,7 @@ def test_unavailable_course_displays_selection_limit_without_a_fabricated_card(a
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
     app.text_input(key="question").set_value("ECE499")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     assert app.session_state["result"].coverage_notice
     table = next(item.value for item in app.dataframe if {"code", "status"} <= set(item.value.columns))
@@ -694,6 +706,7 @@ def test_reviewed_phrase_can_populate_the_roadmap_without_a_course_code(app, mon
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
     app.text_input(key="question").set_value(phrase)
     submit(app)
+    open_inspector(app)
     assert not app.exception
     result = app.session_state["result"]
     assert "uofa:" + code + ":2026-2027" in result.context.allowed_record_ids
@@ -737,6 +750,7 @@ def test_completed_foundations_skip_download_slots_and_are_visible_in_inspector(
     app.selectbox(key="career_id").set_value("embedded")
     app.text_area(key="course_text").set_value("ECE201:B, ECE220:B, ECE274A:B")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     selection = app.session_state["result"].trace["source_refresh"]["discovery_selection"]
     assert selection["skipped_completed_codes"] == ["ECE201", "ECE220", "ECE274A"]
@@ -766,6 +780,7 @@ def test_recovered_source_attempts_are_visible_and_rerenders_do_not_retry(app, m
     monkeypatch.setattr("src.controller.refresh_catalog", refresh)
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     assert any("1 check retried · 1 recovered" in caption.value for caption in app.caption)
     check = app.session_state["result"].trace["source_refresh"]["checks"][0]
@@ -839,6 +854,7 @@ def test_changed_prerequisite_replaces_approval_in_cards_and_inspector(app, monk
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "true")
     app.text_area(key="course_text").set_value("ECE101:B")
     submit(app)
+    open_inspector(app)
     assert not app.exception
     assert any("Recorded prerequisites satisfied" in caption.value for caption in app.caption)
     changed = True

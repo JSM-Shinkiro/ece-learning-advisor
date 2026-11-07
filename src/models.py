@@ -184,7 +184,7 @@ class SourceCheck(StrictModel):
     code: str
     url: str
     kind: Literal["course", "rule", "discovery", "resource"] = "course"
-    status: Literal["updated", "unchanged", "not_modified", "stale_cache",
+    status: Literal["updated", "unchanged", "not_modified", "recent_cache", "stale_cache",
                     "bundled_fallback", "unsupported_edition", "skipped", "unavailable"]
     attempted_at: datetime
     last_checked_at: datetime | None = None

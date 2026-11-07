@@ -17,6 +17,7 @@ from pydantic import AwareDatetime, Field, model_validator
 from .ingest import extract_program_courses, extract_visible_program_statements
 from .models import (Source, SourceCheck, StrictModel, program_source_url_matches, rule_binding_matches, statement_hash)
 from .source_http import SourceRequest, failure_kind, read_public_page
+from .source_reuse import VERIFIED_CHECKS, recent_sources
 
 MAX_RULE_SOURCES = 2
 MAX_RULE_CACHE_BYTES = 200_000
@@ -144,7 +145,7 @@ def prepare_rule_jobs(catalog, courses, profile, now=None):
     return jobs[:MAX_RULE_SOURCES], checks, issues
 
 
-def fetch_rule_source(job, directory, client, now=None):
+def fetch_rule_source(job, directory, client, now=None, reuse_seconds=0):
     source = job.source
     request = SourceRequest()
     check = SourceCheck(source_id=source.source_id, code=job.program_code, url=source.url, kind="rule",
@@ -155,12 +156,16 @@ def fetch_rule_source(job, directory, client, now=None):
     if job.discovery_sections:
         check.discovery_status = "unavailable"
     cached = None
+    path = _path(directory, job)
     try:
         _program_url(job)
         if not 1 <= len(job.sections | job.discovery_sections) <= 16:
             raise ValueError("The prerequisite source-section limit was exceeded")
-        path = _path(directory, job)
         cached = _read(path, job)
+        if recent_sources.reuse(path, cached, check, reuse_seconds):
+            if job.discovery_sections:
+                check.discovery_status = "verified"
+            return cached, check
         headers = {"User-Agent": "ECE-Learning-Advisor/0.2", "Accept": "text/html"}
         if cached and cached.etag:
             headers["If-None-Match"] = cached.etag
@@ -206,12 +211,14 @@ def fetch_rule_source(job, directory, client, now=None):
             try:
                 _write(path, saved)
                 check.cache_saved = True
+                recent_sources.remember(path, saved)
             except OSError:
                 check.message = "Fresh program evidence was fetched, but its cache could not be saved."
         check.retrieved_at, check.last_checked_at = saved.retrieved_at, saved.last_checked_at
         check.content_hash = saved.content_hash
         return saved, check
     except (httpx.HTTPError, ValueError, TypeError, KeyError, AttributeError, RecursionError) as exc:
+        recent_sources.forget(path)
         check.http_status = getattr(exc, "http_status", check.http_status)
         check.failure_kind = failure_kind(exc, check.http_status)
         check.status = "stale_cache" if cached else "bundled_fallback"
@@ -228,7 +235,7 @@ def fetch_rule_source(job, directory, client, now=None):
 
 def apply_rule_source(catalog, job, saved, check):
     source = next(s for s in catalog.sources if s.source_id == job.source.source_id)
-    fresh = check.status in {"updated", "unchanged", "not_modified"}
+    fresh = check.status in VERIFIED_CHECKS
     source.verification_status = "verified" if fresh else "stale"
     if saved:
         source.retrieved_at, source.last_checked_at = saved.retrieved_at, saved.last_checked_at

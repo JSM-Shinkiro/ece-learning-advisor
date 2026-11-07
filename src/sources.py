@@ -31,6 +31,7 @@ from .discovery import (prepare_discovery_jobs, select_candidates, add_discovere
                         apply_discovered_rule, match_course_requests)
 from .resource_sources import prepare_resource_jobs, fetch_resource_source, apply_resource_source
 from .source_http import MAX_PAGE_BYTES, REQUEST_TIMEOUT, SourceRequest, failure_kind, read_public_page
+from .source_reuse import VERIFIED_CHECKS, recent_sources, validate_reuse_seconds
 
 MAX_CACHE_BYTES = 100_000
 MAX_SOURCES = 8
@@ -76,9 +77,11 @@ class CatalogRefresh:
     elapsed: float = 0.0
     discovery_selection: dict = field(default_factory=dict)
     course_check_selection: dict = field(default_factory=dict)
+    reuse_seconds: int = 0
 
     def trace(self):
         return {"enabled": True, "catalog_version": self.catalog.catalog_version,
+                "reuse_window_seconds": self.reuse_seconds,
                 "discovery_selection": self.discovery_selection,
                 "course_check_selection": self.course_check_selection,
                 "discovered_courses": {r.record_id: {"origin": r.discovery.model_dump(mode="json"),
@@ -152,7 +155,7 @@ def _snapshot(page: str, record: Record, edition: str):
                           requirement_reference=candidate["requirement_reference"])
 
 
-def _fetch_one(source, record, directory, client, now):
+def _fetch_one(source, record, directory, client, now, reuse_seconds=0):
     attempted = now or datetime.now(timezone.utc)
     path = _cache_path(directory, source, record)
     cached = None
@@ -163,6 +166,8 @@ def _fetch_one(source, record, directory, client, now):
     try:
         _official_course_url(source.url)
         cached = _read_cache(path, source, record)
+        if recent_sources.reuse(path, cached, check, reuse_seconds):
+            return cached, check
         headers = {"User-Agent": "ECE-Learning-Advisor/0.2", "Accept": "text/html"}
         if cached and cached.etag:
             headers["If-None-Match"] = cached.etag
@@ -189,6 +194,7 @@ def _fetch_one(source, record, directory, client, now):
         try:
             _save_cache(path, saved)
             check.cache_saved = True
+            recent_sources.remember(path, saved)
         except OSError:
             check.message = "Fresh source information was fetched, but its cache could not be saved."
         check.retrieved_at = saved.retrieved_at
@@ -196,6 +202,7 @@ def _fetch_one(source, record, directory, client, now):
         check.content_hash = saved.content_hash
         return saved, check
     except (httpx.HTTPError, ValueError, TypeError, KeyError, AttributeError, RecursionError) as exc:
+        recent_sources.forget(path)
         check.http_status = getattr(exc, "http_status", check.http_status)
         check.failure_kind = failure_kind(exc, check.http_status)
         check.status = "stale_cache" if cached else "bundled_fallback"
@@ -211,7 +218,7 @@ def _fetch_one(source, record, directory, client, now):
 
 
 def _apply(record, source, saved, check):
-    fresh = check.status in {"updated", "unchanged", "not_modified"}
+    fresh = check.status in VERIFIED_CHECKS
     source.verification_status = "verified" if fresh else "stale"
     if saved is None:
         return
@@ -232,13 +239,15 @@ def _apply(record, source, saved, check):
 
 
 def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path(".cache/sources"),
-                    client=None, now=None, discovery_plans=(), resource_checks=False) -> CatalogRefresh:
-    """Check relevant configured course pages once per explicit submitted request."""
+                    client=None, now=None, discovery_plans=(), resource_checks=False,
+                    reuse_seconds=0) -> CatalogRefresh:
+    """Check selected pages; optionally reuse recent successful public checks."""
+    validate_reuse_seconds(reuse_seconds)
     started = time.perf_counter()
     active = catalog.model_copy(deep=True)
     for source in active.sources:
         source.verification_status = "snapshot"
-    result = CatalogRefresh(active)
+    result = CatalogRefresh(active, reuse_seconds=reuse_seconds)
     resource_jobs, resource_skips = prepare_resource_jobs(active, profile, now) if resource_checks else ([], [])
     result.checks.extend(resource_skips)
     resource_futures = []
@@ -300,10 +309,10 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                 timeout=REQUEST_TIMEOUT, follow_redirects=False,
                 limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
             with context as http, ThreadPoolExecutor(max_workers=min(3, len(selected) + len(jobs) + len(resource_jobs))) as pool:
-                rule_futures = [pool.submit(fetch_rule_source, job, Path(cache_dir), http, now) for job in jobs]
-                futures = [pool.submit(_fetch_one, source, record, Path(cache_dir), http, now)
+                rule_futures = [pool.submit(fetch_rule_source, job, Path(cache_dir), http, now, reuse_seconds) for job in jobs]
+                futures = [pool.submit(_fetch_one, source, record, Path(cache_dir), http, now, reuse_seconds)
                            for source, record in selected]
-                resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now))
+                resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now, reuse_seconds))
                                     for job in resource_jobs]
                 program_results = {}
                 for job, future in zip(jobs, rule_futures):
@@ -318,7 +327,7 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
                     program = next(s for s in active.sources if s.source_id == candidate.plan.source.source_id)
                     source, placeholder = candidate.placeholder(program.retrieved_at)
                     candidate_futures.append((candidate, source,
-                        pool.submit(_fetch_one, source, placeholder, Path(cache_dir), http, now)))
+                        pool.submit(_fetch_one, source, placeholder, Path(cache_dir), http, now, reuse_seconds)))
                 if selection.remaining:
                     result.issues.append(f"Course discovery is limited to this request's download budget; {selection.remaining} additional links were not fetched.")
                 for (source, record), future in zip(selected, futures):
@@ -352,7 +361,7 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
             timeout=REQUEST_TIMEOUT, follow_redirects=False,
             limits=httpx.Limits(max_connections=3, max_keepalive_connections=3))
         with context as http, ThreadPoolExecutor(max_workers=min(3, len(resource_jobs))) as pool:
-            resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now))
+            resource_futures = [(job, pool.submit(fetch_resource_source, job, Path(cache_dir), http, now, reuse_seconds))
                                 for job in resource_jobs]
     for job, future in resource_futures:
         saved, check = future.result()

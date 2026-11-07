@@ -8,10 +8,14 @@ from .planning import format_duration
 from .retrieval import project_embeddings
 
 
+@st.fragment
 def render_inspector(result, catalog):
+    panel = st.expander("How this plan was made", key="plan_inspector", on_change="rerun")
+    if not panel.open:
+        return
     records = {r.record_id:r for r in catalog.records}
     sources = {s.source_id:s for s in catalog.sources}
-    with st.expander("How this plan was made"):
+    with panel:
         st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
@@ -24,6 +28,9 @@ def render_inspector(result, catalog):
         if budget:
             st.caption(f"AI time budget: {budget['limit_seconds']} s · {format_duration(budget['elapsed_seconds'])} used. Source checks are timed separately.")
         checks = result.trace.get("source_refresh", {}).get("checks", [])
+        reused = [check for check in checks if check["status"] == "recent_cache"]
+        if reused:
+            st.caption(f"Reused {len(reused)} recently checked public sources. Their successful check times are unchanged.")
         retried = [check for check in checks if check.get("retry_count", 0)]
         if retried:
             recovered = sum(check["status"] in {"updated", "unchanged", "not_modified"} for check in retried)
@@ -90,4 +97,4 @@ def render_inspector(result, catalog):
                     "wording": s.text, "evidence": ", ".join(s.evidence_ids)}
                     for s in result.context.allowed_statements], hide_index=True)
         st.json(result.trace)
-        st.download_button("Download request trace",json.dumps(result.trace,indent=2),file_name="request_trace.json",mime="application/json")
+        st.download_button("Download request trace",json.dumps(result.trace,indent=2),file_name="request_trace.json",mime="application/json",on_click="ignore")

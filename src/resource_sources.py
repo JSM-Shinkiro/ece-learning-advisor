@@ -20,6 +20,7 @@ from pydantic import AwareDatetime, Field, model_validator
 from .models import Source, SourceCheck, StrictModel
 from .planning import requested_resource_ids
 from .source_http import SourcePageError, SourceRequest, failure_kind, read_public_page
+from .source_reuse import VERIFIED_CHECKS, recent_sources
 
 MAX_RESOURCE_SOURCES = 2
 MAX_RESOURCE_CACHE_BYTES = 30_000
@@ -343,18 +344,21 @@ def _download(client, job, cached, request):
         return read_public_page(client, target, headers(target), request=request), target
 
 
-def fetch_resource_source(job, directory, client, now=None):
+def fetch_resource_source(job, directory, client, now=None, reuse_seconds=0):
     request = SourceRequest()
     requested = RESOURCE_URLS[job.record_id]
     check = SourceCheck(source_id=job.source.source_id, code=job.record_id, url=requested, kind="resource",
         status="bundled_fallback", attempted_at=now or datetime.now(timezone.utc),
         retrieved_at=job.source.retrieved_at, last_checked_at=job.source.last_checked_at)
     cached = None
+    path = _cache_path(directory, job)
     try:
         if job.source.source_id != job.record_id or not resource_url_matches(job.record_id, job.source.url):
             raise ValueError("The resource source binding is unsupported")
-        path = _cache_path(directory, job)
         cached = _read(path, job)
+        if recent_sources.reuse(path, cached, check, reuse_seconds):
+            check.resolved_url = cached.data.resolved_url
+            return cached, check
         page, resolved = _download(client, job, cached, request)
         check.http_status, check.resolved_url = page.status, resolved
         checked = now or datetime.now(timezone.utc)
@@ -372,12 +376,14 @@ def fetch_resource_source(job, directory, client, now=None):
         try:
             _write(path, saved)
             check.cache_saved = True
+            recent_sources.remember(path, saved)
         except OSError:
             check.message = "Fresh resource evidence was fetched, but its cache could not be saved."
         check.retrieved_at, check.last_checked_at = saved.retrieved_at, saved.last_checked_at
         check.content_hash = saved.content_hash
         return saved, check
     except (httpx.HTTPError, ValueError, TypeError, KeyError, AttributeError, RecursionError) as exc:
+        recent_sources.forget(path)
         check.http_status = getattr(exc, "http_status", check.http_status)
         check.failure_kind = failure_kind(exc, check.http_status)
         check.status = "stale_cache" if cached else "bundled_fallback"
@@ -392,7 +398,7 @@ def fetch_resource_source(job, directory, client, now=None):
 
 def apply_resource_source(catalog, job, saved, check):
     source = next(s for s in catalog.sources if s.source_id == job.source.source_id)
-    source.verification_status = "verified" if check.status in {"updated", "unchanged", "not_modified"} else "stale"
+    source.verification_status = "verified" if check.status in VERIFIED_CHECKS else "stale"
     if saved is None:
         return
     record = next(r for r in catalog.records if r.record_id == job.record_id)
