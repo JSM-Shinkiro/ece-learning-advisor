@@ -16,6 +16,7 @@ Core features are close to complete. The largest remaining work is independent e
 | Reproducible runtime | Verified | Pinned setup, production launcher, Linux/Windows CI, nine readiness checks |
 | Actual browser workflow and concurrent sessions | Verified locally in CI | Nine Chromium gates pass: stage history, real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
+| Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
 | Performance evidence | Partial | Real source-only fresh/reused-cache observations are recorded; broader cold/warm and browser-visible measurements on the frozen final revision, including AI, remain |
@@ -25,7 +26,7 @@ Core features are close to complete. The largest remaining work is independent e
 
 ## Current development step
 
-The [human evidence-review workspace](47_REVIEW_WORKSPACE.md) makes the prepared evaluation practical to complete: reviewers read one saved excerpt at a time, choose an explicit grade, add notes, and download/resume drafts. Completed exports use the existing scorer format and require all ratings plus reviewer metadata. The workspace makes no model, source-refresh or ranking calls. All 1,562 local tests pass and the local reviewer server starts/stops cleanly; browser/CI verification is pending.
+The [human evidence-review workspace](47_REVIEW_WORKSPACE.md) makes the prepared evaluation practical to complete: reviewers read one saved excerpt at a time, choose an explicit grade, add notes, and download/resume drafts. Completed exports use the existing scorer format and require all ratings plus reviewer metadata. The workspace makes no model, source-refresh or ranking calls. All 1,562 tests and nine runtime checks pass on Linux and Windows, along with nine student-browser and six reviewer-browser gates in [run 42400028920](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42400028920). The verified code revision is `a381348f2cd5912838556545749ec2b26c595a49`.
 
 The saved packet still has 408 blank grades. This step provides collection tooling rather than actual independent judgments. Readiness remains approximately 90% app/70% submission; real evaluation, voluntary student feedback, final performance measurements and the final report/slides/demo remain open.
 
