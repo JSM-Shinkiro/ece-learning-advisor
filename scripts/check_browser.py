@@ -15,8 +15,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="New JSON report path; existing files are never replaced")
     parser.add_argument("--url", help="Optional running app URL; default starts an isolated offline production server")
+    parser.add_argument("--reviewer", action="store_true", help="Check the separate local reviewer workspace with controlled fixture actions")
     parser.add_argument("--executable-path", help="Optional system Chromium executable; default uses Playwright's installed browser")
     args = parser.parse_args()
+    if args.reviewer and args.url:
+        print("Reviewer checks use an isolated local process; omit --url.", file=sys.stderr)
+        return 1
     try:
         from src.browser_checks import browser_url, local_browser_server, run_browser_checks
         url = browser_url(args.url) if args.url else None
@@ -28,12 +32,17 @@ def main():
         # Reserve before any server/browser work; a failure report is still written to this file.
         with args.output.open("x", encoding="utf-8") as handle:
             try:
-                with (nullcontext(url) if url else local_browser_server()) as target:
-                    report = run_browser_checks(target, local=url is None, executable_path=args.executable_path,
-                                                diagnostics_dir=args.output.parent if url is None else None)
+                server = nullcontext(url) if url else local_browser_server(reviewer=args.reviewer)
+                with server as target:
+                    if args.reviewer:
+                        from src.review_browser_checks import run_review_browser_checks
+                        report = run_review_browser_checks(target, executable_path=args.executable_path)
+                    else:
+                        report = run_browser_checks(target, local=url is None, executable_path=args.executable_path,
+                                                    diagnostics_dir=args.output.parent if url is None else None)
             except Exception as exc:
                 report = {"passed": False, "checks": [{"name": "server_startup", "passed": False,
-                          "detail": "The production server could not start or stop cleanly.", "error_type": type(exc).__name__}]}
+                          "detail": "The browser-check server could not start or stop cleanly.", "error_type": type(exc).__name__}]}
             report["checked_at"] = datetime.now(timezone.utc).isoformat()
             handle.write(json.dumps(report, indent=2) + "\n")
     except FileExistsError:

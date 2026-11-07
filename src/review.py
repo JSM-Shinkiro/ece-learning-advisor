@@ -175,8 +175,8 @@ def validate_review(form, packet):
     return form
 
 
-def load_review_json(path, *, max_bytes=MAX_REVIEW_BYTES):
-    """Reject duplicate JSON keys instead of silently discarding judgments."""
+def parse_review_json(raw, *, max_bytes=MAX_REVIEW_BYTES):
+    """Parse bounded review bytes, rejecting duplicate keys at every level."""
     def unique_keys(pairs):
         result = {}
         for key, value in pairs:
@@ -187,11 +187,20 @@ def load_review_json(path, *, max_bytes=MAX_REVIEW_BYTES):
 
     if type(max_bytes) is not int or not 1 <= max_bytes <= MAX_VECTOR_BYTES:
         raise ValueError("Invalid review input size limit")
-    with Path(path).open("rb") as handle:
-        raw = handle.read(max_bytes + 1)
+    if not isinstance(raw, bytes):
+        raise ValueError("Review input must be bytes")
     if len(raw) > max_bytes:
         raise ValueError("Review file exceeds the size limit")
     return json.loads(raw.decode("utf-8"), object_pairs_hook=unique_keys)
+
+
+def load_review_json(path, *, max_bytes=MAX_REVIEW_BYTES):
+    """Read bounded review JSON; never silently discard duplicate judgments."""
+    if type(max_bytes) is not int or not 1 <= max_bytes <= MAX_VECTOR_BYTES:
+        raise ValueError("Invalid review input size limit")
+    with Path(path).open("rb") as handle:
+        raw = handle.read(max_bytes + 1)
+    return parse_review_json(raw, max_bytes=max_bytes)
 
 
 def load_catalog_snapshot(path):

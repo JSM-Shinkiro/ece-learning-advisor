@@ -46,21 +46,26 @@ def stop_server(process):
 
 
 @contextmanager
-def local_browser_server(*, root=ROOT, timeout=25):
-    """Use the production launcher, a URL prefix, and isolated offline settings."""
+def local_browser_server(*, root=ROOT, timeout=25, reviewer=False):
+    """Start an isolated loopback advisor or reviewer with a URL prefix."""
     with tempfile.TemporaryDirectory(prefix="ece-browser-server-") as temporary:
         env = os.environ.copy()
         env.update({key: "" for key in (
             "GEMINI_API_KEY", "GOOGLE_API_KEY", "OPENROUTER_API_KEY", "ADZUNA_APP_ID", "ADZUNA_APP_KEY")})
         env.update(ECE_DEVELOPMENT_MODE="false", ECE_REFRESH_SOURCES="false", ECE_CACHE_DIR=temporary,
                    STREAMLIT_BROWSER_GATHER_USAGE_STATS="false")
+        if reviewer:
+            env["ECE_REVIEW_PACKET_DIR"] = str(Path(root) / "data/reviews/runtime_v1")
         with socket.socket() as listener:
             listener.bind(("127.0.0.1", 0))
             port = listener.getsockname()[1]
         url = f"http://127.0.0.1:{port}/advisor-check/"
-        process = subprocess.Popen(
-            [sys.executable, str(Path(root) / "scripts/serve.py"), "--address", "127.0.0.1",
-             "--port", str(port), "--base-path", "advisor-check"],
+        command = ([sys.executable, "-m", "streamlit", "run", str(Path(root) / "reviewer_app.py"),
+                    "--server.address", "127.0.0.1", "--server.port", str(port),
+                    "--server.baseUrlPath", "advisor-check", "--browser.gatherUsageStats", "false"]
+                   if reviewer else [sys.executable, str(Path(root) / "scripts/serve.py"), "--address", "127.0.0.1",
+                                     "--port", str(port), "--base-path", "advisor-check"])
+        process = subprocess.Popen(command,
             cwd=root, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
             deadline = time.monotonic() + timeout

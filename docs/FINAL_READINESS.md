@@ -17,7 +17,7 @@ Core features are close to complete. The largest remaining work is independent e
 | Actual browser workflow and concurrent sessions | Verified locally in CI | Nine Chromium gates pass: stage history, real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
-| Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development review bundle has 408 blank grades; obtain genuine independent judgments and separately identify held-out cases |
+| Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
 | Performance evidence | Partial | Real source-only fresh/reused-cache observations are recorded; broader cold/warm and browser-visible measurements on the frozen final revision, including AI, remain |
 | Student pilot | Open | Run 3–5 voluntary tasks, record failures and feedback without inventing participants or results |
 | Final report, slides, new demo | Open | Prepare separately from preserved midproject artifacts; explain scope, evaluation, math/inspection, responsiveness and limitations |
@@ -25,9 +25,9 @@ Core features are close to complete. The largest remaining work is independent e
 
 ## Current development step
 
-[Request progress](46_REQUEST_PROGRESS.md) now exposes the actual work attempted and records sequential server phase durations. Preview and fallback paths avoid claiming skipped AI stages; ordinary observer exceptions disable the observer without failing the request or retrying external work. All 1,539 tests and nine readiness checks pass locally and on Linux/Windows. All nine Chromium gates pass in [run 42365142275](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42365142275), verified code revision `df85062fd06692cc0816c529b84a41b09bbd6688`. A real source-only fresh/reused-cache pair observes 13.924/10.693 seconds, with eleven selected checks passing in each request. Public-network variability and the two-request sample limit interpretation.
+The [human evidence-review workspace](47_REVIEW_WORKSPACE.md) makes the prepared evaluation practical to complete: reviewers read one saved excerpt at a time, choose an explicit grade, add notes, and download/resume drafts. Completed exports use the existing scorer format and require all ratings plus reviewer metadata. The workspace makes no model, source-refresh or ranking calls. All 1,562 local tests pass and the local reviewer server starts/stops cleanly; browser/CI verification is pending.
 
-Readiness stays at approximately 90% for the app and 70% for the full submission. This step improves feedback and profiling; independent judgments, voluntary student feedback, final-revision performance evidence and final deliverables still determine completion.
+The saved packet still has 408 blank grades. This step provides collection tooling rather than actual independent judgments. Readiness remains approximately 90% app/70% submission; real evaluation, voluntary student feedback, final performance measurements and the final report/slides/demo remain open.
 
 ## Next steps toward the submission
 

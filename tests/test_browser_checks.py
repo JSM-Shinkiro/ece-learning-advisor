@@ -38,6 +38,13 @@ def test_existing_browser_report_prevents_starting_a_server_or_browser(tmp_path,
     assert output.read_text() == "prior evidence"
 
 
+def test_reviewer_checks_cannot_target_a_running_host(tmp_path, monkeypatch):
+    output = tmp_path / "new.json"
+    monkeypatch.setattr("src.browser_checks.local_browser_server", lambda **kwargs: pytest.fail("No server may start"))
+    monkeypatch.setattr(sys, "argv", ["check_browser.py", "--reviewer", "--url", "https://example.org", "--output", str(output)])
+    assert main() == 1 and not output.exists()
+
+
 def test_browser_failure_is_saved_without_raw_errors_urls_or_profile_data(tmp_path, monkeypatch):
     original = builtins.__import__
     secret = "fixture-private-diagnostic"
