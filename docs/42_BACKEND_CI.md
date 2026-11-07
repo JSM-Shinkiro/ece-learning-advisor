@@ -1,6 +1,6 @@
 # Automatic backend checks
 
-Added November 6, 2026 MST. `.github/workflows/backend.yml` runs the project's existing test suite and local startup smoke in Python 3.12 on GitHub's `ubuntu-latest` and `windows-latest` runners. The first hosted execution must be observed before either runner is claimed as passing. Public app hosting and independent relevance/usability review remain separate.
+Added November 6, 2026 MST. `.github/workflows/backend.yml` runs the project's existing test suite and local startup smoke in Python 3.12 on GitHub's `ubuntu-latest` and `windows-latest` runners. The first hosted run passes all 1,433 tests on both platforms and all nine readiness checks on Linux, but Windows fails server liveness and the dependent offline preview. That failed run remains preserved; a launcher fix is now awaiting hosted verification. Public app hosting and independent relevance/usability review remain separate.
 
 ## What runs
 
@@ -25,4 +25,10 @@ $env:PYTHONUTF8 = "1"
 
 Use blank credential variables and `ECE_DEVELOPMENT_MODE=false`, `ECE_REFRESH_SOURCES=false` for the same credential-free smoke profile. Actual provider/source verification remains an explicit separate action. A green run establishes the tests and local smoke on that recorded runner/version; it does not establish public availability, a remote browser/WebSocket session, academic eligibility, held-out relevance quality, or student-pilot outcomes.
 
-The frozen benchmark, prepared blank reviewer bundle, historical evidence, and midproject snapshot remain unchanged. The development handoff will record actual hosted results after the first run.
+The frozen benchmark, prepared blank reviewer bundle, historical evidence, and midproject snapshot remain unchanged. The development handoff records actual hosted outcomes separately from local checks.
+
+## Initial hosted observation and Windows follow-up
+
+[Run 42341102188](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341102188), on commit `83aae8f206fd946997ce3e3c235a4145daa5632e`, remains unsuccessful. Linux (Python 3.12.16) passes 1,433 tests and all nine readiness checks. Windows (Python 3.12.10) passes 1,433 tests and seven local preflight checks, but server liveness and the dependent offline preview fail. Downloaded JUnit/readiness archives match the GitHub artifact digests; no test failure is being relabeled as a pass.
+
+The follow-up keeps POSIX process replacement and changes Windows to execute Streamlit's public module entrypoint through `runpy` inside the monitored startup process. Windows CRT exec starts a new process, unlike POSIX replacement; this was the targeted compatibility issue inferred from the failed startup. The module is entered before any student sessions, with the validated environment/arguments and restoration on return, exit, failure, or interruption. Five new controlled cases cover both platform branches and cleanup. The actual hosted follow-up must still pass before Windows startup is claimed as verified. See [Microsoft's exec interface](https://learn.microsoft.com/en-us/cpp/c-runtime-library/exec-wexec-functions) and [Python runpy](https://docs.python.org/3.12/library/runpy.html).

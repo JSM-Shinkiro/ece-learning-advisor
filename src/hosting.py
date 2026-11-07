@@ -5,6 +5,7 @@ import ipaddress
 import os
 from pathlib import Path
 import re
+import runpy
 import sys
 
 from .catalog import ROOT
@@ -60,3 +61,23 @@ def load_server_options(environ=None, *, address=None, port=None, base_path=None
             or normalized_path and not re.fullmatch(r"[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*", normalized_path)):
         raise ConfigurationError("Check --base-path or STREAMLIT_SERVER_BASE_URL_PATH: use a simple URL path.")
     return ServerOptions(address=normalized_address, port=int(str(raw_port).strip()), base_path=normalized_path)
+
+
+def launch_server(options, environ, *, root=ROOT, platform=None):
+    """Start one server; Windows must stay in the process a host can monitor."""
+    command = options.command(root=root)
+    if (sys.platform if platform is None else platform) != "win32":
+        os.execve(sys.executable, command, environ)
+        return
+    # Windows exec uses CreateProcess rather than POSIX process replacement.
+    # Enter the same public -m entrypoint in this startup process instead.
+    previous_argv, previous_environment = sys.argv, os.environ.copy()
+    try:
+        os.environ.clear()
+        os.environ.update(environ)
+        sys.argv = ["streamlit", *command[3:]]
+        runpy.run_module("streamlit", run_name="__main__", alter_sys=True)
+    finally:
+        sys.argv = previous_argv
+        os.environ.clear()
+        os.environ.update(previous_environment)

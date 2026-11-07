@@ -11,7 +11,8 @@ import pytest
 
 from src.catalog import ROOT
 from src.deployment import check_deployment
-from src.hosting import load_server_options
+from src import hosting
+from src.hosting import launch_server, load_server_options
 from src.settings import ConfigurationError
 
 
@@ -106,6 +107,7 @@ def cli_setup(monkeypatch, tmp_path):
         monkeypatch.setenv(key, value)
     monkeypatch.setattr(sys, "argv", ["serve"])
     monkeypatch.setattr(serve.os, "execve", lambda *a, **k: pytest.fail("Invalid/check-only launch must not execute a server"))
+    monkeypatch.setattr(hosting, "launch_server", lambda *a, **k: pytest.fail("Invalid/check-only launch must not enter a server"))
     monkeypatch.setattr(serve.os, "chdir", lambda *a: pytest.fail("Invalid/check-only launch must not change directories"))
     return serve
 
@@ -127,7 +129,10 @@ def test_valid_launch_passes_credentials_only_through_environment_and_uses_proje
     monkeypatch.setenv("PORT", SECRET)
     monkeypatch.setattr(sys, "argv", ["serve", "--port", "8303", "--address", "127.0.0.1", "--base-path", "advisor"])
     monkeypatch.setattr(cli.os, "chdir", lambda path: captured.update(cwd=path))
-    monkeypatch.setattr(cli.os, "execve", lambda executable, command, env: captured.update(executable=executable, command=command, env=env))
+    def capture(options, env, *, root):
+        command = options.command(root=root)
+        captured.update(executable=command[0], command=command, env=env)
+    monkeypatch.setattr(hosting, "launch_server", capture)
     assert cli.main() == 0
     assert captured["cwd"] == ROOT and captured["executable"] == sys.executable
     assert captured["env"]["GEMINI_API_KEY"] == SECRET
@@ -168,7 +173,7 @@ def test_operating_system_failures_have_safe_diagnostics(tmp_path, monkeypatch, 
         monkeypatch.setattr("dotenv.load_dotenv", broken)
     else:
         monkeypatch.setattr(cli.os, "chdir", lambda *a: None)
-        monkeypatch.setattr(cli.os, "execve", broken)
+        monkeypatch.setattr(hosting, "launch_server", broken)
     assert cli.main() == 1
     logs = capsys.readouterr()
     assert SECRET not in logs.out + logs.err
@@ -202,3 +207,51 @@ def test_check_command_works_from_another_directory(tmp_path):
     assert report["passed"] and report["server"]["port"] == 8304
     assert report["server"]["health_path"] == "/advisor/_stcore/health"
     assert not report["configuration"]["ai_key_present"]
+
+
+def test_posix_launch_uses_process_replacement_with_private_values_only_in_environment(tmp_path, monkeypatch):
+    options = load_server_options({}, port=8400)
+    env = {"GEMINI_API_KEY": SECRET}
+    captured = {}
+    monkeypatch.setattr(hosting.os, "execve", lambda executable, command, environment: captured.update(
+        executable=executable, command=command, environment=environment))
+    monkeypatch.setattr(hosting.runpy, "run_module", lambda *a, **k: pytest.fail("POSIX must replace the launcher"))
+    launch_server(options, env, root=tmp_path, platform="linux")
+    assert captured["executable"] == sys.executable and captured["environment"] is env
+    assert captured["command"] == options.command(root=tmp_path)
+    assert SECRET not in str(captured["command"])
+
+
+@pytest.mark.parametrize("outcome", ["return", "exit", "failure", "interrupted"])
+def test_windows_entrypoint_stays_in_process_and_restores_startup_state(tmp_path, monkeypatch, outcome):
+    options = load_server_options({}, address="127.0.0.1", port=8401, base_path="advisor")
+    before_env, before_argv = os.environ.copy(), sys.argv
+    env = options.environment(before_env)
+    env.update(GEMINI_API_KEY=SECRET, HOSTING_ONLY_DURING_START="controlled")
+    captured = {}
+    monkeypatch.setattr(hosting.os, "execve", lambda *a: pytest.fail("Windows must not detach through execve"))
+
+    def module(name, **kwargs):
+        captured.update(name=name, kwargs=kwargs, argv=list(sys.argv), pid=os.getpid())
+        assert os.environ["GEMINI_API_KEY"] == SECRET and os.environ["PORT"] == "8401"
+        assert os.environ["HOSTING_ONLY_DURING_START"] == "controlled"
+        if outcome == "exit":
+            raise SystemExit(0)
+        if outcome == "failure":
+            raise RuntimeError(SECRET)
+        if outcome == "interrupted":
+            raise KeyboardInterrupt()
+
+    monkeypatch.setattr(hosting.runpy, "run_module", module)
+    try:
+        if outcome == "return":
+            launch_server(options, env, root=tmp_path, platform="win32")
+        else:
+            expected = {"exit": SystemExit, "failure": RuntimeError, "interrupted": KeyboardInterrupt}[outcome]
+            with pytest.raises(expected):
+                launch_server(options, env, root=tmp_path, platform="win32")
+    finally:
+        assert sys.argv is before_argv and dict(os.environ) == before_env
+    assert captured["name"] == "streamlit" and captured["kwargs"] == {"run_name": "__main__", "alter_sys": True}
+    assert captured["argv"] == ["streamlit", *options.command(root=tmp_path)[3:]]
+    assert captured["pid"] == os.getpid() and SECRET not in str(captured["argv"])

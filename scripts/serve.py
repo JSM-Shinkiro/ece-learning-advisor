@@ -20,7 +20,7 @@ def main():
     try:
         from dotenv import load_dotenv
         from src.deployment import check_deployment
-        from src.hosting import load_server_options
+        from src.hosting import launch_server, load_server_options
         from src.settings import ConfigurationError
     except ImportError:
         print("Install requirements.txt before launching the production server.", file=sys.stderr)
@@ -39,8 +39,8 @@ def main():
             return 1
         os.chdir(ROOT)
         print("Starting ECE Learning Advisor.", flush=True)
-        os.execve(sys.executable, options.command(root=ROOT), env)
-        return 0  # execve replaces this process; controlled tests can return here.
+        launch_server(options, env, root=ROOT)
+        return 0  # A normal CLI exits/replaces this process; controlled tests can return here.
     except ConfigurationError as exc:
         print("Production startup configuration is invalid. " + str(exc), file=sys.stderr)
         return 1
