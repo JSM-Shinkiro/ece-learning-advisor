@@ -180,8 +180,14 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
 
                 def choose(page, label, value):
                     control = page.get_by_role("combobox", name=label, exact=True)
+                    control.scroll_into_view_if_needed()
                     control.focus()
-                    control.press("ArrowDown")
+                    control.press("Escape")
+                    widget = page.get_by_test_id("stSelectbox").filter(has=control)
+                    toggle = widget.get_by_role("button", name="Open", exact=True)
+                    toggle.focus()
+                    toggle.click()
+                    expect(control).to_have_attribute("aria-expanded", "true")
                     page.get_by_role("option", name=value, exact=True).click()
                     expect(control).to_have_value(value)
 

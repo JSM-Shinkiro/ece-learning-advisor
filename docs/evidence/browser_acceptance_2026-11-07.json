@@ -176,7 +176,7 @@
     }
   ],
   "independent_review": "No grades supplied; review packet remains blank.",
-  "ci_browser_status": "The real stale-form regression is fixed through a later edit/export. The dropdown harness uses focus/ArrowDown before selecting; full restore/isolation verification pending.",
+  "ci_browser_status": "Four browser gates pass; restoring the profile remains blocked by the dropdown harness. Explicit toggle/expanded-state verification added.",
   "initial_ci": {
     "revision": "f206cba94cc84001e26fae5b5f73d3f36c4ca949",
     "run_id": 42361087214,
@@ -549,5 +549,78 @@
     "failure_line": 183,
     "finding": "The completion remains in both pickers and the exported profile after a later manual-current edit. The next dropdown interaction does not locate its target option.",
     "artifact_id": 13569674377
+  },
+  "dropdown_ci": {
+    "revision": "ea592e5fdd71c4cb9d8b0d9af585fc1578661c00",
+    "run_id": 42363632983,
+    "browser": {
+      "passed": false,
+      "mode": "local_offline",
+      "checks": [
+        {
+          "name": "initial_roadmap",
+          "passed": true,
+          "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+          "seconds": 4.041
+        },
+        {
+          "name": "current_course_filtering",
+          "passed": true,
+          "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+          "seconds": 1.721
+        },
+        {
+          "name": "completion_transition",
+          "passed": true,
+          "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+          "seconds": 0.9
+        },
+        {
+          "name": "profile_export",
+          "passed": true,
+          "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+          "seconds": 0.877
+        },
+        {
+          "name": "profile_restore",
+          "passed": false,
+          "detail": "Browser check failed; inspect the named workflow step locally.",
+          "error_type": "TimeoutError",
+          "failure_line": 185
+        }
+      ],
+      "sessions": [
+        {
+          "stream_connections": 1,
+          "frames_sent": 5,
+          "frames_received": 1505,
+          "streams_closed": 0,
+          "page_errors": 0,
+          "scripts_finished": 5
+        }
+      ],
+      "browser": {
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      },
+      "external_browser_requests_blocked": 0,
+      "limits": [
+        "Preview mode only; no AI, relevance, or participant evaluation.",
+        "Local checks do not establish public-host availability or TLS/proxy behavior.",
+        "Browser request counts do not measure server-side network calls."
+      ],
+      "local_ui_diagnostics": {
+        "roadmap_button_clicks": 3,
+        "invalid_controls": 0,
+        "app_exceptions": 0,
+        "profile_validation_error": false,
+        "expected_direction_selected": true,
+        "screenshot": "browser_failure.png"
+      },
+      "seconds": 28.743,
+      "checked_at": "2026-11-07T10:22:58.833315+00:00"
+    },
+    "artifact_id": 13569839323,
+    "finding": "The combobox remains collapsed after focus/ArrowDown following sidebar scrolling. The next checker uses its explicit Open button and asserts aria-expanded before locating an option."
   }
 }
