@@ -2,6 +2,8 @@
 
 **Team P07 | Fall 2026**
 
+[![Backend checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml/badge.svg)](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml)
+
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
@@ -49,6 +51,8 @@ python scripts/serve.py
 ```
 
 It accepts a host-supplied `PORT`, validates the address and optional URL prefix, and starts one Streamlit process using the current Python environment. Use `--address 127.0.0.1` for a loopback-only launch. The full readiness smoke now exercises this same command and passes nine checks. Host HTTPS/access settings, remote browser sessions, and the actual hosted pilot remain open.
+
+[Automatic backend checks](docs/42_BACKEND_CI.md) run the complete test suite and startup smoke on Linux and Windows with Python 3.12 for code/data/configuration changes. Each job saves JUnit and readiness reports. Check the linked workflow for its actual revision and result; these checks remain separate from live-provider and independent quality evaluation.
 
 ## Enable live RAG
 
@@ -195,7 +199,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 1,433 tests, including 62 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current suite passes 1,438 tests, including 62 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 For external review, [the expanded-catalog workflow](docs/38_EXPANDED_REVIEW_COLLECTIONS.md) supports `--collection runtime` and archived `--catalog-snapshot` inputs across preparation, embedding, and scoring. The default remains the frozen baseline. A [prepared runtime packet](data/reviews/runtime_v1) contains 12 assistant-authored development questions, 34 evidence chunks, and 408 blank grades. These are not held-out questions or independent judgments. New exports include the exact catalog snapshot so grades remain usable after repository data changes. Use that snapshot for later embedding/scoring; old forms or vectors cannot silently substitute. Keyword, semantic, and hybrid methods use the same completed form. Preparation/scoring stay offline; optional Gemini vectors still require `embed --live-embeddings`. Keep the catalog snapshot, vectors, and score reports with the operator, separate from reviewer materials. Earlier [reviewer](docs/28_REVIEWER_WORKFLOW.md) and [method-comparison](docs/35_REVIEW_METHOD_COMPARISON.md) notes retain their historical observations.
 

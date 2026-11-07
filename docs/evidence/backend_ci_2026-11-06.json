@@ -1,0 +1,1021 @@
+{
+  "schema_version": 1,
+  "saved_at": "2026-11-07T05:15:35.279747+00:00",
+  "development_date": "2026-11-06 America/Phoenix",
+  "scope": "Actual GitHub-hosted Linux/Windows backend tests and local startup smoke. No public app hosting, provider authentication, public-source request, participant grade, or independent quality result.",
+  "workflow_commit": "83aae8f206fd946997ce3e3c235a4145daa5632e",
+  "successful_fix_commit": "dd85e628727cd44e7bc1d629f3fb04080ab33ed7",
+  "implementation_sha256": {
+    ".github/workflows/backend.yml": "994c9573c2745e6288815ae5a0c0f62f5879e63d57fcaee42633055f91ecc3dd",
+    ".gitattributes": "26cf5016ea0d0253339ee481d391d76acd8b47c17ffc46d160ed00e8eee977af",
+    "src/hosting.py": "4807b550e0c0cb4ca7bb311b05229d06cd83f01dc553e8e59c473d0e65332553",
+    "scripts/serve.py": "3bdb106547d5689ddb171b8fad80bf0d20d23aa7b7d01e38b36900468176d39e",
+    "tests/test_hosting.py": "6d257729b9a0ebf3d6ebd14811d5fde4f58269d3fd37ea028baab88024b0ff73"
+  },
+  "workflow": {
+    "events": [
+      "push to main for listed code/data/configuration paths",
+      "pull requests targeting main for those paths",
+      "workflow_dispatch"
+    ],
+    "documentation_only_changes_trigger_run": false,
+    "permissions": {
+      "contents": "read"
+    },
+    "checkout_credentials_persisted": false,
+    "python_minor": "3.12",
+    "utf8_mode": true,
+    "provider_credentials_blank": true,
+    "development_mode": false,
+    "source_refresh": false,
+    "os_jobs_independent": true,
+    "job_timeout_minutes": 15,
+    "artifacts": [
+      "tests.xml",
+      "deployment.json"
+    ],
+    "artifact_retention_days": 14,
+    "new_required_branch_protection": false,
+    "json_checkout_line_endings": "LF"
+  },
+  "initial_run": {
+    "run": {
+      "id": 42341102188,
+      "sha": "83aae8f206fd946997ce3e3c235a4145daa5632e",
+      "event": "push",
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341102188",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-07T05:03:46Z",
+      "updated_at": "2026-11-07T05:06:23Z",
+      "run_attempt": 1
+    },
+    "jobs": [
+      {
+        "id": 128308737583,
+        "name": "Python 3.12 / ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341102188/job/128308737583",
+        "runner_name": "GitHub Actions 1000000167",
+        "runner_labels": [
+          "ubuntu-latest"
+        ],
+        "started_at": "2026-11-07T05:03:49Z",
+        "completed_at": "2026-11-07T05:04:53Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:50Z",
+            "completed_at": "2026-11-07T05:03:51Z"
+          },
+          {
+            "name": "Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:51Z",
+            "completed_at": "2026-11-07T05:03:52Z"
+          },
+          {
+            "name": "Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:52Z",
+            "completed_at": "2026-11-07T05:03:52Z"
+          },
+          {
+            "name": "Install pinned dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:52Z",
+            "completed_at": "2026-11-07T05:04:10Z"
+          },
+          {
+            "name": "Check dependency consistency",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:10Z",
+            "completed_at": "2026-11-07T05:04:10Z"
+          },
+          {
+            "name": "Run backend and Streamlit tests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:10Z",
+            "completed_at": "2026-11-07T05:04:45Z"
+          },
+          {
+            "name": "Check production startup and offline preview",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:45Z",
+            "completed_at": "2026-11-07T05:04:47Z"
+          },
+          {
+            "name": "Save test and readiness reports",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:47Z",
+            "completed_at": "2026-11-07T05:04:48Z"
+          },
+          {
+            "name": "Post Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:48Z",
+            "completed_at": "2026-11-07T05:04:50Z"
+          },
+          {
+            "name": "Post Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:50Z",
+            "completed_at": "2026-11-07T05:04:51Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:51Z",
+            "completed_at": "2026-11-07T05:04:51Z"
+          }
+        ]
+      },
+      {
+        "id": 128308737856,
+        "name": "Python 3.12 / windows-latest",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341102188/job/128308737856",
+        "runner_name": "GitHub Actions 1000000168",
+        "runner_labels": [
+          "windows-latest"
+        ],
+        "started_at": "2026-11-07T05:03:50Z",
+        "completed_at": "2026-11-07T05:06:22Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:50Z",
+            "completed_at": "2026-11-07T05:03:51Z"
+          },
+          {
+            "name": "Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:03:51Z",
+            "completed_at": "2026-11-07T05:04:00Z"
+          },
+          {
+            "name": "Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:00Z",
+            "completed_at": "2026-11-07T05:04:02Z"
+          },
+          {
+            "name": "Install pinned dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:04:02Z",
+            "completed_at": "2026-11-07T05:05:05Z"
+          },
+          {
+            "name": "Check dependency consistency",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:05:05Z",
+            "completed_at": "2026-11-07T05:05:06Z"
+          },
+          {
+            "name": "Run backend and Streamlit tests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:05:06Z",
+            "completed_at": "2026-11-07T05:06:16Z"
+          },
+          {
+            "name": "Check production startup and offline preview",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-11-07T05:06:16Z",
+            "completed_at": "2026-11-07T05:06:17Z"
+          },
+          {
+            "name": "Save test and readiness reports",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:06:17Z",
+            "completed_at": "2026-11-07T05:06:19Z"
+          },
+          {
+            "name": "Post Set up Python",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-11-07T05:06:19Z",
+            "completed_at": "2026-11-07T05:06:19Z"
+          },
+          {
+            "name": "Post Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:06:19Z",
+            "completed_at": "2026-11-07T05:06:21Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:06:21Z",
+            "completed_at": "2026-11-07T05:06:21Z"
+          }
+        ]
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 13561409087,
+        "name": "backend-windows-latest-py312",
+        "digest": "sha256:b06e75e8bafaf774377ed6c7ade9d8452fcef454c87ee990a8f7e1e48e998841",
+        "size_in_bytes": 26668,
+        "head_sha": "83aae8f206fd946997ce3e3c235a4145daa5632e"
+      },
+      {
+        "id": 13560968620,
+        "name": "backend-ubuntu-latest-py312",
+        "digest": "sha256:8a34b3dc2fd551423398326626cdd57433b1d2085736944cf156be782b274413",
+        "size_in_bytes": 25829,
+        "head_sha": "83aae8f206fd946997ce3e3c235a4145daa5632e"
+      }
+    ],
+    "actions": [
+      {
+        "repo": "checkout",
+        "tag": "v7.0.1",
+        "type": "commit",
+        "sha": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "url": "https://github.com/actions/checkout/releases/tag/v7.0.1"
+      },
+      {
+        "repo": "setup-python",
+        "tag": "v7.1.0",
+        "type": "commit",
+        "sha": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+        "url": "https://github.com/actions/setup-python/releases/tag/v7.1.0"
+      },
+      {
+        "repo": "upload-artifact",
+        "tag": "v7.0.2",
+        "type": "commit",
+        "sha": "cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+        "url": "https://github.com/actions/upload-artifact/releases/tag/v7.0.2"
+      }
+    ],
+    "observations": {
+      "ubuntu": {
+        "python": "3.12.16",
+        "shells": [
+          "/usr/bin/bash -e {0}"
+        ],
+        "runner_image_log_lines": [
+          "##[group]Operating System",
+          "Image: ubuntu-26.04"
+        ],
+        "junit": {
+          "tests": "1433",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "34.053",
+          "timestamp": "2026-11-07T05:04:10.877423+00:00"
+        },
+        "junit_sha256": "80a61acad7f996008e6d1bc795df18e56e2d6186ba206b3f7548d1d85f271076",
+        "job_log_utf8_sha256": "e72c9f6a542fc0dcba1f4f9542fa0fca36d2265cd37a0d1f1e3ae8c0ba4a4822",
+        "archive_sha256": "8a34b3dc2fd551423398326626cdd57433b1d2085736944cf156be782b274413",
+        "archive_matches_github_digest": true,
+        "readiness": {
+          "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "smoke_requested": true,
+          "checks": [
+            {
+              "name": "configuration",
+              "passed": true,
+              "detail": "Runtime values validated; credentials excluded."
+            },
+            {
+              "name": "shared_mode",
+              "passed": true,
+              "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+            },
+            {
+              "name": "server_configuration",
+              "passed": true,
+              "detail": "Listen address, port, and URL prefix validated; no socket opened."
+            },
+            {
+              "name": "dependencies",
+              "passed": true,
+              "detail": "Installed versions compared with production requirements."
+            },
+            {
+              "name": "catalog",
+              "passed": true,
+              "detail": "Expanded runtime catalog and frozen baseline validated."
+            },
+            {
+              "name": "connectors",
+              "passed": true,
+              "detail": "Connector configuration validated without network requests."
+            },
+            {
+              "name": "cache",
+              "passed": true,
+              "detail": "Source and embedding cache directories are writable."
+            },
+            {
+              "name": "liveness",
+              "passed": true,
+              "detail": "Loopback Streamlit health endpoint."
+            },
+            {
+              "name": "offline_preview",
+              "passed": true,
+              "detail": "Credential-free preview roadmap; HTTP clients blocked."
+            }
+          ],
+          "configuration": {
+            "development_mode": false,
+            "refresh_sources": false,
+            "embedding_model": "gemini-embedding-2",
+            "generation_model": "gemini-3.5-flash-lite",
+            "embedding_dimensions": 768,
+            "ai_key_present": false,
+            "adzuna_credentials_present": false
+          },
+          "server": {
+            "address": "0.0.0.0",
+            "port": 8501,
+            "base_path": "",
+            "health_path": "/_stcore/health"
+          },
+          "dependencies": {
+            "streamlit": {
+              "required": "1.66.1",
+              "installed": "1.66.1"
+            },
+            "plotly": {
+              "required": "7.1.0",
+              "installed": "7.1.0"
+            },
+            "numpy": {
+              "required": "2.3.5",
+              "installed": "2.3.5"
+            },
+            "pydantic": {
+              "required": "2.14.0",
+              "installed": "2.14.0"
+            },
+            "google-genai": {
+              "required": "2.33.0",
+              "installed": "2.33.0"
+            },
+            "python-dotenv": {
+              "required": "1.2.4",
+              "installed": "1.2.4"
+            },
+            "httpx": {
+              "required": "0.28.1",
+              "installed": "0.28.1"
+            }
+          },
+          "passed": true,
+          "checked_at": "2026-11-07T05:04:47.543766+00:00"
+        }
+      },
+      "windows": {
+        "python": "3.12.10",
+        "shells": [
+          "C:\\Program Files\\PowerShell\\7\\pwsh.EXE -command \". '{0}'\""
+        ],
+        "runner_image_log_lines": [
+          "##[group]Operating System",
+          "Image: windows-2025-vs2026"
+        ],
+        "junit": {
+          "tests": "1433",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "66.944",
+          "timestamp": "2026-11-07T05:05:08.446630+00:00"
+        },
+        "junit_sha256": "2e0114e350b6154ef984bb5c2763b837d325b394004ed3673cf8d2de455838e3",
+        "job_log_utf8_sha256": "3b15dee26fbc637335f9c4ddab1783c1f254a516fd4cc73e4d21b73c6b14190c",
+        "archive_sha256": "b06e75e8bafaf774377ed6c7ade9d8452fcef454c87ee990a8f7e1e48e998841",
+        "archive_matches_github_digest": true,
+        "readiness": {
+          "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "smoke_requested": true,
+          "checks": [
+            {
+              "name": "configuration",
+              "passed": true,
+              "detail": "Runtime values validated; credentials excluded."
+            },
+            {
+              "name": "shared_mode",
+              "passed": true,
+              "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+            },
+            {
+              "name": "server_configuration",
+              "passed": true,
+              "detail": "Listen address, port, and URL prefix validated; no socket opened."
+            },
+            {
+              "name": "dependencies",
+              "passed": true,
+              "detail": "Installed versions compared with production requirements."
+            },
+            {
+              "name": "catalog",
+              "passed": true,
+              "detail": "Expanded runtime catalog and frozen baseline validated."
+            },
+            {
+              "name": "connectors",
+              "passed": true,
+              "detail": "Connector configuration validated without network requests."
+            },
+            {
+              "name": "cache",
+              "passed": true,
+              "detail": "Source and embedding cache directories are writable."
+            },
+            {
+              "name": "liveness",
+              "passed": false,
+              "detail": "Loopback Streamlit health endpoint."
+            },
+            {
+              "name": "offline_preview",
+              "passed": false,
+              "detail": "Credential-free preview roadmap; HTTP clients blocked."
+            }
+          ],
+          "configuration": {
+            "development_mode": false,
+            "refresh_sources": false,
+            "embedding_model": "gemini-embedding-2",
+            "generation_model": "gemini-3.5-flash-lite",
+            "embedding_dimensions": 768,
+            "ai_key_present": false,
+            "adzuna_credentials_present": false
+          },
+          "server": {
+            "address": "0.0.0.0",
+            "port": 8501,
+            "base_path": "",
+            "health_path": "/_stcore/health"
+          },
+          "dependencies": {
+            "streamlit": {
+              "required": "1.66.1",
+              "installed": "1.66.1"
+            },
+            "plotly": {
+              "required": "7.1.0",
+              "installed": "7.1.0"
+            },
+            "numpy": {
+              "required": "2.3.5",
+              "installed": "2.3.5"
+            },
+            "pydantic": {
+              "required": "2.14.0",
+              "installed": "2.14.0"
+            },
+            "google-genai": {
+              "required": "2.33.0",
+              "installed": "2.33.0"
+            },
+            "python-dotenv": {
+              "required": "1.2.4",
+              "installed": "1.2.4"
+            },
+            "httpx": {
+              "required": "0.28.1",
+              "installed": "0.28.1"
+            }
+          },
+          "passed": false,
+          "checked_at": "2026-11-07T05:06:17.683693+00:00"
+        }
+      }
+    }
+  },
+  "followup_run": {
+    "run": {
+      "id": 42341630907,
+      "sha": "dd85e628727cd44e7bc1d629f3fb04080ab33ed7",
+      "event": "push",
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341630907",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-07T05:11:05Z",
+      "updated_at": "2026-11-07T05:13:04Z",
+      "run_attempt": 1
+    },
+    "jobs": [
+      {
+        "id": 128310369020,
+        "name": "Python 3.12 / windows-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341630907/job/128310369020",
+        "runner_name": "GitHub Actions 1000000169",
+        "runner_labels": [
+          "windows-latest"
+        ],
+        "started_at": "2026-11-07T05:11:07Z",
+        "completed_at": "2026-11-07T05:13:04Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:07Z",
+            "completed_at": "2026-11-07T05:11:08Z"
+          },
+          {
+            "name": "Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:08Z",
+            "completed_at": "2026-11-07T05:11:16Z"
+          },
+          {
+            "name": "Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:16Z",
+            "completed_at": "2026-11-07T05:11:18Z"
+          },
+          {
+            "name": "Install pinned dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:18Z",
+            "completed_at": "2026-11-07T05:12:04Z"
+          },
+          {
+            "name": "Check dependency consistency",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:04Z",
+            "completed_at": "2026-11-07T05:12:04Z"
+          },
+          {
+            "name": "Run backend and Streamlit tests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:04Z",
+            "completed_at": "2026-11-07T05:12:55Z"
+          },
+          {
+            "name": "Check production startup and offline preview",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:55Z",
+            "completed_at": "2026-11-07T05:12:57Z"
+          },
+          {
+            "name": "Save test and readiness reports",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:57Z",
+            "completed_at": "2026-11-07T05:12:58Z"
+          },
+          {
+            "name": "Post Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:58Z",
+            "completed_at": "2026-11-07T05:13:01Z"
+          },
+          {
+            "name": "Post Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:13:01Z",
+            "completed_at": "2026-11-07T05:13:02Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:13:02Z",
+            "completed_at": "2026-11-07T05:13:02Z"
+          }
+        ]
+      },
+      {
+        "id": 128310369192,
+        "name": "Python 3.12 / ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42341630907/job/128310369192",
+        "runner_name": "GitHub Actions 1000000170",
+        "runner_labels": [
+          "ubuntu-latest"
+        ],
+        "started_at": "2026-11-07T05:11:07Z",
+        "completed_at": "2026-11-07T05:12:19Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:07Z",
+            "completed_at": "2026-11-07T05:11:08Z"
+          },
+          {
+            "name": "Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:08Z",
+            "completed_at": "2026-11-07T05:11:09Z"
+          },
+          {
+            "name": "Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:09Z",
+            "completed_at": "2026-11-07T05:11:11Z"
+          },
+          {
+            "name": "Install pinned dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:11Z",
+            "completed_at": "2026-11-07T05:11:29Z"
+          },
+          {
+            "name": "Check dependency consistency",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:29Z",
+            "completed_at": "2026-11-07T05:11:29Z"
+          },
+          {
+            "name": "Run backend and Streamlit tests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:11:29Z",
+            "completed_at": "2026-11-07T05:12:14Z"
+          },
+          {
+            "name": "Check production startup and offline preview",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:14Z",
+            "completed_at": "2026-11-07T05:12:16Z"
+          },
+          {
+            "name": "Save test and readiness reports",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:16Z",
+            "completed_at": "2026-11-07T05:12:17Z"
+          },
+          {
+            "name": "Post Set up Python",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:17Z",
+            "completed_at": "2026-11-07T05:12:17Z"
+          },
+          {
+            "name": "Post Check out code",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:17Z",
+            "completed_at": "2026-11-07T05:12:17Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-11-07T05:12:17Z",
+            "completed_at": "2026-11-07T05:12:17Z"
+          }
+        ]
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 13561847807,
+        "name": "backend-windows-latest-py312",
+        "digest": "sha256:85007f9cc3955aa876e8a130871de4993e912a19a20211a816465147c586d361",
+        "size_in_bytes": 26528,
+        "head_sha": "dd85e628727cd44e7bc1d629f3fb04080ab33ed7"
+      },
+      {
+        "id": 13561464728,
+        "name": "backend-ubuntu-latest-py312",
+        "digest": "sha256:e483cad8d546778731024461093b02a8fae47f9877f89c60a36c1c092fcf8253",
+        "size_in_bytes": 26191,
+        "head_sha": "dd85e628727cd44e7bc1d629f3fb04080ab33ed7"
+      }
+    ],
+    "observations": {
+      "ubuntu": {
+        "python": "3.12.16",
+        "shells": [
+          "/usr/bin/bash -e {0}"
+        ],
+        "runner_image_log_lines": [
+          "##[group]Operating System",
+          "Image: ubuntu-26.04"
+        ],
+        "junit": {
+          "tests": "1438",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "43.139",
+          "timestamp": "2026-11-07T05:11:30.329321+00:00"
+        },
+        "junit_sha256": "a4756caba61bc71953244105e837ba8102bee2aa125ae066cfaf5493a8cee7cd",
+        "job_log_utf8_sha256": "3be84bdaec1b4a4343dbf83d25f28b7c609a5aff338614f1eb430cc34789eb6d",
+        "archive_sha256": "e483cad8d546778731024461093b02a8fae47f9877f89c60a36c1c092fcf8253",
+        "archive_matches_github_digest": true,
+        "readiness": {
+          "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "smoke_requested": true,
+          "checks": [
+            {
+              "name": "configuration",
+              "passed": true,
+              "detail": "Runtime values validated; credentials excluded."
+            },
+            {
+              "name": "shared_mode",
+              "passed": true,
+              "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+            },
+            {
+              "name": "server_configuration",
+              "passed": true,
+              "detail": "Listen address, port, and URL prefix validated; no socket opened."
+            },
+            {
+              "name": "dependencies",
+              "passed": true,
+              "detail": "Installed versions compared with production requirements."
+            },
+            {
+              "name": "catalog",
+              "passed": true,
+              "detail": "Expanded runtime catalog and frozen baseline validated."
+            },
+            {
+              "name": "connectors",
+              "passed": true,
+              "detail": "Connector configuration validated without network requests."
+            },
+            {
+              "name": "cache",
+              "passed": true,
+              "detail": "Source and embedding cache directories are writable."
+            },
+            {
+              "name": "liveness",
+              "passed": true,
+              "detail": "Loopback Streamlit health endpoint."
+            },
+            {
+              "name": "offline_preview",
+              "passed": true,
+              "detail": "Credential-free preview roadmap; HTTP clients blocked."
+            }
+          ],
+          "configuration": {
+            "development_mode": false,
+            "refresh_sources": false,
+            "embedding_model": "gemini-embedding-2",
+            "generation_model": "gemini-3.5-flash-lite",
+            "embedding_dimensions": 768,
+            "ai_key_present": false,
+            "adzuna_credentials_present": false
+          },
+          "server": {
+            "address": "0.0.0.0",
+            "port": 8501,
+            "base_path": "",
+            "health_path": "/_stcore/health"
+          },
+          "dependencies": {
+            "streamlit": {
+              "required": "1.66.1",
+              "installed": "1.66.1"
+            },
+            "plotly": {
+              "required": "7.1.0",
+              "installed": "7.1.0"
+            },
+            "numpy": {
+              "required": "2.3.5",
+              "installed": "2.3.5"
+            },
+            "pydantic": {
+              "required": "2.14.0",
+              "installed": "2.14.0"
+            },
+            "google-genai": {
+              "required": "2.33.0",
+              "installed": "2.33.0"
+            },
+            "python-dotenv": {
+              "required": "1.2.4",
+              "installed": "1.2.4"
+            },
+            "httpx": {
+              "required": "0.28.1",
+              "installed": "0.28.1"
+            }
+          },
+          "passed": true,
+          "checked_at": "2026-11-07T05:12:16.598957+00:00"
+        }
+      },
+      "windows": {
+        "python": "3.12.10",
+        "shells": [
+          "C:\\Program Files\\PowerShell\\7\\pwsh.EXE -command \". '{0}'\""
+        ],
+        "runner_image_log_lines": [
+          "##[group]Operating System",
+          "Image: windows-2025-vs2026"
+        ],
+        "junit": {
+          "tests": "1438",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "48.855",
+          "timestamp": "2026-11-07T05:12:05.724825+00:00"
+        },
+        "junit_sha256": "48836eae1175db1a6102b8e77553fd18d0b7dff19b62c52c3766742326e7acea",
+        "job_log_utf8_sha256": "fe8caa7c3a693b28cc8ec7977b80c64f1d5088e3fca63aa9f051c23c8aaf943b",
+        "archive_sha256": "85007f9cc3955aa876e8a130871de4993e912a19a20211a816465147c586d361",
+        "archive_matches_github_digest": true,
+        "readiness": {
+          "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "smoke_requested": true,
+          "checks": [
+            {
+              "name": "configuration",
+              "passed": true,
+              "detail": "Runtime values validated; credentials excluded."
+            },
+            {
+              "name": "shared_mode",
+              "passed": true,
+              "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+            },
+            {
+              "name": "server_configuration",
+              "passed": true,
+              "detail": "Listen address, port, and URL prefix validated; no socket opened."
+            },
+            {
+              "name": "dependencies",
+              "passed": true,
+              "detail": "Installed versions compared with production requirements."
+            },
+            {
+              "name": "catalog",
+              "passed": true,
+              "detail": "Expanded runtime catalog and frozen baseline validated."
+            },
+            {
+              "name": "connectors",
+              "passed": true,
+              "detail": "Connector configuration validated without network requests."
+            },
+            {
+              "name": "cache",
+              "passed": true,
+              "detail": "Source and embedding cache directories are writable."
+            },
+            {
+              "name": "liveness",
+              "passed": true,
+              "detail": "Loopback Streamlit health endpoint."
+            },
+            {
+              "name": "offline_preview",
+              "passed": true,
+              "detail": "Credential-free preview roadmap; HTTP clients blocked."
+            }
+          ],
+          "configuration": {
+            "development_mode": false,
+            "refresh_sources": false,
+            "embedding_model": "gemini-embedding-2",
+            "generation_model": "gemini-3.5-flash-lite",
+            "embedding_dimensions": 768,
+            "ai_key_present": false,
+            "adzuna_credentials_present": false
+          },
+          "server": {
+            "address": "0.0.0.0",
+            "port": 8501,
+            "base_path": "",
+            "health_path": "/_stcore/health"
+          },
+          "dependencies": {
+            "streamlit": {
+              "required": "1.66.1",
+              "installed": "1.66.1"
+            },
+            "plotly": {
+              "required": "7.1.0",
+              "installed": "7.1.0"
+            },
+            "numpy": {
+              "required": "2.3.5",
+              "installed": "2.3.5"
+            },
+            "pydantic": {
+              "required": "2.14.0",
+              "installed": "2.14.0"
+            },
+            "google-genai": {
+              "required": "2.33.0",
+              "installed": "2.33.0"
+            },
+            "python-dotenv": {
+              "required": "1.2.4",
+              "installed": "1.2.4"
+            },
+            "httpx": {
+              "required": "0.28.1",
+              "installed": "0.28.1"
+            }
+          },
+          "passed": true,
+          "checked_at": "2026-11-07T05:12:57.381494+00:00"
+        }
+      }
+    }
+  },
+  "windows_fix": {
+    "change": "Keep POSIX execve; enter the public Streamlit module with runpy in the monitored Windows startup process.",
+    "inference": "Windows CRT exec process handling was targeted from the failed liveness observation; the passing follow-up validates the changed path, without proving every possible failure cause.",
+    "entrypoint_runs_before_student_sessions": true,
+    "private_values_in_arguments": false,
+    "environment_and_arguments_restored_on_return_exit_failure_interruption": true,
+    "new_controlled_lifecycle_cases": 5
+  },
+  "local_automated_verification": {
+    "passed": 1438,
+    "seconds": 56.21,
+    "focused_hosting_and_deployment_passed": 59,
+    "focused_seconds": 2.7,
+    "hosting_cases_total": 47,
+    "existing_streamlit_interactions": 62,
+    "actual_model_requests": 0,
+    "public_source_requests": 0
+  },
+  "dependencies_unchanged": true,
+  "preserved_file_sha256": {
+    "data/reviewed/catalog.json": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+    "data/evaluation/reviewed_v1.json": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+    "data/reviews/runtime_v1/catalog_snapshot.json": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+    "data/reviews/runtime_v1/packet.json": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+    "data/reviews/runtime_v1/review_guide.md": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+    "data/reviews/runtime_v1/review_template.json": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870"
+  },
+  "limitations": [
+    "Hosted runner labels and bundled Python patch versions can change; these observations bind specific commits, jobs, versions and artifact digests.",
+    "Linux and Windows use explicit UTF-8 mode. Windows job commands use the recorded PowerShell shell.",
+    "The original run remains unsuccessful: Windows passed tests/local preflight but failed liveness and its dependent offline preview. The follow-up is a separate successful run on changed code.",
+    "Dependency installation and GitHub infrastructure use network access; source/model calls are not part of the smoke and CI is not an isolated-network environment.",
+    "The smoke proves isolated loopback startup and a separate offline AppTest, not public hosting, HTTPS/access/WebSocket routing, live model/source behavior, or a student pilot.",
+    "Existing assistant-authored development references remain unchanged. No independent judgments, held-out quality score, new academic interpretation or database is introduced. The 408 prepared grades remain blank."
+  ]
+}

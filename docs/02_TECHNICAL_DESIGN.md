@@ -34,7 +34,8 @@ Before retrieval, up to eight course pages, two program pages, and two resources
 | app.py | Forms, action buttons, and rendered results |
 | src/settings.py | Validated runtime settings, protected credentials, and cache-root resolution |
 | src/deployment.py / scripts/check_deployment.py | Local configuration/dependency/data/cache checks and bounded server/offline-preview smoke test |
-| src/hosting.py / scripts/serve.py | Validated host bindings, startup preflight, and shell-free shared-server process replacement |
+| src/hosting.py / scripts/serve.py | Validated host bindings, startup preflight, and platform-aware shared-server startup |
+| .github/workflows/backend.yml | Linux/Windows Python 3.12 tests, local startup smoke, and retained JUnit/readiness artifacts |
 | src/models.py | Validated data contracts |
 | src/catalog.py / src/ingest.py | Frozen baseline, additive runtime coverage, evidence chunks, and source parsing |
 | src/sources.py / src/rule_sources.py / src/source_http.py | Bounded course/rule checks, source caches, and shared HTTP limits |

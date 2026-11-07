@@ -1,5 +1,7 @@
 # Production launch command
 
+Later [Linux/Windows CI work](42_BACKEND_CI.md) changes Windows to enter Streamlit in the monitored startup process through `runpy`; POSIX still uses `os.execve`. The initial Linux measurements and scope below retain their original results.
+
 Implemented and verified November 6, 2026 MST (November 7 UTC). The app now has one shared-server start command that validates its environment and local inputs before starting Streamlit. The readiness smoke check exercises this same launcher. Public hosting, HTTPS/access configuration, remote browser sessions, and independent student evaluation remain open.
 
 ## Start the server
