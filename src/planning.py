@@ -38,10 +38,10 @@ def requested_resource_ids(catalog, profile, *, question=None):
 
 
 def requested_record_ids(catalog, profile, codes):
-    """Resolve routing hints only to available, relevant, incomplete courses."""
-    completed = {item.course_code for item in profile.completed}
+    """Resolve routing hints to relevant courses outside recorded coursework."""
+    recorded = {item.course_code for item in profile.completed} | set(profile.current_enrollment)
     return list(dict.fromkeys(record.record_id for code in codes for record in catalog.records
-        if record.kind == "course" and record.code == code and code not in completed
+        if record.kind == "course" and record.code == code and code not in recorded
         and record.catalog_version == profile.catalog_version
         and (profile.career_id == "exploring" or not record.career_ids or profile.career_id in record.career_ids)))
 

@@ -1,0 +1,1877 @@
+{
+  "recorded_at": "2026-11-07T08:47:38.701726+00:00",
+  "local_date": "2026-11-07",
+  "base_commit": "fc7ad679d7f4e58ed52e896350834d5955c8ddde",
+  "scope": "Current coursework, successful completion, recommendation exclusion, and descriptive source lookup",
+  "environment": {
+    "platform": "linux",
+    "python": "3.12.14",
+    "versions": {
+      "streamlit": "1.66.1",
+      "numpy": "2.3.5",
+      "pydantic": "2.14.0",
+      "google-genai": "2.33.0",
+      "pytest": "9.1.1"
+    }
+  },
+  "before": {
+    "controlled_regressions": 2,
+    "failed": 2,
+    "findings": [
+      "ECE101 is recommended while recorded as currently taking",
+      "A normalized course code can be both completed and currently taking"
+    ]
+  },
+  "development_followup": {
+    "first_full_suite": {
+      "passed": 1468,
+      "failed": 4
+    },
+    "resolution": "Preserve explicit current-course descriptive discovery; update current policy version assertions"
+  },
+  "verification": {
+    "tests": 1473,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 43.248,
+    "new_backend_cases": 28,
+    "new_ui_cases": 7,
+    "streamlit_interactions": 69,
+    "new_case_names": [
+      "test_current_course_is_not_recommended_again",
+      "test_course_cannot_be_both_current_and_completed",
+      "test_current_courses_normalize_and_roundtrip_with_other_profile_fields",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes0]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes1]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes2]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes3]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes4]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes5]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes6]",
+      "test_invalid_or_ambiguous_current_histories_are_rejected_on_restore[codes7]",
+      "test_manual_current_courses_accept_separators_without_recording_grades",
+      "test_all_roadmap_paths_exclude_current_courses[new-ai_ml]",
+      "test_all_roadmap_paths_exclude_current_courses[new-embedded]",
+      "test_all_roadmap_paths_exclude_current_courses[new-exploring]",
+      "test_all_roadmap_paths_exclude_current_courses[experienced-ai_ml]",
+      "test_all_roadmap_paths_exclude_current_courses[experienced-embedded]",
+      "test_all_roadmap_paths_exclude_current_courses[experienced-exploring]",
+      "test_generator_receives_current_state_without_current_recommendations[keyword]",
+      "test_generator_receives_current_state_without_current_recommendations[semantic]",
+      "test_generator_receives_current_state_without_current_recommendations[hybrid]",
+      "test_current_course_only_satisfies_an_explicit_concurrent_condition[False-unknown]",
+      "test_current_course_only_satisfies_an_explicit_concurrent_condition[True-unsatisfied]",
+      "test_finish_course_moves_status_clears_results_and_leaves_needed_grade_unknown",
+      "test_direction_restore_and_invalid_restore_keep_current_profile_consistent",
+      "test_discovery_uses_download_slots_for_courses_outside_current_history",
+      "test_explicit_current_course_can_supply_description_without_becoming_a_recommendation",
+      "test_saved_course_source_priority_retains_explicit_and_reviewed_checks",
+      "test_current_picker_and_other_codes_update_only_after_submission",
+      "test_finishing_current_course_moves_pickers_and_waits_for_required_grade",
+      "test_invalid_current_form_keeps_previous_profile_and_result[both_statuses]",
+      "test_invalid_current_form_keeps_previous_profile_and_result[duplicate]",
+      "test_invalid_current_form_keeps_previous_profile_and_result[grade_in_current]",
+      "test_restored_current_courses_survive_goal_edits_and_can_be_removed",
+      "test_current_discovery_omissions_are_visible_without_promoting_completion"
+    ]
+  },
+  "readiness": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T08:43:27.239311+00:00"
+  },
+  "public_source_observations": [
+    {
+      "checked_at": "2026-11-07T08:43:52.507087+00:00",
+      "scope": "Controlled current-coursework profile with actual public-source checks; no provider calls",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "embedded",
+        "interests": "",
+        "experience": "",
+        "question": "ECE310 with Raspberry Pi Pico and MIT 6.004",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [
+          "ECE101",
+          "ECE201",
+          "ECE220",
+          "ECE274A"
+        ],
+        "consents": []
+      },
+      "recommended_records": [
+        "ECE310",
+        "ECE372A",
+        "resource:pico",
+        "resource:mit_structures"
+      ],
+      "in_progress_recommendations": [],
+      "issues": [
+        "Course discovery is limited to this request's download budget; 13 additional links were not fetched.",
+        "The source-check limit was reached; remaining records retain dated snapshots.",
+        "The resource-check limit was reached; remaining resources retain dated snapshots."
+      ],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+        "corpus_hash": "d7aec3bab5dbf0237f87c1bb39d03d454c649a80d31e3bb2780264ec01c161f2",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [
+          "uofa:ECE310:2026-2027"
+        ],
+        "requested_resource_ids": [
+          "resource:pico",
+          "resource:mit_structures"
+        ],
+        "discovery_query_terms": [],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "career:embedded:overview",
+          "resource:pico:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "resource:mit_structures:overview",
+          "resource:mit_algorithms:overview",
+          "uofa:ECE310:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "resource:cs50:overview",
+          "uofa:ECE201:2026-2027:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE274A:2026-2027:overview",
+          "uofa:ECE381A:2026-2027:overview",
+          "career:ai_ml:overview",
+          "uofa:ECE311:2026-2027:overview",
+          "uofa:CSC110:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:CSC210:2026-2027:overview",
+          "uofa:CSC144:2026-2027:rule:R1299-L50",
+          "uofa:ECE340A:2026-2027:overview"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE310:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "resource:pico:overview",
+          "resource:mit_structures:overview",
+          "career:embedded:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE310:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:pico",
+          "resource:mit_structures"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "snapshot",
+            "retrieved_at": "2026-10-23T04:05:07.731334Z",
+            "last_checked_at": null
+          },
+          "catalog:ECE369A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:43:47.332611Z",
+            "last_checked_at": "2026-11-07T08:43:47.332611Z"
+          },
+          "catalog:ECE372A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:43:47.903854Z",
+            "last_checked_at": "2026-11-07T08:43:47.903854Z"
+          },
+          "catalog:ECE310": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:43:47.316769Z",
+            "last_checked_at": "2026-11-07T08:43:47.316769Z"
+          },
+          "resource:pico": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:43:51.911675Z",
+            "last_checked_at": "2026-11-07T08:43:51.911675Z"
+          },
+          "resource:mit_structures": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:43:52.481124Z",
+            "last_checked_at": "2026-11-07T08:43:52.481124Z"
+          }
+        },
+        "field_sources": {
+          "uofa:ECE310:2026-2027": {
+            "title": "catalog:ECE310",
+            "summary": "catalog:ECE310",
+            "credits": "catalog:ECE310",
+            "requirement_reference": "catalog:ECE310"
+          },
+          "uofa:ECE372A:2026-2027": {
+            "title": "catalog:ECE372A",
+            "summary": "catalog:ECE372A",
+            "credits": "catalog:ECE372A",
+            "requirement_reference": "catalog:ECE372A"
+          },
+          "resource:pico": {
+            "title": "resource:pico",
+            "summary": "resource:pico",
+            "resource_version": "resource:pico"
+          },
+          "resource:mit_structures": {
+            "title": "resource:mit_structures",
+            "summary": "resource:mit_structures",
+            "resource_version": "resource:mit_structures"
+          }
+        },
+        "resource_versions": {
+          "resource:python": "3.15.2",
+          "resource:numpy": "2.5",
+          "resource:sklearn": "1.9.1",
+          "resource:pico": "unversioned documentation",
+          "resource:mit_algorithms": "Spring 2020",
+          "resource:mit_structures": "Spring 2017"
+        },
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 9.868892524000103,
+          "retrieval": 0.0019844800001465046,
+          "total": 9.87598557299998
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovery_selection": {
+            "version": "p07-course-request-priority-v5",
+            "input": "question",
+            "requested_codes": [
+              "ECE310"
+            ],
+            "truncated": false,
+            "phrase_matches": {},
+            "requests": [
+              {
+                "code": "ECE310",
+                "status": "in_collection"
+              }
+            ],
+            "skipped_completed_codes": [],
+            "skipped_enrolled_codes": [],
+            "selected": []
+          },
+          "course_check_selection": {
+            "version": "p07-saved-course-checks-v2",
+            "limit": 8,
+            "requested_codes": [
+              "ECE310"
+            ],
+            "phrase_matches": {},
+            "current_enrollment_codes": [
+              "ECE101",
+              "ECE201",
+              "ECE220",
+              "ECE274A"
+            ],
+            "reviewed_rule_codes": [],
+            "selected_codes": [
+              "ECE310",
+              "ECE369A",
+              "ECE372A",
+              "ECE311",
+              "ECE320A",
+              "ECE340A",
+              "ECE351C",
+              "ECE373"
+            ],
+            "snapshot_codes": [
+              "ECE352",
+              "ECE381A",
+              "CSC372",
+              "ECE101",
+              "ECE201",
+              "ECE220",
+              "ECE274A"
+            ]
+          },
+          "discovered_courses": {
+            "uofa:CSC110:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L30"
+                ],
+                "course_id": "0393681",
+                "discovered_at": "2026-11-06T17:59:18.692742Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC110",
+                "summary": "catalog:CSC110",
+                "credits": "catalog:CSC110",
+                "requirement_reference": "catalog:CSC110"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [
+                "uofa:CSC110:2026-2027:rule:R1299-L30"
+              ],
+              "rule_hash": "56f91e09177a88c500dfe62f04e1086f259b9fe063a6046bcfc6f9e6b0e06fee",
+              "reviewed_statement_hashes": {
+                "uofa:CSC110:2026-2027:rule:R1299-L30": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c"
+              }
+            },
+            "uofa:CSC144:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L50"
+                ],
+                "course_id": "0420001",
+                "discovered_at": "2026-11-06T17:59:18.129831Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC144",
+                "summary": "catalog:CSC144",
+                "credits": "catalog:CSC144",
+                "requirement_reference": "catalog:CSC144"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [
+                "uofa:CSC144:2026-2027:rule:R1299-L50"
+              ],
+              "rule_hash": "d4f516efae1a7bfd19eaf71a8df389ea53c6b0a9c97d59d2480924bc9506fa09",
+              "reviewed_statement_hashes": {
+                "uofa:CSC144:2026-2027:rule:R1299-L50": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac"
+              }
+            },
+            "uofa:CSC210:2026-2027": {
+              "origin": {
+                "source_id": "catalog:CS_foundations",
+                "program_code": "COSCBS",
+                "section_ids": [
+                  "R1299/L70"
+                ],
+                "course_id": "0393711",
+                "discovered_at": "2026-11-06T17:59:18.343903Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC210",
+                "summary": "catalog:CSC210",
+                "credits": "catalog:CSC210",
+                "requirement_reference": "catalog:CSC210"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [
+                "uofa:CSC210:2026-2027:rule:R1299-L70"
+              ],
+              "rule_hash": "60ba5c56bb4e0ec4c10186db8de5b35056092249bb7aa84e385bafef556b03c4",
+              "reviewed_statement_hashes": {
+                "uofa:CSC210:2026-2027:rule:R1299-L70": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be"
+              }
+            },
+            "uofa:ECE201:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0432591",
+                "discovered_at": "2026-11-06T17:59:24.075135Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE201",
+                "summary": "catalog:ECE201",
+                "credits": "catalog:ECE201",
+                "requirement_reference": "catalog:ECE201"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE220:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0120881",
+                "discovered_at": "2026-11-06T17:59:24.072438Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE220",
+                "summary": "catalog:ECE220",
+                "credits": "catalog:ECE220",
+                "requirement_reference": "catalog:ECE220"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE274A:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0360981",
+                "discovered_at": "2026-11-06T17:59:23.927280Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE274A",
+                "summary": "catalog:ECE274A",
+                "credits": "catalog:ECE274A",
+                "requirement_reference": "catalog:ECE274A"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE310:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15612/L10"
+                ],
+                "course_id": "0362401",
+                "discovered_at": "2026-11-06T17:59:29.708836Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE310",
+                "summary": "catalog:ECE310",
+                "credits": "catalog:ECE310",
+                "requirement_reference": "catalog:ECE310"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE311:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15612/L10"
+                ],
+                "course_id": "0397381",
+                "discovered_at": "2026-11-06T17:59:29.771042Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE311",
+                "summary": "catalog:ECE311",
+                "credits": "catalog:ECE311",
+                "requirement_reference": "catalog:ECE311"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE320A:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15612/L10"
+                ],
+                "course_id": "0121101",
+                "discovered_at": "2026-11-06T17:59:29.880125Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE320A",
+                "summary": "catalog:ECE320A",
+                "credits": "catalog:ECE320A",
+                "requirement_reference": "catalog:ECE320A"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE340A:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15612/L10"
+                ],
+                "course_id": "0377871",
+                "discovered_at": "2026-11-06T17:59:34.985632Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE340A",
+                "summary": "catalog:ECE340A",
+                "credits": "catalog:ECE340A",
+                "requirement_reference": "catalog:ECE340A"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE351C:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15612/L10"
+                ],
+                "course_id": "0366011",
+                "discovered_at": "2026-11-06T17:59:34.413377Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE351C",
+                "summary": "catalog:ECE351C",
+                "credits": "catalog:ECE351C",
+                "requirement_reference": "catalog:ECE351C"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE373:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15487/L10"
+                ],
+                "course_id": "0121261",
+                "discovered_at": "2026-11-06T17:59:34.913497Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE373",
+                "summary": "catalog:ECE373",
+                "credits": "catalog:ECE373",
+                "requirement_reference": "catalog:ECE373"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE352:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15487/L30"
+                ],
+                "course_id": "0121181",
+                "discovered_at": "2026-11-06T18:37:35.201440Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE352",
+                "summary": "catalog:ECE352",
+                "credits": "catalog:ECE352",
+                "requirement_reference": "catalog:ECE352"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE381A:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15487/L30"
+                ],
+                "course_id": "0375981",
+                "discovered_at": "2026-11-06T18:37:34.703180Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE381A",
+                "summary": "catalog:ECE381A",
+                "credits": "catalog:ECE381A",
+                "requirement_reference": "catalog:ECE381A"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:CSC372:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R15487/L20"
+                ],
+                "course_id": "0098011",
+                "discovered_at": "2026-11-06T18:37:40.264676Z"
+              },
+              "field_sources": {
+                "title": "catalog:CSC372",
+                "summary": "catalog:CSC372",
+                "credits": "catalog:CSC372",
+                "requirement_reference": "catalog:CSC372"
+              },
+              "study_stage": "intermediate",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            }
+          },
+          "checks": [
+            {
+              "source_id": "resource:cs50",
+              "code": "resource:cs50",
+              "url": "https://cs50.harvard.edu/x/",
+              "kind": "resource",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:42.633936Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-10-23T04:01:51.068000Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": "The resource-check limit was reached; remaining resources retain dated snapshots."
+            },
+            {
+              "source_id": "resource:python",
+              "code": "resource:python",
+              "url": "https://docs.python.org/3/tutorial/index.html",
+              "kind": "resource",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:42.633963Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T17:55:03.324334Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": "The resource-check limit was reached; remaining resources retain dated snapshots."
+            },
+            {
+              "source_id": "resource:mit_algorithms",
+              "code": "resource:mit_algorithms",
+              "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/syllabus/",
+              "kind": "resource",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:42.633975Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T18:36:36.957974Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": "The resource-check limit was reached; remaining resources retain dated snapshots."
+            },
+            {
+              "source_id": "catalog:ECE_program",
+              "code": "ECEBSECE",
+              "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+              "kind": "discovery",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:42.656317Z",
+              "last_checked_at": "2026-11-07T08:43:47.349430Z",
+              "retrieved_at": "2026-11-07T08:43:47.349430Z",
+              "content_hash": "d67cb85ced834efeeca8468ce31a06d7103179e7e4f617ccf4a144ff9ddc6dc0",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": "verified",
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.453959649999888,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.453961492999952,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE310",
+              "code": "ECE310",
+              "url": "https://catalog.arizona.edu/courses/0362401",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:42.657187Z",
+              "last_checked_at": "2026-11-07T08:43:47.316769Z",
+              "retrieved_at": "2026-11-07T08:43:47.316769Z",
+              "content_hash": "6db0005357fd0356f2c1313e6ba0a44415209346f4fd16baa812eff97bf3d401",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.556895706999967,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.5568972190001205,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE369A",
+              "code": "ECE369A",
+              "url": "https://catalog.arizona.edu/courses/0366021",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:42.660286Z",
+              "last_checked_at": "2026-11-07T08:43:47.332611Z",
+              "retrieved_at": "2026-11-07T08:43:47.332611Z",
+              "content_hash": "968094a5068e4f61e63cf4d445384f33b4f0f0f9606500ca59a3831c01a131cb",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.567935434999981,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.5679366869999285,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE372A",
+              "code": "ECE372A",
+              "url": "https://catalog.arizona.edu/courses/0367521",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.349996Z",
+              "last_checked_at": "2026-11-07T08:43:47.903854Z",
+              "retrieved_at": "2026-11-07T08:43:47.903854Z",
+              "content_hash": "6ecd63c1751fe2e3d9b49dd57dd1a5d8cf94918ba7f63357e754eb90769752d4",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.46859241900006054,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.4685947220000344,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE311",
+              "code": "ECE311",
+              "url": "https://catalog.arizona.edu/courses/0397381",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.350912Z",
+              "last_checked_at": "2026-11-07T08:43:47.812426Z",
+              "retrieved_at": "2026-11-07T08:43:47.812426Z",
+              "content_hash": "70461c051bfec2a296c4c63789ececb66572c21c9e1ce0360bdf4ae4038fd56d",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.42668481299983796,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.42668608500002847,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE320A",
+              "code": "ECE320A",
+              "url": "https://catalog.arizona.edu/courses/0121101",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.351572Z",
+              "last_checked_at": "2026-11-07T08:43:47.937099Z",
+              "retrieved_at": "2026-11-07T08:43:47.937099Z",
+              "content_hash": "0acfc798ec1315f615a79db230b2b97c6d4edb5aa057b5b5efe0baa01c279950",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.5559286449999945,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.5559298170001057,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE340A",
+              "code": "ECE340A",
+              "url": "https://catalog.arizona.edu/courses/0377871",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.813092Z",
+              "last_checked_at": "2026-11-07T08:43:48.251329Z",
+              "retrieved_at": "2026-11-07T08:43:48.251329Z",
+              "content_hash": "4209b82d040045ef4c58018757d862fb83d9712885531db941cb59fe48229e29",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.41027237599996624,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.4102734580001197,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE351C",
+              "code": "ECE351C",
+              "url": "https://catalog.arizona.edu/courses/0366011",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.904503Z",
+              "last_checked_at": "2026-11-07T08:43:48.404602Z",
+              "retrieved_at": "2026-11-07T08:43:48.404602Z",
+              "content_hash": "9014484e1a603bea561a91202e213f57cf60c06fac7748d9726063079b14405a",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.4726567630000318,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.47265818500000023,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE373",
+              "code": "ECE373",
+              "url": "https://catalog.arizona.edu/courses/0121261",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:47.937671Z",
+              "last_checked_at": "2026-11-07T08:43:48.373960Z",
+              "retrieved_at": "2026-11-07T08:43:48.373960Z",
+              "content_hash": "033ed42fd2ef0d042532a245d8955a16a1c0bbe7673a1fffb0635a2fb71a07d8",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.40409167400002843,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.40409387800013974,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE352",
+              "code": "ECE352",
+              "url": "https://catalog.arizona.edu/courses/0121181",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499037Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T18:37:35.201440Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE381A",
+              "code": "ECE381A",
+              "url": "https://catalog.arizona.edu/courses/0375981",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499061Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T18:37:34.703180Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:CSC372",
+              "code": "CSC372",
+              "url": "https://catalog.arizona.edu/courses/0098011",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499067Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T18:37:40.264676Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499070Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-10-23T04:05:07.731334Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE201",
+              "code": "ECE201",
+              "url": "https://catalog.arizona.edu/courses/0432591",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499074Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T17:59:24.075135Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE220",
+              "code": "ECE220",
+              "url": "https://catalog.arizona.edu/courses/0120881",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499078Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T17:59:24.072438Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE274A",
+              "code": "ECE274A",
+              "url": "https://catalog.arizona.edu/courses/0360981",
+              "kind": "course",
+              "status": "skipped",
+              "attempted_at": "2026-11-07T08:43:52.499081Z",
+              "last_checked_at": null,
+              "retrieved_at": "2026-11-06T17:59:23.927280Z",
+              "content_hash": null,
+              "content_changed": false,
+              "cache_saved": false,
+              "http_status": null,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [],
+              "retry_count": 0,
+              "transport_seconds": 0.0,
+              "message": ""
+            },
+            {
+              "source_id": "resource:pico",
+              "code": "resource:pico",
+              "url": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+              "kind": "resource",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:48.251728Z",
+              "last_checked_at": "2026-11-07T08:43:51.911675Z",
+              "retrieved_at": "2026-11-07T08:43:51.911675Z",
+              "content_hash": "dcbb2a6d68ab1748f796e40494d468ca7ccdd8322acf60a1a7a610b73cf82f86",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": "https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html",
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 3.6597141899999315,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 3.6597161929998947,
+              "message": ""
+            },
+            {
+              "source_id": "resource:mit_structures",
+              "code": "resource:mit_structures",
+              "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+              "kind": "resource",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:43:48.374552Z",
+              "last_checked_at": "2026-11-07T08:43:52.481124Z",
+              "retrieved_at": "2026-11-07T08:43:52.481124Z",
+              "content_hash": "622b6706e6b85c5dd60afa47502536767d134ed564be877d807885027d8aae35",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/",
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.10638972400011,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.106390916000009,
+              "message": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "checked_at": "2026-11-07T08:45:50.952910+00:00",
+      "scope": "Explicit current-course description using the baseline input and actual public-source checks; no provider calls",
+      "profile": {
+        "schema_version": 1,
+        "standing": "Incoming",
+        "catalog_version": "2026-2027",
+        "career_id": "embedded",
+        "interests": "",
+        "experience": "",
+        "question": "ECE201",
+        "completed": [],
+        "history_complete": false,
+        "programming_background": "new",
+        "current_enrollment": [
+          "ECE201",
+          "MATH129"
+        ],
+        "consents": []
+      },
+      "current_course_discovered": true,
+      "current_course_recommended": false,
+      "issues": [
+        "Course discovery is limited to this request's download budget; 22 additional links were not fetched."
+      ],
+      "trace": {
+        "data_version": "pilot-2026-11-03-rule-provenance-v1",
+        "corpus_hash": "f5e08f94921e2bb43f5dfbd8c9c30a620347eac89e837fb70dbd0e06446ba0e2",
+        "prompt_version": "p07-v7-statement-selection",
+        "query_interpretation": {
+          "version": "p07-domain-aliases-v1",
+          "matched_aliases": [],
+          "added_terms": []
+        },
+        "focused_record_ids": [],
+        "requested_resource_ids": [],
+        "discovery_query_terms": [],
+        "retrieval_mode": "keyword",
+        "embedding_model": null,
+        "generation_model": null,
+        "cache_state": "not_used",
+        "retrieved_chunk_ids": [
+          "career:embedded:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "uofa:ECE201:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "resource:pytorch:overview",
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:CSC120:2026-2027:overview",
+          "uofa:ECE274A:2026-2027:overview",
+          "resource:cs50:overview",
+          "career:ai_ml:overview",
+          "uofa:CSC120:2026-2027:rule:R1299-L40"
+        ],
+        "context_chunk_ids": [
+          "uofa:ECE101:2026-2027:overview",
+          "uofa:ECE369A:2026-2027:overview",
+          "uofa:ECE372A:2026-2027:overview",
+          "resource:cs50:overview",
+          "career:embedded:overview"
+        ],
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50"
+        ],
+        "source_freshness": {
+          "catalog:ECE101": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:45:46.064679Z",
+            "last_checked_at": "2026-11-07T08:45:46.064679Z"
+          },
+          "catalog:ECE369A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:45:45.882909Z",
+            "last_checked_at": "2026-11-07T08:45:45.882909Z"
+          },
+          "catalog:ECE372A": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:45:46.286509Z",
+            "last_checked_at": "2026-11-07T08:45:46.286509Z"
+          },
+          "resource:cs50": {
+            "verification_status": "verified",
+            "retrieved_at": "2026-11-07T08:45:50.943162Z",
+            "last_checked_at": "2026-11-07T08:45:50.943162Z"
+          }
+        },
+        "field_sources": {
+          "uofa:ECE101:2026-2027": {
+            "title": "catalog:ECE101",
+            "summary": "catalog:ECE101",
+            "credits": "catalog:ECE101",
+            "requirement_reference": "catalog:ECE101"
+          },
+          "uofa:ECE369A:2026-2027": {
+            "title": "catalog:ECE369A",
+            "summary": "catalog:ECE369A",
+            "credits": "catalog:ECE369A",
+            "requirement_reference": "catalog:ECE369A"
+          },
+          "uofa:ECE372A:2026-2027": {
+            "title": "catalog:ECE372A",
+            "summary": "catalog:ECE372A",
+            "credits": "catalog:ECE372A",
+            "requirement_reference": "catalog:ECE372A"
+          },
+          "resource:cs50": {
+            "title": "resource:cs50",
+            "summary": "resource:cs50",
+            "resource_version": "resource:cs50"
+          }
+        },
+        "resource_versions": {
+          "resource:cs50": "2026"
+        },
+        "answer_contract": "statement-selection-v1",
+        "selected_statement_ids": [],
+        "statement_validation_passed": null,
+        "validation_error": null,
+        "generation_complete": false,
+        "generation_status": "not_requested",
+        "reference_checks_passed": null,
+        "timings_seconds": {
+          "source_refresh": 9.741527786000006,
+          "retrieval": 0.0009632520000195655,
+          "total": 9.745612931999858
+        },
+        "source_refresh": {
+          "enabled": true,
+          "catalog_version": "2026-2027",
+          "discovery_selection": {
+            "version": "p07-course-request-priority-v5",
+            "input": "question",
+            "requested_codes": [
+              "ECE201"
+            ],
+            "truncated": false,
+            "phrase_matches": {},
+            "requests": [
+              {
+                "code": "ECE201",
+                "course_id": "0432591",
+                "status": "added",
+                "coursework_status": "in_progress"
+              }
+            ],
+            "skipped_completed_codes": [],
+            "skipped_enrolled_codes": [],
+            "selected": [
+              {
+                "course_id": "0432591",
+                "code_hint": "ECE201",
+                "source_id": "catalog:ECE_program",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "reason": "requested_course",
+                "outcome": "added",
+                "actual_code": "ECE201",
+                "source_status": "updated"
+              },
+              {
+                "course_id": "0120881",
+                "code_hint": "ECE220",
+                "source_id": "catalog:ECE_program",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "reason": "source_order",
+                "outcome": "added",
+                "actual_code": "ECE220",
+                "source_status": "updated"
+              },
+              {
+                "course_id": "0360981",
+                "code_hint": "ECE274A",
+                "source_id": "catalog:ECE_program",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "reason": "source_order",
+                "outcome": "added",
+                "actual_code": "ECE274A",
+                "source_status": "updated"
+              }
+            ]
+          },
+          "course_check_selection": {
+            "version": "p07-saved-course-checks-v2",
+            "limit": 8,
+            "requested_codes": [
+              "ECE201"
+            ],
+            "phrase_matches": {},
+            "current_enrollment_codes": [
+              "ECE201",
+              "MATH129"
+            ],
+            "reviewed_rule_codes": [],
+            "selected_codes": [
+              "ECE101",
+              "ECE369A",
+              "ECE372A"
+            ],
+            "snapshot_codes": []
+          },
+          "discovered_courses": {
+            "uofa:ECE201:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0432591",
+                "discovered_at": "2026-11-07T08:45:46.640548Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE201",
+                "summary": "catalog:ECE201",
+                "credits": "catalog:ECE201",
+                "requirement_reference": "catalog:ECE201"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE220:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0120881",
+                "discovered_at": "2026-11-07T08:45:47.089900Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE220",
+                "summary": "catalog:ECE220",
+                "credits": "catalog:ECE220",
+                "requirement_reference": "catalog:ECE220"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            },
+            "uofa:ECE274A:2026-2027": {
+              "origin": {
+                "source_id": "catalog:ECE_program",
+                "program_code": "ECEBSECE",
+                "section_ids": [
+                  "R17348/L320"
+                ],
+                "course_id": "0360981",
+                "discovered_at": "2026-11-07T08:45:47.178442Z"
+              },
+              "field_sources": {
+                "title": "catalog:ECE274A",
+                "summary": "catalog:ECE274A",
+                "credits": "catalog:ECE274A",
+                "requirement_reference": "catalog:ECE274A"
+              },
+              "study_stage": "foundation",
+              "stage_origin": "team_learning_annotation",
+              "rule_verification": "snapshot",
+              "rule_evidence_ids": [],
+              "rule_hash": null,
+              "reviewed_statement_hashes": {}
+            }
+          },
+          "checks": [
+            {
+              "source_id": "catalog:ECE_program",
+              "code": "ECEBSECE",
+              "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+              "kind": "discovery",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:41.230611Z",
+              "last_checked_at": "2026-11-07T08:45:46.221281Z",
+              "retrieved_at": "2026-11-07T08:45:46.221281Z",
+              "content_hash": "d67cb85ced834efeeca8468ce31a06d7103179e7e4f617ccf4a144ff9ddc6dc0",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": "verified",
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.820194110999637,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.820196633999785,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE101",
+              "code": "ECE101",
+              "url": "https://catalog.arizona.edu/courses/0432351",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:41.232718Z",
+              "last_checked_at": "2026-11-07T08:45:46.064679Z",
+              "retrieved_at": "2026-11-07T08:45:46.064679Z",
+              "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.785834453000007,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.785835945000144,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE369A",
+              "code": "ECE369A",
+              "url": "https://catalog.arizona.edu/courses/0366021",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:41.236295Z",
+              "last_checked_at": "2026-11-07T08:45:45.882909Z",
+              "retrieved_at": "2026-11-07T08:45:45.882909Z",
+              "content_hash": "968094a5068e4f61e63cf4d445384f33b4f0f0f9606500ca59a3831c01a131cb",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.605559295000148,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.6055607070002225,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE372A",
+              "code": "ECE372A",
+              "url": "https://catalog.arizona.edu/courses/0367521",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:45.883448Z",
+              "last_checked_at": "2026-11-07T08:45:46.286509Z",
+              "retrieved_at": "2026-11-07T08:45:46.286509Z",
+              "content_hash": "6ecd63c1751fe2e3d9b49dd57dd1a5d8cf94918ba7f63357e754eb90769752d4",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.3748492439999609,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.37485189799963337,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE201",
+              "code": "ECE201",
+              "url": "https://catalog.arizona.edu/courses/0432591",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:46.222645Z",
+              "last_checked_at": "2026-11-07T08:45:46.639428Z",
+              "retrieved_at": "2026-11-07T08:45:46.639428Z",
+              "content_hash": "9e73a6e4a38bc9d40c709f6f16f8c70cfaa1e4ec17fdf212e67ff3138f7b2081",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.38681917700023405,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.38682113999993817,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE220",
+              "code": "ECE220",
+              "url": "https://catalog.arizona.edu/courses/0120881",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:46.286870Z",
+              "last_checked_at": "2026-11-07T08:45:47.089010Z",
+              "retrieved_at": "2026-11-07T08:45:47.089010Z",
+              "content_hash": "4f759badc7e8d724700bbdf5b3a9f965a72e212c9e08eb6637ac300a0118b118",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.7427838459998384,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.7427859790000184,
+              "message": ""
+            },
+            {
+              "source_id": "catalog:ECE274A",
+              "code": "ECE274A",
+              "url": "https://catalog.arizona.edu/courses/0360981",
+              "kind": "course",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:46.639961Z",
+              "last_checked_at": "2026-11-07T08:45:47.177963Z",
+              "retrieved_at": "2026-11-07T08:45:47.177963Z",
+              "content_hash": "bc274afe2ad19e3bec2c3de94f3508db9c51c7452cc1d86c7566ca00dc35619a",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": null,
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 0.5094470469998669,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 0.509449370999846,
+              "message": ""
+            },
+            {
+              "source_id": "resource:cs50",
+              "code": "resource:cs50",
+              "url": "https://cs50.harvard.edu/x/",
+              "kind": "resource",
+              "status": "updated",
+              "attempted_at": "2026-11-07T08:45:46.191572Z",
+              "last_checked_at": "2026-11-07T08:45:50.943162Z",
+              "retrieved_at": "2026-11-07T08:45:50.943162Z",
+              "content_hash": "edfb3e6658ec5690fcdb32a096a3b83e568285330fd39c8d33c8fc8f6a1ac915",
+              "content_changed": true,
+              "cache_saved": true,
+              "http_status": 200,
+              "resolved_url": "https://cs50.harvard.edu/x/",
+              "failure_kind": null,
+              "rule_status": null,
+              "discovery_status": null,
+              "attempts": [
+                {
+                  "outcome": "success",
+                  "http_status": 200,
+                  "seconds": 4.751343407999684,
+                  "retry": false
+                }
+              ],
+              "retry_count": 0,
+              "transport_seconds": 4.751346172000012,
+              "message": ""
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "prerequisite_investigation": {
+    "source_url": "https://catalog.arizona.edu/courses/0432351",
+    "checked_at": "2026-11-07T08:35:11.605190+00:00",
+    "page_sha256": "3e67e243982f661b67abc506289e6f4b3baa8985658ebea506d154e3b5cecba4",
+    "course_code": "ECE101",
+    "course_id": "0432351",
+    "requirement_reference": "019404",
+    "effective_start": "2026-01-01",
+    "finding": "Public course metadata still supplies an enrollment-reference ID rather than a resolved condition. Department ECE101 wording is dated 2024; no matching 2026-2027 interpretation was added.",
+    "department_url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE101",
+    "planning_pdf_attempt": {
+      "url": "https://ece.arizona.edu/pdfs/4-year-degree-plans/2026/ElectricalComputerEngineering26-27r.pdf",
+      "result": "Search excerpt available; direct web fetch returned 502; not promoted to prerequisite evidence"
+    }
+  },
+  "preserved_inputs": {
+    "data/evaluation/reviewed_v1.json": {
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged_from_base": true
+    },
+    "data/evaluation/runtime_questions_v1.json": {
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged_from_base": true
+    },
+    "data/reviewed/catalog.json": {
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged_from_base": true
+    },
+    "data/reviewed/runtime_extension.json": {
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/catalog_snapshot.json": {
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/packet.json": {
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/review_guide.md": {
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/review_template.json": {
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged_from_base": true
+    }
+  },
+  "limits": [
+    "No real model calls or credentials were used in this unit",
+    "All fifteen ECE conditions and CSC372 remain unknown",
+    "No independent relevance grades, student-learning results, or public hosting are claimed",
+    "The first live request includes ten budget skips; eleven selected sources were updated",
+    "The second live request verifies an explicitly requested current-course description; eight checks updated"
+  ]
+}

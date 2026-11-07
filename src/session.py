@@ -5,7 +5,7 @@ from .profiles import edit_profile, import_profile
 
 PROFILE_WIDGET_KEYS = [
     "standing", "programming_background", "career_id", "interests", "completed_courses",
-    "catalog_version", "course_text", "history_complete", "experience", "question",
+    "current_courses", "current_course_text", "catalog_version", "course_text", "history_complete", "experience", "question",
 ]
 
 
@@ -19,6 +19,11 @@ def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
             notices.append("Added to completed coursework: " + ", ".join(sorted(new - old)))
         if old - new:
             notices.append("Removed from completed coursework: " + ", ".join(sorted(old - new)))
+        old_current, new_current = set(previous.current_enrollment), set(profile.current_enrollment)
+        if new_current - old_current:
+            notices.append("Added to currently taking: " + ", ".join(sorted(new_current - old_current)))
+        if old_current - new_current:
+            notices.append("Removed from currently taking: " + ", ".join(sorted(old_current - new_current)))
         if previous.career_id != profile.career_id:
             notices.append("Career direction updated. The learning plan was refreshed.")
     state["profile"] = profile
@@ -40,8 +45,10 @@ def restore_profile(state, raw):
 
 def complete_course(state, code):
     profile = state["profile"]
-    if code not in {c.course_code for c in profile.completed}:
-        apply_profile(state, edit_profile(profile, completed=[*profile.completed, Completion(course_code=code)]))
+    completion = Completion(course_code=code)
+    if completion.course_code not in {c.course_code for c in profile.completed}:
+        apply_profile(state, edit_profile(profile, completed=[*profile.completed, completion],
+            current_enrollment=[item for item in profile.current_enrollment if item != completion.course_code]))
 
 
 def choose_direction(state, career_id):

@@ -130,12 +130,22 @@ class StudentProfile(StrictModel):
     current_enrollment: list[str] = Field(default_factory=list, max_length=100)
     consents: list[str] = Field(default_factory=list, max_length=100)
 
+    @field_validator("current_enrollment")
+    @classmethod
+    def valid_current_courses(cls, value):
+        # Reuse the completion code format without assigning a passing grade.
+        codes = [Completion(course_code=code).course_code for code in value]
+        if len(codes) != len(set(codes)):
+            raise ValueError("List each currently taking course once")
+        return codes
+
     @model_validator(mode="after")
     def unique_courses(self):
         codes = [x.course_code for x in self.completed]
         if len(codes) != len(set(codes)):
             raise ValueError("List each completed course once")
-        self.current_enrollment = [normalize_code(x) for x in self.current_enrollment]
+        if set(codes) & set(self.current_enrollment):
+            raise ValueError("A course cannot be both completed and currently taking. Choose one status.")
         return self
 
 

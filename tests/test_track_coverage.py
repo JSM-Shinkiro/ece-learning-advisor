@@ -140,7 +140,7 @@ def test_unfamiliar_track_links_do_not_inherit_the_foundation_default(tmp_path, 
             cache_dir=tmp_path, discovery_plans=[plan], now=NOW)
     found = next(r for r in result.catalog.records if r.code == code)
     assert found.study_stage == expected and evaluate_course(found, StudentProfile()).status == "unknown"
-    assert result.discovery_selection["version"] == "p07-course-request-priority-v4"
+    assert result.discovery_selection["version"] == "p07-course-request-priority-v5"
 
 
 def test_unconfigured_section_annotations_are_rejected():

@@ -15,7 +15,7 @@ from src.opportunity_details import fetch_posting_detail, request_posting_detail
 from src.opportunity_pages import page_info, request_opportunity_page
 from src.models import StudentProfile
 from src.planning import CAREER_NAMES, PHASE_NAMES
-from src.profiles import edit_profile, export_profile, merge_completions, parse_completions
+from src.profiles import edit_profile, export_profile, merge_completions, parse_completions, parse_current_courses
 from src.session import PROFILE_WIDGET_KEYS, apply_profile, choose_direction, complete_course, restore_profile
 from src.settings import ConfigurationError, load_settings
 
@@ -125,6 +125,10 @@ with st.sidebar:
         selected = st.multiselect("Completed courses (optional)",list(course_lookup),
             default=[c.course_code for c in profile.completed if c.course_code in course_lookup],
             format_func=lambda code:code+" · "+course_lookup[code].title,key="completed_courses")
+        current_selected = st.multiselect("Currently taking (optional)",list(course_lookup),
+            default=[code for code in profile.current_enrollment if code in course_lookup],
+            format_func=lambda code:code+" · "+course_lookup[code].title,key="current_courses",
+            help="Keep these courses out of your next-step suggestions. Taking a course does not count as passing it.")
         submitted = st.form_submit_button("Update my roadmap",type="primary",width="stretch")
         with st.expander("Optional details"):
             catalog_version = st.text_input("Catalog year",value=profile.catalog_version,key="catalog_version",
@@ -133,6 +137,10 @@ with st.sidebar:
                 value=", ".join(c.course_code+(":"+c.grade if c.grade else "") for c in profile.completed if c.course_code not in course_lookup),
                 placeholder="MATH129, CSC110:B",key="course_text",
                 help="Separate codes with commas. A grade can be supplied as CODE:B. List successful completions only.")
+            current_text = st.text_area("Other current course codes",
+                value=", ".join(code for code in profile.current_enrollment if code not in course_lookup),
+                placeholder="MATH129, PHYS241",key="current_course_text",
+                help="Separate courses you are taking with commas. Add grades after successful completion.")
             needed_grades = set().union(*(grade_requirements(r.rule) for r in catalog.records if r.rule_reviewed))
             previous_grades = {c.course_code:c.grade for c in profile.completed}
             grade_values = {}
@@ -183,6 +191,7 @@ if submitted:
                      if c.course_code in grade_values and c.course_code not in manual_codes else c for c in completed]
         updated = edit_profile(profile,standing=standing,career_id=career_id,programming_background=background,
             catalog_version=catalog_version.strip() or "Not sure",interests=interests,completed=completed,
+            current_enrollment=[*current_selected, *parse_current_courses(current_text)],
             history_complete=history_complete,experience=experience,question=question)
         apply_profile(st.session_state,updated,reset_widgets=False)
         st.session_state.reset_profile_widgets = True
@@ -268,12 +277,21 @@ def render_card(record, result):
 
 
 with roadmap:
-    st.caption(f"Saved profile: {profile.standing} · {CAREER_NAMES[profile.career_id]} · {len(profile.completed)} completed courses")
+    st.caption(f"Saved profile: {profile.standing} · {CAREER_NAMES[profile.career_id]} · {len(profile.completed)} completed courses · {len(profile.current_enrollment)} currently taking")
     for notice in st.session_state.get("profile_notices",[]):
         st.caption(notice)
     if profile.completed:
         with st.expander("Completed coursework ("+str(len(profile.completed))+")"):
             st.write(", ".join(c.course_code+(" ("+c.grade+")" if c.grade else "") for c in profile.completed))
+    if profile.current_enrollment:
+        with st.expander("Currently taking ("+str(len(profile.current_enrollment))+")",expanded=True):
+            st.caption("Mark a course completed after passing it. Add any required grade under Optional details.")
+            for code in profile.current_enrollment:
+                label = code + (" · " + course_lookup[code].title if code in course_lookup else "")
+                name, action = st.columns([3,1])
+                name.write(label)
+                action.button("Mark completed",key="finish_"+code,
+                    on_click=complete_course,args=(st.session_state,code),help="Move this course to completed coursework and refresh the plan.")
     result = st.session_state.get("result")
     if profile.career_id=="exploring" or result is None:
         direction_cards()

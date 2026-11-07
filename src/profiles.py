@@ -21,6 +21,11 @@ def parse_completions(text: str) -> list[Completion]:
     return items
 
 
+def parse_current_courses(text: str) -> list[str]:
+    codes = [token.strip() for token in re.split(r"[,;\n]+", text) if token.strip()]
+    return StudentProfile(current_enrollment=codes).current_enrollment
+
+
 def export_profile(profile: StudentProfile) -> str:
     return profile.model_dump_json(indent=2)
 

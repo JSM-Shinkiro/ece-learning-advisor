@@ -18,7 +18,7 @@ from .rule_sources import MAX_RULE_SOURCES, RuleJob
 DEFAULT_PLANS = Path(__file__).resolve().parents[1] / "data" / "connectors" / "course_discovery.json"
 MAX_DISCOVERED_COURSES = 3
 MAX_REQUESTED_CODES = 16
-DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v4"
+DISCOVERY_POLICY_VERSION = "p07-course-request-priority-v5"
 CourseID = Annotated[str, Field(pattern=r"^\d{7}$")]
 CourseCode = Annotated[str, Field(pattern=r"^(?:ECE|CSC)[1-4]\d{2}[A-Z]{0,2}$")]
 RoutingPhrase = Annotated[str, Field(min_length=3, max_length=80)]
@@ -255,12 +255,17 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
             candidates.append(candidate)
     budget = max(0, min(MAX_DISCOVERED_COURSES, limit))
     completed = {item.course_code for item in profile.completed} if profile is not None else set()
-    skipped_completed = sorted({item.expected_code for item in candidates if item.expected_code in completed})
-    # Only known ID/code bindings can skip a download. Completion histories do
-    # not create source URLs, change public caches, or prove academic readiness.
-    candidates = [item for item in candidates if item.expected_code not in completed]
+    enrolled = set(profile.current_enrollment) if profile is not None else set()
     mentions = match_course_requests(profile, plans)
     codes, origin, truncated = mentions.codes, mentions.origin, mentions.truncated
+    skipped_completed = sorted({item.expected_code for item in candidates if item.expected_code in completed})
+    skipped_enrolled = sorted({item.expected_code for item in candidates
+        if item.expected_code in enrolled and item.expected_code not in codes})
+    # Only known ID/code bindings can skip a download. Recorded histories do
+    # not create source URLs, change public caches, or prove academic readiness.
+    # Explicit current-course questions can still fetch descriptive evidence.
+    candidates = [item for item in candidates if item.expected_code not in completed
+                  and (item.expected_code not in enrolled or item.expected_code in codes)]
     rank = {code: index for index, code in enumerate(codes)}
     candidates.sort(key=lambda candidate: rank.get(candidate.expected_code, len(rank)))
     selected = candidates[:budget]
@@ -278,10 +283,13 @@ def select_candidates(catalog, plans, program_results, limit, *, profile=None):
                 "status": "selected" if candidate in selected else "budget_limit"}
         if code in mentions.phrases:
             request["matched_phrases"] = mentions.phrases[code]
+        if code in enrolled:
+            request["coursework_status"] = "in_progress"
         requests.append(request)
     trace = {"version": DISCOVERY_POLICY_VERSION, "input": origin, "requested_codes": codes,
         "truncated": truncated, "phrase_matches": mentions.phrases, "requests": requests,
         "skipped_completed_codes": skipped_completed,
+        "skipped_enrolled_codes": skipped_enrolled,
         "selected": [{"course_id": item.course_id, "code_hint": item.expected_code,
             "source_id": item.plan.source.source_id, "section_ids": item.sections,
             "reason": "reviewed_phrase" if item.expected_code in mentions.phrases else

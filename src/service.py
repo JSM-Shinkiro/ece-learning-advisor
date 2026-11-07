@@ -94,13 +94,13 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     chunks = {}
     for chunk in build_evidence(catalog):
         chunks.setdefault(chunk.record_id, []).append(chunk)
-    completed = {c.course_code for c in profile.completed if c.grade not in {"E", "F"}}
+    recorded = {c.course_code for c in profile.completed if c.grade not in {"E", "F"}} | set(profile.current_enrollment)
     courses, resources = [], []
     for hit in hits:
         record = records[hit.record_id]
         if record.career_ids and profile.career_id != "exploring" and profile.career_id not in record.career_ids:
             continue
-        if record.kind == "course" and record.code not in completed and record.record_id not in courses:
+        if record.kind == "course" and record.code not in recorded and record.record_id not in courses:
             courses.append(record.record_id)
         elif record.kind == "resource" and record.record_id not in resources:
             resources.append(record.record_id)
@@ -123,7 +123,7 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
         foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
         goals=[]
         candidates=[h.record_id for h in hits if records[h.record_id].kind=="course"
-                    and records[h.record_id].code not in completed]
+                    and records[h.record_id].code not in recorded]
         for career in ["ai_ml", "embedded"]:
             matches=[rid for rid in candidates if records[rid].study_stage=="advanced"
                      and career in records[rid].career_ids]
@@ -242,9 +242,10 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     question_terms = set(tokenize(question))
     named_course = any(r.code and r.code.lower() in question_terms for r in catalog.records if r.kind == "course")
     if question.strip() and not focused:
+        recorded = {c.course_code for c in profile.completed} | set(profile.current_enrollment)
         for hit in retriever.keyword(interpretation.expand(question)):
             record = records[hit.record_id]
-            if record.kind != "course" or (profile.career_id != "exploring" and record.career_ids
+            if record.kind != "course" or record.code in recorded or (profile.career_id != "exploring" and record.career_ids
                                           and profile.career_id not in record.career_ids):
                 continue
             description_terms = set(tokenize(record.title + " " + record.summary + " " + " ".join(record.topics)))

@@ -278,12 +278,14 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
         mentions = match_course_requests(profile, discovery_plans)
         priority = {code: index for index, code in enumerate(mentions.codes)}
         completed = {item.course_code for item in profile.completed if item.grade not in {"E", "F"}}
+        recorded = completed | set(profile.current_enrollment)
         bounded = len(targets) > MAX_SOURCES
         targets.sort(key=lambda item: (priority.get(item[1].code, len(priority)),
-            bounded and not bool(item[1].rule_evidence), item[1].code in completed))
+            bounded and not bool(item[1].rule_evidence), item[1].code in recorded))
         selected, omitted = targets[:MAX_SOURCES], targets[MAX_SOURCES:]
-        result.course_check_selection = {"version": "p07-saved-course-checks-v1", "limit": MAX_SOURCES,
+        result.course_check_selection = {"version": "p07-saved-course-checks-v2", "limit": MAX_SOURCES,
             "requested_codes": mentions.codes, "phrase_matches": mentions.phrases,
+            "current_enrollment_codes": list(profile.current_enrollment),
             "reviewed_rule_codes": [record.code for _, record in targets if record.rule_evidence],
             "selected_codes": [record.code for _, record in selected],
             "snapshot_codes": [record.code for _, record in omitted]}

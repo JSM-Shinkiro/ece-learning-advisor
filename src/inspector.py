@@ -27,6 +27,8 @@ def render_inspector(result, catalog):
         discovery = result.trace.get("source_refresh", {}).get("discovery_selection", {})
         if discovery.get("skipped_completed_codes"):
             st.caption("Discovery slots skip courses recorded as completed: " + ", ".join(discovery["skipped_completed_codes"]) + ".")
+        if discovery.get("skipped_enrolled_codes"):
+            st.caption("Discovery slots skip courses recorded as currently taking: " + ", ".join(discovery["skipped_enrolled_codes"]) + ".")
         if discovery.get("requested_codes"):
             st.caption("Course discovery prioritizes explicit course mentions and reviewed phrases within the configured source scope and download limit.")
             st.dataframe(discovery["requests"], hide_index=True)
