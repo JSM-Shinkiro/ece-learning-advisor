@@ -62,6 +62,8 @@ These models passed live checks on October 23 with the earlier output format. Th
 
 For local development only, `ECE_DEVELOPMENT_MODE=true` enables editable model IDs and an empty session-only key field when no server key exists. Keep this off for a shared deployment.
 
+Submitted AI requests share a [45-second AI time budget](docs/44_AI_TIME_BUDGET.md) after official-source checking. `AI_TIME_BUDGET_SECONDS` accepts 5–120 seconds. Model timeouts and cache waits use the remaining allowance; an expired request shows the updated source roadmap and a clear notice. This cooperative limit excludes source work and browser rendering. The runtime verifier uses the same configured value.
+
 Precompute the index with:
 
 ```bash
@@ -199,7 +201,7 @@ Semantic/hybrid comparison requires an explicit `--live-embeddings` opt-in and a
 
 The [November 4 live comparison](docs/22_CURRENT_GEMINI_VERIFICATION.md) uses real Gemini embeddings on the frozen expanded-query references: semantic/hybrid Recall@5 is 1.0, versus keyword 0.9479. This is a small development set with aliases tuned after known misses, not an independent held-out result. Seven live integration expectations also passed, including one guard case with no model calls.
 
-Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current local suite passes 1,473 tests, including 69 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
+Add `--query-mode expanded` to measure the bounded aliases separately from the default raw-query baseline. The [query-interpretation follow-up](docs/20_QUERY_INTERPRETATION.md) records Recall@5 of 0.9479 versus 0.8229 on the same small authored reference set. This is development tuning after known misses, not an independent held-out result. The current local suite passes 1,511 tests, including 73 Streamlit interactions. Alias expansion makes no extra model calls and does not change academic evidence or eligibility.
 
 For external review, [the expanded-catalog workflow](docs/38_EXPANDED_REVIEW_COLLECTIONS.md) supports `--collection runtime` and archived `--catalog-snapshot` inputs across preparation, embedding, and scoring. The default remains the frozen baseline. A [prepared runtime packet](data/reviews/runtime_v1) contains 12 assistant-authored development questions, 34 evidence chunks, and 408 blank grades. These are not held-out questions or independent judgments. New exports include the exact catalog snapshot so grades remain usable after repository data changes. Use that snapshot for later embedding/scoring; old forms or vectors cannot silently substitute. Keyword, semantic, and hybrid methods use the same completed form. Preparation/scoring stay offline; optional Gemini vectors still require `embed --live-embeddings`. Keep the catalog snapshot, vectors, and score reports with the operator, separate from reviewer materials. Earlier [reviewer](docs/28_REVIEWER_WORKFLOW.md) and [method-comparison](docs/35_REVIEW_METHOD_COMPARISON.md) notes retain their historical observations.
 

@@ -11,7 +11,7 @@ import numpy as np
 
 from .catalog import build_evidence, code_lookup, corpus_hash
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
-from .providers import EmbeddingCache, ProviderError
+from .providers import AI_TIME_LIMIT_MESSAGE, AIBudgetExceeded, EmbeddingCache, ProviderError
 from .planning import (coverage_message, learning_phase, needs_programming_foundations,
                        requested_record_ids, requested_resource_ids)
 from .retrieval import Hit, Retriever, tokenize
@@ -225,12 +225,19 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     vectors, query_vector, manifest = None, None, {}
     issues, timings = [], {}
     mode, cache_state = "keyword", "not_used"
+    budget_exhausted = False
     if provider and method in {"semantic", "hybrid"}:
         before = time.perf_counter()
         try:
             vectors, cache_state, manifest = EmbeddingCache(cache_dir).get(catalog, chunks, provider)
             query_vector = provider.embed_query(query)
             mode = method
+        except AIBudgetExceeded:
+            budget_exhausted = True
+            issues.append(AI_TIME_LIMIT_MESSAGE)
+            vectors, query_vector = None, None
+            if cache_state == "not_used":
+                cache_state = "incomplete"
         except (ProviderError, ValueError):
             issues.append("Semantic retrieval is unavailable. Using keyword retrieval for this request.")
             vectors, query_vector = None, None
@@ -259,16 +266,25 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         issues=issues, timings=timings, vectors=vectors,
         query_vector=query_vector, cache_state=cache_state,
     )
-    if provider and context.allowed_record_ids:
+    if budget_exhausted:
+        result.generation_status = "time_budget_exceeded"
+    elif provider and context.allowed_record_ids:
         before = time.perf_counter()
         try:
             selection = provider.generate(context)
             answer = materialize_answer(selection, context, catalog)
-            result.answer = validate_answer(answer, context, catalog)
+            answer = validate_answer(answer, context, catalog)
+            request_budget = getattr(provider, "request_budget", None)
+            if request_budget is not None:
+                request_budget.remaining()
+            result.answer = answer
             result.selected_statement_ids = [sid for rec in selection.recommendations for sid in rec.statement_ids]
             result.statement_validation_passed = True
             result.generation_status = result.answer.status
             result.generation_complete = result.answer.status == "answered"
+        except AIBudgetExceeded:
+            result.generation_status = "time_budget_exceeded"
+            result.issues.append(AI_TIME_LIMIT_MESSAGE)
         except (ProviderError, CitationError, ValueError) as exc:
             result.generation_status = "failed"
             result.statement_validation_passed = False

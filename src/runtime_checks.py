@@ -109,6 +109,11 @@ class _CountedProvider:
     def generate(self, context):
         return self._call("generations", context, self.provider.generate)
 
+    def set_request_budget(self, budget):
+        configure = getattr(self.provider, "set_request_budget", None)
+        if callable(configure):
+            configure(budget)
+
     def close(self):
         try:
             self.provider.close()
@@ -120,13 +125,15 @@ class _CountedProvider:
 
 def verify_runtime(catalog, api_key, *, embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                    dimensions=768, cache_dir=Path(".cache/embeddings"), source_cache_dir=Path(".cache/sources"),
-                   with_sources=False, provider_factory=None, source_refresher=None, budget=None, cases=None, progress=None):
+                   with_sources=False, provider_factory=None, source_refresher=None, budget=None, cases=None, progress=None,
+                   ai_time_budget_seconds=45):
     """Make opt-in integration requests; never interpret these as quality grades."""
     budget = CallBudget() if budget is None else budget
     cases = list(runtime_cases(with_sources) if cases is None else cases)
     ids = {record.record_id for record in catalog.records}
     if (not isinstance(api_key, str) or not api_key or type(with_sources) is not bool
             or not isinstance(budget, CallBudget) or not 1 <= len(cases) <= 8
+            or type(ai_time_budget_seconds) is not int or not 5 <= ai_time_budget_seconds <= 120
             or any(not isinstance(case, RuntimeCase) for case in cases)
             or len({case.case_id for case in cases}) != len(cases)
             or any(case.method not in {"keyword", "semantic", "hybrid"} or not set(case.expected_record_ids) <= ids
@@ -156,7 +163,8 @@ def verify_runtime(catalog, api_key, *, embedding_model="gemini-embedding-2", ge
             result = run_advisor(catalog, case.profile, api_key=api_key, use_ai=True, method=case.method,
                 embedding_model=embedding_model, generation_model=generation_model, dimensions=dimensions,
                 cache_dir=cache_dir, source_cache_dir=source_cache_dir, provider_factory=factory,
-                refresh_sources=case.refresh_sources, source_refresher=source_refresher)
+                refresh_sources=case.refresh_sources, source_refresher=source_refresher,
+                ai_time_budget_seconds=ai_time_budget_seconds)
             delta = {key: counts[key] - before[key] for key in before}
             selected = [item.record_id for item in result.answer.recommendations] if result.answer else []
             checks = result.trace.get("source_refresh", {}).get("checks", [])
@@ -195,7 +203,8 @@ def verify_runtime(catalog, api_key, *, embedding_model="gemini-embedding-2", ge
         "data_version": catalog.version, "catalog_snapshot_hash": catalog_snapshot_hash(catalog), "corpus_hash": corpus_hash(catalog),
         "catalog": {"courses": sum(r.kind == "course" for r in catalog.records), "resources": sum(r.kind == "resource" for r in catalog.records), "chunks": len(build_evidence(catalog))},
         "requested_provider": {"embedding_model": embedding_model, "generation_model": generation_model, "dimensions": dimensions},
-        "source_case_requested": with_sources, "call_budget": asdict(budget), "call_counts": counts,
+        "source_case_requested": with_sources, "ai_time_budget_seconds": ai_time_budget_seconds,
+        "call_budget": asdict(budget), "call_counts": counts,
         "cases": rows, "all_checks_passed": all(row["status"] == "passed" for row in rows),
         "manual_source_review_required": True, "provider_provenance": "operator_supplied_unverified",
         "limitations": "Counts are adapter attempts, not billed costs. Saved-case sources are snapshots. Source observations and latency are dated; independent grading and provider provenance are not authenticated."}

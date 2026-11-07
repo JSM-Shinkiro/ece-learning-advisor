@@ -37,6 +37,7 @@ def main():
                 embedding_model=settings.embedding_model, generation_model=settings.generation_model,
                 dimensions=settings.embedding_dimensions, cache_dir=settings.cache_root / "embeddings",
                 source_cache_dir=settings.cache_root / "sources", with_sources=args.with_sources,
+                ai_time_budget_seconds=settings.ai_time_budget_seconds,
                 progress=lambda row: print(row["case_id"] + ": " + row["status"], flush=True))
             json.dump(report, handle, indent=2)
             handle.write("\n")

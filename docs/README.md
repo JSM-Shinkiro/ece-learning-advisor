@@ -35,6 +35,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Production launcher](41_PRODUCTION_LAUNCHER.md) | Host port/prefix validation, preflight before startup, common smoke entrypoint, process cleanup, and production-only loopback observations |
 | [Automatic backend checks](42_BACKEND_CI.md) | Linux/Windows Python checks, retained reports, blank credentials, JSON checkout identity, and the Windows launcher follow-up |
 | [Current coursework](43_CURRENT_COURSEWORK.md) | Editable current courses, next-step exclusion, completion transitions, source lookup, and verification |
+| [AI time budget](44_AI_TIME_BUDGET.md) | Shared request allowance, SDK timeouts, bounded cache waits, source fallback, and controlled verification |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

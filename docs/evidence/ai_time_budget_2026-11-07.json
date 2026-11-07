@@ -1,0 +1,344 @@
+{
+  "recorded_at": "2026-11-07T09:15:26.815432+00:00",
+  "local_date": "2026-11-07",
+  "base_commit": "2ca7ee5c96f8a06a4fe4392f8c9e3347c5621f2d",
+  "scope": "Cooperative AI-phase time budget after source checks; no real models or public sources called in this unit",
+  "environment": {
+    "platform": "linux",
+    "python": "3.12.14",
+    "versions": {
+      "google-genai": "2.33.0",
+      "httpx": "0.28.1",
+      "streamlit": "1.66.1",
+      "numpy": "2.3.5",
+      "pydantic": "2.14.0",
+      "pytest": "9.1.1"
+    }
+  },
+  "verification": {
+    "tests": 1511,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 47.799,
+    "new_backend_cases": 34,
+    "new_ui_cases": 4,
+    "streamlit_interactions": 73,
+    "new_cases": [
+      "test_cold_budget_stops_later_calls_and_next_request_reuses_partial_public_vectors",
+      "test_warm_query_timeout_keeps_index_and_blocks_generation[semantic]",
+      "test_warm_query_timeout_keeps_index_and_blocks_generation[hybrid]",
+      "test_late_generation_selection_is_rejected_without_a_format_error",
+      "test_ordinary_embedding_errors_keep_fallback_only_while_budget_remains[1-True]",
+      "test_ordinary_embedding_errors_keep_fallback_only_while_budget_remains[6-False]",
+      "test_cache_wait_is_capped_and_releases_an_acquired_lock_on_expiration[False]",
+      "test_cache_wait_is_capped_and_releases_an_acquired_lock_on_expiration[True]",
+      "test_source_work_precedes_the_ai_budget_and_retains_the_refreshed_catalog",
+      "test_expiration_during_local_context_work_prevents_starting_generation",
+      "test_expiration_during_answer_validation_does_not_publish_selection",
+      "test_preview_and_unsupported_requests_never_initialize_ai_budgets",
+      "test_sdk_uses_remaining_time_for_both_timeout_units_and_preserves_no_retry_policy[5]",
+      "test_sdk_uses_remaining_time_for_both_timeout_units_and_preserves_no_retry_policy[45]",
+      "test_sdk_uses_remaining_time_for_both_timeout_units_and_preserves_no_retry_policy[120]",
+      "test_installed_sdk_propagates_shrinking_timeouts_to_the_http_transport",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[0]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[4]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[121]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[NaN]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[5.5]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[true]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[]",
+      "test_invalid_host_budgets_fail_with_a_sanitized_setting_name[private-invalid-budget]",
+      "test_direct_budgets_reject_invalid_ranges_or_types[True]",
+      "test_direct_budgets_reject_invalid_ranges_or_types[4]",
+      "test_direct_budgets_reject_invalid_ranges_or_types[121]",
+      "test_direct_budgets_reject_invalid_ranges_or_types[5.5]",
+      "test_budget_setting_is_public_but_credentials_remain_excluded",
+      "test_budget_configuration_failure_closes_provider_and_keeps_source_plan",
+      "test_runtime_verifier_rejects_invalid_time_limits_before_any_provider[4]",
+      "test_runtime_verifier_rejects_invalid_time_limits_before_any_provider[121]",
+      "test_runtime_verifier_rejects_invalid_time_limits_before_any_provider[True]",
+      "test_runtime_cli_uses_the_same_host_time_budget",
+      "test_time_limit_shows_current_source_cards_and_explicit_budget_notice[embedding]",
+      "test_time_limit_shows_current_source_cards_and_explicit_budget_notice[generation]",
+      "test_a_new_submission_gets_a_fresh_budget_and_can_recover",
+      "test_invalid_host_budget_is_recoverable_without_exposing_input"
+    ]
+  },
+  "readiness": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "ai_time_budget_seconds": 45,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-07T09:13:53.912939+00:00"
+  },
+  "before": {
+    "scope": "Controlled no-network model-duration simulation, not measured provider latency",
+    "counts": {
+      "document": 34,
+      "query": 1,
+      "generation": 1
+    },
+    "simulated_model_seconds": 36,
+    "generation_complete": true
+  },
+  "controlled_probe": {
+    "scope": "Standalone controlled controller probe; model durations simulated with an injected clock; not a live-provider performance benchmark",
+    "network_attempts": 0,
+    "real_model_calls": 0,
+    "cases": [
+      {
+        "case": "cold_cutoff",
+        "limit_seconds": 5,
+        "counts": {
+          "document": 5,
+          "query": 0,
+          "generation": 0,
+          "closed": 1
+        },
+        "generation_status": "time_budget_exceeded",
+        "retrieval_mode": "keyword",
+        "cache_state": "incomplete",
+        "budget": {
+          "limit_seconds": 5,
+          "elapsed_seconds": 5.0,
+          "exhausted": true,
+          "scope": "ai_phase_after_source_checks"
+        },
+        "source_cards": 5,
+        "completed_document_files": 4,
+        "current_course_recommended": null
+      },
+      {
+        "case": "retry_reuses_partial_documents",
+        "limit_seconds": 45,
+        "counts": {
+          "document": 30,
+          "query": 1,
+          "generation": 1,
+          "closed": 1
+        },
+        "generation_status": "answered",
+        "retrieval_mode": "hybrid",
+        "cache_state": "miss",
+        "budget": {
+          "limit_seconds": 45,
+          "elapsed_seconds": 32.0,
+          "exhausted": false,
+          "scope": "ai_phase_after_source_checks"
+        },
+        "source_cards": 5,
+        "completed_document_files": 34,
+        "current_course_recommended": false
+      },
+      {
+        "case": "warm_request",
+        "limit_seconds": 5,
+        "counts": {
+          "document": 0,
+          "query": 1,
+          "generation": 1,
+          "closed": 1
+        },
+        "generation_status": "answered",
+        "retrieval_mode": "hybrid",
+        "cache_state": "hit",
+        "budget": {
+          "limit_seconds": 5,
+          "elapsed_seconds": 2.0,
+          "exhausted": false,
+          "scope": "ai_phase_after_source_checks"
+        },
+        "source_cards": 5,
+        "completed_document_files": 34,
+        "current_course_recommended": null
+      },
+      {
+        "case": "warm_query_exceeds_budget",
+        "limit_seconds": 5,
+        "counts": {
+          "document": 0,
+          "query": 1,
+          "generation": 0,
+          "closed": 1
+        },
+        "generation_status": "time_budget_exceeded",
+        "retrieval_mode": "keyword",
+        "cache_state": "hit",
+        "budget": {
+          "limit_seconds": 5,
+          "elapsed_seconds": 6.0,
+          "exhausted": true,
+          "scope": "ai_phase_after_source_checks"
+        },
+        "source_cards": 5,
+        "completed_document_files": 34,
+        "current_course_recommended": null
+      },
+      {
+        "case": "late_generation",
+        "limit_seconds": 5,
+        "counts": {
+          "document": 0,
+          "query": 0,
+          "generation": 1,
+          "closed": 1
+        },
+        "generation_status": "time_budget_exceeded",
+        "retrieval_mode": "keyword",
+        "cache_state": "not_used",
+        "budget": {
+          "limit_seconds": 5,
+          "elapsed_seconds": 6.0,
+          "exhausted": true,
+          "scope": "ai_phase_after_source_checks"
+        },
+        "source_cards": 5,
+        "completed_document_files": 34,
+        "current_course_recommended": null
+      }
+    ]
+  },
+  "sdk_transport_control": {
+    "implementation": "Pinned Google GenAI 2.33.0 with HTTPX MockTransport; real transport blocked",
+    "embedding_timeout_seconds": 4,
+    "generation_timeout_seconds": 3,
+    "http_requests": 2,
+    "actual_network_requests": 0,
+    "generation_response": "Controlled HTTP 400; sanitized failure retained; this is not successful real generation"
+  },
+  "preserved_inputs": {
+    "data/reviewed/runtime_extension.json": {
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged_from_base": true
+    },
+    "data/reviewed/catalog.json": {
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged_from_base": true
+    },
+    "data/evaluation/runtime_questions_v1.json": {
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged_from_base": true
+    },
+    "data/evaluation/reviewed_v1.json": {
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/catalog_snapshot.json": {
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/review_template.json": {
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/review_guide.md": {
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged_from_base": true
+    },
+    "data/reviews/runtime_v1/packet.json": {
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged_from_base": true
+    }
+  },
+  "limits": [
+    "Injected model durations are not live-provider latency measurements or a speedup benchmark",
+    "The deadline is cooperative; source work, browser rendering, cleanup, DNS/OS/transport behavior can extend wall time",
+    "No provider credential, real model request, new academic interpretation, independent grade, or hosted pilot was used",
+    "Public cache identities and frozen evaluation/reviewer inputs retain their original bytes"
+  ]
+}

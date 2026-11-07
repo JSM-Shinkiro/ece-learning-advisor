@@ -15,6 +15,9 @@ def render_inspector(result, catalog):
         st.caption("Scores measure relevance, not eligibility or probability. The AI selects statements; the app supplies their wording and citations.")
         st.write(" · ".join(name.replace("_", " ").title()+": "+format_duration(value) for name,value in result.timings.items()))
         st.caption("Index cache: "+result.cache_state+". Total timing excludes browser rendering.")
+        budget = result.trace.get("ai_budget")
+        if budget:
+            st.caption(f"AI time budget: {budget['limit_seconds']} s · {format_duration(budget['elapsed_seconds'])} used. Source checks are timed separately.")
         checks = result.trace.get("source_refresh", {}).get("checks", [])
         retried = [check for check in checks if check.get("retry_count", 0)]
         if retried:

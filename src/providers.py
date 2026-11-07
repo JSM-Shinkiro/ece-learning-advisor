@@ -24,6 +24,73 @@ class ProviderError(RuntimeError):
     """A sanitized error suitable for the UI."""
 
 
+AI_TIME_LIMIT_MESSAGE = "AI time limit reached. Showing the updated plan from available sources."
+
+
+class AIBudgetExceeded(ProviderError):
+    def __init__(self):
+        super().__init__(AI_TIME_LIMIT_MESSAGE)
+
+
+class AIRequestBudget:
+    """One request's cooperative deadline, shared by cache waits and model calls."""
+
+    def __init__(self, seconds=45, *, clock=None):
+        if type(seconds) is not int or not 5 <= seconds <= 120:
+            raise ValueError("AI_TIME_BUDGET_SECONDS must be an integer from 5 to 120.")
+        self.seconds, self.clock = seconds, clock or time.monotonic
+        self.started = self.clock()
+        self.exhausted = False
+
+    def remaining(self):
+        remaining = self.seconds - (self.clock() - self.started)
+        if self.exhausted or remaining <= 0:
+            self.exhausted = True
+            raise AIBudgetExceeded()
+        return remaining
+
+    def trace(self):
+        elapsed = max(0.0, self.clock() - self.started)
+        return {"limit_seconds": self.seconds, "elapsed_seconds": elapsed,
+                "exhausted": self.exhausted or elapsed >= self.seconds,
+                "scope": "ai_phase_after_source_checks"}
+
+
+class BudgetedProvider:
+    """Preserve provider protocols while preventing new or late accepted calls."""
+
+    def __init__(self, provider, budget):
+        self.provider, self.request_budget = provider, budget
+        configure = getattr(provider, "set_request_budget", None)
+        if callable(configure):
+            configure(budget)
+
+    def __getattr__(self, name):
+        return getattr(self.provider, name)
+
+    def _call(self, method, value):
+        self.request_budget.remaining()
+        try:
+            result = method(value)
+        except Exception:
+            self.request_budget.remaining()
+            raise
+        self.request_budget.remaining()
+        return result
+
+    def embed_document(self, chunk):
+        return self._call(self.provider.embed_document, chunk)
+
+    def embed_query(self, query):
+        return self._call(self.provider.embed_query, query)
+
+    def generate(self, context):
+        return self._call(self.provider.generate, context)
+
+    def close(self):
+        self.provider.close()
+
+
 _CACHE_WAIT_SECONDS = 30.0
 _CACHE_LOCKS = weakref.WeakValueDictionary()
 _CACHE_LOCKS_GUARD = threading.Lock()
@@ -44,12 +111,18 @@ def _cache_lock_for(path):
 
 
 @contextmanager
-def _cache_build_lock(path, deadline):
+def _cache_build_lock(path, deadline, budget=None):
     """Coordinate one process; every wait shares the cache request's deadline."""
+    if budget is not None:
+        deadline = min(deadline, time.monotonic() + budget.remaining())
     lock = _cache_lock_for(path)
     if not lock.acquire(timeout=max(0.0, deadline - time.monotonic())):
+        if budget is not None:
+            budget.remaining()
         raise ProviderError("Public document embeddings are busy. Try updating the roadmap again.")
     try:
+        if budget is not None:
+            budget.remaining()
         yield
     finally:
         lock.release()
@@ -63,6 +136,7 @@ class GeminiProvider:
         self.embedding_model = embedding_model
         self.generation_model = generation_model
         self.dimensions = dimensions
+        self.request_budget = None
         self._owns_client = client is None
         if client is None:
             from google import genai
@@ -80,13 +154,21 @@ class GeminiProvider:
         if self._owns_client:
             self.client.close()
 
+    def set_request_budget(self, budget):
+        self.request_budget = budget
+
+    def _timeout(self):
+        return min(30.0, self.request_budget.remaining()) if self.request_budget else 30.0
+
     def _embed(self, text):
         from google.genai import types
         try:
             response = self.client.models.embed_content(
                 model=self.embedding_model,
                 contents=text,
-                config=types.EmbedContentConfig(output_dimensionality=self.dimensions),
+                config=types.EmbedContentConfig(output_dimensionality=self.dimensions,
+                    http_options=types.HttpOptions(timeout=max(1, int(self._timeout() * 1000)),
+                        retry_options=types.HttpRetryOptions(attempts=1))),
             )
             embeddings = response.embeddings or []
             if len(embeddings) != 1:
@@ -94,8 +176,12 @@ class GeminiProvider:
             vector = normalized([embeddings[0].values])[0]
             if len(vector) != self.dimensions:
                 raise ValueError("Unexpected embedding dimension")
+            if self.request_budget is not None:
+                self.request_budget.remaining()
             return vector
         except Exception as exc:
+            if self.request_budget is not None:
+                self.request_budget.remaining()
             raise ProviderError("Embedding request failed. Check model access, quota, and connection.") from exc
 
     def embed_document(self, chunk: Evidence):
@@ -117,12 +203,18 @@ class GeminiProvider:
                 },
                 generation_config={"max_output_tokens":1800},
                 store=False,
+                timeout=self._timeout(),
             )
             text = interaction.output_text
             if not text:
                 raise ValueError("The generator returned no answer")
-            return ExplanationSelection.model_validate_json(text)
+            selection = ExplanationSelection.model_validate_json(text)
+            if self.request_budget is not None:
+                self.request_budget.remaining()
+            return selection
         except Exception as exc:
+            if self.request_budget is not None:
+                self.request_budget.remaining()
             raise ProviderError("Generation failed or returned an invalid response. Source cards remain available.") from exc
 
 
@@ -170,7 +262,7 @@ class EmbeddingCache:
                     "normalization": "l2", "format": self.FORMAT}
         identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
         path = self.directory / "documents" / (identity + ".npz")
-        with _cache_build_lock(path, deadline):
+        with _cache_build_lock(path, deadline, getattr(provider, "request_budget", None)):
             # Recheck after waiting: another request may have just written it.
             if path.exists():
                 try:
@@ -205,7 +297,7 @@ class EmbeddingCache:
         identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
         path = self.directory / (identity + ".npz")
         # Hold at most one index lock and one document lock, in that order.
-        with _cache_build_lock(path, deadline):
+        with _cache_build_lock(path, deadline, getattr(provider, "request_budget", None)):
             state = "miss"
             if path.exists():
                 try:

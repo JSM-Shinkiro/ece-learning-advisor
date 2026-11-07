@@ -206,6 +206,7 @@ if st.session_state.pop("refresh_pending",False):
             st.session_state.result = run_advisor(base_catalog,profile,api_key=api_key,use_ai=use_ai,
                 method=method,embedding_model=embedding_model,generation_model=generation_model,
                 dimensions=settings.embedding_dimensions,cache_dir=settings.cache_root/"embeddings",
+                ai_time_budget_seconds=settings.ai_time_budget_seconds,
                 refresh_sources=settings.refresh_sources,
                 source_cache_dir=settings.cache_root/"sources")
         except (ValueError,OSError):

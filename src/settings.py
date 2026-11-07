@@ -25,6 +25,7 @@ class RuntimeSettings(StrictModel):
     embedding_model: str = Field(default="gemini-embedding-2", pattern=ModelID)
     generation_model: str = Field(default="gemini-3.5-flash-lite", pattern=ModelID)
     embedding_dimensions: int = Field(default=768, ge=1, le=3072, strict=True)
+    ai_time_budget_seconds: int = Field(default=45, ge=5, le=120, strict=True)
     cache_root: Path
     gemini_key: SecretStr = Field(default_factory=lambda: SecretStr(""), exclude=True, repr=False)
     adzuna_app_id: SecretStr = Field(default_factory=lambda: SecretStr(""), exclude=True, repr=False)
@@ -42,6 +43,7 @@ class RuntimeSettings(StrictModel):
         return {"development_mode": self.development_mode, "refresh_sources": self.refresh_sources,
             "embedding_model": self.embedding_model, "generation_model": self.generation_model,
             "embedding_dimensions": self.embedding_dimensions, "ai_key_present": self.ai_configured,
+            "ai_time_budget_seconds": self.ai_time_budget_seconds,
             "adzuna_credentials_present": self.adzuna_configured}
 
 
@@ -66,6 +68,9 @@ def load_settings(environ=None, *, root=ROOT):
     raw_dimension = env.get("EMBEDDING_DIMENSION", "768").strip()
     if not re.fullmatch(r"[0-9]{1,4}", raw_dimension):
         raise ConfigurationError("EMBEDDING_DIMENSION must be an integer from 1 to 3072.")
+    raw_budget = env.get("AI_TIME_BUDGET_SECONDS", "45").strip()
+    if not re.fullmatch(r"[0-9]{1,3}", raw_budget) or not 5 <= int(raw_budget) <= 120:
+        raise ConfigurationError("AI_TIME_BUDGET_SECONDS must be an integer from 5 to 120.")
     raw_cache = env.get("ECE_CACHE_DIR", "").strip()
     if len(raw_cache) > 1024 or any(ord(c) < 32 for c in raw_cache):
         raise ConfigurationError("ECE_CACHE_DIR must be a valid directory path.")
@@ -79,7 +84,7 @@ def load_settings(environ=None, *, root=ROOT):
             refresh_sources=flag("ECE_REFRESH_SOURCES", True),
             embedding_model=env.get("EMBEDDING_MODEL", "gemini-embedding-2").strip(),
             generation_model=env.get("GENERATION_MODEL", "gemini-3.5-flash-lite").strip(),
-            embedding_dimensions=int(raw_dimension), cache_root=cache,
+            embedding_dimensions=int(raw_dimension), ai_time_budget_seconds=int(raw_budget), cache_root=cache,
             gemini_key=credential("GEMINI_API_KEY") or credential("GOOGLE_API_KEY"),
             adzuna_app_id=credential("ADZUNA_APP_ID"), adzuna_app_key=credential("ADZUNA_APP_KEY"))
     except ValidationError as exc:
