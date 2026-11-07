@@ -343,7 +343,19 @@
         "checked_at": "2026-11-07T19:30:02.644128+00:00"
       }
     },
-    "failure": "The controlled slow-AI checker timed out toggling the checkbox before its new workflow gates; production preview and reviewer checks passed."
+    "failure": "The controlled slow-AI checker timed out toggling the checkbox before its new workflow gates; production preview and reviewer checks passed.",
+    "linux": {
+      "job_id": 128504940742,
+      "tests_passed": 1599,
+      "seconds": 52.89,
+      "readiness_passed": 9
+    },
+    "windows": {
+      "job_id": 128504940619,
+      "tests_passed": 1599,
+      "seconds": 89.28,
+      "readiness_passed": 9
+    }
   },
   "followup_changes": [
     "Toggle the visible AI checkbox label in the controlled browser checker.",
@@ -353,5 +365,198 @@
   "followup_local": {
     "job_guard_cases_passed": 12,
     "seconds": 0.2
-  }
+  },
+  "second_ci": {
+    "revision": "7c13f7ce18ca22ad20e3f675ebe5816c19eb1820",
+    "run_id": 42406733279,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42406733279",
+    "linux_job_id": 128505927801,
+    "windows_job_id": 128505927999,
+    "backend_conclusion": "success on both platforms",
+    "tests_passed_per_platform": 1600,
+    "readiness_passed_per_platform": 9,
+    "browser_job_id": 128505927958,
+    "artifact_id": 13587289451,
+    "zip_sha256": "6c8cd2a19df1855963f4d1f13b519328bd9d02c3bf7ce03ab0282c679500e9fd",
+    "download_digest_verified": true,
+    "reports": {
+      "browser.json": {
+        "passed": true,
+        "mode": "local_offline",
+        "checks": [
+          {
+            "name": "initial_roadmap",
+            "passed": true,
+            "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+            "seconds": 2.668
+          },
+          {
+            "name": "request_progress",
+            "passed": true,
+            "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+            "seconds": 0.128
+          },
+          {
+            "name": "lazy_inspector",
+            "passed": true,
+            "detail": "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.",
+            "seconds": 3.526
+          },
+          {
+            "name": "current_course_filtering",
+            "passed": true,
+            "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+            "seconds": 1.212
+          },
+          {
+            "name": "completion_transition",
+            "passed": true,
+            "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+            "seconds": 0.703
+          },
+          {
+            "name": "profile_export",
+            "passed": true,
+            "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+            "seconds": 0.746
+          },
+          {
+            "name": "profile_restore",
+            "passed": true,
+            "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+            "seconds": 1.356
+          },
+          {
+            "name": "session_isolation",
+            "passed": true,
+            "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+            "seconds": 2.342
+          },
+          {
+            "name": "unsupported_request",
+            "passed": true,
+            "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+            "seconds": 0.619
+          },
+          {
+            "name": "websocket_sessions",
+            "passed": true,
+            "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+            "seconds": 0.025
+          }
+        ],
+        "sessions": [
+          {
+            "stream_connections": 1,
+            "frames_sent": 10,
+            "frames_received": 2013,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 7,
+            "fragments_finished": 2
+          },
+          {
+            "stream_connections": 1,
+            "frames_sent": 3,
+            "frames_received": 727,
+            "streams_closed": 0,
+            "page_errors": 0,
+            "scripts_finished": 3,
+            "fragments_finished": 0
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "external_browser_requests_blocked": 0,
+        "limits": [
+          "Preview mode only; no AI, relevance, or participant evaluation.",
+          "Local checks do not establish public-host availability or TLS/proxy behavior.",
+          "Browser request counts do not measure server-side network calls."
+        ],
+        "seconds": 14.276,
+        "checked_at": "2026-11-07T19:33:42.802657+00:00"
+      },
+      "reviewer-browser.json": {
+        "passed": true,
+        "mode": "controlled_reviewer_fixture",
+        "checks": [
+          {
+            "name": "blank_review",
+            "passed": true,
+            "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+          },
+          {
+            "name": "explicit_grades",
+            "passed": true,
+            "detail": "Blank saves do not grade; explicit zero and three save separate evidence judgments."
+          },
+          {
+            "name": "draft_download",
+            "passed": true,
+            "detail": "A real download retains two explicit fixture ratings, notes schema, and draft provenance."
+          },
+          {
+            "name": "incomplete_completion_blocked",
+            "passed": true,
+            "detail": "An incomplete draft cannot be exported as a completed review."
+          },
+          {
+            "name": "resume_and_isolation",
+            "passed": true,
+            "detail": "A separate session starts blank and restores the downloaded draft exactly."
+          },
+          {
+            "name": "wrong_packet_rejected",
+            "passed": true,
+            "detail": "A foreign packet hash is rejected without replacing saved ratings or producing page errors."
+          }
+        ],
+        "browser": {
+          "engine": "chromium",
+          "version": "151.0.7922.34"
+        },
+        "sessions": [
+          {
+            "scripts_finished": 7,
+            "page_errors": 0
+          },
+          {
+            "scripts_finished": 4,
+            "page_errors": 0
+          }
+        ],
+        "blocked_external_browser_requests": 0,
+        "limits": [
+          "Only controlled fixture actions; no independent judgments or quality score.",
+          "No supplied-host, participant, or public hosting validation."
+        ],
+        "seconds": 5.354,
+        "checked_at": "2026-11-07T19:33:49.545588+00:00"
+      },
+      "progressive-browser.json": {
+        "passed": false,
+        "mode": "controlled_provider_local_ui",
+        "checks": [
+          {
+            "name": "source_plan_before_ai",
+            "passed": false,
+            "detail": "The controlled progressive browser gate did not complete.",
+            "error_type": "AssertionError",
+            "failure_line": 70
+          }
+        ],
+        "limits": [
+          "Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
+          "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
+          "This checks one local browser session, not public hosting or participant usability."
+        ],
+        "seconds": 8.431,
+        "checked_at": "2026-11-07T19:33:59.296054+00:00"
+      }
+    },
+    "failure": "Synthetic checker questions lacked a supported topic/course, so the application coverage guard correctly returned clarification before any controlled generation. Fixture questions now name saved ECE courses."
+  },
+  "fixture_preflight": "All four revised questions pass coverage; the actual controlled AppTest entrypoint publishes the source preview while generation is blocked and then accepts the final validated answer after release."
 }

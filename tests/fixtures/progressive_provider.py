@@ -8,7 +8,7 @@ import numpy as np
 
 from src.models import ExplanationSelection, SelectedRecommendation
 
-CASES = {"Controlled draft request":"draft", "Controlled old request":"old", "Controlled stop request":"stop"}
+CASES = {"ECE101 controlled draft request":"draft", "ECE101 controlled old request":"old", "ECE372A controlled stop request":"stop"}
 
 
 class ControlledProvider:

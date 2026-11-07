@@ -92,7 +92,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 wait_until(lambda:counts["full_runs"]>before)
 
                 stage="source_plan_before_ai";begin=time.monotonic()
-                submit("Controlled draft request");source_plan("draft")
+                submit("ECE101 controlled draft request");source_plan("draft")
                 passed("A usable source plan appears while the controlled provider is still blocked.",begin)
 
                 stage="draft_retention";begin=time.monotonic()
@@ -104,27 +104,27 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("The form remains editable and retains its unsubmitted draft when AI completes.",begin)
 
                 stage="newer_profile_wins";begin=time.monotonic()
-                submit("Controlled old request");source_plan("old")
+                submit("ECE101 controlled old request");source_plan("old")
                 choose("Career direction","Embedded Systems")
-                submit("Controlled fast request");expect(ai_caption).to_be_visible()
+                submit("ECE372A controlled fast request");expect(ai_caption).to_be_visible()
                 expect(page.get_by_text("Saved profile: Incoming · Embedded Systems · 0 completed courses · 0 currently taking",exact=True)).to_be_visible()
                 assert not (control/"old.closed").exists()
                 newer=export("newer.json")
-                assert newer["career_id"]=="embedded" and newer["question"]=="Controlled fast request"
+                assert newer["career_id"]=="embedded" and newer["question"]=="ECE372A controlled fast request"
                 release("old");page.wait_for_timeout(1200)
                 assert export("after-old.json")==newer
                 expect(ai_caption).to_be_visible()
                 passed("A newer profile completes while the old provider waits; releasing the old response cannot replace it.",begin)
 
                 stage="keep_source_plan";begin=time.monotonic()
-                submit("Controlled stop request");source_plan("stop")
+                submit("ECE372A controlled stop request");source_plan("stop")
                 page.get_by_role("button",name="Keep source plan",exact=True).click()
                 expect(page.get_by_text("AI assistance stopped. Your source plan is ready to use.",exact=True)).to_be_visible()
                 expect(ai_caption).to_have_count(0)
                 expect(page.get_by_role("button",name="Mark completed",exact=True).first).to_be_visible()
                 release("stop");page.wait_for_timeout(1200)
                 expect(ai_caption).to_have_count(0)
-                assert export("stopped.json")["question"]=="Controlled stop request"
+                assert export("stopped.json")["question"]=="ECE372A controlled stop request"
                 passed("Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",begin)
 
                 stage="browser_health";begin=time.monotonic()
