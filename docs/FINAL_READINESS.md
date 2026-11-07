@@ -4,7 +4,7 @@ Team P07 · Updated November 7, 2026 · Final presentation/submission: December 
 
 ## Current estimate
 
-The app is approximately **90%** of the planned final version. The complete submission is approximately **70%** ready. These are engineering planning judgments against the current scope, not measured accuracy, test-count percentages, instructor grades, or a guarantee of acceptance. No final-specific rubric was located in the reviewed project files; revise these gates when final instructions are available.
+The app is approximately **92%** of the planned final version. The complete submission is approximately **70%** ready. These are engineering planning judgments against the current scope, not measured accuracy, test-count percentages, instructor grades, or a guarantee of acceptance. No final-specific rubric was located in the reviewed project files; revise these gates when final instructions are available.
 
 Core features are close to complete. The largest remaining work is independent evaluation, a small voluntary student pilot, browser-visible performance evidence, and the final report, slides, and recorded demo. Public hosting is a planned pilot option; the reviewed midproject guidance also allows reproducible local access. It is not established as a mandatory final requirement.
 
@@ -17,6 +17,7 @@ Core features are close to complete. The largest remaining work is independent e
 | Actual browser workflow and concurrent sessions | Verified locally in CI | Ten Chromium gates pass, including independent inspector open/close: stage history, real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent public checks are reused for up to five minutes; explicit rechecks bypass reuse; closed inspection content is omitted and opens in a fragment. Cold HTTP/AI requests remain synchronous. |
+| Usable plan while AI runs | Verified with controlled AI | Source plan appears before AI finishes; profile edits/completion supersede old work; explicit keep-plan action rejects late output; four in-process workers; five real-browser gates. |
 | Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
@@ -27,11 +28,11 @@ Core features are close to complete. The largest remaining work is independent e
 
 ## Current development step
 
-The [responsiveness review](48_RESPONSIVENESS_REVIEW.md) implements recent successful public-source reuse and on-demand inspection. An observed source-only update took 13.021 seconds with fresh downloads and 0.020 seconds on an immediate repeat, with zero repeat HTTP attempts. A changed profile fetched its newly selected page, and an explicit recheck made all eleven selected requests. These are individual backend observations, not a browser/AI latency distribution.
+[Progressive AI requests](49_PROGRESSIVE_AI_REQUESTS.md) keep the page interactive while source/AI work runs. A source plan appears after source checks, before optional AI completion. A newer profile invalidates the older request; **Keep source plan** retains the source plan and rejects later AI output. The default synchronous controller API and no-AI source workflow remain available.
 
-All 1,580 tests and nine runtime checks pass on Linux and Windows, along with ten student-browser and six reviewer-browser gates in [run 42403841774](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42403841774). Verified application revision: `3a8c7a8ae37f47455830ba5cdf8868cde0eefe2d`. The added browser gate observes two successful inspector fragment runs without rerunning the whole app or changing the saved profile.
+The app estimate moves to approximately **92%** by closing the interactive-request gate. The full-submission estimate remains **70%**: independent evaluation, voluntary student feedback, final real-AI/browser performance measurements and the final report/slides/demo remain open. All 408 saved template grades remain blank.
 
-Readiness remains approximately 90% app/70% submission. The saved review packet still has 408 blank grades. Independent judgments, voluntary student feedback, final AI/browser performance measurements and the report/slides/demo remain open. The next responsiveness work is an early usable source plan while AI finishes, plus visible posting-detail progress and simpler collection filtering.
+All 1,600 tests and nine runtime checks pass on Linux and Windows; ten production-preview, six reviewer and five controlled progressive-AI browser gates pass in [run 42407079140](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42407079140). Verified application revision: `44cd1c1055be8a4c81e8a34a969c1d9d5890ae92`. The new browser controls deliberately block generation while checking source-plan use, unsent draft retention, newer-profile precedence and explicit cancellation. They establish UI behavior, not real-provider latency or independent recommendation quality.
 
 ## Next steps toward the submission
 

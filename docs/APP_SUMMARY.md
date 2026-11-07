@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · November 7, 2026
 
-Based on application revision `3a8c7a8ae37f47455830ba5cdf8868cde0eefe2d`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
+Based on application revision `44cd1c1055be8a4c81e8a34a969c1d9d5890ae92`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
 
 ## Purpose
 
@@ -28,11 +28,11 @@ There are no login accounts or database-backed profile/history records. Session 
 
 1. **Collect and validate the profile.** The student enters their standing, catalog year, direction, interests, experience, completed/current courses, optional grades, and learning question. Changes are applied on submission. Profile validation rejects conflicting or malformed course histories.
 2. **Check topic coverage.** Requests outside the supported collection receive a clarification instead of triggering unrelated source/model work.
-3. **Check selected official evidence.** The app selects relevant configured catalog/program/resource sources, validates identity and edition, and records freshness. Successfully checked public pages may be reused for up to five minutes without changing their check times; **Check sources again** bypasses that reuse for the submitted profile. Downloads and course discovery are bounded. Failed or omitted checks keep labeled saved evidence; missing academic interpretations remain unknown.
+3. **Check selected official evidence.** In the AI-enabled UI, source/model work runs in a bounded background job while the page remains interactive. The app selects relevant configured catalog/program/resource sources, validates identity and edition, and records freshness. Successfully checked public pages may be reused for up to five minutes without changing their check times; **Check sources again** bypasses that reuse for the submitted profile. Downloads and course discovery are bounded. Failed or omitted checks keep labeled saved evidence; missing academic interpretations remain unknown.
 4. **Retrieve relevant evidence.** Keyword search uses BM25. With AI configured and enabled, semantic search compares Gemini embeddings with cosine similarity. Hybrid retrieval combines keyword and semantic rankings using reciprocal rank fusion. The vector search is implemented with NumPy rather than a database service.
 5. **Build the learning context.** The app filters completed/current courses out of next-step suggestions, checks recorded preparation against reviewed rules, and selects a bounded set of courses, resources and supporting evidence. Current enrollment counts as a prerequisite only where an explicit reviewed concurrent condition permits it.
-6. **Optionally prepare AI explanations.** Gemini selects from application-owned, source-bound statements. The app validates statement ownership, wording and citations before displaying explanations. The AI phase has a shared default 45-second cooperative budget after source checks; failures/timeouts preserve the available source roadmap.
-7. **Display and update the plan.** The student sees preparation stages, first activities, source links and warnings. Marking a course completed updates its status without inventing a grade. Profiles can be exported/restored as JSON.
+6. **Optionally prepare AI explanations.** A usable keyword-based source plan appears before AI finishes. Gemini selects from application-owned, source-bound statements. The app validates statement ownership, wording and citations before displaying explanations. The AI phase has a shared default 45-second cooperative budget after source checks; failures/timeouts preserve the available source roadmap.
+7. **Display and update the plan.** Only the current request for the current profile can apply its result; newer submissions invalidate older work. **Keep source plan** stops accepting the pending AI output. The student sees preparation stages, first activities, source links and warnings. Marking a course completed updates its status without inventing a grade. Profiles can be exported/restored as JSON.
 
 Preview mode works without model credentials using keyword retrieval and saved/refreshed sources. AI requests use hosted pretrained models; the project does not train its own language model. When enabled, the submitted profile and selected evidence are sent to Gemini for the explanation workflow.
 
@@ -53,16 +53,16 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection:** 20 courses, eight learning resources, two career mappings, and 34 evidence chunks.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; fifteen ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, Plotly inspection charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** 1,580 tests and nine runtime checks pass on Linux and Windows, plus ten student-app and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Verification:** 1,600 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, five controlled AI-interaction and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission:** engineering estimates remain approximately 90% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
+- **Submission:** engineering estimates remain approximately 92% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
 
 ## Code map
 
 | Area | Main files |
 | --- | --- |
 | Student interface and profile changes | `app.py`, `src/session.py`, `src/profiles.py` |
-| Request orchestration and progress | `src/controller.py`, `src/progress.py` |
+| Request orchestration and progress | `src/controller.py`, `src/progress.py`, `src/advisor_jobs.py` |
 | Source loading and live checks | `src/catalog.py`, `src/sources.py`, source/discovery modules |
 | Retrieval, rules and grounded explanations | `src/retrieval.py`, `src/rules.py`, `src/service.py`, `src/grounding.py` |
 | Provider access and embedding cache | `src/providers.py` |

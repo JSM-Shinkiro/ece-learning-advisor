@@ -25,7 +25,7 @@ The no-AI preview path retains its existing submitted source-check behavior. Exp
 
 Each job belongs to one browser session and carries a unique request ID and a fingerprint of the submitted profile. The UI checks the current job identity and current profile before accepting a result. Workers never read or write Streamlit session state and never call Streamlit UI methods. Provider clients are created/closed on the worker path; keys are captured only by the running call and are excluded from job metadata, notices and progress labels.
 
-A process-wide semaphore permits at most four active workflows. There is no global map of personal results and no unbounded queue. Source catalog and profile inputs are copied for each request. Public source/embedding caches retain their existing policies; personal queries, profiles and explanations are not added to those public caches.
+Jobs are transient, in-process session state containing synchronization objects; they are not exported as profiles or durable across restarts. This uses Streamlit's default in-memory session-state mode rather than enforced serialization. A process-wide semaphore permits at most four active workflows. There is no global map of personal results and no unbounded queue. Source catalog and profile inputs are copied for each request. Public source/embedding caches retain their existing policies; personal queries, profiles and explanations are not added to those public caches.
 
 Cancellation is cooperative. It prevents starting further phases and provider calls, and rejects the return of an in-flight provider call. It cannot forcibly interrupt a synchronous HTTP request already underway. A cancelled worker keeps its admission slot until it actually exits, so repeated edits cannot bypass the concurrency limit. Normal source limits and the 45-second AI budget still bound their respective work; disconnecting a browser is not a guaranteed cancellation signal.
 
@@ -47,6 +47,14 @@ python scripts/check_progressive_browser.py --output output/progressive-browser-
 
 Install `requirements-browser.txt` and Chromium as described in [browser acceptance](45_BROWSER_ACCEPTANCE.md). Use a new output path each time. This checker accepts no running-host URL. Its isolated process has placeholder credentials, disabled source refresh, and all server-side HTTP calls blocked. The production app/launcher imports no controlled provider. It complements the existing production-launcher preview checks and separate reviewer checks.
 
+Verified application revision: `44cd1c1055be8a4c81e8a34a969c1d9d5890ae92` in [successful CI run 42407079140](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42407079140).
+
+- **1,600 tests** and **nine runtime checks** pass on Linux and Windows. Twenty new regression cases include six additional student UI scenarios, bringing the Streamlit total to 93 (87 student, six reviewer).
+- **Ten production-preview, six reviewer and five controlled progressive-AI browser gates** pass in real Chromium. The progressive checks observe an early source plan, retained unsent form text, a newer profile completing before old work is released, explicit keep-plan cancellation and healthy WebSocket/fragment updates.
+- The scripted early-plan gate took 1.594 seconds in one controlled run while the provider was deliberately blocked. Its server HTTP calls were disabled. This is not a real-model/network performance measurement or a guaranteed response time.
+- The initial controlled browser runs failed first at checkbox interaction and then at a synthetic prompt correctly rejected by the coverage guard. The checker now uses the visible checkbox label and supported saved-course prompts. Both failed artifacts and the successful follow-up are retained in the evidence.
+- All eight frozen/review input hashes match; all 408 actual template grades remain blank.
+
 These controls demonstrate asynchronous UI behavior and stale-result rejection. They do not measure real AI latency or relevance, establish public hosting, or provide independent student feedback. The frozen review/evaluation files remain unchanged.
 
-Verification results and revision identifiers will be recorded in the dated evidence record after the checks finish. The final-readiness estimates are updated by acceptance gate, separately from test counts.
+Verification results and revision identifiers are recorded in [the dated evidence record](evidence/progressive_ai_2026-11-07.json). The app planning estimate is now approximately **92%**, with the full submission still approximately **70%**. This closes the interactive-request gate; genuine evaluation, a student pilot, final real-AI performance evidence and the report/slides/demo remain open.
