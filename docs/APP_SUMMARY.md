@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · November 7, 2026
 
-Based on application revision `edf5255b8f881c7993b697da2eba1158233e5e6f`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
+Based on application revision `dd7e764a40e2bd43c71981c6ee65eb7bf3cc5590`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
 
 ## Purpose
 
@@ -52,11 +52,11 @@ Opportunity matching is based on configured title filters and public listings. O
 
 - **Collection:** 20 courses, eight learning resources, two career mappings, and 34 evidence chunks.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; fifteen ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
-- **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, Plotly inspection charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** 1,640 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, nine controlled AI/browsing and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
-- **Preview performance:** five fresh offline Chromium sessions show median request feedback at 250 ms, roadmap controls at 459 ms and first inspector loading at 1,711.9 ms. These are DOM observations with shared processes and browser HTTP cache disabled; live AI/source and hosted/mobile timing remain separate. See [browser measurements](51_BROWSER_PERFORMANCE.md).
+- **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, native ranking bars and Plotly vector charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
+- **Verification:** 1,648 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, ten controlled AI/browsing and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Preview performance:** the native inspector opens at a median 686.7 ms versus 1,608.4 ms for the fixed baseline, with five sessions per version using the same v2 collector/runner. Native reopening takes 307.8 ms. Current feedback/roadmap-control medians are 221.2/453.4 ms. These are offline DOM observations; live-AI/source and hosted/mobile timing remain separate. See [lightweight inspection](52_LIGHTWEIGHT_INSPECTOR.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission:** engineering estimates remain approximately 94% for the planned app and 72% for the complete final submission. Independent evaluation, student feedback, real-AI/frozen-release performance measurements and the final report/slides/demo remain open.
+- **Submission:** engineering estimates remain approximately 95% for the planned app and 72% for the complete final submission. Independent evaluation, student feedback, real-AI/frozen-release performance measurements and the final report/slides/demo remain open.
 
 ## Code map
 
@@ -66,6 +66,7 @@ Opportunity matching is based on configured title filters and public listings. O
 | Request orchestration and progress | `src/controller.py`, `src/progress.py`, `src/advisor_jobs.py` |
 | Source loading and live checks | `src/catalog.py`, `src/sources.py`, source/discovery modules |
 | Retrieval, rules and grounded explanations | `src/retrieval.py`, `src/rules.py`, `src/service.py`, `src/grounding.py` |
+| Ranking and vector inspection | `src/inspector.py`, `src/inspection_views.py`, `src/retrieval.py` |
 | Provider access and embedding cache | `src/providers.py` |
 | Reviewer interface and input validation | `reviewer_app.py`, `src/review_workspace.py`, `src/review.py` |
 
