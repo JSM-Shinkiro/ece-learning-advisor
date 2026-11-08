@@ -2,6 +2,8 @@
 
 Team P07 · November 7, 2026 · ECE Learning Advisor
 
+This record preserves the original **v1** experiment and its results. The current [v2 collector and lightweight inspector](52_LIGHTWEIGHT_INSPECTOR.md) add same-page reopening and a common ranking-visualization-plus-trace-download boundary for native/Plotly comparisons. Do not combine the differently defined v1/v2 inspector metrics as one series.
+
 The optional collector measures five fresh Chromium sessions through the actual production launcher. Each session submits the unchanged default incoming AI/ML profile once, then opens the inspector. It uses the saved runtime collection, no source downloads, blank credentials and no AI. The application itself is unchanged by this measurement step.
 
 ## Reproduce

@@ -12,7 +12,7 @@ PCA coordinates still come from the actual stored document/query vectors. Select
 
 ## Repeatable comparison
 
-The timing collector advances to **v2** and observes the same functional inspector boundary for both renderers: a laid-out ranking visualization and an enabled trace-download button. It measures first opening, closes the fragment and verifies content removal, then measures reopening on the same page. JavaScript modules can remain in memory between openings. Browser HTTP caching remains disabled by the same-origin request guard. These are DOM observations, not physical paint or user-study results.
+The timing collector advances to **v2** and observes the same functional inspector boundary for both renderers: a laid-out ranking visualization and an enabled trace-download button. It measures first opening, closes the fragment, verifies content removal and waits for the native expander's closing animation to finish, then measures reopening on the same page. JavaScript modules can remain in memory between openings. Browser HTTP caching remains disabled by the same-origin request guard. These are DOM observations, not physical paint or user-study results.
 
 ```bash
 python scripts/measure_browser.py --samples 5 --output output/performance/native-01.json
@@ -25,6 +25,8 @@ Both commands use the current collector, pinned installed dependencies, blank cr
 Browser CI checks out that fixed baseline separately and measures five sessions for each version on the same runner, current app first and baseline second. Each cohort uses a separate production server/browser process and fresh contexts per sample. The samples are small and ordered, with shared-runner variability; no latency threshold, p95 or statistical significance is claimed. Historical v1 results and their original boundaries remain in [the earlier measurement record](51_BROWSER_PERFORMANCE.md).
 
 The added browser gate checks the native ranking at 390-pixel phone width, trace-download availability, absence of page overflow and no full-app/provider rerun. Targeted mobile/desktop ranking screenshots accompany the controlled browser artifact. Unit/UI checks cover signed/zero/extreme scores, escaped markup, lazy rendering, and actual PCA/cosine preservation.
+
+The [first CI attempt](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42454804113) passed all 1,648 tests and nine runtime checks on Linux/Windows, plus all 26 browser acceptance gates. Both timing cohorts failed at reopening: the collector clicked again after fragment completion/content removal while the native `details.open` flag could still describe the closing animation. The collector now explicitly waits for `open == false` before the next click. The failed samples remain retained and are excluded from successful-cohort summaries; they are not accepted performance results.
 
 ## Remaining work
 

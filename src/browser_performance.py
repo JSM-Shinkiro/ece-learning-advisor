@@ -263,6 +263,10 @@ def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms
                         expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
                         expect(page.locator('[data-ece-ranking="html"]')).to_have_count(0)
                         expect(page.get_by_role("button", name="Download request trace", exact=True)).to_have_count(0)
+                        # Streamlit can finish the fragment while its expander is
+                        # still animating closed. Wait for the native DOM state
+                        # before starting the next click's measurement.
+                        expect(summary.locator("..")).to_have_js_property("open", False)
                         before = counts["fragment"]
                         summary.click()
                         page.wait_for_function("window.__eceTiming.inspector_openings[1]?.ready != null")

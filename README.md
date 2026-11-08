@@ -18,6 +18,8 @@ Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with
 
 [Repeated browser measurements](docs/51_BROWSER_PERFORMANCE.md) use five fresh offline preview sessions through the production launcher. The optional collector separates roadmap feedback/controls from initial navigation and inspector loading, retains failures and records the exact revision/collection. It measures no live AI or source-download latency.
 
+[Lightweight ranking inspection](docs/52_LIGHTWEIGHT_INSPECTOR.md) uses native bars in preview, with the original score table and real PCA/cosine view retained. The v2 collector measures first opening and reopening against a fixed baseline using the same readiness boundary.
+
 A separate [human review workspace](docs/47_REVIEW_WORKSPACE.md) supports explicit relevance grades, notes, draft download/resume and validated completed-review exports. Run `python -m streamlit run reviewer_app.py --server.address 127.0.0.1 --server.port 8502` locally. Reviewing uses saved evidence and needs no model credentials; actual independent judgments remain to be collected.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
