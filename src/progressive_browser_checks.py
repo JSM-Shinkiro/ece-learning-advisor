@@ -157,12 +157,14 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",begin)
 
                 stage="mobile_collection";begin=time.monotonic()
+                # Collapse while the desktop control is stable. Resizing first can
+                # auto-collapse it between is_visible() and Playwright's click.
+                sidebar=page.get_by_test_id("stSidebar")
+                sidebar.hover()
+                page.get_by_role("button",name="Collapse sidebar",exact=True).click()
+                expect(sidebar).to_have_attribute("data-collapsed","true")
                 page.set_viewport_size({"width":390,"height":844})
-                collapse=page.get_by_test_id("stSidebarCollapseButton").get_by_role("button")
-                for index in range(collapse.count()):
-                    if collapse.nth(index).is_visible():
-                        collapse.nth(index).click()
-                        break
+                expect(sidebar).to_have_attribute("data-collapsed","true")
                 page.get_by_role("tab",name="Courses & Resources",exact=True).click()
                 expect(query).to_have_value("pico")
                 expect(page.get_by_role("combobox",name="Type",exact=True)).to_have_value("Resources only")

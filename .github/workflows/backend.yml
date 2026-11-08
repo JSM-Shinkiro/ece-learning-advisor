@@ -117,6 +117,7 @@ jobs:
       - name: Check progressive UI with controlled slow AI
         run: python scripts/check_progressive_browser.py --output output/ci/progressive-browser.json
       - name: Measure five fresh offline preview sessions
+        if: ${{ !cancelled() }}
         run: python scripts/measure_browser.py --samples 5 --output output/ci/browser-performance.json
       - name: Save browser acceptance report
         if: ${{ always() }}

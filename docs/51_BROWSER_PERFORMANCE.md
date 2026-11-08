@@ -32,6 +32,8 @@ Each real trace is downloaded through the inspector, validated as offline keywor
 
 ## Verification and remaining evidence
 
-The browser CI job runs the collector after the existing acceptance workflows and retains its JSON report, including failures. Unit checks cover scope rejection, real-trace compatibility, finite durations, failure retention, optional dependencies, sanitized failure output and prevention of overwriting earlier evidence before any process starts.
+The browser CI job runs the collector independently after the existing acceptance workflows, including when an earlier gate fails, and retains its JSON report. Unit checks cover scope rejection, real-trace compatibility, finite durations, failure retention, optional dependencies, sanitized failure output and prevention of overwriting earlier evidence before any process starts.
+
+The first CI attempt passed all 1,640 tests and nine runtime checks on Linux and Windows. Its existing phone workflow timed out clicking the sidebar-collapse button after resizing: the control could disappear during the responsive transition. The checker now explicitly closes the sidebar at desktop width, verifies its collapsed state, then resizes and retains the same phone interaction/overflow assertions. That failed attempt remains part of the evidence; it did not run the new timing collector. No app behavior changed in this correction.
 
 Real-provider/source latency, hosted or phone timing, repeated cache-state cohorts, independent judgments and voluntary student usability observations remain separate work. Rerun against the frozen final revision before using these development measurements in the final report. Readiness estimates are recorded in [FINAL_READINESS.md](FINAL_READINESS.md).
