@@ -1,0 +1,17 @@
+# Final report and validation preparation
+
+Team P07 · November 8, 2026 · ECE Learning Advisor
+
+The [final submission workspace](final/README.md) now contains a substantive report draft, an evidence map/manifest, a production-entrypoint demo runbook and an unfilled student-pilot protocol. These are separate from the preserved midproject deliverables. The report covers the problem, G1–G4 inspection goals, architecture, implemented BM25/cosine/RRF/PCA, three-state academic checks, bounded statement selection, asynchronous behavior, storage, measured results and limitations.
+
+The evidence map keeps the ten-chunk authored retrieval benchmark separate from the 34-chunk runtime collection, actual provider integration, controlled browser checks and offline timing cohorts. It preserves the failed attempts, query-tuning caveat, fixed-cutoff precision conventions and the absence of independent grades/pilot outcomes. The manifest binds source/code/evidence files and the preparation documents to exact hashes.
+
+The demo runbook uses the production launcher and explicit configuration. Its preview segment demonstrates source cards, coursework transitions, goal changes and inspection. The real-AI/vector segment requires an actual successful request and preserves fallback outcomes. The pilot protocol defines five tasks, timing/assistance rules, blocked outcomes, a blank session sheet and separate relevance-review instructions. It contains no participant results or preassigned grades.
+
+This unit changes documentation only. Existing runtime verification remains [run 42458364808](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808), at source revision `19b8c9c193192779a8333df6f050f0fea5662105`: 1,661 tests and nine runtime checks on each OS, 26 browser gates and two complete five-session preview cohorts. A documentation walkthrough/preflight check is recorded separately; it supplies no new real-AI or human-evaluation result.
+
+Eight offline AppTest walkthrough checks pass: default roadmap, current-course exclusion, completion without an invented grade, changed direction with retained completion, spaced course search, native preview inspection, profile serialization/download-control presence and an available unsubmitted opportunity-search control. Source/model requests are blocked in this check; no employer search is performed. All seven production-launcher preflight checks pass for the documented local preview command. This walkthrough is not a new browser-latency measurement or a replacement for the existing actual browser export/import checks.
+
+Metric tables are checked against retained JSON, relative document links are checked locally, and the eight frozen/review input hashes and 408 blank grades remain unchanged. [The dated preparation evidence](evidence/final_materials_2026-11-08.json) records the walkthrough, preflight and manifest identity. The application code/data are unchanged, so the existing full-suite/CI results retain their original dates rather than being rerun for documentation changes.
+
+App readiness remains approximately **95%**. Full-submission readiness rises to approximately **76%** because the written technical draft and executable preparation instructions are now available. These are planning judgments, not grades. Final formatting instructions, final UI figures, independent judgments, voluntary student sessions, real-AI/final-release measurements, slides, a new recording and the frozen submission package remain open. See [final readiness](FINAL_READINESS.md).

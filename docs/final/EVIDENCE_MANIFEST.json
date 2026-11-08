@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-11-08",
+  "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
+  "source_base_revision": "1a1ac71ac9eb1b2afbf74a279df448495b853b92",
+  "runtime_verification_revision": "19b8c9c193192779a8333df6f050f0fea5662105",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
+  "collections": [
+    {
+      "name": "baseline",
+      "data_version": "pilot-2026-11-03-rule-provenance-v1",
+      "records": 9,
+      "kinds": {
+        "course": 5,
+        "resource": 2,
+        "career": 2
+      },
+      "evidence_chunks": 10,
+      "corpus_hash": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d"
+    },
+    {
+      "name": "runtime",
+      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+      "records": 30,
+      "kinds": {
+        "course": 20,
+        "resource": 8,
+        "career": 2
+      },
+      "evidence_chunks": 34,
+      "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7"
+    }
+  ],
+  "review_template": {
+    "questions": 12,
+    "ratings": 408,
+    "unscored": 408
+  },
+  "pilot_materials": {
+    "kind": "protocol_and_blank_session_sheet",
+    "participant_observations_included": 0
+  },
+  "source_files": [
+    {
+      "path": "app.py",
+      "sha256": "b82248161f33bddd415eaab04c0bba5122f532ba38e350bec93c04c2ec290529"
+    },
+    {
+      "path": "reviewer_app.py",
+      "sha256": "3a36b8f10acad9026c8718f7eec04aa0d462dce2a593b8801712ab54212a8687"
+    },
+    {
+      "path": "src/catalog.py",
+      "sha256": "c47c00ec8a37a8c45852aee6563a464f14f0b3502b1d10a21adb56292d817d8e"
+    },
+    {
+      "path": "src/retrieval.py",
+      "sha256": "ba4f2ab3764507e1bba81932b755cec04cbb5757ac69a83f45aabe6811a66006"
+    },
+    {
+      "path": "src/evaluation.py",
+      "sha256": "8a5323eb422681c980c92d63f9841e5235e3bb24b15242409ce409df778f0aad"
+    },
+    {
+      "path": "src/service.py",
+      "sha256": "427b8b7dc01b94dfc84edc2a85fe3ddeadfadcdeff5b3f5da11a20dee31ed653"
+    },
+    {
+      "path": "src/rules.py",
+      "sha256": "f9b46a63e1d25f627e71c272331e10cbd7e3864b4865c4d055a61f7f87445271"
+    },
+    {
+      "path": "src/grounding.py",
+      "sha256": "99714180ce3bfce542c3333b01c7004aa769eb5ed33eeced6a77b8167f522f65"
+    },
+    {
+      "path": "src/controller.py",
+      "sha256": "d43fb5bd124eed252811bae0ed3ba7c45903309e9a86113c44643cb966618a4c"
+    },
+    {
+      "path": "src/providers.py",
+      "sha256": "3b963a5a55715812102f1547cc2b1330774e3cc25cb998f3de5bf5d83373b5d0"
+    },
+    {
+      "path": "src/progress.py",
+      "sha256": "20a71f00f84abddda762942efb753c3d8cffdf13d9a2e4eb7cbb692b48546309"
+    },
+    {
+      "path": "src/advisor_jobs.py",
+      "sha256": "b5fdeb2c56fe3ffea1c8ea4e901c5c4eec8845ddcccc69f2eee83fa71b410aef"
+    },
+    {
+      "path": "src/source_reuse.py",
+      "sha256": "2db7b4a0246307869b7b37295daa6c6f77ba88d2efa2a289c84cca84fd70294d"
+    },
+    {
+      "path": "src/sources.py",
+      "sha256": "3f4581e116d2c3dc23ca3c97b4549ce5aada6d930580862805070275bc19fa41"
+    },
+    {
+      "path": "src/inspector.py",
+      "sha256": "40907573e7ed72eb862ae7926e62c357b7381507c583bf3cd4212f4e4488b5d6"
+    },
+    {
+      "path": "src/inspection_views.py",
+      "sha256": "523cf36ea91675069e89e2b0a3207fb4137e52cf4e165e33db996d79a08aef8e"
+    },
+    {
+      "path": "src/opportunities.py",
+      "sha256": "50957b3221b2a6d82bce6bae2ef213ca9f395d98b0afc3de5dbe779b40ff3728"
+    },
+    {
+      "path": "src/profiles.py",
+      "sha256": "e2a9729356ec699153c1781c33714354fa6e1ba3e0f3b3049dd8c4f08e859650"
+    },
+    {
+      "path": "src/collection_ui.py",
+      "sha256": "5a51d074dfa7033edc72b341aa7c8c1516ff9761a7f3d6b3c6e67e0375fbfbd5"
+    },
+    {
+      "path": "src/opportunity_ui.py",
+      "sha256": "7f7b3310a94d82012e0b9d77bba6b0a4ab53b135a15dc096e7fffc92a89c73cd"
+    },
+    {
+      "path": "scripts/serve.py",
+      "sha256": "3bdb106547d5689ddb171b8fad80bf0d20d23aa7b7d01e38b36900468176d39e"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "654d81f7c02cf6916a737f396e2765f22d45b1439075483c1e4ecd4fe5dab64c"
+    },
+    {
+      "path": "requirements-browser.txt",
+      "sha256": "0b9e3ed857150958ffb9c4cec3b3977789233d96ff4052ca7593d4bfd0ba505a"
+    },
+    {
+      "path": "data/connectors/employer_boards.json",
+      "sha256": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/reviewed_evaluation_2026-11-03.json",
+      "sha256": "f9d8e3d174fe382a25373077955b7dbf28b0501af21e3226304e9f9ddfd41451"
+    },
+    {
+      "path": "docs/evidence/neural_expanded_evaluation_2026-11-04.json",
+      "sha256": "8948d9a1f65905ec6e32157266b18650be2b0b59476ab591dc287d8825328758"
+    },
+    {
+      "path": "docs/evidence/runtime_provider_2026-11-06.json",
+      "sha256": "4c86132ba65f4bfb10bb57d0cf81b4da49ff5144401625db76e10a1f66879e14"
+    },
+    {
+      "path": "docs/evidence/lightweight_inspector_2026-11-07.json",
+      "sha256": "9893d459ef0af5300cee5f16371ce337eb16682cf4398f6463612412ff6a7ab1"
+    },
+    {
+      "path": "docs/evidence/ci_status_2026-11-08.json",
+      "sha256": "930d5fb3082934910c87d629b6d8e6d20ebbadfe953cf6070d7cd6141efe382f"
+    }
+  ],
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "preparation_files": [
+    {
+      "path": "docs/final/DEMO_RUNBOOK.md",
+      "sha256": "3728f783661a44bffa2b8ea963840793268c0a811c64360d2d2b5c91d44f9d9d"
+    },
+    {
+      "path": "docs/final/EVIDENCE_MAP.md",
+      "sha256": "cbd80e438b57e2f9b5f2e9c2d70b610273d7f589fe34b03d9919789b3c3b60a2"
+    },
+    {
+      "path": "docs/final/README.md",
+      "sha256": "99d98fa706f3d0cb58fb0812b45743c99a38d653d0ee906da47ea7052cdce05b"
+    },
+    {
+      "path": "docs/final/REPORT_DRAFT.md",
+      "sha256": "fbe921d81c5308b7300d767da46b74cda57a796896f168a6e870365f3620750f"
+    },
+    {
+      "path": "docs/final/STUDENT_PILOT.md",
+      "sha256": "460021572e7b4ac7bf1c5de285636b7308d7b8c12071a0a5c4c0d49801498e7f"
+    }
+  ],
+  "external_references": [
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "year": 2020
+    },
+    {
+      "title": "The Probabilistic Relevance Framework: BM25 and Beyond",
+      "url": "https://doi.org/10.1561/1500000019",
+      "year": 2009,
+      "validation_note": "Preferred citation metadata checked in publisher-indexed PDF; publisher Details page returned HTTP 403."
+    },
+    {
+      "title": "Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods",
+      "url": "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf",
+      "year": 2009
+    },
+    {
+      "title": "PowerShell about_Environment_Variables",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_Environment_Variables",
+      "accessed_on": "2026-11-08"
+    }
+  ],
+  "limits": [
+    "Preparation materials, not a completed final submission or instructor-approved format.",
+    "Historical benchmark/CI/provider observations retain original scopes, revisions and dates.",
+    "No new provider/source/employer run, independent quality grade or student observation."
+  ],
+  "updated_at_utc": "2026-11-08T08:18:33.317103+00:00"
+}

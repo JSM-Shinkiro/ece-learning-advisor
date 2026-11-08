@@ -1,0 +1,33 @@
+# Final report evidence map
+
+Prepared November 8, 2026. Evidence IDs below are local cross-references, not instructor source labels. [The manifest](EVIDENCE_MANIFEST.json) records exact input hashes; historical dates/results remain unchanged.
+
+| ID | Claim or use | Primary project evidence | Scope and limits |
+| --- | --- | --- | --- |
+| E1 | Current collection and unscored review workload | [Baseline](../../data/reviewed/catalog.json), [runtime extension](../../data/reviewed/runtime_extension.json), [runtime packet](../../data/reviews/runtime_v1/packet.json), [blank template](../../data/reviews/runtime_v1/review_template.json) | Baseline: five courses/two resources/two career mappings, ten chunks. Runtime: 20/eight/two, 34 chunks. Twelve development questions × 34 chunks = 408 blank grades; no runtime relevance score exists. |
+| E2 | Implemented retrieval, rules and generation contract | [Retrieval](../../src/retrieval.py), [context/generation](../../src/service.py), [rules](../../src/rules.py), [grounding](../../src/grounding.py) | Implementation supports the equations and validation behavior; code alone does not establish independently judged recommendation quality. |
+| E3 | Raw-query keyword benchmark | [November 3 JSON](../evidence/reviewed_evaluation_2026-11-03.json), [readable report](../evidence/reviewed_evaluation_2026-11-03.md) | Sixteen authored queries, ten-chunk frozen collection, macro Recall@5 0.8229. References are assistant-authored. Original development/validation tags do not establish an independent held-out study. |
+| E4 | Expanded-query method comparison and bounded contract controls | [November 4 JSON](../evidence/neural_expanded_evaluation_2026-11-04.json), [readable report](../evidence/neural_expanded_evaluation_2026-11-04.md) | Same sixteen queries/ten chunks; aliases were tuned after known misses. Expanded keyword Recall@5 0.9479; semantic/hybrid 1.0000. Gemini Embedding 2/768 dimensions, document-cache hit: zero document calls, sixteen query calls and zero generation/source-refresh calls. Contract controls: 82/82 accepted; zero unsupported reviewed claims admitted. These are not live answer accuracy, a hallucination rate or a 34-chunk result. |
+| E5 | Larger-corpus real-provider integration | [November 6 provider record](../evidence/runtime_provider_2026-11-06.json), [integration notes](../39_RUNTIME_PROVIDER_VERIFICATION.md) | Observed 34 × 768 document index and authored integration expectations. Initial query-embedding ProxyError and one bounded follow-up are both retained. No independent quality grades or reliability rate. |
+| E6 | Inspector optimization experiment | [November 7 evidence](../evidence/lightweight_inspector_2026-11-07.json), [analysis](../52_LIGHTWEIGHT_INSPECTOR.md) | Five complete sessions per version, same v2 collector/runner/corpus. First-open medians 1,608.4 → 686.7 ms; native reopening 307.8 ms. First attempt's incomplete reopening samples are retained and excluded. DOM availability, offline preview, ordered small sample; not physical paint, real-AI latency or participant feedback. |
+| E7 | Latest software/runtime/browser verification | [November 8 evidence](../evidence/ci_status_2026-11-08.json), [CI run 42458364808](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808) | At revision `19b8c9c193192779a8333df6f050f0fea5662105`: 1,661 tests and nine runtime checks on each OS, 26 browser gates, two complete five-session preview cohorts, five PASS summary rows. CI fixtures are distinguished from actual provider/network runs. Software counts are not quality percentages. |
+| E8 | Runtime sources, scope and source reuse | [Source pipeline](../../src/sources.py), [reuse](../../src/source_reuse.py), [current app summary](../APP_SUMMARY.md) | Configured, bounded course/program/resource checks and up to five-minute reuse; reused checks retain timestamps. Four reviewed CS conditions; 15 ECE conditions and CSC372 remain unknown. No full-catalog or complete degree-audit claim. |
+| E9 | Optional AI lifecycle and request timing | [Controller](../../src/controller.py), [session jobs](../../src/advisor_jobs.py), [progress](../../src/progress.py) | Source plan before optional AI completion, cooperative 45-second AI budget after source checks, four in-process worker slots and rejection of superseded output. Not a hard whole-interaction deadline or distributed-worker guarantee. |
+| E10 | Opportunities and progress portability | [Board configuration](../../data/connectors/employer_boards.json), [opportunities](../../src/opportunities.py), [profiles](../../src/profiles.py), [browser flow](../../src/browser_checks.py) | Three configured public employer boards and explicit searches/details; no catalog of all available jobs or qualification guarantee. JSON profile portability is explicit; there is no account/history database. |
+
+## Inputs must remain separate
+
+The ten-chunk baseline corpus fingerprint is `8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d`. The saved 34-chunk runtime fingerprint is `bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7`. A live source overlay can have another fingerprint; it is not interchangeable with either saved input.
+
+V1 browser timing observed first Plotly initialization. V2 observes a laid-out ranking visualization plus enabled trace download and adds same-page reopening after full closing. Do not pool those differently defined inspector metrics. Likewise, server phase times exclude rendering/provider cleanup and cannot be subtracted from page-clock measurements to infer a rendering cost.
+
+The reviewer workspace supports actual grades and resumable forms. It does not authenticate reviewer independence. Contributor reviews must be identified; independently judged development questions remain development questions. A held-out claim needs a distinct, archived question/label set fixed before tuning. See [expanded review inputs](../38_EXPANDED_REVIEW_COLLECTIONS.md).
+
+## Evidence not yet available
+
+- Genuine independent judgments on the runtime collection and a separately identified held-out comparison.
+- Voluntary student-pilot completion observations or satisfaction responses.
+- Real-AI/source/cache latency cohorts on the frozen final release.
+- Final-revision application figures, final slides, new demo recording and validated final packaging instructions.
+
+Report these as unavailable until collected. Leave blanks unscored; do not treat missing labels as zero, benchmark cases as participants, fixture outputs as live provider results, or CI pass rates as answer accuracy.

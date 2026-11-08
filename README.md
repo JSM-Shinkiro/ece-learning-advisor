@@ -8,6 +8,8 @@ Development copy for the final project on December 11. The midproject baseline i
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
+The [final submission workspace](docs/final/README.md) contains a separate technical report draft, a hashed evidence map/manifest, demo runbook and blank student-pilot protocol. These are preparation materials; actual independent judgments, student sessions and final-release evidence remain to be collected.
+
 [CI status and runner notes](docs/53_CI_STATUS_AND_RUNNER.md) explain historical timing-check failures, the fixed Ubuntu release, and the per-workflow summary that separates app acceptance from offline timing outcomes.
 
 Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with an expandable history and server phase timings in the inspector. Preview, clarification and fallback paths report only the work actually attempted.

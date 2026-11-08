@@ -47,6 +47,8 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Browser performance](51_BROWSER_PERFORMANCE.md) | Repeated offline preview timings, explicit measurement boundaries, provenance and retained failures |
 | [Lightweight inspector](52_LIGHTWEIGHT_INSPECTOR.md) | Native ranking bars, retained vector mathematics, phone inspection and same-collector first/reopen comparison |
 | [CI status and runner](53_CI_STATUS_AND_RUNNER.md) | Historical failure diagnosis, fixed Ubuntu release and readable per-report acceptance/timing outcomes |
+| [Final submission preparation](54_FINAL_SUBMISSION_DRAFT.md) | Separate report draft, evidence map/manifest, validated demo instructions and blank student-pilot protocol |
+| [Final submission workspace](final/README.md) | The report, evidence inputs, demo runbook and participant task/observation materials |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

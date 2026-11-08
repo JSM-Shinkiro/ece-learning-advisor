@@ -1,0 +1,174 @@
+{
+  "date": "2026-11-08",
+  "scope": "Documentation-only final report/evidence/demo/pilot preparation; no new independent or live-provider results.",
+  "base_revision": "1a1ac71ac9eb1b2afbf74a279df448495b853b92",
+  "runtime_verification_revision": "19b8c9c193192779a8333df6f050f0fea5662105",
+  "manifest": {
+    "path": "docs/final/EVIDENCE_MANIFEST.json",
+    "sha256": "3e4686ec88226905b56168b5cbb618dfef5325558c4f48066cfb91baef8e3442"
+  },
+  "initial_link_audit": {
+    "passed": false,
+    "reason": "The preparation note linked to its generated evidence record before that record existed. Reordered generation before the final link check."
+  },
+  "checks": {
+    "metric_rows_matched_to_json": 8,
+    "relative_links_checked": 63,
+    "relative_link_audit_passed": true,
+    "source_hashes": 24,
+    "evidence_hashes": 5,
+    "preparation_file_hashes": 5,
+    "preserved_inputs_unchanged": 8,
+    "blank_review_grades": 408,
+    "all_touched_document_links_checked": 241,
+    "source_hashes_match_verified_runtime_revision": 24,
+    "space_only_credential_overrides_parse_as_blank": true
+  },
+  "walkthrough": {
+    "passed": true,
+    "mode": "offline_AppTest_documentation_walkthrough",
+    "limits": [
+      "No real browser interaction/latency, source HTTP, model calls, employer search or participant result.",
+      "Existing CI remains the evidence for actual browser export/import and fragment behavior."
+    ],
+    "checks": [
+      {
+        "name": "default_preview_roadmap",
+        "passed": true
+      },
+      {
+        "name": "current_course_excluded_from_next_steps",
+        "passed": true
+      },
+      {
+        "name": "completion_without_invented_grade",
+        "passed": true
+      },
+      {
+        "name": "changed_direction_retains_completion",
+        "passed": true
+      },
+      {
+        "name": "local_spaced_course_search",
+        "passed": true
+      },
+      {
+        "name": "preview_inspector_and_trace",
+        "passed": true
+      },
+      {
+        "name": "profile_serialization_and_visible_download_control",
+        "passed": true
+      },
+      {
+        "name": "opportunity_control_available_without_source_request",
+        "passed": true
+      }
+    ]
+  },
+  "preflight": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": false,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Expanded runtime catalog and frozen baseline validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "ai_time_budget_seconds": 45,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "127.0.0.1",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true
+  },
+  "readiness": {
+    "app_percent": 95,
+    "full_submission_percent": 76,
+    "type": "engineering planning judgments, not grades or measured quality",
+    "remaining": "Final format/figures, genuine judgments/student sessions, real-AI/final-release measurements, slides, recording and frozen release."
+  },
+  "historical_neural_embedding_metadata": {
+    "origin": "live_provider",
+    "model": "gemini-embedding-2",
+    "dimensions": 768,
+    "cache_state": "hit",
+    "document_calls": 0,
+    "query_calls": 16
+  },
+  "powershell_note": "Commands account for pre-7.5 empty-variable behavior; no local PowerShell session was executed."
+}
