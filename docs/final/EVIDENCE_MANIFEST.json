@@ -1,10 +1,10 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "1a1ac71ac9eb1b2afbf74a279df448495b853b92",
-  "runtime_verification_revision": "19b8c9c193192779a8333df6f050f0fea5662105",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
+  "source_base_revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
+  "runtime_verification_revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42531556423",
   "collections": [
     {
       "name": "baseline",
@@ -43,7 +43,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "b82248161f33bddd415eaab04c0bba5122f532ba38e350bec93c04c2ec290529"
+      "sha256": "83b4e2ad665f481daa7de16dded22268c49f92c1ef8db56187b1bcf83e7bdd4f"
     },
     {
       "path": "reviewer_app.py",
@@ -51,7 +51,7 @@
     },
     {
       "path": "src/catalog.py",
-      "sha256": "c47c00ec8a37a8c45852aee6563a464f14f0b3502b1d10a21adb56292d817d8e"
+      "sha256": "5a796c614760d8414fa60f8243771b83f06c080433361754cb8876e54e87ae66"
     },
     {
       "path": "src/retrieval.py",
@@ -63,7 +63,7 @@
     },
     {
       "path": "src/service.py",
-      "sha256": "427b8b7dc01b94dfc84edc2a85fe3ddeadfadcdeff5b3f5da11a20dee31ed653"
+      "sha256": "3b12d581158d7ac6d956104f1f3dc5619cfb5a4ef65056dc2d685a143c0f7752"
     },
     {
       "path": "src/rules.py",
@@ -71,11 +71,11 @@
     },
     {
       "path": "src/grounding.py",
-      "sha256": "99714180ce3bfce542c3333b01c7004aa769eb5ed33eeced6a77b8167f522f65"
+      "sha256": "d364f5b055bebf0d422e8d608a4fc89272527d6352e67e2b575dd02b336ec35d"
     },
     {
       "path": "src/controller.py",
-      "sha256": "d43fb5bd124eed252811bae0ed3ba7c45903309e9a86113c44643cb966618a4c"
+      "sha256": "eccc572bffb8ab490483b37ea718b06aa007555d10ee7006f152bf6672a0cc46"
     },
     {
       "path": "src/providers.py",
@@ -115,7 +115,7 @@
     },
     {
       "path": "src/collection_ui.py",
-      "sha256": "5a51d074dfa7033edc72b341aa7c8c1516ff9761a7f3d6b3c6e67e0375fbfbd5"
+      "sha256": "e39e91ef30fe26b85fc0fb98440aa007a7d15a6d6a6f988fdab5aaba70965b46"
     },
     {
       "path": "src/opportunity_ui.py",
@@ -136,6 +136,26 @@
     {
       "path": "data/connectors/employer_boards.json",
       "sha256": "838569c616c0d3e420a310c73d9862bff5de8541e7bc9030ca6bca3cc67e9ef0"
+    },
+    {
+      "path": "src/course_directory.py",
+      "sha256": "697bef2605bd7981c6a3a33f32e25b7fff7d7d7c2e262ff0e1192282a7c31974"
+    },
+    {
+      "path": "src/directory_ui.py",
+      "sha256": "feebfa3f23b9bc13ee5ee9bf5482312011c8564b45f9f155bef92457e72e4d95"
+    },
+    {
+      "path": "scripts/sync_course_directory.py",
+      "sha256": "403f0845b57f76ad47021c1426de1f6ce2400d134e9c700e87fb08eb63d96668"
+    },
+    {
+      "path": "data/catalog/undergraduate_ece_2026_2027.json",
+      "sha256": "e49b8f0da10eeab4c346d54ede7070c4f705ee376f28ff81a65e8b268df20458"
+    },
+    {
+      "path": "tests/test_course_directory.py",
+      "sha256": "221d6366ef0b2f78b391c680cbc70da4e57f2ca4b74cd9874128f1c0c42e1b16"
     }
   ],
   "evidence_files": [
@@ -158,6 +178,10 @@
     {
       "path": "docs/evidence/ci_status_2026-11-08.json",
       "sha256": "930d5fb3082934910c87d629b6d8e6d20ebbadfe953cf6070d7cd6141efe382f"
+    },
+    {
+      "path": "docs/evidence/undergraduate_ece_directory_2026-11-08.json",
+      "sha256": "a8f3872a8b20e33cad1fe0dfd0f078f028e71551e999a3994180e71e109846c1"
     }
   ],
   "preserved_inputs": [
@@ -205,19 +229,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "3728f783661a44bffa2b8ea963840793268c0a811c64360d2d2b5c91d44f9d9d"
+      "sha256": "901d4bc0bfb8c1ec2832cded67d2cbd8d9f584b83afd0bb3dd3d103e4ee237c5"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "cbd80e438b57e2f9b5f2e9c2d70b610273d7f589fe34b03d9919789b3c3b60a2"
+      "sha256": "b7768927a2439bce9c9e9e91906abaad019ab4a2261c7922794121f84d9fb57b"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "99d98fa706f3d0cb58fb0812b45743c99a38d653d0ee906da47ea7052cdce05b"
+      "sha256": "071adf8e15087581459267e193b34d64a7744e9448608d326667196a16de3ff9"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "fbe921d81c5308b7300d767da46b74cda57a796896f168a6e870365f3620750f"
+      "sha256": "a4a590f28dd0013037e2b76030c6a781e50ea822fab8790e986f2f0119562999"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -249,8 +273,21 @@
   ],
   "limits": [
     "Preparation materials, not a completed final submission or instructor-approved format.",
-    "Historical benchmark/CI/provider observations retain original scopes, revisions and dates.",
-    "No new provider/source/employer run, independent quality grade or student observation."
+    "Historical benchmark/CI/provider/inspector observations retain original scopes, revisions and dates.",
+    "New public catalog list/page checks and controlled software/browser CI are identified separately; no new real-AI/employer run, independent quality grade or student observation."
   ],
-  "updated_at_utc": "2026-11-08T08:18:33.317103+00:00"
+  "updated_at_utc": "2026-11-08T22:49:16.512089+00:00",
+  "previous_runtime_verification": {
+    "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
+    "scope": "Initial final-preparation draft; original results preserved in historical evidence."
+  },
+  "published_directory": {
+    "courses": 78,
+    "subject": "ECE",
+    "career": "Undergraduate",
+    "catalog_version": "2026-2027",
+    "default_advisor_corpus_unchanged": true,
+    "on_request_addition_limit": 3
+  }
 }

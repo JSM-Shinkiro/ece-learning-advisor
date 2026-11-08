@@ -45,6 +45,8 @@ Trim or extend these blocks after the final duration is known. Prepare the real-
 | 3:30–4:15 | If network is available, explicitly search **Opportunities**, then check one displayed listing | Board scope, provider dates, loading feedback and source-bound detail; show actual empty/error state if returned |
 | 4:15–4:40 | State the measured result and main limits | The paired offline inspector experiment; partial academic coverage and uncollected human/real-AI performance evaluation |
 
+Add a short catalog segment after the local search: select **All undergraduate ECE courses**, search `ECE 493` to show its published 1–12 credit range, then search `ECE413` and choose **Explore ECE413 in my roadmap**. Open **My Roadmap** and explain its unreviewed preparation/enrollment label. This is description access, not a verified degree sequence. Trim another segment if needed; the proposed durations above have not been remeasured.
+
 The preview segment supports profile/control and timing inspection. G1/G2's neural-vector demonstration needs an actual successful semantic/hybrid request. Label each segment's mode clearly.
 
 ## 3. Real-AI/vector segment

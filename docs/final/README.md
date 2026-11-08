@@ -2,7 +2,7 @@
 
 Team P07 · November 8, 2026 · ECE Learning Advisor
 
-This directory contains separate final-project preparation materials. The midproject report, figures, video and snapshot branch are preserved. The materials describe the application verified at `19b8c9c193192779a8333df6f050f0fea5662105`, using development handoff revision `1a1ac71ac9eb1b2afbf74a279df448495b853b92`.
+This directory contains separate final-project preparation materials. The midproject report, figures, video and snapshot branch are preserved. The materials now include the published undergraduate ECE directory, verified with the application at `d93fc8e6b137dab44c9e990b92701031c899216e` in [run 42531556423](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42531556423). Historical retrieval/provider/performance results retain their original inputs, dates and revisions.
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |
@@ -16,4 +16,4 @@ These are working materials, not a completed final submission. No final-specific
 
 The report deliberately keeps four forms of evidence distinct: automated/software checks, the small authored retrieval benchmark, actual provider integration observations, and offline browser timings. There are no independent runtime relevance grades or student-pilot outcomes to report. The existing twelve-question/34-chunk review template still contains 408 blank grades.
 
-Next, collect genuine judgments using the [existing reviewer workspace](../47_REVIEW_WORKSPACE.md), run the pilot, repeat real-AI/source/cache measurements on the final revision, and finish report formatting, slides and the recording. Update [final readiness](../FINAL_READINESS.md) when these gates change.
+Next, expand reviewed prerequisite evidence, broader ECE learning connections and supporting curriculum coverage; collect genuine judgments using the [existing reviewer workspace](../47_REVIEW_WORKSPACE.md), run the pilot, repeat real-AI/source/cache measurements on the final revision, and finish report formatting, slides and the recording. Update [final readiness](../FINAL_READINESS.md) when these gates change.
