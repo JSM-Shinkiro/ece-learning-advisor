@@ -1,6 +1,6 @@
 # Final submission readiness
 
-Team P07 · Updated November 7, 2026 · Final presentation/submission: December 11 · Planned feature freeze: December 4.
+Team P07 · Updated November 8, 2026 · Final presentation/submission: December 11 · Planned feature freeze: December 4.
 
 ## Current estimate
 
@@ -13,7 +13,7 @@ Core features are close to complete. The largest remaining work is independent e
 | Student profile → grounded roadmap → current/completed progress | Implemented | Preview and Gemini paths, JSON portability, conservative academic checks, bounded AI work |
 | Course/resource coverage and provenance | Implemented with limits | 20 courses, eight resources, 34 chunks; four reviewed CS conditions; 15 ECE conditions and CSC372 remain unknown |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Pinned setup, production launcher, Linux/Windows CI, nine readiness checks |
+| Reproducible runtime | Verified | Pinned setup, production launcher, explicit Ubuntu 26.04 release/Windows CI, nine readiness checks and per-report browser/timing summary |
 | Actual browser workflow and concurrent sessions | Verified locally in CI | Ten Chromium gates pass, including independent inspector open/close: stage history, real export/import, persistent completion edits, two isolated profiles and bidirectional WebSockets through the production launcher |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent public checks are reused for up to five minutes; explicit rechecks bypass reuse; closed inspection content is omitted and opens in a fragment. Cold no-AI source updates and posting HTTP calls still wait for the network. |
@@ -29,11 +29,11 @@ Core features are close to complete. The largest remaining work is independent e
 
 ## Current development step
 
-[Lightweight ranking inspection](52_LIGHTWEIGHT_INSPECTOR.md) replaces the simple Plotly bar chart with native HTML/CSS bars. The exact score table, source evidence, trace download and actual PCA/cosine vector inspection remain. Opening and closing stay within the inspector fragment; a 390-pixel browser gate verifies readable ranking controls, trace access and no horizontal page overflow or full-app/provider rerun.
+[CI status and runner diagnostics](53_CI_STATUS_AND_RUNNER.md) identify the reported screenshot as an older run whose two timing commands failed at reopening. The subsequent collector fix already passed both complete timing cohorts. The failed and successful runs both used Ubuntu 26.04; Linux jobs now explicitly select that tested release. A new GitHub summary separates the three UI acceptance workflows from the two offline timing cohorts, with actual counts, fixed failed-stage names and the current commit/run link. Missing, malformed or contradictory reports cannot produce a passing summary.
 
-All 1,648 tests and nine runtime checks pass on Linux and Windows, plus all 26 browser acceptance gates and five complete timing sessions per version in [run 42455351082](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42455351082). Verified revision: `dd7e764a40e2bd43c71981c6ee65eb7bf3cc5590`. The fixed baseline and native view use the same collector, corpus, dependencies and runner. Median first opening drops from 1.608 to 0.687 seconds in this small offline DOM experiment; native reopening takes 0.308 seconds. Both checkouts are clean. These are not physical-paint, live-AI or participant results, and v1/v2 inspector boundaries are not pooled.
+All 1,661 tests and nine runtime checks pass on Linux and Windows, plus all 26 browser acceptance gates and five complete timing sessions per version in [fresh run 42458364808](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808). Verified revision: `19b8c9c193192779a8333df6f050f0fea5662105`. Both Linux jobs report Ubuntu 26.04. The attached/saved summary has five PASS rows with this commit and run; the browser artifact was downloaded and SHA-256 verified. The student app, source data, ranking, profiles and academic rules are unchanged by this step. Earlier failed runs retain their original conclusions.
 
-App readiness rises to approximately **95%** by closing this preview inspection gap. Full-submission readiness remains approximately **72%**: independent evaluation, student feedback, real-AI/final-release timing and report/slides/demo are still open. All 408 template grades remain blank. The first comparison's failed reopening samples and the collector's close-animation correction are retained in the dated evidence.
+App/full-submission readiness remain approximately **95% / 72%**. This unit improves CI reproducibility and diagnostics; independent evaluation, student feedback, real-AI/final-release timing and report/slides/demo remain open. All 408 template grades and eight frozen/review input hashes are unchanged. The inspector comparison and its corrected reopening measurements remain documented separately; no new live-AI, physical-paint, quality or participant result is claimed.
 
 ## Next steps toward the submission
 

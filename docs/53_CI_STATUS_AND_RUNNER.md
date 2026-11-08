@@ -32,6 +32,14 @@ python scripts/summarize_browser_ci.py --reports-dir output/ci --output output/c
 
 Use a new output path. In Actions, `--github-summary` additionally appends to the provided step-summary file. This helper uses the Python standard library and runs after browser steps even when an earlier check fails. Controlled fixtures and offline measurements remain distinct from real AI, independent evaluation and participant feedback.
 
+## Verified result
+
+Revision `19b8c9c193192779a8333df6f050f0fea5662105` passes [fresh run 42458364808](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808). All **1,661 tests** and **nine runtime checks** pass on both Linux and Windows; all **26 browser acceptance gates** and **five timing sessions per version** pass. The new browser summary has five passing rows, identifies this commit/run, and was appended successfully to the GitHub step summary. Both Linux jobs report the explicit Ubuntu 26.04 image.
+
+Thirteen new summary cases cover actual retained success/failure reports, missing/invalid inputs, contradictory flags/counts, unknown timing boundaries, nonfinite medians, fixed stage labels, output preservation and GitHub-summary appending. The timing CLI's failed-stage path and all existing browser/report boundaries also pass their targeted checks.
+
+The [dated evidence](evidence/ci_status_2026-11-08.json) preserves the screenshot-match details, prior fix, current reports, generated Markdown, artifact digests and eight unchanged frozen/review input hashes. The browser artifact download was SHA-256 verified. All 408 saved grades remain blank. Student-app/source/data bytes are unchanged from the base revision. This is a CI reliability/clarity update, with no new app-quality or independent-evaluation claim.
+
 ## Scope and readiness
 
 This unit changes CI reproducibility and diagnostics. The student app, sources, ranking, academic conditions, profiles and reviewed/evaluation inputs are unchanged. App/full-submission readiness remain approximately **95% / 72%**, as engineering planning judgments. Independent evaluation, the voluntary student pilot, real-AI/final-release measurements and final report/slides/demo remain open. See [final readiness](FINAL_READINESS.md).
