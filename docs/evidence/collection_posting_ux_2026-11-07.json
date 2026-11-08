@@ -62,7 +62,7 @@
     }
   ],
   "review_grades": "All 408 remain blank; no independent quality result.",
-  "ci_status": "Not yet run for this revision",
+  "ci_status": "All 1,612 tests and nine runtime checks pass on Linux and Windows; all 25 browser gates pass.",
   "local_deployment": {
     "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
     "model_calls": 0,
@@ -163,5 +163,263 @@
     },
     "passed": true,
     "checked_at": "2026-11-07T20:01:07.849682+00:00"
+  },
+  "ci": {
+    "revision": "d1de020a22637963abbcb15c9b79a788ef21b535",
+    "run_id": 42409330351,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42409330351",
+    "conclusion": "success",
+    "linux": {
+      "job_id": 128513823665,
+      "tests_passed": 1612,
+      "seconds": 69.07,
+      "readiness_passed": 9
+    },
+    "windows": {
+      "job_id": 128513823448,
+      "tests_passed": 1612,
+      "seconds": 84.2,
+      "readiness_passed": 9
+    },
+    "browser": {
+      "job_id": 128513823878,
+      "artifact_id": 13587989374,
+      "zip_sha256": "c14dcdcb3ba89cf396687a3f480c7c504f560c4c5144b9c8f56a8b088f35dcdb",
+      "download_digest_verified": true,
+      "reports": {
+        "browser.json": {
+          "passed": true,
+          "mode": "local_offline",
+          "checks": [
+            {
+              "name": "initial_roadmap",
+              "passed": true,
+              "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+              "seconds": 2.828
+            },
+            {
+              "name": "request_progress",
+              "passed": true,
+              "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+              "seconds": 0.141
+            },
+            {
+              "name": "lazy_inspector",
+              "passed": true,
+              "detail": "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.",
+              "seconds": 3.531
+            },
+            {
+              "name": "current_course_filtering",
+              "passed": true,
+              "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+              "seconds": 1.372
+            },
+            {
+              "name": "completion_transition",
+              "passed": true,
+              "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+              "seconds": 0.604
+            },
+            {
+              "name": "profile_export",
+              "passed": true,
+              "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+              "seconds": 0.85
+            },
+            {
+              "name": "profile_restore",
+              "passed": true,
+              "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+              "seconds": 1.645
+            },
+            {
+              "name": "session_isolation",
+              "passed": true,
+              "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+              "seconds": 2.801
+            },
+            {
+              "name": "unsupported_request",
+              "passed": true,
+              "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+              "seconds": 0.964
+            },
+            {
+              "name": "websocket_sessions",
+              "passed": true,
+              "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+              "seconds": 0.029
+            }
+          ],
+          "sessions": [
+            {
+              "stream_connections": 1,
+              "frames_sent": 10,
+              "frames_received": 1281,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 7,
+              "fragments_finished": 2
+            },
+            {
+              "stream_connections": 1,
+              "frames_sent": 3,
+              "frames_received": 407,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 3,
+              "fragments_finished": 0
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "external_browser_requests_blocked": 0,
+          "limits": [
+            "Preview mode only; no AI, relevance, or participant evaluation.",
+            "Local checks do not establish public-host availability or TLS/proxy behavior.",
+            "Browser request counts do not measure server-side network calls."
+          ],
+          "seconds": 15.929,
+          "checked_at": "2026-11-07T20:06:28.299714+00:00"
+        },
+        "reviewer-browser.json": {
+          "passed": true,
+          "mode": "controlled_reviewer_fixture",
+          "checks": [
+            {
+              "name": "blank_review",
+              "passed": true,
+              "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+            },
+            {
+              "name": "explicit_grades",
+              "passed": true,
+              "detail": "Blank saves do not grade; explicit zero and three save separate evidence judgments."
+            },
+            {
+              "name": "draft_download",
+              "passed": true,
+              "detail": "A real download retains two explicit fixture ratings, notes schema, and draft provenance."
+            },
+            {
+              "name": "incomplete_completion_blocked",
+              "passed": true,
+              "detail": "An incomplete draft cannot be exported as a completed review."
+            },
+            {
+              "name": "resume_and_isolation",
+              "passed": true,
+              "detail": "A separate session starts blank and restores the downloaded draft exactly."
+            },
+            {
+              "name": "wrong_packet_rejected",
+              "passed": true,
+              "detail": "A foreign packet hash is rejected without replacing saved ratings or producing page errors."
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "sessions": [
+            {
+              "scripts_finished": 7,
+              "page_errors": 0
+            },
+            {
+              "scripts_finished": 4,
+              "page_errors": 0
+            }
+          ],
+          "blocked_external_browser_requests": 0,
+          "limits": [
+            "Only controlled fixture actions; no independent judgments or quality score.",
+            "No supplied-host, participant, or public hosting validation."
+          ],
+          "seconds": 6.572,
+          "checked_at": "2026-11-07T20:06:36.659249+00:00"
+        },
+        "progressive-browser.json": {
+          "passed": true,
+          "mode": "controlled_provider_local_ui",
+          "checks": [
+            {
+              "name": "source_plan_before_ai",
+              "passed": true,
+              "detail": "A usable source plan appears while the controlled provider is still blocked.",
+              "seconds": 1.806
+            },
+            {
+              "name": "draft_retention",
+              "passed": true,
+              "detail": "The form remains editable and retains its unsubmitted draft when AI completes.",
+              "seconds": 0.877
+            },
+            {
+              "name": "newer_profile_wins",
+              "passed": true,
+              "detail": "A newer profile completes while the old provider waits; releasing the old response cannot replace it.",
+              "seconds": 5.218
+            },
+            {
+              "name": "keep_source_plan",
+              "passed": true,
+              "detail": "Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",
+              "seconds": 3.908
+            },
+            {
+              "name": "collection_filters",
+              "passed": true,
+              "detail": "Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",
+              "seconds": 1.902
+            },
+            {
+              "name": "mobile_collection",
+              "passed": true,
+              "detail": "Filters and reset work at a 390-pixel phone width without horizontal page overflow or a full-app request.",
+              "seconds": 0.835
+            },
+            {
+              "name": "posting_progress",
+              "passed": true,
+              "detail": "A deliberately delayed detail request shows feedback beside the selected listing and does not rerun the roadmap.",
+              "seconds": 1.77
+            },
+            {
+              "name": "posting_failure_retains_search",
+              "passed": true,
+              "detail": "A failed recheck clears verified content while retaining the saved search; neither search nor AI is repeated.",
+              "seconds": 0.544
+            },
+            {
+              "name": "browser_health",
+              "passed": true,
+              "detail": "The real Streamlit session exchanges full and fragment updates with no JavaScript errors.",
+              "seconds": 0.0
+            }
+          ],
+          "limits": [
+            "Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
+            "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
+            "This checks one local browser session, not public hosting or participant usability."
+          ],
+          "protocol_counts": {
+            "full_runs": 12,
+            "fragment_runs": 14,
+            "page_errors": 0,
+            "stream_connections": 1
+          },
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "seconds": 20.399,
+          "checked_at": "2026-11-07T20:06:58.910571+00:00"
+        }
+      }
+    }
   }
 }

@@ -30,4 +30,13 @@ Regression checks cover spaced/case-insensitive course search, combined filters,
 
 The controlled browser workflow adds collection filtering, a 390-pixel phone viewport, deliberately delayed posting feedback, and failed-recheck retention to the existing AI interaction checks. Its provider and employer data are explicit fixtures; all server-side HTTP is blocked. These checks do not establish real employer availability, live network speed, recommendation quality or participant feedback.
 
-Verification revisions and results are recorded in [the dated evidence record](evidence/collection_posting_ux_2026-11-07.json). Current readiness is tracked in [FINAL_READINESS.md](FINAL_READINESS.md).
+## Verified result
+
+Application revision `d1de020a22637963abbcb15c9b79a788ef21b535` passes [CI run 42409330351](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42409330351).
+
+- All **1,612 tests** and **nine runtime checks** pass on both Linux and Windows. Twelve new cases include two additional student UI scenarios; the Streamlit total is now 95 (89 student, six reviewer).
+- All **25 real-browser gates** pass: ten production-preview, six reviewer and nine controlled AI/browsing checks. The four added browser gates verify local filters/lazy source links, a 390-pixel phone viewport without horizontal page overflow, visible progress during a deliberately held posting request, and search retention after a failed recheck.
+- The controlled browser observes no full-app rerun, extra AI call or repeated employer search during those browsing/detail actions. Typed profile draft text survives collection filtering.
+- Eight frozen/review input hashes match, and all 408 actual template grades remain blank.
+
+Verification revisions and results are recorded in [the dated evidence record](evidence/collection_posting_ux_2026-11-07.json). The app estimate is now approximately **94%**, with the full submission still approximately **70%**. These are planning judgments: this step closes collection/posting interaction gaps; genuine quality judgments, voluntary student feedback, final real-AI/network measurements and the report/slides/demo remain open. See [FINAL_READINESS.md](FINAL_READINESS.md).

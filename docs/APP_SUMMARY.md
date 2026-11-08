@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · November 7, 2026
 
-Based on application revision `44cd1c1055be8a4c81e8a34a969c1d9d5890ae92`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
+Based on application revision `d1de020a22637963abbcb15c9b79a788ef21b535`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
 
 ## Purpose
 
@@ -40,8 +40,8 @@ Preview mode works without model credentials using keyword retrieval and saved/r
 
 | Function | What it does |
 | --- | --- |
-| Courses & Resources | Browse the saved collection and its source metadata |
-| Opportunities | Explicitly search public employer boards for Samsara, Nuro and Anduril, with direction/title/location filters, paging, source status and posting-detail checks |
+| Courses & Resources | Locally search/filter courses and resources by code/title/topic, type and direction; open dated source details on demand |
+| Opportunities | Explicitly search public employer boards for Samsara, Nuro and Anduril, with direction/title/location filters, paging, source status and listing-level detail progress/checks that remain bound to the current search/page |
 | Inspector | On opening, show retrieval rankings, full-dimensional cosine calculations, PCA, source checks, cache status, timings and a trace download; its controls update independently |
 | Live request feedback | Show the actual work attempted and an expandable stage history; record sequential server phase durations |
 | Human review workspace | Separate local app for reading saved evidence, entering explicit relevance grades/notes, downloading/resuming drafts, and exporting completed forms for the offline scorer |
@@ -53,15 +53,15 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection:** 20 courses, eight learning resources, two career mappings, and 34 evidence chunks.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; fifteen ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, Plotly inspection charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** 1,600 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, five controlled AI-interaction and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Verification:** 1,612 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, nine controlled AI/browsing and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission:** engineering estimates remain approximately 92% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
+- **Submission:** engineering estimates remain approximately 94% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
 
 ## Code map
 
 | Area | Main files |
 | --- | --- |
-| Student interface and profile changes | `app.py`, `src/session.py`, `src/profiles.py` |
+| Student interface, browsing and profile changes | `app.py`, `src/collection_ui.py`, `src/opportunity_ui.py`, `src/session.py`, `src/profiles.py` |
 | Request orchestration and progress | `src/controller.py`, `src/progress.py`, `src/advisor_jobs.py` |
 | Source loading and live checks | `src/catalog.py`, `src/sources.py`, source/discovery modules |
 | Retrieval, rules and grounded explanations | `src/retrieval.py`, `src/rules.py`, `src/service.py`, `src/grounding.py` |
