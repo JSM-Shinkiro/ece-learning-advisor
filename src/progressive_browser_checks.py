@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .browser_checks import browser_url
 
 
-def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms=20000):
+def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms=20000,diagnostics_dir=None):
     report={"passed":False,"mode":"controlled_provider_local_ui","checks":[],
         "limits":["Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
                   "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
@@ -178,8 +178,24 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(page.get_by_text("Showing 28 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
-                page.set_viewport_size({"width":1500,"height":1100})
                 passed("Filters and reset work at a 390-pixel phone width without horizontal page overflow or a full-app request.",begin)
+
+                stage="mobile_inspector";begin=time.monotonic()
+                page.get_by_role("tab",name="My Roadmap",exact=True).click()
+                fragment_runs=counts["fragment_runs"]
+                expand("How this plan was made")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(page.locator('[data-ece-ranking="html"]')).to_be_visible()
+                expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                expect(page.get_by_role("button",name="Download request trace",exact=True)).to_be_visible()
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                if diagnostics_dir is not None:
+                    page.locator('[data-ece-ranking="html"]').screenshot(path=str(Path(diagnostics_dir)/"ranking-mobile.png"))
+                passed("Native ranking and trace download fit a 390-pixel phone viewport without a full app or provider request.",begin)
+                page.set_viewport_size({"width":1500,"height":1100})
+                if diagnostics_dir is not None:
+                    page.locator('[data-ece-ranking="html"]').screenshot(path=str(Path(diagnostics_dir)/"ranking-desktop.png"))
 
                 stage="posting_progress";begin=time.monotonic()
                 page.get_by_role("tab",name="Opportunities",exact=True).click()

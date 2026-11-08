@@ -24,7 +24,8 @@ def main():
                 from src.progressive_browser_checks import run_progressive_browser_checks
                 with tempfile.TemporaryDirectory(prefix="ece-progressive-control-") as control:
                     with local_browser_server(progressive_control=Path(control)) as url:
-                        report=run_progressive_browser_checks(url,control,executable_path=args.executable_path)
+                        report=run_progressive_browser_checks(url,control,executable_path=args.executable_path,
+                                                              diagnostics_dir=args.output.parent)
             except Exception as exc:
                 report={"passed":False,"checks":[{"name":"controlled_server","passed":False,
                     "detail":"The isolated controlled browser process could not run.","error_type":type(exc).__name__}]}

@@ -1,11 +1,11 @@
 """Expandable evidence, real-vector inspection, and measured timings."""
 import json
 import numpy as np
-import plotly.graph_objects as go
 import streamlit as st
 from .catalog import build_evidence
 from .planning import format_duration
 from .retrieval import project_embeddings
+from .inspection_views import ranking_html
 
 
 @st.fragment
@@ -54,15 +54,13 @@ def render_inspector(result, catalog):
             def hit_label(hit):
                 label = records[hit.record_id].code or records[hit.record_id].title
                 return label + (" · prerequisite source" if ":rule:" in hit.chunk_id else "")
-            chart = go.Figure(go.Bar(x=[h.score for h in hits],
-                y=[hit_label(h) for h in hits],
-                orientation="h", marker_color="#78B8FF"))
-            chart.update_layout(template="plotly_dark", height=300, margin=dict(l=5,r=10,t=10,b=10),
-                xaxis_title=result.retrieval_mode+" ranking score", yaxis=dict(autorange="reversed"))
-            st.plotly_chart(chart, width="stretch")
+            st.html(ranking_html([(hit_label(h), h.score) for h in hits], result.retrieval_mode))
+            st.caption("Bars share a zero baseline and are scaled to the largest absolute score. The table keeps the original values.")
             st.dataframe([{"record":h.record_id,"chunk":h.chunk_id,"method":h.method,"score":h.score,
                            "BM25":h.keyword_score,"cosine":h.cosine_score} for h in hits],hide_index=True)
         if result.vectors is not None:
+            import plotly.graph_objects as go
+
             chunks = build_evidence(catalog)
             points, query_point = project_embeddings(result.vectors,result.query_vector)
             labels = [(records[e.record_id].code or records[e.record_id].title)

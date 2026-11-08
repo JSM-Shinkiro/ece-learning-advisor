@@ -77,7 +77,7 @@ def test_existing_evidence_prevents_server_or_browser_side_effects(tmp_path, mon
 def test_startup_failure_is_saved_without_raw_error_details(tmp_path, monkeypatch):
     output = tmp_path / "new.json"
     @contextmanager
-    def failed():
+    def failed(**kwargs):
         assert output.exists()
         raise OSError("private-path-or-key")
         yield
@@ -114,3 +114,10 @@ def test_optional_browser_failure_retains_scope_without_exposing_target_or_excep
 def test_measurement_never_accepts_an_unisolated_public_host():
     with pytest.raises(ValueError):
         run_browser_measurements("https://example.org")
+
+
+def test_invalid_local_checkout_cannot_start_a_process_or_reserve_evidence(tmp_path, monkeypatch):
+    output=tmp_path/'report.json'
+    monkeypatch.setattr(sys,'argv',['measure_browser.py','--app-root',str(tmp_path),'--output',str(output)])
+    with pytest.raises(SystemExit):main()
+    assert not output.exists()

@@ -20,7 +20,8 @@ from .progress import PHASE_LABELS
 
 
 METRICS = ("navigation_to_interactive_ms", "request_feedback_dom_ms",
-           "roadmap_controls_ready_ms", "submit_to_script_finished_ms", "inspector_plot_ready_ms")
+           "roadmap_controls_ready_ms", "submit_to_script_finished_ms",
+           "inspector_first_ready_ms", "inspector_reopen_ready_ms")
 SERVER_TIMINGS = ("source_refresh", "embedding", "retrieval", "rules", "generation", "total")
 
 
@@ -85,7 +86,7 @@ OBSERVER = r"""labels => {
     const visible = element => element && element.getClientRects().length > 0
         && getComputedStyle(element).visibility !== 'hidden';
     const state = {clicks: 0, submit: null, feedback: null, plan: null,
-                   feedback_kind: null, inspector_click: null, inspector_ready: null};
+                   feedback_kind: null, inspector_openings: []};
     window.__eceTiming = state;
     let scheduled = false;
     const observe = () => {
@@ -103,9 +104,15 @@ OBSERVER = r"""labels => {
             if (state.plan === null && [...document.querySelectorAll('button')].some(
                 el => el.textContent.trim() === 'Mark completed' && !el.disabled && visible(el))) state.plan = now;
         }
-        if (state.inspector_click !== null && state.inspector_ready === null) {
+        const opening = state.inspector_openings.at(-1);
+        if (opening && opening.ready === null) {
             const plot = document.querySelector('[data-testid="stPlotlyChart"] .js-plotly-plot');
-            if (visible(plot) && plot.data?.length) state.inspector_ready = now;
+            const native = document.querySelector('[data-ece-ranking="html"]');
+            const download = [...document.querySelectorAll('button')].find(
+                el => el.textContent.trim() === 'Download request trace' && !el.disabled && visible(el));
+            const renderer = visible(native) && native.querySelector('li') ? 'html' :
+                visible(plot) && plot.data?.length ? 'plotly' : null;
+            if (renderer && download) { opening.ready = now; opening.renderer = renderer; }
         }
     };
     const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(observe); } };
@@ -117,13 +124,14 @@ OBSERVER = r"""labels => {
             state.clicks++; state.submit = performance.now();
         }
         const summary = event.target.closest('summary');
-        if (summary?.textContent.includes('How this plan was made')) state.inspector_click = performance.now();
+        if (summary?.textContent.includes('How this plan was made') && !summary.closest('details').open)
+            state.inspector_openings.push({clicked: performance.now(), ready: null, renderer: null});
         schedule();
     }, true);
 }"""
 
 
-def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms=30000):
+def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms=30000, app_root=ROOT):
     """One browser/server, fresh session per sample; failures remain explicit rows."""
     if type(samples) is not int or not 2 <= samples <= 20:
         raise ValueError("Choose 2–20 sessions")
@@ -131,12 +139,15 @@ def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms
     origin = urlsplit(target)
     if origin.scheme != "http" or origin.hostname != "127.0.0.1":
         raise ValueError("Only the isolated loopback experiment is supported")
-    report = {"version": "p07-browser-performance-v1", "passed": False, "requested_samples": samples,
-              "mode": "local_offline_production_preview", "environment": measurement_environment(), "browser": None,
+    report = {"version": "p07-browser-performance-v2", "passed": False, "requested_samples": samples,
+              "mode": "local_offline_production_preview", "environment": measurement_environment(app_root),
+              "collector_environment": measurement_environment(), "browser": None,
               "samples": [], "summary_ms": {},
               "method": {"viewport": {"width": 1500, "height": 1100}, "fresh_context_per_sample": True,
                          "shared_server_and_browser_process": True, "http_cache_disabled_by_request_routing": True,
                          "profile": "unchanged_default_incoming_ai_ml", "inspector_initially_closed": True,
+                         "inspector_ready_boundary": "laid_out_ranking_visualization_and_enabled_trace_download",
+                         "reopen": "same_page_after_fragment_close_and_content_removal; JavaScript modules can remain in memory",
                          "clock": "page performance.now for DOM; Python monotonic for driver/protocol intervals"},
               "limits": ["Offline preview only: no source downloads, embeddings or AI generation.",
                          "DOM timings observe layout availability, including offscreen controls, not physical paint or field INP.",
@@ -236,12 +247,30 @@ def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms
                         stage = "inspector"
                         summary = page.locator("summary").filter(has=page.get_by_text("How this plan was made", exact=True))
                         summary.scroll_into_view_if_needed()
+                        inspector_full_runs = counts["full"]
                         before = counts["fragment"]
                         summary.click()
-                        page.wait_for_function("window.__eceTiming.inspector_ready !== null")
+                        page.wait_for_function("window.__eceTiming.inspector_openings[0]?.ready != null")
                         settled("fragment", before)
-                        row["metrics_ms"]["inspector_plot_ready_ms"] = duration(page.evaluate(
-                            "__eceTiming.inspector_ready - __eceTiming.inspector_click"))
+                        first = page.evaluate("window.__eceTiming.inspector_openings[0]")
+                        row["metrics_ms"]["inspector_first_ready_ms"] = duration(first["ready"] - first["clicked"])
+                        row["ranking_renderer"] = first["renderer"]
+
+                        stage = "inspector_reopen"
+                        before = counts["fragment"]
+                        summary.click()
+                        settled("fragment", before)
+                        expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                        expect(page.locator('[data-ece-ranking="html"]')).to_have_count(0)
+                        expect(page.get_by_role("button", name="Download request trace", exact=True)).to_have_count(0)
+                        before = counts["fragment"]
+                        summary.click()
+                        page.wait_for_function("window.__eceTiming.inspector_openings[1]?.ready != null")
+                        settled("fragment", before)
+                        reopened = page.evaluate("window.__eceTiming.inspector_openings[1]")
+                        row["metrics_ms"]["inspector_reopen_ready_ms"] = duration(reopened["ready"] - reopened["clicked"])
+                        if reopened["renderer"] != first["renderer"] or counts["full"] != inspector_full_runs:
+                            raise ValueError("Inspector interaction changed renderer or triggered a full app run")
 
                         stage = "trace_validation"
                         with page.expect_download() as pending:

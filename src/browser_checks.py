@@ -260,6 +260,7 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 counts = session_counts[a]
                 full_runs = counts["scripts_finished"]
                 expect(a.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                expect(a.locator('[data-ece-ranking="html"]')).to_have_count(0)
                 for opening in (True, False):
                     before = counts["fragments_finished"]
                     a.locator("summary").filter(has=a.get_by_text("How this plan was made", exact=True)).click()
@@ -267,7 +268,9 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     while counts["fragments_finished"] <= before and time.monotonic() < deadline:
                         a.wait_for_timeout(50)
                     assert counts["fragments_finished"] > before
-                    expect(a.get_by_test_id("stPlotlyChart")).to_have_count(1 if opening else 0)
+                    expect(a.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                    expect(a.locator('[data-ece-ranking="html"]')).to_have_count(1 if opening else 0)
+                    expect(a.get_by_role("button",name="Download request trace",exact=True)).to_have_count(1 if opening else 0)
                     assert counts["scripts_finished"] == full_runs
                 saved(a, "AI / Machine Learning", 0, 0)
                 passed(stage, "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.", begin)

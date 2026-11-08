@@ -15,10 +15,41 @@ def test_inspector_builds_nothing_until_open_and_hides_it_again(app, monkeypatch
     result=app.session_state["result"]
     assert not app.get("plotly_chart") and not app.json and not app.dataframe
     open_inspector(app)
-    assert len(app.get("plotly_chart"))==1 and app.json and app.dataframe
+    assert not app.get("plotly_chart") and app.json and app.dataframe
+    assert any('data-ece-ranking="html"' in item.proto.body for item in app.get("html"))
     app.session_state["plan_inspector"]=False; app.run()
     assert not app.exception and not app.get("plotly_chart") and not app.json
     assert calls==[1] and app.session_state["result"] is result
+
+
+def test_vector_inspection_preserves_coordinates_and_actual_cosine(app, monkeypatch, fake_provider, tmp_path):
+    import json
+    import numpy as np
+    import src.controller
+    from src.retrieval import project_embeddings
+    fake_provider.close=lambda:None
+    monkeypatch.setattr(src.controller,"GeminiProvider",lambda *a,**k:fake_provider)
+    monkeypatch.setenv("GEMINI_API_KEY","fixture-key")
+    monkeypatch.setenv("ECE_CACHE_DIR",str(tmp_path))
+    app.run();app.checkbox(key="use_ai").set_value(True).run()
+    app.selectbox(key="ranking_method").set_value("hybrid").run()
+    submit(app);open_inspector(app)
+    assert not app.exception
+    result=app.session_state["result"]
+    assert result.vectors is not None and len(app.get("plotly_chart"))==1
+    figure=json.loads(app.get("plotly_chart")[0].proto.spec)
+    assert figure['data'][1]['name']=='Your query'
+    _,query_point=project_embeddings(result.vectors,result.query_vector)
+    assert np.allclose([figure['data'][1]['x'][0],figure['data'][1]['y'][0]],query_point)
+    details=next(json.loads(item.value) for item in app.json if 'cosine_similarity' in item.value)
+    q,v=result.query_vector,result.vectors[0]
+    assert np.isclose(details['cosine_similarity'],np.dot(q,v)/(np.linalg.norm(q)*np.linalg.norm(v)))
+    # Inspector selection and closing keep the exact saved result rather than regenerating it.
+    next(s for s in app.selectbox if s.label=='Inspect a record vector').select_index(1).run()
+    assert not app.exception and app.session_state['result'] is result
+    details=next(json.loads(item.value) for item in app.json if 'cosine_similarity' in item.value)
+    v=result.vectors[1]
+    assert np.isclose(details['cosine_similarity'],np.dot(q,v)/(np.linalg.norm(q)*np.linalg.norm(v)))
 
 
 def test_force_check_applies_profile_and_is_one_shot(app, monkeypatch):

@@ -1,0 +1,31 @@
+# Lightweight ranking inspection
+
+Team P07 · November 7, 2026 · ECE Learning Advisor
+
+The inspector's simple ranking chart now uses native HTML and CSS bars. The original score table retains record/chunk identities, retrieval method, ranking score, BM25 and cosine values. Ranking order, source evidence, statement controls, trace download and academic decisions remain unchanged. Plotly still renders the real vector PCA view after a successful semantic/hybrid request.
+
+## Rendering behavior
+
+Opening **How this plan was made** remains a fragment operation. The closed inspector builds no chart, score table or trace JSON. In keyword preview, opening it no longer sends a Plotly chart or initializes that chart runtime. The native bars preserve a shared zero baseline, handle signed scores and all-zero results, and scale against the largest absolute score. Labels wrap at phone width; exact numeric values remain in the table and the displayed score's tooltip. All source labels and the method are escaped as literal text. There is no chart JavaScript.
+
+PCA coordinates still come from the actual stored document/query vectors. Selecting another vector recomputes its displayed dot product, norms and cosine without regenerating the plan. Plotly is imported on that path. No provider, source, profile, ranking, cache or academic-rule behavior changes in this unit.
+
+## Repeatable comparison
+
+The timing collector advances to **v2** and observes the same functional inspector boundary for both renderers: a laid-out ranking visualization and an enabled trace-download button. It measures first opening, closes the fragment and verifies content removal, then measures reopening on the same page. JavaScript modules can remain in memory between openings. Browser HTTP caching remains disabled by the same-origin request guard. These are DOM observations, not physical paint or user-study results.
+
+```bash
+python scripts/measure_browser.py --samples 5 --output output/performance/native-01.json
+git worktree add --detach .cache/inspector-baseline 88ab5849ffa42130765e3afb1f1eaba69280acc9
+python scripts/measure_browser.py --app-root .cache/inspector-baseline --samples 5 --output output/performance/baseline-01.json
+```
+
+Both commands use the current collector, pinned installed dependencies, blank credentials, disabled source downloads and the unchanged default profile. `--app-root` selects a local checkout, starts that checkout's production launcher and records its own Git revision independently from the collector's revision. It accepts no remote host. Use new report paths. The baseline worktree can be removed with `git worktree remove .cache/inspector-baseline` after collecting evidence.
+
+Browser CI checks out that fixed baseline separately and measures five sessions for each version on the same runner, current app first and baseline second. Each cohort uses a separate production server/browser process and fresh contexts per sample. The samples are small and ordered, with shared-runner variability; no latency threshold, p95 or statistical significance is claimed. Historical v1 results and their original boundaries remain in [the earlier measurement record](51_BROWSER_PERFORMANCE.md).
+
+The added browser gate checks the native ranking at 390-pixel phone width, trace-download availability, absence of page overflow and no full-app/provider rerun. Targeted mobile/desktop ranking screenshots accompany the controlled browser artifact. Unit/UI checks cover signed/zero/extreme scores, escaped markup, lazy rendering, and actual PCA/cosine preservation.
+
+## Remaining work
+
+Live-AI/source timing, independent relevance judgments, voluntary student feedback and the final report/slides/demo remain separate acceptance work. See [final readiness](FINAL_READINESS.md) for the current estimates and verified revision.
