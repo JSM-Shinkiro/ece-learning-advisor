@@ -182,6 +182,10 @@
     {
       "path": "docs/evidence/undergraduate_ece_directory_2026-11-08.json",
       "sha256": "a8f3872a8b20e33cad1fe0dfd0f078f028e71551e999a3994180e71e109846c1"
+    },
+    {
+      "path": "docs/evidence/final_readiness_audit_2026-11-08.json",
+      "sha256": "44a083e65645967b8ad24013cb645026be469fa6f10fff247934f27965139fee"
     }
   ],
   "preserved_inputs": [
@@ -233,19 +237,23 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "b7768927a2439bce9c9e9e91906abaad019ab4a2261c7922794121f84d9fb57b"
+      "sha256": "510f99434a2f47bef152fef857266183e786d9eecd27207128c0d36e2087ba7b"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "071adf8e15087581459267e193b34d64a7744e9448608d326667196a16de3ff9"
+      "sha256": "4c0f5582c5141b63719922d3cd8864bde7e36562c2d640dd598bd6ba1a3cf520"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "a4a590f28dd0013037e2b76030c6a781e50ea822fab8790e986f2f0119562999"
+      "sha256": "2debc7fe43032fac94b584e3a0139932de359fc1d6e720271ac219ae80ea30ea"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
       "sha256": "460021572e7b4ac7bf1c5de285636b7308d7b8c12071a0a5c4c0d49801498e7f"
+    },
+    {
+      "path": "docs/56_FINAL_READINESS_AUDIT.md",
+      "sha256": "3f16bfebf7f1e9a7bf8aeb9d01e4cd2d4ce08935dd24a3a74eee2fee5e0249e5"
     }
   ],
   "external_references": [
@@ -272,11 +280,12 @@
     }
   ],
   "limits": [
-    "Preparation materials, not a completed final submission or instructor-approved format.",
+    "Preparation materials, not a completed final submission or instructor-approved final format.",
     "Historical benchmark/CI/provider/inspector observations retain original scopes, revisions and dates.",
-    "New public catalog list/page checks and controlled software/browser CI are identified separately; no new real-AI/employer run, independent quality grade or student observation."
+    "New public catalog/source/employer checks and controlled software/browser CI are identified separately; no new real-AI run, independent quality grade or student observation.",
+    "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules."
   ],
-  "updated_at_utc": "2026-11-08T22:49:16.512089+00:00",
+  "updated_at_utc": "2026-11-08T23:08:54.307616+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -289,5 +298,17 @@
     "catalog_version": "2026-2027",
     "default_advisor_corpus_unchanged": true,
     "on_request_addition_limit": 3
+  },
+  "readiness_audit": {
+    "date_mst": "2026-11-08",
+    "audit_base_revision": "ccbd7c27c6c449fc0b758b9bafb414758007aa53",
+    "app_planning_percent": 85,
+    "submission_planning_percent": 65,
+    "submission_planning_range": [
+      60,
+      70
+    ],
+    "instructor_final_rubric_available": false,
+    "no_application_code_changes": true
   }
 }

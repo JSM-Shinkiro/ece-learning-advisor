@@ -1,0 +1,891 @@
+{
+  "schema_version": 1,
+  "audit_date_mst": "2026-11-08",
+  "recorded_at_utc": "2026-11-08T23:07:47.822905+00:00",
+  "audit_base_revision": "ccbd7c27c6c449fc0b758b9bafb414758007aa53",
+  "tested_application_revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
+  "application_changed_in_audit": false,
+  "current_ci": {
+    "run_id": 42531556423,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42531556423",
+    "status": "completed",
+    "conclusion": "success",
+    "tests_per_os": 1744,
+    "runtime_checks_per_os": 9,
+    "browser_gates": 29,
+    "timing_samples_per_cohort": 5,
+    "platforms": [
+      "ubuntu-26.04",
+      "windows-latest"
+    ],
+    "scope": "Current code matches the successful revision; hosted result retained rather than a redundant new suite."
+  },
+  "requirement_sources": [
+    {
+      "name": "ECE425525_MidProject_Guidelines (4)(1).pdf",
+      "library_file_id": "libfile_0faf3b2c20dc8191a9acae08d7bdda29",
+      "scope": "Instructor midpoint guidance; December 11 final presentation/submission date, G1-G4 baseline and midpoint deliverables. No final-only rubric/time/format."
+    },
+    {
+      "name": "ECE425525_Project__Copy_.zip",
+      "library_file_id": "libfile_1e7e4cf4fb148191aa458cc197cdb6ff",
+      "sha256": "e4929228a6cea50a6b2cd6d686a2540009c6b69dd04e5fdea1e039c92a04f424",
+      "members": [
+        "1-report-template (do not edit)/template.bib",
+        "3-report-midproject (edit this)/figs/clouds.eps",
+        "3-report-midproject (edit this)/figs/paper-count-2024.pdf",
+        "3-report-midproject (edit this)/figs/paper-count-2024.eps",
+        "3-report-midproject (edit this)/figs/clouds.jpg",
+        "3-report-midproject (edit this)/diamondrule.eps",
+        "3-report-midproject (edit this)/README",
+        "3-report-midproject (edit this)/diamondrule.pdf",
+        "0-samples/2-DiffusionExplainer.pdf",
+        "0-samples/6-ORCA.pdf",
+        "0-samples/1-TransformerExplainer.pdf",
+        "0-samples/4-UNIPO.pdf",
+        "0-samples/5-VISGRADER.pdf",
+        "0-samples/3-ExplainML.pdf",
+        "1-report-template (do not edit)/figs/clouds.eps",
+        "1-report-template (do not edit)/figs/paper-count-2024.pdf",
+        "1-report-template (do not edit)/figs/paper-count-2024.eps",
+        "1-report-template (do not edit)/figs/clouds.jpg",
+        "1-report-template (do not edit)/diamondrule.eps",
+        "1-report-template (do not edit)/template.pdf",
+        "1-report-template (do not edit)/README",
+        "1-report-template (do not edit)/diamondrule.pdf",
+        "3-report-midproject (edit this)/0-Guidelines.tex",
+        "3-report-midproject (edit this)/vgtc.cls",
+        "3-report-midproject (edit this)/abbrv-doi-narrow.bst",
+        "3-report-midproject (edit this)/1-main-midproject.tex",
+        "3-report-midproject (edit this)/abbrv-doi-hyperref.bst",
+        "3-report-midproject (edit this)/abbrv-doi.bst",
+        "3-report-midproject (edit this)/abbrv-doi-hyperref-narrow.bst",
+        "3-report-midproject (edit this)/makefile",
+        "3-report-midproject (edit this)/template.bib",
+        "0-samples/0-Links-Tool-Video.txt",
+        "2-brainstorming/main-brainstorming.tex",
+        "1-report-template (do not edit)/vgtc.cls",
+        "1-report-template (do not edit)/abbrv-doi-narrow.bst",
+        "1-report-template (do not edit)/0-main-template.tex",
+        "1-report-template (do not edit)/abbrv-doi-hyperref.bst",
+        "1-report-template (do not edit)/abbrv-doi.bst",
+        "1-report-template (do not edit)/abbrv-doi-hyperref-narrow.bst",
+        "1-report-template (do not edit)/makefile"
+      ],
+      "member_count": 40,
+      "final_specific_folder_present": false
+    },
+    {
+      "name": "ECE_P07_Project_Build_Plan.md",
+      "library_file_id": "libfile_de640c043a28819193b03efbba3d5212",
+      "scope": "Proposed October 22 implementation/evaluation targets, not instructor final rules; profile storage proposals are not implemented claims."
+    },
+    {
+      "name": "ECE_P07_Updated_Project_Approach.docx",
+      "library_file_id": "libfile_dda971ba5d9c819191098027686f4b5f",
+      "scope": "Initial two-career MVP, proposed storage and optional extensions."
+    },
+    {
+      "name": "ECE525_Project_Continuity_2026-11-07.md",
+      "library_file_id": "libfile_e3b01bc4c91c8191947c5410549173f1",
+      "scope": "Later implementation/scope continuity; JSON profiles, two initial directions and deferred accounts/degree audit/graduate advising."
+    },
+    {
+      "name": "P07_Overleaf_Update_Guide.md",
+      "library_file_id": "libfile_9dcec5db4af08191b7f0cf7a28977a78",
+      "scope": "November 1 midpoint report/package; its use of final report PDF does not establish final-project page/video/ZIP rules."
+    }
+  ],
+  "final_requirements": {
+    "confirmed_date": "2026-12-11",
+    "planned_feature_freeze": "2026-12-04",
+    "feature_freeze_is_instructor_deadline": false,
+    "unconfirmed": [
+      "submission time",
+      "final-specific rubric",
+      "report length/template",
+      "presentation/video duration",
+      "final ZIP naming/contents and individual/team rules"
+    ],
+    "midpoint_limits_carried_forward": false,
+    "current_d2l_page_verified": false,
+    "scope_note": "No new final-specific instruction found in reviewed files, provided archive, targeted connected-email or continuity checks. This does not establish what is posted in D2L."
+  },
+  "fresh_runtime_checks": {
+    "scope": "Local/offline runtime readiness only; external sources and provider credentials are not verified.",
+    "model_calls": 0,
+    "external_source_requests": 0,
+    "smoke_requested": true,
+    "checks": [
+      {
+        "name": "configuration",
+        "passed": true,
+        "detail": "Runtime values validated; credentials excluded."
+      },
+      {
+        "name": "shared_mode",
+        "passed": true,
+        "detail": "Shared hosting requires ECE_DEVELOPMENT_MODE=false."
+      },
+      {
+        "name": "server_configuration",
+        "passed": true,
+        "detail": "Listen address, port, and URL prefix validated; no socket opened."
+      },
+      {
+        "name": "dependencies",
+        "passed": true,
+        "detail": "Installed versions compared with production requirements."
+      },
+      {
+        "name": "catalog",
+        "passed": true,
+        "detail": "Advisor corpus, frozen baseline and published undergraduate ECE directory validated."
+      },
+      {
+        "name": "connectors",
+        "passed": true,
+        "detail": "Connector configuration validated without network requests."
+      },
+      {
+        "name": "cache",
+        "passed": true,
+        "detail": "Source and embedding cache directories are writable."
+      },
+      {
+        "name": "liveness",
+        "passed": true,
+        "detail": "Loopback Streamlit health endpoint."
+      },
+      {
+        "name": "offline_preview",
+        "passed": true,
+        "detail": "Credential-free preview roadmap; HTTP clients blocked."
+      }
+    ],
+    "configuration": {
+      "development_mode": false,
+      "refresh_sources": false,
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "embedding_dimensions": 768,
+      "ai_key_present": false,
+      "ai_time_budget_seconds": 45,
+      "adzuna_credentials_present": false
+    },
+    "server": {
+      "address": "0.0.0.0",
+      "port": 8501,
+      "base_path": "",
+      "health_path": "/_stcore/health"
+    },
+    "dependencies": {
+      "streamlit": {
+        "required": "1.66.1",
+        "installed": "1.66.1"
+      },
+      "plotly": {
+        "required": "7.1.0",
+        "installed": "7.1.0"
+      },
+      "numpy": {
+        "required": "2.3.5",
+        "installed": "2.3.5"
+      },
+      "pydantic": {
+        "required": "2.14.0",
+        "installed": "2.14.0"
+      },
+      "google-genai": {
+        "required": "2.33.0",
+        "installed": "2.33.0"
+      },
+      "python-dotenv": {
+        "required": "1.2.4",
+        "installed": "1.2.4"
+      },
+      "httpx": {
+        "required": "0.28.1",
+        "installed": "0.28.1"
+      }
+    },
+    "passed": true,
+    "checked_at": "2026-11-08T22:57:59.048122+00:00"
+  },
+  "fresh_live_source_request": {
+    "checked_at": "2026-11-08T23:00:54.070478+00:00",
+    "profile_kind": "fictional minimal embedded profile",
+    "model_calls": 0,
+    "seconds": 21.663866582999617,
+    "timings": {
+      "source_refresh": 21.65054609500021,
+      "retrieval": 0.0018069900006594253,
+      "total": 21.66071709300013
+    },
+    "requested_course": "ECE413",
+    "requested_course_in_context": true,
+    "requested_rule_status": "unknown",
+    "source_check_counts": {
+      "discovery": 1,
+      "course": 8,
+      "resource": 2
+    },
+    "selected_checks": [
+      {
+        "source_id": "catalog:ECE_program",
+        "code": "ECEBSECE",
+        "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+        "kind": "discovery",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:32.440971Z",
+        "last_checked_at": "2026-11-08T23:00:43.668631Z",
+        "retrieved_at": "2026-11-08T23:00:43.668631Z",
+        "content_hash": "d67cb85ced834efeeca8468ce31a06d7103179e7e4f617ccf4a144ff9ddc6dc0",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": "verified",
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.008236501000283,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.7631673220002995,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 11.021634253999764,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE413",
+        "code": "ECE413",
+        "url": "https://catalog.arizona.edu/courses/0396851",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:32.441304Z",
+        "last_checked_at": "2026-11-08T23:00:43.703484Z",
+        "retrieved_at": "2026-11-08T23:00:43.703484Z",
+        "content_hash": "dcdb67ae32100fa54fddd9e5ae30280a2cd46db94bfe4becbf7b5f61d3c56f70",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.00922205400002,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.974008157000753,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 11.233349185000407,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE101",
+        "code": "ECE101",
+        "url": "https://catalog.arizona.edu/courses/0432351",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:32.443032Z",
+        "last_checked_at": "2026-11-08T23:00:43.476386Z",
+        "retrieved_at": "2026-11-08T23:00:43.476386Z",
+        "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.007236986999487,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.725958944999547,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 10.984246527999858,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE369A",
+        "code": "ECE369A",
+        "url": "https://catalog.arizona.edu/courses/0366021",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:43.593020Z",
+        "last_checked_at": "2026-11-08T23:00:44.405660Z",
+        "retrieved_at": "2026-11-08T23:00:44.405660Z",
+        "content_hash": "968094a5068e4f61e63cf4d445384f33b4f0f0f9606500ca59a3831c01a131cb",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.7669226649995835,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.7669251190000068,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE372A",
+        "code": "ECE372A",
+        "url": "https://catalog.arizona.edu/courses/0367521",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:43.672320Z",
+        "last_checked_at": "2026-11-08T23:00:44.356482Z",
+        "retrieved_at": "2026-11-08T23:00:44.356482Z",
+        "content_hash": "6ecd63c1751fe2e3d9b49dd57dd1a5d8cf94918ba7f63357e754eb90769752d4",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.6503421500001423,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.6503432319996136,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE201",
+        "code": "ECE201",
+        "url": "https://catalog.arizona.edu/courses/0432591",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:43.703937Z",
+        "last_checked_at": "2026-11-08T23:00:44.224928Z",
+        "retrieved_at": "2026-11-08T23:00:44.224928Z",
+        "content_hash": "9e73a6e4a38bc9d40c709f6f16f8c70cfaa1e4ec17fdf212e67ff3138f7b2081",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.49341941900001984,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.4934213520000412,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE220",
+        "code": "ECE220",
+        "url": "https://catalog.arizona.edu/courses/0120881",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:44.225349Z",
+        "last_checked_at": "2026-11-08T23:00:44.710148Z",
+        "retrieved_at": "2026-11-08T23:00:44.710148Z",
+        "content_hash": "4f759badc7e8d724700bbdf5b3a9f965a72e212c9e08eb6637ac300a0118b118",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.44555024999954185,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.4455522829994152,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE274A",
+        "code": "ECE274A",
+        "url": "https://catalog.arizona.edu/courses/0360981",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:44.356938Z",
+        "last_checked_at": "2026-11-08T23:00:44.832068Z",
+        "retrieved_at": "2026-11-08T23:00:44.832068Z",
+        "content_hash": "bc274afe2ad19e3bec2c3de94f3508db9c51c7452cc1d86c7566ca00dc35619a",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.44118389200048114,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.4411859150004602,
+        "message": ""
+      },
+      {
+        "source_id": "catalog:ECE310",
+        "code": "ECE310",
+        "url": "https://catalog.arizona.edu/courses/0362401",
+        "kind": "course",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:44.406098Z",
+        "last_checked_at": "2026-11-08T23:00:44.915351Z",
+        "retrieved_at": "2026-11-08T23:00:44.915351Z",
+        "content_hash": "6db0005357fd0356f2c1313e6ba0a44415209346f4fd16baa812eff97bf3d401",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": null,
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 0.4799736340000891,
+            "retry": false
+          }
+        ],
+        "retry_count": 0,
+        "transport_seconds": 0.4799758569997721,
+        "message": ""
+      },
+      {
+        "source_id": "resource:cs50",
+        "code": "resource:cs50",
+        "url": "https://cs50.harvard.edu/x/",
+        "kind": "resource",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:44.711063Z",
+        "last_checked_at": "2026-11-08T23:00:54.058074Z",
+        "retrieved_at": "2026-11-08T23:00:54.058074Z",
+        "content_hash": "edfb3e6658ec5690fcdb32a096a3b83e568285330fd39c8d33c8fc8f6a1ac915",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": "https://cs50.harvard.edu/x/",
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.008028612000089,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 3.088569679000102,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 9.346812275000048,
+        "message": ""
+      },
+      {
+        "source_id": "resource:python",
+        "code": "resource:python",
+        "url": "https://docs.python.org/3/tutorial/index.html",
+        "kind": "resource",
+        "status": "updated",
+        "attempted_at": "2026-11-08T23:00:44.833044Z",
+        "last_checked_at": "2026-11-08T23:00:53.737968Z",
+        "retrieved_at": "2026-11-08T23:00:53.737968Z",
+        "content_hash": "71cf036e80a7e3bdb53ea3297513bc75740f3c143b3a192ebd0771d3b668696d",
+        "content_changed": true,
+        "cache_saved": true,
+        "http_status": 200,
+        "resolved_url": "https://docs.python.org/3/tutorial/index.html",
+        "failure_kind": null,
+        "rule_status": null,
+        "discovery_status": null,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.007183079000242,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 2.647150870999212,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 8.904535559999204,
+        "message": ""
+      }
+    ],
+    "skipped_checks": 11,
+    "issues": [
+      "Course discovery is limited to this request's download budget; 12 additional links were not fetched.",
+      "The source-check limit was reached; remaining records retain dated snapshots.",
+      "The resource-check limit was reached; remaining resources retain dated snapshots."
+    ],
+    "recovered_transient_check_count": 5
+  },
+  "source_reuse_observations": [
+    {
+      "condition": "existing_disk_cache_new_process",
+      "checked_at": "2026-11-08T23:02:15.671331+00:00",
+      "seconds": 13.191386673000125,
+      "timings": {
+        "source_refresh": 13.178107788000489,
+        "retrieval": 0.0020302359998822794,
+        "total": 13.188371866000125
+      },
+      "http_attempts": 11,
+      "recent_cache_checks": 0,
+      "checked_records": 11,
+      "statuses": {
+        "not_modified": 2,
+        "unchanged": 9,
+        "skipped": 11
+      },
+      "requested_course_in_context": true,
+      "model_calls": 0
+    },
+    {
+      "condition": "immediate_same_process_reuse",
+      "checked_at": "2026-11-08T23:02:15.737302+00:00",
+      "seconds": 0.06588856100006524,
+      "timings": {
+        "source_refresh": 0.02837070300029154,
+        "retrieval": 0.0017031930001394358,
+        "total": 0.06391654399976687
+      },
+      "http_attempts": 0,
+      "recent_cache_checks": 11,
+      "checked_records": 11,
+      "statuses": {
+        "recent_cache": 11,
+        "skipped": 11
+      },
+      "requested_course_in_context": true,
+      "model_calls": 0
+    }
+  ],
+  "live_opportunities": {
+    "requested_at": "2026-11-08T23:00:32.363011+00:00",
+    "passed": true,
+    "model_calls": 0,
+    "credentials_used": false,
+    "filters": {
+      "career": "embedded",
+      "location": "",
+      "internship": true,
+      "early_career": false,
+      "updated_within": null
+    },
+    "seconds": 19.798661632000403,
+    "returned_listings": 6,
+    "matches": 6,
+    "board_checks": [
+      {
+        "board": "samsara",
+        "employer": "Samsara",
+        "url": "https://boards-api.greenhouse.io/v1/boards/samsara/jobs",
+        "status": "verified",
+        "valid_posts": 314,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-08T23:00:32.363209+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.00799188900055,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.164433349000319,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 10.422615876000236
+      },
+      {
+        "board": "nuro",
+        "employer": "Nuro",
+        "url": "https://boards-api.greenhouse.io/v1/boards/nuro/jobs",
+        "status": "verified",
+        "valid_posts": 94,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-08T23:00:32.363209+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.0069434470005945,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.179884610000045,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 10.436951804000273
+      },
+      {
+        "board": "andurilindustries",
+        "employer": "Anduril Industries",
+        "url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs",
+        "status": "verified",
+        "valid_posts": 2601,
+        "rejected_posts": 0,
+        "checked_at": "2026-11-08T23:00:32.363209+00:00",
+        "http_status": 200,
+        "attempts": [
+          {
+            "outcome": "timeout",
+            "http_status": null,
+            "seconds": 6.004066827000315,
+            "retry": false
+          },
+          {
+            "outcome": "success",
+            "http_status": 200,
+            "seconds": 4.2786388139993505,
+            "retry": true
+          }
+        ],
+        "retry_count": 1,
+        "transport_seconds": 10.532811435999974
+      }
+    ],
+    "detail": {
+      "posting_id": "greenhouse:andurilindustries:5268736007",
+      "source_url": "https://boards-api.greenhouse.io/v1/boards/andurilindustries/jobs/5268736007",
+      "requested_at": "2026-11-08T23:00:43.031972Z",
+      "checked_at": "2026-11-08T23:00:52.161662Z",
+      "status": "verified",
+      "http_status": 200,
+      "attempts": [
+        {
+          "outcome": "timeout",
+          "http_status": null,
+          "seconds": 6.006798063000133,
+          "retry": false
+        },
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 2.868572845000017,
+          "retry": true
+        }
+      ],
+      "retry_count": 1,
+      "transport_seconds": 9.125543221000044
+    }
+  },
+  "final_artifact_inventory": {
+    "directory": "docs/final",
+    "files": [
+      {
+        "path": "docs/final/DEMO_RUNBOOK.md"
+      },
+      {
+        "path": "docs/final/EVIDENCE_MANIFEST.json"
+      },
+      {
+        "path": "docs/final/EVIDENCE_MAP.md"
+      },
+      {
+        "path": "docs/final/README.md"
+      },
+      {
+        "path": "docs/final/REPORT_DRAFT.md"
+      },
+      {
+        "path": "docs/final/STUDENT_PILOT.md"
+      }
+    ],
+    "compiled_final_pdf_located": false,
+    "final_slides_located": false,
+    "new_final_recording_located": false,
+    "final_release_tags": [],
+    "participant_observations_added": 0,
+    "independent_review_grades_added": 0,
+    "sample_tool_video_review_completion_established": false
+  },
+  "report_attribution_correction": {
+    "field": "Latest CI repeat inspector first-opening medians in REPORT_DRAFT.md",
+    "previous_values_ms": [
+      701.9,
+      1746.0
+    ],
+    "correct_cited_values_ms": [
+      683.7,
+      1714.0
+    ],
+    "cited_run": 42531556423,
+    "historical_experiment_unchanged_ms": [
+      686.7,
+      1608.4
+    ]
+  },
+  "review_template": {
+    "cases": 12,
+    "ratings": 408,
+    "unscored": 408
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "readiness_planning_judgment": {
+    "app_percent": 85,
+    "full_submission_percent": 65,
+    "planning_range_percent": [
+      60,
+      70
+    ],
+    "prior_full_submission_percent": 75,
+    "weighted_planning_percent": 63.5,
+    "weights_are_instructor_rubric": false,
+    "workstreams": [
+      {
+        "workstream": "Application and focused academic data",
+        "weight_percent": 50,
+        "estimated_completion_percent": 85
+      },
+      {
+        "workstream": "Evaluation and performance evidence",
+        "weight_percent": 15,
+        "estimated_completion_percent": 40
+      },
+      {
+        "workstream": "Final technical report",
+        "weight_percent": 20,
+        "estimated_completion_percent": 60
+      },
+      {
+        "workstream": "Presentation and final recording",
+        "weight_percent": 10,
+        "estimated_completion_percent": 10
+      },
+      {
+        "workstream": "Final release and delivery",
+        "weight_percent": 5,
+        "estimated_completion_percent": 40
+      }
+    ],
+    "reason": "Earlier estimate credited protocols/drafts too generously; actual judgments/participants, final figures/PDF, slides/recording and release are unfinished."
+  },
+  "limits": [
+    "No app code or midpoint artifact changes; review inputs and null grades are preserved.",
+    "Live network timings are individual workspace observations with recovered timeouts, not a latency distribution or browser/live-AI result.",
+    "Public source verification does not interpret unresolved enrollment conditions or establish term/degree/qualification eligibility.",
+    "No model calls, independent labels or participant observations were added. Hosting/accounts/graduate/full-degree expansion is not asserted as a mandatory final rule."
+  ]
+}

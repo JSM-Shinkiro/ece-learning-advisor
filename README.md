@@ -6,6 +6,8 @@
 
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
+[The latest final-readiness audit](docs/56_FINAL_READINESS_AUDIT.md) records the current app status, remaining deliverables and distinction between midpoint guidance and unconfirmed final instructions.
+
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
 [Undergraduate ECE coverage and verification](docs/55_UNDERGRADUATE_ECE_DIRECTORY.md) describes the published inventory, bounded request behavior and remaining academic coverage gaps.

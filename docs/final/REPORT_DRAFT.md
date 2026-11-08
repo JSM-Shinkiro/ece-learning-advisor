@@ -138,9 +138,11 @@ The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Pytho
 | Inspector reopening | Plotly baseline | 5 | 342.9 | 361.8 | 368.7 |
 | Inspector reopening | Native ranking | 5 | 295.5 | 307.8 | 319.0 |
 
-The first-opening median decreases by 57.3% within this experiment. Native bars avoid initializing Plotly for the simple preview ranking view; the exact contribution of transfer, initialization and server work is not separately isolated. The latest CI repeat records native/baseline first-opening medians of 701.9/1,746.0 ms in a separate five-session comparison. That repeat is retained separately, not pooled with the optimization sample. [E7](EVIDENCE_MAP.md)
+The first-opening median decreases by 57.3% within this experiment. Native bars avoid initializing Plotly for the simple preview ranking view; the exact contribution of transfer, initialization and server work is not separately isolated. The latest CI repeat records native/baseline first-opening medians of 683.7/1,714.0 ms in a separate five-session comparison. That repeat is retained separately, not pooled with the optimization sample. [E7](EVIDENCE_MAP.md)
 
 These are animation-frame DOM observations, including offscreen laid-out controls, not physical paint or field interaction metrics. Shared-runner variability, ordered small samples and shared processes limit inference. No p95, significance test, live-AI latency distribution or student-device performance is established. Server phase timings use a separate clock and exclude provider cleanup/browser rendering.
+
+The November 8 readiness audit adds individual source-only observations: 21.664 seconds with an empty audit cache and recovered network timeouts, 13.191 seconds using a disk cache in a new process, and 0.066 seconds for immediate same-process reuse with zero HTTP attempts. A separate employer search/detail observation takes 19.799 seconds and verifies all three boards plus the selected posting. No model calls are used. These are workspace/network-specific server observations, not repeated cohorts, browser response times or live-AI latency. They identify fresh network waiting as an unresolved interaction concern despite fast recent reuse. [E12](EVIDENCE_MAP.md)
 
 ## 6. Limitations and next validation
 
@@ -156,4 +158,4 @@ Before release, collect genuine judgments and student observations, measure real
 2. S. Robertson and H. Zaragoza (2009). [The Probabilistic Relevance Framework: BM25 and Beyond](https://doi.org/10.1561/1500000019).
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 
-Implementation and experimental sources are indexed in [E1–E11](EVIDENCE_MAP.md); exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E12](EVIDENCE_MAP.md); exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
