@@ -46,6 +46,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Collection and posting UX](50_COLLECTION_AND_POSTING_UX.md) | Local collection filters, lazy source details, inline posting progress and stale-action protection |
 | [Browser performance](51_BROWSER_PERFORMANCE.md) | Repeated offline preview timings, explicit measurement boundaries, provenance and retained failures |
 | [Lightweight inspector](52_LIGHTWEIGHT_INSPECTOR.md) | Native ranking bars, retained vector mathematics, phone inspection and same-collector first/reopen comparison |
+| [CI status and runner](53_CI_STATUS_AND_RUNNER.md) | Historical failure diagnosis, fixed Ubuntu release and readable per-report acceptance/timing outcomes |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

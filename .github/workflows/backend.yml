@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-26.04, windows-latest]
     env:
       PYTHONUTF8: "1"
       GEMINI_API_KEY: ""
@@ -91,7 +91,7 @@ jobs:
           retention-days: 14
   browser:
     name: Chromium / real Streamlit sessions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - name: Check out code
@@ -129,6 +129,9 @@ jobs:
       - name: Measure baseline inspector with the same collector
         if: ${{ !cancelled() }}
         run: python scripts/measure_browser.py --app-root .cache/browser-baseline --samples 5 --output output/ci/baseline-browser-performance.json
+      - name: Summarize browser acceptance and timing outcomes
+        if: ${{ always() }}
+        run: python scripts/summarize_browser_ci.py --reports-dir output/ci --output output/ci/browser-summary.md --github-summary
       - name: Save browser acceptance report
         if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -143,5 +146,6 @@ jobs:
             output/ci/baseline-browser-performance.json
             output/ci/ranking-mobile.png
             output/ci/ranking-desktop.png
+            output/ci/browser-summary.md
           if-no-files-found: warn
           retention-days: 14

@@ -44,6 +44,11 @@ def main():
         print("The measurement report could not be saved. Choose a writable new path.", file=sys.stderr)
         return 1
     print(f"Completed {report['successful_samples']}/{args.samples} preview sessions.")
+    if not report["passed"]:
+        from scripts.summarize_browser_ci import failure_stages
+        stages = failure_stages(report)
+        if stages:
+            print("Failed stage:", stages)
     for metric, values in report["summary_ms"].items():
         print(metric, "·", json.dumps(values))
     print("Saved", args.output)

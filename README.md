@@ -2,11 +2,13 @@
 
 **Team P07 | Fall 2026**
 
-[![Backend checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml/badge.svg)](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml)
+[![Backend checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml/badge.svg?branch=main)](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/workflows/backend.yml?query=branch%3Amain)
 
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
+
+[CI status and runner notes](docs/53_CI_STATUS_AND_RUNNER.md) explain historical timing-check failures, the fixed Ubuntu release, and the per-workflow summary that separates app acceptance from offline timing outcomes.
 
 Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with an expandable history and server phase timings in the inspector. Preview, clarification and fallback paths report only the work actually attempted.
 
