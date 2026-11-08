@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · November 7, 2026
 
-Based on application revision `d1de020a22637963abbcb15c9b79a788ef21b535`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
+Based on application revision `edf5255b8f881c7993b697da2eba1158233e5e6f`. This is a summary of the implemented app; final-submission readiness is tracked separately in [FINAL_READINESS.md](FINAL_READINESS.md).
 
 ## Purpose
 
@@ -53,9 +53,10 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection:** 20 courses, eight learning resources, two career mappings, and 34 evidence chunks.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; fifteen ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, Plotly inspection charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** 1,612 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, nine controlled AI/browsing and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Verification:** 1,640 tests and nine runtime checks pass on Linux and Windows, plus ten student preview, nine controlled AI/browsing and six reviewer-workspace browser checks. Software tests are distinct from independent quality evaluation.
+- **Preview performance:** five fresh offline Chromium sessions show median request feedback at 250 ms, roadmap controls at 459 ms and first inspector loading at 1,711.9 ms. These are DOM observations with shared processes and browser HTTP cache disabled; live AI/source and hosted/mobile timing remain separate. See [browser measurements](51_BROWSER_PERFORMANCE.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission:** engineering estimates remain approximately 94% for the planned app and 70% for the complete final submission. Independent evaluation, student feedback, final performance measurements and the final report/slides/demo remain open.
+- **Submission:** engineering estimates remain approximately 94% for the planned app and 72% for the complete final submission. Independent evaluation, student feedback, real-AI/frozen-release performance measurements and the final report/slides/demo remain open.
 
 ## Code map
 

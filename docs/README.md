@@ -44,6 +44,7 @@ Team P07's ECE Learning Advisor, ECE 425/525. Start with the final-project hando
 | [Responsiveness review](48_RESPONSIVENESS_REVIEW.md) | Recent source reuse, explicit rechecks, lazy inspection, measured timings and prioritized app improvements |
 | [Progressive AI requests](49_PROGRESSIVE_AI_REQUESTS.md) | Source plans before AI completion, owned background requests, cancellation, capacity and UI checks |
 | [Collection and posting UX](50_COLLECTION_AND_POSTING_UX.md) | Local collection filters, lazy source details, inline posting progress and stale-action protection |
+| [Browser performance](51_BROWSER_PERFORMANCE.md) | Repeated offline preview timings, explicit measurement boundaries, provenance and retained failures |
 | [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
 | [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
 | [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |

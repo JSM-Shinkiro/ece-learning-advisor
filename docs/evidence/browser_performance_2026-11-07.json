@@ -1,0 +1,829 @@
+{
+  "date": "2026-11-07",
+  "base_revision": "c28099121788b5d6f4c12f5f8a51f98d1dbc4d86",
+  "verified_revision": "edf5255b8f881c7993b697da2eba1158233e5e6f",
+  "scope": "Repeated fresh offline Chromium sessions through the production launcher. No app behavior changes or live provider/network performance claims.",
+  "initial_targeted": {
+    "passed": 43,
+    "failed": 1,
+    "seconds": 0.16,
+    "failure": "The collector initially rejected the runtime data version because its allowed characters omitted the additive + separator. Corrected the provenance validator; no catalog inputs changed."
+  },
+  "targeted_followup": {
+    "passed": 44,
+    "seconds": 0.17
+  },
+  "local_suite": {
+    "tests": "1640",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "54.423"
+  },
+  "local_readiness": {
+    "checks": 9,
+    "passed": true
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "review_template": {
+    "grades": 408,
+    "all_blank": true
+  },
+  "readiness": {
+    "app_percent": 94,
+    "full_submission_percent": 72,
+    "type": "engineering planning judgments, not measured quality or rubric grades",
+    "reason": "Repeated offline preview browser performance evidence is now reproducible and recorded. App behavior is unchanged; real-AI/frozen-release timing, independent judgments, student pilot and final artifacts remain open."
+  },
+  "initial_ci": {
+    "run_id": 42444913527,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42444913527",
+    "revision": "0d4e7d40d9f3959181ff626d41539ce4f2f0c1b0",
+    "conclusion": "failure",
+    "linux": {
+      "job_id": 128621708883,
+      "tests": 1640,
+      "test_seconds": 56.98,
+      "readiness_checks": 9,
+      "passed": true
+    },
+    "windows": {
+      "job_id": 128621708871,
+      "tests": 1640,
+      "test_seconds": 79.01,
+      "readiness_checks": 9,
+      "passed": true
+    },
+    "browser": {
+      "job_id": 128621708762,
+      "artifact_id": 13602754973,
+      "artifact_sha256": "f635de012247ee70cebe71db1ce6da7a14b79bacbd182d341771f04a80129456",
+      "reports": {
+        "browser.json": {
+          "passed": true,
+          "mode": "local_offline",
+          "checks": [
+            {
+              "name": "initial_roadmap",
+              "passed": true,
+              "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+              "seconds": 2.271
+            },
+            {
+              "name": "request_progress",
+              "passed": true,
+              "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+              "seconds": 0.103
+            },
+            {
+              "name": "lazy_inspector",
+              "passed": true,
+              "detail": "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.",
+              "seconds": 2.324
+            },
+            {
+              "name": "current_course_filtering",
+              "passed": true,
+              "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+              "seconds": 1.052
+            },
+            {
+              "name": "completion_transition",
+              "passed": true,
+              "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+              "seconds": 0.628
+            },
+            {
+              "name": "profile_export",
+              "passed": true,
+              "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+              "seconds": 0.776
+            },
+            {
+              "name": "profile_restore",
+              "passed": true,
+              "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+              "seconds": 1.124
+            },
+            {
+              "name": "session_isolation",
+              "passed": true,
+              "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+              "seconds": 1.997
+            },
+            {
+              "name": "unsupported_request",
+              "passed": true,
+              "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+              "seconds": 0.634
+            },
+            {
+              "name": "websocket_sessions",
+              "passed": true,
+              "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+              "seconds": 0.006
+            }
+          ],
+          "sessions": [
+            {
+              "stream_connections": 1,
+              "frames_sent": 10,
+              "frames_received": 1255,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 7,
+              "fragments_finished": 2
+            },
+            {
+              "stream_connections": 1,
+              "frames_sent": 3,
+              "frames_received": 405,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 3,
+              "fragments_finished": 0
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "external_browser_requests_blocked": 0,
+          "limits": [
+            "Preview mode only; no AI, relevance, or participant evaluation.",
+            "Local checks do not establish public-host availability or TLS/proxy behavior.",
+            "Browser request counts do not measure server-side network calls."
+          ],
+          "seconds": 11.688,
+          "checked_at": "2026-11-08T03:59:56.205184+00:00"
+        },
+        "reviewer-browser.json": {
+          "passed": true,
+          "mode": "controlled_reviewer_fixture",
+          "checks": [
+            {
+              "name": "blank_review",
+              "passed": true,
+              "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+            },
+            {
+              "name": "explicit_grades",
+              "passed": true,
+              "detail": "Blank saves do not grade; explicit zero and three save separate evidence judgments."
+            },
+            {
+              "name": "draft_download",
+              "passed": true,
+              "detail": "A real download retains two explicit fixture ratings, notes schema, and draft provenance."
+            },
+            {
+              "name": "incomplete_completion_blocked",
+              "passed": true,
+              "detail": "An incomplete draft cannot be exported as a completed review."
+            },
+            {
+              "name": "resume_and_isolation",
+              "passed": true,
+              "detail": "A separate session starts blank and restores the downloaded draft exactly."
+            },
+            {
+              "name": "wrong_packet_rejected",
+              "passed": true,
+              "detail": "A foreign packet hash is rejected without replacing saved ratings or producing page errors."
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "sessions": [
+            {
+              "scripts_finished": 7,
+              "page_errors": 0
+            },
+            {
+              "scripts_finished": 4,
+              "page_errors": 0
+            }
+          ],
+          "blocked_external_browser_requests": 0,
+          "limits": [
+            "Only controlled fixture actions; no independent judgments or quality score.",
+            "No supplied-host, participant, or public hosting validation."
+          ],
+          "seconds": 4.72,
+          "checked_at": "2026-11-08T04:00:02.114667+00:00"
+        },
+        "progressive-browser.json": {
+          "passed": false,
+          "mode": "controlled_provider_local_ui",
+          "checks": [
+            {
+              "name": "source_plan_before_ai",
+              "passed": true,
+              "detail": "A usable source plan appears while the controlled provider is still blocked.",
+              "seconds": 1.314
+            },
+            {
+              "name": "draft_retention",
+              "passed": true,
+              "detail": "The form remains editable and retains its unsubmitted draft when AI completes.",
+              "seconds": 0.423
+            },
+            {
+              "name": "newer_profile_wins",
+              "passed": true,
+              "detail": "A newer profile completes while the old provider waits; releasing the old response cannot replace it.",
+              "seconds": 3.813
+            },
+            {
+              "name": "keep_source_plan",
+              "passed": true,
+              "detail": "Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",
+              "seconds": 3.078
+            },
+            {
+              "name": "collection_filters",
+              "passed": true,
+              "detail": "Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",
+              "seconds": 1.184
+            },
+            {
+              "name": "mobile_collection",
+              "passed": false,
+              "detail": "The controlled progressive browser gate did not complete.",
+              "error_type": "TimeoutError",
+              "failure_line": 164
+            }
+          ],
+          "limits": [
+            "Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
+            "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
+            "This checks one local browser session, not public hosting or participant usability."
+          ],
+          "seconds": 32.26,
+          "checked_at": "2026-11-08T04:00:35.493544+00:00"
+        }
+      },
+      "timing_collector": "skipped after earlier gate failure",
+      "diagnosis": "The phone gate timed out at a sidebar-collapse click after viewport resizing. The checker had observed it visible immediately before it could disappear during responsive collapse. The follow-up closes and verifies the sidebar before resizing and retains phone filtering/reset/overflow checks."
+    }
+  },
+  "verified_ci": {
+    "run_id": 42445221606,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42445221606",
+    "revision": "edf5255b8f881c7993b697da2eba1158233e5e6f",
+    "conclusion": "success",
+    "linux": {
+      "job_id": 128622610902,
+      "tests": 1640,
+      "test_seconds": 46.93,
+      "readiness_checks": 9,
+      "passed": true,
+      "artifact_id": 13603410804,
+      "reported_artifact_sha256": "ba16d06d1cbd0798bdebdf76d5ae9556d56c419d262f7ada6a68e664b8af397b"
+    },
+    "windows": {
+      "job_id": 128622610853,
+      "tests": 1640,
+      "test_seconds": 73.42,
+      "readiness_checks": 9,
+      "passed": true,
+      "artifact_id": 13603059194,
+      "reported_artifact_sha256": "f4a96b0a7445220f534726aafb200024a3ad8492810dff576a32705941aac828"
+    },
+    "browser": {
+      "job_id": 128622610687,
+      "artifact_id": 13602414463,
+      "download_verified_sha256": "04a30cc90b891c31adab7cea5cd13d760754108e20ae4a0c7dd1bd2e48f09c45",
+      "acceptance_gates": 25,
+      "timing_samples": 5,
+      "reports": {
+        "browser.json": {
+          "passed": true,
+          "mode": "local_offline",
+          "checks": [
+            {
+              "name": "initial_roadmap",
+              "passed": true,
+              "detail": "Production UI renders and submits a preview roadmap; AI remains off.",
+              "seconds": 2.403
+            },
+            {
+              "name": "request_progress",
+              "passed": true,
+              "detail": "The completed request retains visible stage feedback without claiming AI generation.",
+              "seconds": 0.116
+            },
+            {
+              "name": "lazy_inspector",
+              "passed": true,
+              "detail": "Closed inspector sends no charts; opening and closing complete fragment runs without rerunning the app.",
+              "seconds": 2.311
+            },
+            {
+              "name": "current_course_filtering",
+              "passed": true,
+              "detail": "Current ECE101 is visible as coursework and absent from next-step cards.",
+              "seconds": 1.121
+            },
+            {
+              "name": "completion_transition",
+              "passed": true,
+              "detail": "Completion moves ECE101 out of current study and retains its unknown grade.",
+              "seconds": 0.49
+            },
+            {
+              "name": "profile_export",
+              "passed": true,
+              "detail": "The UI downloads a valid controlled profile including manual current coursework.",
+              "seconds": 0.647
+            },
+            {
+              "name": "profile_restore",
+              "passed": true,
+              "detail": "An uploaded UI export restores the edited profile exactly, including all saved fields.",
+              "seconds": 1.165
+            },
+            {
+              "name": "session_isolation",
+              "passed": true,
+              "detail": "Two isolated browser contexts retain different profiles while both sessions remain open.",
+              "seconds": 2.319
+            },
+            {
+              "name": "unsupported_request",
+              "passed": true,
+              "detail": "An unsupported question requests clarification, without course cards or cross-session changes.",
+              "seconds": 0.729
+            },
+            {
+              "name": "websocket_sessions",
+              "passed": true,
+              "detail": "Both real Streamlit WebSockets exchange frames with no stream closure or page JavaScript errors.",
+              "seconds": 0.007
+            }
+          ],
+          "sessions": [
+            {
+              "stream_connections": 1,
+              "frames_sent": 10,
+              "frames_received": 1268,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 7,
+              "fragments_finished": 2
+            },
+            {
+              "stream_connections": 1,
+              "frames_sent": 3,
+              "frames_received": 450,
+              "streams_closed": 0,
+              "page_errors": 0,
+              "scripts_finished": 3,
+              "fragments_finished": 0
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "external_browser_requests_blocked": 0,
+          "limits": [
+            "Preview mode only; no AI, relevance, or participant evaluation.",
+            "Local checks do not establish public-host availability or TLS/proxy behavior.",
+            "Browser request counts do not measure server-side network calls."
+          ],
+          "seconds": 12.274,
+          "checked_at": "2026-11-08T04:04:20.302073+00:00"
+        },
+        "reviewer-browser.json": {
+          "passed": true,
+          "mode": "controlled_reviewer_fixture",
+          "checks": [
+            {
+              "name": "blank_review",
+              "passed": true,
+              "detail": "All 408 ratings start blank, with no chosen grade or reviewer role."
+            },
+            {
+              "name": "explicit_grades",
+              "passed": true,
+              "detail": "Blank saves do not grade; explicit zero and three save separate evidence judgments."
+            },
+            {
+              "name": "draft_download",
+              "passed": true,
+              "detail": "A real download retains two explicit fixture ratings, notes schema, and draft provenance."
+            },
+            {
+              "name": "incomplete_completion_blocked",
+              "passed": true,
+              "detail": "An incomplete draft cannot be exported as a completed review."
+            },
+            {
+              "name": "resume_and_isolation",
+              "passed": true,
+              "detail": "A separate session starts blank and restores the downloaded draft exactly."
+            },
+            {
+              "name": "wrong_packet_rejected",
+              "passed": true,
+              "detail": "A foreign packet hash is rejected without replacing saved ratings or producing page errors."
+            }
+          ],
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "sessions": [
+            {
+              "scripts_finished": 7,
+              "page_errors": 0
+            },
+            {
+              "scripts_finished": 4,
+              "page_errors": 0
+            }
+          ],
+          "blocked_external_browser_requests": 0,
+          "limits": [
+            "Only controlled fixture actions; no independent judgments or quality score.",
+            "No supplied-host, participant, or public hosting validation."
+          ],
+          "seconds": 5.429,
+          "checked_at": "2026-11-08T04:04:27.079766+00:00"
+        },
+        "progressive-browser.json": {
+          "passed": true,
+          "mode": "controlled_provider_local_ui",
+          "checks": [
+            {
+              "name": "source_plan_before_ai",
+              "passed": true,
+              "detail": "A usable source plan appears while the controlled provider is still blocked.",
+              "seconds": 1.466
+            },
+            {
+              "name": "draft_retention",
+              "passed": true,
+              "detail": "The form remains editable and retains its unsubmitted draft when AI completes.",
+              "seconds": 0.577
+            },
+            {
+              "name": "newer_profile_wins",
+              "passed": true,
+              "detail": "A newer profile completes while the old provider waits; releasing the old response cannot replace it.",
+              "seconds": 4.971
+            },
+            {
+              "name": "keep_source_plan",
+              "passed": true,
+              "detail": "Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",
+              "seconds": 3.178
+            },
+            {
+              "name": "collection_filters",
+              "passed": true,
+              "detail": "Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",
+              "seconds": 1.356
+            },
+            {
+              "name": "mobile_collection",
+              "passed": true,
+              "detail": "Filters and reset work at a 390-pixel phone width without horizontal page overflow or a full-app request.",
+              "seconds": 0.7
+            },
+            {
+              "name": "posting_progress",
+              "passed": true,
+              "detail": "A deliberately delayed detail request shows feedback beside the selected listing and does not rerun the roadmap.",
+              "seconds": 1.691
+            },
+            {
+              "name": "posting_failure_retains_search",
+              "passed": true,
+              "detail": "A failed recheck clears verified content while retaining the saved search; neither search nor AI is repeated.",
+              "seconds": 0.408
+            },
+            {
+              "name": "browser_health",
+              "passed": true,
+              "detail": "The real Streamlit session exchanges full and fragment updates with no JavaScript errors.",
+              "seconds": 0.0
+            }
+          ],
+          "limits": [
+            "Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
+            "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
+            "This checks one local browser session, not public hosting or participant usability."
+          ],
+          "protocol_counts": {
+            "full_runs": 12,
+            "fragment_runs": 12,
+            "page_errors": 0,
+            "stream_connections": 1
+          },
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "seconds": 17.442,
+          "checked_at": "2026-11-08T04:04:46.003439+00:00"
+        },
+        "browser-performance.json": {
+          "version": "p07-browser-performance-v1",
+          "passed": true,
+          "requested_samples": 5,
+          "mode": "local_offline_production_preview",
+          "environment": {
+            "os": "Linux",
+            "os_release": "7.0.0-1019-azure",
+            "machine": "x86_64",
+            "python": "3.12.16",
+            "logical_cpus": 4,
+            "revision": "edf5255b8f881c7993b697da2eba1158233e5e6f",
+            "working_tree_dirty": false
+          },
+          "browser": {
+            "engine": "chromium",
+            "version": "151.0.7922.34"
+          },
+          "samples": [
+            {
+              "ordinal": 1,
+              "passed": true,
+              "metrics_ms": {
+                "navigation_to_interactive_ms": 1465.9074889999886,
+                "submit_to_script_finished_ms": 537.0952730000056,
+                "request_feedback_dom_ms": 231.69999999998254,
+                "roadmap_controls_ready_ms": 439.0999999999767,
+                "inspector_plot_ready_ms": 1875.7000000000116
+              },
+              "external_browser_requests_blocked": 0,
+              "page_errors": 0,
+              "feedback_kind": "progress",
+              "trace": {
+                "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+                "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+                "retrieval_mode": "keyword",
+                "cache_state": "not_used",
+                "source_refresh_enabled": false,
+                "embedding_model": null,
+                "generation_model": null,
+                "generation_status": "not_requested",
+                "timings_seconds": {
+                  "source_refresh": 0.0,
+                  "retrieval": 0.003620431000001645,
+                  "total": 0.0155064340000024
+                }
+              },
+              "protocol": {
+                "full": 2,
+                "fragment": 1,
+                "streams": 1
+              }
+            },
+            {
+              "ordinal": 2,
+              "passed": true,
+              "metrics_ms": {
+                "navigation_to_interactive_ms": 964.7191650000195,
+                "submit_to_script_finished_ms": 517.6359410000089,
+                "request_feedback_dom_ms": 225.89999999999418,
+                "roadmap_controls_ready_ms": 347.69999999998254,
+                "inspector_plot_ready_ms": 1660.2999999999884
+              },
+              "external_browser_requests_blocked": 0,
+              "page_errors": 0,
+              "feedback_kind": "progress",
+              "trace": {
+                "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+                "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+                "retrieval_mode": "keyword",
+                "cache_state": "not_used",
+                "source_refresh_enabled": false,
+                "embedding_model": null,
+                "generation_model": null,
+                "generation_status": "not_requested",
+                "timings_seconds": {
+                  "source_refresh": 0.0,
+                  "retrieval": 0.002019574000001967,
+                  "total": 0.009226105999999845
+                }
+              },
+              "protocol": {
+                "full": 2,
+                "fragment": 1,
+                "streams": 1
+              }
+            },
+            {
+              "ordinal": 3,
+              "passed": true,
+              "metrics_ms": {
+                "navigation_to_interactive_ms": 852.2863780000023,
+                "submit_to_script_finished_ms": 539.6118769999987,
+                "request_feedback_dom_ms": 250.0,
+                "roadmap_controls_ready_ms": 459.0,
+                "inspector_plot_ready_ms": 1711.8999999999942
+              },
+              "external_browser_requests_blocked": 0,
+              "page_errors": 0,
+              "feedback_kind": "progress",
+              "trace": {
+                "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+                "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+                "retrieval_mode": "keyword",
+                "cache_state": "not_used",
+                "source_refresh_enabled": false,
+                "embedding_model": null,
+                "generation_model": null,
+                "generation_status": "not_requested",
+                "timings_seconds": {
+                  "source_refresh": 0.0,
+                  "retrieval": 0.0018910830000038459,
+                  "total": 0.009571609999994735
+                }
+              },
+              "protocol": {
+                "full": 2,
+                "fragment": 1,
+                "streams": 1
+              }
+            },
+            {
+              "ordinal": 4,
+              "passed": true,
+              "metrics_ms": {
+                "navigation_to_interactive_ms": 945.4571790000159,
+                "submit_to_script_finished_ms": 762.3252680000121,
+                "request_feedback_dom_ms": 271.5,
+                "roadmap_controls_ready_ms": 483.0,
+                "inspector_plot_ready_ms": 1655.2000000000116
+              },
+              "external_browser_requests_blocked": 0,
+              "page_errors": 0,
+              "feedback_kind": "progress",
+              "trace": {
+                "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+                "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+                "retrieval_mode": "keyword",
+                "cache_state": "not_used",
+                "source_refresh_enabled": false,
+                "embedding_model": null,
+                "generation_model": null,
+                "generation_status": "not_requested",
+                "timings_seconds": {
+                  "source_refresh": 0.0,
+                  "retrieval": 0.0021843890000070587,
+                  "total": 0.009787783000007266
+                }
+              },
+              "protocol": {
+                "full": 2,
+                "fragment": 1,
+                "streams": 1
+              }
+            },
+            {
+              "ordinal": 5,
+              "passed": true,
+              "metrics_ms": {
+                "navigation_to_interactive_ms": 991.0901020000153,
+                "submit_to_script_finished_ms": 699.8786860000052,
+                "request_feedback_dom_ms": 259.30000000001746,
+                "roadmap_controls_ready_ms": 604.5,
+                "inspector_plot_ready_ms": 1722.5
+              },
+              "external_browser_requests_blocked": 0,
+              "page_errors": 0,
+              "feedback_kind": "progress",
+              "trace": {
+                "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2",
+                "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+                "retrieval_mode": "keyword",
+                "cache_state": "not_used",
+                "source_refresh_enabled": false,
+                "embedding_model": null,
+                "generation_model": null,
+                "generation_status": "not_requested",
+                "timings_seconds": {
+                  "source_refresh": 0.0,
+                  "retrieval": 0.004405128000001923,
+                  "total": 0.01603782300000489
+                }
+              },
+              "protocol": {
+                "full": 2,
+                "fragment": 1,
+                "streams": 1
+              }
+            }
+          ],
+          "summary_ms": {
+            "navigation_to_interactive_ms": {
+              "n": 5,
+              "min": 852.286,
+              "median": 964.719,
+              "max": 1465.907
+            },
+            "request_feedback_dom_ms": {
+              "n": 5,
+              "min": 225.9,
+              "median": 250.0,
+              "max": 271.5
+            },
+            "roadmap_controls_ready_ms": {
+              "n": 5,
+              "min": 347.7,
+              "median": 459.0,
+              "max": 604.5
+            },
+            "submit_to_script_finished_ms": {
+              "n": 5,
+              "min": 517.636,
+              "median": 539.612,
+              "max": 762.325
+            },
+            "inspector_plot_ready_ms": {
+              "n": 5,
+              "min": 1655.2,
+              "median": 1711.9,
+              "max": 1875.7
+            }
+          },
+          "method": {
+            "viewport": {
+              "width": 1500,
+              "height": 1100
+            },
+            "fresh_context_per_sample": true,
+            "shared_server_and_browser_process": true,
+            "http_cache_disabled_by_request_routing": true,
+            "profile": "unchanged_default_incoming_ai_ml",
+            "inspector_initially_closed": true,
+            "clock": "page performance.now for DOM; Python monotonic for driver/protocol intervals"
+          },
+          "limits": [
+            "Offline preview only: no source downloads, embeddings or AI generation.",
+            "DOM timings observe layout availability, including offscreen controls, not physical paint or field INP.",
+            "Driver timings include automation/protocol overhead; clocks are never subtracted across processes.",
+            "Fresh contexts share processes; this is not a cold/warm-cache or hosted/mobile comparison.",
+            "Small-sample min/median/max only; no p95, latency pass threshold or user-quality inference."
+          ],
+          "successful_samples": 5,
+          "checked_at": "2026-11-08T04:05:08.394679+00:00"
+        }
+      }
+    }
+  },
+  "measurement_limits": [
+    "Offline preview only: no source downloads, embeddings or AI generation.",
+    "DOM timings observe layout availability, including offscreen controls, not physical paint or field INP.",
+    "Driver timings include automation/protocol overhead; clocks are never subtracted across processes.",
+    "Fresh contexts share processes; this is not a cold/warm-cache or hosted/mobile comparison.",
+    "Small-sample min/median/max only; no p95, latency pass threshold or user-quality inference."
+  ]
+}

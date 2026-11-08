@@ -4,9 +4,9 @@ Team P07 · Updated November 7, 2026 · Final presentation/submission: December 
 
 ## Current estimate
 
-The app is approximately **94%** of the planned final version. The complete submission is approximately **70%** ready. These are engineering planning judgments against the current scope, not measured accuracy, test-count percentages, instructor grades, or a guarantee of acceptance. No final-specific rubric was located in the reviewed project files; revise these gates when final instructions are available.
+The app is approximately **94%** of the planned final version. The complete submission is approximately **72%** ready. These are engineering planning judgments against the current scope, not measured accuracy, test-count percentages, instructor grades, or a guarantee of acceptance. No final-specific rubric was located in the reviewed project files; revise these gates when final instructions are available.
 
-Core features are close to complete. The largest remaining work is independent evaluation, a small voluntary student pilot, browser-visible performance evidence, and the final report, slides, and recorded demo. Public hosting is a planned pilot option; the reviewed midproject guidance also allows reproducible local access. It is not established as a mandatory final requirement.
+Core features are close to complete. The largest remaining work is independent evaluation, a small voluntary student pilot, real-AI/frozen-release performance evidence, and the final report, slides, and recorded demo. Public hosting is a planned pilot option; the reviewed midproject guidance also allows reproducible local access. It is not established as a mandatory final requirement.
 
 | Acceptance gate | Status | Evidence or remaining work |
 | --- | --- | --- |
@@ -22,23 +22,23 @@ Core features are close to complete. The largest remaining work is independent e
 | Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
-| Performance evidence | Partial | Real source-only fresh/reused-cache observations are recorded; broader cold/warm and browser-visible measurements on the frozen final revision, including AI, remain |
+| Performance evidence | Partial | Five reproducible fresh-context preview browser samples now record min/median/max: roadmap controls median 459 ms, first inspector plot 1,711.9 ms. Real source-only fresh/reused-cache observations remain separate; real-AI, hosted/mobile timing and cold/warm cohorts on the frozen final revision remain |
 | Student pilot | Open | Run 3–5 voluntary tasks, record failures and feedback without inventing participants or results |
 | Final report, slides, new demo | Open | Prepare separately from preserved midproject artifacts; explain scope, evaluation, math/inspection, responsiveness and limitations |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
 
 ## Current development step
 
-[Collection browsing and posting feedback](50_COLLECTION_AND_POSTING_UX.md) add local course/resource search, type/direction filters, empty/reset states and lazy source details. The opportunities fragment shows progress beside the selected posting. Search/page/profile changes discard queued and late checks; a failed detail recheck retains the saved search and removes older verified content.
+[Repeated browser performance measurements](51_BROWSER_PERFORMANCE.md) add a reproducible offline production-launcher experiment with five fresh sessions, separate navigation/request/roadmap/inspector boundaries, collection/revision provenance and retained failures. It makes no app behavior change and no live-provider or physical-paint performance claim.
 
-All 1,612 tests and nine runtime checks pass on Linux and Windows, plus ten production-preview, six reviewer and nine controlled AI/browsing gates in [run 42409330351](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42409330351). Verified application revision: `d1de020a22637963abbcb15c9b79a788ef21b535`. The added browser controls verify local-only interactions, preserved draft text, phone-width layout and visible deliberately delayed posting feedback. They do not establish live employer availability or real-network performance.
+All 1,640 tests and nine runtime checks pass on Linux and Windows, plus all 25 browser acceptance gates and five timing samples in [run 42445221606](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42445221606). Verified revision: `edf5255b8f881c7993b697da2eba1158233e5e6f`. Preview request feedback appeared in the DOM at a median 250 ms and roadmap controls at 459 ms. First inspector loading took 1.712 seconds, separate from the usable roadmap. This identifies first inspector loading as a remaining optimization target; it does not measure warm reopening or live AI.
 
-The app estimate rises to approximately **94%** by closing these interaction gaps. Full-submission readiness remains **70%**: independent evaluation, voluntary student feedback, final real-AI/browser performance measurements and the report/slides/demo remain open. All 408 saved template grades remain blank.
+The app estimate remains approximately **94%**. Full-submission readiness rises to approximately **72%** because repeated preview performance evidence is now reproducible and recorded. The overall performance gate remains partial. Independent evaluation, voluntary student feedback, final real-AI measurements and the report/slides/demo remain open. All 408 saved template grades remain blank. The first failed CI phone-check attempt and its checker-only correction are retained in the dated evidence.
 
 ## Next steps toward the submission
 
 1. Gather independent judgments and voluntary student feedback; automated controls cannot replace these.
-2. Freeze the scoped feature set, collect final latency/quality evidence, and address material misses.
+2. Measure real-AI/source/cache cohorts and warm inspector reopening, address material misses, then repeat final evidence on the frozen revision.
 3. Write the final report, prepare slides/demo, and verify the submission package against the final instructions.
 
 Every development update should state the gate closed by that step, the app/submission readiness estimate, and the most consequential remaining gap. Estimates move when acceptance gates close, not when the test count grows.
