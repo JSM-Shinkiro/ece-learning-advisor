@@ -18,6 +18,7 @@ from src.progress import PHASE_LABELS
 from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
 from src.source_ui import source_details
+from src.course_directory import load_course_directory
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="ECE Learning Advisor · P07", page_icon="🧭", layout="wide")
@@ -37,10 +38,17 @@ h1 { letter-spacing: -.035em; }
 """, unsafe_allow_html=True)
 
 base_catalog = load_runtime_catalog()
+try:
+    course_directory = load_course_directory()
+except (OSError, ValueError):
+    course_directory = None
+    st.warning("The broader ECE catalog is unavailable. The saved advisor collection remains available.")
 catalog = getattr(st.session_state.get("result"), "catalog", None) or base_catalog
 records = {r.record_id:r for r in catalog.records}
 sources = {s.source_id:s for s in catalog.sources}
-course_lookup = {r.code:r for r in catalog.records if r.kind == "course"}
+course_lookup = {c.code:c for c in course_directory.courses} if course_directory is not None else {}
+course_lookup.update({r.code:r for r in catalog.records if r.kind == "course"})
+course_lookup = dict(sorted(course_lookup.items()))
 standings = ["Incoming", "Freshman", "Sophomore", "Junior", "Senior", "Other"]
 background_names = {"new":"Getting started", "some":"Some programming experience", "experienced":"Comfortable with programming"}
 if "profile" not in st.session_state:
@@ -177,7 +185,7 @@ if st.session_state.pop("refresh_pending",False):
             ai_time_budget_seconds=settings.ai_time_budget_seconds,
             refresh_sources=settings.refresh_sources,
             source_reuse_seconds=0 if force_source_check else SOURCE_REUSE_SECONDS,
-            source_cache_dir=settings.cache_root/"sources")
+            source_cache_dir=settings.cache_root/"sources", course_directory=course_directory)
     background = bool(use_ai and api_key)
     if background:
         try:
@@ -241,6 +249,8 @@ st.caption("ECE LEARNING ADVISOR")
 st.title("Your next step, with a path forward.")
 st.caption("Learning suggestions for UofA ECE students. Stages describe preparation, not guaranteed enrollment or semester placement.")
 collection_summary.caption(f"Available collection · {sum(r.kind == 'course' for r in catalog.records)} courses · {sum(r.kind == 'resource' for r in catalog.records)} resources")
+if course_directory is not None:
+    st.sidebar.caption(f"ECE catalog · {len(course_directory.courses)} undergraduate courses · {course_directory.catalog_version}")
 roadmap, collection, opportunities = st.tabs(["My Roadmap","Courses & Resources","Opportunities"])
 
 
@@ -266,7 +276,10 @@ def render_card(record, result):
         if is_course:
             status = result.context.rule_results[rid].status
             badge = {"satisfied":"Recorded prerequisites satisfied","unsatisfied":"Prerequisites missing","unknown":"Enrollment requirements unverified"}[status]
-            st.caption(badge+f" · {record.credits:g} credits")
+            credits = f"{record.credits:g} credits" if record.credits is not None else "Variable credits · see source"
+            st.caption(badge+" · "+credits)
+            if record.study_stage == "unreviewed":
+                st.caption("Requested catalog course · preparation level and career connection unreviewed")
         else:
             st.caption("Online resource · independent study")
         st.write("**Why this fits:** "+(record.learning_note or record.summary))
@@ -348,7 +361,7 @@ with roadmap:
         render_inspector(result,catalog)
 
 with collection:
-    render_collection(base_catalog)
+    render_collection(base_catalog, course_directory)
 
 with opportunities:
     render_opportunities(settings)

@@ -7,7 +7,7 @@ from .retrieval import tokenize
 from .query import catalog_vocabulary, interpret_query
 
 CAREER_NAMES = {"ai_ml": "AI / Machine Learning", "embedded": "Embedded Systems", "exploring": "Still exploring"}
-PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later goals"}
+PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later goals", "explore":"Explore requested courses"}
 BASIC_CODES = {"ECE101", "ECE175", "CSC110", "CSC120", "ISTA130"}
 RESOURCE_TERMS = {
     "resource:pytorch": ("pytorch",), "resource:cs50": ("cs50",),
@@ -52,6 +52,8 @@ def needs_programming_foundations(profile: StudentProfile):
 
 
 def learning_phase(record: Record, profile: StudentProfile, evaluation=None):
+    if record.study_stage == "unreviewed":
+        return "explore"
     if evaluation is not None and evaluation.status == "unsatisfied":
         return "later"
     if record.study_stage == "foundation":

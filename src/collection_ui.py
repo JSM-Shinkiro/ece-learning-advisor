@@ -4,6 +4,7 @@ import streamlit as st
 
 from .collection_filters import filter_collection
 from .source_ui import source_details
+from .directory_ui import render_directory
 
 
 def reset_collection_filters():
@@ -11,9 +12,16 @@ def reset_collection_filters():
 
 
 @st.fragment
-def render_collection(base_catalog):
+def render_collection(base_catalog, directory=None):
     catalog=getattr(st.session_state.get("result"),"catalog",None) or base_catalog
     st.subheader("Courses & resources")
+    if directory is not None:
+        scope = st.radio("Browse collection", ["advisor", "ece"],
+            format_func=lambda key:"Advisor courses & resources" if key=="advisor" else "All undergraduate ECE courses",
+            key="collection_scope", horizontal=True)
+        if scope == "ece":
+            render_directory(directory)
+            return
     st.caption("Search the available collection. Learning connections are suggestions; unresolved enrollment rules need review.")
     st.text_input("Search courses and resources",key="collection_query",max_chars=200,
                   placeholder="Course code, title or topic",help="Examples: ECE 372A, machine learning, Python.")
@@ -34,7 +42,8 @@ def render_collection(base_catalog):
             key="collection_record_"+record.record_id,on_change="rerun")
         if panel.open:
             with panel:
-                st.caption(f"University course · {record.credits:g} credits · Catalog {record.catalog_version}" if record.kind=="course" else
+                credits = f"{record.credits:g} credits" if record.credits is not None else "Variable credits · see source"
+                st.caption(f"University course · {credits} · Catalog {record.catalog_version}" if record.kind=="course" else
                            "Independent learning resource"+(" · "+record.resource_version if record.resource_version else ""))
                 st.write(record.summary)
                 source_details(record,"collection_"+record.record_id,sources)

@@ -70,7 +70,8 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
     for record in catalog.records:
         text = f"{record.code or record.record_id}: {record.title}\n{record.summary}"
         if record.kind == "course":
-            text += f"\nCredits: {record.credits}. Catalog: {record.catalog_version}."
+            credits = record.credits if record.credits is not None else "Variable or unrecorded; consult the official source"
+            text += f"\nCredits: {credits}. Catalog: {record.catalog_version}."
             text += "\nAcademic rule: " + (
                 "Use the separate prerequisite-source evidence and application rule results." if record.rule_evidence else
                 record.rule.model_dump_json() if record.rule_reviewed

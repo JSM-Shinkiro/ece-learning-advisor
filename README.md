@@ -8,6 +8,10 @@ Development copy for the final project on December 11. The midproject baseline i
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
+**Courses & Resources → All undergraduate ECE courses** searches a saved 2026–2027 published inventory of **78 ECE courses**, with local pagination, official descriptions and fixed or variable credit ranges. All appear in the completed/current-course pickers. An explicit course question or **Explore … in my roadmap** can add up to three requested catalog entries to the advisor; unmapped courses appear under **Explore requested courses**, with preparation and enrollment conditions unreviewed. The default advisor remains focused on AI/ML and embedded systems. Catalog availability does not establish term availability, degree applicability or eligibility.
+
+The published inventory is separate from the 20-course/eight-resource advisor corpus and its archived evaluation inputs. Browsing does not build embeddings or make source/model calls. An explicit maintainer refresh uses `python scripts/sync_course_directory.py`; it validates the complete, paginated published ECE search before replacing the snapshot. Restart the app after updating it. Graduate ECE courses and the complete set of supporting non-ECE courses are outside this inventory.
+
 The [final submission workspace](docs/final/README.md) contains a separate technical report draft, a hashed evidence map/manifest, demo runbook and blank student-pilot protocol. These are preparation materials; actual independent judgments, student sessions and final-release evidence remain to be collected.
 
 [CI status and runner notes](docs/53_CI_STATUS_AND_RUNNER.md) explain historical timing-check failures, the fixed Ubuntu release, and the per-workflow summary that separates app acceptance from offline timing outcomes.

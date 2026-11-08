@@ -14,6 +14,7 @@ import time
 import httpx
 
 from .catalog import ROOT, build_evidence, load_runtime_catalog
+from .course_directory import load_course_directory
 from .discovery import load_discovery_plans
 from .hosting import load_server_options
 from .models import StudentProfile
@@ -156,7 +157,11 @@ def check_deployment(*, root=ROOT, environ=None, smoke=False):
         result("dependencies", False, "Install the pinned production requirements.")
     try:
         catalog = load_runtime_catalog(root)
-        result("catalog", bool(build_evidence(catalog)), "Expanded runtime catalog and frozen baseline validated.")
+        directory = load_course_directory(Path(root) / "data/catalog/undergraduate_ece_2026_2027.json")
+        directory_codes = {c.code for c in directory.courses}
+        result("catalog", bool(build_evidence(catalog)) and directory.catalog_version == catalog.catalog_version
+            and {r.code for r in catalog.records if r.code and r.code.startswith("ECE")} <= directory_codes,
+            "Advisor corpus, frozen baseline and published undergraduate ECE directory validated.")
         plans = load_discovery_plans(root / "data/connectors/course_discovery.json")
         boards = load_employer_boards(root / "data/connectors/employer_boards.json")
         resources, skipped = prepare_resource_jobs(catalog, StudentProfile(career_id="exploring"))

@@ -10,6 +10,7 @@ def app(monkeypatch):
     # defaults have their own integration cases in test_runtime_catalog.py.
     from src.catalog import load_catalog
     monkeypatch.setattr("src.catalog.load_runtime_catalog", load_catalog)
+    monkeypatch.setattr("src.course_directory.load_course_directory", lambda:None)
     monkeypatch.setattr("dotenv.load_dotenv",lambda *a,**k:False)
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "false")
     for name in ["GEMINI_API_KEY","GOOGLE_API_KEY","ADZUNA_APP_ID","ADZUNA_APP_KEY","ECE_DEVELOPMENT_MODE"]:

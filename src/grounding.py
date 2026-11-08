@@ -139,6 +139,7 @@ def build_statements(catalog, context):
             "next": f"Consider {label} as a starting learning activity. Confirm any university enrollment requirements before registering.",
             "build": f"Build toward {label} as your preparation develops. This learning stage is not a semester assignment.",
             "later": f"Keep {label} as a later learning goal while developing preparation and checking requirements. This learning stage is not a semester assignment.",
+            "explore": f"Explore the published description of {label}. Its preparation level and career connection have not been reviewed; this is not a course sequence or enrollment recommendation.",
         }
         add(rid, "learning_stage", "recommendation", guidance[phase], [overview])
     return statements

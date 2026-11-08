@@ -234,7 +234,7 @@ class Record(StrictModel):
     topics: list[str] = Field(default_factory=list)
     review_status: Literal["source_summary_reviewed", "source_fetched", "team_mapping", "synthetic_fixture"] = "source_summary_reviewed"
     requirement_reference: str | None = None
-    study_stage: Literal["foundation", "intermediate", "advanced"] = "intermediate"
+    study_stage: Literal["foundation", "intermediate", "advanced", "unreviewed"] = "intermediate"
     career_ids: list[Literal["ai_ml", "embedded"]] = Field(default_factory=list)
     learning_note: str = Field(default="", max_length=1200)
     first_activity: str = Field(default="", max_length=600)
@@ -378,7 +378,7 @@ class GenerationContext(StrictModel):
     rule_results: dict[str, RuleEvaluation]
     source_freshness: dict[str, SourceFreshness] = Field(default_factory=dict)
     field_sources: dict[str, dict[str, str]] = Field(default_factory=dict)
-    suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
+    suggested_phases: dict[str, Literal["next", "build", "later", "explore"]] = Field(default_factory=dict)
     allowed_statements: list[ExplanationStatement] = Field(default_factory=list, max_length=80)
     prompt_version: str = "p07-v7-statement-selection"
 

@@ -11,6 +11,7 @@ from .service import recommend
 from .sources import refresh_catalog
 from .discovery import load_discovery_plans, match_course_requests
 from .source_reuse import SOURCE_REUSE_SECONDS
+from .course_directory import add_requested_courses
 
 
 def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
@@ -18,10 +19,13 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None,
                 refresh_sources=True, source_cache_dir=Path(".cache/sources"), source_refresher=None,
                 ai_time_budget_seconds=45, progress=None, source_reuse_seconds=SOURCE_REUSE_SECONDS,
-                on_plan=None, cancelled=None):
+                on_plan=None, cancelled=None, course_directory=None):
     started = time.perf_counter()
     phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
+    directory_trace = None
+    if course_directory is not None:
+        catalog, directory_trace = add_requested_courses(catalog, course_directory, profile)
     source_trace = {"enabled": False, "reason": "disabled"}
     source_issues, source_elapsed = [], 0.0
     plans = None
@@ -73,6 +77,10 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         source_issues = ["Official-source checks are disabled. Showing dated saved evidence."]
     preferred_codes = [item["code"] for item in source_trace.get("discovery_selection", {}).get("requests", [])
                        if item["status"] in {"added", "stale_added", "in_collection"}]
+    if directory_trace is not None:
+        preferred_codes = list(dict.fromkeys(directory_trace["added"] + preferred_codes))
+        if directory_trace["omitted"]:
+            source_issues.append("The catalog request limit is three additional courses per update. Ask about the remaining courses in another update.")
     will_use_ai = bool(use_ai and api_key and (requested_record_ids(catalog, profile, preferred_codes)
                               or not coverage_message(catalog, profile, profile.question)))
     early_plan = None
@@ -84,6 +92,8 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         preview.timings = {"source_refresh": source_elapsed, **preview.timings,
                            "total": time.perf_counter() - started}
         preview.trace["source_refresh"] = source_trace
+        if directory_trace is not None:
+            preview.trace["course_directory"] = directory_trace
         preview.trace["timings_seconds"] = preview.timings
         preview.trace["request_phases"] = phases.snapshot()
         preview.trace["early_source_plan"] = True
@@ -118,6 +128,8 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         result.timings = {"source_refresh": source_elapsed, **result.timings}
         result.timings["total"] = time.perf_counter() - started
         result.trace["source_refresh"] = source_trace
+        if directory_trace is not None:
+            result.trace["course_directory"] = directory_trace
         result.trace["timings_seconds"] = result.timings
         if budget is not None:
             result.trace["ai_budget"] = budget.trace()

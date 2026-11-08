@@ -116,7 +116,9 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
         foundations.sort(key=lambda rid: (rid not in focused_record_ids, records[rid].code != "ECE101"))
         bridges=[rid for rid in courses if records[rid].study_stage=="intermediate"]
         goals=[rid for rid in courses if records[rid].study_stage=="advanced"]
-        courses=(foundations[:1]+bridges[:1]+goals[:1])[:3]
+        requested_unreviewed = [rid for rid in courses if rid in focused_record_ids
+                                and records[rid].study_stage == "unreviewed"]
+        courses=(requested_unreviewed[:2]+foundations[:1]+bridges[:1]+goals[:1])[:3]
         resources=sorted(resources,key=lambda rid:records[rid].study_stage!="foundation")
     if profile.career_id == "exploring":
         # Show both directions instead of allowing one query to displace the other.

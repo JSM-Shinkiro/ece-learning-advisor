@@ -223,6 +223,41 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 passed("A failed recheck clears verified content while retaining the saved search; neither search nor AI is repeated.",begin)
 
+                stage="ece_catalog_local_paging";begin=time.monotonic()
+                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                page.get_by_text("All undergraduate ECE courses",exact=True).click()
+                expect(page.get_by_text("78 matching courses · Page 1 of 6 · local catalog search",exact=True)).to_be_visible()
+                catalog_panels=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE"))
+                expect(catalog_panels).to_have_count(15)
+                assert all(catalog_panels.nth(i).get_by_role("link").count()==0 for i in range(15))
+                page.get_by_role("button",name="Next courses",exact=True).click()
+                expect(page.get_by_text("78 matching courses · Page 2 of 6 · local catalog search",exact=True)).to_be_visible()
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                passed("All 78 catalog courses are locally paged in groups of 15; closed panels omit details and paging makes no advisor call.",begin)
+
+                stage="ece_catalog_variable_credit_phone";begin=time.monotonic()
+                catalog_query=page.get_by_role("textbox",name="Search the ECE catalog",exact=True)
+                catalog_query.fill("ece 493");catalog_query.press("Enter")
+                expect(page.get_by_text("1 matching courses · Page 1 of 1 · local catalog search",exact=True)).to_be_visible()
+                expand("ECE493 · Internship")
+                expect(page.get_by_text("1–12 credits · Catalog 2026-2027",exact=True)).to_be_visible()
+                expect(page.get_by_role("link",name="Official course page",exact=True)).to_have_attribute("href","https://catalog.arizona.edu/courses/0122191")
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
+                passed("Exact spaced-code search resets pagination and shows the official variable-credit range without phone overflow or advisor work.",begin)
+
+                stage="ece_catalog_requested_roadmap";begin=time.monotonic()
+                catalog_query.fill("ECE413");catalog_query.press("Enter")
+                expect(page.locator("summary").filter(has_text="ECE413 · ")).to_be_visible()
+                page.locator("summary").filter(has_text="ECE413 · ").click()
+                page.get_by_role("button",name="Explore ECE413 in my roadmap",exact=True).click()
+                page.get_by_role("tab",name="My Roadmap",exact=True).click()
+                expect(page.get_by_role("heading",name="Explore requested courses",exact=True)).to_be_visible()
+                expect(page.get_by_text("Requested catalog course · preparation level and career connection unreviewed",exact=True)).to_be_visible()
+                expect(ai_caption).to_be_visible()
+                assert len((control/"provider.calls").read_text().splitlines())==len(provider_calls.splitlines())+1
+                passed("An explicit catalog action creates a source-grounded course card with unreviewed preparation and enrollment, using one controlled advisor request.",begin)
+
                 stage="browser_health";begin=time.monotonic()
                 assert counts["stream_connections"]==1 and counts["page_errors"]==0 and counts["fragment_runs"]>0
                 report["protocol_counts"]=counts
