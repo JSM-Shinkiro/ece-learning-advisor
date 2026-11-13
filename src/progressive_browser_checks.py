@@ -56,8 +56,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                     summary=page.locator("summary").filter(has=page.get_by_text(label,exact=True))
                     if summary.locator("..").get_attribute("open") is None:summary.click()
                 def navigate(label):
-                    navigation = page.get_by_test_id("stButtonGroup")
-                    navigation.get_by_role("button", name=label, exact=True).click()
+                    page.get_by_test_id("stButtonGroup").get_by_text(label, exact=True).click()
                 def pick_record(label, value):
                     field = page.get_by_role("combobox", name=label, exact=True)
                     field.fill(value)
@@ -164,6 +163,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 variation_input = page.get_by_role("textbox", name="Your variation", exact=True)
                 variation_input.fill("How do I program in C?")
                 navigate("Beginner")
+                expect(page.get_by_role("heading", name="Learn how an ECE advisor finds evidence", exact=True)).to_be_visible()
                 navigate("Advanced")
                 expect(variation_input).to_have_value("How do I program in C?")
                 expect(page.get_by_role("combobox", name="Variation ranking method", exact=True)).to_have_value("Hybrid")
@@ -175,6 +175,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(page.get_by_text("Your lesson question is in Your starting point.", exact=False)).to_be_visible()
                 assert export("lesson-draft.json")["question"] == ""
                 passed("The unsubmitted variation survives navigation and the evaluated question opens as an Advisor draft.", begin)
+                if diagnostics_dir is not None:
+                    page.screenshot(path=str(Path(diagnostics_dir) / "learning-advisor-draft.png"))
 
                 stage = "lesson_embedding_comparison"
                 begin = time.monotonic()
