@@ -56,9 +56,6 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 def expand(label):
                     summary=page.locator("summary").filter(has=page.get_by_text(label,exact=True))
                     if summary.locator("..").get_attribute("open") is None:summary.click()
-                def assert_panel_open(label):
-                    summary = page.locator("summary").filter(has=page.get_by_text(label, exact=True))
-                    expect(summary.locator("..")).to_have_attribute("open", "")
                 def navigate(label):
                     page.get_by_test_id("stButtonGroup").get_by_text(label, exact=True).click()
                 def pick_record(label, value):
@@ -194,7 +191,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir) / "learning-saved-roadmap.png"))
                 expand("How this plan was made")
-                expect(page.get_by_text("Saved-data plan built in", exact=False)).to_be_visible()
+                saved_timing = page.get_by_text("Saved-data plan built in", exact=False)
+                expect(saved_timing).to_be_visible()
                 draft = page.get_by_role("textbox", name="What interests you?", exact=True)
                 draft.fill("Draft typed during source checks")
                 release("source-update")
@@ -202,24 +200,22 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_have_count(0)
                 expect(draft).to_have_value("Draft typed during source checks")
                 assert not (control / "provider.calls").exists()
-                assert_panel_open("How this plan was made")
-                expect(page.get_by_text("Saved-data plan built in", exact=False)).to_be_visible()
-                page.locator("summary").filter(has=page.get_by_text("How this plan was made", exact=True)).click()
-                passed("A usable preview and inspector appear before the source release, and the final plan preserves an unsubmitted profile edit.", begin)
+                expect(saved_timing).to_be_visible()
+                passed("The saved plan is usable and the source update preserves the open inspector and an unsubmitted profile edit.", begin)
                 report["saved_data_interaction"] = {"roadmap_controls_observed_seconds": round(saved_plan_ready_seconds, 3)}
                 draft.fill("")
 
                 stage = "keep_saved_plan"
                 begin = time.monotonic()
-                expand("How this plan was made")
-                assert_panel_open("How this plan was made")
                 submit("ECE101 controlled keep saved plan")
                 wait_until(lambda: (control / "source-keep.started").exists())
-                assert_panel_open("How this plan was made")
+                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_be_visible()
+                expect(saved_timing).to_be_visible()
                 page.get_by_role("button", name="Keep saved-data plan", exact=True).click()
                 expect(page.get_by_text("Source checks stopped. Your saved-data plan is ready to use.", exact=True)).to_be_visible()
                 release("source-keep")
                 expect(page.get_by_text("Saved-data plan · based on dated course and resource snapshots", exact=True)).to_be_visible()
+                expect(saved_timing).to_be_visible()
                 assert not (control / "provider.calls").exists()
                 passed("Keeping the dated plan removes the active update and excludes the released source result.", begin)
 
