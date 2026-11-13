@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Updated November 13, 2026
 
-Verified application revision `c5504734718d752aee9f421596f289e338219729`. [Final readiness](FINAL_READINESS.md)
+Verified application revision `b142cb725856a1d9a6c8281168c721ddc3065cb4`. [Final readiness](FINAL_READINESS.md)
 
 ## Purpose
 
@@ -45,7 +45,7 @@ Preview mode works without model credentials using keyword retrieval and saved/r
 
 | Function | What it does |
 | --- | --- |
-| Courses & Resources | Search the focused advisor collection, or browse all 78 published undergraduate ECE entries with level filters, exact code search and 15-entry local pagination; open source details on demand and explicitly explore a course in the roadmap |
+| Courses & Resources | Search the focused collection, or browse 78 published ECE entries with level filters, exact code search and 15-entry pages. See snapshot dates, open a class search, or explore a course in the roadmap. |
 | Opportunities | Explicitly search public employer boards for Samsara, Nuro and Anduril, with direction/title/location filters, paging, source status and listing-level detail progress/checks that remain bound to the current search/page |
 | Inspector | On opening, show retrieval rankings, full-dimensional cosine calculations, PCA, source checks, cache status, timings and a trace download; its controls update independently |
 | Live request feedback | Show the actual work attempted and an expandable stage history; record sequential server phase durations |
@@ -56,12 +56,12 @@ Opportunity matching is based on configured title filters and public listings. O
 ## Current implementation and limits
 
 - **Collection:** default advisor: 20 courses (15 ECE/five CSC), eight resources, two career records and 34 chunks. Separate catalog: all 78 undergraduate ECE entries in the saved official 2026–2027 published list, including variable credits. Sixty-three additional ECE descriptions are reachable on request. The list follows its official effective-date setting of January 13, 2027; availability in a current semester is not established. Graduate courses and complete supporting-subject inventory remain outside this directory.
-- **Academic conditions:** four exact CS conditions have reviewed interpretations; all ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
+- **Academic conditions** · Four exact CS conditions have reviewed interpretations. ECE conditions and CSC372 remain unverified. ECE101, ECE369A, ECE372A and ECE425 show dated enrollment references. ECE101 shows the department and the 2026–27 advised plan separately because their listed math conditions differ. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, native ranking bars and Plotly vector charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification** · The November 13 roadmap run passed 1,760 tests and nine startup checks on each OS. Chromium passed ten student preview, twenty lesson and controlled-request, and six reviewer-workspace checks. [CI evidence](evidence/saved_data_roadmap_2026-11-13.json)
+- **Verification** · The latest run passed 1,769 tests and nine startup checks per OS and 37 Chromium checks. A live source-only request for each demo course refreshed the selected description with its eligibility still unverified. [CI and source evidence](evidence/focused_ece_enrollment_2026-11-13.json)
 - **Preview performance:** the native inspector opens at a median 686.7 ms versus 1,608.4 ms for the fixed baseline, with five sessions per version using the same v2 collector/runner. Native reopening takes 307.8 ms. That comparison recorded feedback/roadmap-control medians of 221.2/453.4 ms. These are offline DOM observations; live-AI/source and hosted/mobile timing remain separate. See [lightweight inspection](52_LIGHTWEIGHT_INSPECTOR.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission** · Planning estimates are approximately 92% for the app and 69% for the complete submission. Remaining work includes focused ECE prerequisite evidence, a live neural rehearsal, evaluations, final figures, slides, report formatting, recording and packaging. [Final readiness](FINAL_READINESS.md) · [Final workspace](final/README.md)
+- **Submission** · Planning estimates are approximately 94% for the app and 70% for the complete submission. Remaining work includes a live neural rehearsal, independent evaluation, a student pilot, final figures, slides, report formatting, recording and packaging. [Final readiness](FINAL_READINESS.md) · [Final workspace](final/README.md)
 
 ## Code map
 

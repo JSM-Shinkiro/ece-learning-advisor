@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-13",
+  "recorded_at_utc": "2026-11-13T19:43:52+00:00",
+  "audit": "docs/58_FINAL_VERSION_AUDIT.md",
+  "reported_ci_error": {
+    "run_id": 43488066572,
+    "job_id": 132101688466,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488066572/job/132101688466",
+    "check": "mobile_inspector",
+    "assertion_line": 55,
+    "matching_log_observations": {
+      "fixed_baseline_inspector_first_median_ms": 1263.1,
+      "fixed_baseline_inspector_reopen_median_ms": 272.1
+    },
+    "cause": "The inspector stayed open after earlier steps. The phone check still expected a new opening fragment event.",
+    "summary_failure": "The summary reported the same failed progressive result. The two backend jobs and both preview timing cohorts passed.",
+    "corrected_run_id": 43488614300,
+    "corrected_revision": "c5504734718d752aee9f421596f289e338219729",
+    "corrected_run_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488614300"
+  },
+  "academic_sources": {
+    "checked_on_mst": "2026-11-13",
+    "courses": {
+      "ECE101": {
+        "catalog_url": "https://catalog.arizona.edu/courses/0432351",
+        "catalog_html_sha256": "be3eedb9b2a7f83e9ffa3c66247f826f9500842d09326ba1d7b0ef2cbc051f11",
+        "active_catalog": "2026-2027",
+        "course_effective_start": "2026-01-01",
+        "course_id": "0432351",
+        "displayed_course_id": "043235",
+        "displayed_enrollment_reference": "019404",
+        "department_url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE101",
+        "department_html_sha256": "4caeb45ca9131ca6543d4302c8710d8d9cd52d6494ece6d10145460c7f603f8b",
+        "app_department_summary": "The department lists MATH 112, MATH 120R, MATH 122B, MATH 125, or placement at the MATH 120R level.",
+        "app_advised_plan_summary": "The 2026–27 advised plan lists completion of or concurrent enrollment in MATH 120R, MATH 122B, MATH 125, or MATH 129. Confirm which condition applies to the section."
+      },
+      "ECE369A": {
+        "catalog_url": "https://catalog.arizona.edu/courses/0366021",
+        "catalog_html_sha256": "22247fb9892d39c4465150ac8a671326877976fdd6bcd546d84743a0a217b2c2",
+        "active_catalog": "2026-2027",
+        "course_effective_start": "2026-01-01",
+        "course_id": "0366021",
+        "displayed_course_id": "036602",
+        "displayed_enrollment_reference": "016494",
+        "department_url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE369A",
+        "department_html_sha256": "408b0332dec3a3d6c911aa569a1c825585dce9605c2572e39ca6d2fb4b5fe672",
+        "app_department_summary": "The department lists Engineering advanced standing, an ECE major, ECE 101, and ECE 274A."
+      },
+      "ECE372A": {
+        "catalog_url": "https://catalog.arizona.edu/courses/0367521",
+        "catalog_html_sha256": "e705d06c47c096737608afabf8b6337acbc340fcdfa8877a4dc6fe25dd1c81c2",
+        "active_catalog": "2026-2027",
+        "course_effective_start": "2026-01-01",
+        "course_id": "0367521",
+        "displayed_course_id": "036752",
+        "displayed_enrollment_reference": "016495",
+        "department_url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE372A",
+        "department_html_sha256": "38a91c3b558eaa8e66b803f8fef4260203b2c275041833d37ec09cbc6afb7c88",
+        "app_department_summary": "The department lists Engineering advanced standing, an ECE major, ECE 274A, and ECE 201 with concurrent enrollment allowed. The same entry also mentions ECE 207 or ECE 220 in parentheses. Confirm how those courses apply to the section."
+      },
+      "ECE425": {
+        "catalog_url": "https://catalog.arizona.edu/courses/0435981",
+        "catalog_html_sha256": "dae5063bb47793edab0f52f9afaf6827e7c2e5f3d18fc89e96446dd31e73e1f1",
+        "active_catalog": "2026-2027",
+        "course_effective_start": "2025-08-01",
+        "course_id": "0435981",
+        "displayed_course_id": "043598",
+        "displayed_enrollment_reference": "019593",
+        "department_url": "https://ecse.engineering.arizona.edu/undergrad-programs/courses/ECE425",
+        "department_html_sha256": "120baaf93a00dc2544bbd623e507e819e5f4cfa295e5ba480095d561b5199e4f",
+        "app_department_summary": "The department lists Engineering advanced standing, ECE 201, ECE 310, and either MATH 125 or MATH 122B."
+      }
+    },
+    "public_class_search": {
+      "url": "https://studentcenter.arizona.edu/app/ui/public/select-campus",
+      "public_shell_request_status": 200,
+      "scope": "The public application entry point responded. No term-specific or student-specific requirements were inferred."
+    },
+    "advised_plan": {
+      "url": "https://engineering.arizona.edu/pdfs/4-year-degree-plans/2026/ElectricalComputerEngineering26-27r.pdf",
+      "pdf_sha256": "ec42b7d0dd9b3c93d0623fee458437b7d9f5d631dfbb13ed149aa435179f6120",
+      "catalog_year": "2026-2027",
+      "page_for_ECE101": 1
+    },
+    "directory": {
+      "courses": 78,
+      "catalog_version": "2026-2027",
+      "effective_date_filter": "2027-01-13,2027-01-13",
+      "retrieved_at_utc": "2026-11-08T22:35:06.055233+00:00"
+    },
+    "findings": [
+      "All four official course pages display numeric enrollment reference IDs under the active 2026–2027 catalog.",
+      "The ECE101 advised plan and department list describe different mathematics options and concurrency.",
+      "The ECE372A department page mentions ECE207 or ECE220 in parentheses beside ECE201. The application does not encode the relationship.",
+      "Engineering advanced standing and the applicable requirements for a particular section were not established by this review."
+    ],
+    "rendered_course_page_observation": {
+      "course_pages_without_inline_course_metadata": 4,
+      "public_payload_observations": {
+        "http_status": 403,
+        "responses": 4
+      },
+      "scope": "Direct course page responses exposed the code, title, identity, description, units, numeric reference and active catalog. The code uses those fields in this layout. The upstream payload is not required."
+    }
+  },
+  "live_source_checks": {
+    "revision": "b142cb725856a1d9a6c8281168c721ddc3065cb4",
+    "mode": "Four individual requests, each with an empty source cache and AI disabled",
+    "saved_corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+    "observations": [
+      {
+        "code": "ECE101",
+        "direction": "embedded",
+        "question": "What can I learn in ECE101?",
+        "captured_at_utc": "2026-11-13T19:39:36.382464+00:00",
+        "saved_plan_server_seconds": 0.00875141199958307,
+        "source_phase_seconds": 15.702343439999822,
+        "target_check": {
+          "code": "ECE101",
+          "url": "https://catalog.arizona.edu/courses/0432351",
+          "status": "updated",
+          "http_status": 200,
+          "failure_kind": null,
+          "retrieved_at": "2026-11-13T19:39:30.010608Z",
+          "last_checked_at": "2026-11-13T19:39:30.010608Z",
+          "content_hash": "a10610bca52eb6f054c6a24761ebadc0609c9436baaba4a772620ac727afa8e4",
+          "retry_count": 1,
+          "attempts": [
+            {
+              "outcome": "timeout",
+              "http_status": null,
+              "seconds": 6.009138856999925,
+              "retry": false
+            },
+            {
+              "outcome": "success",
+              "http_status": 200,
+              "seconds": 2.964901895999901,
+              "retry": true
+            }
+          ]
+        },
+        "enrollment_status": "unknown",
+        "result_corpus_hash": "b8d300153ab14dab501044c944793e8b1802323aeecf03c1a2be56dcccbd9617"
+      },
+      {
+        "code": "ECE369A",
+        "direction": "embedded",
+        "question": "What can I learn in ECE369A?",
+        "captured_at_utc": "2026-11-13T19:39:46.819301+00:00",
+        "saved_plan_server_seconds": 0.005701940999642829,
+        "source_phase_seconds": 10.422699546999866,
+        "target_check": {
+          "code": "ECE369A",
+          "url": "https://catalog.arizona.edu/courses/0366021",
+          "status": "updated",
+          "http_status": 200,
+          "failure_kind": null,
+          "retrieved_at": "2026-11-13T19:39:41.554726Z",
+          "last_checked_at": "2026-11-13T19:39:41.554726Z",
+          "content_hash": "968094a5068e4f61e63cf4d445384f33b4f0f0f9606500ca59a3831c01a131cb",
+          "retry_count": 0,
+          "attempts": [
+            {
+              "outcome": "success",
+              "http_status": 200,
+              "seconds": 5.124245069000608,
+              "retry": false
+            }
+          ]
+        },
+        "enrollment_status": "unknown",
+        "result_corpus_hash": "b8d300153ab14dab501044c944793e8b1802323aeecf03c1a2be56dcccbd9617"
+      },
+      {
+        "code": "ECE372A",
+        "direction": "embedded",
+        "question": "What can I learn in ECE372A?",
+        "captured_at_utc": "2026-11-13T19:39:54.929354+00:00",
+        "saved_plan_server_seconds": 0.005484240000441787,
+        "source_phase_seconds": 8.095096549999653,
+        "target_check": {
+          "code": "ECE372A",
+          "url": "https://catalog.arizona.edu/courses/0367521",
+          "status": "updated",
+          "http_status": 200,
+          "failure_kind": null,
+          "retrieved_at": "2026-11-13T19:39:50.728663Z",
+          "last_checked_at": "2026-11-13T19:39:50.728663Z",
+          "content_hash": "6ecd63c1751fe2e3d9b49dd57dd1a5d8cf94918ba7f63357e754eb90769752d4",
+          "retry_count": 0,
+          "attempts": [
+            {
+              "outcome": "success",
+              "http_status": 200,
+              "seconds": 3.8583125519999157,
+              "retry": false
+            }
+          ]
+        },
+        "enrollment_status": "unknown",
+        "result_corpus_hash": "b8d300153ab14dab501044c944793e8b1802323aeecf03c1a2be56dcccbd9617"
+      },
+      {
+        "code": "ECE425",
+        "direction": "ai_ml",
+        "question": "What can I learn in ECE425?",
+        "captured_at_utc": "2026-11-13T19:40:03.874719+00:00",
+        "saved_plan_server_seconds": 0.005870429999959015,
+        "source_phase_seconds": 8.930946411999685,
+        "target_check": {
+          "code": "ECE425",
+          "url": "https://catalog.arizona.edu/courses/0435981",
+          "status": "updated",
+          "http_status": 200,
+          "failure_kind": null,
+          "retrieved_at": "2026-11-13T19:39:58.841556Z",
+          "last_checked_at": "2026-11-13T19:39:58.841556Z",
+          "content_hash": "4a6cb7792317a946d9be87aed5479ca5f1f7255e9ad1c25663996aaeb253fcd7",
+          "retry_count": 0,
+          "attempts": [
+            {
+              "outcome": "success",
+              "http_status": 200,
+              "seconds": 3.8443727240000953,
+              "retry": false
+            }
+          ]
+        },
+        "enrollment_status": "unknown",
+        "result_corpus_hash": "5879d4f4d47edebe06259e5a1e763e0fec05b57ee4aecfdbe4349f4ac2ca5153"
+      }
+    ],
+    "scope": "The selected course refreshed successfully in each of four separate source-only requests. Other selected sources and network timings can vary."
+  },
+  "passing_ci": {
+    "run_id": 43494092036,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43494092036",
+    "revision": "b142cb725856a1d9a6c8281168c721ddc3065cb4",
+    "base_revision": "d95c9977ae17519c848b146d2342bb6e26d3254b",
+    "jobs": [
+      {
+        "name": "Python 3.12 / windows-latest",
+        "id": 132122522973,
+        "conclusion": "success"
+      },
+      {
+        "name": "Python 3.12 / ubuntu-26.04",
+        "id": 132122523150,
+        "conclusion": "success"
+      },
+      {
+        "name": "Chromium / real Streamlit sessions",
+        "id": 132122523157,
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 14071186881,
+        "name": "backend-ubuntu-26.04-py312",
+        "sha256": "312c0f5f376cb5ea901ce3a2b4b0841715b768d44fbfd86721f70f3ada3c73de"
+      },
+      {
+        "id": 14070023793,
+        "name": "browser-chromium-py312",
+        "sha256": "ab9cb3362958348d55337c7310135c828b071d871fe4db7f987410a7348f42c9"
+      },
+      {
+        "id": 14069874008,
+        "name": "backend-windows-latest-py312",
+        "sha256": "024d8d15376befe1091332bf622334ef5c8a51cbb575130708acf2f1004fe277"
+      }
+    ],
+    "backend": {
+      "ubuntu": {
+        "tests": 1769,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "tests_sha256": "c9a2f0a75b67f5b9b650faa8b7e446c3460d37a740de3d6a97d862356cc742dd",
+        "deployment_sha256": "e963a89ab63cd4de39938c2f8d1241880b9a398c102fc2a091a235ec525505d5"
+      },
+      "windows": {
+        "tests": 1769,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "tests_sha256": "a9cb5846c0facabccf036d709cac5cfdb0cf4482e921655dac18380143b92af7",
+        "deployment_sha256": "2d7da3475baa43cdb6c96b05b4434af262c785b1c359fa23db4c0aefff0519b9"
+      }
+    },
+    "browser": {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "checks": {
+        "student": 10,
+        "reviewer": 6,
+        "lesson_and_controlled": 21
+      },
+      "total": 37,
+      "enrollment_gate": {
+        "name": "ece_enrollment_references",
+        "passed": true,
+        "detail": "The phone directory displays both ECE101 references and the class-search link without an advisor request.",
+        "seconds": 0.795
+      },
+      "report_hashes": {
+        "browser.json": "41ed17b45b2b7bf88526ba5011da4923bf1cd25ffe7ed40d8a2ee635d0ab66d1",
+        "reviewer-browser.json": "f8c8fc4a3390ddd70b9e9243511003c7d327a6091d36a5ab64f8158c1cdd8ad8",
+        "progressive-browser.json": "2c8b462bfd0124367cb91fe90c98178f4b8f98b06436f2dd870c36d8a626ade3",
+        "browser-summary.md": "fc849ddb4987eb6e09d8f45a6c4296ab6e48564d30dee935426939201c143b12"
+      }
+    }
+  },
+  "frozen_input_hashes_verified": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "corpus_hashes": {
+    "baseline": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+    "runtime": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7"
+  },
+  "unfilled_review_grades": 408,
+  "readiness_planning": {
+    "prior_app_percent": 92,
+    "app_percent": 94,
+    "prior_submission_percent": 69,
+    "submission_percent": 70,
+    "remaining": "Live Gemini rehearsal, independent review, student pilot, and final materials and release."
+  }
+}

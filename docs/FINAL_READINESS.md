@@ -4,7 +4,9 @@ Team P07 · Updated November 13, 2026 MST · Final presentation and submission D
 
 ## Current estimate
 
-The app is approximately **92%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **69%** ready. Both percentages are planning estimates.
+The app is approximately **94%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **70%** ready. Both percentages are planning estimates.
+
+The four demo courses now show dated department references and a direct class search. The directory exposes its effective-date filter, retrieval time and course record dates. The source checker can refresh published course fields even when the catalog omits inline course metadata. ECE eligibility remains unknown. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 
 The Advisor now shows a dated saved-data plan before official source checks finish in both preview and AI modes. The learner can inspect the plan, submit a profile update, or keep the current plan. The live source-only probe built the first plan on the server in 19.5 ms while empty-cache checks took 16.82 s. The source run updated two records and retained nine bundled fallbacks. [Roadmap verification](evidence/saved_data_roadmap_2026-11-13.json)
 
@@ -12,11 +14,11 @@ The November 13 development step addresses the audit's lesson gaps. Presets, met
 
 The midproject review gives explicit direction for the final recording and learning experience. Confirm final timing, formatting, duration and packaging instructions in D2L. The supported delivery uses reproducible local access and portable JSON profiles.
 
-The November 8 audit weights give 69% submission completion. [Planning weights](56_FINAL_READINESS_AUDIT.md)
+The November 8 audit weights give 70% submission completion. [Planning weights](56_FINAL_READINESS_AUDIT.md)
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
-| Application and focused academic data | 50% | 92% |
+| Application and focused academic data | 50% | 94% |
 | Evaluation and performance evidence | 15% | 40% |
 | Final technical report | 20% | 65% |
 | Presentation and recording | 10% | 20% |
@@ -26,10 +28,10 @@ The November 8 audit weights give 69% submission completion. [Planning weights](
 | --- | --- | --- |
 | Self-guided learning and developer view | Verified in controlled workflows | Chromium checks the draft round trip, explanation export and Advisor comparison using test vectors. Capture the live neural example and observe students completing the lesson. |
 | Student profile → grounded roadmap → current/completed progress | Implemented | Preview and Gemini paths, JSON portability, conservative academic checks, bounded AI work |
-| Course/resource coverage and provenance | Broader inventory implemented; advising partial | 78 published undergraduate ECE descriptions; default 20-course/eight-resource/34-chunk advisor covers two directions. Up to three requested catalog additions; unknown preparation/conditions remain explicit. Focus on a defensible ECE demo chain; universal mappings/supporting-subject coverage are extensions. |
+| Course/resource coverage and provenance | Focused source review complete | 78 published ECE descriptions with effective dates. Four demo courses have dated enrollment references and a section lookup. ECE101 sources differ and ECE eligibility remains unknown. The default corpus still has 34 chunks. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,760 tests and nine readiness checks. |
-| Browser workflow and concurrent sessions | Verified in CI | All 36 Chromium checks pass across student preview, the reviewer workspace, lessons, and controlled source, AI and browsing workflows. |
+| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,769 tests and nine readiness checks. |
+| Browser workflow and concurrent sessions | Verified in CI | All 37 Chromium checks pass, including the two ECE101 references and class-search link at phone width. |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent successful checks are reused for five minutes. Explicit rechecks bypass reuse. The inspector opens in a fragment. Source checks and posting details still depend on their network response times. |
 | Usable plan during source checks and AI | Verified with controlled delays | The saved-data plan appears before sources finish. The updated source plan can appear before AI finishes. Open evidence panels persist. Keeping either plan or submitting a newer profile rejects late results. |
@@ -41,6 +43,10 @@ The November 8 audit weights give 69% submission completion. [Planning weights](
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
 | Final report, slides and recording | Partial | Report draft and evidence map updated. The three-member runbook specifies private app-only capture and planned transitions. Final figures, report formatting, slides and the recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
+
+## November 13 enrollment verification
+
+Four live, AI-disabled requests refreshed ECE101, ECE369A, ECE372A and ECE425 from the published catalog pages. All four enrollment states stayed unknown. Linux, Windows and Chromium passed the new revision. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43494092036) · [Source review and email diagnosis](evidence/focused_ece_enrollment_2026-11-13.json)
 
 ## November 13 roadmap verification
 
@@ -68,10 +74,9 @@ The audit recorded **85% app / approximately 65% complete submission** and corre
 
 ## Next steps toward the submission
 
-1. Review the applicable academic evidence for the focused ECE demonstration.
-2. Rehearse the carried question with a configured Gemini provider and capture the neural comparison.
-3. Complete independent relevance review and student sessions. Record repeated live source/model/cache observations and address material findings.
-4. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments.
-5. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
+1. Rehearse the carried question with a configured Gemini provider and capture the neural comparison. Show an ECE source and its section lookup during the demo.
+2. Complete independent relevance review and student sessions. Record repeated live source/model/cache observations and address material findings.
+3. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments.
+4. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
 
 Every development update should state the gate closed by that step, the app/submission readiness estimate, and the most consequential remaining gap. Estimates move when acceptance gates close, not when the test count grows.

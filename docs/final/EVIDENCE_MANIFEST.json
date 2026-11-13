@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "c5504734718d752aee9f421596f289e338219729",
-  "runtime_verification_revision": "c5504734718d752aee9f421596f289e338219729",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488614300",
+  "source_base_revision": "b142cb725856a1d9a6c8281168c721ddc3065cb4",
+  "runtime_verification_revision": "b142cb725856a1d9a6c8281168c721ddc3065cb4",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43494092036",
   "collections": [
     {
       "name": "baseline",
@@ -43,7 +43,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "1bb0ac2be8203627437804456d1025ca5109ef730a55e13b738a40b72262183f"
+      "sha256": "bb2cb5b53b452cda8f68fd3cd1a7f786327a6960d3561e949dbff910462b05fd"
     },
     {
       "path": "reviewer_app.py",
@@ -115,7 +115,7 @@
     },
     {
       "path": "src/collection_ui.py",
-      "sha256": "e39e91ef30fe26b85fc0fb98440aa007a7d15a6d6a6f988fdab5aaba70965b46"
+      "sha256": "ce2b2245b12745354e2ae1e4e07dd599e00bb4ec340448f7ac7039b5249cf13c"
     },
     {
       "path": "src/opportunity_ui.py",
@@ -143,7 +143,7 @@
     },
     {
       "path": "src/directory_ui.py",
-      "sha256": "feebfa3f23b9bc13ee5ee9bf5482312011c8564b45f9f155bef92457e72e4d95"
+      "sha256": "0a1078c5b1ee451ca8c2124c704a67bc1b6837437f056dd612e91294c3ccbcb8"
     },
     {
       "path": "scripts/sync_course_directory.py",
@@ -155,7 +155,7 @@
     },
     {
       "path": "tests/test_course_directory.py",
-      "sha256": "221d6366ef0b2f78b391c680cbc70da4e57f2ca4b74cd9874128f1c0c42e1b16"
+      "sha256": "7c64a02b55651884f40c4e677a4ac6e7011f64215b63fd07a5e1fa8f87cfb923"
     },
     {
       "path": "src/learning_lab.py",
@@ -167,7 +167,7 @@
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "ba5249b9cfe8957d7642715b61153b080d0dddf6db3b4ed07421d267c5de01d0"
+      "sha256": "f0bdb6d5a64e8b9e6013e60795e9332335ca7254805431011fda2c32369d2e28"
     },
     {
       "path": "tests/test_learning_path.py",
@@ -187,7 +187,7 @@
     },
     {
       "path": "src/source_ui.py",
-      "sha256": "f6cb6379bc4ee554481ebe3a1ab1d1148ae9e2b37b69e78cabb2b257b234fa64"
+      "sha256": "36f24e5e06c5b844e99788ffa7b93499692fdc220c107f1906f7a2cca6bda7dd"
     },
     {
       "path": "tests/fixtures/progressive_app.py",
@@ -200,6 +200,26 @@
     {
       "path": "tests/test_responsiveness_app.py",
       "sha256": "971e031d947b215bcc76531c15839ea9cb4002cbcb5dd5e64a59e10767125e21"
+    },
+    {
+      "path": "src/deployment.py",
+      "sha256": "c3074f8702f51339144485bac52b45c6bae7412dfdeb5367b4f94e9c313dd4cd"
+    },
+    {
+      "path": "src/enrollment_references.py",
+      "sha256": "3643036b4c6b1c11c2b46f82228e4c60ff22a710c57ea95f587f7ae1d2434e22"
+    },
+    {
+      "path": "data/catalog/ece_enrollment_references_2026_2027.json",
+      "sha256": "98b4d6dd8ba786b1e795801f3301224cc7314e3357dcbf2a1887fc52747a4ff3"
+    },
+    {
+      "path": "src/ingest.py",
+      "sha256": "da55d57d95778af40bb54fe7a4b41743894df89712a78e7d0584d8605b23da7e"
+    },
+    {
+      "path": "tests/test_sources.py",
+      "sha256": "cd57cf9ac598fead94dc8ffb86f5413442ff6a0094764a3156c1d1c3efd16bbe"
     }
   ],
   "evidence_files": [
@@ -246,6 +266,10 @@
     {
       "path": "docs/evidence/saved_data_roadmap_2026-11-13.json",
       "sha256": "b01e2e10dffeda6974dd25b67ea8673401524e45bd5c7e3bc26d5f0499412ad0"
+    },
+    {
+      "path": "docs/evidence/focused_ece_enrollment_2026-11-13.json",
+      "sha256": "54938e834cb129e0d5e2b4c338a8a7d3ec623606b7ebd680e94d1dfed2c15512"
     }
   ],
   "preserved_inputs": [
@@ -293,19 +317,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "ef7e9d796ba5fb601c7e30b0f8ec00c1c3955845d992c4bc5c4c4dde940b570a"
+      "sha256": "52ab75436d983e24bc152c675454075501a38cb6d2c87492d6be980652b52199"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "b8782c0f82038682481c1b02433565e2351c9b2820e2c36ff42554ebfa6c4874"
+      "sha256": "746492987db8d5a188261065737a2545677e9a54e8d15856b7cbcf1f96bbfddb"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "826ecf6be757107bb021b8ecf9133382685ac464d5f1f21c34f2afee996153be"
+      "sha256": "1b8e1501316942956eaac2b617c7c8ef1497e88f2830625aa5e6ff2a266f2da1"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "675c95030be4fbe6fc4836c4c762cd4b3cfe2397d01ee5da3694b1cf64321beb"
+      "sha256": "f20d37541bcc56d4f846ed5d24eed109eac8063250d12886f7bdce0bbf2906c9"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -321,7 +345,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "e5b5e4ca9c50024dee3562c54c1a364166745ab62c69b64a2906ce1c3f115acc"
+      "sha256": "0c054757a8d511d06776c7138a3bae9b851c93f2fb3d4e237398826b9a840a9e"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -329,7 +353,7 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "8b8e31ba78461d61798b3e52dff1403cab63ad4164412d6517c68c7e6017bbef"
+      "sha256": "53c2b7431485ef4faed0e9201d19da3d09735f2b47b0dfe52814b5da6e050351"
     }
   ],
   "external_references": [
@@ -368,7 +392,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-13T19:09:58+00:00",
+  "updated_at_utc": "2026-11-13T19:43:52+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -429,5 +453,18 @@
     "submission_planning_percent": 69,
     "chromium_checks": 36,
     "first_plan_validation": "Controlled source delays in browser and two live source-only server observations."
+  },
+  "focused_ece_enrollment": {
+    "date_mst": "2026-11-13",
+    "evidence": "docs/evidence/focused_ece_enrollment_2026-11-13.json",
+    "reviewed_reference_courses": [
+      "ECE101",
+      "ECE369A",
+      "ECE372A",
+      "ECE425"
+    ],
+    "live_course_updates": 4,
+    "app_planning_percent": 94,
+    "submission_planning_percent": 70
   }
 }

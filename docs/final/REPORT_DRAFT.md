@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
 
-This draft describes verified application revision `c5504734718d752aee9f421596f289e338219729`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `b142cb725856a1d9a6c8281168c721ddc3065cb4`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -82,6 +82,8 @@ Prerequisite interpretation runs in Python with satisfied, unsatisfied and unkno
 
 The runtime collection has four bound CS interpretations: CSC110, CSC120, CSC144 and CSC210. Fifteen ECE conditions and CSC372 remain unknown. These checks cover particular recorded conditions and do not establish complete enrollment eligibility. Descriptive evidence and a strong relevance score cannot substitute for a reviewed academic rule. [E8](EVIDENCE_MAP.md)
 
+The app shows dated enrollment references for ECE101, ECE369A, ECE372A and ECE425 alongside a public class search. The course code, official course URL, enrollment reference and catalog edition bind each note to the displayed course. The ECE101 department entry and the 2026–27 advised plan list different math conditions, so both are shown. The notes are displayed in the source panels and are outside the app’s prerequisite evaluator, retrieval index and model context. The directory shows the snapshot’s effective-date filter and retrieval time, plus each course record’s effective start. [E17](EVIDENCE_MAP.md)
+
 ### 3.3 Bounded explanation selection
 
 The model selects statement IDs from a source-bound registry. The application supplies wording, labels and citations, then validates membership, ownership, context and exact rendering. The provider cannot add arbitrary explanation prose by calling a fact a suggestion. This reduces free-form personalization and makes the accepted output contract inspectable.
@@ -140,6 +142,8 @@ On November 13, Linux and Windows each passed 1,755 tests and nine startup check
 
 The later November 13 roadmap revision passed 1,760 tests and nine startup checks on each OS and 36 Chromium checks. The browser uses a controlled source wait to see the first usable plan, edit the profile during the wait and keep a saved plan after releasing a delayed check. An open inspector stays visible when the updated result arrives. [E16](EVIDENCE_MAP.md)
 
+The enrollment revision passed 1,769 tests and nine startup checks per OS and 37 Chromium checks. Four separate live requests refreshed the target course fields from the rendered official pages. Each used an empty source cache with AI disabled and left enrollment unverified. The browser verifies the date labels and the two ECE101 references at phone width. [E17](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -176,4 +180,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E16](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E17](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

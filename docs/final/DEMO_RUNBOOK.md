@@ -68,6 +68,7 @@ For PowerShell, remove those two environment overrides with `Remove-Item Env:GEM
 4. Open **How this plan was made** and **Compare lesson and neural embeddings**. Show how the two cosine rankings compare for the seven common overviews and the displayed Advisor search text. It includes the carried question and profile terms.
 5. Select a record in the vector view and show the components, dot product, norms and cosine. Explain that PCA projects the vectors to two axes and that scoring uses the full vectors.
 6. Download the actual request trace and record the source/cache state. Label a warmed public embedding cache as warm.
+7. Open **Why this fits and sources** for ECE425. Point out its department reference and **Open class search**. Explain that the term and class section determine which requirements to confirm. If showing ECE101, show why the department page and advised plan are listed separately.
 
 If the provider or network prevents that result, record the fallback honestly and keep the neural segment incomplete until it can be captured. Production runs are distinct from CI's controlled provider fixtures. The recording does not replace repeated final-release timing measurements.
 
