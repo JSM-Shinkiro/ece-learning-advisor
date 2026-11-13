@@ -1,5 +1,6 @@
 """Expandable evidence, real-vector inspection, and measured timings."""
 import json
+import inspect
 import numpy as np
 import streamlit as st
 from .catalog import build_evidence
@@ -82,6 +83,12 @@ def render_inspector(result, catalog):
                      "cosine_similarity":dot/(qnorm*dnorm)})
         else:
             st.caption("The vector view appears after a successful semantic or hybrid request.")
+        code_panel = st.expander("Visualization code", key="plan_visualization_code", on_change="rerun")
+        if code_panel.open:
+            with code_panel:
+                st.caption("The ranking bars and PCA projection use these functions.")
+                st.code(inspect.getsource(ranking_html) + "\n\n" + inspect.getsource(project_embeddings),
+                        language="python", line_numbers=True)
         for chunk in result.context.evidence:
             st.markdown("**"+chunk.chunk_id+"**")
             st.text(chunk.text)

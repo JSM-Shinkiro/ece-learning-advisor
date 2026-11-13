@@ -19,6 +19,7 @@ from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
 from src.source_ui import source_details
 from src.course_directory import load_course_directory
+from src.learning_ui import LESSONS, render_lesson
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="ECE Learning Advisor · P07", page_icon="🧭", layout="wide")
@@ -36,6 +37,20 @@ h1 { letter-spacing: -.035em; }
 @media (max-width: 700px) { .block-container { padding-left: 1rem; padding-right: 1rem; } }
 </style>
 """, unsafe_allow_html=True)
+
+sections = (*LESSONS, "Advisor")
+destination = st.session_state.pop("lesson_destination", None)
+if destination is not None:
+    st.session_state.view = destination
+elif "view" not in st.session_state:
+    requested_view = st.query_params.get("view")
+    st.session_state.view = requested_view if requested_view in sections else "Beginner"
+view = st.segmented_control("Learning stage", sections, key="view", required=True,
+                            bind="query-params", width="stretch", label_visibility="collapsed")
+if view in LESSONS:
+    st.session_state.reset_profile_widgets = True
+    render_lesson(view, None if view == "Beginner" else load_runtime_catalog())
+    st.stop()
 
 base_catalog = load_runtime_catalog()
 try:
@@ -282,26 +297,30 @@ def render_card(record, result):
                 st.caption("Requested catalog course · preparation level and career connection unreviewed")
         else:
             st.caption("Online resource · independent study")
-        st.write("**Why this fits:** "+(record.learning_note or record.summary))
         if record.first_activity:
             st.write("**First activity:** "+record.first_activity)
-        explanation = next((r for r in result.answer.recommendations if r.record_id==rid),None) if result.answer else None
-        if explanation:
-            st.caption("AI explanation")
-            evidence = {e.chunk_id:e for e in result.context.evidence}
-            for i,reason in enumerate(explanation.reasons):
-                st.write(reason.text)
-                cited = list(dict.fromkeys(s for eid in reason.evidence_ids for s in evidence[eid].source_ids))
-                for sid in cited:
-                    st.link_button("Evidence: "+sources[sid].title,sources[sid].url,key=f"reason_{rid}_{i}_{sid}")
         actions = st.columns(2) if is_course else [st.container()]
         actions[0].link_button("Official course source" if is_course else "Open learning resource",
                                sources[record.source_ids[0]].url,key="open_"+rid)
         if is_course:
             actions[1].button("Mark completed",key="complete_"+record.code,
                 on_click=complete_course,args=(st.session_state,record.code),help="Record successful completion and refresh the plan.")
-        with st.expander("Course details & sources" if is_course else "Resource details & sources"):
+        details = st.expander("Why this fits and sources", key="roadmap_details_"+rid, on_change="rerun")
+        if not details.open:
+            return
+        with details:
+            if record.learning_note:
+                st.write(record.learning_note)
             st.write(record.summary)
+            explanation = next((r for r in result.answer.recommendations if r.record_id==rid),None) if result.answer else None
+            if explanation:
+                st.caption("AI explanation")
+                evidence = {e.chunk_id:e for e in result.context.evidence}
+                for i,reason in enumerate(explanation.reasons):
+                    st.write(reason.text)
+                    cited = list(dict.fromkeys(s for eid in reason.evidence_ids for s in evidence[eid].source_ids))
+                    for sid in cited:
+                        st.link_button("Evidence: "+sources[sid].title,sources[sid].url,key=f"reason_{rid}_{i}_{sid}")
             if is_course:
                 st.caption("Catalog "+record.catalog_version)
                 st.write(" ".join(result.context.rule_results[rid].reasons))

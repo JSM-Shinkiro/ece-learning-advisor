@@ -182,7 +182,7 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
 
                     page.on("websocket", websocket)
                     page.on("pageerror", lambda _: increment("page_errors"))
-                    page.goto(url, wait_until="domcontentloaded")
+                    page.goto(url + "?view=Advisor", wait_until="domcontentloaded")
                     expect(page.get_by_role("heading", name="Your next step, with a path forward.", exact=True)).to_be_visible(timeout=timeout_ms)
                     settled(page)
                     return page

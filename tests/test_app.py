@@ -15,7 +15,9 @@ def app(monkeypatch):
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "false")
     for name in ["GEMINI_API_KEY","GOOGLE_API_KEY","ADZUNA_APP_ID","ADZUNA_APP_KEY","ECE_DEVELOPMENT_MODE"]:
         monkeypatch.delenv(name,raising=False)
-    return AppTest.from_file(Path(__file__).resolve().parents[1]/"app.py",default_timeout=20).run()
+    app = AppTest.from_file(Path(__file__).resolve().parents[1]/"app.py",default_timeout=20)
+    app.query_params["view"] = "Advisor"
+    return app.run()
 
 
 def submit(app):
@@ -838,6 +840,8 @@ def test_live_sources_run_on_submission_and_render_the_active_catalog(app, monke
     submit(app)
     assert not app.exception and calls == ["ai_ml"]
     assert any("Live HTTP fixture programming" in item.value for item in app.markdown)
+    app.session_state["roadmap_details_uofa:ECE101:2026-2027"] = True
+    app.run()
     assert any("Checked 2026-11-03 20:00 MST" in item.value for item in app.caption)
     app.run()
     assert calls == ["ai_ml"]
@@ -871,6 +875,8 @@ def test_changed_prerequisite_replaces_approval_in_cards_and_inspector(app, monk
     assert any("Recorded prerequisites satisfied" in caption.value for caption in app.caption)
     changed = True
     submit(app)
+    app.session_state["roadmap_details_uofa:CSC120:2026-2027"] = True
+    app.run()
     assert not app.exception
     assert not any("Recorded prerequisites satisfied" in caption.value for caption in app.caption)
     assert any("Enrollment requirements unverified" in caption.value for caption in app.caption)
@@ -935,6 +941,10 @@ def test_resource_sources_render_versions_and_update_only_on_submission(app, mon
     monkeypatch.setenv('ECE_REFRESH_SOURCES', 'true')
     submit(app)
     assert not app.exception
+    for record_id in app.session_state['result'].context.allowed_record_ids:
+        if record_id.startswith('resource:'):
+            app.session_state['roadmap_details_'+record_id] = True
+    app.run()
     assert any(INTRO in item.value for item in app.markdown)
     assert any('Version: 2.99.0+fixture' in item.value for item in app.caption)
     assert app.session_state['result'].trace['resource_versions']['resource:cs50'] == '2026'

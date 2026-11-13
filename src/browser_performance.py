@@ -215,7 +215,7 @@ def run_browser_measurements(url, *, samples=5, executable_path=None, timeout_ms
 
                         stage = "navigation"
                         start = time.monotonic()
-                        page.goto(target, wait_until="domcontentloaded", timeout=timeout_ms)
+                        page.goto(target + "?view=Advisor", wait_until="domcontentloaded", timeout=timeout_ms)
                         button = page.get_by_role("button", name="Update my roadmap", exact=True)
                         expect(button).to_be_visible()
                         expect(button).to_be_enabled()

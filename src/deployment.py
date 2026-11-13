@@ -56,7 +56,9 @@ root = Path(sys.argv[1])
 sys.path.insert(0, str(root))
 with patch("httpx.Client.send", side_effect=AssertionError("Network request during offline smoke")) as http, \
      patch("urllib.request.urlopen", side_effect=AssertionError("Network request during offline smoke")) as legacy_http:
-    app = AppTest.from_file(root / "app.py", default_timeout=20).run()
+    app = AppTest.from_file(root / "app.py", default_timeout=20)
+    app.query_params["view"] = "Advisor"
+    app.run()
     assert not app.exception and not app.error
     assert next(item for item in app.checkbox if item.label == "Generate AI explanations").disabled
     next(button for button in app.button if button.label == "Update my roadmap").click()

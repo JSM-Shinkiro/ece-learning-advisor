@@ -193,7 +193,9 @@ def expanded_app(monkeypatch):
     monkeypatch.setenv("ECE_REFRESH_SOURCES", "false")
     for name in ["GEMINI_API_KEY", "GOOGLE_API_KEY", "ADZUNA_APP_ID", "ADZUNA_APP_KEY", "ECE_DEVELOPMENT_MODE"]:
         monkeypatch.delenv(name, raising=False)
-    return AppTest.from_file(ROOT / "app.py", default_timeout=20).run()
+    app = AppTest.from_file(ROOT / "app.py", default_timeout=20)
+    app.query_params["view"] = "Advisor"
+    return app.run()
 
 
 def test_app_uses_expanded_collection_without_network_on_rerender(expanded_app, monkeypatch):
