@@ -10,6 +10,8 @@ The app opens with a self-guided learning path. **Beginner** introduces ECE and 
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
+The [November 13 final-version audit](docs/58_FINAL_VERSION_AUDIT.md) defines the intended final learning experience, reproduced workflow gaps, prioritized fixes and the delivery plan.
+
 [Undergraduate ECE coverage and verification](docs/55_UNDERGRADUATE_ECE_DIRECTORY.md) describes the published inventory, bounded request behavior and remaining academic coverage gaps.
 
 **Courses & Resources → All undergraduate ECE courses** searches a saved 2026–2027 published inventory of **78 ECE courses**, with local pagination, official descriptions and fixed or variable credit ranges. All appear in the completed/current-course pickers. An explicit course question or **Explore … in my roadmap** can add up to three requested catalog entries to the advisor; unmapped courses appear under **Explore requested courses**, with preparation and enrollment conditions unreviewed. The default advisor remains focused on AI/ML and embedded systems. Catalog availability does not establish term availability, degree applicability or eligibility.

@@ -1,6 +1,6 @@
 # Final submission workspace
 
-Team P07 · November 12, 2026 · ECE Learning Advisor
+Team P07 · Updated November 13, 2026 · ECE Learning Advisor
 
 This directory contains the final-project preparation materials. The latest verified application revision `07cf4b59693b16dbe6835d6639123261e637860f` includes the three self-guided lessons and the undergraduate ECE directory. [Passing CI run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460)
 
@@ -16,6 +16,6 @@ The midproject submission review supplies directions for the learning path and f
 
 The report deliberately keeps four forms of evidence distinct: automated/software checks, the small authored retrieval benchmark, actual provider integration observations, and offline browser timings. There are no independent runtime relevance grades or student-pilot outcomes to report. The existing twelve-question/34-chunk review template still contains 408 blank grades.
 
-Next, expand reviewed prerequisite evidence, broader ECE learning connections and supporting curriculum coverage; collect genuine judgments using the [existing reviewer workspace](../47_REVIEW_WORKSPACE.md), run the pilot, repeat real-AI/source/cache measurements on the final revision, and finish report formatting, slides and the recording. Update [final readiness](../FINAL_READINESS.md) when these gates change.
+Next, repair the audited lesson continuity and custom-question issues, connect the learning example to real neural inspection, improve first-plan responsiveness and review the focused ECE demo data. Complete the review and student sessions, measurements, final report, slides and recording. [Prioritized work and completion checks](../58_FINAL_VERSION_AUDIT.md)
 
-The November 12 planning estimate is approximately **90% for the app and 70% for the complete submission**. Evaluation sessions and final deliverables account for most of the remaining work. [Feedback response](../57_MIDPROJECT_FEEDBACK_RESPONSE.md) · [Current readiness](../FINAL_READINESS.md)
+The November 13 planning estimate is approximately **85% for the app and 65% for the complete submission**. The audit updates the earlier estimate with reproduced workflow gaps and the remaining learning/evaluation requirements. [Final-version audit](../58_FINAL_VERSION_AUDIT.md) · [Current readiness](../FINAL_READINESS.md)

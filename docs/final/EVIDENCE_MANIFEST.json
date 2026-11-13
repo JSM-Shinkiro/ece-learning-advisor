@@ -214,6 +214,10 @@
     {
       "path": "docs/evidence/midproject_feedback_2026-11-12.json",
       "sha256": "154a64d7fc35252cb89bbe77f46a8dac380abcc610f33a945ae8b5d814724878"
+    },
+    {
+      "path": "docs/evidence/final_version_audit_2026-11-13.json",
+      "sha256": "30971b624c1998f1d214fd2a598a63c7f50b16d3a798c134ee214b40deb973f3"
     }
   ],
   "preserved_inputs": [
@@ -265,15 +269,15 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "b4b30384f34c19c12e62dc729f7c09dcd13d92fe233eba24ff3d4c6e9d0db19d"
+      "sha256": "1d6184659c4f5968e434304d7a2fb32d7593f417c202c807de5958e0f4666a48"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "ee935680e5d3af5bbcce45cf394c49a40af2d3353f964006138f69051b3a28e5"
+      "sha256": "8579aaeaadbb60c59dd8db0cf72aab33ffa116214c1413e7e74aa5f0e2da5401"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "2724f4b0d3722be585eda05ef5f3af7bb6898b00fd876eedc30e85a3b5e0dbb7"
+      "sha256": "54d88edd1834f224609c0c0366d835dffa3b421c11f3c296b681b9ea7e74f352"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -285,11 +289,19 @@
     },
     {
       "path": "docs/57_MIDPROJECT_FEEDBACK_RESPONSE.md",
-      "sha256": "1f47541e2bc63fd8aa31cfb4a5f465a8f460447bbe8b497d0fbec22f924244b3"
+      "sha256": "8e01287ba599412af2f1be06d40aa10af2a0bd9952c5cf1fb7ee4f013172ba98"
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "43b595e980dd7b7c31ad9e268220db28cd4b2f4e9ee4d0f643c719d66257a2c2"
+      "sha256": "d5b19f692deefcb9d74b9ec4178ef051a1bd48c4e8980203be0cc11538ee8af6"
+    },
+    {
+      "path": "docs/58_FINAL_VERSION_AUDIT.md",
+      "sha256": "da09d82c80157a1113ff3a49e03cee22d00a2af2ee438cc359736f13c8c89d8c"
+    },
+    {
+      "path": "docs/APP_SUMMARY.md",
+      "sha256": "0cd75fb400c6beaec6d44cd343919de8cf4bf901e1234cef203b6a34850674a3"
     }
   ],
   "external_references": [
@@ -328,7 +340,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-13T03:58:34+00:00",
+  "updated_at_utc": "2026-11-13T07:55:29+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -365,5 +377,13 @@
     "app_planning_percent": 90,
     "submission_planning_percent": 70,
     "final_recording": "Runbook prepared"
+  },
+  "final_version_audit": {
+    "date_mst": "2026-11-13",
+    "audited_revision": "192f1fc80801d3cd283ea4e888b8805dc3ebe60f",
+    "evidence": "docs/evidence/final_version_audit_2026-11-13.json",
+    "app_planning_percent": 85,
+    "submission_planning_percent": 65,
+    "fresh_offline_probe_groups": 7
   }
 }

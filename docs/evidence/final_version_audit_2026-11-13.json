@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "audit_date_mst": "2026-11-13",
+  "recorded_at_utc": "2026-11-13T07:55:29+00:00",
+  "audited_revision": "192f1fc80801d3cd283ea4e888b8805dc3ebe60f",
+  "verified_application_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
+  "scope": "Final-version requirements, code, recorded UI screenshots, artifact inventory, existing CI and fresh offline workflow probes",
+  "instructor_sources": [
+    {
+      "name": "ECE425525_MidProject_Guidelines (4)(1).pdf",
+      "library_file_id": "libfile_0faf3b2c20dc8191a9acae08d7bdda29",
+      "scope": "Midproject instructions and project design goals; final date December 11"
+    },
+    {
+      "name": "ECE_P07_Brainstorming.pdf",
+      "library_file_id": "libfile_3c6228a58634819198a3f8623a9de518",
+      "scope": "Original proposal and feature ambitions"
+    },
+    {
+      "name": "ECE_P07_System_Flow.pdf",
+      "library_file_id": "libfile_bd2efe67a40c8191b4407091c3c66afe",
+      "scope": "Proposed profile, retrieval, rules and roadmap"
+    },
+    {
+      "name": "Midproject submission feedback",
+      "scope": "User-supplied learning path, visual design and final recording instructions"
+    }
+  ],
+  "taxonomy_reference": "https://tips.uark.edu/using-blooms-taxonomy/",
+  "instructor_final_specific_rubric_available_in_reviewed_sources": false,
+  "ci_confirmation": {
+    "run_id": 43361506460,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460",
+    "conclusion": "success",
+    "backend_tests_each_os": 1745,
+    "readiness_checks_each_os": 9,
+    "chromium_gates": 32,
+    "source_evidence": "docs/evidence/midproject_feedback_2026-11-12.json"
+  },
+  "fresh_offline_probes": {
+    "scope": "Read-only offline AppTest and retrieval probes",
+    "observations": [
+      {
+        "name": "default_landing",
+        "stage": "Beginner",
+        "title": "Learn how an ECE advisor finds evidence"
+      },
+      {
+        "name": "intermediate_to_advanced",
+        "before": {
+          "preset": "Learn image classification",
+          "method": "semantic"
+        },
+        "after": {
+          "preset": "Program a sensor",
+          "method": "hybrid"
+        }
+      },
+      {
+        "name": "canonical_comparison",
+        "metrics": [
+          "0 / 1",
+          "1 / 1"
+        ]
+      },
+      {
+        "name": "observation_feedback",
+        "saved": "x",
+        "lesson_completed": true,
+        "download_visible": true
+      },
+      {
+        "name": "advanced_to_advisor",
+        "lesson_question": "How do I train a neural network for image classification in Python?",
+        "advisor_question": ""
+      },
+      {
+        "name": "return_to_advanced",
+        "comparison_retained": true,
+        "query_control": "",
+        "expected_control": [],
+        "saved_observation": "x"
+      },
+      {
+        "name": "custom_query_coverage",
+        "queries": [
+          {
+            "query": "How do I build a robot?",
+            "features": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "error": "Include a topic word such as Python, sensor, neural network or array, or try Keyword."
+          },
+          {
+            "query": "I want to learn computer vision",
+            "features": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "error": "Include a topic word such as Python, sensor, neural network or array, or try Keyword."
+          },
+          {
+            "query": "How do I program in C?",
+            "features": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "error": "Include a topic word such as Python, sensor, neural network or array, or try Keyword."
+          },
+          {
+            "query": "How do I read sensors with a microcontroller using C?",
+            "features": [
+              0.0,
+              2.0,
+              0.0,
+              0.0
+            ],
+            "top_three": [
+              "uofa:ECE372A:2026-2027",
+              "uofa:ECE369A:2026-2027",
+              "resource:cs50"
+            ]
+          },
+          {
+            "query": "python xyzzy unrelated",
+            "features": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "top_three": [
+              "resource:cs50",
+              "resource:pytorch",
+              "uofa:ECE101:2026-2027"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "inspected_code_and_catalog": [
+    {
+      "path": "app.py",
+      "sha256": "ac4ed1422275d9fcad03f934912059eea55e251adc39c4679736e80ac57db768"
+    },
+    {
+      "path": "src/learning_ui.py",
+      "sha256": "a8d1fbd7b310e5a5fb7a8772997f9a753c245dee78d28861f7b5b014bb074b75"
+    },
+    {
+      "path": "src/learning_lab.py",
+      "sha256": "af0a13f78927c291046ed15b8d18343149ea799aee50506e7e8e8a0a7cf296e2"
+    },
+    {
+      "path": "src/controller.py",
+      "sha256": "eccc572bffb8ab490483b37ea718b06aa007555d10ee7006f152bf6672a0cc46"
+    },
+    {
+      "path": "src/advisor_jobs.py",
+      "sha256": "b5fdeb2c56fe3ffea1c8ea4e901c5c4eec8845ddcccc69f2eee83fa71b410aef"
+    },
+    {
+      "path": "src/inspector.py",
+      "sha256": "a2b5ddf5adf5ffb06114f2143fe1bb89c141fab48081ae2ecd59fd908eee9c60"
+    },
+    {
+      "path": "src/planning.py",
+      "sha256": "8e1e1fc275b0685bd366b70b48df4936cc613164e5623607055d0e7b15fa7bfa"
+    },
+    {
+      "path": "src/profiles.py",
+      "sha256": "e2a9729356ec699153c1781c33714354fa6e1ba3e0f3b3049dd8c4f08e859650"
+    },
+    {
+      "path": "src/models.py",
+      "sha256": "af6164251e5db08e85da3f0fa4606a2677993b23723e4a50f3c906cd45ad6e09"
+    },
+    {
+      "path": "src/directory_ui.py",
+      "sha256": "feebfa3f23b9bc13ee5ee9bf5482312011c8564b45f9f155bef92457e72e4d95"
+    },
+    {
+      "path": "src/session.py",
+      "sha256": "18bf3ba7e052f847a26fdb105b2204cd0a78bf6233eb17eb5cf7189afd9e5d63"
+    },
+    {
+      "path": "data/catalog/undergraduate_ece_2026_2027.json",
+      "sha256": "e49b8f0da10eeab4c346d54ede7070c4f705ee376f28ff81a65e8b268df20458"
+    }
+  ],
+  "source_refresh_order": {
+    "source": "src/controller.py",
+    "observation": "Source refresh completes before on_plan publishes the early keyword plan",
+    "ui_dispatch": "app.py uses background work when both use_ai and api_key are truthy; other requests run synchronously",
+    "measurement": "Static code inspection; no new live-source latency estimate"
+  },
+  "inventory": {
+    "undergraduate_ece_entries": 78,
+    "directory_effective_dates": "2027-01-13,2027-01-13",
+    "directory_retrieved_at": "2026-11-08T22:35:06.055233Z",
+    "runtime_courses": 20,
+    "runtime_resources": 8,
+    "runtime_chunks": 34,
+    "reviewed_cs_conditions": 4,
+    "unreviewed_runtime_ece_conditions": 15,
+    "additional_unreviewed_runtime_course": "CSC372",
+    "blank_review_grades": 408,
+    "final_workspace_files": [
+      "docs/final/DEMO_RUNBOOK.md",
+      "docs/final/EVIDENCE_MANIFEST.json",
+      "docs/final/EVIDENCE_MAP.md",
+      "docs/final/README.md",
+      "docs/final/REPORT_DRAFT.md",
+      "docs/final/STUDENT_PILOT.md"
+    ],
+    "github_releases_observed": 0
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "planning_estimate": {
+    "app_percent": 85,
+    "submission_weighted_percent": 65.5,
+    "submission_rounded_percent": 65,
+    "weights": {
+      "app": 50,
+      "evaluation_performance": 15,
+      "report": 20,
+      "presentation_recording": 10,
+      "delivery": 5
+    },
+    "component_progress": {
+      "app": 85,
+      "evaluation_performance": 40,
+      "report": 65,
+      "presentation_recording": 20,
+      "delivery": 40
+    },
+    "reason_for_revision": "Newly reproduced workflow gaps and incomplete simple-to-neural learning connection"
+  },
+  "limits": [
+    "AppTest probes exercise Python/UI state. Browser pointer and touch paths need their own checks.",
+    "Existing CI counts retain their original application revision and test scope.",
+    "This audit collected zero independent grades, student outcomes or new live-model measurements.",
+    "The proposed priorities, team ownership, dates and performance targets are planning recommendations."
+  ]
+}

@@ -1,20 +1,20 @@
 # Final submission readiness
 
-Team P07 · Updated November 12, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
+Team P07 · Updated November 13, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
 
 ## Current estimate
 
-The app is approximately **90%** complete for the agreed final scope of two career directions and broader undergraduate ECE browsing. The complete submission is approximately **70%** ready. Both percentages are planning estimates.
+The app is approximately **85%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **65%** ready. Both percentages are planning estimates.
 
-The [midproject feedback response](57_MIDPROJECT_FEEDBACK_RESPONSE.md) closes the implementation gate for the self-guided lessons. Beginner introduces the domain visually, Intermediate compares rankings for a preset, and Advanced compares a learner-authored question and saves an observation. The lessons and advisor expose their visualization code. Each member has a prepared final recording segment with capture and transition instructions. Rehearsal, recording and review remain open.
+The [final-version audit](58_FINAL_VERSION_AUDIT.md) revises the earlier 90% / 70% estimate. The lesson screens work through the scripted example, but broader probes found lost settings between stages, blank inputs beside retained results, unsupported familiar questions and a dropped question on entering Advisor. The teaching representation also needs a clearer connection to neural retrieval, and the reasoning activity needs stronger feedback. These are open acceptance items for the self-guided path.
 
 The midproject review gives explicit direction for the final recording and learning experience. Confirm final timing, formatting, duration and packaging instructions in D2L. The supported delivery uses reproducible local access and portable JSON profiles.
 
-Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the planning estimates give 68% completion, rounded to about 70%.
+Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the revised planning estimates give 65.5% completion, rounded to about 65%.
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
-| Application and focused academic data | 50% | 90% |
+| Application and focused academic data | 50% | 85% |
 | Evaluation and performance evidence | 15% | 40% |
 | Final technical report | 20% | 65% |
 | Presentation and recording | 10% | 20% |
@@ -22,7 +22,7 @@ Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the planning 
 
 | Acceptance gate | Status | Evidence or remaining work |
 | --- | --- | --- |
-| Self-guided learning and developer view | Verified in Chromium | Illustrated landing, interactive ranking preset, custom comparison, saved JSON export and inspectable visualization code. Student usability validation remains open. |
+| Self-guided learning and developer view | Implemented / acceptance partial | Scripted lessons and code inspection pass Chromium. The audit reproduces navigation, input and continuity gaps. The neural teaching connection and learner reasoning need work. |
 | Student profile → grounded roadmap → current/completed progress | Implemented | Preview and Gemini paths, JSON portability, conservative academic checks, bounded AI work |
 | Course/resource coverage and provenance | Broader inventory implemented; advising partial | 78 published undergraduate ECE descriptions; default 20-course/eight-resource/34-chunk advisor covers two directions. Up to three requested catalog additions; unknown preparation/conditions remain explicit. Focus on a defensible ECE demo chain; universal mappings/supporting-subject coverage are extensions. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
@@ -35,10 +35,14 @@ Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the planning 
 | Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
-| Performance evidence | Partial | Historical paired inspector medians remain 1,608.4 → 686.7 ms. Latest CI repeat is separately 1,714.0 → 683.7 ms. Fresh audit source-only observations: 21.664 s empty cache, 13.191 s disk cache/new process, 0.066 s immediate reuse; recovered timeouts included. Repeated final-release live-AI/source/cache/browser evidence remains. |
+| Performance evidence | Partial | The November 12 offline CI repeat gives 683.3 ms median first inspector opening and 321.3 ms reopening, with five sessions. November 8 source-only observations were 21.664 s empty cache, 13.191 s disk cache/new process and 0.066 s immediate reuse. First-plan responsiveness and repeated final-release live observations remain open. |
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
 | Final report, slides and recording | Partial | Report draft and evidence map updated. The three-member runbook specifies private app-only capture and planned transitions. Final figures, report formatting, slides and the recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
+
+## November 13 audit
+
+The audit reads the instructor guidelines, original concept, current code and final materials, confirms the passing CI revision and exercises less scripted lesson navigation. It records seven groups of offline observations, verifies all eight archived input hashes and confirms 408 unfilled review grades. The detailed report defines the intended final journey, priorities, completion checks and schedule. [Audit](58_FINAL_VERSION_AUDIT.md) · [Evidence](evidence/final_version_audit_2026-11-13.json)
 
 ## November 12 verification
 
@@ -54,10 +58,10 @@ The audit recorded **85% app / approximately 65% complete submission** and corre
 
 ## Next steps toward the submission
 
-1. Reconcile final-only instructions and freeze the core scope; start genuine reviewer/student sessions early.
-2. Resolve authoritative conditions for the focused ECE demo and improve fresh-source waiting; retain unknowns where evidence is unavailable.
-3. Collect repeated actual-AI/source/cache observations on the release, retain failures and address material misses.
-4. Finish the report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch the three narrated segments and the advisor inspection.
-5. Freeze/tag, check reproducibility/access/links and assemble the final package under the actual final rules.
+1. Repair lesson continuity and custom-question recovery, then connect the same experiment to actual neural inspection.
+2. Show a useful saved-data plan before fresh checks finish, and review the focused ECE demo's applicable academic evidence.
+3. Complete independent relevance review and student sessions. Record repeated live source/model/cache observations and address material findings.
+4. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments and the actual neural inspection.
+5. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
 
 Every development update should state the gate closed by that step, the app/submission readiness estimate, and the most consequential remaining gap. Estimates move when acceptance gates close, not when the test count grows.

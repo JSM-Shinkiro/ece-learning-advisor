@@ -1,6 +1,6 @@
 # ECE Learning Advisor: An Inspectable RAG System
 
-Team P07 · ECE 425/525 · Final report draft · November 12, 2026
+Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
 
 This draft describes the application through verified revision `07cf4b59693b16dbe6835d6639123261e637860f`. Final formatting, final-release figures and measurements, independent judgments and student-pilot outcomes remain to be incorporated. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
@@ -152,6 +152,8 @@ The November 8 readiness audit adds individual source-only observations: 21.664 
 
 ## 6. Limitations and next validation
 
+The November 13 audit found gaps around the scripted lesson. Intermediate settings reset on entering Advanced, returning to Advanced clears its inputs while retaining the last result, and opening Advisor drops the lesson question. The four-feature representation rejects familiar questions about robotics, computer vision and C programming. Saving any nonempty observation completes the activity, so the learning outcome still requires assessment. The final iteration should address continuity, clarify the connection to pretrained embeddings and provide evidence-based reasoning feedback. [E14](EVIDENCE_MAP.md)
+
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
 Published undergraduate ECE description coverage is broader than advising coverage: career mappings still focus on two directions, ECE prerequisite interpretations remain unreviewed, and complete supporting-course/degree auditing remains open. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Accounts/history persistence, distributed-worker coordination and a validated public-host deployment remain outside the verified implementation. Reproducible local access is available; final access requirements must be reconciled with the final instructions.
@@ -165,4 +167,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E13](EVIDENCE_MAP.md); exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E14](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

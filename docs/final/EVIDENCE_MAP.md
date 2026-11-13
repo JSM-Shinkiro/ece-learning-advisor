@@ -1,6 +1,6 @@
 # Final report evidence map
 
-Prepared November 8 and updated November 12, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
+Prepared November 8 and updated November 13, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
 
 | ID | Claim or use | Primary project evidence | Scope and limits |
 | --- | --- | --- | --- |
@@ -17,6 +17,7 @@ Prepared November 8 and updated November 12, 2026. The evidence IDs index projec
 | E11 | Published undergraduate ECE directory and bounded exploration | [Directory snapshot](../../data/catalog/undergraduate_ece_2026_2027.json), [coverage notes](../55_UNDERGRADUATE_ECE_DIRECTORY.md), [verification evidence](../evidence/undergraduate_ece_directory_2026-11-08.json) | 78 undergraduate entries from two complete published-list pages totaling 186 ECE entries; 108 graduate-level entries excluded. Three official-page samples match metadata. Local paged search/pickers and up to three requested advisor additions; all 63 additional codes have offline regression coverage. Enrollment rules, broader career mappings and supporting-subject inventory remain partial. No catalog-wide advising-quality claim. |
 | E12 | Final-readiness scope audit and fresh public-source checks | [Audit](../56_FINAL_READINESS_AUDIT.md), [audit evidence](../evidence/final_readiness_audit_2026-11-08.json) | Nine fresh runtime checks; actual ECE413 source overlay with unknown rule; three public boards and one posting verified. Single source-only empty-cache/disk-cache/recent-reuse observations are 21.664/13.191/0.066 seconds; five first-source timeouts recover. No model or participant result. Final-only instructions remain unconfirmed; midpoint limits/weights are not asserted as final rules. |
 | E13 | Self-guided lessons and the midproject feedback response | [Verification record](../evidence/midproject_feedback_2026-11-12.json), [learning lab](../../src/learning_lab.py), [recording plan](DEMO_RUNBOOK.md) | 1,745 tests and nine runtime checks on each OS, 32 Chromium gates including the three lesson checks. Saved topic vectors expose their features and plotting code. Verification covers software behavior. Student observations and the final recording are still open. |
+| E14 | Final-version audit and broader lesson probes | [Audit](../58_FINAL_VERSION_AUDIT.md), [observations](../evidence/final_version_audit_2026-11-13.json) | Offline probes reproduce settings resets, blank returning inputs, familiar-query rejection and a dropped Advisor question. All 408 review grades are unfilled. Findings refine the final definition and readiness estimate. |
 
 ## Inputs must remain separate
 
