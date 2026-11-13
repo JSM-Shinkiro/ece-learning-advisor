@@ -328,20 +328,27 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
 
                 stage="mobile_inspector";begin=time.monotonic()
                 page.get_by_role("tab",name="My Roadmap",exact=True).click()
+                inspector_summary = page.locator("summary").filter(
+                    has=page.get_by_text("How this plan was made", exact=True))
+                expect(inspector_summary).to_be_visible()
+                ranking = page.locator('[data-ece-ranking="html"]')
+                if inspector_summary.locator("..").get_attribute("open") is not None:
+                    inspector_summary.click()
+                expect(ranking).to_have_count(0)
                 fragment_runs=counts["fragment_runs"]
-                expand("How this plan was made")
+                inspector_summary.click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.locator('[data-ece-ranking="html"]')).to_be_visible()
+                expect(ranking).to_be_visible()
                 expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
                 expect(page.get_by_role("button",name="Download request trace",exact=True)).to_be_visible()
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 if diagnostics_dir is not None:
-                    page.locator('[data-ece-ranking="html"]').screenshot(path=str(Path(diagnostics_dir)/"ranking-mobile.png"))
+                    ranking.screenshot(path=str(Path(diagnostics_dir)/"ranking-mobile.png"))
                 passed("Native ranking and trace download fit a 390-pixel phone viewport without a full app or provider request.",begin)
                 page.set_viewport_size({"width":1500,"height":1100})
                 if diagnostics_dir is not None:
-                    page.locator('[data-ece-ranking="html"]').screenshot(path=str(Path(diagnostics_dir)/"ranking-desktop.png"))
+                    ranking.screenshot(path=str(Path(diagnostics_dir)/"ranking-desktop.png"))
 
                 stage="posting_progress";begin=time.monotonic()
                 page.get_by_role("tab",name="Opportunities",exact=True).click()
