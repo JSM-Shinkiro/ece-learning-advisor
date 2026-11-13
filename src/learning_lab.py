@@ -8,15 +8,24 @@ import numpy as np
 
 from .catalog import build_evidence
 from .models import Catalog
-from .retrieval import Hit, Retriever, project_embeddings
+from .retrieval import Hit, Retriever, project_embeddings, reciprocal_rank_fusion, tokenize
 
 TOPICS = {
-    "Programming": ("programming", "code", "python", "c++", "software"),
-    "Embedded hardware": ("microcontroller", "microcontrollers", "embedded", "hardware", "processor", "interrupt", "sensor", "sensors"),
-    "Machine learning": ("machine learning", "neural", "classification", "deep learning", "pytorch"),
-    "Data structures": ("data structure", "data structures", "algorithm", "algorithms", "array", "arrays",
-                        "list", "lists", "tree", "hash table"),
+    "Programming": ("programming", "code", "python", "c++", "software", "c programming",
+                    "program in c", "code in c", "coding in c", "write c"),
+    "Embedded hardware": ("microcontroller", "microcontrollers", "embedded", "hardware", "processor",
+                          "interrupt", "sensor", "sensors", "robot", "robots", "robotics", "arduino"),
+    "Machine learning": ("machine learning", "neural", "classification", "deep learning", "pytorch",
+                         "computer vision", "image recognition", "classify images", "classify pictures",
+                         "recognize pictures", "recognise pictures"),
+    "Data structures": ("data structure", "data structures", "algorithm", "algorithms", "array",
+                        "arrays", "list", "lists", "tree", "hash table"),
 }
+
+QUESTION_WORDS = frozenset(
+    "about am are be build can could does do find get how is it know learning me need please "
+    "practice should start study teach the use want was were which why will would you your".split()
+)
 
 PRESETS = {
     "Program a sensor": "How do I read sensors with a microcontroller using C?",
@@ -25,15 +34,25 @@ PRESETS = {
 }
 
 RECORDS = ("ECE101", "ECE369A", "ECE372A", "ECE425", "CSC120", "resource:pytorch", "resource:cs50")
-TOPIC_PATTERNS = tuple(tuple(re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)") for term in terms)
-                       for terms in TOPICS.values())
+TOPIC_PATTERNS = {
+    topic: tuple((term, re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)")) for term in terms)
+    for topic, terms in TOPICS.items()
+}
+
+
+def matched_topic_terms(text):
+    words = text.casefold()
+    return {topic: tuple(term for term, pattern in terms if pattern.search(words))
+            for topic, terms in TOPIC_PATTERNS.items()}
 
 
 def topic_vector(text):
     """Count distinct listed terms in each topic dimension."""
-    words = text.lower()
-    return np.array([sum(bool(pattern.search(words)) for pattern in patterns)
-                     for patterns in TOPIC_PATTERNS], dtype=float)
+    return np.array([len(matches) for matches in matched_topic_terms(text).values()], dtype=float)
+
+
+def keyword_terms(text):
+    return set(tokenize(text)) - QUESTION_WORDS
 
 
 @dataclass(frozen=True)
@@ -68,12 +87,43 @@ class Experiment:
 
 
 def run_experiment(index, query, method):
+    if method not in {"keyword", "semantic", "hybrid"}:
+        raise ValueError("Unknown retrieval method")
     vector = topic_vector(query)
-    if method != "keyword" and not np.any(vector):
-        raise ValueError("Include a topic word such as Python, sensor, neural network or array, or try Keyword.")
-    hits = index.retriever.search(query, method, vector, limit=len(index.labels))
-    points, query_point = project_embeddings(index.vectors, vector if np.any(vector) else None)
+    has_topics = bool(np.any(vector))
+    if not has_topics:
+        method = "keyword"
+    limit = len(index.labels)
+    keywords = index.retriever.keyword(" ".join(sorted(keyword_terms(query))), limit) if method != "semantic" else []
+    topics = [hit for hit in index.retriever.semantic(vector, limit) if hit.score > 0] if method != "keyword" else []
+    hits = keywords if method == "keyword" else topics
+    if method == "hybrid":
+        hits = reciprocal_rank_fusion(keywords, topics)
+    if not hits:
+        if method == "keyword" and has_topics:
+            raise ValueError("Keyword found no shared search words. Try Topic cosine to compare the recognized topics.")
+        raise ValueError("The seven lesson records have no match for this question. "
+                         "Try ECE425, a sensor question, computer vision or C programming.")
+    points, query_point = project_embeddings(index.vectors, vector if has_topics else None)
     return Experiment(query, method, tuple(hits), vector, points, query_point)
+
+
+def compare_embedding_ranks(index, chunks, vectors, query, query_vector):
+    """Rank the lesson overviews from an existing advisor request in both representations."""
+    positions = {chunk.chunk_id: i for i, chunk in enumerate(chunks)}
+    documents = index.retriever.evidence
+    neural_vectors = vectors[[positions[doc.chunk_id] for doc in documents]]
+    neural = Retriever(documents, neural_vectors).semantic(query_vector, len(documents))
+    counts = topic_vector(query)
+    topic_hits = index.retriever.semantic(counts, len(documents)) if np.any(counts) else []
+    topic_ranks = {hit.chunk_id: (rank, hit.score) for rank, hit in enumerate(
+        (hit for hit in topic_hits if hit.score > 0), 1)}
+    rows = []
+    for rank, hit in enumerate(neural, 1):
+        topic_rank, cosine = topic_ranks.get(hit.chunk_id, (None, None))
+        rows.append({"Record ID": hit.record_id, "Topic rank": topic_rank, "Topic cosine": cosine,
+                     "Neural rank": rank, "Neural cosine": hit.score})
+    return rows
 
 
 def compare_ranks(original, variation):

@@ -70,8 +70,12 @@ if "profile" not in st.session_state:
     st.session_state.profile = StudentProfile()
     st.session_state.reset_profile_widgets = True
 profile = st.session_state.profile
-if st.session_state.pop("reset_profile_widgets", False):
+lesson_question = st.session_state.get("lesson_advisor_question")
+reset_widgets = st.session_state.pop("reset_profile_widgets", False)
+if reset_widgets:
     sync_profile_widgets(st.session_state, profile, course_lookup)
+if (reset_widgets or destination == "Advisor") and st.session_state.get("lesson_question_pending"):
+    st.session_state.question = lesson_question
 
 
 def show_profile_error(exc):
@@ -119,6 +123,7 @@ with st.sidebar:
         current_selected = st.multiselect("Currently taking (optional)",list(course_lookup),
             format_func=lambda code:code+" · "+course_lookup[code].title,key="current_courses",
             help="Keep these courses out of your next-step suggestions. Taking a course does not count as passing it.")
+        question = st.text_input("A question about your next step", key="question", max_chars=1200)
         submitted = st.form_submit_button("Update my roadmap",type="primary",width="stretch")
         recheck = st.form_submit_button("Check sources again",disabled=not settings.refresh_sources,
             help="Update the roadmap from these profile details and recheck selected official pages now.")
@@ -143,7 +148,6 @@ with st.sidebar:
                         key="grade_"+code,help="A reviewed prerequisite uses the grade for this course.")
             history_complete = st.checkbox("I listed all my completed courses",key="history_complete")
             experience = st.text_area("Projects or experience",key="experience",max_chars=2000)
-            question = st.text_input("A question about your next step",key="question",max_chars=1200)
 
     # Credentials from the server never become widget defaults or session values.
     server_key = settings.gemini_key.get_secret_value()
@@ -345,12 +349,17 @@ with roadmap:
                 action.button("Mark completed",key="finish_"+code,
                     on_click=complete_course,args=(st.session_state,code),help="Move this course to completed coursework and refresh the plan.")
     result = st.session_state.get("result")
-    if profile.career_id=="exploring" or result is None:
+    lesson_draft = lesson_question and question == lesson_question and profile.question != lesson_question
+    if lesson_draft:
+        st.info("Your lesson question is in Your starting point. Select Update my roadmap to use it.")
+        if api_key:
+            st.caption("For the embedding comparison, enable AI explanations with semantic or hybrid ranking.")
+    elif profile.career_id=="exploring" or result is None:
         direction_cards()
-    if result is None:
+    if result is None and not lesson_draft:
         st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
                 "Complete your starting point and select Update my roadmap, or choose a direction above.")
-    else:
+    if result is not None:
         if result.coverage_notice:
             st.info(result.coverage_notice)
         elif result.generation_status=="insufficient_evidence":
@@ -377,7 +386,7 @@ with roadmap:
                         render_card(records[rid],result)
             if not result.context.allowed_record_ids:
                 st.info("No additional matches remain in this small collection. Explore Courses & Resources or try another direction.")
-        render_inspector(result,catalog)
+        render_inspector(result, catalog, lesson_question=lesson_question)
 
 with collection:
     render_collection(base_catalog, course_directory)

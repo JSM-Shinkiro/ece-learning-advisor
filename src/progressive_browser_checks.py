@@ -55,6 +55,14 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 def expand(label):
                     summary=page.locator("summary").filter(has=page.get_by_text(label,exact=True))
                     if summary.locator("..").get_attribute("open") is None:summary.click()
+                def navigate(label):
+                    navigation = page.get_by_test_id("stButtonGroup")
+                    navigation.get_by_role("button", name=label, exact=True).click()
+                def pick_record(label, value):
+                    field = page.get_by_role("combobox", name=label, exact=True)
+                    field.fill(value)
+                    page.get_by_role("option", name=value, exact=True).click()
+                    field.press("Escape")
                 def choose(label,value):
                     field=page.get_by_role("combobox",name=label,exact=True)
                     field.scroll_into_view_if_needed();field.focus();field.press("Escape")
@@ -62,7 +70,6 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                     page.get_by_role("option",name=value,exact=True).click()
                     expect(field).to_have_value(value)
                 def submit(question):
-                    expand("Optional details")
                     page.get_by_role("textbox",name="A question about your next step",exact=True).fill(question)
                     button=page.get_by_role("button",name="Update my roadmap",exact=True)
                     button.focus();button.click()
@@ -110,6 +117,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(ranking).to_contain_text("Keyword ranking score")
                 choose("Ranking method","Topic cosine")
                 expect(ranking).to_contain_text("Topic cosine ranking score")
+                expand("Inspect evidence")
+                expect(page.get_by_text("product of lengths", exact=False)).to_be_visible()
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-intermediate.png"))
                 expand("Developer view · visualization code")
@@ -119,35 +128,56 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 stage="advanced_comparison";begin=time.monotonic()
                 page.get_by_role("button",name="Create your variation",exact=True).click()
                 expect(page.get_by_role("heading",name="Advanced · Evaluate & create",exact=True)).to_be_visible()
-                page.get_by_role("textbox",name="Your variation",exact=True).fill("How do I train a neural network for image classification in Python?")
-                expected=page.get_by_role("combobox",name="Expected useful records",exact=True)
-                expected.fill("ECE425")
-                page.get_by_role("option",name="ECE425",exact=True).click()
-                expected.press("Escape")
-                compare=page.get_by_role("button",name="Compare with preset",exact=True)
-                compare.focus()
-                expect(compare).to_be_focused()
-                compare.press("Enter")
+                expect(page.get_by_role("combobox", name="Comparison preset", exact=True)).to_have_value("Program a sensor")
+                expect(page.get_by_role("combobox", name="Variation ranking method", exact=True)).to_have_value("Topic cosine")
+                choose("Variation ranking method", "Hybrid")
+                question = "How do I train a neural network for image classification in Python?"
+                page.get_by_role("textbox",name="Your variation",exact=True).fill(question)
+                pick_record("Expected useful records", "ECE425")
+                page.get_by_role("button",name="Compare with preset",exact=True).click()
                 expect(page.get_by_role("heading",name="Your comparison",exact=True)).to_be_visible()
                 metrics=page.get_by_test_id("stMetricValue")
                 expect(metrics.nth(0)).to_have_text("0 / 1")
                 expect(metrics.nth(1)).to_have_text("1 / 1")
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-advanced.png"))
-                observation=page.get_by_role("textbox",name="What moved, and what in the evidence explains it?",exact=True)
-                observation.fill("Neural and classification terms moved ECE425 up.");observation.press("Tab")
+                choose("Record to explain", "ECE425")
+                choose("How did this record move?", "Entered the ranking")
+                expand("Inspect evidence for this record")
+                observation = page.get_by_role("textbox", name="What in the evidence explains the result?", exact=True)
+                explanation = "ECE425 covers neural networks relevant to image classification."
+                observation.fill(explanation)
+                observation.press("Tab")
                 page.get_by_role("button",name="Save my observation",exact=True).click()
                 with page.expect_download() as comparison:
                     page.get_by_role("button",name="Download my comparison",exact=True).click()
                 comparison_path=Path(temporary)/"comparison.json"
                 comparison.value.save_as(comparison_path)
                 saved=json.loads(comparison_path.read_text(encoding="utf-8"))
-                assert saved["expected_records"]==["ECE425"] and saved["observation"]=="Neural and classification terms moved ECE425 up."
+                assert saved["expected_records"] == ["ECE425"] and saved["observation"] == explanation
+                assert saved["observed_rank_change"] == "Entered the ranking"
                 assert not (control/"provider.calls").exists()
                 passed("A user question changes expected evidence in the top three and exports its saved observation.",begin)
 
-                page.get_by_role("button",name="Open the advisor",exact=True).click()
+                stage = "lesson_continuity"
+                begin = time.monotonic()
+                variation_input = page.get_by_role("textbox", name="Your variation", exact=True)
+                variation_input.fill("How do I program in C?")
+                navigate("Beginner")
+                navigate("Advanced")
+                expect(variation_input).to_have_value("How do I program in C?")
+                expect(page.get_by_role("combobox", name="Variation ranking method", exact=True)).to_have_value("Hybrid")
+                expect(page.get_by_text("Showing your last comparison.", exact=False)).to_be_visible()
+                expect(page.get_by_text(question, exact=True)).to_be_visible()
+                page.get_by_role("button", name="Use this question in Advisor", exact=True).click()
                 expect(page.get_by_role("heading",name="Your next step, with a path forward.",exact=True)).to_be_visible()
+                expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(question)
+                expect(page.get_by_text("Your lesson question is in Your starting point.", exact=False)).to_be_visible()
+                assert export("lesson-draft.json")["question"] == ""
+                passed("The unsubmitted variation survives navigation and the evaluated question opens as an Advisor draft.", begin)
+
+                stage = "lesson_embedding_comparison"
+                begin = time.monotonic()
                 wait_until(lambda:counts["full_runs"]>0)
                 expand("AI and ranking options")
                 checkbox=page.get_by_role("checkbox",name="Generate AI explanations",exact=True)
@@ -155,6 +185,14 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 before=counts["full_runs"]
                 page.get_by_text("Generate AI explanations",exact=True).click()
                 wait_until(lambda:counts["full_runs"]>before)
+                submit(question)
+                expect(ai_caption).to_be_visible()
+                expand("How this plan was made")
+                expand("Compare lesson and neural embeddings")
+                expect(page.get_by_text("embedding dimensions from controlled-browser-vectors", exact=False)).to_be_visible()
+                if diagnostics_dir is not None:
+                    page.screenshot(path=str(Path(diagnostics_dir) / "learning-embedding-comparison.png"))
+                passed("The carried question reaches the Advisor and compares both representations on its existing test vectors.", begin)
 
                 stage="source_plan_before_ai";begin=time.monotonic()
                 submit("ECE101 controlled draft request");source_plan("draft")

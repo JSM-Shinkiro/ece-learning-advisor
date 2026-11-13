@@ -2,17 +2,23 @@
 
 import inspect
 import json
+from dataclasses import asdict
 
+import numpy as np
 import streamlit as st
 
-from .catalog import ROOT
+from .catalog import ROOT, corpus_hash
 from .inspection_views import ranking_html
-from .learning_lab import PRESETS, TOPICS, build_lab_index, compare_ranks, evidence_fit, plot_experiment, run_experiment, topic_vector
-from .retrieval import project_embeddings, reciprocal_rank_fusion
+from .learning_lab import (
+    PRESETS, TOPICS, build_lab_index, compare_ranks, evidence_fit, keyword_terms,
+    matched_topic_terms, plot_experiment, run_experiment, topic_vector,
+)
+from .retrieval import project_embeddings, reciprocal_rank_fusion, tokenize
 
 LEARNING_ASSETS = ROOT / "assets/learning"
 LESSONS = ("Beginner", "Intermediate", "Advanced")
 METHODS = {"keyword": "Keyword", "semantic": "Topic cosine", "hybrid": "Hybrid"}
+RANK_CHANGES = ("Moved up", "Moved down", "Stayed at the same rank", "Entered the ranking", "Left the ranking")
 
 
 def show_section(section):
@@ -48,6 +54,7 @@ def render_beginner():
                     "**:material/hub: AI and machine learning** use data and models to recognize patterns or make predictions.")
         st.write("Together these skills help build robots, connected devices and systems that interpret images or signals.")
         st.caption("For prospective and current ECE students. Start with an interest such as robotics, programming or computer vision.")
+        st.button("Try a preset experiment", type="primary", on_click=show_section, args=("Intermediate",))
     with visual:
         st.image(LEARNING_ASSETS / "ece-lab.webp", width="stretch", caption="Electronics lab illustration")
 
@@ -73,7 +80,8 @@ def render_beginner():
     for column, label, body in zip(st.columns(3),
         ("Search", "Vectors", "Prerequisites"),
         ("Keyword search finds shared words. Similarity search compares numerical descriptions of meaning.",
-         "An embedding represents text as numbers. A plot can project those numbers onto two axes.",
+         "A vector represents a question as numbers. In this lesson, “sensors and Python” adds one "
+         "count to Embedded hardware and one to Programming.",
          "Your completed courses and catalog year affect preparation checks. Confirm enrollment on the official course page.")):
         with column:
             st.markdown(f"**{label}**")
@@ -89,7 +97,6 @@ def render_beginner():
             st.success("Correct. A relevance score helps you find a course. Its source and your coursework help you check preparation.")
         else:
             st.info("Check the course’s requirements and your coursework. A highly relevant course may require more preparation.")
-    st.button("Try a preset experiment", type="primary", on_click=show_section, args=("Intermediate",))
 
 
 def _render_experiment(index, experiment, chart_key):
@@ -97,14 +104,12 @@ def _render_experiment(index, experiment, chart_key):
     with chart_column:
         st.plotly_chart(plot_experiment(index, experiment), key=chart_key, width="stretch",
                         config={"displayModeBar": False})
-        st.caption("The star marks the question when it matches a topic. Teal marks the top three records. PCA shows the vectors on two axes.")
+        st.caption("The star marks the question when it matches a topic. Teal marks the top three records. "
+                   "PCA draws the four topic counts on two axes. Cosine uses all four counts.")
     with ranking_column:
         labels = {doc.record_id: label for label, doc in zip(index.labels, index.retriever.evidence)}
         rows = [(labels[hit.record_id], hit.score) for hit in experiment.hits[:5]]
-        if rows:
-            st.html(ranking_html(rows, METHODS[experiment.method]))
-        else:
-            st.info("No records share searchable keywords with this question.")
+        st.html(ranking_html(rows, METHODS[experiment.method]))
         st.caption("Compare positions within a method. The methods use different score scales.")
 
 
@@ -125,15 +130,26 @@ def _developer_view(index, experiment, key):
                 inspect.getsource(plot_experiment), language="python", line_numbers=True)
         if experiment.method == "hybrid":
             st.code(inspect.getsource(reciprocal_rank_fusion), language="python", line_numbers=True)
-        if experiment.hits:
-            evidence = {doc.record_id: doc for doc in index.retriever.evidence}
-            record_id = st.selectbox("Inspect saved evidence", [hit.record_id for hit in experiment.hits],
-                                     format_func=labels.get, key=key + "_evidence")
-            st.write(evidence[record_id].text)
-            source_ids = set(evidence[record_id].source_ids)
-            for source in index.catalog.sources:
-                if source.source_id in source_ids:
-                    st.link_button(source.title, source.url)
+
+
+def _show_evidence(index, experiment, record_id):
+    document = next(doc for doc in index.retriever.evidence if doc.record_id == record_id)
+    if experiment.method != "semantic":
+        words = sorted(keyword_terms(experiment.query) & set(tokenize(document.text)))
+        st.caption("Shared search words · " + (", ".join(words) or "none"))
+    if experiment.method != "keyword":
+        counts = topic_vector(document.text)
+        dot = float(np.dot(experiment.vector, counts))
+        lengths = float(np.linalg.norm(experiment.vector) * np.linalg.norm(counts))
+        st.caption(f"Topic cosine · {dot:g} dot product ÷ {lengths:.3f} product of lengths = {dot / lengths:.3f}")
+        matches = [term for terms in matched_topic_terms(document.text).values() for term in terms]
+        st.table([{"Topic": topic, "Question": int(question_count), "Record": int(record_count)}
+                  for topic, question_count, record_count in zip(TOPICS, experiment.vector, counts)])
+        st.caption("Record topic words · " + ", ".join(matches))
+    st.write(document.text)
+    for source in index.catalog.sources:
+        if source.source_id in document.source_ids:
+            st.link_button(source.title, source.url)
 
 
 @st.fragment
@@ -142,10 +158,11 @@ def render_intermediate(index):
     left, right = st.columns([3, 2], vertical_alignment="center")
     with left:
         st.write("Choose a preset. Compare how shared words and topic similarity order the same evidence.")
-        preset = st.selectbox("Preset question", list(PRESETS), key="learn_preset")
+        preset = st.selectbox("Preset question", list(PRESETS), key="learn_preset", persist_state="session")
         query = PRESETS[preset]
         st.markdown(f"**{query}**")
-        method = st.selectbox("Ranking method", list(METHODS), format_func=METHODS.get, key="learn_method")
+        method = st.selectbox("Ranking method", list(METHODS), format_func=METHODS.get,
+                              key="learn_method", persist_state="session")
         st.caption({
             "keyword": "BM25 weighs matching terms by how often they appear in the collection.",
             "semantic": "Cosine compares the direction of all four topic counts for the question and each record.",
@@ -155,6 +172,13 @@ def render_intermediate(index):
         st.image(LEARNING_ASSETS / "retrieval-lab.webp", width="stretch", caption="Illustration of a retrieval workspace")
     experiment = run_experiment(index, query, method)
     _render_experiment(index, experiment, "lesson_preset_plot")
+    labels = {doc.record_id: label for doc, label in zip(index.retriever.evidence, index.labels)}
+    evidence_panel = st.expander("Inspect evidence", key="lesson_preset_evidence", on_change="rerun")
+    if evidence_panel.open:
+        with evidence_panel:
+            record_id = st.selectbox("Evidence record", [hit.record_id for hit in experiment.hits],
+                                     format_func=labels.get, key="lesson_preset_record")
+            _show_evidence(index, experiment, record_id)
     _developer_view(index, experiment, "lesson_preset_code")
     other = "semantic" if method == "keyword" else "keyword"
     reference = run_experiment(index, query, other)
@@ -166,79 +190,159 @@ def render_intermediate(index):
         st.caption(f"Compared with {METHODS[other]}, the top three change for {', '.join(moved)}.")
     else:
         st.caption(f"The top three contain the same records as {METHODS[other]}. Check their order and scores.")
-    if experiment.hits:
-        choices = [doc.record_id for doc in index.retriever.evidence]
-        labels = dict(zip(choices, index.labels))
-        first = st.selectbox("Which record ranks first with these settings?", [None, *choices],
-                             format_func=lambda value: labels.get(value, "Choose a record"), key="learn_rank_answer")
-        if first == experiment.hits[0].record_id:
-            _finish("Intermediate")
-            st.success("Correct. Switch methods and check which records move.")
-        elif first:
-            st.info("Look at the first bar in the ranking and try again.")
-    if st.button("Create your variation", type="primary"):
+    first = st.selectbox("Which record ranks first with these settings?", list(labels), index=None,
+                         format_func=labels.get, key="learn_rank_answer")
+    if first == experiment.hits[0].record_id:
+        _finish("Intermediate")
+        st.success("Correct. Switch methods and check which records move.")
+    elif first:
+        st.info("Look at the first bar in the ranking and try again.")
+    if st.button("Create your variation", type="primary", help="Use this preset and ranking method in Advanced."):
+        st.session_state.learn_baseline = preset
+        st.session_state.learn_variant_method = method
         st.session_state.lesson_destination = "Advanced"
         st.rerun()
 
 
+def _rank_change(before, after):
+    if before is None:
+        return "Entered the ranking"
+    if after is None:
+        return "Left the ranking"
+    if before == after:
+        return "Stayed at the same rank"
+    return "Moved up" if after < before else "Moved down"
+
+
+def _review_comparison(index, baseline, variation, rows, labels):
+    st.subheader("Explain a result")
+    ranks = {row["Record"]: (row["Preset rank"], row["Your rank"]) for row in rows}
+    record_id = st.selectbox("Record to explain", list(ranks), index=None, format_func=labels.get,
+                             key="learn_observation_record", persist_state="session")
+    if record_id is None:
+        return
+
+    before, after = ranks[record_id]
+    st.caption(f"Preset rank · {before or 'outside the ranking'}   |   Your rank · {after or 'outside the ranking'}")
+    with st.expander("Inspect evidence for this record"):
+        _show_evidence(index, variation if after is not None else baseline, record_id)
+    movement = st.selectbox("How did this record move?", RANK_CHANGES, index=None,
+                            key="learn_observation_movement", persist_state="session")
+    observation = st.text_area("What in the evidence explains the result?", max_chars=600,
+                               key="learn_observation", persist_state="session")
+    if st.button("Save my observation"):
+        if movement is None:
+            st.info("Choose how the record moved before saving your explanation.")
+        elif movement != _rank_change(before, after):
+            st.warning("Check the two ranks above and try the rank change again.")
+        elif len(keyword_terms(observation)) < 2:
+            st.warning("Write a short explanation that refers to a detail in the evidence.")
+        else:
+            st.session_state.learn_saved_reflection = {
+                "record_id": record_id, "rank_change": movement, "explanation": observation.strip(),
+            }
+            _finish("Advanced")
+            st.success("Rank change confirmed. Your explanation is saved.")
+
+
 @st.fragment
 def render_advanced(index):
+    state = st.session_state
     st.title("Advanced · Evaluate & create")
     st.write("Write your own question and compare it with a preset. Choose which records you expect to help before you run it.")
     labels = {doc.record_id: label for label, doc in zip(index.labels, index.retriever.evidence)}
-    with st.form("lesson_variation_form"):
+    saved = state.get("learn_variation")
+    if saved is not None:
+        saved = (saved[0], saved[1], saved[2], tuple(saved[3]))
+        state.setdefault("learn_baseline", saved[0])
+        state.setdefault("learn_variant_method", saved[1])
+        state.setdefault("learn_variation_query", saved[2])
+        state.setdefault("learn_expected_records", list(saved[3]))
+    else:
+        state.setdefault("learn_baseline", state.get("learn_preset", next(iter(PRESETS))))
+        state.setdefault("learn_variant_method", state.get("learn_method", "hybrid"))
+    if "learn_saved_observation" in state:
+        legacy_observation = state.pop("learn_saved_observation")
+        state.setdefault("learn_observation", legacy_observation)
+        state.pop("lesson_advanced", None)
+    with st.container(border=True):
         left, right = st.columns(2)
-        preset = left.selectbox("Comparison preset", list(PRESETS), key="learn_baseline")
-        method = right.selectbox("Variation ranking method", list(METHODS), index=2, format_func=METHODS.get,
-                                 key="learn_variant_method")
+        preset = left.selectbox("Comparison preset", list(PRESETS), key="learn_baseline", persist_state="session")
+        method = right.selectbox("Variation ranking method", list(METHODS), format_func=METHODS.get,
+                                 key="learn_variant_method", persist_state="session")
         query = st.text_input("Your variation", key="learn_variation_query", max_chars=280,
-                              placeholder="How can I program a microcontroller to read a sensor?")
+                              live="0ms", on_change="ignore",
+                              placeholder="How can I program a microcontroller to read a sensor?",
+                              persist_state="session")
         expected = st.multiselect("Expected useful records", list(labels), format_func=labels.get,
-                                  key="learn_expected_records", max_selections=3)
-        submitted = st.form_submit_button("Compare with preset", type="primary")
+                                  key="learn_expected_records", max_selections=3, persist_state="session")
+        submitted = st.button("Compare with preset", type="primary")
+    draft = (preset, method, query.strip(), tuple(expected))
+    comparison = None
     if submitted:
         if not query.strip() or not expected:
             st.error("Enter a question and choose at least one expected record.")
         else:
             try:
-                run_experiment(index, query.strip(), method)
+                comparison = run_experiment(index, draft[2], method)
             except ValueError as error:
                 st.error(str(error))
             else:
-                st.session_state.learn_variation = (preset, method, query.strip(), expected)
-                st.session_state.pop("learn_observation", None)
-                st.session_state.pop("learn_saved_observation", None)
-    saved = st.session_state.get("learn_variation")
+                if draft != saved:
+                    state.learn_variation = saved = draft
+                    state.learn_observation_record = None
+                    state.learn_observation_movement = None
+                    state.learn_observation = ""
+                    state.pop("learn_saved_reflection", None)
+                    state.pop("lesson_advanced", None)
     if saved is None:
         return
     preset, method, query, expected = saved
-    baseline = run_experiment(index, PRESETS[preset], method)
-    variation = run_experiment(index, query, method)
+    try:
+        variation = comparison or run_experiment(index, query, method)
+    except ValueError:
+        st.info("Update your draft and run the comparison again to use the current lesson records.")
+        return
+    baseline = run_experiment(index, PRESETS[preset], variation.method)
     st.subheader("Your comparison")
-    st.caption(f"{METHODS[method]} · preset “{PRESETS[preset]}”")
+    if draft != saved:
+        st.info("Showing your last comparison. Select Compare with preset to apply your draft.")
+    st.caption(f"{METHODS[variation.method]} · preset “{PRESETS[preset]}”")
     st.text(query)
+    if variation.method != method:
+        st.info("Your question has a shared keyword and zero topic counts. Both rankings use Keyword.")
+    topics = [topic for topic, terms in matched_topic_terms(query).items() if terms]
+    if topics:
+        st.caption("Recognized topics · " + ", ".join(topics))
     for column, title, experiment in zip(st.columns(2), ("Preset", "Your variation"), (baseline, variation)):
         column.metric(title + " expected records in top 3", f"{evidence_fit(experiment, expected)} / {len(expected)}")
     rows = compare_ranks(baseline, variation)
-    for row in rows:
-        row["Record"] = labels[row["Record"]]
-    st.dataframe(rows, hide_index=True, width="stretch")
+    displayed_ranks = [dict(row, Record=labels[row["Record"]]) for row in rows]
+    st.dataframe(displayed_ranks, hide_index=True, width="stretch")
     _render_experiment(index, variation, "lesson_variation_plot")
     _developer_view(index, variation, "lesson_variation_code")
-    st.caption("Use the score table and evidence excerpts to explain a rank change. Your expected records are your own evaluation criteria.")
-    observation = st.text_area("What moved, and what in the evidence explains it?", max_chars=600,
-                               key="learn_observation", value=st.session_state.get("learn_saved_observation", ""))
-    if st.button("Save my observation", disabled=not observation.strip()):
-        st.session_state.learn_saved_observation = observation.strip()
-        _finish("Advanced")
-    if saved_observation := st.session_state.get("learn_saved_observation"):
+    _review_comparison(index, baseline, variation, rows, labels)
+    if reflection := state.get("learn_saved_reflection"):
         st.caption("Observation saved in this session. Download a copy to keep it.")
-        st.download_button("Download my comparison", json.dumps({"preset": preset, "question": query, "method": method,
-                           "expected_records": [labels[record] for record in expected], "ranks": rows,
-                           "observation": saved_observation}, indent=2), file_name="ece-experiment.json",
-                           mime="application/json", on_click="ignore")
-    if st.button("Open the advisor"):
-        st.session_state.lesson_destination = "Advisor"
+        export = {
+            "schema_version": 1, "preset": preset, "preset_question": PRESETS[preset], "question": query,
+            "method": variation.method, "requested_method": method,
+            "representation": {"keyword": "keywords", "semantic": "topic_counts",
+                               "hybrid": "keywords_and_topic_counts"}[variation.method],
+            "catalog_hash": corpus_hash(index.catalog),
+            "record_ids": list(labels),
+            "expected_records": [labels[record] for record in expected], "expected_record_ids": list(expected),
+            "ranks": displayed_ranks, "preset_hits": [asdict(hit) for hit in baseline.hits],
+            "variation_hits": [asdict(hit) for hit in variation.hits],
+            "observation": reflection["explanation"], "observation_record_id": reflection["record_id"],
+            "observed_rank_change": reflection["rank_change"],
+        }
+        st.download_button("Download my comparison", json.dumps(export, indent=2),
+                           file_name="ece-experiment.json", mime="application/json", on_click="ignore")
+    if st.button("Use this question in Advisor"):
+        state.lesson_advisor_question = query
+        state.lesson_question_pending = True
+        state.lesson_destination = "Advisor"
         st.rerun()
 
 

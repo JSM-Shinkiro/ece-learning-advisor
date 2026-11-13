@@ -4,13 +4,14 @@ import inspect
 import numpy as np
 import streamlit as st
 from .catalog import build_evidence
+from .learning_lab import build_lab_index, compare_embedding_ranks
 from .planning import format_duration
 from .retrieval import project_embeddings
 from .inspection_views import ranking_html
 
 
 @st.fragment
-def render_inspector(result, catalog):
+def render_inspector(result, catalog, *, lesson_question=None):
     panel = st.expander("How this plan was made", key="plan_inspector", on_change="rerun")
     if not panel.open:
         return
@@ -83,6 +84,12 @@ def render_inspector(result, catalog):
                      "cosine_similarity":dot/(qnorm*dnorm)})
         else:
             st.caption("The vector view appears after a successful semantic or hybrid request.")
+        if lesson_question and result.context.question == lesson_question:
+            comparison_panel = st.expander("Compare lesson and neural embeddings", key="lesson_embedding_comparison",
+                                           on_change="rerun")
+            if comparison_panel.open:
+                with comparison_panel:
+                    _show_embedding_comparison(result, catalog)
         code_panel = st.expander("Visualization code", key="plan_visualization_code", on_change="rerun")
         if code_panel.open:
             with code_panel:
@@ -103,3 +110,23 @@ def render_inspector(result, catalog):
                     for s in result.context.allowed_statements], hide_index=True)
         st.json(result.trace)
         st.download_button("Download request trace",json.dumps(result.trace,indent=2),file_name="request_trace.json",mime="application/json",on_click="ignore")
+
+
+def _show_embedding_comparison(result, catalog):
+    if result.vectors is None or result.query_vector is None:
+        st.caption("Enable AI explanations, choose semantic or hybrid ranking, and update this roadmap to compare embeddings.")
+        return
+
+    lab = build_lab_index(catalog.model_dump_json())
+    comparison = compare_embedding_ranks(
+        lab, build_evidence(catalog), result.vectors, result.context.query, result.query_vector,
+    )
+    labels = dict(zip((doc.record_id for doc in lab.retriever.evidence), lab.labels))
+    for row in comparison:
+        row["Record"] = labels[row.pop("Record ID")]
+    st.caption(f"Four topic counts and {result.vectors.shape[1]} embedding dimensions "
+               f"from {result.trace['embedding_model']}. Both columns use cosine similarity on "
+               f"the same {len(comparison)} overviews and the Advisor search text below.")
+    st.text(result.context.query)
+    st.dataframe(comparison, hide_index=True, width="stretch",
+                 column_order=["Record", "Topic rank", "Topic cosine", "Neural rank", "Neural cosine"])
