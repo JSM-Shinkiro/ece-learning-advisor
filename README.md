@@ -36,6 +36,8 @@ Roadmap updates show a plan from saved course and resource data while official s
 
 [Lightweight ranking inspection](docs/52_LIGHTWEIGHT_INSPECTOR.md) uses native bars in preview, with the original score table and real PCA/cosine view retained. The v2 collector measures first opening and reopening against a fixed baseline using the same readiness boundary.
 
+The [final demo rehearsal](docs/final/DEMO_RUNBOOK.md#one-request-rehearsal) checks the image-classification question with one Hybrid request. The Advisor can export the lesson and neural cosine ranks from that request’s existing vectors.
+
 A separate [human review workspace](docs/47_REVIEW_WORKSPACE.md) supports explicit relevance grades, notes, draft download/resume and validated completed-review exports. Run `python -m streamlit run reviewer_app.py --server.address 127.0.0.1 --server.port 8502` locally. Reviewing uses saved evidence and needs no model credentials; actual independent judgments remain to be collected.
 
 An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.

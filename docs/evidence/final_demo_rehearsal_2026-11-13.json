@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-13",
+  "recorded_at_utc": "2026-11-13T20:14:31+00:00",
+  "audit": "docs/58_FINAL_VERSION_AUDIT.md",
+  "verified_revision": "f4926a21f5a649650394dcce5141ca2d91a6a371",
+  "scenario": {
+    "question": "How do I train a neural network for image classification in Python?",
+    "advisor_method": "hybrid",
+    "fictional_profile": {
+      "schema_version": 1,
+      "standing": "Incoming",
+      "catalog_version": "2026-2027",
+      "career_id": "ai_ml",
+      "interests": "",
+      "experience": "",
+      "question": "How do I train a neural network for image classification in Python?",
+      "completed": [],
+      "history_complete": false,
+      "programming_background": "experienced",
+      "current_enrollment": [],
+      "consents": []
+    },
+    "lesson_observation": {
+      "preset": "Program a sensor",
+      "preset_question": "How do I read sensors with a microcontroller using C?",
+      "question": "How do I train a neural network for image classification in Python?",
+      "method": "semantic",
+      "record_id": "uofa:ECE425:2026-2027",
+      "preset_rank": null,
+      "variation_rank": 2,
+      "record_ids": [
+        "uofa:ECE101:2026-2027",
+        "uofa:ECE369A:2026-2027",
+        "uofa:ECE372A:2026-2027",
+        "uofa:ECE425:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "resource:pytorch",
+        "resource:cs50"
+      ]
+    },
+    "saved_source_mode": true,
+    "live_source_mode": true,
+    "call_cap": {
+      "document_embeddings": 64,
+      "query_embeddings": 1,
+      "generations": 1
+    }
+  },
+  "rehearsal_status": {
+    "controlled_saved_and_refreshed_source_cases_passed": true,
+    "live_gemini": "credential_missing",
+    "live_model_calls": 0,
+    "local_demo_preflight_exit": 2,
+    "local_demo_preflight_wrote_report": false,
+    "operator_runbook": "docs/final/DEMO_RUNBOOK.md",
+    "comparison_export_reuses_existing_vectors": true
+  },
+  "live_source_only_observation": {
+    "captured_at_utc": "2026-11-13T20:10:42.305495+00:00",
+    "mode": "one live public-source request with an empty cache and AI disabled",
+    "question": "How do I train a neural network for image classification in Python?",
+    "programming_background": "experienced",
+    "request_trace": {
+      "source_refresh_seconds": 13.154323783000109,
+      "first_plan_server_seconds": 0.011318965999635111,
+      "corpus_hash": "d633714c0c6b51f2bee9347eff6e67cb836e6f4d2eb36d7c322a9b18fccfab30",
+      "allowed_record_ids": [
+        "uofa:ECE425:2026-2027",
+        "uofa:CSC120:2026-2027",
+        "uofa:ECE320A:2026-2027",
+        "resource:python",
+        "resource:pytorch"
+      ],
+      "source_status_counts": {
+        "bundled_fallback": 2,
+        "skipped": 15,
+        "updated": 10
+      }
+    },
+    "demo_course_check": {
+      "source_id": "catalog:ECE425",
+      "code": "ECE425",
+      "url": "https://catalog.arizona.edu/courses/0435981",
+      "kind": "course",
+      "status": "updated",
+      "attempted_at": "2026-11-13T20:10:36.233083Z",
+      "last_checked_at": "2026-11-13T20:10:37.144689Z",
+      "retrieved_at": "2026-11-13T20:10:37.144689Z",
+      "content_hash": "4a6cb7792317a946d9be87aed5479ca5f1f7255e9ad1c25663996aaeb253fcd7",
+      "content_changed": true,
+      "cache_saved": true,
+      "http_status": 200,
+      "resolved_url": null,
+      "failure_kind": null,
+      "rule_status": null,
+      "discovery_status": null,
+      "attempts": [
+        {
+          "outcome": "success",
+          "http_status": 200,
+          "seconds": 0.8742303159997391,
+          "retry": false
+        }
+      ],
+      "retry_count": 0,
+      "transport_seconds": 0.8742319689999931,
+      "message": ""
+    },
+    "demo_course_enrollment": "unknown",
+    "revision": "f4926a21f5a649650394dcce5141ca2d91a6a371"
+  },
+  "passing_ci": {
+    "run_id": 43498957696,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43498957696",
+    "revision": "f4926a21f5a649650394dcce5141ca2d91a6a371",
+    "base_revision": "9b069fd61484b3b8668be82c912127bc87825334",
+    "jobs": [
+      {
+        "name": "Python 3.12 / ubuntu-26.04",
+        "id": 132139379222,
+        "conclusion": "success"
+      },
+      {
+        "name": "Python 3.12 / windows-latest",
+        "id": 132139379672,
+        "conclusion": "success"
+      },
+      {
+        "name": "Chromium / real Streamlit sessions",
+        "id": 132139379811,
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 14074030006,
+        "name": "backend-ubuntu-26.04-py312",
+        "sha256": "978fe6eae888bb7b0faec485f069566c6f9fc02500f6400dca7d7f29f1e0207d"
+      },
+      {
+        "id": 14073636322,
+        "name": "backend-windows-latest-py312",
+        "sha256": "513cbbfefdee9644c4e03bfb25f7918d88fea8676f073dbe1d81314c4f6b1947"
+      },
+      {
+        "id": 14072298930,
+        "name": "browser-chromium-py312",
+        "sha256": "6d8514660fc0a3f4ecec9616a0c5a6efa5d711b604baf44ae6ff62d4ba6494bc"
+      }
+    ],
+    "backend": {
+      "ubuntu": {
+        "tests": 1772,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "tests_sha256": "27411a7f4b36ab78bb71cf8a0941da72ce98ea67af708ce06cfb94947d3a79d3",
+        "deployment_sha256": "38f4c3b666f5ea8abcebd3a35e0fe0c69e0d624e0b8a915c1a96458720ceb5da"
+      },
+      "windows": {
+        "tests": 1772,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "tests_sha256": "817af3c358480d618386e1f4a40582802b36873369f64ee99e64b3dae7742d89",
+        "deployment_sha256": "016adf8e1aea1f6787aaee8ac02c32356a2a0dac8cf722ca9251d5c9229012f4"
+      }
+    },
+    "browser": {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "counts": {
+        "student": 10,
+        "reviewer": 6,
+        "lesson_and_controlled": 21
+      },
+      "total": 37,
+      "comparison_export": {
+        "record_count": 7,
+        "dimensions": 768,
+        "provider_model": "controlled-browser-vectors",
+        "additional_provider_calls": 0
+      },
+      "comparison_gate": {
+        "name": "lesson_embedding_comparison",
+        "passed": true,
+        "detail": "The carried question reaches the Advisor and exports both representations from its existing test vectors.",
+        "seconds": 3.111
+      },
+      "report_hashes": {
+        "browser.json": "24f804b33d92bde75e20e0f88407ab4e32242f0e268341d8b60360d3bb9e0f50",
+        "reviewer-browser.json": "d26c958b4ee76e248c1c8708ad792bc0cd58711fdca232e37fde775cfd84d0e5",
+        "progressive-browser.json": "65f138b02bdbc7c08bfd71a948510119d129e08c0899c6f84b3c3b78eae7278e",
+        "browser-summary.md": "090383905de2dc55bd1be902a0611c0029bef07e7203d354e2426a359c872c98"
+      },
+      "fixture_screenshot_sha256": "cc334dd10ae0014d4a3872bdba2f6fac4465b309884d116ae1613ce1621a860d"
+    }
+  },
+  "corpus_hashes": {
+    "baseline": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+    "runtime": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7"
+  },
+  "frozen_input_hashes_verified": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "unfilled_review_grades": 408,
+  "readiness_planning": {
+    "app_percent": 94,
+    "submission_percent": 70,
+    "remaining": "Live Gemini rehearsal and recording, independent review, student pilot, and final materials and release."
+  },
+  "limits": [
+    "The browser provider uses controlled vectors and a controlled statement selection. Its comparison is workflow evidence.",
+    "The live source observation uses fresh public pages and AI disabled. Its timings are one server observation.",
+    "The planned verification does not determine independent relevance, user learning, or complete enrollment eligibility."
+  ]
+}

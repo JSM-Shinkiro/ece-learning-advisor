@@ -62,15 +62,27 @@ export ECE_REFRESH_SOURCES=true
 
 For PowerShell, remove those two environment overrides with `Remove-Item Env:GEMINI_API_KEY, Env:GOOGLE_API_KEY -ErrorAction SilentlyContinue`, set `$env:ECE_REFRESH_SOURCES = "true"`, and use the Windows Python launch command above. Restore the fictional JSON profile if the new session needs it.
 
-1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid** or **semantic**, and select **Update my roadmap**.
+### One-request rehearsal
+
+With `GEMINI_API_KEY` configured locally, run the verifier from the repository root. On Windows, use `.\.venv\Scripts\python.exe` in place of `.venv/bin/python`.
+
+```bash
+.venv/bin/python scripts/verify_runtime.py --live-models --demo --with-sources --output output/final-demo-live.json
+```
+
+Use a new output path for every attempt. The verifier uses the demo question, a fictional profile, and Hybrid. It checks ECE425’s lesson rank, the two interim plans, the selected answer and citations, the ECE425 source check, and the seven-record comparison. It can make up to 64 document-embedding calls for a cold cache, one query-embedding call, and one generation call. Other source failures stay in the trace. Remove `--with-sources` to rehearse with saved evidence. That run uses the dated sources and checks one interim plan. A report from either command supports the operator’s rehearsal. The browser walkthrough below is the recorded demo.
+
+### Screen walkthrough
+
+1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Use **AI / Machine Learning** and **Comfortable with programming** with empty coursework, interests, and experience. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid**, and select **Update my roadmap**.
 2. Show the dated saved-data roadmap while official sources are checked. Then show the updated source plan while AI runs. Wait for the final result and record any fallback you observe.
 3. Confirm the trace's `retrieval_mode` is the chosen neural mode, actual model IDs are present, `generation_complete` is true and `generation_status` is `answered` before calling the segment a completed AI explanation.
 4. Open **How this plan was made** and **Compare lesson and neural embeddings**. Show how the two cosine rankings compare for the seven common overviews and the displayed Advisor search text. It includes the carried question and profile terms.
 5. Select a record in the vector view and show the components, dot product, norms and cosine. Explain that PCA projects the vectors to two axes and that scoring uses the full vectors.
-6. Download the actual request trace and record the source/cache state. Label a warmed public embedding cache as warm.
+6. Download the embedding comparison and the request trace. Record the source/cache state. Label a warmed public embedding cache as warm. Use the fictional profile for shared exports because the comparison includes the submitted question and Advisor search text.
 7. Open **Why this fits and sources** for ECE425. Point out its department reference and **Open class search**. Explain that the term and class section determine which requirements to confirm. If showing ECE101, show why the department page and advised plan are listed separately.
 
-If the provider or network prevents that result, record the fallback honestly and keep the neural segment incomplete until it can be captured. Production runs are distinct from CI's controlled provider fixtures. The recording does not replace repeated final-release timing measurements.
+If the provider or network prevents that result, save the failed attempt and rehearse the saved-data branch. Fix the open issue before capturing the neural segment. The recording and repeated final-release timing measurements are separate tasks.
 
 ## 4. Evidence to retain
 

@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
 
-This draft describes verified application revision `b142cb725856a1d9a6c8281168c721ddc3065cb4`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `f4926a21f5a649650394dcce5141ca2d91a6a371`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -98,6 +98,8 @@ The lesson represents seven saved course and resource overviews as counts of lis
 
 The evaluated question prefills the Advisor profile form. After submission with semantic or hybrid ranking, the inspector uses the provider vectors already computed by the Advisor. It compares cosine ranks for the same seven overviews and the same Advisor search text across the two representations. The search text incorporates the carried question and profile terms. Both visualization views expose their actual source code. [E15](EVIDENCE_MAP.md)
 
+The comparison download records the question, Advisor search text, corpus fingerprint, model, dimensions, and both ranks and cosine scores. It reuses the vectors from the displayed request. The rehearsal verifier uses the same comparison function and checks the authored ECE425 example. [E18](EVIDENCE_MAP.md)
+
 The inspector exposes retrieved chunks, component scores, the supplied context, available/selected statements, source checks, model/cache metadata, request timings and a downloadable trace. Scores describe relevance, not eligibility or probability.
 
 For PCA, normalized document rows are centered and decomposed by SVD. The first two right-singular-vector directions project both documents and the separately normalized query using the document mean. Ranking continues in the original dimensions. Changing the inspected record recomputes its displayed dot product, norms and cosine from the stored vectors. Two-dimensional proximity is only a visualization of that higher-dimensional input.
@@ -144,6 +146,8 @@ The later November 13 roadmap revision passed 1,760 tests and nine startup check
 
 The enrollment revision passed 1,769 tests and nine startup checks per OS and 37 Chromium checks. Four separate live requests refreshed the target course fields from the rendered official pages. Each used an empty source cache with AI disabled and left enrollment unverified. The browser verifies the date labels and the two ECE101 references at phone width. [E17](EVIDENCE_MAP.md)
 
+The rehearsal revision passed 1,772 tests and nine startup checks per OS and 37 Chromium checks. Controlled runs verified a single Hybrid response and the seven-overview comparison. The browser downloaded the comparison without another provider call. The separate live source-only check refreshed ECE425 using the exact demo question and kept enrollment unknown. The workstation had no configured credential for a new live Gemini response. [E18](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -180,4 +184,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E17](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E18](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
