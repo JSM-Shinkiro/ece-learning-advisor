@@ -17,8 +17,9 @@ from src.advisor_jobs import AdvisorBusy, start_advisor_job, collect_advisor_job
 from src.progress import PHASE_LABELS
 from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
-from src.source_ui import roadmap_expander, source_details
+from src.source_ui import enrollment_details, roadmap_expander, source_details
 from src.course_directory import load_course_directory
+from src.enrollment_references import load_enrollment_references
 from src.learning_ui import LESSONS, render_lesson
 
 load_dotenv(ROOT / ".env")
@@ -58,6 +59,10 @@ try:
 except (OSError, ValueError):
     course_directory = None
     st.warning("The broader ECE catalog is unavailable. The saved advisor collection remains available.")
+try:
+    enrollment_references = load_enrollment_references()
+except (OSError, ValueError):
+    enrollment_references = None
 catalog = getattr(st.session_state.get("result"), "catalog", None) or base_catalog
 records = {r.record_id:r for r in catalog.records}
 sources = {s.source_id:s for s in catalog.sources}
@@ -343,9 +348,15 @@ def render_card(record, result):
                         st.link_button("Evidence: "+sources[sid].title,sources[sid].url,key=f"reason_{rid}_{i}_{sid}")
             if is_course:
                 st.caption("Catalog "+record.catalog_version)
-                st.write(" ".join(result.context.rule_results[rid].reasons))
-                st.caption("If a grade is needed, add it under Optional details in your profile.")
+                if record.rule_reviewed or record.rule_verification == "changed":
+                    st.write(" ".join(rule.reasons))
+                if record.rule_reviewed:
+                    st.caption("If a grade is needed, add it under Optional details in your profile.")
             source_details(record,"details_"+rid,sources)
+            if is_course and rule.status == "unknown":
+                references = enrollment_references if profile.catalog_version == record.catalog_version else None
+                enrollment_details(record.code, sources[record.source_ids[0]].url, record.requirement_reference,
+                                   record.catalog_version, references, key="roadmap_enrollment_"+rid)
 
 
 with roadmap:
@@ -413,7 +424,7 @@ with roadmap:
         render_inspector(result, catalog, lesson_question=lesson_question)
 
 with collection:
-    render_collection(base_catalog, course_directory)
+    render_collection(base_catalog, course_directory, enrollment_references)
 
 with opportunities:
     render_opportunities(settings)

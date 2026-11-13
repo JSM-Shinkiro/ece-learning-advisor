@@ -1,0 +1,27 @@
+{
+  "catalog_version": "2026-2027",
+  "reviewed_on": "2026-11-13",
+  "courses": {
+    "ECE101": {
+      "course_id": "0432351",
+      "requirement_reference": "019404",
+      "department_summary": "The department lists MATH 112, MATH 120R, MATH 122B, MATH 125, or placement at the MATH 120R level.",
+      "plan_summary": "The 2026–27 advised plan lists completion of or concurrent enrollment in MATH 120R, MATH 122B, MATH 125, or MATH 129. Confirm which condition applies to the section."
+    },
+    "ECE369A": {
+      "course_id": "0366021",
+      "requirement_reference": "016494",
+      "department_summary": "The department lists Engineering advanced standing, an ECE major, ECE 101, and ECE 274A."
+    },
+    "ECE372A": {
+      "course_id": "0367521",
+      "requirement_reference": "016495",
+      "department_summary": "The department lists Engineering advanced standing, an ECE major, ECE 274A, and ECE 201 with concurrent enrollment allowed. The same entry also mentions ECE 207 or ECE 220 in parentheses. Confirm how those courses apply to the section."
+    },
+    "ECE425": {
+      "course_id": "0435981",
+      "requirement_reference": "019593",
+      "department_summary": "The department lists Engineering advanced standing, ECE 201, ECE 310, and either MATH 125 or MATH 122B."
+    }
+  }
+}

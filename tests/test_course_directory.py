@@ -9,6 +9,7 @@ from src.catalog import build_evidence, corpus_hash, load_runtime_catalog
 from src.controller import run_advisor
 from src.course_directory import (add_requested_courses, build_directory,
                                   filter_directory, load_course_directory)
+from src.enrollment_references import load_enrollment_references
 from src.models import Completion, StudentProfile
 from src.sources import refresh_catalog
 from test_app import app, submit
@@ -171,6 +172,8 @@ def test_directory_browsing_is_local_paged_and_does_not_touch_profile_or_plan(di
     app.radio(key="collection_scope").set_value("ece").run()
     panels=lambda:[x for x in app.expander if x.key and x.key.startswith("directory_record_")]
     assert len(panels())==15 and "78 matching courses · Page 1 of 6" in " ".join(c.value for c in app.caption)
+    assert any("Effective-date filter 2027-01-13 · snapshot retrieved 2026-11-08" in c.value
+               for c in app.caption)
     app.button(key="directory_next").click().run()
     assert not app.exception and "Page 2 of 6" in " ".join(c.value for c in app.caption)
     app.text_input(key="directory_query").set_value("ece 493").run()
@@ -178,7 +181,49 @@ def test_directory_browsing_is_local_paged_and_does_not_touch_profile_or_plan(di
     assert "Page 1 of 1" in " ".join(c.value for c in app.caption)
     app.session_state["directory_record_ECE493"]=True;app.run()
     assert any("1–12 credits" in c.value for c in app.caption)
+    assert any("Catalog record effective from" in c.value for c in app.caption)
+    assert any("Choose the term and search for ECE493" in c.value for c in app.caption)
+    assert not any("Department course page" in item.proto.label for item in app.get("link_button"))
     assert app.session_state["profile"].model_dump_json()==profile and "result" not in app.session_state
+
+
+def test_enrollment_references_match_course_identity_and_edition():
+    references = load_enrollment_references()
+    directory = load_course_directory()
+    expected = {"ECE101", "ECE369A", "ECE372A", "ECE425"}
+    assert set(references.courses) == expected
+    for course in directory.courses:
+        identity = (course.code, course.url, course.requirement_reference, directory.catalog_version)
+        assert (references.for_course(*identity) is not None) == (course.code in expected)
+        if course.code in expected:
+            assert references.for_course(course.code, course.url, "123456", directory.catalog_version) is None
+            assert references.for_course(course.code, course.url, course.requirement_reference, "2025-2026") is None
+            assert references.for_course(course.code, "https://catalog.arizona.edu/courses/0000000",
+                                         course.requirement_reference, directory.catalog_version) is None
+
+
+def test_roadmap_shows_both_ece101_references_without_granting_eligibility(directory_app):
+    app = directory_app
+    app.text_input(key="question").set_value("What can I learn in ECE101?")
+    app.text_area(key="course_text").set_value("MATH125:A, MATH129:A")
+    submit(app)
+    record_id = "uofa:ECE101:2026-2027"
+    app.session_state["roadmap_details_" + record_id] = True
+    app.run()
+    result = app.session_state["result"]
+    assert not app.exception and result.context.rule_results[record_id].status == "unknown"
+    assert any("Enrollment requirements unverified" in c.value for c in app.caption)
+    assert any("The department lists MATH 112" in item.value for item in app.markdown)
+    assert any("The 2026–27 advised plan lists completion" in item.value for item in app.markdown)
+    links = {item.proto.label: item.proto.url for item in app.get("link_button")}
+    assert links["Department course page"].endswith("/ECE101")
+    assert links["Open class search"] == "https://studentcenter.arizona.edu/app/ui/public/select-campus"
+
+    app.text_input(key="catalog_version").set_value("2025-2026")
+    submit(app)
+    assert not app.exception
+    assert not any("The department lists MATH 112" in item.value for item in app.markdown)
+    assert app.session_state["result"].context.rule_results[record_id].status == "unknown"
 
 
 def test_directory_course_pick_and_completion_survive_profile_export(directory_app):

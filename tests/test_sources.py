@@ -61,6 +61,56 @@ def fixture_client(catalog, seen=None, overrides=None, headers=None):
     return httpx.Client(transport=httpx.MockTransport(respond))
 
 
+def rendered_course_page():
+    fields = {
+        "Course ID": "043235",
+        "Course Description": "C programming &amp; hardware. <em>Practice</em> with a sensor.",
+        "Min Units": "4",
+        "Max Units": "4",
+        "Enrollment Requirements": "019404",
+    }
+    edition = [{"activeCatalog": 1, "catalogDisplayName": 2}, "fixture-catalog",
+               "2026–2027 University of Arizona Catalog"]
+    return (
+        '<a class="active" href="/courses/0432351/general-aoYks">General</a>'
+        '<h2 class="heading-5">ECE101 - Programming 1</h2>'
+        '<script>const hint = \'<a href="/courses/0000001/general-aoYks">Hidden link</a>\';</script>'
+        + "".join(f'<h3 class="field-label">{label}</h3><div class="field-value">{value}</div>'
+                  for label, value in fields.items())
+        + '<script id="__NUXT_DATA__" type="application/json">' + json.dumps(edition, ensure_ascii=False) + "</script>"
+    )
+
+
+def test_rendered_course_fields_refresh_without_loading_external_payload(one_course, tmp_path):
+    requests = []
+    with fixture_client(one_course, seen=requests, overrides={"ECE101": rendered_course_page()}) as client:
+        result = refresh_catalog(one_course, StudentProfile(), client=client, cache_dir=tmp_path, now=NOW)
+    assert requests == ["ECE101"]
+    assert result.checks[0].status == "updated"
+    record = result.catalog.records[0]
+    assert (record.credits, record.requirement_reference) == (4, "019404")
+    assert record.summary == "C programming & hardware. Practice with a sensor."
+    assert result.catalog.sources[0].verification_status == "verified"
+    assert not record.rule_reviewed and record.rule.type == "unknown"
+
+
+@pytest.mark.parametrize("old,new", [
+    ("0432351/general-aoYks", "0432361/general-aoYks"),
+    ("0432351/general-aoYks", "0432352/general-aoYks"),
+    ("2026–2027", "2025–2026"),
+    ("019404", "Mathematics and Engineering advanced standing"),
+    ("</div><h3 class=\"field-label\">Min Units", "</div><h3 class=\"field-label\">Course Description"),
+    ("Max Units</h3><div class=\"field-value\">4", "Max Units</h3><div class=\"field-value\">5"),
+])
+def test_uncertain_rendered_course_fields_retain_bundled_evidence(one_course, tmp_path, old, new):
+    page = rendered_course_page()
+    assert old in page
+    with fixture_client(one_course, overrides={"ECE101": page.replace(old, new)}) as client:
+        result = refresh_catalog(one_course, StudentProfile(), client=client, cache_dir=tmp_path, now=NOW)
+    assert result.checks[0].status == "bundled_fallback"
+    assert result.catalog.records[0].summary == one_course.records[0].summary
+
+
 def test_fetched_fields_are_used_without_mutating_reviewed_input(one_course, tmp_path):
     before = one_course.model_dump_json()
     with fixture_client(one_course) as client:

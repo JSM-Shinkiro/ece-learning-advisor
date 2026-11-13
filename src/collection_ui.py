@@ -3,8 +3,8 @@
 import streamlit as st
 
 from .collection_filters import filter_collection
-from .source_ui import source_details
 from .directory_ui import render_directory
+from .source_ui import enrollment_details, source_details
 
 
 def reset_collection_filters():
@@ -12,7 +12,7 @@ def reset_collection_filters():
 
 
 @st.fragment
-def render_collection(base_catalog, directory=None):
+def render_collection(base_catalog, directory=None, references=None):
     catalog=getattr(st.session_state.get("result"),"catalog",None) or base_catalog
     st.subheader("Courses & resources")
     if directory is not None:
@@ -20,7 +20,7 @@ def render_collection(base_catalog, directory=None):
             format_func=lambda key:"Advisor courses & resources" if key=="advisor" else "All undergraduate ECE courses",
             key="collection_scope", horizontal=True)
         if scope == "ece":
-            render_directory(directory)
+            render_directory(directory, references)
             return
     st.caption("Search the available collection. Learning connections are suggestions; unresolved enrollment rules need review.")
     st.text_input("Search courses and resources",key="collection_query",max_chars=200,
@@ -47,3 +47,6 @@ def render_collection(base_catalog, directory=None):
                            "Independent learning resource"+(" · "+record.resource_version if record.resource_version else ""))
                 st.write(record.summary)
                 source_details(record,"collection_"+record.record_id,sources)
+                if record.kind == "course" and not record.rule_reviewed:
+                    enrollment_details(record.code, sources[record.source_ids[0]].url, record.requirement_reference,
+                                       record.catalog_version, references, key="collection_enrollment_"+record.record_id)

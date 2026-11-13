@@ -7,6 +7,7 @@ import streamlit as st
 from .course_directory import filter_directory
 from .profiles import edit_profile
 from .session import apply_profile
+from .source_ui import ARIZONA, enrollment_details
 
 PAGE_SIZE = 15
 
@@ -19,9 +20,12 @@ def change_directory_page(offset):
     st.session_state.directory_page += offset
 
 
-def render_directory(directory):
-    st.caption(f"{len(directory.courses)} published undergraduate ECE courses · Catalog {directory.catalog_version}. "
-               "Descriptions are available here; career mappings and enrollment conditions are not all reviewed.")
+def render_directory(directory, references):
+    st.caption(f"{len(directory.courses)} published undergraduate ECE courses · Catalog {directory.catalog_version}")
+    start_date, end_date = directory.effective_dates.split(",")
+    filter_date = start_date if start_date == end_date else f"{start_date} to {end_date}"
+    retrieved = directory.retrieved_at.astimezone(ARIZONA).strftime("%Y-%m-%d %H:%M MST")
+    st.caption(f"Effective-date filter {filter_date} · snapshot retrieved {retrieved}")
     st.text_input("Search the ECE catalog", key="directory_query", max_chars=200,
                   placeholder="ECE 413, circuits, optics...", on_change=reset_directory_page)
     labels = {"all":"All levels", "1":"100 level", "2":"200 level", "3":"300 level", "4":"400 level"}
@@ -48,10 +52,10 @@ def render_directory(directory):
             with panel:
                 st.caption(course.credits_label+" · Catalog "+directory.catalog_version)
                 st.write(course.summary)
-                st.caption("Enrollment conditions are unverified. A published course may not be offered every term. "
-                           "Special topics, research and independent study may require individual approval.")
+                st.caption(f"Catalog record effective from {course.effective_start} · enrollment requirements unverified")
                 st.link_button("Official course page", course.url, key="directory_source_"+course.code)
-                st.caption("Saved published inventory · retrieved "+directory.retrieved_at.strftime("%Y-%m-%d %H:%M UTC"))
+                enrollment_details(course.code, course.url, course.requirement_reference,
+                                   directory.catalog_version, references, key="directory_enrollment_"+course.code)
                 disabled = course.code in recorded or profile.catalog_version != directory.catalog_version
                 if st.button("Explore "+course.code+" in my roadmap", key="directory_ask_"+course.code,
                     disabled=disabled, help="Uses your saved profile and AI settings. Enrollment and preparation remain unverified."):

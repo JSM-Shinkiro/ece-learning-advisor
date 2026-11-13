@@ -379,6 +379,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 stage="ece_catalog_local_paging";begin=time.monotonic()
                 page.get_by_role("tab",name="Courses & Resources",exact=True).click()
                 page.get_by_text("All undergraduate ECE courses",exact=True).click()
+                expect(page.get_by_text("Effective-date filter 2027-01-13", exact=False)).to_be_visible()
                 expect(page.get_by_text("78 matching courses · Page 1 of 6 · local catalog search",exact=True)).to_be_visible()
                 catalog_panels=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE"))
                 expect(catalog_panels).to_have_count(15)
@@ -388,8 +389,23 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 passed("All 78 catalog courses are locally paged in groups of 15; closed panels omit details and paging makes no advisor call.",begin)
 
+                stage = "ece_enrollment_references"
+                begin = time.monotonic()
+                catalog_query = page.get_by_role("textbox", name="Search the ECE catalog", exact=True)
+                catalog_query.fill("ECE 101")
+                catalog_query.press("Enter")
+                expect(page.get_by_text("1 matching courses · Page 1 of 1 · local catalog search", exact=True)).to_be_visible()
+                expand("ECE101 · Programming 1")
+                expect(page.get_by_text("The department lists MATH 112", exact=False)).to_be_visible()
+                expect(page.get_by_text("The 2026–27 advised plan lists completion", exact=False)).to_be_visible()
+                expect(page.get_by_text("Catalog record effective from 2026-01-01 · enrollment requirements unverified", exact=True)).to_be_visible()
+                expect(page.get_by_role("link", name="Open class search", exact=True)).to_have_attribute(
+                    "href", "https://studentcenter.arizona.edu/app/ui/public/select-campus")
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                assert counts["full_runs"] == full_runs and (control / "provider.calls").read_text() == provider_calls
+                passed("The phone directory displays both ECE101 references and the class-search link without an advisor request.", begin)
+
                 stage="ece_catalog_variable_credit_phone";begin=time.monotonic()
-                catalog_query=page.get_by_role("textbox",name="Search the ECE catalog",exact=True)
                 catalog_query.fill("ece 493");catalog_query.press("Enter")
                 expect(page.get_by_text("1 matching courses · Page 1 of 1 · local catalog search",exact=True)).to_be_visible()
                 expand("ECE493 · Internship")

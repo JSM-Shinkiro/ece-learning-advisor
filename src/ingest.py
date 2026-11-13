@@ -82,14 +82,59 @@ def _active_edition(table, resolve):
     return next(iter(editions), None)
 
 
+def _visible_course_field(page, label):
+    pattern = r'<h3 class="field-label">' + re.escape(label) + r'</h3>\s*<div class="field-value">(.*?)</div>'
+    fields = re.findall(pattern, page, re.S)
+    if len(fields) != 1 or re.search(r'<div\b', fields[0], re.I):
+        raise ValueError("A published course field is missing or ambiguous")
+    return fields[0]
+
+
+def _visible_course_fields(page):
+    """Read the rendered fields when Coursedog puts course data in a separate payload."""
+    page = re.sub(r"<(?:script|style|template|noscript)\b[^>]*>.*?</(?:script|style|template|noscript)\s*>"
+                  r"|<!--.*?-->", "", page, flags=re.S | re.I)
+    course_links = set(re.findall(r'<a\b[^>]*\shref="/courses/(\d{7})/general-[A-Za-z0-9]+"', page))
+    raw_id = description_text(_visible_course_field(page, "Course ID"))
+    if len(course_links) != 1 or not re.fullmatch(r"\d{6}", raw_id):
+        raise ValueError("Published course identity is missing or ambiguous")
+    course_id = course_links.pop()
+    if course_id[:6] != raw_id:
+        raise ValueError("Published course identities do not match")
+
+    headings = re.findall(r"<h2\b[^>]*>(.*?)</h2>", page, re.S)
+    titles = [re.fullmatch(r"([A-Z]{2,8}\d{3}[A-Z]{0,2})\s+-\s+(.+)", description_text(heading))
+              for heading in headings]
+    titles = [title for title in titles if title is not None]
+    if len(titles) != 1:
+        raise ValueError("Published course title is missing or ambiguous")
+    code, title = titles[0].groups()
+    reference = description_text(_visible_course_field(page, "Enrollment Requirements"))
+    if reference and not re.fullmatch(r"\d{1,12}", reference):
+        raise ValueError("Published enrollment reference needs review")
+    credits = {}
+    for bound, label in (("min", "Min Units"), ("max", "Max Units")):
+        value = description_text(_visible_course_field(page, label))
+        if not re.fullmatch(r"\d{1,2}(?:\.\d+)?", value):
+            raise ValueError("Published course credits are invalid")
+        credits[bound] = float(value)
+    return {"code": code, "courseGroupId": course_id, "longName": title,
+            "description": _visible_course_field(page, "Course Description"),
+            "credits": {"creditHours": credits}, "requirementGroup": reference or None}
+
+
 def extract_course(page: str) -> dict:
     table, resolve = _nuxt_data(page)
+    edition = _active_edition(table, resolve)
     raw = next((v for v in table if isinstance(v, dict) and
                 {"code", "longName", "description", "credits", "requirementGroup"} <= set(v)), None)
     if raw is None:
-        raise ValueError("Course metadata is missing")
-    fields = {key: resolve(raw[key]) for key in
-              ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate", "courseGroupId"] if key in raw}
+        if edition is None:
+            raise ValueError("The published course catalog edition is missing")
+        fields = _visible_course_fields(page)
+    else:
+        fields = {key: resolve(raw[key]) for key in
+                  ["code", "longName", "description", "credits", "requirementGroup", "effectiveStartDate", "courseGroupId"] if key in raw}
     if not isinstance(fields["description"], str) or len(fields["description"]) > 50000:
         raise ValueError("The course description is invalid")
     if not isinstance(fields["credits"], dict):
@@ -102,7 +147,7 @@ def extract_course(page: str) -> dict:
         "requirement_reference": fields["requirementGroup"],
         "effective_start": fields.get("effectiveStartDate"),
         "summary": description_text(fields["description"]),
-        "catalog_version": _active_edition(table, resolve),
+        "catalog_version": edition,
         "description_hash": hashlib.sha256(fields["description"].encode()).hexdigest(),
         "page_hash": hashlib.sha256(page.encode()).hexdigest(),
         "review_required": True,
