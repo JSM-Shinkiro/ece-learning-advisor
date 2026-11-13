@@ -13,7 +13,7 @@ from src.profiles import edit_profile, export_profile, merge_completions, parse_
 from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
 from src.source_reuse import SOURCE_REUSE_SECONDS
-from src.advisor_jobs import (AdvisorBusy, start_advisor_job, collect_advisor_job, keep_source_plan)
+from src.advisor_jobs import AdvisorBusy, start_advisor_job, collect_advisor_job, keep_source_plan, source_checks_pending
 from src.progress import PHASE_LABELS
 from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
@@ -205,14 +205,17 @@ if st.session_state.pop("refresh_pending",False):
             refresh_sources=settings.refresh_sources,
             source_reuse_seconds=0 if force_source_check else SOURCE_REUSE_SECONDS,
             source_cache_dir=settings.cache_root/"sources", course_directory=course_directory)
-    background = bool(use_ai and api_key)
+    background = settings.refresh_sources or bool(use_ai and api_key)
     if background:
         try:
             st.session_state.advisor_job = start_advisor_job(base_catalog,profile,runner=run_advisor,**request_options)
         except (AdvisorBusy,RuntimeError,OSError):
             background = False
-            request_options["use_ai"] = False
-            st.warning("AI assistance is busy. Showing the source plan; update again to try AI.")
+            request_options.update(use_ai=False, refresh_sources=False)
+            adjustment = "Roadmap updates are busy. Showing saved data. Submit again to retry."
+            if not settings.refresh_sources:
+                adjustment = "AI assistance is busy. Showing the source plan. Submit again to retry."
+            st.warning(adjustment)
     if not background:
         request_status = st.status("Updating your learning plan...",expanded=True)
         def show_request_phase(phase, label):
@@ -227,6 +230,10 @@ if st.session_state.pop("refresh_pending",False):
             request_status.update(label="The plan could not be updated",state="error",expanded=True)
             st.error("The plan could not be updated. Check the configuration and submit your profile again.")
 
+job = st.session_state.get("advisor_job")
+if job is not None:
+    collect_advisor_job(st.session_state, job)
+
 
 @st.fragment(run_every=0.5 if st.session_state.get("advisor_job") else None)
 def advisor_activity():
@@ -235,13 +242,19 @@ def advisor_activity():
         if collect_advisor_job(st.session_state,job):
             st.rerun()
         snapshot = job.snapshot()
-        ready = st.session_state.get("result") is not None
-        with st.status("Source plan ready · AI assistance is running" if ready else "Updating your learning plan...",expanded=True):
+        result = st.session_state.get("result")
+        checking_sources = source_checks_pending(result)
+        label = "Updating your learning plan..."
+        if result is not None:
+            label = ("Saved-data plan ready · checking official sources" if checking_sources
+                     else "Source plan ready · AI assistance is running")
+        with st.status(label, expanded=True):
             for phase in snapshot.phases:
                 st.write(PHASE_LABELS[phase])
-            if ready:
-                st.caption("You can use the plan below or update your profile while AI finishes.")
-                if st.button("Keep source plan",key="keep_source_plan"):
+            if result is not None:
+                st.caption("You can use the plan below or update your profile while this runs.")
+                keep_label = "Keep saved-data plan" if checking_sources else "Keep source plan"
+                if st.button(keep_label, key="keep_source_plan"):
                     keep_source_plan(st.session_state)
                     st.rerun()
     else:
@@ -293,8 +306,11 @@ def render_card(record, result):
     with st.container(border=True):
         st.markdown("**"+(record.code+" · " if record.code else "")+record.title+"**")
         if is_course:
-            status = result.context.rule_results[rid].status
-            badge = {"satisfied":"Recorded prerequisites satisfied","unsatisfied":"Prerequisites missing","unknown":"Enrollment requirements unverified"}[status]
+            rule = result.context.rule_results[rid]
+            if rule.verification_status == "snapshot" and rule.status != "unknown":
+                badge = ("Saved prerequisites satisfied" if rule.status == "satisfied" else "Saved prerequisites missing")
+            else:
+                badge = {"satisfied":"Recorded prerequisites satisfied","unsatisfied":"Prerequisites missing","unknown":"Enrollment requirements unverified"}[rule.status]
             credits = f"{record.credits:g} credits" if record.credits is not None else "Variable credits · see source"
             st.caption(badge+" · "+credits)
             if record.study_stage == "unreviewed":
@@ -360,15 +376,23 @@ with roadmap:
         st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
                 "Complete your starting point and select Update my roadmap, or choose a direction above.")
     if result is not None:
-        if result.coverage_notice:
+        job = st.session_state.get("advisor_job")
+        pending_sources = source_checks_pending(result)
+        if pending_sources:
+            st.caption("Saved-data plan · based on dated course and resource snapshots")
+        if pending_sources and job and (result.coverage_notice or not result.context.allowed_record_ids):
+            st.info("This question needs more evidence. Official source checks are in progress.")
+        elif result.coverage_notice:
             st.info(result.coverage_notice)
         elif result.generation_status=="insufficient_evidence":
             st.info(result.answer.clarification if result.answer else "More source information is needed for this request.")
         elif result.generation_complete:
             st.caption("AI explanation available · based on selected sources")
-        elif st.session_state.get("advisor_job"):
+        elif job and not pending_sources:
             st.caption("Source plan ready · AI assistance is still running")
-        else:
+        elif result.trace.get("source_refresh", {}).get("enabled"):
+            st.caption("Learning suggestions from the available source evidence")
+        elif not pending_sources:
             st.caption("Preview mode · learning suggestions from available sources")
         for issue in result.issues:
             st.warning(issue)
@@ -384,7 +408,7 @@ with roadmap:
                     st.subheader(title)
                     for rid in ids:
                         render_card(records[rid],result)
-            if not result.context.allowed_record_ids:
+            if not result.context.allowed_record_ids and not (pending_sources and job):
                 st.info("No additional matches remain in this small collection. Explore Courses & Resources or try another direction.")
         render_inspector(result, catalog, lesson_question=lesson_question)
 

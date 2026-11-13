@@ -14,6 +14,29 @@ from .source_reuse import SOURCE_REUSE_SECONDS
 from .course_directory import add_requested_courses
 
 
+def _saved_catalog(catalog):
+    saved = catalog.model_copy(deep=True)
+    for source in saved.sources:
+        source.verification_status = "snapshot"
+    for record in saved.records:
+        if record.rule_verification == "verified":
+            record.rule_verification = "snapshot"
+        for proof in record.rule_evidence:
+            if proof.verification_status == "verified":
+                proof.verification_status = "snapshot"
+    return saved
+
+
+def _attach_source_trace(result, source_trace, issues, source_elapsed, started, directory_trace):
+    result.issues.extend(issues)
+    result.timings = {"source_refresh": source_elapsed, **result.timings,
+                      "total": time.perf_counter() - started}
+    result.trace["source_refresh"] = source_trace
+    if directory_trace is not None:
+        result.trace["course_directory"] = directory_trace
+    result.trace["timings_seconds"] = result.timings
+
+
 def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None,
@@ -28,6 +51,11 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         catalog, directory_trace = add_requested_courses(catalog, course_directory, profile)
     source_trace = {"enabled": False, "reason": "disabled"}
     source_issues, source_elapsed = [], 0.0
+    directory_codes = directory_trace["added"] if directory_trace else []
+    if directory_trace and directory_trace["omitted"]:
+        source_issues.append("The catalog request limit is three additional courses per update. Ask about the remaining courses in another update.")
+    initial_plan = None
+    early_plan = None
     plans = None
     outside = coverage_message(catalog, profile, profile.question, allow_course_discovery=True)
     if refresh_sources and outside:
@@ -38,6 +66,20 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         except (OSError, ValueError):
             pass  # Unsupported text cannot force source requests through bad configuration.
     if refresh_sources and not outside:
+        if on_plan is not None:
+            phases.start("snapshots")
+            preview = recommend(_saved_catalog(catalog), profile, preferred_course_codes=directory_codes,
+                                progress=phases)
+            _attach_source_trace(preview, {"enabled": False, "reason": "pending"}, source_issues,
+                                 0.0, started, directory_trace)
+            preview.trace["request_phases"] = phases.snapshot()
+            preview.trace["early_source_plan"] = True
+            initial_plan = {"ready_seconds": preview.timings["total"], "observer_failed": False}
+            preview.trace["initial_plan"] = initial_plan.copy()
+            try:
+                on_plan(preview)
+            except Exception:
+                initial_plan["observer_failed"] = True
         phases.start("sources")
         before = time.perf_counter()
         try:
@@ -49,7 +91,8 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                                             discovery_plans=load_discovery_plans() if plans is None else plans,
                                             resource_checks=True, reuse_seconds=source_reuse_seconds)
             catalog = refreshed.catalog
-            source_trace, source_issues = refreshed.trace(), refreshed.issues
+            source_trace = refreshed.trace()
+            source_issues.extend(refreshed.issues)
         except (httpx.HTTPError, OSError, ValueError):
             catalog = catalog.model_copy(deep=True)
             for source in catalog.sources:
@@ -59,45 +102,30 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                 if record.rule_reviewed or record.rule_evidence:
                     record.rule_verification = "unavailable"
             source_trace = {"enabled": True, "error": "unavailable", "checks": []}
-            source_issues = ["Official-source checks are unavailable. Showing dated saved evidence."]
+            source_issues.append("Official-source checks are unavailable. Showing dated saved evidence.")
         source_elapsed = time.perf_counter() - before
     elif refresh_sources:
         source_trace = {"enabled": False, "reason": "outside_supported_collection"}
     else:
         phases.start("snapshots")
-        catalog = catalog.model_copy(deep=True)
-        for source in catalog.sources:
-            source.verification_status = "snapshot"
-        for record in catalog.records:
-            if record.rule_verification == "verified":
-                record.rule_verification = "snapshot"
-            for proof in record.rule_evidence:
-                if proof.verification_status == "verified":
-                    proof.verification_status = "snapshot"
-        source_issues = ["Official-source checks are disabled. Showing dated saved evidence."]
+        catalog = _saved_catalog(catalog)
+        source_issues.append("Official-source checks are disabled. Showing dated saved evidence.")
+    phases.ensure_active()
     preferred_codes = [item["code"] for item in source_trace.get("discovery_selection", {}).get("requests", [])
                        if item["status"] in {"added", "stale_added", "in_collection"}]
-    if directory_trace is not None:
-        preferred_codes = list(dict.fromkeys(directory_trace["added"] + preferred_codes))
-        if directory_trace["omitted"]:
-            source_issues.append("The catalog request limit is three additional courses per update. Ask about the remaining courses in another update.")
+    preferred_codes = list(dict.fromkeys(directory_codes + preferred_codes))
     will_use_ai = bool(use_ai and api_key and (requested_record_ids(catalog, profile, preferred_codes)
                               or not coverage_message(catalog, profile, profile.question)))
-    early_plan = None
     if will_use_ai and on_plan is not None:
         phases.ensure_active()
         preview = recommend(catalog, profile, cache_dir=cache_dir, preferred_course_codes=preferred_codes,
                             progress=phases)
-        preview.issues.extend(source_issues)
-        preview.timings = {"source_refresh": source_elapsed, **preview.timings,
-                           "total": time.perf_counter() - started}
-        preview.trace["source_refresh"] = source_trace
-        if directory_trace is not None:
-            preview.trace["course_directory"] = directory_trace
-        preview.trace["timings_seconds"] = preview.timings
+        _attach_source_trace(preview, source_trace, source_issues, source_elapsed, started, directory_trace)
         preview.trace["request_phases"] = phases.snapshot()
         preview.trace["early_source_plan"] = True
-        early_plan = {"ready_seconds": time.perf_counter() - started, "observer_failed": False}
+        if initial_plan is not None:
+            preview.trace["initial_plan"] = initial_plan
+        early_plan = {"ready_seconds": preview.timings["total"], "observer_failed": False}
         try:
             on_plan(preview)
         except Exception:
@@ -124,13 +152,9 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                            preferred_course_codes=preferred_codes, progress=phases)
         if issue:
             result.issues.append(issue)
-        result.issues.extend(source_issues)
-        result.timings = {"source_refresh": source_elapsed, **result.timings}
-        result.timings["total"] = time.perf_counter() - started
-        result.trace["source_refresh"] = source_trace
-        if directory_trace is not None:
-            result.trace["course_directory"] = directory_trace
-        result.trace["timings_seconds"] = result.timings
+        _attach_source_trace(result, source_trace, source_issues, source_elapsed, started, directory_trace)
+        if initial_plan is not None:
+            result.trace["initial_plan"] = initial_plan
         if budget is not None:
             result.trace["ai_budget"] = budget.trace()
         if early_plan is not None:

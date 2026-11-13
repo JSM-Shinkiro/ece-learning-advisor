@@ -30,6 +30,9 @@ def render_inspector(result, catalog, *, lesson_question=None):
         if budget:
             st.caption(f"AI time budget: {budget['limit_seconds']} s · {format_duration(budget['elapsed_seconds'])} used. Source checks are timed separately.")
         checks = result.trace.get("source_refresh", {}).get("checks", [])
+        initial_plan = result.trace.get("initial_plan")
+        if initial_plan and not initial_plan["observer_failed"]:
+            st.caption("Saved-data plan built in " + format_duration(initial_plan["ready_seconds"]) + " on the server.")
         reused = [check for check in checks if check["status"] == "recent_cache"]
         if reused:
             st.caption(f"Reused {len(reused)} recently checked public sources. Their successful check times are unchanged.")

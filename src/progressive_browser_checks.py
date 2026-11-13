@@ -1,4 +1,4 @@
-"""Controlled slow-provider checks against the real student UI and WebSocket."""
+"""Controlled source and provider waits against the real student UI and WebSocket."""
 
 import json
 from pathlib import Path
@@ -13,7 +13,8 @@ from .browser_checks import browser_url
 def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms=20000,diagnostics_dir=None):
     report={"passed":False,"mode":"controlled_provider_local_ui","checks":[],
         "limits":["Provider outputs and delays are controlled fixtures; no live AI quality or latency is measured.",
-                  "Sources are dated bundled snapshots; the helper blocks all server-side HTTP calls.",
+                  "Source refreshes use bundled data with controlled check metadata and wait events.",
+                  "The helper blocks all server-side external HTTP calls.",
                   "This checks one local browser session, not public hosting or participant usability."]}
     stage="browser_startup";started=time.monotonic()
     counts={"full_runs":0,"fragment_runs":0,"page_errors":0,"stream_connections":0}
@@ -177,6 +178,44 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("The unsubmitted variation survives navigation and the evaluated question opens as an Advisor draft.", begin)
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir) / "learning-advisor-draft.png"))
+
+                stage = "saved_plan_during_source_checks"
+                begin = time.monotonic()
+                submit("ECE101 controlled source update")
+                wait_until(lambda: (control / "source-update.started").exists())
+                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_be_visible()
+                expect(page.get_by_role("button", name="Mark completed", exact=True).first).to_be_visible()
+                assert not (control / "source-update.release").exists()
+                assert not (control / "provider.calls").exists()
+                saved_plan_ready_seconds = time.monotonic() - begin
+                if diagnostics_dir is not None:
+                    page.screenshot(path=str(Path(diagnostics_dir) / "learning-saved-roadmap.png"))
+                expand("How this plan was made")
+                expect(page.get_by_text("Saved-data plan built in", exact=False)).to_be_visible()
+                draft = page.get_by_role("textbox", name="What interests you?", exact=True)
+                draft.fill("Draft typed during source checks")
+                release("source-update")
+                expect(page.get_by_text("Learning suggestions from the available source evidence", exact=True)).to_be_visible()
+                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_have_count(0)
+                expect(draft).to_have_value("Draft typed during source checks")
+                assert not (control / "provider.calls").exists()
+                expand("How this plan was made")
+                expect(page.get_by_text("Saved-data plan built in", exact=False)).to_be_visible()
+                page.locator("summary").filter(has=page.get_by_text("How this plan was made", exact=True)).click()
+                passed("A usable preview and inspector appear before the source release, and the final plan preserves an unsubmitted profile edit.", begin)
+                report["saved_data_interaction"] = {"roadmap_controls_observed_seconds": round(saved_plan_ready_seconds, 3)}
+                draft.fill("")
+
+                stage = "keep_saved_plan"
+                begin = time.monotonic()
+                submit("ECE101 controlled keep saved plan")
+                wait_until(lambda: (control / "source-keep.started").exists())
+                page.get_by_role("button", name="Keep saved-data plan", exact=True).click()
+                expect(page.get_by_text("Source checks stopped. Your saved-data plan is ready to use.", exact=True)).to_be_visible()
+                release("source-keep")
+                expect(page.get_by_text("Saved-data plan · based on dated course and resource snapshots", exact=True)).to_be_visible()
+                assert not (control / "provider.calls").exists()
+                passed("Keeping the dated plan removes the active update and excludes the released source result.", begin)
 
                 stage = "lesson_embedding_comparison"
                 begin = time.monotonic()

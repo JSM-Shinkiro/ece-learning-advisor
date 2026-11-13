@@ -18,6 +18,10 @@ class AdvisorBusy(RuntimeError):
     pass
 
 
+def source_checks_pending(result):
+    return result is not None and result.trace.get("source_refresh", {}).get("reason") == "pending"
+
+
 def profile_identity(profile):
     return sha256(profile.model_dump_json().encode()).hexdigest()
 
@@ -145,7 +149,11 @@ def collect_advisor_job(state, job):
                 else "Learning plan ready",
             "phases": snapshot.phases,
             "error": snapshot.failed and result is None,
-            "notice": "AI assistance could not finish. Your source plan is still available." if snapshot.failed and result is not None else None,
+            "notice": (
+                "Source checks could not finish. Your saved-data plan is still available."
+                if source_checks_pending(result) else
+                "AI assistance could not finish. Your source plan is still available."
+            ) if snapshot.failed and result is not None else None,
         }
         state.pop("advisor_job", None)
         state.pop("advisor_job_version", None)
@@ -155,9 +163,12 @@ def collect_advisor_job(state, job):
 
 def keep_source_plan(state):
     job = state.get("advisor_job")
-    if job is None or state.get("result") is None:
+    result = state.get("result")
+    if job is None or result is None or profile_identity(state["profile"]) != job.profile_identity:
         return
     phases = job.snapshot().phases
+    notice = ("Source checks stopped. Your saved-data plan is ready to use." if source_checks_pending(result)
+              else "AI assistance stopped. Your source plan is ready to use.")
     discard_advisor_job(state)
     state["advisor_activity"] = {"label": "Learning plan ready", "phases": phases, "error": False,
-        "notice": "AI assistance stopped. Your source plan is ready to use."}
+        "notice": notice}

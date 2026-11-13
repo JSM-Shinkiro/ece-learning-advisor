@@ -110,7 +110,9 @@ def test_cancel_during_source_work_prevents_provider_initialization(catalog,tmp_
         raise RuntimeError("Superseded source work must not start a provider")
     job=start(catalog,api_key="controlled",use_ai=True,source_refresher=sources,provider_factory=forbidden,cache_dir=tmp_path)
     try:
-        assert entered.wait(5);job.cancel();release.set();assert job.wait(5)
+        assert entered.wait(5)
+        assert job.snapshot().result.context.allowed_record_ids and not calls
+        job.cancel();release.set();assert job.wait(5)
         assert job.snapshot().cancelled and job.snapshot().result is None and not calls
     finally:
         release.set();job.wait(5)
