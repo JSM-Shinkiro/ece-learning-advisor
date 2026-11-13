@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
-  "runtime_verification_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460",
+  "source_base_revision": "65edde933433e06362bdec0ce0de49771217ebe6",
+  "runtime_verification_revision": "65edde933433e06362bdec0ce0de49771217ebe6",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386",
   "collections": [
     {
       "name": "baseline",
@@ -43,7 +43,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "ac4ed1422275d9fcad03f934912059eea55e251adc39c4679736e80ac57db768"
+      "sha256": "20459982185a8dbb94fdff1e7b0babd03934ce894b22e90c1867f02ec2c38831"
     },
     {
       "path": "reviewer_app.py",
@@ -99,7 +99,7 @@
     },
     {
       "path": "src/inspector.py",
-      "sha256": "a2b5ddf5adf5ffb06114f2143fe1bb89c141fab48081ae2ecd59fd908eee9c60"
+      "sha256": "0d615552e02d4faea18bb71d592c916afed564bd3d1889a0c7a4434e5908c3dd"
     },
     {
       "path": "src/inspection_views.py",
@@ -159,19 +159,19 @@
     },
     {
       "path": "src/learning_lab.py",
-      "sha256": "af0a13f78927c291046ed15b8d18343149ea799aee50506e7e8e8a0a7cf296e2"
+      "sha256": "7ef8d42d8dee82e4f4bd6843deedaaaa6aeeceff87194364b84dc816e559c553"
     },
     {
       "path": "src/learning_ui.py",
-      "sha256": "a8d1fbd7b310e5a5fb7a8772997f9a753c245dee78d28861f7b5b014bb074b75"
+      "sha256": "13c9e6eb218429ac73d7663f744c743dc449b735eed624e0dad194f8e0c34c70"
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "7d84fe515f9711cd1775e64b16af4b163e3b53fd2507d51097bf5928a3176f1f"
+      "sha256": "53326c4dd64a2be8636de5434ed1b68de690d900d18a363f403a785f6bc75dd7"
     },
     {
       "path": "tests/test_learning_path.py",
-      "sha256": "e5e5c43d8476509a7458e75800248402d26b5020472962af969aa86ec8571fde"
+      "sha256": "476ffd81cc865393edb3fca0d6cac4485eb7e55ba3c2223ddc46b95cf7bb9386"
     },
     {
       "path": "assets/learning/ece-lab.webp",
@@ -180,6 +180,10 @@
     {
       "path": "assets/learning/retrieval-lab.webp",
       "sha256": "b790d688fb908682138fcfafdc08baf324c528fe5d1a4885b0346371ce124e98"
+    },
+    {
+      "path": "src/session.py",
+      "sha256": "f5f9afb31d5dcb6140946b803321ed4d5ce8374b63f2694ae2289130bc84631d"
     }
   ],
   "evidence_files": [
@@ -218,6 +222,10 @@
     {
       "path": "docs/evidence/final_version_audit_2026-11-13.json",
       "sha256": "30971b624c1998f1d214fd2a598a63c7f50b16d3a798c134ee214b40deb973f3"
+    },
+    {
+      "path": "docs/evidence/lesson_continuity_2026-11-13.json",
+      "sha256": "bbac47fc14fc128075bdb54ed588f1ed60c9727c34bf6ba1c87b8a5c5bc109f8"
     }
   ],
   "preserved_inputs": [
@@ -265,23 +273,23 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "25c2b9e6be5d7f5756574a41f8cc73c8c411651ac90d0d7a0d19bd02c7cdc302"
+      "sha256": "cd6b4823b86378c149f134d69ce287462d6febc51dd850b6ef42164fe10176c7"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "1d6184659c4f5968e434304d7a2fb32d7593f417c202c807de5958e0f4666a48"
+      "sha256": "137f7957455d2000c3aef679a7cbde9de4124cdcb41b6acd1559d96df4ee7c02"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "8579aaeaadbb60c59dd8db0cf72aab33ffa116214c1413e7e74aa5f0e2da5401"
+      "sha256": "110fd2a6a4e2c484cfb90b0faa94fc614bb1c3dbab8a0b3fa739ad42ce065105"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "54d88edd1834f224609c0c0366d835dffa3b421c11f3c296b681b9ea7e74f352"
+      "sha256": "26a7ec08bf2052d41d87ef00c77446068db254da20dedf4791a0f8e86f39b523"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
-      "sha256": "a3b560d0cffd7a6dc68645a58171534d8b8895b33a1522bdc7233e860b95f14c"
+      "sha256": "0facbbd993d973740c235605929fe5ffde1cd501232f6943118e46e4cfe245f0"
     },
     {
       "path": "docs/56_FINAL_READINESS_AUDIT.md",
@@ -293,7 +301,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "d5b19f692deefcb9d74b9ec4178ef051a1bd48c4e8980203be0cc11538ee8af6"
+      "sha256": "ae514d0985fb649bc0f600c1fce57b85f739755588f14a4e97c51e2ea7b0af20"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -301,7 +309,7 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "0cd75fb400c6beaec6d44cd343919de8cf4bf901e1234cef203b6a34850674a3"
+      "sha256": "507b907475fce167fbaea2e2086bca8dbfbb2baf3a9f0eae54d77335d564ba1b"
     }
   ],
   "external_references": [
@@ -340,7 +348,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-13T07:55:29+00:00",
+  "updated_at_utc": "2026-11-13T09:13:01+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -385,5 +393,13 @@
     "app_planning_percent": 85,
     "submission_planning_percent": 65,
     "fresh_offline_probe_groups": 7
+  },
+  "lesson_continuity": {
+    "date_mst": "2026-11-13",
+    "evidence": "docs/evidence/lesson_continuity_2026-11-13.json",
+    "app_planning_percent": 89,
+    "submission_planning_percent": 68,
+    "chromium_checks": 34,
+    "embedding_comparison_validation": "Controlled provider. Live rehearsal remains open."
   }
 }

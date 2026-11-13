@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
 
-This draft describes the application through verified revision `07cf4b59693b16dbe6835d6639123261e637860f`. Final formatting, final-release figures and measurements, independent judgments and student-pilot outcomes remain to be incorporated. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified revision `65edde933433e06362bdec0ce0de49771217ebe6`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -91,7 +91,9 @@ The contract does not establish that an underlying source, parser or authored le
 
 The midproject review prompted a visual introduction and three self-guided lessons. Beginner connects the two ECE directions to practical applications and asks learners to identify the evidence needed to check course preparation. Intermediate presents a preset and lets learners change the ranking method while inspecting the evidence and the projected vectors. Advanced compares a learner's question with a preset under the same method and records an explanation of a rank change. These activities address remembering and understanding, applying and analyzing, and evaluating and creating. [E13](EVIDENCE_MAP.md)
 
-The lesson represents seven saved course and resource overviews as counts of listed terms in four topic dimensions. This representation lets learners inspect the features used by cosine ranking and PCA. They can also compare BM25 and reciprocal rank fusion. The Advanced exercise reports the number of learner-selected records in the first three results, along with their rank changes and the learner's observation. The advisor offers the separately configured Gemini embedding and explanation path. Both visualization views expose their actual source code. [E13](EVIDENCE_MAP.md)
+The lesson represents seven saved course and resource overviews as counts of listed terms in four topic dimensions. Learners inspect the source text and see a numeric cosine calculation. The chosen preset and method carry into Advanced. A draft persists while the last comparison displays the question and method that produced it. If a question has keyword matches and zero topic counts, both sides of the comparison use BM25. The exercise checks the selected record's rank change against the two lists and saves the learner's explanation with the input, ranks, scores and corpus identifier. [E15](EVIDENCE_MAP.md)
+
+The evaluated question prefills the Advisor profile form. After submission with semantic or hybrid ranking, the inspector uses the provider vectors already computed by the Advisor. It compares cosine ranks for the same seven overviews and the same Advisor search text across the two representations. The search text incorporates the carried question and profile terms. Both visualization views expose their actual source code. [E15](EVIDENCE_MAP.md)
 
 The inspector exposes retrieved chunks, component scores, the supplied context, available/selected statements, source checks, model/cache metadata, request timings and a downloadable trace. Scores describe relevance, not eligibility or probability.
 
@@ -133,6 +135,8 @@ At the November 8 directory revision, all 1,744 tests and nine runtime checks pa
 
 The November 12 follow-up passed 1,745 tests and nine runtime checks on each platform. Chromium passed 32 gates, including the phone-width landing, a change of ranking method with code inspection, and the export of an Advanced comparison. The offline example moved ECE425 from sixth to second under hybrid ranking. The learner's selected record count in the top three rose from 0 of 1 to 1 of 1. The demonstration evaluates the specified example, and participant understanding remains to be measured. [E13](EVIDENCE_MAP.md)
 
+On November 13, Linux and Windows each passed 1,755 tests and nine startup checks. The follow-up Chromium run passed 34 checks, including navigation with an unsubmitted draft and publication of the carried question's embedding comparison. The browser used controlled provider vectors. The revised offline Hybrid exercise includes ECE425 at rank two for the image-classification variation. ECE425 sits outside the sensor preset ranking because its topic cosine is zero and it shares no search terms after the question-word filter. [E15](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -152,7 +156,7 @@ The November 8 readiness audit adds individual source-only observations: 21.664 
 
 ## 6. Limitations and next validation
 
-The November 13 audit found gaps around the scripted lesson. Intermediate settings reset on entering Advanced, returning to Advanced clears its inputs while retaining the last result, and opening Advisor drops the lesson question. The four-feature representation rejects familiar questions about robotics, computer vision and C programming. Saving any nonempty observation completes the activity, so the learning outcome still requires assessment. The final iteration should address continuity, clarify the connection to pretrained embeddings and provide evidence-based reasoning feedback. [E14](EVIDENCE_MAP.md)
+The November 13 audit found continuity, vocabulary coverage and reasoning gaps. The follow-up repairs the reproduced navigation cases, recognizes the audited robotics, computer-vision and C-programming questions and checks the learner's description of the rank change. The quality of the resulting explanation will be assessed in the student pilot. The live provider comparison still needs a rehearsal on the release. [E14, E15](EVIDENCE_MAP.md)
 
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
@@ -167,4 +171,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E14](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E15](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

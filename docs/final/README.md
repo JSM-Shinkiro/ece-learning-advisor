@@ -2,7 +2,7 @@
 
 Team P07 · Updated November 13, 2026 · ECE Learning Advisor
 
-This directory contains the final-project preparation materials. The latest verified application revision `07cf4b59693b16dbe6835d6639123261e637860f` includes the three self-guided lessons and the undergraduate ECE directory. [Passing CI run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460)
+The verified application revision `65edde933433e06362bdec0ce0de49771217ebe6` includes the continuous lesson path, the Advisor embedding comparison and the undergraduate ECE directory. [Passing CI run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |
@@ -16,6 +16,6 @@ The midproject submission review supplies directions for the learning path and f
 
 The report deliberately keeps four forms of evidence distinct: automated/software checks, the small authored retrieval benchmark, actual provider integration observations, and offline browser timings. There are no independent runtime relevance grades or student-pilot outcomes to report. The existing twelve-question/34-chunk review template still contains 408 blank grades.
 
-Next, repair the audited lesson continuity and custom-question issues, connect the learning example to real neural inspection, improve first-plan responsiveness and review the focused ECE demo data. Complete the review and student sessions, measurements, final report, slides and recording. [Prioritized work and completion checks](../58_FINAL_VERSION_AUDIT.md)
+Improve first-plan responsiveness, review the focused ECE demo data, and rehearse the carried question with the live provider. Complete the reviewer and student sessions, measurements, final report, slides and recording. [Final readiness](../FINAL_READINESS.md)
 
-The November 13 planning estimate is approximately **85% for the app and 65% for the complete submission**. The audit updates the earlier estimate with reproduced workflow gaps and the remaining learning/evaluation requirements. [Final-version audit](../58_FINAL_VERSION_AUDIT.md) · [Current readiness](../FINAL_READINESS.md)
+The November 13 lesson update brings planning readiness to approximately **89% for the app and 68% for the complete submission**. [Lesson verification](../evidence/lesson_continuity_2026-11-13.json)

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-13",
+  "recorded_at_utc": "2026-11-13T09:13:01+00:00",
+  "audit_base_revision": "291c04ada5990a51e2ff1680fbbc1b591a4e6803",
+  "audit": "docs/58_FINAL_VERSION_AUDIT.md",
+  "verified_revision": "65edde933433e06362bdec0ce0de49771217ebe6",
+  "initial_ci": {
+    "revision": "60daca31c3633a38ef0b13bacf48efc33a245a4b",
+    "run_id": 43396473239,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43396473239",
+    "failure": "Chromium timed out locating the stage control after the Advanced export passed.",
+    "check": "lesson_continuity",
+    "line": 60,
+    "browser_artifact_id": 14023605615,
+    "browser_artifact_sha256": "7b1a88aa41f23e0c9078b9bec2db9a358c62c11addd383a52cbe47c0329da2ea"
+  },
+  "passing_ci": {
+    "run_id": 43397328386,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386",
+    "jobs": {
+      "linux": 131791347636,
+      "windows": 131791347627,
+      "browser": 131791347254
+    },
+    "artifacts": [
+      {
+        "platform": "browser",
+        "id": 14023433169,
+        "sha256": "7fd9f94accfa5d66820eb1826b6fe40bccd92041f17d2f955628fffa1ac64dd6",
+        "files": [
+          {
+            "name": "baseline-browser-performance.json",
+            "sha256": "be488c8db535d4da16a468e72524684287da1638b6b0712205f695d863f3b5eb",
+            "bytes": 8870
+          },
+          {
+            "name": "browser-performance.json",
+            "sha256": "b0c3e7a487c89710308ffe5ec4f9afc770bc7dce848da8c45a641a4158c94112",
+            "bytes": 8825
+          },
+          {
+            "name": "browser.json",
+            "sha256": "6cb8f2c94a9cd6c4dd99994e499c55588e78ff79933109e9ae69cbac792d5f23",
+            "bytes": 2921
+          },
+          {
+            "name": "learning-advanced.png",
+            "sha256": "7a47ada3709f50f6cc66ee440c447c804b0f75c5e9f6710e21cde6b6ad97e0b4",
+            "bytes": 68132
+          },
+          {
+            "name": "learning-advisor-draft.png",
+            "sha256": "83920ba999ae8268d6168e6468b770a971b0037af25f8da5a1ba75b363a22b17",
+            "bytes": 85278
+          },
+          {
+            "name": "learning-beginner.png",
+            "sha256": "66ba26737b24ee6a8555822d90d8cf1094de13f12ca06e9217fba66ee297ccc8",
+            "bytes": 260146
+          },
+          {
+            "name": "learning-embedding-comparison.png",
+            "sha256": "66eb3487ac826f8f23e943e59d6fa2d7796fde657d9c1b702a9d00ae32f880f0",
+            "bytes": 101626
+          },
+          {
+            "name": "learning-intermediate.png",
+            "sha256": "fdc0eee6c1b9da1c8ea5ea9a067ddadcfdce79c9db60ed74281d43e3dfd6acb6",
+            "bytes": 233515
+          },
+          {
+            "name": "learning-mobile.png",
+            "sha256": "c9631711f4bda574fb2f6800c3bdb767a218214c90e1427f227ba2d4eaaf8e2c",
+            "bytes": 77803
+          },
+          {
+            "name": "progressive-browser.json",
+            "sha256": "6a57526c7a1c30edf8683bd9377bda2361b65a5c76314659204560acd3f32dd6",
+            "bytes": 4628
+          },
+          {
+            "name": "reviewer-browser.json",
+            "sha256": "3913251329531d425f4e40f8e70abcc3c74adf6989f583252751414aa58eb78a",
+            "bytes": 1598
+          }
+        ]
+      },
+      {
+        "platform": "linux",
+        "id": 14023098622,
+        "sha256": "d0b604f2915f6ae2ec8033312eaf555711a72c04c355bedf067f281e103ed226",
+        "tests": 1755,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "passed": true
+      },
+      {
+        "platform": "windows",
+        "id": 14023876108,
+        "sha256": "38516991c0a46c0258b599781dd772b5f1a580a51f8d55ea69ef2c8160714155",
+        "tests": 1755,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "passed": true
+      }
+    ],
+    "chromium": "151.0.7922.34",
+    "browser_checks": {
+      "student": 10,
+      "reviewer": 6,
+      "lesson_and_controlled_advisor": 18
+    },
+    "total_browser_checks": 34,
+    "lesson_checks": [
+      {
+        "name": "beginner_landing",
+        "passed": true,
+        "detail": "The illustrated landing page fits phone width and gives immediate feedback on preparation versus relevance.",
+        "seconds": 1.266
+      },
+      {
+        "name": "intermediate_experiment",
+        "passed": true,
+        "detail": "A preset changes ranking method and shows the live plot and its actual source code without AI.",
+        "seconds": 4.897
+      },
+      {
+        "name": "advanced_comparison",
+        "passed": true,
+        "detail": "A user question changes expected evidence in the top three and exports its saved observation.",
+        "seconds": 2.913
+      },
+      {
+        "name": "lesson_continuity",
+        "passed": true,
+        "detail": "The unsubmitted variation survives navigation and the evaluated question opens as an Advisor draft.",
+        "seconds": 1.209
+      },
+      {
+        "name": "lesson_embedding_comparison",
+        "passed": true,
+        "detail": "The carried question reaches the Advisor and compares both representations on its existing test vectors.",
+        "seconds": 2.843
+      }
+    ],
+    "preview_timing_ms": {
+      "current": {
+        "revision": "65edde933433e06362bdec0ce0de49771217ebe6",
+        "samples": 5,
+        "inspector_first_ready_ms": {
+          "n": 5,
+          "min": 610.2,
+          "median": 647.9,
+          "max": 816.9
+        },
+        "inspector_reopen_ready_ms": {
+          "n": 5,
+          "min": 284.4,
+          "median": 332.5,
+          "max": 344.7
+        }
+      },
+      "baseline": {
+        "revision": "88ab5849ffa42130765e3afb1f1eaba69280acc9",
+        "samples": 5,
+        "inspector_first_ready_ms": {
+          "n": 5,
+          "min": 1581.3,
+          "median": 1628.1,
+          "max": 1801.3
+        },
+        "inspector_reopen_ready_ms": {
+          "n": 5,
+          "min": 373.4,
+          "median": 384.2,
+          "max": 423.2
+        }
+      }
+    }
+  },
+  "local": {
+    "passed_tests": 1755,
+    "failed_tests": 0,
+    "local_startup_checks": 9
+  },
+  "offline_examples": {
+    "representation": "four topic counts with BM25 and rank fusion",
+    "hybrid": {
+      "Program a sensor": {
+        "question": "How do I read sensors with a microcontroller using C?",
+        "top_three": [
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027"
+        ],
+        "ece425_rank": null,
+        "expected_in_top_three": 0
+      },
+      "Learn image classification": {
+        "question": "How do I train a neural network for image classification in Python?",
+        "top_three": [
+          "resource:pytorch",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50"
+        ],
+        "ece425_rank": 2,
+        "expected_in_top_three": 1
+      }
+    },
+    "custom_questions": [
+      {
+        "question": "How do I build a robot?",
+        "method": "hybrid",
+        "top_three": [
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE369A:2026-2027"
+        ]
+      },
+      {
+        "question": "I want to learn computer vision",
+        "method": "hybrid",
+        "top_three": [
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE425:2026-2027",
+          "resource:pytorch"
+        ]
+      },
+      {
+        "question": "How do I program in C?",
+        "method": "hybrid",
+        "top_three": [
+          "uofa:ECE101:2026-2027",
+          "resource:cs50",
+          "uofa:ECE372A:2026-2027"
+        ]
+      },
+      {
+        "question": "Which instruction set should I learn?",
+        "method": "keyword",
+        "top_three": [
+          "uofa:ECE369A:2026-2027"
+        ]
+      },
+      {
+        "question": "How do I study marine biology and coral reefs?",
+        "status": "no_match",
+        "message": "The seven lesson records have no match for this question. Try ECE425, a sensor question, computer vision or C programming."
+      }
+    ]
+  },
+  "embedding_comparison": {
+    "input": "Same seven overview chunks from the Advisor result and the exact model search text",
+    "calculation": "Cosine ranking with four topic counts and cosine ranking with existing provider embeddings",
+    "ci_provider": "controlled-browser-vectors",
+    "live_rehearsal": "Open"
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "unscored_runtime_review_grades": 408,
+  "new_student_observations": 0,
+  "new_live_model_observations": 0,
+  "planning_estimates": {
+    "app_percent": 89,
+    "submission_weighted_percent": 67.5,
+    "submission_percent": 68
+  }
+}

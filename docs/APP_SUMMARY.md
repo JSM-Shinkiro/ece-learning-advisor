@@ -2,13 +2,13 @@
 
 Team P07 · ECE 425/525 · Updated November 13, 2026
 
-Based on verified application revision `07cf4b59693b16dbe6835d6639123261e637860f` and the November 13 audit. [Final readiness](FINAL_READINESS.md)
+Based on verified application revision `65edde933433e06362bdec0ce0de49771217ebe6`. [Final readiness](FINAL_READINESS.md)
 
 ## Purpose
 
 ECE Learning Advisor helps prospective and current University of Arizona ECE students connect their interests and recorded coursework with a practical learning path. Supported directions are AI/machine learning, embedded systems, and exploring both. Suggestions are grouped into **Start here**, **Build toward**, and **Later goals**, with source links and suggested first activities. The published undergraduate ECE directory also supports course exploration; unmapped entries appear under **Explore requested courses**, without an inferred preparation sequence.
 
-The app opens at **Beginner**, with domain explanations, illustrations, a flowchart and a learning roadmap. **Intermediate** compares ranking methods for a preset. **Advanced** accepts a custom question and expected records, compares ranks and saves an observation. These lessons use seven saved descriptions and four visible topic counts. **Advisor** opens the personal workflow and optional pretrained-embedding inspection. The audit identifies remaining continuity and custom-question issues in the lessons. [Audit findings](58_FINAL_VERSION_AUDIT.md)
+The app opens at **Beginner**, with illustrations, a flowchart and a worked topic-count example. **Intermediate** compares ranking methods and exposes source excerpts and cosine calculations. **Advanced** carries the preset and method forward, compares a custom question, and checks an observed rank change. **Use this question in Advisor** fills the evaluated question into the profile form. In a semantic or hybrid request, the inspector compares topic counts with provider embeddings on the same seven records.
 
 ## Are we using a database?
 
@@ -56,10 +56,10 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection:** default advisor: 20 courses (15 ECE/five CSC), eight resources, two career records and 34 chunks. Separate catalog: all 78 undergraduate ECE entries in the saved official 2026–2027 published list, including variable credits. Sixty-three additional ECE descriptions are reachable on request. The list follows its official effective-date setting of January 13, 2027; availability in a current semester is not established. Graduate courses and complete supporting-subject inventory remain outside this directory.
 - **Academic conditions:** four exact CS conditions have reviewed interpretations; all ECE conditions and CSC372 remain unknown. Learning stages describe preparation rather than guaranteed enrollment or semester placement.
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, native ranking bars and Plotly vector charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification:** The November 12 run passed 1,745 tests and nine runtime checks on Linux and Windows, plus ten student preview, sixteen lesson/controlled AI/browsing and six reviewer-workspace checks. The later audit adds seven groups of offline workflow observations. [CI evidence](evidence/midproject_feedback_2026-11-12.json) · [Audit evidence](evidence/final_version_audit_2026-11-13.json)
+- **Verification:** The November 13 run passed 1,755 tests and nine startup checks on Linux and Windows. Chromium passed ten student preview, eighteen lesson/controlled AI/browsing and six reviewer-workspace checks. [CI evidence](evidence/lesson_continuity_2026-11-13.json)
 - **Preview performance:** the native inspector opens at a median 686.7 ms versus 1,608.4 ms for the fixed baseline, with five sessions per version using the same v2 collector/runner. Native reopening takes 307.8 ms. That comparison recorded feedback/roadmap-control medians of 221.2/453.4 ms. These are offline DOM observations; live-AI/source and hosted/mobile timing remain separate. See [lightweight inspection](52_LIGHTWEIGHT_INSPECTOR.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
-- **Submission:** Current planning estimates are approximately 85% for the app and 65% for the complete submission. Lesson continuity, the neural teaching connection, focused ECE prerequisite evidence and fresh-source waiting remain application gaps. Evaluation sessions, final figures, report formatting, slides, recording and packaging remain open. [Current audit](58_FINAL_VERSION_AUDIT.md) · [Final workspace](final/README.md)
+- **Submission:** Planning estimates are approximately 89% for the app and 68% for the complete submission. Remaining work includes first-plan responsiveness, focused ECE prerequisite evidence, a live neural rehearsal, evaluations, final figures, slides, report formatting, recording and packaging. [Final readiness](FINAL_READINESS.md) · [Final workspace](final/README.md)
 
 ## Code map
 

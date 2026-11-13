@@ -1,6 +1,6 @@
 # Voluntary student usability pilot
 
-Updated November 12, 2026. This is a protocol and blank observation sheet. **No participant sessions or outcomes have been collected in this file.** The planned sample is 3–5 voluntary students, as in the project testing notes. This pilot measures usability; relevance grading is a separate workflow.
+Updated November 13, 2026. This protocol covers 3–5 voluntary student sessions as planned in the project testing notes. Record each participant's observed behavior and explanation.
 
 ## Operator setup
 
@@ -14,7 +14,7 @@ Use neutral prompts such as “What would you try next?” Count every operator 
 
 | Task | Read to the participant | Observe without supplying the answer |
 | --- | --- | --- |
-| T0: self-guided lesson | “Open the site and follow the learning path. Compare one preset, then write a variation and explain what changed.” | Find the stages, answer the foundations question, switch ranking method, choose expected records, inspect the evidence and save an observation. |
+| T0: self-guided lesson | “Open the site and follow the learning path. Compare one preset, write a variation, and explain one result. Take the question into the Advisor.” | Find the stages, answer the foundations question, switch method, choose expected records, inspect evidence, explain a rank change and find the carried question. Record whether the student can explain the source detail in their own words. |
 | T1: starting point | “Use an incoming student's fictional background and an embedded-systems interest. Find one practical activity to start with.” | Find profile controls, submit, locate a suggestion, describe its purpose |
 | T2: evidence and uncertainty | “Find the source behind one suggestion. Explain the academic/preparation status the app shows.” | Source/detail discovery; interpretation of dated evidence and unknown conditions |
 | T3: progress and portability | “For this fictional history, mark a course as currently taking, then completed. Save the profile so it can be used later.” | Explicit submissions, next-step exclusion, completion transition, download discovery |

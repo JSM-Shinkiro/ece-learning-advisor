@@ -4,17 +4,17 @@ Team P07 · Updated November 13, 2026 MST · Final presentation and submission D
 
 ## Current estimate
 
-The app is approximately **85%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **65%** ready. Both percentages are planning estimates.
+The app is approximately **89%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **68%** ready. Both percentages are planning estimates.
 
-The [final-version audit](58_FINAL_VERSION_AUDIT.md) revises the earlier 90% / 70% estimate. The lesson screens work through the scripted example, but broader probes found lost settings between stages, blank inputs beside retained results, unsupported familiar questions and a dropped question on entering Advisor. The teaching representation also needs a clearer connection to neural retrieval, and the reasoning activity needs stronger feedback. These are open acceptance items for the self-guided path.
+The November 13 development step addresses the audit's lesson gaps. Presets, methods, and drafts persist across stages. Advanced supports the reported custom questions and checks the selected record's rank change before saving the explanation. The evaluated question opens in the Advisor as a draft, and its inspector compares topic counts with the embeddings from a semantic or hybrid request. [Audit](58_FINAL_VERSION_AUDIT.md) · [Verification](evidence/lesson_continuity_2026-11-13.json)
 
 The midproject review gives explicit direction for the final recording and learning experience. Confirm final timing, formatting, duration and packaging instructions in D2L. The supported delivery uses reproducible local access and portable JSON profiles.
 
-Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the revised planning estimates give 65.5% completion, rounded to about 65%.
+The November 8 audit weights give 67.5% submission completion, rounded to 68%. [Planning weights](56_FINAL_READINESS_AUDIT.md)
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
-| Application and focused academic data | 50% | 85% |
+| Application and focused academic data | 50% | 89% |
 | Evaluation and performance evidence | 15% | 40% |
 | Final technical report | 20% | 65% |
 | Presentation and recording | 10% | 20% |
@@ -22,12 +22,12 @@ Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the revised p
 
 | Acceptance gate | Status | Evidence or remaining work |
 | --- | --- | --- |
-| Self-guided learning and developer view | Implemented / acceptance partial | Scripted lessons and code inspection pass Chromium. The audit reproduces navigation, input and continuity gaps. The neural teaching connection and learner reasoning need work. |
+| Self-guided learning and developer view | Verified in controlled workflows | Chromium checks the draft round trip, explanation export and Advisor comparison using test vectors. Capture the live neural example and observe students completing the lesson. |
 | Student profile → grounded roadmap → current/completed progress | Implemented | Preview and Gemini paths, JSON portability, conservative academic checks, bounded AI work |
 | Course/resource coverage and provenance | Broader inventory implemented; advising partial | 78 published undergraduate ECE descriptions; default 20-course/eight-resource/34-chunk advisor covers two directions. Up to three requested catalog additions; unknown preparation/conditions remain explicit. Focus on a defensible ECE demo chain; universal mappings/supporting-subject coverage are extensions. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Pinned setup and production launcher. Ubuntu 26.04 and Windows each passed 1,745 tests and nine readiness checks. |
-| Browser workflow and concurrent sessions | Verified in CI | All 32 Chromium gates pass across the student app, review workspace, learning path and controlled AI and browsing. The workflow covers profile portability, completion edits, session isolation and WebSockets. |
+| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,755 tests and nine readiness checks. |
+| Browser workflow and concurrent sessions | Verified in CI | All 34 Chromium checks pass across student preview, the reviewer workspace, lessons and controlled AI and browsing. |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent public checks are reused for up to five minutes; explicit rechecks bypass reuse; closed inspection content is omitted and opens in a fragment. Cold no-AI source updates and posting HTTP calls still wait for the network. |
 | Usable plan while AI runs | Verified with controlled AI | Source plan appears before AI finishes; profile edits/completion supersede old work; explicit keep-plan action rejects late output; four in-process workers; five real-browser gates. |
@@ -35,10 +35,14 @@ Using the [November 8 audit weights](56_FINAL_READINESS_AUDIT.md), the revised p
 | Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
-| Performance evidence | Partial | The November 12 offline CI repeat gives 683.3 ms median first inspector opening and 321.3 ms reopening, with five sessions. November 8 source-only observations were 21.664 s empty cache, 13.191 s disk cache/new process and 0.066 s immediate reuse. First-plan responsiveness and repeated final-release live observations remain open. |
+| Performance evidence | Partial | The November 13 offline CI run gives a 647.9 ms median first inspector opening and 332.5 ms reopening across five sessions. November 8 source-only observations were 21.664 s empty cache, 13.191 s disk cache/new process and 0.066 s immediate reuse. First-plan responsiveness and repeated final-release live observations remain open. |
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
 | Final report, slides and recording | Partial | Report draft and evidence map updated. The three-member runbook specifies private app-only capture and planned transitions. Final figures, report formatting, slides and the recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
+
+## November 13 lesson verification
+
+The initial Chromium run passed the Advanced export and timed out locating the stage switcher. The follow-up selects the visible stage label, verifies the round trip and passes all 34 browser checks. Both platforms pass the complete backend suite. The embedding comparison uses controlled provider vectors in this run. [Initial run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43396473239) · [Passing follow-up](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386)
 
 ## November 13 audit
 
@@ -58,10 +62,10 @@ The audit recorded **85% app / approximately 65% complete submission** and corre
 
 ## Next steps toward the submission
 
-1. Repair lesson continuity and custom-question recovery, then connect the same experiment to actual neural inspection.
-2. Show a useful saved-data plan before fresh checks finish, and review the focused ECE demo's applicable academic evidence.
+1. Show a saved-data plan before fresh checks finish, and review the focused ECE demo's applicable academic evidence.
+2. Rehearse the carried question with a configured Gemini provider and capture the neural comparison.
 3. Complete independent relevance review and student sessions. Record repeated live source/model/cache observations and address material findings.
-4. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments and the actual neural inspection.
+4. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments.
 5. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
 
 Every development update should state the gate closed by that step, the app/submission readiness estimate, and the most consequential remaining gap. Estimates move when acceptance gates close, not when the test count grows.

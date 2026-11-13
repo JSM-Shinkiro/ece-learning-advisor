@@ -1,6 +1,6 @@
 # Final demo runbook
 
-Updated November 12, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
+Updated November 13, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
 
 ## 1. Reproducible preview setup
 
@@ -38,8 +38,8 @@ Each team member prepares, narrates and demonstrates one segment. Share the fina
 | Clip | On-screen action | Narration and handoff |
 | --- | --- | --- |
 | `01_beginner.mp4` | Show the landing photo, two ECE directions, roadmap and question-to-evidence flow. Answer the preparation question. End with **Try a preset experiment** in view. | “ECE combines hardware, software and data. The advisor helps us find learning evidence for a goal. Now let’s see what changes when we rank that evidence differently.” |
-| `02_intermediate.mp4` | Open **Intermediate** with **Program a sensor** selected. Change **Keyword** to **Topic cosine**. Point to the top-three records and open **Developer view · visualization code**. End with **Create your variation** in view. | “Keyword matching and topic similarity can order the same records differently. The plot uses four topic counts, and the developer view shows the actual projection code. Next we’ll choose our own question and test an expectation.” |
-| `03_advanced.mp4` | Open **Advanced** with the sensor preset. Enter the image-classification question, choose **ECE425**, compare, and explain the change in the top three. Save the observation. Open **Advisor** and show the prepared neural-mode inspection if available. | “I expect deep learning evidence to help with image classification. ECE425 enters the first three results for my variation. Its description supports that choice. Here is the full advisor’s source and vector inspection.” |
+| `02_intermediate.mp4` | Open **Intermediate** with **Program a sensor** selected. Change **Keyword** to **Topic cosine**. Open **Inspect evidence** to show the topic counts and cosine for a record. Open **Developer view · visualization code** and end with **Create your variation** in view. | “Keyword matching and topic cosine can order the same records differently. The cosine calculation uses four counts. The developer view shows how the app projects them onto a plot. Carry this setup into Advanced and try a different question.” |
+| `03_advanced.mp4` | Select **Create your variation**. Keep the inherited sensor preset and **Topic cosine**. Enter the image-classification question, select **ECE425** as expected evidence, and compare. Choose **ECE425** under **Record to explain**, select **Entered the ranking**, inspect its evidence and save an explanation. Select **Use this question in Advisor** and continue with the neural segment below. | “ECE425 enters the first three results for this question. Its description covers neural network methods. I’ll take the same question into the Advisor and compare the lesson counts with its neural embeddings.” |
 
 Use the question “How do I train a neural network for image classification in Python?” for the shared Advanced example. Record the actual result visible on the final revision.
 
@@ -60,13 +60,14 @@ export ECE_REFRESH_SOURCES=true
 .venv/bin/python scripts/serve.py --address 127.0.0.1 --port 8501
 ```
 
-For PowerShell, remove those two environment overrides with `Remove-Item Env:GEMINI_API_KEY, Env:GOOGLE_API_KEY -ErrorAction SilentlyContinue`, set `$env:ECE_REFRESH_SOURCES = "true"`, and use only the Windows Python launch command above, without reapplying its blank credential assignments. A new server session starts fresh; restore the fictional JSON profile if needed.
+For PowerShell, remove those two environment overrides with `Remove-Item Env:GEMINI_API_KEY, Env:GOOGLE_API_KEY -ErrorAction SilentlyContinue`, set `$env:ECE_REFRESH_SOURCES = "true"`, and use the Windows Python launch command above. Restore the fictional JSON profile if the new session needs it.
 
-1. Choose **Advisor**, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid** or **semantic**, then submit a supported goal such as embedded programming.
+1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid** or **semantic**, and select **Update my roadmap**.
 2. Show the source plan while optional AI runs. Wait for the actual final result; retain any failure/fallback in the evidence record.
 3. Confirm the trace's `retrieval_mode` is the chosen neural mode, actual model IDs are present, `generation_complete` is true and `generation_status` is `answered` before calling the segment a completed AI explanation.
-4. Open the inspector and confirm a real vector view exists. Select a record, show the query/document components, dot product, norms and cosine. Explain that PCA is a projection and ranking uses full dimensions.
-5. Download the actual request trace to a new evidence file and record the source/cache state. A warmed public embedding cache is acceptable when labeled as warm; it is not a cold-request measurement.
+4. Open **How this plan was made** and **Compare lesson and neural embeddings**. Show how the two cosine rankings compare for the seven common overviews and the displayed Advisor search text. It includes the carried question and profile terms.
+5. Select a record in the vector view and show the components, dot product, norms and cosine. Explain that PCA projects the vectors to two axes and that scoring uses the full vectors.
+6. Download the actual request trace and record the source/cache state. Label a warmed public embedding cache as warm.
 
 If the provider or network prevents that result, record the fallback honestly and keep the neural segment incomplete until it can be captured. Production runs are distinct from CI's controlled provider fixtures. The recording does not replace repeated final-release timing measurements.
 
