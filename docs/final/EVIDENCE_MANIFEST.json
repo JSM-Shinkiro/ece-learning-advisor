@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "65edde933433e06362bdec0ce0de49771217ebe6",
-  "runtime_verification_revision": "65edde933433e06362bdec0ce0de49771217ebe6",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386",
+  "source_base_revision": "c5504734718d752aee9f421596f289e338219729",
+  "runtime_verification_revision": "c5504734718d752aee9f421596f289e338219729",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488614300",
   "collections": [
     {
       "name": "baseline",
@@ -43,7 +43,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "20459982185a8dbb94fdff1e7b0babd03934ce894b22e90c1867f02ec2c38831"
+      "sha256": "1bb0ac2be8203627437804456d1025ca5109ef730a55e13b738a40b72262183f"
     },
     {
       "path": "reviewer_app.py",
@@ -75,7 +75,7 @@
     },
     {
       "path": "src/controller.py",
-      "sha256": "eccc572bffb8ab490483b37ea718b06aa007555d10ee7006f152bf6672a0cc46"
+      "sha256": "e479b0acfe2e7d96ca36528e6afd8cfc9aa885f46df3d76c477256c6c7e3052a"
     },
     {
       "path": "src/providers.py",
@@ -87,7 +87,7 @@
     },
     {
       "path": "src/advisor_jobs.py",
-      "sha256": "b5fdeb2c56fe3ffea1c8ea4e901c5c4eec8845ddcccc69f2eee83fa71b410aef"
+      "sha256": "c891f8169a8367fadf0f5b9cb9deafc8240635433e17bb72b7f8693bc5972e8d"
     },
     {
       "path": "src/source_reuse.py",
@@ -99,7 +99,7 @@
     },
     {
       "path": "src/inspector.py",
-      "sha256": "0d615552e02d4faea18bb71d592c916afed564bd3d1889a0c7a4434e5908c3dd"
+      "sha256": "da19a430b89048709b567d4c24ebc00a3f28ef412ebfc353fa705f4123b548d8"
     },
     {
       "path": "src/inspection_views.py",
@@ -167,7 +167,7 @@
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "53326c4dd64a2be8636de5434ed1b68de690d900d18a363f403a785f6bc75dd7"
+      "sha256": "ba5249b9cfe8957d7642715b61153b080d0dddf6db3b4ed07421d267c5de01d0"
     },
     {
       "path": "tests/test_learning_path.py",
@@ -184,6 +184,22 @@
     {
       "path": "src/session.py",
       "sha256": "f5f9afb31d5dcb6140946b803321ed4d5ce8374b63f2694ae2289130bc84631d"
+    },
+    {
+      "path": "src/source_ui.py",
+      "sha256": "f6cb6379bc4ee554481ebe3a1ab1d1148ae9e2b37b69e78cabb2b257b234fa64"
+    },
+    {
+      "path": "tests/fixtures/progressive_app.py",
+      "sha256": "fab76d9bb6428d3b779bae02d00ee445f10ec9ed9a77af35fe0a243d70fc4aa4"
+    },
+    {
+      "path": "tests/test_advisor_jobs.py",
+      "sha256": "bb0293d8931d1efa97bb26b814de73cb46af684806f4b8ae15f4491be1612e05"
+    },
+    {
+      "path": "tests/test_responsiveness_app.py",
+      "sha256": "971e031d947b215bcc76531c15839ea9cb4002cbcb5dd5e64a59e10767125e21"
     }
   ],
   "evidence_files": [
@@ -226,6 +242,10 @@
     {
       "path": "docs/evidence/lesson_continuity_2026-11-13.json",
       "sha256": "bbac47fc14fc128075bdb54ed588f1ed60c9727c34bf6ba1c87b8a5c5bc109f8"
+    },
+    {
+      "path": "docs/evidence/saved_data_roadmap_2026-11-13.json",
+      "sha256": "b01e2e10dffeda6974dd25b67ea8673401524e45bd5c7e3bc26d5f0499412ad0"
     }
   ],
   "preserved_inputs": [
@@ -273,19 +293,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "cd6b4823b86378c149f134d69ce287462d6febc51dd850b6ef42164fe10176c7"
+      "sha256": "ef7e9d796ba5fb601c7e30b0f8ec00c1c3955845d992c4bc5c4c4dde940b570a"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "137f7957455d2000c3aef679a7cbde9de4124cdcb41b6acd1559d96df4ee7c02"
+      "sha256": "b8782c0f82038682481c1b02433565e2351c9b2820e2c36ff42554ebfa6c4874"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "110fd2a6a4e2c484cfb90b0faa94fc614bb1c3dbab8a0b3fa739ad42ce065105"
+      "sha256": "826ecf6be757107bb021b8ecf9133382685ac464d5f1f21c34f2afee996153be"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "26a7ec08bf2052d41d87ef00c77446068db254da20dedf4791a0f8e86f39b523"
+      "sha256": "675c95030be4fbe6fc4836c4c762cd4b3cfe2397d01ee5da3694b1cf64321beb"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -301,7 +321,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "ae514d0985fb649bc0f600c1fce57b85f739755588f14a4e97c51e2ea7b0af20"
+      "sha256": "e5b5e4ca9c50024dee3562c54c1a364166745ab62c69b64a2906ce1c3f115acc"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -309,7 +329,7 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "507b907475fce167fbaea2e2086bca8dbfbb2baf3a9f0eae54d77335d564ba1b"
+      "sha256": "8b8e31ba78461d61798b3e52dff1403cab63ad4164412d6517c68c7e6017bbef"
     }
   ],
   "external_references": [
@@ -348,7 +368,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-13T09:13:01+00:00",
+  "updated_at_utc": "2026-11-13T19:09:58+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -401,5 +421,13 @@
     "submission_planning_percent": 68,
     "chromium_checks": 34,
     "embedding_comparison_validation": "Controlled provider. Live rehearsal remains open."
+  },
+  "saved_data_roadmap": {
+    "date_mst": "2026-11-13",
+    "evidence": "docs/evidence/saved_data_roadmap_2026-11-13.json",
+    "app_planning_percent": 92,
+    "submission_planning_percent": 69,
+    "chromium_checks": 36,
+    "first_plan_validation": "Controlled source delays in browser and two live source-only server observations."
   }
 }

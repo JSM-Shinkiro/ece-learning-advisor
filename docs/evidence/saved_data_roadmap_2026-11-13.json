@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-13",
+  "recorded_at_utc": "2026-11-13T19:09:58+00:00",
+  "audit": "docs/58_FINAL_VERSION_AUDIT.md",
+  "starting_revision": "7aa1b15e8c1934fd17d716cb0db851e26cee96ca",
+  "verified_revision": "c5504734718d752aee9f421596f289e338219729",
+  "scope": [
+    "A dated keyword roadmap from saved data appears before official checks for supported source-enabled requests, including requests with optional AI.",
+    "The worker can publish an updated source plan before AI completes. The session only applies output for its current request and profile.",
+    "Four background slots bound source and AI work per process. A busy worker pool falls back to dated saved evidence.",
+    "Evidence panel preferences persist through draws that omit the panel. Keep-plan buttons reject later results. In-flight source requests can still finish writing public cache entries."
+  ],
+  "controlled_before_change": "A held source refresher prevented a first roadmap from publishing in both AI-enabled and preview requests.",
+  "earlier_ci": [
+    {
+      "run_id": 43485951762,
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43485951762",
+      "revision": "3cd7990d29e8ee399fd3f9a10a41c94b2e1ca012",
+      "jobs": [
+        {
+          "id": 132094320882,
+          "name": "Chromium / real Streamlit sessions",
+          "conclusion": "success"
+        },
+        {
+          "id": 132094321519,
+          "name": "Python 3.12 / ubuntu-26.04",
+          "conclusion": "success"
+        },
+        {
+          "id": 132094321685,
+          "name": "Python 3.12 / windows-latest",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14066903909,
+          "name": "browser-chromium-py312",
+          "sha256": "33a96255353e4405cf6de3487bbf7773bcc91c4b2bec79368aa29f39002a52f0"
+        },
+        {
+          "id": 14066674753,
+          "name": "backend-windows-latest-py312",
+          "sha256": "7d9f7cdc5b50014c1418bdcaaea55af92ca591afd3be9ad2001fef84202b93ff"
+        },
+        {
+          "id": 14066488803,
+          "name": "backend-ubuntu-26.04-py312",
+          "sha256": "262bf7f210bdfcade77db8da8b73f45e9072484058a3f145292bf3019fee54a3"
+        }
+      ],
+      "windows": {
+        "tests": 1759,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "startup_passed": true,
+        "failed_tests": [
+          "tests.test_app::test_changed_prerequisite_replaces_approval_in_cards_and_inspector",
+          "tests.test_app::test_resource_sources_render_versions_and_update_only_on_submission"
+        ]
+      },
+      "browser_checks_passed": 36,
+      "finding": "Transient redraws removed previously open evidence panels and Streamlit discarded their widget values."
+    },
+    {
+      "run_id": 43487353374,
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43487353374",
+      "revision": "be1c4d7fba85cab7b5390e18954e3086e36b3a20",
+      "jobs": [
+        {
+          "id": 132099201126,
+          "name": "Chromium / real Streamlit sessions",
+          "conclusion": "failure"
+        },
+        {
+          "id": 132099201985,
+          "name": "Python 3.12 / ubuntu-26.04",
+          "conclusion": "success"
+        },
+        {
+          "id": 132099201992,
+          "name": "Python 3.12 / windows-latest",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14068236506,
+          "name": "browser-chromium-py312",
+          "sha256": "d56c0f0dab4ff9e610e46584fc8512dea1f2454a1eec960317648c91f568072f"
+        },
+        {
+          "id": 14067672616,
+          "name": "backend-windows-latest-py312",
+          "sha256": "e0453466b4f6f9fa7d9868f0e778548c7a958b031dd65e728fc959c04730d9d1"
+        },
+        {
+          "id": 14067244532,
+          "name": "backend-ubuntu-26.04-py312",
+          "sha256": "e6e12d8f366b18e0e66517129a982219301478aa35139078f5a7cfae3bf1a748"
+        }
+      ],
+      "browser_failure": {
+        "name": "keep_saved_plan",
+        "passed": false,
+        "detail": "The controlled progressive browser gate did not complete.",
+        "error_type": "AssertionError",
+        "failure_line": 61
+      },
+      "finding": "Both backend jobs passed after preserving open-panel preferences. The browser check timed out on a native open-attribute assertion during the close-and-reopen sequence."
+    },
+    {
+      "run_id": 43488066572,
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488066572",
+      "revision": "a70b5592066102b83395ae312ce429f0fcf1f080",
+      "jobs": [
+        {
+          "id": 132101688088,
+          "name": "Python 3.12 / windows-latest",
+          "conclusion": "success"
+        },
+        {
+          "id": 132101688463,
+          "name": "Python 3.12 / ubuntu-26.04",
+          "conclusion": "success"
+        },
+        {
+          "id": 132101688466,
+          "name": "Chromium / real Streamlit sessions",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14068866330,
+          "name": "browser-chromium-py312",
+          "sha256": "2028128ce009e2aa6c58526dea8abc063e0404bb0ae14042b615e79179d6b092"
+        },
+        {
+          "id": 14068357152,
+          "name": "backend-windows-latest-py312",
+          "sha256": "583eb3de40184e2b953d054ac7aee027c536bc3fa25448bdadd608d06b3a7e00"
+        },
+        {
+          "id": 14067634265,
+          "name": "backend-ubuntu-26.04-py312",
+          "sha256": "12b7a786683e57a0400c1b937358edbcc201c127b225548cc7a1eb57fda7b06d"
+        }
+      ],
+      "browser_failure": {
+        "name": "mobile_inspector",
+        "passed": false,
+        "detail": "The controlled progressive browser gate did not complete.",
+        "error_type": "AssertionError",
+        "failure_line": 55
+      },
+      "finding": "Both saved-roadmap gates passed. The downstream phone check expected an open event while the now-persistent inspector was already open."
+    }
+  ],
+  "passing_ci": {
+    "run_id": 43488614300,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488614300",
+    "revision": "c5504734718d752aee9f421596f289e338219729",
+    "jobs": [
+      {
+        "id": 132103550414,
+        "name": "Chromium / real Streamlit sessions",
+        "conclusion": "success"
+      },
+      {
+        "id": 132103550889,
+        "name": "Python 3.12 / windows-latest",
+        "conclusion": "success"
+      },
+      {
+        "id": 132103551084,
+        "name": "Python 3.12 / ubuntu-26.04",
+        "conclusion": "success"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 14069630448,
+        "name": "backend-ubuntu-26.04-py312",
+        "sha256": "45edd406441cc3f8e62655654e7805d29605eedb158ae8adc012e78f36817369"
+      },
+      {
+        "id": 14068881906,
+        "name": "browser-chromium-py312",
+        "sha256": "6b45afa1592276b59df03d57c6acb1c337f839cef0e8800d89e64af684f24002"
+      },
+      {
+        "id": 14067863161,
+        "name": "backend-windows-latest-py312",
+        "sha256": "5cd1f3770948168e01e958c923ced8a2e4f1e376a2e1958807880134c8354fc0"
+      }
+    ],
+    "backend": {
+      "ubuntu": {
+        "tests": 1760,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "startup_passed": true
+      },
+      "windows": {
+        "tests": 1760,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "startup_checks": 9,
+        "startup_passed": true
+      }
+    },
+    "chromium": {
+      "version": "151.0.7922.34",
+      "counts": {
+        "student": 10,
+        "reviewer": 6,
+        "lesson_and_controlled_requests": 20
+      },
+      "total": 36,
+      "protocol": {
+        "full_runs": 27,
+        "fragment_runs": 36,
+        "page_errors": 0,
+        "stream_connections": 1
+      },
+      "selected_checks": [
+        {
+          "name": "saved_plan_during_source_checks",
+          "passed": true,
+          "detail": "The saved plan is usable and the source update preserves the open inspector and an unsubmitted profile edit.",
+          "seconds": 2.674
+        },
+        {
+          "name": "keep_saved_plan",
+          "passed": true,
+          "detail": "Keeping the dated plan removes the active update and excludes the released source result.",
+          "seconds": 2.517
+        },
+        {
+          "name": "mobile_inspector",
+          "passed": true,
+          "detail": "Native ranking and trace download fit a 390-pixel phone viewport without a full app or provider request.",
+          "seconds": 0.944
+        }
+      ],
+      "saved_roadmap_control_observation": {
+        "roadmap_controls_observed_seconds": 1.345,
+        "scope": "One controlled browser driver interval, including submission and check overhead. It uses held source checks and no real model calls."
+      },
+      "files": [
+        {
+          "name": "browser.json",
+          "sha256": "870dd0833b6f602d31e8ae375d815ef067024201aaf5f6113c41ca78d6af47a5"
+        },
+        {
+          "name": "reviewer-browser.json",
+          "sha256": "5bacdcbb058d654fb46000823066952c2d0193d224c772099edbe61e9cc8bcb2"
+        },
+        {
+          "name": "progressive-browser.json",
+          "sha256": "cc912b87237874403688ef800042ee58c82dd3bc19dabb7eb3e4c6619f415b37"
+        },
+        {
+          "name": "browser-summary.md",
+          "sha256": "6fe5e1434feecc04df2e3c919729cba9b1c4980312fce1a5b8597e8e9bbb0383"
+        },
+        {
+          "name": "learning-saved-roadmap.png",
+          "sha256": "07761fdce1f99fa3c346da82e231ed891ccd3b1b408de44d6a883b9ec593288f"
+        },
+        {
+          "name": "browser-performance.json",
+          "sha256": "4006fd38ed2dd1df17dda04fe32807ea96e12b178b22029c588069580f92d48f"
+        },
+        {
+          "name": "baseline-browser-performance.json",
+          "sha256": "6319a7dd75980812688e27136771e45da0de55474f669ec681f0b7e308e8a1ea"
+        }
+      ]
+    },
+    "offline_inspector_timings_ms": {
+      "current": {
+        "revision": "c5504734718d752aee9f421596f289e338219729",
+        "sessions": 5,
+        "inspector_first_ready_ms": {
+          "n": 5,
+          "min": 589.8,
+          "median": 600.5,
+          "max": 684.6
+        },
+        "inspector_reopen_ready_ms": {
+          "n": 5,
+          "min": 256.2,
+          "median": 266.6,
+          "max": 287.5
+        }
+      },
+      "fixed_baseline": {
+        "revision": "88ab5849ffa42130765e3afb1f1eaba69280acc9",
+        "sessions": 5,
+        "inspector_first_ready_ms": {
+          "n": 5,
+          "min": 1332.1,
+          "median": 1430.6,
+          "max": 1596.7
+        },
+        "inspector_reopen_ready_ms": {
+          "n": 5,
+          "min": 295.4,
+          "median": 308.7,
+          "max": 377.7
+        }
+      }
+    }
+  },
+  "local_checks": {
+    "revision": "be1c4d7fba85cab7b5390e18954e3086e36b3a20",
+    "tests_passed": 1760,
+    "test_seconds": 73.13,
+    "startup_checks_passed": 9
+  },
+  "source_only_probe": {
+    "captured_at_utc": "2026-11-13T18:46:31+00:00",
+    "mode": "public source checks, AI disabled",
+    "profile_question": "How can I use C to read a microcontroller sensor?",
+    "observations": [
+      {
+        "cache_state": "empty",
+        "saved_plan_server_seconds": 0.019548389999954452,
+        "source_refresh_server_seconds": 16.823891426000046,
+        "total_server_seconds": 16.84935252899993,
+        "job_wall_seconds": 16.980410766999967,
+        "checks_by_status": {
+          "skipped": 10,
+          "bundled_fallback": 9,
+          "updated": 2
+        },
+        "http_attempts": 15,
+        "retry_count": 4,
+        "suggested_records": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ]
+      },
+      {
+        "cache_state": "immediate_reuse",
+        "saved_plan_server_seconds": 0.006294107000030635,
+        "source_refresh_server_seconds": 4.08172937400002,
+        "total_server_seconds": 4.092938762000017,
+        "job_wall_seconds": 4.094877200000042,
+        "checks_by_status": {
+          "skipped": 10,
+          "bundled_fallback": 9,
+          "recent_cache": 2
+        },
+        "http_attempts": 9,
+        "retry_count": 0,
+        "suggested_records": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE372A:2026-2027",
+          "resource:cs50",
+          "resource:pico"
+        ]
+      }
+    ],
+    "revision": "3cd7990d29e8ee399fd3f9a10a41c94b2e1ca012",
+    "scope": "Two server observations of a single profile. An empty cache is followed by immediate reuse in the same process. Server assembly, source time and worker wall time have separate boundaries. No rendering, live model or participant observations are measured."
+  },
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "corpus_hashes": {
+    "baseline": "8df543f9bfe5d83374385ea5f756160d42144d9ab04bfc20b49e7f78059d643d",
+    "runtime": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7"
+  },
+  "unfilled_review_grades": 408,
+  "readiness_planning": {
+    "previous_app_percent": 89,
+    "app_percent": 92,
+    "previous_submission_percent": 68,
+    "submission_percent": 69,
+    "scope": "Planning estimate for the agreed final scope. Focused ECE prerequisite evidence, a live neural demo, independent evaluation, a student pilot and final submission materials remain open."
+  },
+  "measurement_limits": [
+    "The controlled source case checks plan usability, output ownership and evidence panel behavior. It does not estimate live network variability.",
+    "The source-only results are two observations. The elapsed source time includes omissions and fallbacks. The first-plan time is server-side.",
+    "The offline inspector cohorts use a fixed comparison revision. No new live Gemini or student session was performed for this change."
+  ]
+}

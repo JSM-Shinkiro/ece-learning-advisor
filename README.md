@@ -26,7 +26,7 @@ Submitted roadmaps show [live request stages](docs/46_REQUEST_PROGRESS.md), with
 
 [Responsiveness improvements](docs/48_RESPONSIVENESS_REVIEW.md) reuse successful public-source checks for up to five minutes and render the inspector only when opened. **Check sources again** bypasses recent reuse for the submitted profile; source timestamps remain unchanged when reused.
 
-[AI-enabled requests](docs/49_PROGRESSIVE_AI_REQUESTS.md) keep the page interactive and show a source plan before optional AI explanations finish. **Keep source plan** stops accepting that AI result; new profile submissions supersede older work.
+Roadmap updates show a plan from saved course and resource data while official sources are checked. **Keep saved-data plan** keeps that plan. With AI enabled, **Keep source plan** keeps the result of the source checks while the optional explanation runs. New profile submissions supersede earlier updates. [Roadmap verification](docs/evidence/saved_data_roadmap_2026-11-13.json)
 
 [Collection browsing and posting feedback](docs/50_COLLECTION_AND_POSTING_UX.md) add local course/resource search and filters, on-demand source details, and loading feedback beside a selected opportunity. These panel controls run independently of the roadmap.
 
@@ -169,7 +169,7 @@ The command saves its source checks under `.cache` and returns a failure status 
 
 ## Academic data
 
-Submitted roadmaps now check the relevant configured official course pages before retrieval and generation. The connector validates course identity and the active catalog edition, refreshes descriptions and units in the request's catalog, and records check/download times separately. Unchanged content reuses its vectors. Ordinary interface rerenders do not fetch sources.
+The roadmap builds a first plan from saved data and checks selected official pages in a background job. The connector validates course identity and catalog edition, refreshes supported fields and records check and download times. The refreshed context feeds the final ranking and optional AI explanation. Unchanged content reuses its vectors.
 
 The app loads 20 courses and eight resources by adding reviewed coverage to the unchanged five-course/two-resource evaluation baseline. The additional courses are CSC110, CSC144, CSC210, ECE201, ECE220, ECE274A, ECE310, ECE311, ECE320A, ECE340A, ECE351C, ECE373, ECE352, ECE381A, and CSC372. Title, summary, units, and enrollment references retain source IDs and catalog edition. All 15 ECE conditions and the CSC372 condition remain unknown; only the four existing exact CS interpretations can acquire verified conditions. The lower end of the original coverage target is met; academic-rule and independent quality coverage remain open. See [track and open-course coverage](docs/37_TRACK_AND_OPEN_COURSE_COVERAGE.md).
 

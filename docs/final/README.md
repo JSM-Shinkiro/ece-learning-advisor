@@ -2,7 +2,7 @@
 
 Team P07 · Updated November 13, 2026 · ECE Learning Advisor
 
-The verified application revision `65edde933433e06362bdec0ce0de49771217ebe6` includes the continuous lesson path, the Advisor embedding comparison and the undergraduate ECE directory. [Passing CI run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43397328386)
+Verified application revision `c5504734718d752aee9f421596f289e338219729` includes the continuous lesson path, the Advisor embedding comparison, the undergraduate ECE directory and a saved-data roadmap while sources update. [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43488614300) · [Verification evidence](../evidence/saved_data_roadmap_2026-11-13.json)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |
@@ -16,6 +16,6 @@ The midproject submission review supplies directions for the learning path and f
 
 The report deliberately keeps four forms of evidence distinct: automated/software checks, the small authored retrieval benchmark, actual provider integration observations, and offline browser timings. There are no independent runtime relevance grades or student-pilot outcomes to report. The existing twelve-question/34-chunk review template still contains 408 blank grades.
 
-Improve first-plan responsiveness, review the focused ECE demo data, and rehearse the carried question with the live provider. Complete the reviewer and student sessions, measurements, final report, slides and recording. [Final readiness](../FINAL_READINESS.md)
+Review the focused ECE demonstration data and rehearse the carried question with the live provider. Complete the reviewer and student sessions, repeated measurements, final report, slides and recording. [Final readiness](../FINAL_READINESS.md)
 
-The November 13 lesson update brings planning readiness to approximately **89% for the app and 68% for the complete submission**. [Lesson verification](../evidence/lesson_continuity_2026-11-13.json)
+The November 13 roadmap update brings planning readiness to approximately **92% for the app and 69% for the complete submission**. [Roadmap verification](../evidence/saved_data_roadmap_2026-11-13.json)

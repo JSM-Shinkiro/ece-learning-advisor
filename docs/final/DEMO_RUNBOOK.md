@@ -63,7 +63,7 @@ export ECE_REFRESH_SOURCES=true
 For PowerShell, remove those two environment overrides with `Remove-Item Env:GEMINI_API_KEY, Env:GOOGLE_API_KEY -ErrorAction SilentlyContinue`, set `$env:ECE_REFRESH_SOURCES = "true"`, and use the Windows Python launch command above. Restore the fictional JSON profile if the new session needs it.
 
 1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid** or **semantic**, and select **Update my roadmap**.
-2. Show the source plan while optional AI runs. Wait for the actual final result; retain any failure/fallback in the evidence record.
+2. Show the dated saved-data roadmap while official sources are checked. Then show the updated source plan while AI runs. Wait for the final result and record any fallback you observe.
 3. Confirm the trace's `retrieval_mode` is the chosen neural mode, actual model IDs are present, `generation_complete` is true and `generation_status` is `answered` before calling the segment a completed AI explanation.
 4. Open **How this plan was made** and **Compare lesson and neural embeddings**. Show how the two cosine rankings compare for the seven common overviews and the displayed Advisor search text. It includes the carried question and profile terms.
 5. Select a record in the vector view and show the components, dot product, norms and cosine. Explain that PCA projects the vectors to two axes and that scoring uses the full vectors.

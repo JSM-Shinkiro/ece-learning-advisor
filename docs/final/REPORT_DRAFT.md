@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
 
-This draft describes verified revision `65edde933433e06362bdec0ce0de49771217ebe6`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `c5504734718d752aee9f421596f289e338219729`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -21,7 +21,7 @@ The project preparation notes define four inspection goals. They guide this draf
 | G1: latent-space view | PCA of actual document vectors, with the query transformed using the same fitted axes |
 | G2: similarity drill-down | Selected vector components, dot product, norms and full-dimensional cosine |
 | G3: meaningful controls | Profile/coursework changes, retrieval-method choice, source checks and explicit progress updates |
-| G4: measured response | Request-phase timing, early source plans, browser measurements and failure retention |
+| G4: measured response | Saved-data plan before official checks, request-phase timing, browser observations and failure retention |
 
 ## 2. Architecture and evidence lifecycle
 
@@ -29,16 +29,17 @@ The student interface is a Streamlit application with a submitted profile form a
 
 ```mermaid
 flowchart TD
-    A["Validated profile"] --> B["Checked source catalog"]
-    B --> C["Keyword plan and rules"]
-    C --> G["Session view and inspector"]
-    C -->|Optional AI| D["Chosen ranking and rule context"]
-    D --> E["Model selects statement IDs"]
-    E --> F["Validate source-bound wording"]
+    A["Validated profile"] --> B["Saved-data roadmap"]
+    B --> C["Official source checks"]
+    B --> G["Session view and inspector"]
+    C --> D["Updated source roadmap"]
+    D --> G
+    D -->|Optional AI| E["Retrieve and select statements"]
+    E --> F["Validate wording and sources"]
     F --> G
 ```
 
-For background AI requests, the interface can publish the keyword source plan before optional AI completes. The final ranking/context may differ after neural retrieval. A failed optional phase retains usable source information.
+When source checks are enabled, the current request can first publish a roadmap from dated saved evidence. The source update runs in the request's background worker and refreshes that roadmap. When AI is enabled, the updated source plan is available during optional embedding and explanation work. The session applies each result only while the matching request remains current. [E16](EVIDENCE_MAP.md)
 
 The reviewed collection is stored as versioned JSON. Submitted roadmaps can check selected configured official catalog/program/resource pages, validate identity and edition, and overlay supported fields. The source policy bounds a request to eight course, two program and two resource checks; up to three new course descriptions fit within the course budget. Current-source checks remain bounded to selected records. A separate local directory contains the official published undergraduate ECE inventory: 78 courses from two complete list pages, with minimum/maximum credits retained. All entries support completed/current-course selection. Local search and 15-entry pagination do no HTTP or model work; at most three explicit catalog requests enter an advisor overlay. Unmapped entries use an exploration phase, without inferred prerequisites, career fit or course sequencing. The directory does not expand the archived 34-chunk evaluation input. Graduate ECE and complete supporting-subject coverage remain outside this inventory. [E11](EVIDENCE_MAP.md) Successfully checked public sources may be reused for five minutes; their original timestamps are retained. Explicit rechecking bypasses this recent reuse. Failed checks and omitted records retain labeled saved evidence. [E8](EVIDENCE_MAP.md)
 
@@ -101,7 +102,7 @@ For PCA, normalized document rows are centered and decomposed by SVD. The first 
 
 The closed inspector omits its contents. Opening/closing reruns its fragment. A simple ranking chart uses escaped HTML/CSS bars with a shared zero baseline and signed-score support, retaining the exact score table. The vector view still uses Plotly. Collection filtering, lazy source details and opportunity interactions also operate independently of roadmap generation. Browser checks cover a 390-pixel viewport; they do not establish mobile-device performance. [E6, E7](EVIDENCE_MAP.md)
 
-AI requests use session-owned background jobs with four in-process worker slots. New profiles supersede old requests; late results cannot replace a newer profile's plan. A shared default 45-second cooperative AI budget begins after source checks. Keeping the source plan stops acceptance of later AI output. Already running I/O can outlast cancellation, so this is not a hard whole-request deadline. [E9](EVIDENCE_MAP.md)
+Source and AI requests share four in-process worker slots. If all slots are occupied, the request uses saved data. Keeping either interim plan stops accepting further results from that job. An in-flight source call can finish and still update the public cache. The shared default 45-second AI budget begins after source checks. [E9, E16](EVIDENCE_MAP.md)
 
 Opportunities use explicit public Greenhouse-board searches for Samsara, Nuro and Anduril, with title/location filters, paging and listing-bound detail checks. Source metadata and empty/failure states remain visible. This is a search over configured boards, not a comprehensive market or qualification assessment. Optional Adzuna/OpenRouter work is outside the verified core. [E10](EVIDENCE_MAP.md)
 
@@ -137,6 +138,8 @@ The November 12 follow-up passed 1,745 tests and nine runtime checks on each pla
 
 On November 13, Linux and Windows each passed 1,755 tests and nine startup checks. The follow-up Chromium run passed 34 checks, including navigation with an unsubmitted draft and publication of the carried question's embedding comparison. The browser used controlled provider vectors. The revised offline Hybrid exercise includes ECE425 at rank two for the image-classification variation. ECE425 sits outside the sensor preset ranking because its topic cosine is zero and it shares no search terms after the question-word filter. [E15](EVIDENCE_MAP.md)
 
+The later November 13 roadmap revision passed 1,760 tests and nine startup checks on each OS and 36 Chromium checks. The browser uses a controlled source wait to see the first usable plan, edit the profile during the wait and keep a saved plan after releasing a delayed check. An open inspector stays visible when the updated result arrives. [E16](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -152,7 +155,9 @@ The first-opening median decreases by 57.3% within this experiment. Native bars 
 
 These are animation-frame DOM observations, including offscreen laid-out controls, not physical paint or field interaction metrics. Shared-runner variability, ordered small samples and shared processes limit inference. No p95, significance test, live-AI latency distribution or student-device performance is established. Server phase timings use a separate clock and exclude provider cleanup/browser rendering.
 
-The November 8 readiness audit adds individual source-only observations: 21.664 seconds with an empty audit cache and recovered network timeouts, 13.191 seconds using a disk cache in a new process, and 0.066 seconds for immediate same-process reuse with zero HTTP attempts. A separate employer search/detail observation takes 19.799 seconds and verifies all three boards plus the selected posting. No model calls are used. These are workspace/network-specific server observations, not repeated cohorts, browser response times or live-AI latency. They identify fresh network waiting as an unresolved interaction concern despite fast recent reuse. [E12](EVIDENCE_MAP.md)
+The November 8 readiness audit adds individual source-only observations: 21.664 seconds with an empty audit cache and recovered network timeouts, 13.191 seconds using a disk cache in a new process, and 0.066 seconds for immediate same-process reuse with zero HTTP attempts. A separate employer search/detail observation takes 19.799 seconds and verifies all three boards plus the selected posting. No model calls are used. These are workspace/network-specific server observations, not repeated cohorts, browser response times or live-AI latency. The audit identified the delay before the first usable plan. [E12](EVIDENCE_MAP.md)
+
+The November 13 roadmap update publishes a saved-data plan before the network wait. In one source-only probe with an empty cache, the server built this plan in 19.5 ms. Source checks took 16.82 seconds and returned two updates and nine bundled fallbacks. The immediate same-process repeat took 6.3 ms for the plan and 4.08 seconds for source checks, which reused the two successes. These two observations time server work for one profile and exclude rendering and model calls. [E16](EVIDENCE_MAP.md)
 
 ## 6. Limitations and next validation
 
@@ -171,4 +176,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E15](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E16](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
