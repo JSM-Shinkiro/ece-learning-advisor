@@ -184,6 +184,7 @@ def test_carried_question_uses_existing_profile_and_neural_vectors(lesson_app, m
     assert any("embedding dimensions from fixture-vectors" in item.value for item in app.caption)
     table = next(table.value for table in app.dataframe if "Neural rank" in table.value.columns)
     assert len(table) == 7 and set(table["Neural rank"]) == set(range(1, 8))
+    assert any(item.proto.label == "Download embedding comparison" for item in app.get("download_button"))
     assert fake_provider.context.query == app.session_state["result"].context.query
 
 

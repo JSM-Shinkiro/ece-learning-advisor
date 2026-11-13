@@ -126,6 +126,27 @@ def compare_embedding_ranks(index, chunks, vectors, query, query_vector):
     return rows
 
 
+def advisor_embedding_comparison(result):
+    """Describe the comparison using the vectors already built for this roadmap."""
+    if result.vectors is None or result.query_vector is None:
+        return None
+    index = build_lab_index(result.catalog.model_dump_json())
+    rows = compare_embedding_ranks(index, build_evidence(result.catalog), result.vectors,
+                                   result.context.query, result.query_vector)
+    labels = {doc.record_id: label for doc, label in zip(index.retriever.evidence, index.labels)}
+    return {
+        "schema_version": 1,
+        "question": result.context.question,
+        "advisor_search_text": result.context.query,
+        "corpus_hash": result.trace["corpus_hash"],
+        "embedding_model": result.trace["embedding_model"],
+        "embedding_dimensions": result.vectors.shape[1],
+        "retrieval_mode": result.retrieval_mode,
+        "topic_dimensions": list(TOPICS),
+        "rows": [{"Record": labels[row["Record ID"]], **row} for row in rows],
+    }
+
+
 def compare_ranks(original, variation):
     before = {hit.record_id: rank for rank, hit in enumerate(original.hits, 1)}
     after = {hit.record_id: rank for rank, hit in enumerate(variation.hits, 1)}

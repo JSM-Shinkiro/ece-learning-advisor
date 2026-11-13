@@ -4,7 +4,7 @@ import inspect
 import numpy as np
 import streamlit as st
 from .catalog import build_evidence
-from .learning_lab import build_lab_index, compare_embedding_ranks
+from .learning_lab import advisor_embedding_comparison
 from .planning import format_duration
 from .retrieval import project_embeddings
 from .inspection_views import ranking_html
@@ -92,7 +92,7 @@ def render_inspector(result, catalog, *, lesson_question=None):
             comparison_panel = roadmap_expander("Compare lesson and neural embeddings", key="lesson_embedding_comparison")
             if comparison_panel.open:
                 with comparison_panel:
-                    _show_embedding_comparison(result, catalog)
+                    _show_embedding_comparison(result)
         code_panel = roadmap_expander("Visualization code", key="plan_visualization_code")
         if code_panel.open:
             with code_panel:
@@ -115,21 +115,18 @@ def render_inspector(result, catalog, *, lesson_question=None):
         st.download_button("Download request trace",json.dumps(result.trace,indent=2),file_name="request_trace.json",mime="application/json",on_click="ignore")
 
 
-def _show_embedding_comparison(result, catalog):
-    if result.vectors is None or result.query_vector is None:
+def _show_embedding_comparison(result):
+    comparison = advisor_embedding_comparison(result)
+    if comparison is None:
         st.caption("Enable AI explanations, choose semantic or hybrid ranking, and update this roadmap to compare embeddings.")
         return
 
-    lab = build_lab_index(catalog.model_dump_json())
-    comparison = compare_embedding_ranks(
-        lab, build_evidence(catalog), result.vectors, result.context.query, result.query_vector,
-    )
-    labels = dict(zip((doc.record_id for doc in lab.retriever.evidence), lab.labels))
-    for row in comparison:
-        row["Record"] = labels[row.pop("Record ID")]
-    st.caption(f"Four topic counts and {result.vectors.shape[1]} embedding dimensions "
-               f"from {result.trace['embedding_model']}. Both columns use cosine similarity on "
-               f"the same {len(comparison)} overviews and the Advisor search text below.")
-    st.text(result.context.query)
-    st.dataframe(comparison, hide_index=True, width="stretch",
+    st.caption(f"Four topic counts and {comparison['embedding_dimensions']} embedding dimensions "
+               f"from {comparison['embedding_model']}. Both columns use cosine similarity on "
+               f"the same {len(comparison['rows'])} overviews and the Advisor search text below.")
+    st.text(comparison["advisor_search_text"])
+    st.dataframe(comparison["rows"], hide_index=True, width="stretch",
                  column_order=["Record", "Topic rank", "Topic cosine", "Neural rank", "Neural cosine"])
+    st.download_button("Download embedding comparison", json.dumps(comparison, indent=2),
+                       file_name="ece-embedding-comparison.json", mime="application/json", on_click="ignore",
+                       help="Includes the submitted question and the Advisor search text with profile terms.")

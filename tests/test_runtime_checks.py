@@ -9,7 +9,7 @@ import pytest
 from src.catalog import load_runtime_catalog
 from src.models import ExplanationSelection, SelectedRecommendation
 from src.providers import ProviderError
-from src.runtime_checks import CallBudget, runtime_cases, verify_runtime
+from src.runtime_checks import CallBudget, DEMO_QUESTION, final_demo_case, runtime_cases, verify_runtime
 from src.discovery import load_discovery_plans
 from src.sources import refresh_catalog
 from test_runtime_catalog import runtime_client
@@ -53,6 +53,31 @@ class ControlledProvider:
 
     def close(self):
         self.closed = True
+
+
+@pytest.mark.parametrize("with_sources", [False, True])
+def test_final_demo_uses_one_hybrid_answer_and_reuses_its_comparison_vectors(tmp_path, with_sources):
+    catalog = load_runtime_catalog()
+    case = final_demo_case(catalog, with_sources)
+    report = verify_runtime(catalog, SECRET, cases=[case], with_sources=with_sources,
+        dimensions=7, provider_factory=ControlledProvider, source_refresher=source_refresh,
+        budget=CallBudget(query_embeddings=1, generations=1), cache_dir=tmp_path / "vectors",
+        source_cache_dir=tmp_path / "sources")
+    row = report["cases"][0]
+    assert row["expectations"]["lesson_rank_change"] and row["expectations"]["shared_overviews"]
+    assert row["expectations"]["usable_interim_plans"] and report["all_checks_passed"]
+    assert row["trace"]["generation_status"] == "answered"
+    assert row["trace"]["retrieval_mode"] == "hybrid"
+    assert row["lesson"]["preset_rank"] is None and row["lesson"]["variation_rank"] == 2
+    assert row["embedding_comparison"]["question"] == DEMO_QUESTION
+    assert row["embedding_comparison"]["advisor_search_text"] == row["context"]["query"]
+    assert row["embedding_comparison"]["corpus_hash"] == row["trace"]["corpus_hash"]
+    assert row["embedding_comparison"]["embedding_dimensions"] == 7
+    assert [r["Neural rank"] for r in row["embedding_comparison"]["rows"]] == list(range(1, 8))
+    counts = report["call_counts"]
+    assert counts["query_embeddings"] == counts["generations"] == 1
+    if with_sources:
+        assert row["expectations"]["demo_course_source_verified"]
 
 
 def run(tmp_path, **kwargs):
@@ -262,6 +287,17 @@ def test_cli_retains_failed_check_report_and_sanitizes_logs(monkeypatch, tmp_pat
     assert not report["all_checks_passed"] and report["call_counts"]["generations"] == 1
     logs = capsys.readouterr()
     assert SECRET not in output.read_text() + logs.out + logs.err
+
+
+def test_cli_demo_checks_only_the_rehearsal_question(monkeypatch, tmp_path):
+    cli, output = cli_setup(monkeypatch, tmp_path)
+    monkeypatch.setattr("sys.argv", ["verify", "--live-models", "--demo", "--output", str(output)])
+    assert cli.main() == 0
+    report = json.loads(output.read_text())
+    assert [case["case_id"] for case in report["cases"]] == ["final_demo"]
+    assert report["call_budget"]["query_embeddings"] == report["call_budget"]["generations"] == 1
+    assert report["cases"][0]["context"]["question"] == DEMO_QUESTION
+    assert SECRET not in output.read_text()
 
 
 def test_cli_missing_key_and_unwritable_output_fail_before_quota(monkeypatch, tmp_path):

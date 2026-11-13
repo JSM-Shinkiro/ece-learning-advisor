@@ -9,13 +9,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.catalog import load_runtime_catalog
-from src.runtime_checks import verify_runtime
+from src.runtime_checks import CallBudget, final_demo_case, verify_runtime
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--live-models", action="store_true", help="Allow configured Gemini requests and quota use")
     parser.add_argument("--with-sources", action="store_true", help="Add one bounded source-refresh scenario")
+    parser.add_argument("--demo", action="store_true", help="Check the final demo question and its seven-record comparison")
     parser.add_argument("--output", type=Path, required=True, help="New JSON report; existing files are never overwritten")
     args = parser.parse_args()
     if not args.live_models:
@@ -28,8 +29,13 @@ def main():
         load_dotenv(ROOT / ".env")
         settings = load_settings()
         if not settings.ai_configured:
-            raise ValueError("A provider credential is required")
+            print("Set GEMINI_API_KEY locally before running the check. No model requests were made.", file=sys.stderr)
+            return 2
         catalog = load_runtime_catalog()
+        demo_options = {}
+        if args.demo:
+            demo_options = {"cases": [final_demo_case(catalog, args.with_sources)],
+                            "budget": CallBudget(query_embeddings=1, generations=1)}
         args.output.parent.mkdir(parents=True, exist_ok=True)
         # Reserve writable output before spending provider quota.
         with args.output.open("x", encoding="utf-8") as handle:
@@ -38,7 +44,7 @@ def main():
                 dimensions=settings.embedding_dimensions, cache_dir=settings.cache_root / "embeddings",
                 source_cache_dir=settings.cache_root / "sources", with_sources=args.with_sources,
                 ai_time_budget_seconds=settings.ai_time_budget_seconds,
-                progress=lambda row: print(row["case_id"] + ": " + row["status"], flush=True))
+                progress=lambda row: print(row["case_id"] + ": " + row["status"], flush=True), **demo_options)
             json.dump(report, handle, indent=2)
             handle.write("\n")
         print("Saved runtime integration checks. Independent quality review remains separate.")

@@ -233,9 +233,25 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expand("How this plan was made")
                 expand("Compare lesson and neural embeddings")
                 expect(page.get_by_text("embedding dimensions from controlled-browser-vectors", exact=False)).to_be_visible()
+                export_comparison = page.get_by_role("button", name="Download embedding comparison", exact=True)
+                before_download = (control / "provider.calls").read_text()
+                with page.expect_download() as download:
+                    export_comparison.click()
+                comparison_path = Path(temporary) / "advisor-embedding-comparison.json"
+                download.value.save_as(comparison_path)
+                comparison = json.loads(comparison_path.read_text(encoding="utf-8"))
+                assert comparison["question"] == question and comparison["retrieval_mode"] == "hybrid"
+                assert comparison["embedding_model"] == "controlled-browser-vectors"
+                assert len(comparison["rows"]) == 7 and len(comparison["topic_dimensions"]) == 4
+                assert (control / "provider.calls").read_text() == before_download
+                report["embedding_comparison_export"] = {
+                    "record_count": len(comparison["rows"]), "dimensions": comparison["embedding_dimensions"],
+                    "provider_model": comparison["embedding_model"], "additional_provider_calls": 0,
+                }
                 if diagnostics_dir is not None:
+                    export_comparison.scroll_into_view_if_needed()
                     page.screenshot(path=str(Path(diagnostics_dir) / "learning-embedding-comparison.png"))
-                passed("The carried question reaches the Advisor and compares both representations on its existing test vectors.", begin)
+                passed("The carried question reaches the Advisor and exports both representations from its existing test vectors.", begin)
 
                 stage="source_plan_before_ai";begin=time.monotonic()
                 submit("ECE101 controlled draft request");source_plan("draft")
