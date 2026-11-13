@@ -56,6 +56,9 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 def expand(label):
                     summary=page.locator("summary").filter(has=page.get_by_text(label,exact=True))
                     if summary.locator("..").get_attribute("open") is None:summary.click()
+                def assert_panel_open(label):
+                    summary = page.locator("summary").filter(has=page.get_by_text(label, exact=True))
+                    expect(summary.locator("..")).to_have_attribute("open", "")
                 def navigate(label):
                     page.get_by_test_id("stButtonGroup").get_by_text(label, exact=True).click()
                 def pick_record(label, value):
@@ -199,7 +202,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_have_count(0)
                 expect(draft).to_have_value("Draft typed during source checks")
                 assert not (control / "provider.calls").exists()
-                expand("How this plan was made")
+                assert_panel_open("How this plan was made")
                 expect(page.get_by_text("Saved-data plan built in", exact=False)).to_be_visible()
                 page.locator("summary").filter(has=page.get_by_text("How this plan was made", exact=True)).click()
                 passed("A usable preview and inspector appear before the source release, and the final plan preserves an unsubmitted profile edit.", begin)
@@ -208,8 +211,11 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
 
                 stage = "keep_saved_plan"
                 begin = time.monotonic()
+                expand("How this plan was made")
+                assert_panel_open("How this plan was made")
                 submit("ECE101 controlled keep saved plan")
                 wait_until(lambda: (control / "source-keep.started").exists())
+                assert_panel_open("How this plan was made")
                 page.get_by_role("button", name="Keep saved-data plan", exact=True).click()
                 expect(page.get_by_text("Source checks stopped. Your saved-data plan is ready to use.", exact=True)).to_be_visible()
                 release("source-keep")

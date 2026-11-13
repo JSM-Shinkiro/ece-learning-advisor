@@ -17,7 +17,7 @@ from src.advisor_jobs import AdvisorBusy, start_advisor_job, collect_advisor_job
 from src.progress import PHASE_LABELS
 from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
-from src.source_ui import source_details
+from src.source_ui import roadmap_expander, source_details
 from src.course_directory import load_course_directory
 from src.learning_ui import LESSONS, render_lesson
 
@@ -325,7 +325,7 @@ def render_card(record, result):
         if is_course:
             actions[1].button("Mark completed",key="complete_"+record.code,
                 on_click=complete_course,args=(st.session_state,record.code),help="Record successful completion and refresh the plan.")
-        details = st.expander("Why this fits and sources", key="roadmap_details_"+rid, on_change="rerun")
+        details = roadmap_expander("Why this fits and sources", key="roadmap_details_"+rid)
         if not details.open:
             return
         with details:

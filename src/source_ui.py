@@ -5,6 +5,18 @@ from datetime import timedelta,timezone
 import streamlit as st
 
 
+def roadmap_expander(label, *, key):
+    """Keep the open preference when an intermediate plan omits the panel."""
+    st.session_state.setdefault(key, key in st.session_state.get("roadmap_open_panels", ()))
+    panel = st.expander(label, key=key, on_change="rerun")
+    panels = st.session_state.setdefault("roadmap_open_panels", set())
+    if panel.open:
+        panels.add(key)
+    else:
+        panels.discard(key)
+    return panel
+
+
 def source_details(record,prefix,sources):
     for sid in record.source_ids:
         source=sources[sid]

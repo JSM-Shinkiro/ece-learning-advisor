@@ -3,6 +3,7 @@
 from threading import Event
 
 import pytest
+from streamlit.testing.v1 import AppTest
 
 from src.models import SourceCheck
 from src.sources import CatalogRefresh
@@ -47,6 +48,32 @@ def begin_source_update(app, blocked_sources):
     return job
 
 
+def test_roadmap_panel_restores_open_preference_after_being_omitted():
+    test = AppTest.from_string('''
+import streamlit as st
+from src.source_ui import roadmap_expander
+
+if st.checkbox("Show roadmap", value=True):
+    with roadmap_expander("Source details", key="details") as panel:
+        if panel.open:
+            st.write("Evidence is visible.")
+''').run()
+    assert not test.markdown
+
+    test.session_state["details"] = True
+    test.run()
+    test.checkbox[0].uncheck().run()
+    assert not test.markdown
+    test.checkbox[0].check().run()
+    assert test.markdown[0].value == "Evidence is visible."
+
+    test.session_state["details"] = False
+    test.run()
+    test.checkbox[0].uncheck().run()
+    test.checkbox[0].check().run()
+    assert not test.markdown and not test.exception
+
+
 def test_preview_uses_saved_evidence_until_source_update_finishes(app, blocked_sources, monkeypatch):
     def forbidden(*args, **kwargs):
         pytest.fail("Preview mode must not initialize the model")
@@ -73,6 +100,7 @@ def test_preview_uses_saved_evidence_until_source_update_finishes(app, blocked_s
     assert result.catalog.sources[0].verification_status == "verified"
     assert result.trace["initial_plan"]["ready_seconds"] <= result.timings["total"]
     assert result.trace["source_refresh"]["checks"][0]["status"] == "unchanged"
+    assert any("Saved-data plan built in" in caption.value for caption in app.caption)
     assert preview.catalog.sources[0].verification_status == "snapshot"
     assert calls == [""] and not app.exception
 

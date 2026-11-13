@@ -8,11 +8,12 @@ from .learning_lab import build_lab_index, compare_embedding_ranks
 from .planning import format_duration
 from .retrieval import project_embeddings
 from .inspection_views import ranking_html
+from .source_ui import roadmap_expander
 
 
 @st.fragment
 def render_inspector(result, catalog, *, lesson_question=None):
-    panel = st.expander("How this plan was made", key="plan_inspector", on_change="rerun")
+    panel = roadmap_expander("How this plan was made", key="plan_inspector")
     if not panel.open:
         return
     records = {r.record_id:r for r in catalog.records}
@@ -88,12 +89,11 @@ def render_inspector(result, catalog, *, lesson_question=None):
         else:
             st.caption("The vector view appears after a successful semantic or hybrid request.")
         if lesson_question and result.context.question == lesson_question:
-            comparison_panel = st.expander("Compare lesson and neural embeddings", key="lesson_embedding_comparison",
-                                           on_change="rerun")
+            comparison_panel = roadmap_expander("Compare lesson and neural embeddings", key="lesson_embedding_comparison")
             if comparison_panel.open:
                 with comparison_panel:
                     _show_embedding_comparison(result, catalog)
-        code_panel = st.expander("Visualization code", key="plan_visualization_code", on_change="rerun")
+        code_panel = roadmap_expander("Visualization code", key="plan_visualization_code")
         if code_panel.open:
             with code_panel:
                 st.caption("The ranking bars and PCA projection use these functions.")
