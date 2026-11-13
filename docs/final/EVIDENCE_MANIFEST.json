@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
-  "runtime_verification_revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42531556423",
+  "source_base_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
+  "runtime_verification_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460",
   "collections": [
     {
       "name": "baseline",
@@ -43,7 +43,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "83b4e2ad665f481daa7de16dded22268c49f92c1ef8db56187b1bcf83e7bdd4f"
+      "sha256": "ac4ed1422275d9fcad03f934912059eea55e251adc39c4679736e80ac57db768"
     },
     {
       "path": "reviewer_app.py",
@@ -99,7 +99,7 @@
     },
     {
       "path": "src/inspector.py",
-      "sha256": "40907573e7ed72eb862ae7926e62c357b7381507c583bf3cd4212f4e4488b5d6"
+      "sha256": "a2b5ddf5adf5ffb06114f2143fe1bb89c141fab48081ae2ecd59fd908eee9c60"
     },
     {
       "path": "src/inspection_views.py",
@@ -156,6 +156,30 @@
     {
       "path": "tests/test_course_directory.py",
       "sha256": "221d6366ef0b2f78b391c680cbc70da4e57f2ca4b74cd9874128f1c0c42e1b16"
+    },
+    {
+      "path": "src/learning_lab.py",
+      "sha256": "af0a13f78927c291046ed15b8d18343149ea799aee50506e7e8e8a0a7cf296e2"
+    },
+    {
+      "path": "src/learning_ui.py",
+      "sha256": "a8d1fbd7b310e5a5fb7a8772997f9a753c245dee78d28861f7b5b014bb074b75"
+    },
+    {
+      "path": "src/progressive_browser_checks.py",
+      "sha256": "7d84fe515f9711cd1775e64b16af4b163e3b53fd2507d51097bf5928a3176f1f"
+    },
+    {
+      "path": "tests/test_learning_path.py",
+      "sha256": "e5e5c43d8476509a7458e75800248402d26b5020472962af969aa86ec8571fde"
+    },
+    {
+      "path": "assets/learning/ece-lab.webp",
+      "sha256": "c8347d11fcbf19637ef83cd7c25d711222538ae0c3f45e958e61ee84ea93e66b"
+    },
+    {
+      "path": "assets/learning/retrieval-lab.webp",
+      "sha256": "b790d688fb908682138fcfafdc08baf324c528fe5d1a4885b0346371ce124e98"
     }
   ],
   "evidence_files": [
@@ -186,6 +210,10 @@
     {
       "path": "docs/evidence/final_readiness_audit_2026-11-08.json",
       "sha256": "44a083e65645967b8ad24013cb645026be469fa6f10fff247934f27965139fee"
+    },
+    {
+      "path": "docs/evidence/midproject_feedback_2026-11-12.json",
+      "sha256": "154a64d7fc35252cb89bbe77f46a8dac380abcc610f33a945ae8b5d814724878"
     }
   ],
   "preserved_inputs": [
@@ -233,27 +261,35 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "901d4bc0bfb8c1ec2832cded67d2cbd8d9f584b83afd0bb3dd3d103e4ee237c5"
+      "sha256": "25c2b9e6be5d7f5756574a41f8cc73c8c411651ac90d0d7a0d19bd02c7cdc302"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "510f99434a2f47bef152fef857266183e786d9eecd27207128c0d36e2087ba7b"
+      "sha256": "b4b30384f34c19c12e62dc729f7c09dcd13d92fe233eba24ff3d4c6e9d0db19d"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "4c0f5582c5141b63719922d3cd8864bde7e36562c2d640dd598bd6ba1a3cf520"
+      "sha256": "ee935680e5d3af5bbcce45cf394c49a40af2d3353f964006138f69051b3a28e5"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "2debc7fe43032fac94b584e3a0139932de359fc1d6e720271ac219ae80ea30ea"
+      "sha256": "2724f4b0d3722be585eda05ef5f3af7bb6898b00fd876eedc30e85a3b5e0dbb7"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
-      "sha256": "460021572e7b4ac7bf1c5de285636b7308d7b8c12071a0a5c4c0d49801498e7f"
+      "sha256": "a3b560d0cffd7a6dc68645a58171534d8b8895b33a1522bdc7233e860b95f14c"
     },
     {
       "path": "docs/56_FINAL_READINESS_AUDIT.md",
       "sha256": "3f16bfebf7f1e9a7bf8aeb9d01e4cd2d4ce08935dd24a3a74eee2fee5e0249e5"
+    },
+    {
+      "path": "docs/57_MIDPROJECT_FEEDBACK_RESPONSE.md",
+      "sha256": "1f47541e2bc63fd8aa31cfb4a5f465a8f460447bbe8b497d0fbec22f924244b3"
+    },
+    {
+      "path": "docs/FINAL_READINESS.md",
+      "sha256": "43b595e980dd7b7c31ad9e268220db28cd4b2f4e9ee4d0f643c719d66257a2c2"
     }
   ],
   "external_references": [
@@ -277,15 +313,22 @@
       "title": "PowerShell about_Environment_Variables",
       "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_Environment_Variables",
       "accessed_on": "2026-11-08"
+    },
+    {
+      "title": "Using Bloom’s Taxonomy",
+      "url": "https://tips.uark.edu/using-blooms-taxonomy/",
+      "publisher": "University of Arkansas Teaching Innovation and Pedagogical Support",
+      "accessed_on": "2026-11-12"
     }
   ],
   "limits": [
     "Preparation materials, not a completed final submission or instructor-approved final format.",
     "Historical benchmark/CI/provider/inspector observations retain original scopes, revisions and dates.",
     "New public catalog/source/employer checks and controlled software/browser CI are identified separately; no new real-AI run, independent quality grade or student observation.",
-    "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules."
+    "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
+    "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-08T23:08:54.307616+00:00",
+  "updated_at_utc": "2026-11-13T03:58:34+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -310,5 +353,17 @@
     ],
     "instructor_final_rubric_available": false,
     "no_application_code_changes": true
+  },
+  "directory_runtime_verification": {
+    "revision": "d93fc8e6b137dab44c9e990b92701031c899216e",
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42531556423",
+    "scope": "November 8 published undergraduate ECE directory and browser verification."
+  },
+  "midproject_feedback_response": {
+    "date_mst": "2026-11-12",
+    "evidence": "docs/evidence/midproject_feedback_2026-11-12.json",
+    "app_planning_percent": 90,
+    "submission_planning_percent": 70,
+    "final_recording": "Runbook prepared"
   }
 }

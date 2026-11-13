@@ -6,7 +6,7 @@
 
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
-[The latest final-readiness audit](docs/56_FINAL_READINESS_AUDIT.md) records the current app status, remaining deliverables and distinction between midpoint guidance and unconfirmed final instructions.
+The app opens with a self-guided learning path. **Beginner** introduces ECE and evidence retrieval. **Intermediate** compares rankings on preset questions. **Advanced** lets you create a variation and evaluate its results. The developer view shows the code that draws the visualization. [Midproject feedback response](docs/57_MIDPROJECT_FEEDBACK_RESPONSE.md)
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
@@ -51,7 +51,7 @@ python -m streamlit run app.py
 
 On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1` instead.
 
-The app starts in **preview mode** without API keys. Choose a career direction, add completed and currently taking courses with the searchable pickers, and select **Update my roadmap**. The plan groups suggestions into **Start here**, **Build toward**, and **Later goals**. Current courses stay out of next-step suggestions; **Mark completed** moves one to successful completions without inventing a grade. Restore/download JSON files under **Saved profile** to carry progress between sessions. See [current coursework](docs/43_CURRENT_COURSEWORK.md) for the workflow and verification.
+The lessons run with saved sources and local ranking. Open **Advisor** to use the student workflow in preview mode. Choose a career direction, add completed and currently taking courses with the searchable pickers, and select **Update my roadmap**. The plan groups suggestions into **Start here**, **Build toward**, and **Later goals**. Current courses stay out of next-step suggestions; **Mark completed** moves one to successful completions without inventing a grade. Restore/download JSON files under **Saved profile** to carry progress between sessions. See [current coursework](docs/43_CURRENT_COURSEWORK.md) for the workflow and verification.
 
 On Windows, the tested Python version is 3.12. You can skip activation:
 

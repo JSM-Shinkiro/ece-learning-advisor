@@ -1,8 +1,8 @@
 # ECE Learning Advisor: An Inspectable RAG System
 
-Team P07 · ECE 425/525 · Final report draft · November 8, 2026
+Team P07 · ECE 425/525 · Final report draft · November 12, 2026
 
-**Preparation status.** This draft describes the implemented application and retained evidence through verified runtime revision `d93fc8e6b137dab44c9e990b92701031c899216e`. Final formatting instructions, final-release figures/measurements, independent judgments and student-pilot outcomes remain to be incorporated. The [evidence map](EVIDENCE_MAP.md) and [manifest](EVIDENCE_MANIFEST.json) identify the inputs. Midproject deliverables remain separate.
+This draft describes the application through verified revision `07cf4b59693b16dbe6835d6639123261e637860f`. Final formatting, final-release figures and measurements, independent judgments and student-pilot outcomes remain to be incorporated. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -89,6 +89,10 @@ The contract does not establish that an underlying source, parser or authored le
 
 ## 4. Inspection and interaction design
 
+The midproject review prompted a visual introduction and three self-guided lessons. Beginner connects the two ECE directions to practical applications and asks learners to identify the evidence needed to check course preparation. Intermediate presents a preset and lets learners change the ranking method while inspecting the evidence and the projected vectors. Advanced compares a learner's question with a preset under the same method and records an explanation of a rank change. These activities address remembering and understanding, applying and analyzing, and evaluating and creating. [E13](EVIDENCE_MAP.md)
+
+The lesson represents seven saved course and resource overviews as counts of listed terms in four topic dimensions. This representation lets learners inspect the features used by cosine ranking and PCA. They can also compare BM25 and reciprocal rank fusion. The Advanced exercise reports the number of learner-selected records in the first three results, along with their rank changes and the learner's observation. The advisor offers the separately configured Gemini embedding and explanation path. Both visualization views expose their actual source code. [E13](EVIDENCE_MAP.md)
+
 The inspector exposes retrieved chunks, component scores, the supplied context, available/selected statements, source checks, model/cache metadata, request timings and a downloadable trace. Scores describe relevance, not eligibility or probability.
 
 For PCA, normalized document rows are centered and decomposed by SVD. The first two right-singular-vector directions project both documents and the separately normalized query using the document mean. Ranking continues in the original dimensions. Changing the inspected record recomputes its displayed dot product, norms and cosine from the stored vectors. Two-dimensional proximity is only a visualization of that higher-dimensional input.
@@ -125,7 +129,9 @@ The bounded statement contract accepts 82/82 authored canonical controls and adm
 
 Expanded-catalog observations record a finite 34 × 768 public-document index and authored request scenarios. An initial query-embedding ProxyError stopped part of the suite; one explicit bounded follow-up exercised the failed/unrun scenarios. Both outcomes remain in the record. This supports integration observations, not an estimated reliability rate or independent selection quality. [E5](EVIDENCE_MAP.md)
 
-At the latest verified revision, all 1,744 tests and nine runtime checks pass on both Linux and Windows. Twenty-nine Chromium gates cover student workflow/session isolation, the reviewer workspace, controlled AI/browsing and phone-width inspection. The browser job also passes five timing sessions per version. Linux jobs explicitly select Ubuntu 26.04; dependency/action versions and raw reports are retained. Fixture-based checks remain identified as controlled tests. These counts measure software expectations, not independent recommendation accuracy. [E7](EVIDENCE_MAP.md)
+At the November 8 directory revision, all 1,744 tests and nine runtime checks pass on both Linux and Windows. Twenty-nine Chromium gates cover student workflow/session isolation, the reviewer workspace, controlled AI/browsing and phone-width inspection. The browser job also passes five timing sessions per version. Linux jobs explicitly select Ubuntu 26.04; dependency/action versions and raw reports are retained. Fixture-based checks remain identified as controlled tests. These counts measure software expectations, not independent recommendation accuracy. [E7](EVIDENCE_MAP.md)
+
+The November 12 follow-up passed 1,745 tests and nine runtime checks on each platform. Chromium passed 32 gates, including the phone-width landing, a change of ranking method with code inspection, and the export of an Advanced comparison. The offline example moved ECE425 from sixth to second under hybrid ranking. The learner's selected record count in the top three rose from 0 of 1 to 1 of 1. The demonstration evaluates the specified example, and participant understanding remains to be measured. [E13](EVIDENCE_MAP.md)
 
 ### 5.3 Preview responsiveness experiment
 
@@ -138,7 +144,7 @@ The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Pytho
 | Inspector reopening | Plotly baseline | 5 | 342.9 | 361.8 | 368.7 |
 | Inspector reopening | Native ranking | 5 | 295.5 | 307.8 | 319.0 |
 
-The first-opening median decreases by 57.3% within this experiment. Native bars avoid initializing Plotly for the simple preview ranking view; the exact contribution of transfer, initialization and server work is not separately isolated. The latest CI repeat records native/baseline first-opening medians of 683.7/1,714.0 ms in a separate five-session comparison. That repeat is retained separately, not pooled with the optimization sample. [E7](EVIDENCE_MAP.md)
+The first-opening median decreases by 57.3% within this experiment. Native bars avoid initializing Plotly for the simple preview ranking view; the exact contribution of transfer, initialization and server work is not separately isolated. The November 8 CI repeat records native/baseline first-opening medians of 683.7/1,714.0 ms in a separate five-session comparison. That repeat is retained separately, not pooled with the optimization sample. [E7](EVIDENCE_MAP.md)
 
 These are animation-frame DOM observations, including offscreen laid-out controls, not physical paint or field interaction metrics. Shared-runner variability, ordered small samples and shared processes limit inference. No p95, significance test, live-AI latency distribution or student-device performance is established. Server phase timings use a separate clock and exclude provider cleanup/browser rendering.
 
@@ -157,5 +163,6 @@ Before release, collect genuine judgments and student observations, measure real
 1. P. Lewis et al. (2020). [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401).
 2. S. Robertson and H. Zaragoza (2009). [The Probabilistic Relevance Framework: BM25 and Beyond](https://doi.org/10.1561/1500000019).
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
+4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E12](EVIDENCE_MAP.md); exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E13](EVIDENCE_MAP.md); exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

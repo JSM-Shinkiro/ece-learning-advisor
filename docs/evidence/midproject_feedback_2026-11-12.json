@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-12",
+  "recorded_at_utc": "2026-11-13T03:58:34+00:00",
+  "feedback_source": "Midproject submission review supplied by the project team",
+  "taxonomy_reference": "https://tips.uark.edu/using-blooms-taxonomy/",
+  "feature_revision": "6aa1f5421f3dd5e7652bab5982191b1162b69a85",
+  "verified_revision": "07cf4b59693b16dbe6835d6639123261e637860f",
+  "first_run": {
+    "id": 43361052632,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361052632",
+    "revision": "6aa1f5421f3dd5e7652bab5982191b1162b69a85",
+    "backend_jobs": {
+      "linux": "success",
+      "windows": "success"
+    },
+    "chromium_job_id": 131674379822,
+    "chromium_conclusion": "failure",
+    "lesson_checks": [
+      {
+        "name": "beginner_landing",
+        "passed": true,
+        "detail": "The illustrated landing page fits phone width and gives immediate feedback on preparation versus relevance.",
+        "seconds": 1.273
+      },
+      {
+        "name": "intermediate_experiment",
+        "passed": true,
+        "detail": "A preset changes ranking method and shows the live plot and its actual source code without AI.",
+        "seconds": 3.674
+      },
+      {
+        "name": "advanced_comparison",
+        "passed": false,
+        "detail": "The controlled progressive browser gate did not complete.",
+        "error_type": "TimeoutError",
+        "failure_line": 126
+      }
+    ],
+    "failure": "The browser timed out clicking Compare with preset after selecting ECE425.",
+    "browser_artifact_id": 14008885178,
+    "browser_artifact_sha256": "1dbf245e3a52d74cd82c9b7d5bf35a6495e2a105cd66683dff2e1cd5107619c6"
+  },
+  "follow_up": {
+    "id": 43361506460,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43361506460",
+    "conclusion": "success",
+    "completed_at_utc": "2026-11-13T03:52:53Z",
+    "change": "The browser check dismisses the multiselect dropdown, focuses Compare with preset and submits with Enter.",
+    "backend": [
+      {
+        "platform": "linux",
+        "digest": "c1ad7d971e8a93d9c4fa0f2637bebf8ed4fd8e1b23c97155269370fbba9b1d8a",
+        "tests": {
+          "tests": 1745,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "elapsed_seconds": 52.255,
+        "readiness": {
+          "passed": true,
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "checks": [
+            "configuration",
+            "shared_mode",
+            "server_configuration",
+            "dependencies",
+            "catalog",
+            "connectors",
+            "cache",
+            "liveness",
+            "offline_preview"
+          ]
+        },
+        "job_id": 131675855445,
+        "artifact_id": 14007794515
+      },
+      {
+        "platform": "windows",
+        "digest": "cc6aea1805194194c62f094a1bae964606d58ba7504a017b1261a3fb13f0617f",
+        "tests": {
+          "tests": 1745,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "elapsed_seconds": 95.396,
+        "readiness": {
+          "passed": true,
+          "model_calls": 0,
+          "external_source_requests": 0,
+          "checks": [
+            "configuration",
+            "shared_mode",
+            "server_configuration",
+            "dependencies",
+            "catalog",
+            "connectors",
+            "cache",
+            "liveness",
+            "offline_preview"
+          ]
+        },
+        "job_id": 131675855821,
+        "artifact_id": 14008099061
+      }
+    ],
+    "chromium": {
+      "job_id": 131675855743,
+      "version": "151.0.7922.34",
+      "passed_gates": 32,
+      "counts": {
+        "student_app": 10,
+        "reviewer_workspace": 6,
+        "lessons_and_controlled_advisor": 16
+      },
+      "lesson_checks": [
+        {
+          "name": "beginner_landing",
+          "passed": true,
+          "detail": "The illustrated landing page fits phone width and gives immediate feedback on preparation versus relevance.",
+          "seconds": 1.418
+        },
+        {
+          "name": "intermediate_experiment",
+          "passed": true,
+          "detail": "A preset changes ranking method and shows the live plot and its actual source code without AI.",
+          "seconds": 3.884
+        },
+        {
+          "name": "advanced_comparison",
+          "passed": true,
+          "detail": "A user question changes expected evidence in the top three and exports its saved observation.",
+          "seconds": 1.295
+        }
+      ],
+      "browser_artifact": {
+        "id": 14008238346,
+        "zip_sha256": "16642f09cf030fcad4979de163e3fad59777cc6254264109ad36782ccbcae1ca",
+        "expires_at_utc": "2026-11-27T03:52:06Z",
+        "verified_files": [
+          {
+            "name": "baseline-browser-performance.json",
+            "bytes": 8822,
+            "sha256": "3443d9093581b9aec588e403b078475067ad684a930ab0b8953bb8c86fd2e226"
+          },
+          {
+            "name": "browser-performance.json",
+            "bytes": 8857,
+            "sha256": "0564d89a06c16d3001bf0943a8bba512fa02ec7543f9eadbaefdd6759f162ae6"
+          },
+          {
+            "name": "browser-summary.md",
+            "bytes": 982,
+            "sha256": "1b8924448a5f9f183ae0fb65860f5274e221f0cff7231d844a685f2b3d413644"
+          },
+          {
+            "name": "browser.json",
+            "bytes": 2919,
+            "sha256": "7170844778b93bbe1856e391f0f76ba189d7447fd46869b798048991de807125"
+          },
+          {
+            "name": "learning-advanced.png",
+            "bytes": 66256,
+            "sha256": "00aa7653d6a82bd6d978230d29c60cae964e13c647944b932d764215b3de2a09"
+          },
+          {
+            "name": "learning-beginner.png",
+            "bytes": 261919,
+            "sha256": "f6c4f11b03558426648e6f769223a28285cbd9370e6b1663a104a9bb1905d7a0"
+          },
+          {
+            "name": "learning-intermediate.png",
+            "bytes": 242655,
+            "sha256": "d6fe43471d5c9f98c07183952de5e1c67ec0b048a5115e5b6366d8f529c1aaa0"
+          },
+          {
+            "name": "learning-mobile.png",
+            "bytes": 107397,
+            "sha256": "64312c07b3341e9f441e4665fb04d27c82dd22978db3917ae7ea59229f19ffaa"
+          },
+          {
+            "name": "progressive-browser.json",
+            "bytes": 4190,
+            "sha256": "be1d2ee508537274861fcc345df016c46bbc68fee6fc68233ea0b3307489ec88"
+          },
+          {
+            "name": "reviewer-browser.json",
+            "bytes": 1598,
+            "sha256": "7b21d8fddc93b01d19d75feacb1f820bf4b72c2cf0095e9c266cd58cd82e60ec"
+          }
+        ]
+      },
+      "offline_advisor_preview_timing": {
+        "scope": "Two cohorts of five fresh browser contexts on a shared CI runner, with the same collector and local saved data.",
+        "cohorts": {
+          "current": {
+            "revision": "07cf4b59693b16dbe6835d6639123261e637860f",
+            "complete_sessions": 5,
+            "inspector_first_ready_ms": {
+              "n": 5,
+              "min": 629.3,
+              "median": 683.3,
+              "max": 761.9
+            },
+            "inspector_reopen_ready_ms": {
+              "n": 5,
+              "min": 314.7,
+              "median": 321.3,
+              "max": 340.6
+            }
+          },
+          "fixed_baseline": {
+            "revision": "88ab5849ffa42130765e3afb1f1eaba69280acc9",
+            "complete_sessions": 5,
+            "inspector_first_ready_ms": {
+              "n": 5,
+              "min": 1586.7,
+              "median": 1637.0,
+              "max": 1807.2
+            },
+            "inspector_reopen_ready_ms": {
+              "n": 5,
+              "min": 353.4,
+              "median": 375.7,
+              "max": 390.7
+            }
+          }
+        }
+      }
+    }
+  },
+  "local_verification": {
+    "full_suite_before_final_caption_and_inspector_changes": {
+      "passed_tests": 1745,
+      "seconds": 55.97
+    },
+    "targeted_checks_after_app_changes": {
+      "passed_tests": 6,
+      "seconds": 3.26
+    },
+    "offline_production_readiness": {
+      "passed_checks": 9,
+      "model_calls": 0,
+      "source_requests": 0
+    }
+  },
+  "lesson": {
+    "saved_overviews": 7,
+    "features": [
+      "Programming",
+      "Embedded hardware",
+      "Machine learning",
+      "Data structures"
+    ],
+    "representation": "Four counts of distinct listed terms matched by topic",
+    "comparison_method": "hybrid",
+    "expected_record": "uofa:ECE425:2026-2027",
+    "comparison": [
+      {
+        "preset_name": "Program a sensor",
+        "question": "How do I read sensors with a microcontroller using C?",
+        "top_three": [
+          "uofa:ECE372A:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "resource:cs50"
+        ],
+        "expected_record_rank": 6,
+        "expected_records_in_top_three": 0
+      },
+      {
+        "preset_name": "Learn image classification",
+        "question": "How do I train a neural network for image classification in Python?",
+        "top_three": [
+          "resource:pytorch",
+          "uofa:ECE425:2026-2027",
+          "resource:cs50"
+        ],
+        "expected_record_rank": 2,
+        "expected_records_in_top_three": 1
+      }
+    ]
+  },
+  "illustrations": [
+    {
+      "path": "assets/learning/ece-lab.webp",
+      "sha256": "c8347d11fcbf19637ef83cd7c25d711222538ae0c3f45e958e61ee84ea93e66b",
+      "dimensions_px": [
+        1000,
+        667
+      ],
+      "source": "ImageGen",
+      "prompt": "Create a landscape editorial photograph for the hero of a university electrical and computer engineering learning advisor. High-quality true-to-life photograph, medium-close overhead three-quarter view of a small blue embedded-development board, a neatly routed breadboard and a laptop corner with abstract out-of-focus blue plots in a modern student electronics lab. Focus on the chip and tidy wires on the right half, deep midnight navy surroundings, cyan ambient light and one warm amber status LED, balanced contrast, calm precise craft. No people, no readable text, no lettering, no logos, no watermark. Wide 3:2 crop, art directed, use no invented schematic labels. This is an atmosphere image, not an instructional wiring diagram.",
+      "bytes": 53772
+    },
+    {
+      "path": "assets/learning/retrieval-lab.webp",
+      "sha256": "b790d688fb908682138fcfafdc08baf324c528fe5d1a4885b0346371ce124e98",
+      "dimensions_px": [
+        800,
+        533
+      ],
+      "source": "ImageGen",
+      "prompt": "Create a wide cinematic close-up editorial photograph for a college lesson about retrieval and embeddings. A lab desktop display showing a softly defocused scatter of blue and amber data points, beside a compact blue development board and a small sensor. Cool midnight navy palette with subtle teal and warm highlights, realistic modern electronics classroom, visually quiet, clear separation of objects, no people, no readable text, no logos, no watermark. 3:2 landscape composition. The display is atmospheric and has no legible data or axes.",
+      "bytes": 34286
+    }
+  ],
+  "preserved_inputs": [
+    {
+      "path": "data/evaluation/reviewed_v1.json",
+      "sha256": "b639a6870e4d7ce4f9bfa25745224e1cb7cd7a1c9d95ef2ca977b69585754248",
+      "unchanged": true
+    },
+    {
+      "path": "data/evaluation/runtime_questions_v1.json",
+      "sha256": "8366ee2b31619c7af10b7cd9e30680dc777038f66cb17b0b18cda97247f47a66",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/catalog.json",
+      "sha256": "2f08bcff0163e9fefa4fae6e70d052da04800992fb9ec3c1f9c280a04c02db2f",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviewed/runtime_extension.json",
+      "sha256": "a09bc424231c10c3998a33c3e6c0ea05546154a3e0ab03c91ef47ca90ad6e7fe",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/catalog_snapshot.json",
+      "sha256": "765ee1c9bda052b0066a06d49d811b3359c19a17dddde4d52a09f2e42e8f68bb",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/packet.json",
+      "sha256": "e6f6bba6afb907df3e9689c8dc3587fbd494bfb53dd71df11fd3a1d8c918d4d1",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_guide.md",
+      "sha256": "9a1523c253e3e34aa7572a4fe4c2c9083a3b5f44d820c2f2ef283efc1a5cef68",
+      "unchanged": true
+    },
+    {
+      "path": "data/reviews/runtime_v1/review_template.json",
+      "sha256": "9ef9576c7bae555f08ca38d2de6c0b3acc6886755fd50d9d9a779bd111e15870",
+      "unchanged": true
+    }
+  ],
+  "unscored_runtime_review_grades": 408,
+  "validation_scope": {
+    "new_live_model_calls": 0,
+    "new_independent_review_grades": 0,
+    "student_observations": 0,
+    "recording": "Three-member runbook prepared. Recording, editing and review remain open."
+  },
+  "readiness_estimate": {
+    "app_percent": 90,
+    "weighted_submission_percent": 68,
+    "rounded_submission_percent": 70
+  }
+}
