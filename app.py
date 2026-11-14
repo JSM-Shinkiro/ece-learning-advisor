@@ -4,13 +4,16 @@ import streamlit as st
 from dotenv import load_dotenv
 from pydantic import ValidationError
 
+from src.career_catalog import with_career_paths
+from src.career_paths import CAREER_NAMES, CAREER_PATHS
+from src.career_ui import direction_cards, elective_details, render_career_path
 from src.catalog import ROOT, load_runtime_catalog
 from src.controller import run_advisor
 from src.inspector import render_inspector
 from src.models import StudentProfile
-from src.planning import CAREER_NAMES, PHASE_NAMES
+from src.planning import PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions, parse_current_courses
-from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
+from src.session import apply_profile, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
 from src.source_reuse import SOURCE_REUSE_SECONDS
 from src.advisor_jobs import AdvisorBusy, start_advisor_job, collect_advisor_job, keep_source_plan, source_checks_pending
@@ -64,10 +67,11 @@ try:
 except (OSError, ValueError):
     enrollment_references = None
 catalog = getattr(st.session_state.get("result"), "catalog", None) or base_catalog
+collection_catalog = with_career_paths(catalog)
 records = {r.record_id:r for r in catalog.records}
 sources = {s.source_id:s for s in catalog.sources}
 course_lookup = {c.code:c for c in course_directory.courses} if course_directory is not None else {}
-course_lookup.update({r.code:r for r in catalog.records if r.kind == "course"})
+course_lookup.update({r.code:r for r in collection_catalog.records if r.kind == "course"})
 course_lookup = dict(sorted(course_lookup.items()))
 standings = ["Incoming", "Freshman", "Sophomore", "Junior", "Senior", "Other"]
 background_names = {"new":"Getting started", "some":"Some programming experience", "experienced":"Comfortable with programming"}
@@ -278,36 +282,27 @@ advisor_activity()
 
 active_result = st.session_state.get("result")
 if active_result is not None:
-    catalog = getattr(active_result, "catalog", None) or base_catalog
+    refreshed_catalog = getattr(active_result, "catalog", None) or base_catalog
+    if refreshed_catalog is not catalog:
+        catalog = refreshed_catalog
+        collection_catalog = with_career_paths(catalog)
     records = {r.record_id:r for r in catalog.records}
     sources = {s.source_id:s for s in catalog.sources}
 
 st.caption("ECE LEARNING ADVISOR")
 st.title("Your next step, with a path forward.")
 st.caption("Learning suggestions for UofA ECE students. Stages describe preparation, not guaranteed enrollment or semester placement.")
-collection_summary.caption(f"Available collection · {sum(r.kind == 'course' for r in catalog.records)} courses · {sum(r.kind == 'resource' for r in catalog.records)} resources")
+collection_summary.caption(f"Available collection · {sum(r.kind == 'course' for r in collection_catalog.records)} courses · {sum(r.kind == 'resource' for r in collection_catalog.records)} resources")
 if course_directory is not None:
     st.sidebar.caption(f"ECE catalog · {len(course_directory.courses)} undergraduate courses · {course_directory.catalog_version}")
 roadmap, collection, opportunities = st.tabs(["My Roadmap","Courses & Resources","Opportunities"])
 
 
-def direction_cards():
-    st.subheader("Choose a direction to explore")
-    st.write("AI and hardware can overlap. Pick a starting direction and switch as your interests develop.")
-    for column, career in zip(st.columns(2),["ai_ml","embedded"]):
-        with column, st.container(border=True):
-            st.markdown("**"+CAREER_NAMES[career]+"**")
-            st.write("Neural networks, programming, and practical model building." if career=="ai_ml"
-                     else "C programming, processor architecture, and connected devices.")
-            example_codes = ["ECE101", "CSC120", "ECE425"] if career == "ai_ml" else ["ECE101", "ECE369A", "ECE372A"]
-            st.caption("Example learning connection: "+" → ".join(code for code in example_codes if code in course_lookup))
-            st.button("Explore "+CAREER_NAMES[career],key="choose_"+career,width="stretch",
-                      on_click=choose_direction,args=(st.session_state,career))
-
-
 def render_card(record, result):
     rid = record.record_id
     is_course = record.kind == "course"
+    path = CAREER_PATHS.get(result.context.profile.career_id)
+    is_elective = is_course and path and record.code == path.elective
     with st.container(border=True):
         st.markdown("**"+(record.code+" · " if record.code else "")+record.title+"**")
         if is_course:
@@ -320,6 +315,8 @@ def render_card(record, result):
             st.caption(badge+" · "+credits)
             if record.study_stage == "unreviewed":
                 st.caption("Requested catalog course · preparation level and career connection unreviewed")
+            if is_elective:
+                st.caption("Outside-ECE elective candidate · confirm with ECE advising")
         else:
             st.caption("Online resource · independent study")
         if record.first_activity:
@@ -352,6 +349,8 @@ def render_card(record, result):
                     st.write(" ".join(rule.reasons))
                 if record.rule_reviewed:
                     st.caption("If a grade is needed, add it under Optional details in your profile.")
+                if is_elective:
+                    elective_details("roadmap_elective_" + record.code)
             source_details(record,"details_"+rid,sources)
             if is_course and rule.status == "unknown":
                 references = enrollment_references if profile.catalog_version == record.catalog_version else None
@@ -382,7 +381,7 @@ with roadmap:
         if api_key:
             st.caption("For the embedding comparison, enable AI explanations with semantic or hybrid ranking.")
     elif profile.career_id=="exploring" or result is None:
-        direction_cards()
+        direction_cards(course_lookup)
     if result is None and not lesson_draft:
         st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
                 "Complete your starting point and select Update my roadmap, or choose a direction above.")
@@ -412,6 +411,7 @@ with roadmap:
         if reused:
             st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
         if not result.coverage_notice and result.generation_status!="insufficient_evidence":
+            render_career_path(result, catalog)
             st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
             for phase,title in PHASE_NAMES.items():
                 ids = [rid for rid in result.context.allowed_record_ids if result.context.suggested_phases.get(rid)==phase]
@@ -424,7 +424,7 @@ with roadmap:
         render_inspector(result, catalog, lesson_question=lesson_question)
 
 with collection:
-    render_collection(base_catalog, course_directory, enrollment_references)
+    render_collection(collection_catalog, course_directory, enrollment_references)
 
 with opportunities:
     render_opportunities(settings)

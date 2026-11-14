@@ -3,7 +3,7 @@
 import streamlit as st
 
 from . import jobs as jobs_api, opportunities, opportunity_details as details, opportunity_pages as pages
-from .planning import CAREER_NAMES
+from .career_paths import CAREER_NAMES
 from .posting_actions import queue_posting_detail,take_posting_detail
 
 
@@ -37,7 +37,7 @@ def render_opportunities(settings):
             st.warning("The employer-board connection is unavailable.")
         st.caption("Matches title keywords for your direction. Location filters match the employer's wording; leave blank to include all listed locations.")
     if profile.career_id=="exploring":
-        st.info("Choose AI/ML or Embedded Systems in your roadmap before searching for relevant opportunities.")
+        st.info("Choose a career direction in your roadmap before searching for relevant opportunities.")
     with st.form("jobs_form"):
         location = st.text_input("Location contains (optional)" if provider == "greenhouse" else "Location",
                                  value="" if provider == "greenhouse" else "Tucson, AZ", max_chars=120, key="opportunity_location_" + provider)

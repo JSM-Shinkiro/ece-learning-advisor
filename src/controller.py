@@ -4,6 +4,8 @@ import time
 
 import httpx
 
+from .career_catalog import with_career_paths
+from .career_paths import EXPANDED_DIRECTIONS, question_direction
 from .planning import coverage_message, requested_record_ids
 from .providers import AIRequestBudget, BudgetedProvider, GeminiProvider, ProviderError
 from .progress import RequestProgress
@@ -27,13 +29,15 @@ def _saved_catalog(catalog):
     return saved
 
 
-def _attach_source_trace(result, source_trace, issues, source_elapsed, started, directory_trace):
+def _attach_source_trace(result, source_trace, issues, source_elapsed, started, directory_trace, inferred_direction):
     result.issues.extend(issues)
     result.timings = {"source_refresh": source_elapsed, **result.timings,
                       "total": time.perf_counter() - started}
     result.trace["source_refresh"] = source_trace
     if directory_trace is not None:
         result.trace["course_directory"] = directory_trace
+    if inferred_direction:
+        result.trace["career_direction"] = {"from": "exploring", "matched": inferred_direction}
     result.trace["timings_seconds"] = result.timings
 
 
@@ -46,6 +50,13 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     started = time.perf_counter()
     phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
+    inferred_direction = None
+    if profile.career_id == "exploring":
+        inferred_direction = question_direction(profile.question.strip() or profile.interests)
+        if inferred_direction:
+            profile = profile.model_copy(update={"career_id": inferred_direction})
+    if profile.career_id in EXPANDED_DIRECTIONS:
+        catalog = with_career_paths(catalog, (profile.career_id,))
     directory_trace = None
     if course_directory is not None:
         catalog, directory_trace = add_requested_courses(catalog, course_directory, profile)
@@ -71,7 +82,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
             preview = recommend(_saved_catalog(catalog), profile, preferred_course_codes=directory_codes,
                                 progress=phases)
             _attach_source_trace(preview, {"enabled": False, "reason": "pending"}, source_issues,
-                                 0.0, started, directory_trace)
+                                 0.0, started, directory_trace, inferred_direction)
             preview.trace["request_phases"] = phases.snapshot()
             preview.trace["early_source_plan"] = True
             initial_plan = {"ready_seconds": preview.timings["total"], "observer_failed": False}
@@ -120,7 +131,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         phases.ensure_active()
         preview = recommend(catalog, profile, cache_dir=cache_dir, preferred_course_codes=preferred_codes,
                             progress=phases)
-        _attach_source_trace(preview, source_trace, source_issues, source_elapsed, started, directory_trace)
+        _attach_source_trace(preview, source_trace, source_issues, source_elapsed, started, directory_trace, inferred_direction)
         preview.trace["request_phases"] = phases.snapshot()
         preview.trace["early_source_plan"] = True
         if initial_plan is not None:
@@ -152,7 +163,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                            preferred_course_codes=preferred_codes, progress=phases)
         if issue:
             result.issues.append(issue)
-        _attach_source_trace(result, source_trace, source_issues, source_elapsed, started, directory_trace)
+        _attach_source_trace(result, source_trace, source_issues, source_elapsed, started, directory_trace, inferred_direction)
         if initial_plan is not None:
             result.trace["initial_plan"] = initial_plan
         if budget is not None:

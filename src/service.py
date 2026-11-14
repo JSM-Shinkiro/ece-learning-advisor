@@ -10,9 +10,10 @@ from pathlib import Path
 import numpy as np
 
 from .catalog import build_evidence, code_lookup, corpus_hash
+from .career_paths import CAREER_PATHS, EXPANDED_DIRECTIONS
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import AI_TIME_LIMIT_MESSAGE, AIBudgetExceeded, EmbeddingCache, ProviderError
-from .planning import (coverage_message, learning_phase, needs_programming_foundations,
+from .planning import (coverage_message, learning_phase, needs_learning_foundations,
                        requested_record_ids, requested_resource_ids)
 from .retrieval import Hit, Retriever, tokenize
 from .rules import dependency_codes, evaluate_course
@@ -80,7 +81,9 @@ def build_query(catalog: Catalog, profile: StudentProfile, question: str, *, int
     careers = [r for r in catalog.records if r.kind == "career" and (
         profile.career_id == "exploring" or r.record_id == "career:" + profile.career_id)]
     direction = " ".join(r.title + " " + " ".join(r.topics) for r in careers)
-    foundations = "introductory programming foundations C" if needs_programming_foundations(profile) else ""
+    foundations = ""
+    if needs_learning_foundations(profile):
+        foundations = "ECE220 circuits" if profile.career_id in EXPANDED_DIRECTIONS else "introductory programming foundations C"
     interpretation = interpretation or interpret_query(question.strip() or profile.interests.strip(), catalog)
     original = " ".join([direction, foundations, profile.interests, profile.experience, question]).strip()
     suffix = " ".join(interpretation.added_terms)
@@ -106,8 +109,20 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             resources.append(record.record_id)
     # A matched question may prefer an existing course, without changing the
     # selected career, excluding foundations, or granting academic clearance.
-    courses.sort(key=lambda rid: rid not in focused_record_ids)
-    beginner = needs_programming_foundations(profile)
+    path = CAREER_PATHS.get(profile.career_id)
+    if path and path.elective:
+        # Keep the outside option on the path card. A directly requested elective
+        # can also enter the recommendation evidence alongside the ECE courses.
+        elective = next((record for record in records.values() if record.code == path.elective), None)
+        elective_requested = path.elective.casefold() in tokenize(question) or (
+            elective is not None and elective.title.casefold() in question.casefold()
+        )
+        if not elective_requested:
+            courses = [rid for rid in courses if records[rid].code != path.elective]
+        courses.sort(key=lambda rid: (rid not in focused_record_ids, records[rid].code not in path.progression))
+    else:
+        courses.sort(key=lambda rid: rid not in focused_record_ids)
+    beginner = needs_learning_foundations(profile)
     if beginner:
         foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
         # Preserve the ECE introduction as the default starting point when the

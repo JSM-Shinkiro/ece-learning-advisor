@@ -11,6 +11,8 @@ from urllib.parse import urlparse
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from .career_paths import CareerDirection, NamedCareer
+
 
 def normalize_code(value: str) -> str:
     return re.sub(r"\s+", "", value).upper()
@@ -120,7 +122,7 @@ class StudentProfile(StrictModel):
     schema_version: Literal[1] = 1
     standing: Literal["Incoming", "Freshman", "Sophomore", "Junior", "Senior", "Other"] = "Incoming"
     catalog_version: str = Field(default="2026-2027", max_length=40)
-    career_id: Literal["ai_ml", "embedded", "exploring"] = "ai_ml"
+    career_id: CareerDirection = "ai_ml"
     interests: str = Field(default="", max_length=1500)
     experience: str = Field(default="", max_length=2000)
     question: str = Field(default="", max_length=1200)
@@ -235,7 +237,7 @@ class Record(StrictModel):
     review_status: Literal["source_summary_reviewed", "source_fetched", "team_mapping", "synthetic_fixture"] = "source_summary_reviewed"
     requirement_reference: str | None = None
     study_stage: Literal["foundation", "intermediate", "advanced", "unreviewed"] = "intermediate"
-    career_ids: list[Literal["ai_ml", "embedded"]] = Field(default_factory=list)
+    career_ids: list[NamedCareer] = Field(default_factory=list)
     learning_note: str = Field(default="", max_length=1200)
     first_activity: str = Field(default="", max_length=600)
     discovery: CourseOrigin | None = None

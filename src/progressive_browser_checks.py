@@ -298,7 +298,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("ece 372a");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 36 courses and resources · local collection search",exact=True)).to_be_visible()
                 result_panel=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE372A · "))
                 expect(result_panel.get_by_role("link")).to_have_count(0)
                 fragment_runs=counts["fragment_runs"];result_panel.locator("summary").click()
@@ -312,7 +312,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("pico");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 36 courses and resources · local collection search",exact=True)).to_be_visible()
                 expect(page.locator("summary").filter(has_text="Raspberry Pi Pico C/C++ SDK")).to_be_visible()
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 expect(draft).to_have_value("Unsubmitted collection draft")
@@ -337,10 +337,23 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"];page.get_by_role("button",name="Reset filters",exact=True).click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
                 expect(query).to_have_value("")
-                expect(page.get_by_text("Showing 28 of 28 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 36 of 36 courses and resources · local collection search",exact=True)).to_be_visible()
+                fragment_runs=counts["fragment_runs"]
+                choose("Direction","Controls & Robotics")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                fragment_runs=counts["fragment_runs"]
+                query.fill("CSC 437");query.press("Enter")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                elective = page.get_by_test_id("stExpander").filter(
+                    has=page.locator("summary").filter(has_text="CSC437 · Geometric Algorithms"))
+                expect(elective.get_by_role("link")).to_have_count(0)
+                fragment_runs=counts["fragment_runs"];elective.locator("summary").click()
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(elective.get_by_text("Outside-ECE elective candidate",exact=True)).to_be_visible()
+                expect(elective.get_by_role("link",name="Official ECE technical elective requirements")).to_be_visible()
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
-                passed("Filters and reset work at a 390-pixel phone width without horizontal page overflow or a full-app request.",begin)
+                passed("Filters, reset and outside-ECE elective details fit 390 pixels without a full-app request.",begin)
 
                 stage="mobile_inspector";begin=time.monotonic()
                 page.get_by_role("tab",name="My Roadmap",exact=True).click()

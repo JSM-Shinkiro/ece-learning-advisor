@@ -3,6 +3,7 @@
 from .models import Completion
 from .profiles import edit_profile, import_profile
 from .advisor_jobs import discard_advisor_job
+from .career_paths import CAREER_PATHS
 
 PROFILE_WIDGET_KEYS = [
     "standing", "programming_background", "career_id", "interests", "completed_courses",
@@ -79,7 +80,6 @@ def complete_course(state, code):
             current_enrollment=[item for item in profile.current_enrollment if item != completion.course_code]))
 
 
-def choose_direction(state, career_id):
-    names = {"ai_ml":"AI and machine learning", "embedded":"embedded systems"}
+def choose_direction(state, career_id, question=None):
     apply_profile(state, edit_profile(state["profile"], career_id=career_id,
-                                    question="How can I start learning "+names[career_id]+"?"))
+                                    question=CAREER_PATHS[career_id].starting_question if question is None else question))

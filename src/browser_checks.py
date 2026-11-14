@@ -349,11 +349,36 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 expand(b, "Optional details")
                 b.get_by_role("textbox", name="A question about your next step", exact=True).fill("I want to study marine biology and coral reef ecology")
                 submit(b)
-                expect(b.get_by_text(re.compile(r"This starter collection covers AI/ML, embedded systems, and programming foundations\."))).to_be_visible()
+                expect(b.get_by_text(re.compile(r"Your request does not have a clear match in the available sources\."))).to_be_visible()
                 expect(course_cards(b)).to_have_count(0)
                 _, unchanged = export(a, "still-unchanged.json")
                 assert unchanged == original
                 passed(stage, "An unsupported question requests clarification, without course cards or cross-session changes.", begin)
+
+                stage, begin = "career_roadmaps", time.monotonic()
+                choose(b, "Career direction", "Still exploring")
+                question = b.get_by_role("textbox", name="A question about your next step", exact=True)
+                question.fill("What courses teach wireless DSP?")
+                submit(b)
+                saved(b, "Still exploring", 0, 0)
+                expect(b.get_by_text("Direction matched from your question · Signals & Communications", exact=True)).to_be_visible()
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE429 · "))).to_have_count(1)
+                before = session_counts[b]["scripts_finished"]
+                expand(b, "Career path and elective")
+                settled(b, after=before)
+                expect(b.get_by_role("link", name="CSC425 · Computer Networking", exact=True)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0098201")
+                expect(b.get_by_role("link", name="Official ECE technical elective requirements")).to_be_visible()
+                before = session_counts[b]["scripts_finished"]
+                b.get_by_role("button", name="Use this direction", exact=True).click()
+                settled(b, after=before)
+                saved(b, "Signals & Communications", 0, 0)
+                choose(b, "Career direction", "Controls & Robotics")
+                question.fill("How can I learn feedback control for robots?")
+                submit(b)
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE441A · "))).to_have_count(1)
+                saved(b, "Controls & Robotics", 0, 0)
+                passed(stage, "An exploratory question produces a sourced career path, accepts an explicit direction change, and retains unverified elective eligibility.", begin)
 
                 stage, begin = "websocket_sessions", time.monotonic()
                 for page in (a, b):

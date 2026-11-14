@@ -2,6 +2,8 @@
 
 import streamlit as st
 
+from .career_paths import CAREER_PATHS
+from .career_ui import elective_details
 from .collection_filters import filter_collection
 from .directory_ui import render_directory
 from .source_ui import enrollment_details, source_details
@@ -12,8 +14,7 @@ def reset_collection_filters():
 
 
 @st.fragment
-def render_collection(base_catalog, directory=None, references=None):
-    catalog=getattr(st.session_state.get("result"),"catalog",None) or base_catalog
+def render_collection(catalog, directory=None, references=None):
     st.subheader("Courses & resources")
     if directory is not None:
         scope = st.radio("Browse collection", ["advisor", "ece"],
@@ -27,7 +28,7 @@ def render_collection(base_catalog, directory=None, references=None):
                   placeholder="Course code, title or topic",help="Examples: ECE 372A, machine learning, Python.")
     left,right=st.columns(2)
     kinds={"all":"Courses and resources","course":"Courses only","resource":"Resources only"}
-    directions={"all":"All directions","ai_ml":"AI / Machine Learning","embedded":"Embedded Systems"}
+    directions = {"all": "All directions", **{key: path.name for key, path in CAREER_PATHS.items()}}
     kind=left.selectbox("Type",list(kinds),format_func=kinds.get,key="collection_kind")
     direction=right.selectbox("Direction",list(directions),format_func=directions.get,key="collection_direction")
     records=filter_collection(catalog,st.session_state.get("collection_query",""),kind,direction)
@@ -37,6 +38,7 @@ def render_collection(base_catalog, directory=None, references=None):
     if not records:
         st.info("No courses or resources match these filters. Try a broader search or reset the filters.")
     sources={s.source_id:s for s in catalog.sources}
+    elective_codes = {path.elective for path in CAREER_PATHS.values() if path.elective}
     for record in records:
         panel=st.expander((record.code+" · " if record.code else "")+record.title,
             key="collection_record_"+record.record_id,on_change="rerun")
@@ -46,6 +48,10 @@ def render_collection(base_catalog, directory=None, references=None):
                 st.caption(f"University course · {credits} · Catalog {record.catalog_version}" if record.kind=="course" else
                            "Independent learning resource"+(" · "+record.resource_version if record.resource_version else ""))
                 st.write(record.summary)
+                if record.code in elective_codes:
+                    st.markdown("**Outside-ECE elective candidate**")
+                    st.write(record.learning_note)
+                    elective_details("collection_elective_" + record.code)
                 source_details(record,"collection_"+record.record_id,sources)
                 if record.kind == "course" and not record.rule_reviewed:
                     enrollment_details(record.code, sources[record.source_ids[0]].url, record.requirement_reference,

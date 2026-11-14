@@ -2,11 +2,13 @@
 
 import re
 
+from .career_paths import CAREER_PATHS
+
 
 def filter_collection(catalog,query="",kind="all",direction="all"):
     if not isinstance(query,str) or len(query)>200:
         raise ValueError("Keep collection searches within 200 characters")
-    if kind not in {"all","course","resource"} or direction not in {"all","ai_ml","embedded"}:
+    if kind not in {"all","course","resource"} or direction not in {"all", *CAREER_PATHS}:
         raise ValueError("Choose an available collection filter")
     # Accept the spaces students commonly type inside a course code.
     query=re.sub(r"\b([A-Z]{2,8})\s+(\d{3}[A-Z]{0,2})\b",r"\1\2",query,flags=re.I)

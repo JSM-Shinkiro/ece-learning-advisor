@@ -1,0 +1,391 @@
+{
+  "version": "career-paths-2026-11-14",
+  "catalog_version": "2026-2027",
+  "sources": [
+    {
+      "source_id": "catalog:ECE429",
+      "title": "ECE429 — Digital Signal Processing",
+      "url": "https://catalog.arizona.edu/courses/0121501",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T21:59:02.303362+00:00",
+      "content_hash": "987b573437828afccf98328a93595a72a001f784f57f7fad79ccd8410d48d890",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:ECE435A",
+      "title": "ECE435A — Digital Communications Systems",
+      "url": "https://catalog.arizona.edu/courses/0380411",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T21:59:08.204172+00:00",
+      "content_hash": "3c84f95db3633b60368b3c2ead9375df58fcc8c39e57b890d6213ec18e95b4cf",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:ECE441A",
+      "title": "ECE441A — Automatic Control",
+      "url": "https://catalog.arizona.edu/courses/0363511",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T21:59:08.120173+00:00",
+      "content_hash": "fe2dd087d7709f81d12fb7e2bfb500ecc36e4ebd2a1692ef98b68600bc1547e5",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:ECE442",
+      "title": "ECE442 — Digital Control Systems",
+      "url": "https://catalog.arizona.edu/courses/0121591",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T21:59:08.241935+00:00",
+      "content_hash": "6533351e83f0b25e160c03c93d47df3b9c06a37591038dfcea845ebc355341d4",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:CSC425",
+      "title": "CSC425 — Computer Networking",
+      "url": "https://catalog.arizona.edu/courses/0098201",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T21:59:01.976420+00:00",
+      "content_hash": "08040cae1a4d6048980ab0e1afa23b1700d027b1b9a2cfeaa08bbce097abf376",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:CSC437",
+      "title": "CSC437 — Geometric Algorithms",
+      "url": "https://catalog.arizona.edu/courses/0098261",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-14T22:02:40.875874+00:00",
+      "content_hash": "6d8f636120a50630530a1bdaca6f6fed62215fb8c80029de506f588f01751429",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "resource:pysdr",
+      "title": "PySDR: A Guide to SDR and DSP using Python",
+      "url": "https://pysdr.org/",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Open online textbook. Follow the frequency-domain and filtering chapters with simulated data."
+    },
+    {
+      "source_id": "resource:motor_pid",
+      "title": "DC Motor Speed: PID Controller Design",
+      "url": "https://ctms.engin.umich.edu/CTMS/?example=MotorSpeed&section=ControlPID",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Control Tutorials for MATLAB and Simulink, hosted by the University of Michigan. The example uses MATLAB."
+    },
+    {
+      "source_id": "career:electronics_onet",
+      "title": "O*NET · Electronics Engineers, Except Computer",
+      "url": "https://www.onetonline.org/link/summary/17-2072.00",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Occupation profile includes radio frequency engineering."
+    },
+    {
+      "source_id": "career:crain_ntia",
+      "title": "NTIA · Communications Research and Innovation Network",
+      "url": "https://its.ntia.gov/research/rat/communications-research-and-innovation-network/",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Public wireless research example covering 5G, Open RAN, and future test capabilities."
+    },
+    {
+      "source_id": "career:robotics_onet",
+      "title": "O*NET · Robotics Engineers",
+      "url": "https://www.onetonline.org/link/summary/17-2199.08",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Occupation profile includes automation and robotic systems engineering."
+    },
+    {
+      "source_id": "career:automation_coop",
+      "title": "Re:Build Manufacturing · Automation & Controls Co-op",
+      "url": "https://job-boards.greenhouse.io/rebuildmanufacturing/jobs/4734540005",
+      "retrieved_at": "2026-11-14T22:00:00Z",
+      "review_note": "Dated example of work in manufacturing controls. Check the employer page for current availability."
+    }
+  ],
+  "records": [
+    {
+      "record_id": "uofa:ECE429:2026-2027",
+      "kind": "course",
+      "title": "Digital Signal Processing",
+      "code": "ECE429",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Covers discrete-time signals, Fourier transforms, and the design of digital filters.",
+      "source_ids": [
+        "catalog:ECE429"
+      ],
+      "requirement_reference": "016478",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "digital signal processing",
+        "DSP",
+        "discrete time",
+        "Fourier",
+        "FFT",
+        "filtering"
+      ],
+      "learning_note": "Use the Fourier transform to diagnose spectral interference before designing a filter.",
+      "first_activity": "Plot the frequency spectrum of two sampled tones before and after applying a low-pass filter.",
+      "field_sources": {
+        "title": "catalog:ECE429",
+        "summary": "catalog:ECE429",
+        "credits": "catalog:ECE429",
+        "requirement_reference": "catalog:ECE429"
+      }
+    },
+    {
+      "record_id": "uofa:ECE435A:2026-2027",
+      "kind": "course",
+      "title": "Digital Communications Systems",
+      "code": "ECE435A",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies digital modulation, receivers, and communication over channels with noise and intersymbol interference.",
+      "source_ids": [
+        "catalog:ECE435A"
+      ],
+      "requirement_reference": "016479",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "digital communications",
+        "wireless",
+        "modulation",
+        "noise",
+        "receiver design"
+      ],
+      "learning_note": "Model how noise affects receiver decisions in a digital link.",
+      "first_activity": "Simulate a simple digital link and plot the fraction of incorrect symbols as noise increases.",
+      "field_sources": {
+        "title": "catalog:ECE435A",
+        "summary": "catalog:ECE435A",
+        "credits": "catalog:ECE435A",
+        "requirement_reference": "catalog:ECE435A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE441A:2026-2027",
+      "kind": "course",
+      "title": "Automatic Control",
+      "code": "ECE441A",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces time- and frequency-domain models for linear feedback systems, stability, and controller design.",
+      "source_ids": [
+        "catalog:ECE441A"
+      ],
+      "requirement_reference": "015680",
+      "study_stage": "advanced",
+      "career_ids": [
+        "controls"
+      ],
+      "topics": [
+        "feedback control",
+        "controls",
+        "robotics",
+        "motor control",
+        "stability",
+        "PID"
+      ],
+      "learning_note": "Relate a robot's motor response to feedback, stability, and the choice of controller gain.",
+      "first_activity": "Plot a simulated DC motor speed step response at two different controller gains.",
+      "field_sources": {
+        "title": "catalog:ECE441A",
+        "summary": "catalog:ECE441A",
+        "credits": "catalog:ECE441A",
+        "requirement_reference": "catalog:ECE441A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE442:2026-2027",
+      "kind": "course",
+      "title": "Digital Control Systems",
+      "code": "ECE442",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Models and designs discrete controllers using sampled signals, z-transforms, stability analysis, and microprocessors.",
+      "source_ids": [
+        "catalog:ECE442"
+      ],
+      "requirement_reference": "016480",
+      "study_stage": "advanced",
+      "career_ids": [
+        "controls"
+      ],
+      "topics": [
+        "digital control",
+        "feedback",
+        "sampling",
+        "z-transform",
+        "robotics",
+        "microprocessors"
+      ],
+      "learning_note": "Connect sampled sensor readings and software timing to a digital controller's response.",
+      "first_activity": "Compare the same simulated motor controller using two sampling intervals.",
+      "field_sources": {
+        "title": "catalog:ECE442",
+        "summary": "catalog:ECE442",
+        "credits": "catalog:ECE442",
+        "requirement_reference": "catalog:ECE442"
+      }
+    },
+    {
+      "record_id": "uofa:CSC425:2026-2027",
+      "kind": "course",
+      "title": "Computer Networking",
+      "code": "CSC425",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Examines computer networks and distributed systems, including routing, end-to-end protocols, and congestion control.",
+      "source_ids": [
+        "catalog:CSC425"
+      ],
+      "requirement_reference": "017103",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "computer networking",
+        "routing",
+        "protocols",
+        "congestion"
+      ],
+      "learning_note": "Explore how packets move once a link can carry signals. This complements the physical-layer work in ECE communications.",
+      "first_activity": "Draw how a packet crosses a wireless link and a router, then explain the job of each layer.",
+      "field_sources": {
+        "title": "catalog:CSC425",
+        "summary": "catalog:CSC425",
+        "credits": "catalog:CSC425",
+        "requirement_reference": "catalog:CSC425"
+      }
+    },
+    {
+      "record_id": "uofa:CSC437:2026-2027",
+      "kind": "course",
+      "title": "Geometric Algorithms",
+      "code": "CSC437",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies methods for computing with geometric objects, with applications including robotics, mapping, and sensor networks.",
+      "source_ids": [
+        "catalog:CSC437"
+      ],
+      "requirement_reference": "017104",
+      "study_stage": "advanced",
+      "career_ids": [
+        "controls"
+      ],
+      "topics": [
+        "computational geometry",
+        "robotics",
+        "nearest neighbors",
+        "maps",
+        "geometric algorithms"
+      ],
+      "learning_note": "Build the geometry skills used in planning and mapping. Feedback control then helps a robot follow a planned motion.",
+      "first_activity": "Use a set of 2D points to represent obstacles and find the nearest point along a simulated route.",
+      "field_sources": {
+        "title": "catalog:CSC437",
+        "summary": "catalog:CSC437",
+        "credits": "catalog:CSC437",
+        "requirement_reference": "catalog:CSC437"
+      }
+    },
+    {
+      "record_id": "resource:pysdr",
+      "kind": "resource",
+      "title": "PySDR: Signals and frequency-domain practice",
+      "summary": "An online guide to digital signal processing and software-defined radio in Python, with topics including sampling, Fourier transforms, and filtering.",
+      "study_stage": "foundation",
+      "career_ids": [
+        "signals"
+      ],
+      "source_ids": [
+        "resource:pysdr"
+      ],
+      "topics": [
+        "software-defined radio",
+        "DSP",
+        "FFT",
+        "Python",
+        "filtering"
+      ],
+      "first_activity": "Generate a waveform in Python and compare its time and frequency plots. Use the simulation examples if you have no radio hardware."
+    },
+    {
+      "record_id": "resource:motor_pid",
+      "kind": "resource",
+      "title": "DC Motor Speed: PID Controller Design",
+      "summary": "A MATLAB tutorial that models DC motor speed and compares the step responses of proportional and PID controllers.",
+      "study_stage": "foundation",
+      "career_ids": [
+        "controls"
+      ],
+      "source_ids": [
+        "resource:motor_pid"
+      ],
+      "topics": [
+        "feedback control",
+        "robotics",
+        "simulation",
+        "PID",
+        "motor speed",
+        "MATLAB"
+      ],
+      "first_activity": "Compare the tutorial's step-response plots and identify how much the speed overshoots and how long it takes to settle."
+    },
+    {
+      "record_id": "career:signals",
+      "kind": "career",
+      "title": "Signals & Communications",
+      "summary": "Use signal and communications coursework to explore digital signal processing, radio frequency engineering, and wireless systems. Software-defined radio and open radio networks give students areas to explore.",
+      "review_status": "team_mapping",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "digital signal processing",
+        "DSP",
+        "wireless communications",
+        "Fourier",
+        "radio frequency",
+        "modulation"
+      ],
+      "source_ids": [
+        "career:electronics_onet",
+        "career:crain_ntia"
+      ]
+    },
+    {
+      "record_id": "career:controls",
+      "kind": "career",
+      "title": "Controls & Robotics",
+      "summary": "Use modeling, feedback, and stability analysis to explore robotics, controls, and industrial automation. Mobile robots and manufacturing systems provide examples of these techniques in use.",
+      "review_status": "team_mapping",
+      "career_ids": [
+        "controls"
+      ],
+      "topics": [
+        "feedback control",
+        "robotics",
+        "automation",
+        "stability",
+        "motor speed",
+        "PID"
+      ],
+      "source_ids": [
+        "career:robotics_onet",
+        "career:automation_coop"
+      ]
+    }
+  ]
+}

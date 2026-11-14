@@ -16,6 +16,7 @@ from urllib.parse import parse_qs, urlparse
 import httpx
 from pydantic import Field, model_validator
 
+from .career_paths import CAREER_NAMES
 from .ingest import description_text
 from .jobs import JobSearchResult, MAX_SNAPSHOT_MATCHES, OPPORTUNITY_PAGE_SIZE
 from .models import StrictModel
@@ -30,6 +31,8 @@ OPPORTUNITY_POLICY_VERSION = "p07-opportunity-pages-v3"
 CAREER_PATTERNS = {
     "ai_ml": r"\b(?:machine[ -]learning|deep[ -]learning|artificial intelligence|computer vision|perception|ML|AI|autonomy|autonomous)\b",
     "embedded": r"\b(?:embedded|firmware|microcontrollers?|FPGA|ASIC|RTL|hardware|electrical|controls?)\b",
+    "signals": r"\b(?:signal processing|DSP|radio frequency|RF|wireless|communications systems|telecommunications)\b",
+    "controls": r"\b(?:controls?|robotics?|motion planning|industrial automation|factory automation)\b",
 }
 ROLE_PATTERN = r"\b(?:engineer(?:ing)?|developer|scientist|research(?:er)?|technician|intern(?:ship)?|co[ -]?op)\b"
 EXCLUDED_ROLES = r"\b(?:recruit(?:er|ing|ment)|sales|marketing|talent|account|executive assistant)\b"
@@ -46,7 +49,7 @@ class OpportunitySearchError(RuntimeError):
 
 def validate_filters(career, location, internship, updated_within, early_career=False):
     if not isinstance(career, str) or career not in CAREER_PATTERNS:
-        raise ValueError("Choose AI/ML or Embedded Systems before searching")
+        raise ValueError("Choose a career direction before searching")
     if not isinstance(location, str) or len(location) > 120 or any(ord(c) < 32 for c in location):
         raise ValueError("Keep the location filter within 120 characters")
     if (type(internship) is not bool or type(early_career) is not bool or internship and early_career or updated_within is not None
@@ -248,7 +251,7 @@ def search_employer_jobs(career, location="", internship=False, *, updated_withi
                 continue
             found.append({**post, "matched_terms": list(dict.fromkeys(m.casefold() for m in matches))})
     found.sort(key=lambda post: (post["updated_at"] or "", post["id"]), reverse=True)
-    return JobSearchResult(found[:MAX_RESULTS], now.isoformat(), "AI / Machine Learning" if career == "ai_ml" else "Embedded Systems",
+    return JobSearchResult(found[:MAX_RESULTS], now.isoformat(), CAREER_NAMES[career],
         location.strip() or "All listed locations", provider="greenhouse", checks=checks, issues=issues, total_matches=len(found),
         role_filter="internship" if internship else "early_career" if early_career else "all", source_scope_hash=board_scope_hash(boards),
         snapshot_listings=found[:MAX_SNAPSHOT_MATCHES])

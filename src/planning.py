@@ -2,11 +2,11 @@
 
 import re
 
+from .career_paths import EXPANDED_DIRECTIONS
 from .models import Record, StudentProfile
 from .retrieval import tokenize
 from .query import catalog_vocabulary, interpret_query
 
-CAREER_NAMES = {"ai_ml": "AI / Machine Learning", "embedded": "Embedded Systems", "exploring": "Still exploring"}
 PHASE_NAMES = {"next": "Start here", "build": "Build toward", "later": "Later goals", "explore":"Explore requested courses"}
 BASIC_CODES = {"ECE101", "ECE175", "CSC110", "CSC120", "ISTA130"}
 RESOURCE_TERMS = {
@@ -17,6 +17,8 @@ RESOURCE_TERMS = {
     "resource:pico": ("raspberry pi pico", "pico", "c/c++ sdk"),
     "resource:mit_algorithms": ("mit 6.006", "6.006", "mit algorithms"),
     "resource:mit_structures": ("mit 6.004", "6.004", "mit computation structures", "computation structures"),
+    "resource:pysdr": ("pysdr",),
+    "resource:motor_pid": ("motor speed tutorial", "ctms"),
 }
 
 
@@ -51,19 +53,26 @@ def needs_programming_foundations(profile: StudentProfile):
     return profile.programming_background == "new" and not (completed & BASIC_CODES)
 
 
+def needs_learning_foundations(profile: StudentProfile):
+    if profile.career_id in EXPANDED_DIRECTIONS:
+        studied = set(profile.current_enrollment) | {course.course_code for course in profile.completed}
+        return "ECE220" not in studied
+    return needs_programming_foundations(profile)
+
+
 def learning_phase(record: Record, profile: StudentProfile, evaluation=None):
     if record.study_stage == "unreviewed":
         return "explore"
     if evaluation is not None and evaluation.status == "unsatisfied":
         return "later"
     if record.study_stage == "foundation":
-        return "next" if needs_programming_foundations(profile) else "build"
+        return "next" if needs_learning_foundations(profile) else "build"
     if record.study_stage == "advanced":
-        if evaluation is not None and evaluation.status == "satisfied" and not needs_programming_foundations(profile):
+        if evaluation is not None and evaluation.status == "satisfied" and not needs_learning_foundations(profile):
             return "next"
         return "later"
     if record.kind == "resource":
-        if needs_programming_foundations(profile):
+        if needs_learning_foundations(profile):
             return "later"
         return "next" if profile.programming_background == "experienced" else "build"
     if evaluation is not None and evaluation.status == "satisfied":
@@ -103,7 +112,7 @@ def coverage_message(catalog, profile, question, *, allow_course_discovery=False
     vocabulary |= {r.code.lower() for r in catalog.records if r.code}
     if terms & vocabulary:
         return None
-    return "This starter collection covers AI/ML, embedded systems, and programming foundations. Which of these would you like to explore? Your request does not have a clear match in the available sources."
+    return "Your request does not have a clear match in the available sources. Choose a career direction or enter a UofA ECE course code."
 
 
 def format_duration(seconds):

@@ -40,7 +40,7 @@ def test_collection_details_are_lazy_and_search_does_not_start_a_request(runtime
     monkeypatch.setattr("src.controller.run_advisor",forbidden)
     monkeypatch.setattr("httpx.Client.send",forbidden)
     before=app.session_state["profile"].model_dump_json()
-    assert len(collection_panels(app))==28
+    assert len(collection_panels(app))==36
     assert not any("Saved source snapshot" in c.value for c in app.caption)
     app.text_input(key="collection_query").set_value("ece 372a").run()
     assert not app.exception and len(collection_panels(app))==1
@@ -62,5 +62,5 @@ def test_empty_filters_reset_and_profile_transition_preserves_browsing(runtime_a
     app.text_input(key="collection_query").set_value("[.*]").run()
     assert not collection_panels(app) and any("No courses or resources match" in i.value for i in app.info)
     app.button(key="collection_reset").click().run()
-    assert not app.exception and len(collection_panels(app))==28
+    assert not app.exception and len(collection_panels(app))==36
     assert app.text_input(key="collection_query").value=="" and app.selectbox(key="collection_direction").value=="all"
