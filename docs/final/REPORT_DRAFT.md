@@ -1,18 +1,18 @@
 # ECE Learning Advisor: An Inspectable RAG System
 
-Team P07 · ECE 425/525 · Final report draft · Updated November 13, 2026
+Team P07 · ECE 425/525 · Final report draft · Updated November 14, 2026
 
-This draft describes verified application revision `f4926a21f5a649650394dcce5141ca2d91a6a371`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `637ff57c5c038dc5d6d1b0c7aabfa425558748f3`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
-ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. The prototype combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, full-dimensional cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index; optional pretrained Gemini models supply embeddings and statement selections. The default runtime collection contains 20 courses, eight resources and 34 evidence chunks. A separate published inventory exposes all 78 undergraduate ECE courses in the saved 2026–2027 list, with bounded on-request description access and explicit unreviewed preparation status. Software checks and an authored small-corpus benchmark establish implementation behavior, while a paired offline browser experiment reduces median inspector first opening from 1.608 to 0.687 seconds. Independent relevance judgments, usability outcomes and real-AI latency cohorts have not yet been collected. These distinctions limit the conclusions to demonstrated integration, bounded contracts and measured preview responsiveness.
+ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. It combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index. Optional pretrained Gemini models supply embeddings and statement selections. The Advisor curates four career directions across 26 courses and 10 resources. A published 2026–27 directory exposes descriptions for 78 undergraduate ECE courses. In a paired offline browser experiment, median first inspector opening decreased from 1.608 to 0.687 seconds. Independent relevance judgments, student usability outcomes and repeated live-AI latency measurements remain open.
 
 ## 1. Problem and project goals
 
 An incoming ECE student may know an interest such as robotics without knowing an appropriate starting course or resource. A current student needs suggestions that account for completed and ongoing work. Catalog descriptions, program requirements, resource editions and employer listings provide different kinds of evidence; a fluent explanation can obscure those differences.
 
-The application answers a bounded question: given a student's recorded background and an AI/machine-learning or embedded-systems direction, what are reasonable preparation activities and what sources support them? Its stages—**Start here**, **Build toward**, and **Later goals**—describe preparation, not semester placement or complete enrollment approval. An exploring mode helps select a direction. Explicit undergraduate ECE catalog questions can also expose descriptions outside those two mappings, with preparation and enrollment status unreviewed. Graduate advising and a complete degree audit are outside the verified core.
+The application suggests preparation activities and shows supporting evidence for four directions. AI / Machine Learning and Embedded Systems cover the original focus areas. Signals & Communications and Controls & Robotics connect RF, DSP, controls and robotics roles to course progressions and simulation exercises. Their path cards pair each outside-ECE candidate with its catalog description and the university's elective approval guidance. The roadmap uses **Start here**, **Build toward**, and **Later goals** for learning stages. Catalog exploration covers course descriptions with unreviewed preparation and enrollment status. [E19](EVIDENCE_MAP.md)
 
 The project preparation notes define four inspection goals. They guide this draft; they are not a claim that a final-specific rubric has been satisfied.
 
@@ -118,6 +118,9 @@ Opportunities use explicit public Greenhouse-board searches for Samsara, Nuro an
 | --- | ---: | ---: | ---: | ---: |
 | Frozen development baseline | 5 | 2 | 2 | 10 |
 | Saved runtime collection | 20 | 8 | 2 | 34 |
+| Combined career collection | 26 | 10 | 4 | 44 |
+
+Each new direction adds five records to the runtime collection for its requests. The historical retrieval results below use the ten-chunk baseline. The review packet for human assessment uses the archived 34-chunk collection. [E19](EVIDENCE_MAP.md)
 
 The historical retrieval experiment uses sixteen assistant-authored queries and complete graded references on the ten-chunk baseline. Relevance is grade 2 or 3 on a 0–3 scale. Precision@5 uses a fixed denominator of five, including shorter result lists; recall divides retrieved relevant chunks by all judged relevant chunks. MRR uses the first relevant rank within the cutoff. nDCG uses linear grade gain divided by $\log_2(\mathrm{rank}+1)$. Results are query-macro averages, excluding undefined metrics. [E3, E4](EVIDENCE_MAP.md)
 
@@ -133,6 +136,8 @@ The expanded-query experiment adds aliases without production profile expansion.
 The bounded statement contract accepts 82/82 authored canonical controls and admits zero unsupported reviewed claims in its offline probes. Controls recur across contexts; they are not 82 independent facts. The contract rejects unlisted true paraphrases as well. These observations validate a restricted rendering format, not a hallucination rate or unrestricted factual inference. [E4](EVIDENCE_MAP.md)
 
 ### 5.2 Provider and software integration
+
+On November 14, the four-direction revision passed 1,777 tests and nine startup checks on Linux and Windows. All 38 Chromium checks passed, including exploratory question routing and elective details at 390 pixels. Two source-only requests refreshed the six new courses and assembled their first saved plans in 10.9 and 6.7 ms on the server. [E19](EVIDENCE_MAP.md)
 
 Expanded-catalog observations record a finite 34 × 768 public-document index and authored request scenarios. An initial query-embedding ProxyError stopped part of the suite; one explicit bounded follow-up exercised the failed/unrun scenarios. Both outcomes remain in the record. This supports integration observations, not an estimated reliability rate or independent selection quality. [E5](EVIDENCE_MAP.md)
 
@@ -173,7 +178,7 @@ The November 13 audit found continuity, vocabulary coverage and reasoning gaps. 
 
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
-Published undergraduate ECE description coverage is broader than advising coverage: career mappings still focus on two directions, ECE prerequisite interpretations remain unreviewed, and complete supporting-course/degree auditing remains open. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Accounts/history persistence, distributed-worker coordination and a validated public-host deployment remain outside the verified implementation. Reproducible local access is available; final access requirements must be reconciled with the final instructions.
+Published undergraduate ECE description coverage spans 78 courses, with 19 ECE courses curated across four career directions. ECE prerequisite interpretations remain unreviewed. Outside-ECE elective candidates need individual approval. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Reproducible local access is available. Final access requirements and hosted delivery remain open.
 
 Before release, collect genuine judgments and student observations, measure real-AI/source/cache behavior on a frozen revision, capture final application figures, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
 
@@ -184,4 +189,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E18](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E19](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

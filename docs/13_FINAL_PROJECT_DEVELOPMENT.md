@@ -1,6 +1,6 @@
 # ECE Learning Advisor — Final Project Development
 
-Team P07 · Updated November 13, 2026 MST · Final presentation and submission December 11.
+Team P07 · Updated November 14, 2026 MST · Final presentation and submission December 11.
 
 For each development step, update [final readiness](FINAL_READINESS.md) with separate app/submission estimates, the acceptance gate resolved, and the main remaining work. These are planning judgments against the scoped project, not measured quality or instructor grades.
 
@@ -21,6 +21,8 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 ## Current implementation
 
+The Advisor adds Signals & Communications and Controls & Robotics alongside its two original career directions. Students can explore the work, find a suggested course progression and practice project, and check a Computer Science elective candidate against university guidance. The combined collection has 26 courses and 10 resources. Each new path loads its records when needed, and the original 34-chunk collection still supports the archived review. [Career directions and verification](59_CAREER_DIRECTIONS.md)
+
 The final-demo verifier runs the exact carried image-classification question through one Hybrid request and records the seven-record comparison. The Advisor inspector can download the same comparison from the displayed request. The live Gemini rehearsal still needs a local credential. Planning readiness is approximately **94% app / 70% complete submission**. [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
 
 The course directory shows catalog dates and links to section requirements. Four demo courses have dated enrollment references with their source links. The source checker handles published pages that keep their course data outside the inline metadata. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
@@ -33,7 +35,7 @@ The [November 8 readiness audit](56_FINAL_READINESS_AUDIT.md) recorded approxima
 
 The [published undergraduate ECE directory](55_UNDERGRADUATE_ECE_DIRECTORY.md) now contains **78 courses** from the official 2026–2027 list. Local search/pagination, accurate credit ranges and completed/current-course selections cover all entries. Explicit requests add up to three catalog descriptions to the advisor, with unreviewed preparation and enrollment status. The default 20-course/eight-resource/34-chunk advising corpus and archived evaluation inputs stay unchanged. That coverage step estimated approximately **85% app / 75% submission**; the current audit above supersedes the submission estimate and distinguishes core gaps from extensions.
 
-The default advisor has [20 courses, eight resources, two career mappings, and 34 evidence chunks](37_TRACK_AND_OPEN_COURSE_COVERAGE.md). This met the lower end of the midpoint coverage ambition; broader final ECE advising remains partial. Additive runtime data stays bound to the unchanged evaluation baseline. Eight discovery sections, requested saved-course priority, exact MIT offering checks, shared resource/context preference, and section preparation labels operate within the existing eight-course/two-program/two-resource cap. Omitted records remain snapshots. Four exact CS conditions retain their existing evidence; fifteen ECE conditions and CSC372 remain unknown. Independent review, broader edition/rule coverage, hosting, and a student pilot remain open.
+The original AI/ML and Embedded Systems collection has [20 courses, eight resources, two career mappings and 34 evidence chunks](37_TRACK_AND_OPEN_COURSE_COVERAGE.md). Eight discovery sections, requested saved-course priority, exact MIT offering checks, shared resource/context preference and section preparation labels operate within the eight-course/two-program/two-resource cap. Omitted records remain snapshots. Four CS conditions have reviewed evidence. Broader enrollment rule verification, independent review, hosting and a student pilot remain open.
 
 [Expanded review inputs](38_EXPANDED_REVIEW_COLLECTIONS.md) now support the full saved runtime collection or an exact archived catalog across preparation, embedding, and scoring. The prepared `data/reviews/runtime_v1` bundle has twelve assistant-authored development questions, all 34 chunks, and 408 blank grades. Catalog snapshots preserve review inputs across later data changes. Original packet formats and baseline metrics remain compatible; actual independent grades and held-out evaluation remain open.
 

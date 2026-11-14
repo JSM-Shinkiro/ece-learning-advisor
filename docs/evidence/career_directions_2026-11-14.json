@@ -1,0 +1,159 @@
+{
+  "reviewed_on": "2026-11-14",
+  "application_revision": "637ff57c5c038dc5d6d1b0c7aabfa425558748f3",
+  "scope": "Career descriptions, course mappings, elective guidance and software verification",
+  "combined_collection": {
+    "name": "combined_career_collection",
+    "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14",
+    "records": 40,
+    "kinds": {
+      "course": 26,
+      "resource": 10,
+      "career": 4
+    },
+    "evidence_chunks": 44,
+    "corpus_hash": "e280c1b7666e5b5a32e9d750d98baf893d8326614b454999286b205796b615c3"
+  },
+  "new_direction_saved_chunk_counts": {
+    "signals": 39,
+    "controls": 39
+  },
+  "technical_elective_guidance": {
+    "catalog_edition": "2026-2027",
+    "catalog_url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+    "outside_ece_category": "R15492/L20",
+    "advised_plan_url": "https://engineering.arizona.edu/pdfs/4-year-degree-plans/2026/ElectricalComputerEngineering26-27r.pdf",
+    "outside_ece_candidates": [
+      "CSC425",
+      "CSC437"
+    ],
+    "specific_degree_approval": "unverified"
+  },
+  "live_source_only_walkthroughs": {
+    "signals": {
+      "selected_course_checks": [
+        {
+          "code": "ECE429",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:10:56.520532Z",
+          "url": "https://catalog.arizona.edu/courses/0121501"
+        },
+        {
+          "code": "ECE435A",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:10:55.872113Z",
+          "url": "https://catalog.arizona.edu/courses/0380411"
+        },
+        {
+          "code": "CSC425",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:10:56.439771Z",
+          "url": "https://catalog.arizona.edu/courses/0098201"
+        }
+      ],
+      "request_seconds": 6.210925889000009,
+      "saved_plan_seconds": 0.01086277899992183,
+      "course_rules": {
+        "ECE220": "unknown",
+        "ECE340A": "unknown",
+        "ECE429": "unknown"
+      },
+      "recommendations": [
+        "ECE220",
+        "ECE340A",
+        "ECE429",
+        "pysdr"
+      ]
+    },
+    "controls": {
+      "selected_course_checks": [
+        {
+          "code": "ECE441A",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:11:01.846329Z",
+          "url": "https://catalog.arizona.edu/courses/0363511"
+        },
+        {
+          "code": "ECE442",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:11:01.464239Z",
+          "url": "https://catalog.arizona.edu/courses/0121591"
+        },
+        {
+          "code": "CSC437",
+          "status": "updated",
+          "checked_at": "2026-11-14T22:11:01.505003Z",
+          "url": "https://catalog.arizona.edu/courses/0098261"
+        }
+      ],
+      "request_seconds": 4.517384378000088,
+      "saved_plan_seconds": 0.006679260000055365,
+      "course_rules": {
+        "ECE220": "unknown",
+        "ECE320A": "unknown",
+        "ECE441A": "unknown"
+      },
+      "recommendations": [
+        "ECE220",
+        "ECE320A",
+        "ECE441A",
+        "motor_pid"
+      ]
+    }
+  },
+  "local_checks": {
+    "tests_passed": 1777,
+    "startup_checks_passed": 9,
+    "chromium": "Local system browser exited during startup. Hosted CI browser checks passed."
+  },
+  "ci": {
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094",
+    "conclusion": "success",
+    "ubuntu_job": {
+      "id": 132606755817,
+      "tests_passed": 1777,
+      "startup_checks_passed": 9
+    },
+    "windows_job": {
+      "id": 132606756033,
+      "tests_passed": 1777,
+      "startup_checks_passed": 9
+    },
+    "chromium_job": {
+      "id": 132606756092,
+      "student": 11,
+      "reviewer": 6,
+      "progressive": 21,
+      "career_roadmaps": "passed",
+      "mobile_elective_details": "passed",
+      "phone_viewport_width_px": 390
+    },
+    "offline_inspector_cohorts": {
+      "current": {
+        "sessions": 5,
+        "first_ready_median_ms": 806.0,
+        "reopen_ready_median_ms": 351.7
+      },
+      "fixed_baseline": {
+        "sessions": 5,
+        "first_ready_median_ms": 1784.2,
+        "reopen_ready_median_ms": 395.1
+      }
+    }
+  },
+  "preserved_inputs": {
+    "files": 8,
+    "review_template": {
+      "questions": 12,
+      "ratings": 408,
+      "unscored": 408
+    }
+  },
+  "live_model_calls": 0,
+  "independent_evaluation_completed": false,
+  "student_pilot_completed": false,
+  "readiness_planning_estimates_percent": {
+    "app": 94,
+    "full_submission": 70
+  }
+}

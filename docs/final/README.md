@@ -1,8 +1,8 @@
 # Final submission workspace
 
-Team P07 · Updated November 13, 2026 · ECE Learning Advisor
+Team P07 · Updated November 14, 2026 · ECE Learning Advisor
 
-Verified application revision `f4926a21f5a649650394dcce5141ca2d91a6a371` includes the one-request demo verifier and Advisor comparison download. [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43498957696) · [Verification evidence](../evidence/final_demo_rehearsal_2026-11-13.json)
+Verified application revision `637ff57c5c038dc5d6d1b0c7aabfa425558748f3` adds Signals & Communications and Controls & Robotics, with an outside-ECE elective candidate for each. [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094) · [Verification evidence](../evidence/career_directions_2026-11-14.json)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |

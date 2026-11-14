@@ -1,10 +1,12 @@
 # Final submission readiness
 
-Team P07 · Updated November 13, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
+Team P07 · Updated November 14, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
 
 ## Current estimate
 
-The app is approximately **94%** complete for the agreed final scope of two career directions, broader undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **70%** ready. Both percentages are planning estimates.
+The app is approximately **94%** complete with four career directions, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **70%** ready. Both percentages are planning estimates.
+
+Signals & Communications and Controls & Robotics now map relevant roles to courses, practice projects and outside-ECE elective candidates. The combined collection has 26 courses and 10 resources. CSC425 and CSC437 include the official Technical Electives II guidance and an ECE advising confirmation step. All six added course descriptions refreshed in source-only checks. Independent evaluation of the new roadmaps and a student walkthrough remain open. [Career directions](59_CAREER_DIRECTIONS.md)
 
 The final-demo verifier and comparison download are implemented. The verifier checks the exact carried question, ECE425, the interim plans, and the cosine comparison with one Hybrid request. This workspace lacked a Gemini credential, so the live answer and neural recording are still open. [Demo runbook](final/DEMO_RUNBOOK.md#one-request-rehearsal)
 
@@ -30,10 +32,10 @@ The November 8 audit weights give 70% submission completion. [Planning weights](
 | --- | --- | --- |
 | Self-guided learning and developer view | Verified in controlled workflows | Chromium checks the draft round trip, explanation export, and Advisor comparison download using test vectors. Capture the live neural example and observe students completing the lesson. |
 | Student profile → grounded roadmap → current/completed progress | Implemented | Preview and Gemini paths, JSON portability, conservative academic checks, bounded AI work |
-| Course/resource coverage and provenance | Focused source review complete | 78 published ECE descriptions with effective dates. Four demo courses have dated enrollment references and a section lookup. ECE101 sources differ and ECE eligibility remains unknown. The default corpus still has 34 chunks. |
+| Course/resource coverage and provenance | Focused source review complete | Four career directions, 26 curated courses, 10 resources and a 78-entry ECE directory. The two outside-ECE candidates need advisor approval. The archived review uses 34 chunks. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,772 tests and nine readiness checks. |
-| Browser workflow and concurrent sessions | Verified in CI | All 37 Chromium checks pass. The carried-question case downloads seven comparison rows from its controlled vectors without a provider call. |
+| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,777 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094) |
+| Browser workflow and concurrent sessions | Verified in CI | All 38 Chromium checks pass, including new career navigation and mobile elective details. The carried-question case exports comparison rows from controlled vectors. |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent successful checks are reused for five minutes. Explicit rechecks bypass reuse. The inspector opens in a fragment. Source checks and posting details still depend on their network response times. |
 | Usable plan during source checks and AI | Verified with controlled delays | The saved-data plan appears before sources finish. The updated source plan can appear before AI finishes. Open evidence panels persist. Keeping either plan or submitting a newer profile rejects late results. |

@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "f4926a21f5a649650394dcce5141ca2d91a6a371",
-  "runtime_verification_revision": "f4926a21f5a649650394dcce5141ca2d91a6a371",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43498957696",
+  "source_base_revision": "637ff57c5c038dc5d6d1b0c7aabfa425558748f3",
+  "runtime_verification_revision": "637ff57c5c038dc5d6d1b0c7aabfa425558748f3",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094",
   "collections": [
     {
       "name": "baseline",
@@ -29,6 +29,18 @@
       },
       "evidence_chunks": 34,
       "corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7"
+    },
+    {
+      "name": "combined_career_collection",
+      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14",
+      "records": 40,
+      "kinds": {
+        "course": 26,
+        "resource": 10,
+        "career": 4
+      },
+      "evidence_chunks": 44,
+      "corpus_hash": "e280c1b7666e5b5a32e9d750d98baf893d8326614b454999286b205796b615c3"
     }
   ],
   "review_template": {
@@ -43,7 +55,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "bb2cb5b53b452cda8f68fd3cd1a7f786327a6960d3561e949dbff910462b05fd"
+      "sha256": "9e9fe1c8f6d073d8f0e3e5b0eb1b9392e8831a71d303e1de446c25c8229d5585"
     },
     {
       "path": "reviewer_app.py",
@@ -63,7 +75,7 @@
     },
     {
       "path": "src/service.py",
-      "sha256": "3b12d581158d7ac6d956104f1f3dc5619cfb5a4ef65056dc2d685a143c0f7752"
+      "sha256": "de0a0de58b9a1e8f92b4fea33826c937ce5d43aed426e675a7f2f92e326a6467"
     },
     {
       "path": "src/rules.py",
@@ -75,7 +87,7 @@
     },
     {
       "path": "src/controller.py",
-      "sha256": "e479b0acfe2e7d96ca36528e6afd8cfc9aa885f46df3d76c477256c6c7e3052a"
+      "sha256": "df1c01c1d7f179a4cb6da82037c11695309f12d59b4d31f3290577f2cc65fd94"
     },
     {
       "path": "src/providers.py",
@@ -107,7 +119,7 @@
     },
     {
       "path": "src/opportunities.py",
-      "sha256": "50957b3221b2a6d82bce6bae2ef213ca9f395d98b0afc3de5dbe779b40ff3728"
+      "sha256": "9cedfb7c8bc2932a40c51c035000008f1467fb646d2969a65821ebbbc03865cd"
     },
     {
       "path": "src/profiles.py",
@@ -115,11 +127,11 @@
     },
     {
       "path": "src/collection_ui.py",
-      "sha256": "ce2b2245b12745354e2ae1e4e07dd599e00bb4ec340448f7ac7039b5249cf13c"
+      "sha256": "6ce7788490df0937b8236c92e808518b8b3908849526a245b6fbece8d54b3ef5"
     },
     {
       "path": "src/opportunity_ui.py",
-      "sha256": "7f7b3310a94d82012e0b9d77bba6b0a4ab53b135a15dc096e7fffc92a89c73cd"
+      "sha256": "ea3632aae9cc334b2fb211497298b6aa5bdccc3fe5629c9ede72ffeea218f316"
     },
     {
       "path": "scripts/serve.py",
@@ -167,7 +179,7 @@
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "d358ff86e425666cb8860d5bf2ef3df52a2e19a00f8e242abde154bae9a31556"
+      "sha256": "7cba02af23cffbe96158ef48e89300c765f386b706738fb5184cc5ac1539b246"
     },
     {
       "path": "tests/test_learning_path.py",
@@ -183,7 +195,7 @@
     },
     {
       "path": "src/session.py",
-      "sha256": "f5f9afb31d5dcb6140946b803321ed4d5ce8374b63f2694ae2289130bc84631d"
+      "sha256": "d4e72dfe4bb0233387a9b27508e30da9cdc9a1bdd7de42e60a858eba4d0c315d"
     },
     {
       "path": "src/source_ui.py",
@@ -203,7 +215,7 @@
     },
     {
       "path": "src/deployment.py",
-      "sha256": "c3074f8702f51339144485bac52b45c6bae7412dfdeb5367b4f94e9c313dd4cd"
+      "sha256": "4363e9a020ea97172879dbef20bb0bf01679392815ddc4b7f99f36baaa608143"
     },
     {
       "path": "src/enrollment_references.py",
@@ -232,6 +244,42 @@
     {
       "path": "tests/test_runtime_checks.py",
       "sha256": "d1184da636cd4175061da93bec79c1e4bf8fcc6a33fc9024cff6723336c7ecc7"
+    },
+    {
+      "path": "data/reviewed/career_paths_2026_2027.json",
+      "sha256": "6f758cccf8d4e54d065a501ebfa1bc894a7074d725380236eea3151521f50786"
+    },
+    {
+      "path": "src/career_catalog.py",
+      "sha256": "1d580c900a3eba0da3fc89344fb5f19f36934d82defcea9edd1049097e56e880"
+    },
+    {
+      "path": "src/career_paths.py",
+      "sha256": "e6b38c1d6598a07caeb6e160a0b8219f07075eb27f036cca96ba1d0541437a43"
+    },
+    {
+      "path": "src/career_ui.py",
+      "sha256": "00e35f8c6a4383eff78b9ac0f1e2d5912a67bd5a411a3cab5a07b4e73c95365b"
+    },
+    {
+      "path": "src/collection_filters.py",
+      "sha256": "dc2d10b4df15e3f2add1500af3fce560404efec5c82d2e6a8549c7c4be99df3c"
+    },
+    {
+      "path": "src/jobs.py",
+      "sha256": "c8259bd5392950bd07b6228d0f2342f8d0c28a355b25ac2e5e7229e9c6c784c7"
+    },
+    {
+      "path": "src/models.py",
+      "sha256": "ab966895d32dfe1a6e57cd0e96e75b5bbf77c7d23a695731102c9e058a980d19"
+    },
+    {
+      "path": "src/planning.py",
+      "sha256": "715e289fdbd26fd50e913ebbe08fd16ee31fb6f46b94f42a06efcced3f8ee829"
+    },
+    {
+      "path": "tests/test_career_paths.py",
+      "sha256": "7c97c12c9dd4c6a27effdb1e9546e79a87d82ed2e158c377d38c6d870ca47b9e"
     }
   ],
   "evidence_files": [
@@ -286,6 +334,10 @@
     {
       "path": "docs/evidence/final_demo_rehearsal_2026-11-13.json",
       "sha256": "3be2ab68ec769db2d7641fda37554d854d3dd5158cd3ac23a933432c29b1af9d"
+    },
+    {
+      "path": "docs/evidence/career_directions_2026-11-14.json",
+      "sha256": "3612e5b778746763963a01b9d5a86a7dc76b6ea4d5c2e64844813dfdf5ebab55"
     }
   ],
   "preserved_inputs": [
@@ -337,15 +389,15 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "fc63d0f987c8dc0b7506cca635017545afecde57fc865eb4fe0b738096ad563b"
+      "sha256": "bf8e4f8b77f758dc65be86d2fe15fd8106ed833898766fdbfce83e3100e74068"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "4cc4b3823faad7ada5abdcbce0f99dfc59c81426de09d9aee9c1fb4845ba3a2e"
+      "sha256": "8ababe5d3b853f3ae5ab410d9353a1b36780ff7ba50b6e77d4ca7cdf01353ea2"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "7580856f011a750f10701e077d0b710a1608d40e887ed9e3ae74e3a947e51f35"
+      "sha256": "cf3b3486f1361db11a1caad74e02f9ce725f8e2f9c6adde120f3e77289391b30"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -361,7 +413,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "5589b758420e08d4b8354eabc8771f5cc6c988a4200b1df6beb5af8d303efeaa"
+      "sha256": "bfea69edb3871b841be0aecead8b4540e7d8a47f1482dccc07d632bb4397cd7c"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -369,7 +421,11 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "248e7003b58cb45ffc7d701fd1c0b5addc9ab043c8ddc175776fbfff0653e43f"
+      "sha256": "fff1d3e233ae9980e6648ff0dee1707836c11e356c7e926da572bd672cdf1186"
+    },
+    {
+      "path": "docs/59_CAREER_DIRECTIONS.md",
+      "sha256": "9e72a3a46722a01d3e713ceebfc6f95fafeef61ae09c6094fe166b5e07fdcf7c"
     }
   ],
   "external_references": [
