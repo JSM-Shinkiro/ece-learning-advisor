@@ -359,13 +359,13 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                     has=page.locator("summary").filter(has_text="MSE365 · Physical Properties of Materials"))
                 fragment_runs=counts["fragment_runs"];material.locator("summary").click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(material.get_by_text(re.compile("course page lists MSE 222"))).to_be_visible()
+                expect(material.get_by_text("course page lists MSE 222")).to_be_visible()
                 expect(material.get_by_role("link",name="Official ECE technical elective requirements")).to_be_visible()
                 minor = page.get_by_test_id("stExpander").filter(
                     has=page.locator("summary").filter(has_text="Mathematics minor overlap"))
                 fragment_runs=counts["fragment_runs"];minor.locator("summary").click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(minor.get_by_text(re.compile("MATH 223, 243 and 254"))).to_be_visible()
+                expect(minor.get_by_text("MATH 223, 243 and 254")).to_be_visible()
                 expect(minor.get_by_role("link",name="Mathematics minor requirements",exact=True)).to_be_visible()
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
