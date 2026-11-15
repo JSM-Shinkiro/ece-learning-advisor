@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "d5393efcc7d476aacdfa0edaf1f8825e863cd3d1",
-  "runtime_verification_revision": "d5393efcc7d476aacdfa0edaf1f8825e863cd3d1",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351",
+  "source_base_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+  "runtime_verification_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340",
   "collections": [
     {
       "name": "baseline",
@@ -32,15 +32,15 @@
     },
     {
       "name": "combined_career_collection",
-      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14-semiconductors",
-      "records": 47,
+      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14-specializations",
+      "records": 71,
       "kinds": {
-        "course": 31,
-        "resource": 11,
-        "career": 5
+        "course": 47,
+        "resource": 16,
+        "career": 8
       },
-      "evidence_chunks": 51,
-      "corpus_hash": "e966964a4145c08a1c3f189162584df54bed460522aa056b7c8a52110e56d977"
+      "evidence_chunks": 75,
+      "corpus_hash": "e79aa89e9cb286847a681b8c3e7e43c5fee6f62928348005de4afd55507b2d5c"
     }
   ],
   "review_template": {
@@ -55,7 +55,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "a78a26064a57550025c019301444d111881d4aff0f14bc62310e64cf77696d0a"
+      "sha256": "d18db4d2c31f477c00c0bac33c365ec3c86d4a2faa343bbee0775e2de01f5b49"
     },
     {
       "path": "reviewer_app.py",
@@ -75,7 +75,7 @@
     },
     {
       "path": "src/service.py",
-      "sha256": "d176a6dcabed3535bcd3d3b5ce8024f1ab224944f65c9c9ebe974835b210b339"
+      "sha256": "9abbac27b1a8b417467d5cbcd4d3199f11e7ed8949d7f290f86c6ad3bf3a32ce"
     },
     {
       "path": "src/rules.py",
@@ -87,7 +87,7 @@
     },
     {
       "path": "src/controller.py",
-      "sha256": "df1c01c1d7f179a4cb6da82037c11695309f12d59b4d31f3290577f2cc65fd94"
+      "sha256": "8eba3cb29572947bc4dcb4bcedc5838756d130dfda02e8256c06c644abf3b93c"
     },
     {
       "path": "src/providers.py",
@@ -107,7 +107,7 @@
     },
     {
       "path": "src/sources.py",
-      "sha256": "3f4581e116d2c3dc23ca3c97b4549ce5aada6d930580862805070275bc19fa41"
+      "sha256": "3db53d8afc6a5e420280517d0eae795d03ecffc706cf641eb1c38c42530f6ad8"
     },
     {
       "path": "src/inspector.py",
@@ -119,7 +119,7 @@
     },
     {
       "path": "src/opportunities.py",
-      "sha256": "15ac688bf9f3a9c962310069cf52bfaba1305546a709af67dd9e0b98648c37ac"
+      "sha256": "0e3b080a21dc326b8acc7392535e6127d7a3d91486a7526cd1082a9f81ed3329"
     },
     {
       "path": "src/profiles.py",
@@ -179,7 +179,7 @@
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "b2466a168c416fa92f663daf121c7a3bdd6edfbace22534d9bc4e2cf8b79b5c3"
+      "sha256": "d2cb758a18fd77add8521fda8557b5c11192c8c4a8024b8fa316e4b0a0734d84"
     },
     {
       "path": "tests/test_learning_path.py",
@@ -215,7 +215,7 @@
     },
     {
       "path": "src/deployment.py",
-      "sha256": "1cec68d1bf31061f7805871a6d044202305dc56d747f97f5184d4b2845c11d78"
+      "sha256": "4b5ae5f60307955014cf3e920309345be9adc827e3c7370bb605976e7c6ab169"
     },
     {
       "path": "src/enrollment_references.py",
@@ -227,11 +227,11 @@
     },
     {
       "path": "src/ingest.py",
-      "sha256": "da55d57d95778af40bb54fe7a4b41743894df89712a78e7d0584d8605b23da7e"
+      "sha256": "5b63914839983b230c97a377223a4f65051b6129bad6bb1f653cdad96c8d756f"
     },
     {
       "path": "tests/test_sources.py",
-      "sha256": "cd57cf9ac598fead94dc8ffb86f5413442ff6a0094764a3156c1d1c3efd16bbe"
+      "sha256": "9cde80bfec7286537baa9558328f604c0f48ecf076864f5157311fe41d073de2"
     },
     {
       "path": "scripts/verify_runtime.py",
@@ -247,19 +247,19 @@
     },
     {
       "path": "data/reviewed/career_paths_2026_2027.json",
-      "sha256": "e698739bbf23c86a1f6fa0ffb5ff025f21b634a5d8a4973d01f0dea19382aa41"
+      "sha256": "1576aafe23f23726a6c48011a663eea4a5c3d0fa85726a577ef3c4ff577abb7c"
     },
     {
       "path": "src/career_catalog.py",
-      "sha256": "514904a59c8ae84a84817e465a7173d5056585fc72db5fd254b5c50cff7ac2dc"
+      "sha256": "84fb6f67d2dcc57989189bbeeb14e598514bd3bcae171fa29165cdfe87426da1"
     },
     {
       "path": "src/career_paths.py",
-      "sha256": "f9ccb911b977b7e70d640606ba5c7161730204612483dfb7757f9058cf8d701d"
+      "sha256": "e635ee3182ae88c4592b40ca61ce209c3ace3276a938a785c0b9b75734403b1d"
     },
     {
       "path": "src/career_ui.py",
-      "sha256": "abaac691095de3e909c0273006e365f3e1bd968191ad9cf65a45218102b67291"
+      "sha256": "7ceb11edabc9b670e4acd9b9369da66f763a9d583653a4b18eea1e1d3041ce74"
     },
     {
       "path": "src/collection_filters.py",
@@ -267,7 +267,7 @@
     },
     {
       "path": "src/jobs.py",
-      "sha256": "a116f6527e02332f917c7025d0d8aac9753707e9847e234fc1aac4e4526aa164"
+      "sha256": "db0105812d67565eb9dfc893529133f4f663decef8780d9fc20dd7796e722a11"
     },
     {
       "path": "src/models.py",
@@ -275,11 +275,11 @@
     },
     {
       "path": "src/planning.py",
-      "sha256": "834ccb7c8cf575f2e8bc021bdc9051f0005ca6dcbfd7d9ea96dcc7b165848d7c"
+      "sha256": "c9334c63900384b89e6c151a64e37b4e51153f34ff6bb897f11631fa4ebebcc1"
     },
     {
       "path": "tests/test_career_paths.py",
-      "sha256": "71483e48961c7b9bf36667b23b46aae28048d0579dc248671ae1a88b9596fcaa"
+      "sha256": "e031be4e718431ef6c0b6ae0942e611c74e9bf9c5fd61318dbd3405ae8dabd81"
     },
     {
       "path": "scripts/check_opportunities.py",
@@ -291,23 +291,23 @@
     },
     {
       "path": "src/browser_checks.py",
-      "sha256": "362256f0eb394d5375bd3cfd4743311338ec24a5f81a1ecfb2d315e643fd0bee"
+      "sha256": "70711243ef44bdc8af657d06c46349664838720e284f7f106793287ddffb759e"
     },
     {
       "path": "src/discovery.py",
-      "sha256": "6688191c049954666568867f26645cfd6493836c9d2b994aa6b94e9defad1030"
+      "sha256": "ca33a360806e5581a4c825f770fd0f2a4c0eca223e3f1e2e1f0cf83d53af3485"
     },
     {
       "path": "tests/test_app.py",
-      "sha256": "d0027e2e322586340d85f2ae32fd9ac6f39ba566f5766370ea45e5079d807b06"
+      "sha256": "a141f2a6c426f2d62b6880869ca4b697affe784fed609be8867b5d3daeaa888d"
     },
     {
       "path": "tests/test_collection_browsing.py",
-      "sha256": "96b5977049384c27965d9b0c71d51aa338af406d7e6be97bb1a4d7e7438fc76f"
+      "sha256": "c2cdb0fdc93fa12a5ec462891a63fe1470545491bd64397f2e57fa97d06c8a83"
     },
     {
       "path": "tests/test_runtime_catalog.py",
-      "sha256": "60afb6a23470373b501c8d810bff8401fc56d9c40d128e6030ee3fe75011b195"
+      "sha256": "18b81e428c816b54bbf44e5b1f7eb263265744d0079724b1c7a6acbd7d97d9eb"
     }
   ],
   "evidence_files": [
@@ -370,6 +370,10 @@
     {
       "path": "docs/evidence/semiconductors_and_math_minor_2026-11-14.json",
       "sha256": "ada04863f99a9aa6b7dfcdd8165c9595d242ab04afb60e535242fb4680300035"
+    },
+    {
+      "path": "docs/evidence/career_specializations_2026-11-14.json",
+      "sha256": "60a23d21994c8e22f2f92e8f9154d0d30b9c9329b10e7c6cd8312da3ca209bff"
     }
   ],
   "preserved_inputs": [
@@ -421,15 +425,15 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "b4f94851090349c4c4a640d1bd3253d32e6589e5b0354d55b27e8cd2663eae3d"
+      "sha256": "82377c7bc971a900f084087630b9e8cead83943db9b95c426f2d95059ab00955"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "e9683ac998c225c9637d508b34781209ae99e3d6d328381d0fadabf9b5cb4bfa"
+      "sha256": "ae74d81891ddfa5e3067d7f0ed14d6d39f0c040a863707a6ff4387ff60df7577"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "25c1e0f79e708b1bc0bb0bd72fd9845bf4b7eddd6625993f1c41aef3a0637e40"
+      "sha256": "51cc28e411c4b061ca01c46063e7b8fb01c011e4b55c3243bb6da8c877afae30"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -445,7 +449,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "a3ee428defd0fcb2bf1c2c1e94fd108ff363e903f6f578a4644f630185026016"
+      "sha256": "1e376732a1deb7b02bbe8963530a1f683aba462d7f96f24526660a2d56fd921a"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -453,11 +457,11 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "a5b970802675e49969f24155e3048ed2355b5013c2bac9f741c0b3d656de5597"
+      "sha256": "0e1965a56bb5bf8ae08d253ca9123019e8fcc13908d55235e570444c9800955d"
     },
     {
       "path": "docs/59_CAREER_DIRECTIONS.md",
-      "sha256": "238d4ace1d02fa6d8d10e3e0e94e94d050d24ebc9dfb0ffc04362afa95242344"
+      "sha256": "138302d2001d0b32d650f2da0b756bb4d061ec00647559a7e59e65dffcdb32e6"
     }
   ],
   "external_references": [
@@ -496,7 +500,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-13T20:14:31+00:00",
+  "updated_at_utc": "2026-11-15T07:17:49+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -576,6 +580,17 @@
     "evidence": "docs/evidence/final_demo_rehearsal_2026-11-13.json",
     "comparison_records": 7,
     "live_gemini": "credential_missing",
+    "app_planning_percent": 94,
+    "submission_planning_percent": 70
+  },
+  "career_specializations": {
+    "date_mst": "2026-11-14",
+    "evidence": "docs/evidence/career_specializations_2026-11-14.json",
+    "career_directions": 8,
+    "specialization_choices": 17,
+    "distinct_specializations": 16,
+    "live_course_updates": 16,
+    "chromium_checks": 39,
     "app_planning_percent": 94,
     "submission_planning_percent": 70
   }

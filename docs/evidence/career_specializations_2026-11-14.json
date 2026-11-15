@@ -1,0 +1,851 @@
+{
+  "local_project_date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+  "scope": "Specialization selection, academic source records and bounded public opportunity checks.",
+  "collection": {
+    "version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14-specializations",
+    "counts": {
+      "course": 47,
+      "resource": 16,
+      "career": 8
+    },
+    "evidence_chunks": 75,
+    "corpus_hash": "e79aa89e9cb286847a681b8c3e7e43c5fee6f62928348005de4afd55507b2d5c",
+    "route_entries": 17,
+    "unique_routes": 16,
+    "routes": {
+      "AI / Machine Learning": [
+        "Computer Vision & Perception",
+        "Applied ML",
+        "Edge AI & On-Device Inference"
+      ],
+      "Embedded Systems": [
+        "Firmware & Real-Time Systems",
+        "Edge AI & On-Device Inference"
+      ],
+      "Signals & Communications": [
+        "DSP & Wireless Communications",
+        "RF & Microwave Engineering"
+      ],
+      "Controls & Robotics": [
+        "Industrial Automation & Motion Control",
+        "Robotics & Autonomy"
+      ],
+      "Semiconductors & Digital Hardware": [
+        "Design & verification",
+        "Fabrication & test"
+      ],
+      "Photonics & Electro-Optics": [
+        "Imaging & Optical Systems",
+        "Lasers & Optical Communications"
+      ],
+      "Power & Energy Systems": [
+        "Solar PV & Energy Storage",
+        "Building Electrical Systems"
+      ],
+      "Biomedical Instrumentation & Sensors": [
+        "Biosignals & Instrumentation",
+        "Biomedical Imaging"
+      ]
+    },
+    "added_courses": [
+      "ARCE320",
+      "BME330",
+      "BME416",
+      "CSC477",
+      "CSC480",
+      "ECE370",
+      "ECE402C",
+      "ECE414A",
+      "ECE417",
+      "ECE430",
+      "ECE447A",
+      "ECE459",
+      "ECE484",
+      "ECE486",
+      "ECE488",
+      "OPTI300"
+    ]
+  },
+  "local": {
+    "tests_passed": 1803,
+    "startup_checks_passed": 9,
+    "all_route_entries_exercised": true
+  },
+  "source_only_requests": {
+    "checked_at": "2026-11-15T07:06:17.473333+00:00",
+    "scope": "Public course source-only requests with a separate empty cache per case. AI disabled.",
+    "cases": [
+      {
+        "direction": "ai_ml",
+        "question": "How can I compare CSC 477 and CSC 480?",
+        "route": null,
+        "allowed_record_ids": [
+          "uofa:CSC477:2026-2027",
+          "uofa:CSC480:2026-2027",
+          "uofa:ECE101:2026-2027",
+          "resource:cs50",
+          "resource:litert"
+        ],
+        "seconds": 10.791,
+        "unverified_enrollment_codes": [
+          "CSC477",
+          "CSC480",
+          "ECE101"
+        ],
+        "source_checks": [
+          {
+            "code": "CSC477",
+            "url": "https://catalog.arizona.edu/courses/0098501",
+            "status": "updated"
+          },
+          {
+            "code": "CSC480",
+            "url": "https://catalog.arizona.edu/courses/0421321",
+            "status": "updated"
+          },
+          {
+            "code": "CSC120",
+            "url": "https://catalog.arizona.edu/courses/0393701",
+            "status": "updated"
+          },
+          {
+            "code": "CSC110",
+            "url": "https://catalog.arizona.edu/courses/0393681",
+            "status": "updated"
+          },
+          {
+            "code": "CSC144",
+            "url": "https://catalog.arizona.edu/courses/0420001",
+            "status": "updated"
+          },
+          {
+            "code": "CSC210",
+            "url": "https://catalog.arizona.edu/courses/0393711",
+            "status": "updated"
+          },
+          {
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "status": "updated"
+          },
+          {
+            "code": "ECE369A",
+            "url": "https://catalog.arizona.edu/courses/0366021",
+            "status": "updated"
+          },
+          {
+            "code": "ECE372A",
+            "url": "https://catalog.arizona.edu/courses/0367521",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE201",
+            "url": "https://catalog.arizona.edu/courses/0432591",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE274A",
+            "url": "https://catalog.arizona.edu/courses/0360981",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE311",
+            "url": "https://catalog.arizona.edu/courses/0397381",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE340A",
+            "url": "https://catalog.arizona.edu/courses/0377871",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE351C",
+            "url": "https://catalog.arizona.edu/courses/0366011",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE373",
+            "url": "https://catalog.arizona.edu/courses/0121261",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE352",
+            "url": "https://catalog.arizona.edu/courses/0121181",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "skipped"
+          },
+          {
+            "code": "CSC372",
+            "url": "https://catalog.arizona.edu/courses/0098011",
+            "status": "skipped"
+          }
+        ],
+        "selected_course_codes": [
+          "CSC477",
+          "CSC480",
+          "CSC120",
+          "CSC110",
+          "CSC144",
+          "CSC210",
+          "ECE101",
+          "ECE369A"
+        ]
+      },
+      {
+        "direction": "embedded",
+        "question": "What should I learn for Firmware & Real-Time Systems, including ECE 402C?",
+        "route": "Firmware & Real-Time Systems",
+        "allowed_record_ids": [
+          "uofa:ECE101:2026-2027",
+          "uofa:ECE369A:2026-2027",
+          "uofa:ECE402C:2026-2027",
+          "resource:freertos"
+        ],
+        "seconds": 8.755,
+        "unverified_enrollment_codes": [
+          "ECE101",
+          "ECE369A",
+          "ECE402C"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE402C",
+            "url": "https://catalog.arizona.edu/courses/0436591",
+            "status": "updated"
+          },
+          {
+            "code": "ECE101",
+            "url": "https://catalog.arizona.edu/courses/0432351",
+            "status": "updated"
+          },
+          {
+            "code": "ECE369A",
+            "url": "https://catalog.arizona.edu/courses/0366021",
+            "status": "updated"
+          },
+          {
+            "code": "ECE372A",
+            "url": "https://catalog.arizona.edu/courses/0367521",
+            "status": "updated"
+          },
+          {
+            "code": "ECE425",
+            "url": "https://catalog.arizona.edu/courses/0435981",
+            "status": "updated"
+          },
+          {
+            "code": "ECE201",
+            "url": "https://catalog.arizona.edu/courses/0432591",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE274A",
+            "url": "https://catalog.arizona.edu/courses/0360981",
+            "status": "updated"
+          },
+          {
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE311",
+            "url": "https://catalog.arizona.edu/courses/0397381",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE340A",
+            "url": "https://catalog.arizona.edu/courses/0377871",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE351C",
+            "url": "https://catalog.arizona.edu/courses/0366011",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE373",
+            "url": "https://catalog.arizona.edu/courses/0121261",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE352",
+            "url": "https://catalog.arizona.edu/courses/0121181",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "skipped"
+          },
+          {
+            "code": "CSC372",
+            "url": "https://catalog.arizona.edu/courses/0098011",
+            "status": "skipped"
+          },
+          {
+            "code": "CSC477",
+            "url": "https://catalog.arizona.edu/courses/0098501",
+            "status": "skipped"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE402C",
+          "ECE101",
+          "ECE369A",
+          "ECE372A",
+          "ECE425",
+          "ECE201",
+          "ECE220",
+          "ECE274A"
+        ]
+      },
+      {
+        "direction": "signals",
+        "question": "What should I learn for RF & Microwave Engineering? Include ECE 484, ECE 486 and ECE 488.",
+        "route": "RF & Microwave Engineering",
+        "allowed_record_ids": [
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE381A:2026-2027",
+          "uofa:ECE486:2026-2027"
+        ],
+        "seconds": 5.138,
+        "unverified_enrollment_codes": [
+          "ECE220",
+          "ECE381A",
+          "ECE486"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE484",
+            "url": "https://catalog.arizona.edu/courses/0122081",
+            "status": "updated"
+          },
+          {
+            "code": "ECE486",
+            "url": "https://catalog.arizona.edu/courses/0122141",
+            "status": "updated"
+          },
+          {
+            "code": "ECE488",
+            "url": "https://catalog.arizona.edu/courses/0122161",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "updated"
+          },
+          {
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "status": "updated"
+          },
+          {
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "status": "updated"
+          },
+          {
+            "code": "ECE340A",
+            "url": "https://catalog.arizona.edu/courses/0377871",
+            "status": "updated"
+          },
+          {
+            "code": "ECE429",
+            "url": "https://catalog.arizona.edu/courses/0121501",
+            "status": "skipped"
+          },
+          {
+            "code": "ECE435A",
+            "url": "https://catalog.arizona.edu/courses/0380411",
+            "status": "skipped"
+          },
+          {
+            "code": "CSC425",
+            "url": "https://catalog.arizona.edu/courses/0098201",
+            "status": "skipped"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE484",
+          "ECE486",
+          "ECE488",
+          "ECE220",
+          "ECE381A",
+          "ECE310",
+          "ECE320A",
+          "ECE340A"
+        ]
+      },
+      {
+        "direction": "controls",
+        "question": "What should I learn for Industrial Automation & Motion Control? Include ECE 447A.",
+        "route": "Industrial Automation & Motion Control",
+        "allowed_record_ids": [
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE320A:2026-2027",
+          "uofa:ECE447A:2026-2027",
+          "resource:motor_pid"
+        ],
+        "seconds": 4.973,
+        "unverified_enrollment_codes": [
+          "ECE220",
+          "ECE320A",
+          "ECE447A"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE447A",
+            "url": "https://catalog.arizona.edu/courses/0325232",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "status": "updated"
+          },
+          {
+            "code": "ECE441A",
+            "url": "https://catalog.arizona.edu/courses/0363511",
+            "status": "updated"
+          },
+          {
+            "code": "ECE442",
+            "url": "https://catalog.arizona.edu/courses/0121591",
+            "status": "updated"
+          },
+          {
+            "code": "ECE372A",
+            "url": "https://catalog.arizona.edu/courses/0367521",
+            "status": "updated"
+          },
+          {
+            "code": "ECE310",
+            "url": "https://catalog.arizona.edu/courses/0362401",
+            "status": "updated"
+          },
+          {
+            "code": "CSC437",
+            "url": "https://catalog.arizona.edu/courses/0098261",
+            "status": "updated"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE447A",
+          "ECE220",
+          "ECE320A",
+          "ECE441A",
+          "ECE442",
+          "ECE372A",
+          "ECE310",
+          "CSC437"
+        ]
+      },
+      {
+        "direction": "photonics",
+        "question": "What should I learn for Imaging & Optical Systems? Include ECE 459 and OPTI 300.",
+        "route": "Imaging & Optical Systems",
+        "allowed_record_ids": [
+          "uofa:OPTI300:2026-2027",
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE459:2026-2027",
+          "resource:wyant_photonics"
+        ],
+        "seconds": 4.526,
+        "unverified_enrollment_codes": [
+          "OPTI300",
+          "ECE220",
+          "ECE459"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE459",
+            "url": "https://catalog.arizona.edu/courses/0121751",
+            "status": "updated"
+          },
+          {
+            "code": "OPTI300",
+            "url": "https://catalog.arizona.edu/courses/0379691",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "updated"
+          },
+          {
+            "code": "ECE370",
+            "url": "https://catalog.arizona.edu/courses/0249862",
+            "status": "updated"
+          },
+          {
+            "code": "ECE430",
+            "url": "https://catalog.arizona.edu/courses/0121512",
+            "status": "updated"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE459",
+          "OPTI300",
+          "ECE220",
+          "ECE381A",
+          "ECE370",
+          "ECE430"
+        ]
+      },
+      {
+        "direction": "photonics",
+        "question": "What should I learn for Lasers & Optical Communications? Include ECE 370 and ECE 430.",
+        "route": "Lasers & Optical Communications",
+        "allowed_record_ids": [
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE381A:2026-2027",
+          "uofa:ECE370:2026-2027",
+          "resource:wyant_photonics"
+        ],
+        "seconds": 3.545,
+        "unverified_enrollment_codes": [
+          "ECE220",
+          "ECE381A",
+          "ECE370"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE370",
+            "url": "https://catalog.arizona.edu/courses/0249862",
+            "status": "updated"
+          },
+          {
+            "code": "ECE430",
+            "url": "https://catalog.arizona.edu/courses/0121512",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "updated"
+          },
+          {
+            "code": "ECE459",
+            "url": "https://catalog.arizona.edu/courses/0121751",
+            "status": "updated"
+          },
+          {
+            "code": "OPTI300",
+            "url": "https://catalog.arizona.edu/courses/0379691",
+            "status": "updated"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE370",
+          "ECE430",
+          "ECE220",
+          "ECE381A",
+          "ECE459",
+          "OPTI300"
+        ]
+      },
+      {
+        "direction": "power",
+        "question": "What should I learn for Solar PV & Energy Storage? How do ECE 414A and ARCE 320 fit?",
+        "route": "Solar PV & Energy Storage",
+        "allowed_record_ids": [
+          "uofa:ARCE320:2026-2027",
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE320A:2026-2027",
+          "resource:solar_storage"
+        ],
+        "seconds": 3.633,
+        "unverified_enrollment_codes": [
+          "ARCE320",
+          "ECE220",
+          "ECE320A"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE414A",
+            "url": "https://catalog.arizona.edu/courses/0121391",
+            "status": "updated"
+          },
+          {
+            "code": "ARCE320",
+            "url": "https://catalog.arizona.edu/courses/0401421",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE320A",
+            "url": "https://catalog.arizona.edu/courses/0121101",
+            "status": "updated"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE414A",
+          "ARCE320",
+          "ECE220",
+          "ECE320A"
+        ]
+      },
+      {
+        "direction": "biomedical",
+        "question": "How do ECE 417, BME 330 and BME 416 fit into these specializations?",
+        "route": null,
+        "allowed_record_ids": [
+          "uofa:BME330:2026-2027",
+          "uofa:BME416:2026-2027",
+          "uofa:ECE220:2026-2027",
+          "resource:medical_imaging"
+        ],
+        "seconds": 4.49,
+        "unverified_enrollment_codes": [
+          "BME330",
+          "BME416",
+          "ECE220"
+        ],
+        "source_checks": [
+          {
+            "code": "ECE417",
+            "url": "https://catalog.arizona.edu/courses/0093732",
+            "status": "updated"
+          },
+          {
+            "code": "BME330",
+            "url": "https://catalog.arizona.edu/courses/0363371",
+            "status": "updated"
+          },
+          {
+            "code": "BME416",
+            "url": "https://catalog.arizona.edu/courses/0093721",
+            "status": "updated"
+          },
+          {
+            "code": "ECE220",
+            "url": "https://catalog.arizona.edu/courses/0120881",
+            "status": "updated"
+          },
+          {
+            "code": "ECE351C",
+            "url": "https://catalog.arizona.edu/courses/0366011",
+            "status": "updated"
+          },
+          {
+            "code": "ECE381A",
+            "url": "https://catalog.arizona.edu/courses/0375981",
+            "status": "updated"
+          }
+        ],
+        "selected_course_codes": [
+          "ECE417",
+          "BME330",
+          "BME416",
+          "ECE220",
+          "ECE351C",
+          "ECE381A"
+        ]
+      }
+    ]
+  },
+  "biomedical_imaging_followup": {
+    "checked_at": "2026-11-15T07:10:15.759545+00:00",
+    "question": "What should I learn for Biomedical Imaging?",
+    "course_sources": [
+      {
+        "code": "BME416",
+        "status": "updated"
+      },
+      {
+        "code": "ECE429",
+        "status": "updated"
+      },
+      {
+        "code": "ECE351C",
+        "status": "updated"
+      },
+      {
+        "code": "ECE417",
+        "status": "updated"
+      },
+      {
+        "code": "BME330",
+        "status": "updated"
+      },
+      {
+        "code": "ECE220",
+        "status": "updated"
+      },
+      {
+        "code": "ECE381A",
+        "status": "updated"
+      }
+    ],
+    "study_route": "Biomedical Imaging",
+    "allowed_record_ids": [
+      "uofa:BME416:2026-2027",
+      "uofa:ECE429:2026-2027",
+      "resource:medical_imaging"
+    ],
+    "bme416_enrollment": "unknown"
+  },
+  "public_opportunity_checks": {
+    "photonics": {
+      "checked_at": "2026-11-15T07:10:46.634627+00:00",
+      "matching_titles": 8,
+      "board_checks": [
+        {
+          "employer": "Samsara",
+          "status": "verified"
+        },
+        {
+          "employer": "Nuro",
+          "status": "verified"
+        },
+        {
+          "employer": "Anduril Industries",
+          "status": "verified"
+        }
+      ]
+    },
+    "power": {
+      "checked_at": "2026-11-15T07:10:46.654316+00:00",
+      "matching_titles": 4,
+      "board_checks": [
+        {
+          "employer": "Samsara",
+          "status": "verified"
+        },
+        {
+          "employer": "Nuro",
+          "status": "verified"
+        },
+        {
+          "employer": "Anduril Industries",
+          "status": "verified"
+        }
+      ]
+    },
+    "biomedical": {
+      "checked_at": "2026-11-15T07:10:46.694393+00:00",
+      "matching_titles": 0,
+      "board_checks": [
+        {
+          "employer": "Samsara",
+          "status": "verified"
+        },
+        {
+          "employer": "Nuro",
+          "status": "verified"
+        },
+        {
+          "employer": "Anduril Industries",
+          "status": "verified"
+        }
+      ]
+    }
+  },
+  "archived_review": {
+    "unchanged_input_hashes": 8,
+    "core_chunks": 34,
+    "unfilled_relevance_grades": 408
+  },
+  "hosted_ci": {
+    "run_id": 43688855340,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340",
+    "revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+    "conclusion": "success",
+    "completed_at_utc": "2026-11-15T07:14:50Z",
+    "backend": [
+      {
+        "job_id": 132735001872,
+        "platform": "ubuntu-26.04",
+        "python": "3.12",
+        "tests_passed": 1803,
+        "startup_checks_passed": 9
+      },
+      {
+        "job_id": 132735001602,
+        "platform": "windows-latest",
+        "python": "3.12",
+        "tests_passed": 1803,
+        "startup_checks_passed": 9
+      }
+    ],
+    "chromium": {
+      "job_id": 132735001796,
+      "checks_passed": 39,
+      "student_flow": 12,
+      "reviewer_workspace": 6,
+      "controlled_ai_and_browsing": 21,
+      "checks": {
+        "specialization_selection": "Question selects Lasers & Optical Communications. The Imaging & Optical Systems button switches the courses and saves the Photonics direction.",
+        "mobile_collection": "At 390 pixels the selected course shows BME416 enrollment guidance and the elective requirements link in local browsing."
+      }
+    }
+  },
+  "remaining_validation": {
+    "live_gemini_rehearsal": "Local operator credential needed",
+    "independent_relevance_review": "Open",
+    "student_pilot": "Open",
+    "utility_grid_protection_route": "Verified course sequence needed"
+  }
+}

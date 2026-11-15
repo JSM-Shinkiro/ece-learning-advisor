@@ -1,8 +1,8 @@
 # Final submission workspace
 
-Team P07 · Updated November 14, 2026 · ECE Learning Advisor
+Team P07 · Updated November 15, 2026 · ECE Learning Advisor
 
-Application revision `d5393efcc7d476aacdfa0edaf1f8825e863cd3d1` includes Semiconductors & Digital Hardware study routes and a Mathematics minor overlap card. [Career directions](../59_CAREER_DIRECTIONS.md) · [Verification evidence](../evidence/semiconductors_and_math_minor_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351)
+Application revision `034baef173dd783697da72542ce3aa28bdfcf2c7` includes eight career directions and 17 specialization choices. [Career directions](../59_CAREER_DIRECTIONS.md) · [Verification evidence](../evidence/career_specializations_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |

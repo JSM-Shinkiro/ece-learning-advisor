@@ -1,6 +1,6 @@
 # ECE Learning Advisor — Final Project Development
 
-Team P07 · Updated November 14, 2026 MST · Final presentation and submission December 11.
+Team P07 · Updated November 15, 2026 MST · Final presentation and submission December 11.
 
 For each development step, update [final readiness](FINAL_READINESS.md) with separate app/submission estimates, the acceptance gate resolved, and the main remaining work. These are planning judgments against the scoped project, not measured quality or instructor grades.
 
@@ -21,7 +21,7 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 ## Current implementation
 
-The Advisor offers five career directions. Semiconductors & Digital Hardware has separate design and fabrication routes, five added courses and a Verilator exercise. Students can inspect SIE406 and MSE365 as outside-ECE elective candidates or open a Mathematics minor overlap card in Courses & Resources. The combined collection has 31 courses and 11 resources. The archived review uses the 34-chunk core. [Career directions and verification](59_CAREER_DIRECTIONS.md)
+The Advisor offers eight career directions and 17 specialization entries, with Edge AI available from two paths. Students can choose a specialization from the path panel or ask a question that matches a route. Each route includes course preparation and a practice exercise. The combined collection has 47 courses and 16 resources. The archived review uses the 34-chunk core. [Career directions and verification](59_CAREER_DIRECTIONS.md)
 
 The final-demo verifier runs the exact carried image-classification question through one Hybrid request and records the seven-record comparison. The Advisor inspector can download the same comparison from the displayed request. The live Gemini rehearsal still needs a local credential. Planning readiness is approximately **94% app / 70% complete submission**. [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
 
@@ -184,3 +184,5 @@ The later November 13 unit matches the emailed phone inspector failure to run 43
 The November 13 demo unit adds an exact-question verifier and a download of the Advisor’s displayed embedding comparison. Both controlled modes, saved evidence and refreshed sources, pass with one query embedding and one generation attempt each. The separate live source-only observation refreshes ECE425 and preserves the unknown enrollment state. The revision passes 1,772 tests and nine startup checks per OS and all 37 Chromium checks. An operator credential is needed to finish the live Gemini check. Planning readiness stays at **94% app / 70% complete submission**. [Demo verification](evidence/final_demo_rehearsal_2026-11-13.json)
 
 The November 14 semiconductor unit adds the two study routes, SIE406 and MSE365 candidate guidance, and a Mathematics minor overlap card. Live source-only requests refresh all five new courses. The follow-up passes 1,780 tests and nine startup checks on Linux and Windows, plus 38 Chromium checks. The combined Advisor collection has 51 chunks. The archived 34-chunk review still has 408 blank grades. Current planning estimates are **94% app / 70% complete submission**. The live Gemini rehearsal, independent grading and student pilot are the next evaluation gates. [Verification](evidence/semiconductors_and_math_minor_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351)
+
+The November 14 specialization unit adds Photonics & Electro-Optics, Power & Energy Systems, and Biomedical Instrumentation & Sensors. The eight paths expose 17 choices, with Edge AI shared by the AI and Embedded paths. The collection now includes 47 courses, 16 resources and 75 chunks. Source-only requests refresh all 16 new course records. The passing run verifies 1,803 tests and nine startup checks per OS plus 39 Chromium checks, including direct branch selection and Biomedical Imaging guidance at phone width. The archived review still uses 34 chunks and 408 blank grades. Planning readiness stays at **94% app / 70% complete submission**. The live Gemini rehearsal, independent grading and student pilot remain open. [Verification](evidence/career_specializations_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340)

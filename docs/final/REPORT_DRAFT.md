@@ -1,18 +1,18 @@
 # ECE Learning Advisor: An Inspectable RAG System
 
-Team P07 · ECE 425/525 · Final report draft · Updated November 14, 2026
+Team P07 · ECE 425/525 · Final report draft · Updated November 15, 2026
 
-This draft describes verified application revision `d5393efcc7d476aacdfa0edaf1f8825e863cd3d1`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
-ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. It combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index. Optional pretrained Gemini models supply embeddings and statement selections. The Advisor curates five career directions across 31 courses and 11 resources. A published 2026–27 directory exposes descriptions for 78 undergraduate ECE courses. In a paired offline browser experiment, median first inspector opening decreased from 1.608 to 0.687 seconds. Independent relevance judgments, student usability outcomes and repeated live-AI latency measurements remain open.
+ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. It combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index. Optional pretrained Gemini models supply embeddings and statement selections. The Advisor curates eight career directions with selectable study routes across 47 courses and 16 resources. A published 2026–27 directory exposes descriptions for 78 undergraduate ECE courses. In a paired offline browser experiment, median first inspector opening decreased from 1.608 to 0.687 seconds. Independent relevance judgments, student usability outcomes and repeated live-AI latency measurements remain open.
 
 ## 1. Problem and project goals
 
 An incoming ECE student may know an interest such as robotics without knowing an appropriate starting course or resource. A current student needs suggestions that account for completed and ongoing work. Catalog descriptions, program requirements, resource editions and employer listings provide different kinds of evidence; a fluent explanation can obscure those differences.
 
-The application suggests preparation activities and shows supporting evidence for five directions. AI / Machine Learning and Embedded Systems cover the original focus areas. Signals & Communications and Controls & Robotics connect RF, DSP, controls and robotics roles to courses and simulation exercises. Semiconductors & Digital Hardware adds study routes for design and verification and for fabrication and test, with a Verilator exercise. The path cards pair outside-ECE candidates with their catalog descriptions and the university's elective approval guidance. Courses & Resources links the overlapping parts of the ECE advised plans and the Mathematics minor requirements. The roadmap uses **Start here**, **Build toward**, and **Later goals** for learning stages. [E19–E20](EVIDENCE_MAP.md)
+The application suggests preparation activities and shows supporting evidence for eight directions. Each career panel has two or three specializations a learner can select directly. Edge AI is shared between AI / Machine Learning and Embedded Systems. The expanded coverage also includes Photonics & Electro-Optics, Power & Energy Systems and Biomedical Instrumentation & Sensors. A matched study route supplies reviewed courses and practice material. The path cards cite the catalog and the university's elective approval guidance. Courses & Resources shows where the ECE advised plans overlap with Mathematics minor requirements. [E19–E21](EVIDENCE_MAP.md)
 
 The project preparation notes define four inspection goals. They guide this draft; they are not a claim that a final-specific rubric has been satisfied.
 
@@ -118,9 +118,9 @@ Opportunities use explicit public Greenhouse-board searches for Samsara, Nuro an
 | --- | ---: | ---: | ---: | ---: |
 | Frozen development baseline | 5 | 2 | 2 | 10 |
 | Saved runtime collection | 20 | 8 | 2 | 34 |
-| Combined career collection | 26 | 10 | 4 | 44 |
+| Combined career collection | 47 | 16 | 8 | 75 |
 
-Each new direction adds five records to the runtime collection for its requests. The historical retrieval results below use the ten-chunk baseline. The review packet for human assessment uses the archived 34-chunk collection. [E19](EVIDENCE_MAP.md)
+The Advisor uses a filtered set of records from the combined collection for each route. The historical retrieval results below use the ten-chunk baseline. The review packet for human assessment uses the archived 34-chunk collection. [E19–E21](EVIDENCE_MAP.md)
 
 The historical retrieval experiment uses sixteen assistant-authored queries and complete graded references on the ten-chunk baseline. Relevance is grade 2 or 3 on a 0–3 scale. Precision@5 uses a fixed denominator of five, including shorter result lists; recall divides retrieved relevant chunks by all judged relevant chunks. MRR uses the first relevant rank within the cutoff. nDCG uses linear grade gain divided by $\log_2(\mathrm{rank}+1)$. Results are query-macro averages, excluding undefined metrics. [E3, E4](EVIDENCE_MAP.md)
 
@@ -155,6 +155,8 @@ The rehearsal revision passed 1,772 tests and nine startup checks per OS and 37 
 
 The November 14 semiconductor follow-up passed 1,780 tests and nine startup checks on both platforms and 38 Chromium checks. The career card opened both official elective links. At a 390-pixel viewport, students can open MSE365 and Mathematics minor details through local collection updates. Separate source-only checks refreshed the five added course descriptions and retained unknown enrollment status. These checks cover software behavior and source connection. [E20](EVIDENCE_MAP.md)
 
+The specialization revision passed 1,803 tests and nine startup checks per OS and all 39 Chromium checks. The browser observed a laser question select the Photonics route, a button switch the roadmap to Imaging, and local display of Biomedical Imaging enrollment details at 390 pixels. Eight source-only requests refreshed all 16 added catalog records. A separate Biomedical Imaging request left individual enrollment unverified. [E21](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -180,7 +182,7 @@ The November 13 audit found continuity, vocabulary coverage and reasoning gaps. 
 
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
-Published undergraduate ECE description coverage spans 78 courses, with 22 ECE courses curated across five career directions. ECE prerequisite interpretations remain unreviewed. Outside-ECE elective candidates need individual approval, and the Mathematics minor card provides general guidance for the two 2026–27 advised plans. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Reproducible local access is available. Final access requirements and hosted delivery remain open.
+Published undergraduate ECE description coverage spans 78 courses, with 32 ECE courses curated across eight directions. ECE prerequisite interpretations remain unreviewed. Outside-ECE elective candidates need individual approval, and the Mathematics minor card provides general guidance for the two 2026–27 advised plans. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Reproducible local access is available. Final access requirements and hosted delivery remain open.
 
 Before release, collect genuine judgments and student observations, measure real-AI/source/cache behavior on a frozen revision, capture final application figures, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
 
@@ -191,4 +193,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E20](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E21](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
