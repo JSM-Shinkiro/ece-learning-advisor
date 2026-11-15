@@ -34,6 +34,9 @@ CAREER_PATTERNS = {
     "signals": r"\b(?:signal processing|DSP|radio frequency|RF|wireless|communications systems|telecommunications)\b",
     "controls": r"\b(?:controls?|robotics?|motion planning|industrial automation|factory automation)\b",
     "semiconductors": r"\b(?:semiconductors?|ASIC|RTL|VLSI|silicon|FPGA|design verification|chip design|wafer|fab process|advanced packaging)\b",
+    "photonics": r"\b(?:optics|optical|electro[ -]?optical|optoelectronics|photonics|lasers?)\b",
+    "power": r"\b(?:power systems?|power electronics|electrical power|solar|photovoltaic|energy storage|renewable energy)\b",
+    "biomedical": r"\b(?:biomedical|bioinstrumentation|medical devices?|medical imaging|clinical engineering)\b",
 }
 ROLE_PATTERN = r"\b(?:engineer(?:ing)?|developer|scientist|research(?:er)?|technician|intern(?:ship)?|co[ -]?op)\b"
 EXCLUDED_ROLES = r"\b(?:recruit(?:er|ing|ment)|sales|marketing|talent|account|executive assistant)\b"

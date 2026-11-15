@@ -5,10 +5,11 @@ import time
 import httpx
 
 from .career_catalog import with_career_paths
-from .career_paths import EXPANDED_DIRECTIONS, question_direction
+from .career_paths import CAREER_PATHS, CORE_DIRECTIONS, question_direction
 from .planning import coverage_message, requested_record_ids
 from .providers import AIRequestBudget, BudgetedProvider, GeminiProvider, ProviderError
 from .progress import RequestProgress
+from .retrieval import tokenize
 from .service import recommend
 from .sources import refresh_catalog
 from .discovery import load_discovery_plans, match_course_requests
@@ -38,6 +39,10 @@ def _attach_source_trace(result, source_trace, issues, source_elapsed, started, 
         result.trace["course_directory"] = directory_trace
     if inferred_direction:
         result.trace["career_direction"] = {"from": "exploring", "matched": inferred_direction}
+    path = CAREER_PATHS.get(result.context.profile.career_id)
+    route = path.matching_route(result.context.question.strip() or result.context.profile.interests) if path else None
+    if route:
+        result.trace["study_route"] = route.label
     result.trace["timings_seconds"] = result.timings
 
 
@@ -51,11 +56,14 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
     inferred_direction = None
+    learning_request = profile.question.strip() or profile.interests
     if profile.career_id == "exploring":
-        inferred_direction = question_direction(profile.question.strip() or profile.interests)
+        inferred_direction = question_direction(learning_request)
         if inferred_direction:
             profile = profile.model_copy(update={"career_id": inferred_direction})
-    if profile.career_id in EXPANDED_DIRECTIONS:
+    path = CAREER_PATHS.get(profile.career_id)
+    if path and (profile.career_id not in CORE_DIRECTIONS or path.matching_route(learning_request)
+                 or set(tokenize(learning_request)).intersection(code.casefold() for code in path.electives)):
         catalog = with_career_paths(catalog, (profile.career_id,))
     directory_trace = None
     if course_directory is not None:

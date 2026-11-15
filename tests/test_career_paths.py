@@ -53,8 +53,8 @@ def test_combined_collection_extends_each_path_once_and_ambiguous_questions_rema
     assert with_career_paths(combined) == combined
     assert not question_direction("I'm interested in wireless DSP and feedback control.")
     assert not question_direction("I want to learn wireless DSP and semiconductor fabrication.")
-    for direction in ("signals", "controls", "semiconductors"):
-        path = CAREER_PATHS[direction]
+    for direction, path in CAREER_PATHS.items():
+        assert len(path.routes) >= 2
         mapped = {record.code for record in combined.records if direction in record.career_ids}
         assert {*path.progression, *path.electives} <= mapped
 
@@ -88,3 +88,47 @@ def test_two_explicit_semiconductor_electives_enter_an_incoming_students_plan():
         assert result.context.rule_results[rid].status == "unknown"
         assert result.context.field_sources[rid]["credits"] == "catalog:" + code
     assert "semiconductors" in CAREER_PATTERNS
+
+
+@pytest.mark.parametrize("direction,route", [
+    pytest.param(direction, route, id=f"{direction}-{route.label}")
+    for direction, path in CAREER_PATHS.items() for route in path.routes
+])
+def test_selected_specialization_suggests_unrecorded_courses_from_its_sequence(direction, route):
+    profile = StudentProfile(career_id=direction, question=route.starting_question,
+                             completed=[Completion(course_code=route.courses[0], grade="A")],
+                             current_enrollment=[route.courses[1]])
+    result = run_advisor(load_runtime_catalog(), profile, refresh_sources=False)
+    assert result.trace["study_route"] == route.label
+    assert not result.coverage_notice
+    courses = [rid.split(":")[1] for rid in result.context.allowed_record_ids if rid.startswith("uofa:")]
+    assert courses == list(route.courses[2:5])
+    if route.resource_id:
+        assert route.resource_id in result.context.allowed_record_ids
+    assert route.practice and direction in CAREER_PATTERNS
+    assert import_profile(export_profile(profile)) == profile
+
+
+@pytest.mark.parametrize("question,direction,route,goal", [
+    ("How should I learn optical imaging?", "photonics", "Imaging & Optical Systems", "ECE459"),
+    ("What courses introduce building electrical systems?", "power", "Building Electrical Systems", "ARCE320"),
+    ("Which course should I take for biomedical imaging?", "biomedical", "Biomedical Imaging", "BME416"),
+    ("How can I learn on-device inference?", "embedded", "Edge AI & On-Device Inference", "ECE372A"),
+])
+def test_exploring_specialization_routes_to_the_matching_direction(question, direction, route, goal):
+    result = run_advisor(load_runtime_catalog(), StudentProfile(career_id="exploring", question=question),
+                         refresh_sources=False)
+    assert result.trace["career_direction"]["matched"] == direction
+    assert result.trace["study_route"] == route
+    rid = f"uofa:{goal}:2026-2027"
+    assert rid in result.context.allowed_record_ids
+    assert result.context.rule_results[rid].status == "unknown"
+
+
+def test_a_specific_course_request_is_kept_alongside_a_named_specialization():
+    profile = StudentProfile(career_id="signals",
+        question="For DSP & Wireless Communications, can I also learn about ECE 488?",
+        current_enrollment=["ECE220"])
+    result = run_advisor(load_runtime_catalog(), profile, refresh_sources=False)
+    assert result.trace["study_route"] == "DSP & Wireless Communications"
+    assert "uofa:ECE488:2026-2027" in result.context.allowed_record_ids

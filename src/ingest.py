@@ -82,8 +82,11 @@ def _active_edition(table, resolve):
     return next(iter(editions), None)
 
 
-def _visible_course_field(page, label):
-    pattern = r'<h3 class="field-label">' + re.escape(label) + r'</h3>\s*<div class="field-value">(.*?)</div>'
+def _visible_course_field(page, label, *, optional=False):
+    heading = f'<h3 class="field-label">{label}</h3>'
+    if optional and heading not in page:
+        return ""
+    pattern = re.escape(heading) + r'\s*<div class="field-value">(.*?)</div>'
     fields = re.findall(pattern, page, re.S)
     if len(fields) != 1 or re.search(r'<div\b', fields[0], re.I):
         raise ValueError("A published course field is missing or ambiguous")
@@ -109,7 +112,7 @@ def _visible_course_fields(page):
     if len(titles) != 1:
         raise ValueError("Published course title is missing or ambiguous")
     code, title = titles[0].groups()
-    reference = description_text(_visible_course_field(page, "Enrollment Requirements"))
+    reference = description_text(_visible_course_field(page, "Enrollment Requirements", optional=True))
     if reference and not re.fullmatch(r"\d{1,12}", reference):
         raise ValueError("Published enrollment reference needs review")
     credits = {}

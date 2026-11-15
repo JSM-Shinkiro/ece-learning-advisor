@@ -94,6 +94,17 @@ def test_rendered_course_fields_refresh_without_loading_external_payload(one_cou
     assert not record.rule_reviewed and record.rule.type == "unknown"
 
 
+def test_rendered_course_can_omit_an_enrollment_reference(one_course, tmp_path):
+    page = rendered_course_page().replace(
+        '<h3 class="field-label">Enrollment Requirements</h3><div class="field-value">019404</div>', "")
+    with fixture_client(one_course, overrides={"ECE101": page}) as client:
+        result = refresh_catalog(one_course, StudentProfile(), client=client, cache_dir=tmp_path, now=NOW)
+    assert result.checks[0].status == "updated"
+    record = result.catalog.records[0]
+    assert record.requirement_reference is None
+    assert not record.rule_reviewed and record.rule.type == "unknown"
+
+
 @pytest.mark.parametrize("old,new", [
     ("0432351/general-aoYks", "0432361/general-aoYks"),
     ("0432351/general-aoYks", "0432352/general-aoYks"),

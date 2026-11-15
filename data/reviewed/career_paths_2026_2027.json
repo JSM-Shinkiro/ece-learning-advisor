@@ -1,5 +1,5 @@
 {
-  "version": "career-paths-2026-11-14-semiconductors",
+  "version": "career-paths-2026-11-14-specializations",
   "catalog_version": "2026-2027",
   "sources": [
     {
@@ -175,6 +175,230 @@
       "url": "https://ir.amkor.com/news-releases/news-release-details/amkor-technology-announces-phase-2-arizona-advanced-packaging",
       "retrieved_at": "2026-11-15T05:42:36.192846+00:00",
       "review_note": "Employer announcement used as an application example for packaging and test work."
+    },
+    {
+      "source_id": "department:ARCE320",
+      "title": "UArizona Civil and Architectural Engineering — ARCE 320",
+      "url": "https://caem.engineering.arizona.edu/course/arce/320",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "section": "Building electrical systems and departmental prerequisite listing",
+      "review_note": "Department source for the ENGR 211M preparation note. Section access and approval are separate advising questions."
+    },
+    {
+      "source_id": "catalog:ECE402C",
+      "title": "ECE402C — Operating System Design",
+      "url": "https://catalog.arizona.edu/courses/0436591",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.737218+00:00",
+      "content_hash": "22bbccdc565d62ae1b912cb13f4d379ba50f9401a9419397d4075edce6270d28",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE447A",
+      "title": "ECE447A — Advanced Motion Control",
+      "url": "https://catalog.arizona.edu/courses/0325232",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:48.898049+00:00",
+      "content_hash": "e84298595c447404bf079a40bed955edbb6c83d49fbfa9eaca6530b0b224660b",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE484",
+      "title": "ECE484 — Antenna Theory and Design",
+      "url": "https://catalog.arizona.edu/courses/0122081",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.674203+00:00",
+      "content_hash": "f479c01f7c53bf1e7116eaa145f2844b2f70948feff3cc49bc888f6e1cabd572",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE486",
+      "title": "ECE486 — Microwave Engineering I: Passive Circuit Design",
+      "url": "https://catalog.arizona.edu/courses/0122141",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.435662+00:00",
+      "content_hash": "ffdae0b06bed157edd06f01e990ee458bfeaaa2046b8fd3cfadf80ffbe0c13b5",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE488",
+      "title": "ECE488 — Microwave Engineering II: Active Circuit Design",
+      "url": "https://catalog.arizona.edu/courses/0122161",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.656788+00:00",
+      "content_hash": "184473272b06474193f24ec1f4ad1237dc0aa1def3ecf36c6f8553f2c19e5544",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE459",
+      "title": "ECE459 — Fundamentals of Optics for Electrical Engineers",
+      "url": "https://catalog.arizona.edu/courses/0121751",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:49.069250+00:00",
+      "content_hash": "38d1a213c7733ed52731e2d39868044fbe987b99c7cc8e42a0b1c123dd225955",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE370",
+      "title": "ECE370 — Lasers and Photonics",
+      "url": "https://catalog.arizona.edu/courses/0249862",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:52.939534+00:00",
+      "content_hash": "997522de0563c8c627ab0b3984463ab2958c2cb8e5b6842acbd599a12bd0a992",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE430",
+      "title": "ECE430 — Photonics Communications",
+      "url": "https://catalog.arizona.edu/courses/0121512",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:52.815834+00:00",
+      "content_hash": "b1eae6fff1a537b4df2e3acf02271d5637e7c235dbe2fa96d5bf0d15c41d7ccf",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE414A",
+      "title": "ECE414A — Photovoltaic Solar Energy Systems",
+      "url": "https://catalog.arizona.edu/courses/0121391",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:53.245431+00:00",
+      "content_hash": "2c4d87cd8b78ac2b65c4bb0b8cc9b74538b9fd960ebc8a4706a482576fe3856d",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ECE417",
+      "title": "ECE417 — Measurement and Data Analysis in Biomedical Engineering",
+      "url": "https://catalog.arizona.edu/courses/0093732",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.798301+00:00",
+      "content_hash": "37d38284110ff94f9b6e6b2be7569d47ac80ed6e85abb104e9ebf0db8170e00e",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:CSC477",
+      "title": "CSC477 — Introduction to Computer Vision",
+      "url": "https://catalog.arizona.edu/courses/0098501",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:52.872937+00:00",
+      "content_hash": "8db15acb49d3e3516905d69c04d66f7aa04c46c34b6f6ed71b0e41ac76ed97e0",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:CSC480",
+      "title": "CSC480 — Principles of Machine Learning",
+      "url": "https://catalog.arizona.edu/courses/0421321",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:53.160753+00:00",
+      "content_hash": "29d8bb12982e7fd1ff2fabb2abad46b14d6155794f471bf1fa81c89552f7c908",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:OPTI300",
+      "title": "OPTI300 — Practical Optics",
+      "url": "https://catalog.arizona.edu/courses/0379691",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:56.816981+00:00",
+      "content_hash": "408c48f036eae8e59e708943e8adae059679478ba9bf3220a4794e7898c29c7a",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:ARCE320",
+      "title": "ARCE320 — Power system Engineering",
+      "url": "https://catalog.arizona.edu/courses/0401421",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:50:57.023962+00:00",
+      "content_hash": "a901690eb387cd7d03b91d8d29a673496f4a0d2b40841a1e97e5ddaf9594545c",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:BME330",
+      "title": "BME330 — Biomedical Instrumentation",
+      "url": "https://catalog.arizona.edu/courses/0363371",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:54:24.494872+00:00",
+      "content_hash": "f70aa1e12439e351d1a12695f0b9d5697fafe188caf157fcc05ffce67d6131d8",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "catalog:BME416",
+      "title": "BME416 — Biomedical Imaging",
+      "url": "https://catalog.arizona.edu/courses/0093721",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T06:59:55.950679+00:00",
+      "content_hash": "c9b6dcc17993d7a4330010c693cf28d6499d61e503363e59b2152f52da89e78f",
+      "section": "Published course description, units, and enrollment information",
+      "review_note": "Course identity and description reviewed against the catalog. Verify enrollment conditions for the specific section."
+    },
+    {
+      "source_id": "resource:freertos",
+      "title": "FreeRTOS Tasks and Co-routines",
+      "url": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/00-Tasks-and-co-routines",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Dated public learning resource for an independent exercise."
+    },
+    {
+      "source_id": "resource:litert",
+      "title": "LiteRT Post-Training Quantization",
+      "url": "https://developers.google.com/edge/litert/conversion/tensorflow/quantization/post_training_quantization",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Dated public learning resource for an independent exercise."
+    },
+    {
+      "source_id": "resource:wyant_photonics",
+      "title": "Wyant College Photonics Research",
+      "url": "https://optics.arizona.edu/research/research-specialties/photonics",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Dated public learning resource for an independent exercise."
+    },
+    {
+      "source_id": "resource:solar_storage",
+      "title": "DOE Solar Energy and Storage Basics",
+      "url": "https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Dated public learning resource for an independent exercise."
+    },
+    {
+      "source_id": "resource:medical_imaging",
+      "title": "NIBIB Introduction to MRI",
+      "url": "https://www.nibib.nih.gov/science-education/science-topics/magnetic-resonance-imaging-mri",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Dated public learning resource for an independent exercise."
+    },
+    {
+      "source_id": "career:photonics_onet",
+      "title": "O*NET — Photonics Engineers",
+      "url": "https://www.onetonline.org/link/summary/17-2199.07",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Public role and application examples used to ground team-authored study routes."
+    },
+    {
+      "source_id": "career:tep_electrical",
+      "title": "Tucson Electric Power — Business and Technical Careers",
+      "url": "https://www.tep.com/careers/business-and-technical/",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Public role and application examples used to ground team-authored study routes."
+    },
+    {
+      "source_id": "career:biomedical_bls",
+      "title": "Bureau of Labor Statistics — Bioengineers and Biomedical Engineers",
+      "url": "https://www.bls.gov/ooh/architecture-and-engineering/biomedical-engineers.htm",
+      "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
+      "review_note": "Public role and application examples used to ground team-authored study routes."
     }
   ],
   "records": [
@@ -668,6 +892,660 @@
       "source_ids": [
         "career:intel_fab52",
         "career:amkor_packaging"
+      ]
+    },
+    {
+      "record_id": "uofa:ECE402C:2026-2027",
+      "kind": "course",
+      "title": "Operating System Design",
+      "code": "ECE402C",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies operating-system facilities and practical low-level C development, with system diagnostics and tools.",
+      "source_ids": [
+        "catalog:ECE402C"
+      ],
+      "requirement_reference": "019627",
+      "study_stage": "advanced",
+      "career_ids": [
+        "embedded"
+      ],
+      "topics": [
+        "operating systems",
+        "firmware",
+        "low-level programming",
+        "scheduling",
+        "system diagnostics"
+      ],
+      "learning_note": "Build systems knowledge for firmware and real-time work. Pair it with the separate FreeRTOS scheduling exercise.",
+      "field_sources": {
+        "title": "catalog:ECE402C",
+        "summary": "catalog:ECE402C",
+        "credits": "catalog:ECE402C",
+        "requirement_reference": "catalog:ECE402C"
+      }
+    },
+    {
+      "record_id": "uofa:ECE447A:2026-2027",
+      "kind": "course",
+      "title": "Advanced Motion Control",
+      "code": "ECE447A",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Uses modeling and control methods to study advanced motion-control systems.",
+      "source_ids": [
+        "catalog:ECE447A"
+      ],
+      "requirement_reference": "018398",
+      "study_stage": "advanced",
+      "career_ids": [
+        "controls"
+      ],
+      "topics": [
+        "motion control",
+        "motor control",
+        "automation",
+        "dynamic systems"
+      ],
+      "learning_note": "Connect feedback and digital control concepts to motion and actuator behavior.",
+      "field_sources": {
+        "title": "catalog:ECE447A",
+        "summary": "catalog:ECE447A",
+        "credits": "catalog:ECE447A",
+        "requirement_reference": "catalog:ECE447A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE484:2026-2027",
+      "kind": "course",
+      "title": "Antenna Theory and Design",
+      "code": "ECE484",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Applies electromagnetic principles to antenna behavior and design.",
+      "source_ids": [
+        "catalog:ECE484"
+      ],
+      "requirement_reference": "016486",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "RF",
+        "antennas",
+        "radiation patterns",
+        "electromagnetics"
+      ],
+      "learning_note": "Connect electromagnetics with antenna performance in a communications system.",
+      "field_sources": {
+        "title": "catalog:ECE484",
+        "summary": "catalog:ECE484",
+        "credits": "catalog:ECE484",
+        "requirement_reference": "catalog:ECE484"
+      }
+    },
+    {
+      "record_id": "uofa:ECE486:2026-2027",
+      "kind": "course",
+      "title": "Microwave Engineering I: Passive Circuit Design",
+      "code": "ECE486",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Develops microwave analysis and design techniques for passive circuits and components.",
+      "source_ids": [
+        "catalog:ECE486"
+      ],
+      "requirement_reference": "016487",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "radio frequency",
+        "RF",
+        "microwaves",
+        "passive circuits",
+        "transmission lines"
+      ],
+      "learning_note": "Explore matching and other passive-circuit concepts before studying active microwave designs.",
+      "field_sources": {
+        "title": "catalog:ECE486",
+        "summary": "catalog:ECE486",
+        "credits": "catalog:ECE486",
+        "requirement_reference": "catalog:ECE486"
+      }
+    },
+    {
+      "record_id": "uofa:ECE488:2026-2027",
+      "kind": "course",
+      "title": "Microwave Engineering II: Active Circuit Design",
+      "code": "ECE488",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies active microwave circuits and design methods for high-frequency electronics.",
+      "source_ids": [
+        "catalog:ECE488"
+      ],
+      "requirement_reference": "016507",
+      "study_stage": "advanced",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "RF",
+        "microwave circuits",
+        "active circuit design",
+        "wireless hardware"
+      ],
+      "learning_note": "Connect microwave circuit concepts to the active devices used in radio hardware.",
+      "field_sources": {
+        "title": "catalog:ECE488",
+        "summary": "catalog:ECE488",
+        "credits": "catalog:ECE488",
+        "requirement_reference": "catalog:ECE488"
+      }
+    },
+    {
+      "record_id": "uofa:ECE459:2026-2027",
+      "kind": "course",
+      "title": "Fundamentals of Optics for Electrical Engineers",
+      "code": "ECE459",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Covers geometrical and Fourier optics, diffraction, optical aberrations, beams, and electro-optic components.",
+      "source_ids": [
+        "catalog:ECE459"
+      ],
+      "requirement_reference": "016483",
+      "study_stage": "advanced",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "optical imaging",
+        "optics",
+        "lenses",
+        "diffraction",
+        "aberrations"
+      ],
+      "learning_note": "Use geometrical and wave-optics models to understand optical imaging systems.",
+      "field_sources": {
+        "title": "catalog:ECE459",
+        "summary": "catalog:ECE459",
+        "credits": "catalog:ECE459",
+        "requirement_reference": "catalog:ECE459"
+      }
+    },
+    {
+      "record_id": "uofa:ECE370:2026-2027",
+      "kind": "course",
+      "title": "Lasers and Photonics",
+      "code": "ECE370",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces lasers, the behavior of laser light, and photonic devices used in displays, fibers, and optical communications.",
+      "source_ids": [
+        "catalog:ECE370"
+      ],
+      "requirement_reference": "016012",
+      "study_stage": "advanced",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "lasers",
+        "photonics",
+        "optical fibers",
+        "modulation"
+      ],
+      "learning_note": "The catalog suggests MATH 223 and OPTI 341 as preparation. Check the requirements for your section.",
+      "field_sources": {
+        "title": "catalog:ECE370",
+        "summary": "catalog:ECE370",
+        "credits": "catalog:ECE370",
+        "requirement_reference": "catalog:ECE370"
+      }
+    },
+    {
+      "record_id": "uofa:ECE430:2026-2027",
+      "kind": "course",
+      "title": "Photonics Communications",
+      "code": "ECE430",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Applies optical component physics to fiber communications, including attenuation, dispersion, modulation, detection, and receiver performance.",
+      "source_ids": [
+        "catalog:ECE430"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "photonics",
+        "fiber optics",
+        "optical communications",
+        "link budget",
+        "receivers"
+      ],
+      "learning_note": "The catalog lists prior circuits and optical lab preparation, including OPTI 380A and 380B. Check section access.",
+      "field_sources": {
+        "title": "catalog:ECE430",
+        "summary": "catalog:ECE430",
+        "credits": "catalog:ECE430",
+        "requirement_reference": "catalog:ECE430"
+      }
+    },
+    {
+      "record_id": "uofa:ECE414A:2026-2027",
+      "kind": "course",
+      "title": "Photovoltaic Solar Energy Systems",
+      "code": "ECE414A",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies photovoltaic operation, solar illumination, and the design and evaluation of solar-energy systems.",
+      "source_ids": [
+        "catalog:ECE414A"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "power"
+      ],
+      "topics": [
+        "solar PV",
+        "photovoltaic systems",
+        "energy conversion",
+        "renewable energy"
+      ],
+      "learning_note": "Study how electrical and device concepts apply to photovoltaic generation. Use the energy-storage resource to explore how generation and load interact.",
+      "field_sources": {
+        "title": "catalog:ECE414A",
+        "summary": "catalog:ECE414A",
+        "credits": "catalog:ECE414A",
+        "requirement_reference": "catalog:ECE414A"
+      }
+    },
+    {
+      "record_id": "uofa:ECE417:2026-2027",
+      "kind": "course",
+      "title": "Measurement and Data Analysis in Biomedical Engineering",
+      "code": "ECE417",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Covers biomedical measurement and instrumentation, from sensors and physiological signals to acquisition, analysis, and measurement safety.",
+      "source_ids": [
+        "catalog:ECE417"
+      ],
+      "requirement_reference": "015235",
+      "study_stage": "advanced",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "biosignals",
+        "biomedical instrumentation",
+        "sensors",
+        "physiological measurement",
+        "signal analysis"
+      ],
+      "learning_note": "Connect circuits and signal processing to instrumentation. Use simulated signals for the practice activity.",
+      "field_sources": {
+        "title": "catalog:ECE417",
+        "summary": "catalog:ECE417",
+        "credits": "catalog:ECE417",
+        "requirement_reference": "catalog:ECE417"
+      }
+    },
+    {
+      "record_id": "uofa:CSC477:2026-2027",
+      "kind": "course",
+      "title": "Introduction to Computer Vision",
+      "code": "CSC477",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Studies computer vision algorithms for image formation, filtering, geometry, segmentation, tracking, and recognition.",
+      "source_ids": [
+        "catalog:CSC477"
+      ],
+      "requirement_reference": "017212",
+      "study_stage": "advanced",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "topics": [
+        "computer vision",
+        "perception",
+        "image recognition",
+        "image segmentation",
+        "geometry"
+      ],
+      "learning_note": "The catalog lists probability and computer graphics as helpful preparation. Check CS section access and ECE elective approval.",
+      "field_sources": {
+        "title": "catalog:CSC477",
+        "summary": "catalog:CSC477",
+        "credits": "catalog:CSC477",
+        "requirement_reference": "catalog:CSC477"
+      }
+    },
+    {
+      "record_id": "uofa:CSC480:2026-2027",
+      "kind": "course",
+      "title": "Principles of Machine Learning",
+      "code": "CSC480",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces machine-learning methods for learning from data and evaluating predictions and decisions.",
+      "source_ids": [
+        "catalog:CSC480"
+      ],
+      "requirement_reference": "018697",
+      "study_stage": "advanced",
+      "career_ids": [
+        "ai_ml"
+      ],
+      "topics": [
+        "applied ML",
+        "machine learning",
+        "model comparison",
+        "predictive models"
+      ],
+      "learning_note": "The catalog recommends Calculus I and programming at the CSC 120 level. Check CS section access and ECE elective approval.",
+      "field_sources": {
+        "title": "catalog:CSC480",
+        "summary": "catalog:CSC480",
+        "credits": "catalog:CSC480",
+        "requirement_reference": "catalog:CSC480"
+      }
+    },
+    {
+      "record_id": "uofa:OPTI300:2026-2027",
+      "kind": "course",
+      "title": "Practical Optics",
+      "code": "OPTI300",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces practical optical concepts and systems to students across engineering disciplines.",
+      "source_ids": [
+        "catalog:OPTI300"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "intermediate",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "practical optics",
+        "optical systems",
+        "optical imaging"
+      ],
+      "learning_note": "The catalog lists PHYS 241. Check the section’s prerequisites and ECE elective approval.",
+      "field_sources": {
+        "title": "catalog:OPTI300",
+        "summary": "catalog:OPTI300",
+        "credits": "catalog:OPTI300",
+        "requirement_reference": "catalog:OPTI300"
+      }
+    },
+    {
+      "record_id": "uofa:ARCE320:2026-2027",
+      "kind": "course",
+      "title": "Power system Engineering",
+      "code": "ARCE320",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces analysis and design of electrical power systems for residential and commercial buildings.",
+      "source_ids": [
+        "catalog:ARCE320",
+        "department:ARCE320"
+      ],
+      "requirement_reference": "017604",
+      "study_stage": "advanced",
+      "career_ids": [
+        "power"
+      ],
+      "topics": [
+        "building electrical systems",
+        "building power",
+        "power distribution",
+        "electrical design"
+      ],
+      "learning_note": "The department lists ENGR 211M. Confirm section access and ECE elective approval.",
+      "field_sources": {
+        "title": "catalog:ARCE320",
+        "summary": "catalog:ARCE320",
+        "credits": "catalog:ARCE320",
+        "requirement_reference": "catalog:ARCE320"
+      }
+    },
+    {
+      "record_id": "uofa:BME330:2026-2027",
+      "kind": "course",
+      "title": "Biomedical Instrumentation",
+      "code": "BME330",
+      "catalog_version": "2026-2027",
+      "credits": 4.0,
+      "summary": "Combines theory and practice in biomedical measurements, including sensors, signal acquisition, noise reduction and experimental analysis.",
+      "source_ids": [
+        "catalog:BME330"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "biomedical instrumentation",
+        "biosignals",
+        "sensors",
+        "transducers",
+        "signal conditioning"
+      ],
+      "learning_note": "Explore the instrumentation side of biomedical sensing. Ask the BME department about section access and ECE advising about elective use.",
+      "field_sources": {
+        "title": "catalog:BME330",
+        "summary": "catalog:BME330",
+        "credits": "catalog:BME330",
+        "requirement_reference": "catalog:BME330"
+      }
+    },
+    {
+      "record_id": "uofa:BME416:2026-2027",
+      "kind": "course",
+      "title": "Biomedical Imaging",
+      "code": "BME416",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces the engineering principles of biomedical imaging methods, including optical imaging, CT, and MRI.",
+      "source_ids": [
+        "catalog:BME416"
+      ],
+      "requirement_reference": null,
+      "study_stage": "advanced",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "biomedical imaging",
+        "medical imaging",
+        "image contrast",
+        "imaging physics"
+      ],
+      "learning_note": "The course page lists College of Engineering Advanced Standing or department consent. Check section access and ECE elective approval.",
+      "field_sources": {
+        "title": "catalog:BME416",
+        "summary": "catalog:BME416",
+        "credits": "catalog:BME416",
+        "requirement_reference": "catalog:BME416"
+      }
+    },
+    {
+      "record_id": "resource:freertos",
+      "kind": "resource",
+      "title": "FreeRTOS Tasks and Co-routines",
+      "summary": "Introduces tasks and scheduling concepts in the FreeRTOS kernel.",
+      "source_ids": [
+        "resource:freertos"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "embedded"
+      ],
+      "topics": [
+        "firmware",
+        "real time systems",
+        "rtos",
+        "freertos",
+        "task scheduling"
+      ],
+      "first_activity": "Draw a timeline for two periodic tasks and explain how a priority change affects the schedule."
+    },
+    {
+      "record_id": "resource:litert",
+      "kind": "resource",
+      "title": "LiteRT Post-Training Quantization",
+      "summary": "The Google AI Edge documentation explains options for quantizing trained models for efficient inference.",
+      "source_ids": [
+        "resource:litert"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "ai_ml",
+        "embedded"
+      ],
+      "topics": [
+        "edge AI",
+        "on device inference",
+        "quantization",
+        "litert",
+        "model size",
+        "latency"
+      ],
+      "first_activity": "Compare the size, runtime and accuracy of the same small model before and after quantization."
+    },
+    {
+      "record_id": "resource:wyant_photonics",
+      "kind": "resource",
+      "title": "Wyant College Photonics Research",
+      "summary": "UArizona describes examples of photonics in imaging, optical networks, devices, and laser research.",
+      "source_ids": [
+        "resource:wyant_photonics"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "photonics",
+        "lasers",
+        "optical imaging",
+        "optical communications"
+      ],
+      "first_activity": "Choose one application and explain what the system does with light."
+    },
+    {
+      "record_id": "resource:solar_storage",
+      "kind": "resource",
+      "title": "DOE Solar Energy and Storage Basics",
+      "summary": "The Department of Energy explains why storage is paired with solar generation and compares common storage technologies.",
+      "source_ids": [
+        "resource:solar_storage"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "power"
+      ],
+      "topics": [
+        "solar PV",
+        "energy storage",
+        "battery storage",
+        "solar integration"
+      ],
+      "first_activity": "Use a fictional hourly solar and load profile to show when storage would charge or discharge."
+    },
+    {
+      "record_id": "resource:medical_imaging",
+      "kind": "resource",
+      "title": "NIBIB Introduction to MRI",
+      "summary": "A National Institutes of Health overview of magnetic resonance imaging and the role of the equipment in producing images.",
+      "source_ids": [
+        "resource:medical_imaging"
+      ],
+      "study_stage": "foundation",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "biomedical imaging",
+        "MRI",
+        "medical imaging"
+      ],
+      "first_activity": "Explain the difference between collecting a signal and reconstructing an image from it."
+    },
+    {
+      "record_id": "career:photonics",
+      "kind": "career",
+      "title": "Photonics & Electro-Optics",
+      "summary": "Optical and photonics work links imaging, optical devices, lasers, and fiber communications. The two study routes emphasize different system applications.",
+      "source_ids": [
+        "career:photonics_onet",
+        "resource:wyant_photonics"
+      ],
+      "review_status": "team_mapping",
+      "career_ids": [
+        "photonics"
+      ],
+      "topics": [
+        "photonics",
+        "optical imaging",
+        "optical engineering",
+        "optical communications",
+        "lasers"
+      ]
+    },
+    {
+      "record_id": "career:power",
+      "kind": "career",
+      "title": "Power & Energy Systems",
+      "summary": "Power and renewable-energy work can build on circuit theory, photovoltaic generation, storage and building electrical systems.",
+      "source_ids": [
+        "career:tep_electrical",
+        "resource:solar_storage"
+      ],
+      "review_status": "team_mapping",
+      "career_ids": [
+        "power"
+      ],
+      "topics": [
+        "power systems",
+        "renewable energy",
+        "building electrical systems",
+        "solar",
+        "energy storage"
+      ]
+    },
+    {
+      "record_id": "career:biomedical",
+      "kind": "career",
+      "title": "Biomedical Instrumentation & Sensors",
+      "summary": "Biomedical instrumentation and imaging use electronics, sensors, signal processing, and testing to support medical technologies.",
+      "source_ids": [
+        "career:biomedical_bls",
+        "resource:medical_imaging"
+      ],
+      "review_status": "team_mapping",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "medical devices",
+        "biomedical imaging",
+        "biosignals",
+        "sensors",
+        "biomedical instrumentation"
       ]
     }
   ]

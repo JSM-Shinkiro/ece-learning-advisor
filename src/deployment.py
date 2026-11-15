@@ -15,7 +15,7 @@ import httpx
 
 from .catalog import ROOT, build_evidence, load_runtime_catalog
 from .career_catalog import with_career_paths
-from .career_paths import CAREER_PATHS, EXPANDED_DIRECTIONS
+from .career_paths import CAREER_PATHS
 from .course_directory import load_course_directory
 from .enrollment_references import REFERENCE_PATH, load_enrollment_references
 from .discovery import load_discovery_plans
@@ -171,7 +171,10 @@ def check_deployment(*, root=ROOT, environ=None, smoke=False):
             and {r.code for r in expanded.records if r.code and r.code.startswith("ECE")} <= directory_codes
             and all({*CAREER_PATHS[direction].progression, *CAREER_PATHS[direction].electives}
                     <= {record.code for record in expanded.records if direction in record.career_ids}
-                    for direction in EXPANDED_DIRECTIONS),
+                    for direction in CAREER_PATHS)
+            and all(route.resource_id is None or any(record.record_id == route.resource_id and
+                    record.kind == "resource" and direction in record.career_ids for record in expanded.records)
+                    for direction, path in CAREER_PATHS.items() for route in path.routes),
             "Advisor corpus, career courses, ECE directory and enrollment reference data validated.")
         plans = load_discovery_plans(root / "data/connectors/course_discovery.json")
         boards = load_employer_boards(root / "data/connectors/employer_boards.json")

@@ -298,7 +298,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("ece 372a");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 42 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
                 result_panel=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE372A · "))
                 expect(result_panel.get_by_role("link")).to_have_count(0)
                 fragment_runs=counts["fragment_runs"];result_panel.locator("summary").click()
@@ -312,7 +312,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("pico");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 42 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
                 expect(page.locator("summary").filter(has_text="Raspberry Pi Pico C/C++ SDK")).to_be_visible()
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 expect(draft).to_have_value("Unsubmitted collection draft")
@@ -337,7 +337,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"];page.get_by_role("button",name="Reset filters",exact=True).click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
                 expect(query).to_have_value("")
-                expect(page.get_by_text("Showing 42 of 42 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 63 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
                 fragment_runs=counts["fragment_runs"]
                 choose("Direction","Controls & Robotics")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
@@ -361,6 +361,16 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
                 expect(material.get_by_text("course page lists MSE 222")).to_be_visible()
                 expect(material.get_by_role("link",name="Official ECE technical elective requirements")).to_be_visible()
+                fragment_runs=counts["fragment_runs"];choose("Direction","Biomedical Instrumentation & Sensors")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                fragment_runs=counts["fragment_runs"];query.fill("BME 416");query.press("Enter")
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                imaging = page.get_by_test_id("stExpander").filter(
+                    has=page.locator("summary").filter(has_text="BME416 · Biomedical Imaging"))
+                fragment_runs=counts["fragment_runs"];imaging.locator("summary").click()
+                wait_until(lambda:counts["fragment_runs"]>fragment_runs)
+                expect(imaging.get_by_text("College of Engineering Advanced Standing or department consent")).to_be_visible()
+                expect(imaging.get_by_role("link",name="Official ECE technical elective requirements")).to_be_visible()
                 minor = page.get_by_test_id("stExpander").filter(
                     has=page.locator("summary").filter(has_text="Mathematics minor overlap"))
                 fragment_runs=counts["fragment_runs"];minor.locator("summary").click()

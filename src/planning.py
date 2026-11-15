@@ -20,6 +20,11 @@ RESOURCE_TERMS = {
     "resource:pysdr": ("pysdr",),
     "resource:motor_pid": ("motor speed tutorial", "ctms"),
     "resource:verilator": ("verilator",),
+    "resource:freertos": ("freertos",),
+    "resource:litert": ("litert", "post training quantization"),
+    "resource:wyant_photonics": ("wyant photonics",),
+    "resource:solar_storage": ("solar energy and storage basics",),
+    "resource:medical_imaging": ("nibib", "mri"),
 }
 
 

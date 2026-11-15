@@ -907,7 +907,7 @@ def test_discovered_sources_reach_collection_picker_and_trace(app, monkeypatch, 
     monkeypatch.setenv('ECE_REFRESH_SOURCES', 'true')
     submit(app)
     assert not app.exception
-    assert any('19 courses' in caption.value for caption in app.caption)
+    assert any('35 courses' in caption.value for caption in app.caption)
     assert any('Discovered fixture CSC110' in item.label for item in app.expander)
     assert len(app.session_state['result'].trace['source_refresh']['discovered_courses']) == 3
     calls = len(seen)

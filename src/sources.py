@@ -23,6 +23,7 @@ from urllib.parse import urlparse
 import httpx
 from pydantic import AwareDatetime, Field, field_validator
 
+from .career_paths import CAREER_PATHS
 from .ingest import extract_course
 from .models import Catalog, Record, Rule, Source, SourceCheck, StrictModel, StudentProfile, normalize_code, rule_hash
 from .rules import dependency_codes
@@ -286,11 +287,15 @@ def refresh_catalog(catalog: Catalog, profile: StudentProfile, *, cache_dir=Path
         # when they already exist in a collection larger than the download cap.
         mentions = match_course_requests(profile, discovery_plans)
         priority = {code: index for index, code in enumerate(mentions.codes)}
+        path = CAREER_PATHS.get(profile.career_id)
+        route = path.matching_route(profile.question.strip() or profile.interests) if path else None
+        study_order = {code: index for index, code in enumerate(route.courses)} if route else {}
         completed = {item.course_code for item in profile.completed if item.grade not in {"E", "F"}}
         recorded = completed | set(profile.current_enrollment)
         bounded = len(targets) > MAX_SOURCES
         targets.sort(key=lambda item: (priority.get(item[1].code, len(priority)),
-            bounded and not bool(item[1].rule_evidence), item[1].code in recorded))
+            bounded and not bool(item[1].rule_evidence), item[1].code in recorded,
+            study_order.get(item[1].code, len(study_order))))
         selected, omitted = targets[:MAX_SOURCES], targets[MAX_SOURCES:]
         result.course_check_selection = {"version": "p07-saved-course-checks-v2", "limit": MAX_SOURCES,
             "requested_codes": mentions.codes, "phrase_matches": mentions.phrases,

@@ -392,6 +392,26 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                     "href", "https://catalog.arizona.edu/courses/0228861")
                 passed(stage, "Exploratory questions produce sourced career paths, including a fabrication plan with both outside-ECE course links.", begin)
 
+                stage, begin = "specialization_selection", time.monotonic()
+                question.fill("What courses cover lasers and optical communications?")
+                submit(b)
+                expect(b.get_by_text("Direction matched from your question · Photonics & Electro-Optics", exact=True)).to_be_visible()
+                expect(b.get_by_text("Specialization · Lasers & Optical Communications", exact=True)).to_be_visible()
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE370 · "))).to_have_count(1)
+                before = session_counts[b]["scripts_finished"]
+                expand(b, "Career path and elective")
+                settled(b, after=before)
+                expect(b.get_by_role("link", name="OPTI300 · Practical Optics", exact=True)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0379691")
+                before = session_counts[b]["scripts_finished"]
+                b.get_by_role("button", name="Explore Imaging & Optical Systems", exact=True).click()
+                settled(b, after=before)
+                saved(b, "Photonics & Electro-Optics", 0, 0)
+                expect(b.get_by_text("Specialization · Imaging & Optical Systems", exact=True)).to_be_visible()
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE459 · "))).to_have_count(1)
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE370 · "))).to_have_count(0)
+                passed(stage, "A photonics question matches the lasers route, and the imaging button switches the roadmap and saves the selected direction.", begin)
+
                 stage, begin = "websocket_sessions", time.monotonic()
                 for page in (a, b):
                     expect(page.get_by_role("heading", name="Your next step, with a path forward.", exact=True)).to_be_visible()

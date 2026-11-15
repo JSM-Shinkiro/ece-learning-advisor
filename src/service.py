@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from .catalog import build_evidence, code_lookup, corpus_hash
-from .career_paths import CAREER_PATHS
+from .career_paths import CAREER_PATHS, CORE_DIRECTIONS
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import AI_TIME_LIMIT_MESSAGE, AIBudgetExceeded, EmbeddingCache, ProviderError
 from .planning import (coverage_message, learning_phase, needs_learning_foundations,
@@ -111,27 +111,39 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     # A matched question may prefer an existing course, without changing the
     # selected career, excluding foundations, or granting academic clearance.
     path = CAREER_PATHS.get(profile.career_id)
+    route = path.matching_route(question.strip() or profile.interests) if path else None
     requested_electives = set()
-    if path and path.electives:
-        # Elective candidates enter recommendation evidence on explicit request.
+    if path:
         tokens = set(tokenize(question))
         question_text = question.casefold()
+        route_codes = route.courses if route else ()
+        if route:
+            route_records = [r.record_id for r in records.values() if r.kind == "course"
+                             and r.code in route_codes and r.code not in recorded
+                             and (not r.career_ids or profile.career_id in r.career_ids)]
+            courses.extend(rid for rid in route_records if rid not in courses)
         requested_electives = {rid for rid in courses if records[rid].code in path.electives and (
             records[rid].code.casefold() in tokens or records[rid].title.casefold() in question_text
         )}
-        courses = [rid for rid in courses if records[rid].code not in path.electives or rid in requested_electives]
-        route = path.matching_route(question.strip() or profile.interests)
+        courses = [rid for rid in courses if records[rid].code not in path.electives
+                   or rid in requested_electives or records[rid].code in route_codes]
         if route:
+            named_courses = {rid for rid in courses if (records[rid].code or "").casefold() in tokens}
+            named_courses.update(requested_electives)
+            courses = [rid for rid in courses if records[rid].code in route_codes or rid in named_courses]
             route_order = {code: index for index, code in enumerate(route.courses)}
             courses.sort(key=lambda rid: (
-                (records[rid].code or "").casefold() not in tokens and rid not in requested_electives,
+                rid not in named_courses,
                 route_order.get(records[rid].code, len(route_order)),
                 rid not in focused_record_ids,
             ))
-        else:
+            resources = [route.resource_id] if route.resource_id in records else []
+        elif profile.career_id not in CORE_DIRECTIONS:
             progression_codes = set(path.progression)
             courses.sort(key=lambda rid: (rid not in focused_record_ids and rid not in requested_electives,
                                          records[rid].code not in progression_codes))
+        else:
+            courses.sort(key=lambda rid: rid not in focused_record_ids and rid not in requested_electives)
     else:
         courses.sort(key=lambda rid: rid not in focused_record_ids)
     beginner = needs_learning_foundations(profile)

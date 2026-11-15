@@ -381,7 +381,7 @@ with roadmap:
         if api_key:
             st.caption("For the embedding comparison, enable AI explanations with semantic or hybrid ranking.")
     elif profile.career_id=="exploring" or result is None:
-        direction_cards(course_lookup)
+        direction_cards()
     if result is None and not lesson_draft:
         st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
                 "Complete your starting point and select Update my roadmap, or choose a direction above.")
@@ -411,7 +411,7 @@ with roadmap:
         if reused:
             st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
         if not result.coverage_notice and result.generation_status!="insufficient_evidence":
-            render_career_path(result, catalog)
+            render_career_path(result, collection_catalog)
             st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
             for phase,title in PHASE_NAMES.items():
                 ids = [rid for rid in result.context.allowed_record_ids if result.context.suggested_phases.get(rid)==phase]
