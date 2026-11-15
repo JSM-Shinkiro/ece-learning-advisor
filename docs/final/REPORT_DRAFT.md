@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 15, 2026
 
-This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Final formatting, release figures and measurements, independent judgments and student-pilot outcomes remain open. [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Five browser captures document the lesson and Advisor interface. Live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -92,13 +92,13 @@ The contract does not establish that an underlying source, parser or authored le
 
 ## 4. Inspection and interaction design
 
-The midproject review prompted a visual introduction and three self-guided lessons. Beginner connects the two ECE directions to practical applications and asks learners to identify the evidence needed to check course preparation. Intermediate presents a preset and lets learners change the ranking method while inspecting the evidence and the projected vectors. Advanced compares a learner's question with a preset under the same method and records an explanation of a rank change. These activities address remembering and understanding, applying and analyzing, and evaluating and creating. [E13](EVIDENCE_MAP.md)
+The midproject review prompted a visual introduction and three self-guided lessons. Beginner connects the two ECE directions to practical applications and asks learners to identify the evidence needed to check course preparation. Intermediate presents a preset and lets learners change the ranking method while inspecting the evidence and the projected vectors. Advanced compares a learner's question with a preset under the same method and records an explanation of a rank change. These activities address remembering and understanding, applying and analyzing, and evaluating and creating. [Figure 1](FIGURES.md#figure-1-beginner-landing-and-learning-roadmap) · [E13](EVIDENCE_MAP.md)
 
-The lesson represents seven saved course and resource overviews as counts of listed terms in four topic dimensions. Learners inspect the source text and see a numeric cosine calculation. The chosen preset and method carry into Advanced. A draft persists while the last comparison displays the question and method that produced it. If a question has keyword matches and zero topic counts, both sides of the comparison use BM25. The exercise checks the selected record's rank change against the two lists and saves the learner's explanation with the input, ranks, scores and corpus identifier. [E15](EVIDENCE_MAP.md)
+The lesson represents seven saved course and resource overviews as counts of listed terms in four topic dimensions. Learners inspect the source text and see a numeric cosine calculation. The chosen preset and method carry into Advanced. A draft persists while the last comparison displays the question and method that produced it. If a question has keyword matches and zero topic counts, both sides of the comparison use BM25. The exercise checks the selected record's rank change against the two lists and saves the learner's explanation with the input, ranks, scores and corpus identifier. [Figure 2](FIGURES.md#figure-2-topic-cosine-in-the-intermediate-lesson) · [Figure 3](FIGURES.md#figure-3-advanced-comparison-for-image-classification) · [E15](EVIDENCE_MAP.md)
 
 The evaluated question prefills the Advisor profile form. After submission with semantic or hybrid ranking, the inspector uses the provider vectors already computed by the Advisor. It compares cosine ranks for the same seven overviews and the same Advisor search text across the two representations. The search text incorporates the carried question and profile terms. Both visualization views expose their actual source code. [E15](EVIDENCE_MAP.md)
 
-The comparison download records the question, Advisor search text, corpus fingerprint, model, dimensions, and both ranks and cosine scores. It reuses the vectors from the displayed request. The rehearsal verifier uses the same comparison function and checks the authored ECE425 example. [E18](EVIDENCE_MAP.md)
+The comparison download records the question, Advisor search text, corpus fingerprint, model, dimensions, and both ranks and cosine scores. It reuses the vectors from the displayed request. The rehearsal verifier uses the same comparison function and checks the authored ECE425 example. The browser capture shows the seven comparison rows using controlled provider vectors. [Figure 5](FIGURES.md#figure-5-advisor-comparison-with-controlled-vectors) · [E18](EVIDENCE_MAP.md)
 
 The inspector exposes retrieved chunks, component scores, the supplied context, available/selected statements, source checks, model/cache metadata, request timings and a downloadable trace. Scores describe relevance, not eligibility or probability.
 
@@ -106,7 +106,7 @@ For PCA, normalized document rows are centered and decomposed by SVD. The first 
 
 The closed inspector omits its contents. Opening/closing reruns its fragment. A simple ranking chart uses escaped HTML/CSS bars with a shared zero baseline and signed-score support, retaining the exact score table. The vector view still uses Plotly. Collection filtering, lazy source details and opportunity interactions also operate independently of roadmap generation. Browser checks cover a 390-pixel viewport; they do not establish mobile-device performance. [E6, E7](EVIDENCE_MAP.md)
 
-Source and AI requests share four in-process worker slots. If all slots are occupied, the request uses saved data. Keeping either interim plan stops accepting further results from that job. An in-flight source call can finish and still update the public cache. The shared default 45-second AI budget begins after source checks. [E9, E16](EVIDENCE_MAP.md)
+Source and AI requests share four in-process worker slots. If all slots are occupied, the request uses saved data. Keeping either interim plan stops accepting further results from that job. An in-flight source call can finish and still update the public cache. The shared default 45-second AI budget begins after source checks. [Figure 4](FIGURES.md#figure-4-saved-data-roadmap-during-a-source-check) · [E9, E16](EVIDENCE_MAP.md)
 
 Opportunities use explicit public Greenhouse-board searches for Samsara, Nuro and Anduril, with title/location filters, paging and listing-bound detail checks. Source metadata and empty/failure states remain visible. This is a search over configured boards, not a comprehensive market or qualification assessment. Optional Adzuna/OpenRouter work is outside the verified core. [E10](EVIDENCE_MAP.md)
 
@@ -184,7 +184,7 @@ The 34-chunk runtime review bundle has twelve development questions and 408 blan
 
 Published undergraduate ECE description coverage spans 78 courses, with 32 ECE courses curated across eight directions. ECE prerequisite interpretations remain unreviewed. Outside-ECE elective candidates need individual approval, and the Mathematics minor card provides general guidance for the two 2026–27 advised plans. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Reproducible local access is available. Final access requirements and hosted delivery remain open.
 
-Before release, collect genuine judgments and student observations, measure real-AI/source/cache behavior on a frozen revision, capture final application figures, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
+Before release, collect genuine judgments and student observations, measure real-AI/source/cache behavior on a frozen revision, capture the live neural comparison and an actual opportunity outcome, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
 
 ## References
 
@@ -193,4 +193,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E21](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E22](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

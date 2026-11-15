@@ -4,7 +4,7 @@ Team P07 · Updated November 15, 2026 MST · Final presentation and submission D
 
 ## Current estimate
 
-The app is approximately **94%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **70%** ready. Both percentages are planning estimates.
+The app is approximately **94%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **71%** ready. Both percentages are planning estimates.
 
 The specialization expansion adds Photonics & Electro-Optics, Power & Energy Systems, and Biomedical Instrumentation & Sensors. The eight paths expose 17 choices with preparation courses and exercises. The combined collection has 47 courses and 16 resources. Independent evaluation of the new roadmaps and a student walkthrough remain open. [Career directions](59_CAREER_DIRECTIONS.md)
 
@@ -18,13 +18,13 @@ The November 13 development step addresses the audit's lesson gaps. Presets, met
 
 The midproject review gives explicit direction for the final recording and learning experience. Confirm final timing, formatting, duration and packaging instructions in D2L. The supported delivery uses reproducible local access and portable JSON profiles.
 
-The November 8 audit weights give 70% submission completion. [Planning weights](56_FINAL_READINESS_AUDIT.md)
+The report draft now links five captioned Chromium captures from the verified revision. The embedding comparison uses test vectors, and the saved-data roadmap uses a controlled source delay. Applying the November 8 audit weights gives 71% submission completion. [Application figures](final/FIGURES.md) · [Planning weights](56_FINAL_READINESS_AUDIT.md)
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
 | Application and focused academic data | 50% | 94% |
 | Evaluation and performance evidence | 15% | 40% |
-| Final technical report | 20% | 65% |
+| Final technical report | 20% | 70% |
 | Presentation and recording | 10% | 20% |
 | Release and delivery | 5% | 40% |
 
@@ -45,8 +45,12 @@ The November 8 audit weights give 70% submission completion. [Planning weights](
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
 | Performance evidence | Partial | In the November 13 source-only probe, first-plan server time was 19.5 ms with an empty cache and 6.3 ms on immediate repeat. Source checks took 16.82 s and 4.08 s, respectively. Repeated live measurements remain open. |
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
-| Final report, slides and recording | Partial | Report draft and evidence map updated. The three-member runbook specifies private app-only capture and planned transitions. Final figures, report formatting, slides and the recording remain. |
+| Final report, slides and recording | Partial | The report has five captioned captures and an evidence map. Live neural and opportunity captures, report formatting, slides and the three-member recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
+
+## Report figures and live rehearsal preflight
+
+Each draft figure matches an image from passing run 43688855340. The evidence record identifies the browser check, viewport and image hash. The November 15 live rehearsal stopped before any model request because a local Gemini credential was missing. [Figures](final/FIGURES.md) · [Verification](evidence/report_figures_2026-11-15.json)
 
 ## Career specialization verification
 

@@ -25,6 +25,7 @@ Prepared November 8 and updated November 15, 2026. The evidence IDs index projec
 | E19 | Signals and controls roadmaps with outside-ECE elective candidates | [Course and occupation sources](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/career_directions_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094) | Six course descriptions refreshed in two source-only requests. Both paths link their candidates to Technical Electives II guidance. 1,777 tests and nine startup checks passed on each OS, plus 38 Chromium checks. The review packet uses the 34-chunk core. |
 | E20 | Semiconductor study routes and Mathematics minor overlap | [Career sources](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/semiconductors_and_math_minor_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351) | Three source-only requests refreshed the five added courses. The follow-up passed 1,780 tests and nine startup checks per OS and 38 Chromium checks, including the two elective links and local phone-width minor guidance. The archived review has 408 blank grades. |
 | E21 | Career specializations across eight paths | [Career and course sources](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/career_specializations_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340) | 17 entries with one shared specialization. Eight source-only requests refreshed all 16 added course records. 1,803 tests and nine startup checks per OS and 39 Chromium checks passed, including branch switching and 390-pixel course details. Independent relevance and student outcomes remain open. |
+| E22 | Draft application figures | [Captioned figures](FIGURES.md) · [Artifact provenance](../evidence/report_figures_2026-11-15.json) · [Browser run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340) | Five original captures from the passing Chromium run. The saved-data roadmap used a controlled source delay, and the Advisor comparison used controlled vectors. The live rehearsal stopped at the credential check. |
 
 ## Inputs must remain separate
 
@@ -39,6 +40,6 @@ The reviewer workspace supports actual grades and resumable forms. It does not a
 - Genuine independent judgments on the runtime collection and a separately identified held-out comparison.
 - Voluntary student-pilot completion observations or satisfaction responses.
 - Real-AI/source/cache latency cohorts on the frozen final release.
-- Final-revision application figures, final slides, new demo recording and validated final packaging instructions.
+- Live neural and opportunity figures from the frozen release, final slides, new demo recording and validated final packaging instructions.
 
 Report these as unavailable until collected. Leave blanks unscored; do not treat missing labels as zero, benchmark cases as participants, fixture outputs as live provider results, or CI pass rates as answer accuracy.

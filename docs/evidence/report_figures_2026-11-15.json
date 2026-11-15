@@ -1,0 +1,98 @@
+{
+  "date_mst": "2026-11-15",
+  "scope": "Application figures for the report draft.",
+  "application_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+  "documentation_base_revision": "ffbcb61dccfbc5cc32ed48e9e0bb165947a228c6",
+  "source": {
+    "workflow_run_id": 43688855340,
+    "workflow_run_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340",
+    "browser_job_id": 132735001796,
+    "artifact_id": 14151327925,
+    "artifact_name": "browser-chromium-py312",
+    "zip_sha256": "913e12d6e3961a6fb444280d7199cc7d6fc5e65fbafe5224b7ea150ee45f8982",
+    "progressive_checks_completed_at_utc": "2026-11-15T07:13:31.052184+00:00"
+  },
+  "figures": [
+    {
+      "figure": 1,
+      "path": "docs/final/figures/beginner-roadmap.png",
+      "archive_entry": "learning-beginner.png",
+      "sha256": "66ba26737b24ee6a8555822d90d8cf1094de13f12ca06e9217fba66ee297ccc8",
+      "size_bytes": 260146,
+      "viewport_pixels": [
+        1500,
+        1100
+      ],
+      "browser_check": "beginner_landing",
+      "scope": "Saved lesson content"
+    },
+    {
+      "figure": 2,
+      "path": "docs/final/figures/lesson-topic-ranks.png",
+      "archive_entry": "learning-intermediate.png",
+      "sha256": "19ca5a40ea3fa5b8b9b1ffeef32d1b08b0707bfc88fbaa8821b951543a9ab0f8",
+      "size_bytes": 232857,
+      "viewport_pixels": [
+        1500,
+        1100
+      ],
+      "browser_check": "intermediate_experiment",
+      "scope": "Local topic-count PCA and cosine ranking"
+    },
+    {
+      "figure": 3,
+      "path": "docs/final/figures/advanced-comparison.png",
+      "archive_entry": "learning-advanced.png",
+      "sha256": "c8d44ef3c4956c8ef27457b2d128279f4c427f7fc3f3a9019088c29762b7d055",
+      "size_bytes": 68111,
+      "viewport_pixels": [
+        1500,
+        1100
+      ],
+      "browser_check": "advanced_comparison",
+      "scope": "Local Hybrid lesson comparison"
+    },
+    {
+      "figure": 4,
+      "path": "docs/final/figures/saved-data-plan.png",
+      "archive_entry": "learning-saved-roadmap.png",
+      "sha256": "e2a2702929795b44a7c6085189922aa1fdc99c80f36264795505ff21b5d9369a",
+      "size_bytes": 124626,
+      "viewport_pixels": [
+        1500,
+        1100
+      ],
+      "browser_check": "saved_plan_during_source_checks",
+      "scope": "Saved catalog with a controlled source delay"
+    },
+    {
+      "figure": 5,
+      "path": "docs/final/figures/advisor-comparison-controlled.png",
+      "archive_entry": "learning-embedding-comparison.png",
+      "sha256": "d55f32d3c38c53dd560f4ea281bb63cd64b5a2aeb390ef35d8e09897364e6215",
+      "size_bytes": 127457,
+      "viewport_pixels": [
+        1500,
+        1100
+      ],
+      "browser_check": "lesson_embedding_comparison",
+      "scope": "Controlled provider vectors"
+    }
+  ],
+  "comparison_export": {
+    "record_count": 7,
+    "dimensions": 768,
+    "provider_model": "controlled-browser-vectors",
+    "additional_provider_calls": 0
+  },
+  "live_demo_preflight": {
+    "application_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+    "mode": "single Hybrid demo with source checks",
+    "status": "credential_missing",
+    "provider_requests": 0
+  },
+  "open_evidence": [
+    "Capture the real Gemini comparison and actual opportunity outcome on the frozen release.",
+    "Collect independent relevance judgments and student observations."
+  ]
+}

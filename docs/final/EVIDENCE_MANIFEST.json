@@ -374,6 +374,10 @@
     {
       "path": "docs/evidence/career_specializations_2026-11-14.json",
       "sha256": "60a23d21994c8e22f2f92e8f9154d0d30b9c9329b10e7c6cd8312da3ca209bff"
+    },
+    {
+      "path": "docs/evidence/report_figures_2026-11-15.json",
+      "sha256": "9a569fda7511a59977d8052c7fedf75239653a022195d579911c957a2aab16e9"
     }
   ],
   "preserved_inputs": [
@@ -425,15 +429,15 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "82377c7bc971a900f084087630b9e8cead83943db9b95c426f2d95059ab00955"
+      "sha256": "25ea4a12ebcd43f5600d55d774ec4e43f76147d4556bbc81c1e3a6605a8259e6"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "ae74d81891ddfa5e3067d7f0ed14d6d39f0c040a863707a6ff4387ff60df7577"
+      "sha256": "6dac84d9c21cc594582625c4145d798b4eb7e49a0da5bab49eafbb3c4e7e7b59"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "51cc28e411c4b061ca01c46063e7b8fb01c011e4b55c3243bb6da8c877afae30"
+      "sha256": "b3b8aa545e5f8d8a4126f1393f9ccb86606f44bef5b59c026999be9c5b76ad7e"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -449,7 +453,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "1e376732a1deb7b02bbe8963530a1f683aba462d7f96f24526660a2d56fd921a"
+      "sha256": "2ba96df2b9c301473219c704a6879b9712e28bc9ed15359f2a663e045b57c9c5"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -457,11 +461,35 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "0e1965a56bb5bf8ae08d253ca9123019e8fcc13908d55235e570444c9800955d"
+      "sha256": "07a3a4047bf2a9d41179e976791cbfd4b318d460d1e26c7beb7d6a1b89c22087"
     },
     {
       "path": "docs/59_CAREER_DIRECTIONS.md",
       "sha256": "138302d2001d0b32d650f2da0b756bb4d061ec00647559a7e59e65dffcdb32e6"
+    },
+    {
+      "path": "docs/final/FIGURES.md",
+      "sha256": "723ab362a5693515cbad55bf57c1445d871eb9421c240d459f8d7fc693ed7432"
+    },
+    {
+      "path": "docs/final/figures/beginner-roadmap.png",
+      "sha256": "66ba26737b24ee6a8555822d90d8cf1094de13f12ca06e9217fba66ee297ccc8"
+    },
+    {
+      "path": "docs/final/figures/lesson-topic-ranks.png",
+      "sha256": "19ca5a40ea3fa5b8b9b1ffeef32d1b08b0707bfc88fbaa8821b951543a9ab0f8"
+    },
+    {
+      "path": "docs/final/figures/advanced-comparison.png",
+      "sha256": "c8d44ef3c4956c8ef27457b2d128279f4c427f7fc3f3a9019088c29762b7d055"
+    },
+    {
+      "path": "docs/final/figures/saved-data-plan.png",
+      "sha256": "e2a2702929795b44a7c6085189922aa1fdc99c80f36264795505ff21b5d9369a"
+    },
+    {
+      "path": "docs/final/figures/advisor-comparison-controlled.png",
+      "sha256": "d55f32d3c38c53dd560f4ea281bb63cd64b5a2aeb390ef35d8e09897364e6215"
     }
   ],
   "external_references": [
@@ -500,7 +528,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-15T07:17:49+00:00",
+  "updated_at_utc": "2026-11-15T23:48:19+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -593,5 +621,14 @@
     "chromium_checks": 39,
     "app_planning_percent": 94,
     "submission_planning_percent": 70
+  },
+  "report_figures": {
+    "date_mst": "2026-11-15",
+    "evidence": "docs/evidence/report_figures_2026-11-15.json",
+    "gallery": "docs/final/FIGURES.md",
+    "figure_count": 5,
+    "live_demo_preflight": "credential_missing",
+    "app_planning_percent": 94,
+    "submission_planning_percent": 71
   }
 }
