@@ -12,14 +12,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.catalog import ROOT
 from src.jobs import MAX_SNAPSHOT_MATCHES, OPPORTUNITY_PAGE_SIZE
-from src.opportunities import search_employer_jobs
+from src.opportunities import CAREER_PATTERNS, search_employer_jobs
 from src.opportunity_details import request_posting_detail
 from src.opportunity_pages import page_info, request_opportunity_page
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--career", choices=["ai_ml", "embedded"], default="ai_ml")
+    parser.add_argument("--career", choices=CAREER_PATTERNS, default="ai_ml")
     parser.add_argument("--location", default="")
     roles = parser.add_mutually_exclusive_group()
     roles.add_argument("--internship", action="store_true")

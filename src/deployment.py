@@ -169,7 +169,7 @@ def check_deployment(*, root=ROOT, environ=None, smoke=False):
         result("catalog", bool(build_evidence(catalog)) and directory.catalog_version == catalog.catalog_version
             and references.catalog_version == directory.catalog_version
             and {r.code for r in expanded.records if r.code and r.code.startswith("ECE")} <= directory_codes
-            and all({*CAREER_PATHS[direction].progression, CAREER_PATHS[direction].elective}
+            and all({*CAREER_PATHS[direction].progression, *CAREER_PATHS[direction].electives}
                     <= {record.code for record in expanded.records if direction in record.career_ids}
                     for direction in EXPANDED_DIRECTIONS),
             "Advisor corpus, career courses, ECE directory and enrollment reference data validated.")

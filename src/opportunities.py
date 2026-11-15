@@ -33,6 +33,7 @@ CAREER_PATTERNS = {
     "embedded": r"\b(?:embedded|firmware|microcontrollers?|FPGA|ASIC|RTL|hardware|electrical|controls?)\b",
     "signals": r"\b(?:signal processing|DSP|radio frequency|RF|wireless|communications systems|telecommunications)\b",
     "controls": r"\b(?:controls?|robotics?|motion planning|industrial automation|factory automation)\b",
+    "semiconductors": r"\b(?:semiconductors?|ASIC|RTL|VLSI|silicon|FPGA|design verification|chip design|wafer|fab process|advanced packaging)\b",
 }
 ROLE_PATTERN = r"\b(?:engineer(?:ing)?|developer|scientist|research(?:er)?|technician|intern(?:ship)?|co[ -]?op)\b"
 EXCLUDED_ROLES = r"\b(?:recruit(?:er|ing|ment)|sales|marketing|talent|account|executive assistant)\b"

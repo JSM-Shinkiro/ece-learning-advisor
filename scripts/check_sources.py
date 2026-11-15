@@ -7,6 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from src.career_paths import CAREER_NAMES
 from src.catalog import ROOT, load_catalog, load_runtime_catalog
 from src.controller import run_advisor
 from src.models import StudentProfile
@@ -14,7 +15,7 @@ from src.models import StudentProfile
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--career", choices=["ai_ml", "embedded", "exploring"], default="ai_ml")
+    parser.add_argument("--career", choices=CAREER_NAMES, default="ai_ml")
     parser.add_argument("--catalog-year", default="2026-2027")
     parser.add_argument("--collection", choices=["baseline", "runtime"], default="baseline",
                         help="Baseline preserves historical checks; runtime checks the expanded app collection")

@@ -6,6 +6,7 @@ from .career_paths import CAREER_PATHS
 from .career_ui import elective_details
 from .collection_filters import filter_collection
 from .directory_ui import render_directory
+from .enrollment_references import ADVISED_PLAN
 from .source_ui import enrollment_details, source_details
 
 
@@ -16,6 +17,20 @@ def reset_collection_filters():
 @st.fragment
 def render_collection(catalog, directory=None, references=None):
     st.subheader("Courses & resources")
+    minor = st.expander("Mathematics minor overlap", key="collection_math_minor", on_change="rerun")
+    if minor.open:
+        with minor:
+            st.caption("Main campus · 2026–27 ECE advised plans")
+            st.write("The EE and CE plans already include Calculus I and II plus MATH 223, 243 and 254. "
+                     "The minor uses both calculus courses and two courses from its foundation options.")
+            st.write("Review the linear algebra requirement, including MATH 313, and the approved upper-division options. "
+                     "The Math Center can confirm which courses apply to your catalog and how they can be used with your major.")
+            st.link_button("2026–27 ECE advised plans", ADVISED_PLAN, key="math_minor_ece_plan")
+            st.link_button("Mathematics minor requirements",
+                           "https://catalog.arizona.edu/programs/MATHMINU/program-requirements-a1nCj",
+                           key="math_minor_catalog")
+            st.link_button("Math Center minor advising",
+                           "https://math.arizona.edu/academics/undergraduate/minors", key="math_minor_department")
     if directory is not None:
         scope = st.radio("Browse collection", ["advisor", "ece"],
             format_func=lambda key:"Advisor courses & resources" if key=="advisor" else "All undergraduate ECE courses",
@@ -38,7 +53,7 @@ def render_collection(catalog, directory=None, references=None):
     if not records:
         st.info("No courses or resources match these filters. Try a broader search or reset the filters.")
     sources={s.source_id:s for s in catalog.sources}
-    elective_codes = {path.elective for path in CAREER_PATHS.values() if path.elective}
+    elective_codes = {code for path in CAREER_PATHS.values() for code in path.electives}
     for record in records:
         panel=st.expander((record.code+" · " if record.code else "")+record.title,
             key="collection_record_"+record.record_id,on_change="rerun")

@@ -199,7 +199,7 @@ def requested_course_codes(profile):
         return [], "none", False
     text, origin = (profile.question, "question") if profile.question.strip() else (profile.interests, "interests")
     codes = list(dict.fromkeys(re.sub(r"\s+", "", match.group()).upper()
-        for match in re.finditer(r"\b(?:ECE|CSC)\s*[1-4]\d{2}[A-Z]{0,2}\b", text, re.I)))
+        for match in re.finditer(r"\b(?:ECE|CSC|MSE|SIE)\s*[1-4]\d{2}[A-Z]{0,2}\b", text, re.I)))
     return codes[:MAX_REQUESTED_CODES], origin if text.strip() else "none", len(codes) > MAX_REQUESTED_CODES
 
 

@@ -4,7 +4,7 @@ from src.career_catalog import with_career_paths
 from src.career_paths import CAREER_PATHS, question_direction
 from src.catalog import load_runtime_catalog
 from src.controller import run_advisor
-from src.models import StudentProfile
+from src.models import Completion, StudentProfile
 from src.opportunities import CAREER_PATTERNS
 from src.profiles import export_profile, import_profile
 from src.sources import CatalogRefresh
@@ -52,7 +52,39 @@ def test_combined_collection_extends_each_path_once_and_ambiguous_questions_rema
     combined = with_career_paths(catalog)
     assert with_career_paths(combined) == combined
     assert not question_direction("I'm interested in wireless DSP and feedback control.")
-    for direction in ("signals", "controls"):
+    assert not question_direction("I want to learn wireless DSP and semiconductor fabrication.")
+    for direction in ("signals", "controls", "semiconductors"):
         path = CAREER_PATHS[direction]
         mapped = {record.code for record in combined.records if direction in record.career_ids}
-        assert {*path.progression, path.elective} <= mapped
+        assert {*path.progression, *path.electives} <= mapped
+
+
+@pytest.mark.parametrize("question,completed,start,goal,unrelated", [
+    ("I finished ECE 369A. What should I learn next for digital chip verification?",
+     ["ECE369A"], "ECE274A", "ECE407", "ECE446"),
+    ("How should I start learning chip fabrication for a wafer fab process role?",
+     [], "ECE220", "ECE446", "ECE407"),
+])
+def test_semiconductor_questions_use_the_relevant_study_route(question, completed, start, goal, unrelated):
+    profile = StudentProfile(career_id="exploring", question=question,
+                             completed=[Completion(course_code=code, grade="A") for code in completed])
+    catalog = load_runtime_catalog()
+    result = run_advisor(catalog, profile, refresh_sources=False)
+    assert result.context.profile.career_id == "semiconductors"
+    assert result.trace["career_direction"]["matched"] == "semiconductors"
+    allowed = {rid.split(":")[1] for rid in result.context.allowed_record_ids}
+    assert {start, goal} <= allowed
+    assert not allowed.intersection({*completed, unrelated, "SIE406", "MSE365"})
+    assert all(rule.status == "unknown" for rule in result.context.rule_results.values())
+    assert import_profile(export_profile(result.context.profile)) == result.context.profile
+
+
+def test_two_explicit_semiconductor_electives_enter_an_incoming_students_plan():
+    profile = StudentProfile(career_id="exploring", question="Can SIE 406 and MSE 365 count as technical electives?")
+    result = run_advisor(load_runtime_catalog(), profile, refresh_sources=False)
+    for code in ("SIE406", "MSE365"):
+        rid = f"uofa:{code}:2026-2027"
+        assert rid in result.context.allowed_record_ids
+        assert result.context.rule_results[rid].status == "unknown"
+        assert result.context.field_sources[rid]["credits"] == "catalog:" + code
+    assert "semiconductors" in CAREER_PATTERNS

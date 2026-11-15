@@ -378,7 +378,19 @@ def run_browser_checks(url, *, local=False, executable_path=None, timeout_ms=200
                 submit(b)
                 expect(course_cards(b).filter(has_text=re.compile(r"^ECE441A · "))).to_have_count(1)
                 saved(b, "Controls & Robotics", 0, 0)
-                passed(stage, "An exploratory question produces a sourced career path, accepts an explicit direction change, and retains unverified elective eligibility.", begin)
+                choose(b, "Career direction", "Still exploring")
+                question.fill("How should I start learning chip fabrication?")
+                submit(b)
+                expect(b.get_by_text("Direction matched from your question · Semiconductors & Digital Hardware", exact=True)).to_be_visible()
+                expect(course_cards(b).filter(has_text=re.compile(r"^ECE446 · "))).to_have_count(1)
+                before = session_counts[b]["scripts_finished"]
+                expand(b, "Career path and electives")
+                settled(b, after=before)
+                expect(b.get_by_role("link", name="SIE406 · Quality Engineering", exact=True)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0310781")
+                expect(b.get_by_role("link", name="MSE365 · Physical Properties of Materials", exact=True)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0228861")
+                passed(stage, "Exploratory questions produce sourced career paths, including a fabrication plan with both outside-ECE course links.", begin)
 
                 stage, begin = "websocket_sessions", time.monotonic()
                 for page in (a, b):

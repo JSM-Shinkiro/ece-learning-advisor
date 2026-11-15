@@ -302,7 +302,7 @@ def render_card(record, result):
     rid = record.record_id
     is_course = record.kind == "course"
     path = CAREER_PATHS.get(result.context.profile.career_id)
-    is_elective = is_course and path and record.code == path.elective
+    is_elective = is_course and path and record.code in path.electives
     with st.container(border=True):
         st.markdown("**"+(record.code+" · " if record.code else "")+record.title+"**")
         if is_course:

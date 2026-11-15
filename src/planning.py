@@ -2,7 +2,7 @@
 
 import re
 
-from .career_paths import EXPANDED_DIRECTIONS
+from .career_paths import CAREER_PATHS
 from .models import Record, StudentProfile
 from .retrieval import tokenize
 from .query import catalog_vocabulary, interpret_query
@@ -19,6 +19,7 @@ RESOURCE_TERMS = {
     "resource:mit_structures": ("mit 6.004", "6.004", "mit computation structures", "computation structures"),
     "resource:pysdr": ("pysdr",),
     "resource:motor_pid": ("motor speed tutorial", "ctms"),
+    "resource:verilator": ("verilator",),
 }
 
 
@@ -54,9 +55,12 @@ def needs_programming_foundations(profile: StudentProfile):
 
 
 def needs_learning_foundations(profile: StudentProfile):
-    if profile.career_id in EXPANDED_DIRECTIONS:
-        studied = set(profile.current_enrollment) | {course.course_code for course in profile.completed}
-        return "ECE220" not in studied
+    path = CAREER_PATHS.get(profile.career_id)
+    if path and path.foundation_codes:
+        studied = set(profile.current_enrollment) | {
+            course.course_code for course in profile.completed if course.grade not in {"E", "F"}
+        }
+        return not studied.intersection(path.foundation_codes)
     return needs_programming_foundations(profile)
 
 

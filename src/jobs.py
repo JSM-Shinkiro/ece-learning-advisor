@@ -36,7 +36,7 @@ def search_jobs(app_id: str, app_key: str, career: str, location: str,
     if not app_id or not app_key:
         raise ValueError("The job provider is not configured")
     terms = {"ai_ml": "machine learning", "embedded": "embedded software", "signals": "signal processing",
-             "controls": "robotics controls", "exploring": "engineering"}
+             "controls": "robotics controls", "semiconductors": "semiconductor engineering", "exploring": "engineering"}
     if career not in terms or not isinstance(location, str) or len(location) > 120 or any(ord(c) < 32 for c in location) or type(internship) is not bool:
         raise ValueError("Invalid opportunity search filters")
     query = terms[career] + (" intern" if internship else "")

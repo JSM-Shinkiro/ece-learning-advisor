@@ -1,5 +1,5 @@
 {
-  "version": "career-paths-2026-11-14",
+  "version": "career-paths-2026-11-14-semiconductors",
   "catalog_version": "2026-2027",
   "sources": [
     {
@@ -103,6 +103,78 @@
       "url": "https://job-boards.greenhouse.io/rebuildmanufacturing/jobs/4734540005",
       "retrieved_at": "2026-11-14T22:00:00Z",
       "review_note": "Dated example of work in manufacturing controls. Check the employer page for current availability."
+    },
+    {
+      "source_id": "catalog:ECE407",
+      "title": "ECE407 — Digital VLSI Systems Design",
+      "url": "https://catalog.arizona.edu/courses/0121351",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T05:42:35.897370+00:00",
+      "content_hash": "b3b0409983e146e0d27c8577b632a1e5df715624e7164f460b7f17e89feaeb94",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:ECE462",
+      "title": "ECE462 — Computer Architecture and Design",
+      "url": "https://catalog.arizona.edu/courses/0121801",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T05:42:36.023885+00:00",
+      "content_hash": "e943da7b6513c7b74ff0e5c1f8a2dab1f17b1cac91c7845fab51020961e87aef",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:ECE446",
+      "title": "ECE446 — Semiconductor Processing",
+      "url": "https://catalog.arizona.edu/courses/0229332",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T05:42:35.966692+00:00",
+      "content_hash": "da22ea27eb522dd0d357b5a47066304e2c8eb21c08dbb8f2300fa2d7fbbe08b6",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:SIE406",
+      "title": "SIE406 — Quality Engineering",
+      "url": "https://catalog.arizona.edu/courses/0310781",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T05:42:36.144985+00:00",
+      "content_hash": "8d211a89095d21b6eb9e6e4552b0217afd9bb310c1889ab07cd3e422fd364116",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "catalog:MSE365",
+      "title": "MSE365 — Physical Properties of Materials",
+      "url": "https://catalog.arizona.edu/courses/0228861",
+      "catalog_version": "2026-2027",
+      "retrieved_at": "2026-11-15T05:42:36.090700+00:00",
+      "content_hash": "759582f0acf3a45b488991dc45a227693dda53bd46e552055a2038f3aaed84e6",
+      "section": "Course description, units, and enrollment requirement reference",
+      "review_note": "Course identity, description, and units reviewed against the catalog. Enrollment requirements need separate section evidence."
+    },
+    {
+      "source_id": "resource:verilator",
+      "title": "Verilator guide — Create-Binary Example",
+      "url": "https://verilator.org/guide/latest/example_binary.html",
+      "retrieved_at": "2026-11-15T05:42:36.192846+00:00",
+      "section": "Compiling and running an example SystemVerilog simulation",
+      "review_note": "Dated project documentation used for an independent simulation exercise."
+    },
+    {
+      "source_id": "career:intel_fab52",
+      "title": "Intel — Fab 52 and the Panther Lake architecture",
+      "url": "https://www.intel.com/content/www/us/en/newsroom/news/client-computing/intel-unveils-panther-lake-architecture-first-ai-pc-platform-built-on-18a.html",
+      "retrieved_at": "2026-11-15T05:42:36.192846+00:00",
+      "review_note": "Dated example of advanced chip architecture and semiconductor manufacturing in Chandler, Arizona."
+    },
+    {
+      "source_id": "career:amkor_packaging",
+      "title": "Amkor — Arizona advanced packaging and test campus",
+      "url": "https://ir.amkor.com/news-releases/news-release-details/amkor-technology-announces-phase-2-arizona-advanced-packaging",
+      "retrieved_at": "2026-11-15T05:42:36.192846+00:00",
+      "review_note": "Employer announcement used as an application example for packaging and test work."
     }
   ],
   "records": [
@@ -385,6 +457,217 @@
       "source_ids": [
         "career:robotics_onet",
         "career:automation_coop"
+      ]
+    },
+    {
+      "record_id": "uofa:ECE407:2026-2027",
+      "kind": "course",
+      "title": "Digital VLSI Systems Design",
+      "code": "ECE407",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Study the design, timing, analysis, and physical layout of digital CMOS circuits, from transistors and logic gates to sequential circuits and data paths.",
+      "source_ids": [
+        "catalog:ECE407"
+      ],
+      "requirement_reference": "016498",
+      "study_stage": "advanced",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "digital chip design",
+        "chip verification",
+        "VLSI",
+        "CMOS",
+        "RTL",
+        "ASIC",
+        "digital logic",
+        "timing"
+      ],
+      "learning_note": "Connect digital logic to circuit-level tradeoffs in delay, noise margins, and layout.",
+      "first_activity": "Compare two CMOS logic implementations and explain how gate capacitance can affect propagation delay.",
+      "field_sources": {
+        "title": "catalog:ECE407",
+        "summary": "catalog:ECE407",
+        "credits": "catalog:ECE407",
+        "requirement_reference": "catalog:ECE407"
+      }
+    },
+    {
+      "record_id": "uofa:ECE462:2026-2027",
+      "kind": "course",
+      "title": "Computer Architecture and Design",
+      "code": "ECE462",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Examines processor, memory, and interconnect organization, including pipelining, caches, multicore systems, and architectural design tradeoffs.",
+      "source_ids": [
+        "catalog:ECE462"
+      ],
+      "requirement_reference": "016503",
+      "study_stage": "advanced",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "computer architecture",
+        "hardware design",
+        "processor pipeline",
+        "memory hierarchy",
+        "cache",
+        "multicore"
+      ],
+      "learning_note": "Follow chip design into processor architecture and performance tradeoffs.",
+      "first_activity": "Trace two instructions through a simple processor pipeline and identify a source of stalls.",
+      "field_sources": {
+        "title": "catalog:ECE462",
+        "summary": "catalog:ECE462",
+        "credits": "catalog:ECE462",
+        "requirement_reference": "catalog:ECE462"
+      }
+    },
+    {
+      "record_id": "uofa:ECE446:2026-2027",
+      "kind": "course",
+      "title": "Semiconductor Processing",
+      "code": "ECE446",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Surveys semiconductor fabrication steps, from wafer preparation through patterning, doping, etching, and metallization.",
+      "source_ids": [
+        "catalog:ECE446"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "semiconductor processing",
+        "fabrication",
+        "fab process",
+        "wafer manufacturing",
+        "process engineer",
+        "lithography",
+        "equipment"
+      ],
+      "learning_note": "Connect semiconductor device concepts to the steps and equipment used in a fabrication facility.",
+      "first_activity": "Sketch a simple fabrication sequence and identify one purpose and one measurement for each step.",
+      "field_sources": {
+        "title": "catalog:ECE446",
+        "summary": "catalog:ECE446",
+        "credits": "catalog:ECE446",
+        "requirement_reference": "catalog:ECE446"
+      }
+    },
+    {
+      "record_id": "uofa:SIE406:2026-2027",
+      "kind": "course",
+      "title": "Quality Engineering",
+      "code": "SIE406",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Applies statistical process control, process capability analysis, and designed experiments to manufacturing and quality improvement.",
+      "source_ids": [
+        "catalog:SIE406"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "quality engineering",
+        "yield",
+        "product test",
+        "statistical process control",
+        "manufacturing"
+      ],
+      "learning_note": "Use control charts and capability measures to investigate process variability and yield. The course page recommends SIE 305.",
+      "first_activity": "Compare two simulated manufacturing lots using a control chart and explain which one warrants investigation.",
+      "field_sources": {
+        "title": "catalog:SIE406",
+        "summary": "catalog:SIE406",
+        "credits": "catalog:SIE406",
+        "requirement_reference": "catalog:SIE406"
+      }
+    },
+    {
+      "record_id": "uofa:MSE365:2026-2027",
+      "kind": "course",
+      "title": "Physical Properties of Materials",
+      "code": "MSE365",
+      "catalog_version": "2026-2027",
+      "credits": 3.0,
+      "summary": "Introduces solid-state explanations for materials' thermal, electrical, optical, and magnetic behavior.",
+      "source_ids": [
+        "catalog:MSE365"
+      ],
+      "requirement_reference": "015063",
+      "study_stage": "advanced",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "solid state",
+        "device materials",
+        "semiconductors",
+        "physical properties",
+        "materials science",
+        "fabrication"
+      ],
+      "learning_note": "Build materials background for device physics. The course page lists MSE 222 or MSE 223R, concurrent OPTI 240, or department consent.",
+      "first_activity": "Compare materials with different electrical and thermal properties and explain how the differences affect a device.",
+      "field_sources": {
+        "title": "catalog:MSE365",
+        "summary": "catalog:MSE365",
+        "credits": "catalog:MSE365",
+        "requirement_reference": "catalog:MSE365"
+      }
+    },
+    {
+      "record_id": "resource:verilator",
+      "kind": "resource",
+      "title": "Verilator Create-Binary Example",
+      "summary": "The Verilator project demonstrates compiling a small SystemVerilog design and running it as a standalone simulation.",
+      "study_stage": "foundation",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "source_ids": [
+        "resource:verilator"
+      ],
+      "topics": [
+        "chip verification",
+        "RTL simulation",
+        "hardware description language",
+        "Verilator",
+        "SystemVerilog",
+        "testbench"
+      ],
+      "first_activity": "Use the example build flow to simulate a four-bit counter. Check reset, counting, and rollover."
+    },
+    {
+      "record_id": "career:semiconductors",
+      "kind": "career",
+      "title": "Semiconductors & Digital Hardware",
+      "summary": "Digital hardware designers and verification engineers build and test logic. Fabrication, process equipment, product testing, and advanced packaging are related areas with different learning routes.",
+      "review_status": "team_mapping",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "digital chip design",
+        "chip verification",
+        "semiconductor fabrication",
+        "product test",
+        "CMOS",
+        "advanced packaging"
+      ],
+      "source_ids": [
+        "career:intel_fab52",
+        "career:amkor_packaging"
       ]
     }
   ]

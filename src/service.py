@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from .catalog import build_evidence, code_lookup, corpus_hash
-from .career_paths import CAREER_PATHS, EXPANDED_DIRECTIONS
+from .career_paths import CAREER_PATHS
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import AI_TIME_LIMIT_MESSAGE, AIBudgetExceeded, EmbeddingCache, ProviderError
 from .planning import (coverage_message, learning_phase, needs_learning_foundations,
@@ -83,7 +83,8 @@ def build_query(catalog: Catalog, profile: StudentProfile, question: str, *, int
     direction = " ".join(r.title + " " + " ".join(r.topics) for r in careers)
     foundations = ""
     if needs_learning_foundations(profile):
-        foundations = "ECE220 circuits" if profile.career_id in EXPANDED_DIRECTIONS else "introductory programming foundations C"
+        path = CAREER_PATHS.get(profile.career_id)
+        foundations = path.foundation_query if path and path.foundation_query else "introductory programming foundations C"
     interpretation = interpretation or interpret_query(question.strip() or profile.interests.strip(), catalog)
     original = " ".join([direction, foundations, profile.interests, profile.experience, question]).strip()
     suffix = " ".join(interpretation.added_terms)
@@ -110,16 +111,27 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     # A matched question may prefer an existing course, without changing the
     # selected career, excluding foundations, or granting academic clearance.
     path = CAREER_PATHS.get(profile.career_id)
-    if path and path.elective:
-        # Keep the outside option on the path card. A directly requested elective
-        # can also enter the recommendation evidence alongside the ECE courses.
-        elective = next((record for record in records.values() if record.code == path.elective), None)
-        elective_requested = path.elective.casefold() in tokenize(question) or (
-            elective is not None and elective.title.casefold() in question.casefold()
-        )
-        if not elective_requested:
-            courses = [rid for rid in courses if records[rid].code != path.elective]
-        courses.sort(key=lambda rid: (rid not in focused_record_ids, records[rid].code not in path.progression))
+    requested_electives = set()
+    if path and path.electives:
+        # Elective candidates enter recommendation evidence on explicit request.
+        tokens = set(tokenize(question))
+        question_text = question.casefold()
+        requested_electives = {rid for rid in courses if records[rid].code in path.electives and (
+            records[rid].code.casefold() in tokens or records[rid].title.casefold() in question_text
+        )}
+        courses = [rid for rid in courses if records[rid].code not in path.electives or rid in requested_electives]
+        route = path.matching_route(question.strip() or profile.interests)
+        if route:
+            route_order = {code: index for index, code in enumerate(route.courses)}
+            courses.sort(key=lambda rid: (
+                (records[rid].code or "").casefold() not in tokens and rid not in requested_electives,
+                route_order.get(records[rid].code, len(route_order)),
+                rid not in focused_record_ids,
+            ))
+        else:
+            progression_codes = set(path.progression)
+            courses.sort(key=lambda rid: (rid not in focused_record_ids and rid not in requested_electives,
+                                         records[rid].code not in progression_codes))
     else:
         courses.sort(key=lambda rid: rid not in focused_record_ids)
     beginner = needs_learning_foundations(profile)
@@ -131,9 +143,9 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
         foundations.sort(key=lambda rid: (rid not in focused_record_ids, records[rid].code != "ECE101"))
         bridges=[rid for rid in courses if records[rid].study_stage=="intermediate"]
         goals=[rid for rid in courses if records[rid].study_stage=="advanced"]
-        requested_unreviewed = [rid for rid in courses if rid in focused_record_ids
-                                and records[rid].study_stage == "unreviewed"]
-        courses=(requested_unreviewed[:2]+foundations[:1]+bridges[:1]+goals[:1])[:3]
+        requested = [rid for rid in courses if rid in requested_electives or
+                     (rid in focused_record_ids and records[rid].study_stage == "unreviewed")]
+        courses = list(dict.fromkeys(requested[:2] + foundations[:1] + bridges[:1] + goals[:1]))[:3]
         resources=sorted(resources,key=lambda rid:records[rid].study_stage!="foundation")
     if profile.career_id == "exploring":
         # Show both directions instead of allowing one query to displace the other.

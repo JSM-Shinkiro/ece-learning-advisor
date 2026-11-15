@@ -203,7 +203,7 @@ def test_app_uses_expanded_collection_without_network_on_rerender(expanded_app, 
     monkeypatch.setattr("httpx.Client.send", forbidden)
     app = expanded_app
     assert not app.exception
-    assert any("26 courses · 10 resources" in caption.value for caption in app.caption)
+    assert any("31 courses · 11 resources" in caption.value for caption in app.caption)
     app.text_input(key="question").set_value("CSC210")
     next(b for b in app.button if b.label == "Update my roadmap").click()
     app.run()
