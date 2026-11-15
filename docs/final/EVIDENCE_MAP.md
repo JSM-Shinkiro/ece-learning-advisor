@@ -1,6 +1,6 @@
 # Final report evidence map
 
-Prepared November 8 and updated November 13, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
+Prepared November 8 and updated November 14, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
 
 | ID | Claim or use | Primary project evidence | Scope and limits |
 | --- | --- | --- | --- |
@@ -23,6 +23,7 @@ Prepared November 8 and updated November 13, 2026. The evidence IDs index projec
 | E17 | Focused ECE enrollment references and live catalog refresh | [Source and CI evidence](../evidence/focused_ece_enrollment_2026-11-13.json), [passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43494092036) | Four official course IDs and enrollment references, with ECE101’s two differing public accounts and class lookup. Four source-only requests refreshed the selected course with enrollment unverified. 1,769 tests and nine startup checks per OS and 37 Chromium checks. |
 | E18 | Exact final question rehearsal and embedding comparison download | [Verification](../evidence/final_demo_rehearsal_2026-11-13.json), [passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43498957696) | 1,772 tests and nine startup checks per OS, plus 37 Chromium checks. One Hybrid response per rehearsal with controlled model results. The phone and desktop workflows use browser fixtures. The separate live source-only check updated ECE425. A current live Gemini rehearsal still needs a credential. |
 | E19 | Signals and controls roadmaps with outside-ECE elective candidates | [Course and occupation sources](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/career_directions_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094) | Six course descriptions refreshed in two source-only requests. Both paths link their candidates to Technical Electives II guidance. 1,777 tests and nine startup checks passed on each OS, plus 38 Chromium checks. The review packet uses the 34-chunk core. |
+| E20 | Semiconductor study routes and Mathematics minor overlap | [Career sources](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/semiconductors_and_math_minor_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351) | Three source-only requests refreshed the five added courses. The follow-up passed 1,780 tests and nine startup checks per OS and 38 Chromium checks, including the two elective links and local phone-width minor guidance. The archived review has 408 blank grades. |
 
 ## Inputs must remain separate
 

@@ -2,7 +2,7 @@
 
 Team P07 · Updated November 14, 2026 · ECE Learning Advisor
 
-Verified application revision `637ff57c5c038dc5d6d1b0c7aabfa425558748f3` adds Signals & Communications and Controls & Robotics, with an outside-ECE elective candidate for each. [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43646950094) · [Verification evidence](../evidence/career_directions_2026-11-14.json)
+Application revision `d5393efcc7d476aacdfa0edaf1f8825e863cd3d1` includes Semiconductors & Digital Hardware study routes and a Mathematics minor overlap card. [Career directions](../59_CAREER_DIRECTIONS.md) · [Verification evidence](../evidence/semiconductors_and_math_minor_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |

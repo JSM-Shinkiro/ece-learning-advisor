@@ -1,0 +1,385 @@
+{
+  "reviewed_local_date": "2026-11-14",
+  "local_timezone": "America/Phoenix",
+  "application_revision": "55591677b495ea67f239169e82653ec2d19b9757",
+  "browser_check_revision": "d5393efcc7d476aacdfa0edaf1f8825e863cd3d1",
+  "scope": "Curated study route and minor-guidance development verification.",
+  "collection": {
+    "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14-semiconductors",
+    "records_by_kind": {
+      "course": 31,
+      "resource": 11,
+      "career": 5
+    },
+    "evidence_chunks": 51,
+    "corpus_hash": "e966964a4145c08a1c3f189162584df54bed460522aa056b7c8a52110e56d977"
+  },
+  "local_verification": {
+    "tests_passed": 1780,
+    "startup_checks_passed": 9,
+    "chromium_attempt": "The local environment blocked creation of a Chromium process socket.",
+    "model_calls": 0
+  },
+  "source_only_requests": {
+    "checked_at": "2026-11-15T05:45:47.342288+00:00",
+    "scope": "Isolated source-only development controls",
+    "runs": [
+      {
+        "case": "design",
+        "question": "I finished ECE 369A. What should I learn next for digital chip verification?",
+        "completed_courses": [
+          "ECE369A"
+        ],
+        "matched_direction": "semiconductors",
+        "course_checks_selected": [
+          "ECE369A",
+          "ECE220",
+          "ECE274A",
+          "ECE351C",
+          "ECE352",
+          "ECE407",
+          "ECE462",
+          "ECE446"
+        ],
+        "checks": [
+          {
+            "code": "resource:verilator",
+            "kind": "resource",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE407",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE462",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE446",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "SIE406",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "MSE365",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          }
+        ],
+        "allowed_ids": [
+          "uofa:ECE274A:2026-2027",
+          "uofa:ECE407:2026-2027",
+          "uofa:ECE462:2026-2027",
+          "resource:verilator"
+        ],
+        "academic_rule_statuses": {
+          "uofa:ECE274A:2026-2027": "unknown",
+          "uofa:ECE407:2026-2027": "unknown",
+          "uofa:ECE462:2026-2027": "unknown"
+        },
+        "initial_plan_server_seconds": 0.00981,
+        "source_check_seconds": 6.485,
+        "request_seconds": 6.501,
+        "generation_status": "not_requested"
+      },
+      {
+        "case": "fabrication",
+        "question": "How should I start learning chip fabrication? Include ECE 446.",
+        "completed_courses": [],
+        "matched_direction": "semiconductors",
+        "course_checks_selected": [
+          "ECE446",
+          "ECE369A",
+          "ECE220",
+          "ECE274A",
+          "ECE351C",
+          "ECE352",
+          "ECE407",
+          "ECE462"
+        ],
+        "checks": [
+          {
+            "code": "resource:verilator",
+            "kind": "resource",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE446",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE407",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE462",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "SIE406",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "MSE365",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          }
+        ],
+        "allowed_ids": [
+          "uofa:ECE220:2026-2027",
+          "uofa:ECE351C:2026-2027",
+          "uofa:ECE446:2026-2027"
+        ],
+        "academic_rule_statuses": {
+          "uofa:ECE220:2026-2027": "unknown",
+          "uofa:ECE351C:2026-2027": "unknown",
+          "uofa:ECE446:2026-2027": "unknown"
+        },
+        "initial_plan_server_seconds": 0.00667,
+        "source_check_seconds": 4.662,
+        "request_seconds": 4.676,
+        "generation_status": "not_requested"
+      },
+      {
+        "case": "outside_ece_electives",
+        "question": "Can SIE 406 and MSE 365 count as technical electives?",
+        "completed_courses": [],
+        "matched_direction": "semiconductors",
+        "course_checks_selected": [
+          "SIE406",
+          "MSE365",
+          "ECE369A",
+          "ECE220",
+          "ECE274A",
+          "ECE351C",
+          "ECE352",
+          "ECE407"
+        ],
+        "checks": [
+          {
+            "code": "resource:verilator",
+            "kind": "resource",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "SIE406",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "MSE365",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE369A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE220",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE274A",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE351C",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE352",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE407",
+            "kind": "course",
+            "status": "updated",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE462",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          },
+          {
+            "code": "ECE446",
+            "kind": "course",
+            "status": "skipped",
+            "requirement_status": null
+          }
+        ],
+        "allowed_ids": [
+          "uofa:SIE406:2026-2027",
+          "uofa:MSE365:2026-2027",
+          "uofa:ECE274A:2026-2027",
+          "resource:verilator"
+        ],
+        "academic_rule_statuses": {
+          "uofa:SIE406:2026-2027": "unknown",
+          "uofa:MSE365:2026-2027": "unknown",
+          "uofa:ECE274A:2026-2027": "unknown"
+        },
+        "initial_plan_server_seconds": 0.01105,
+        "source_check_seconds": 3.722,
+        "request_seconds": 3.739,
+        "generation_status": "not_requested"
+      }
+    ]
+  },
+  "practice_resource": {
+    "source": "https://verilator.org/guide/latest/example_binary.html",
+    "freshness": "dated_snapshot"
+  },
+  "public_opportunity_check": {
+    "checked_at": "2026-11-15T05:55:23.033505+00:00",
+    "matched_titles": 14,
+    "board_checks": [
+      {
+        "name": "Samsara",
+        "status": "verified"
+      },
+      {
+        "name": "Nuro",
+        "status": "verified"
+      },
+      {
+        "name": "Anduril Industries",
+        "status": "verified"
+      }
+    ]
+  },
+  "archived_inputs": {
+    "verified_hashes": 8,
+    "core_chunks": 34,
+    "unfilled_relevance_grades": 408
+  },
+  "hosted_runs": [
+    {
+      "id": 43682977977,
+      "revision": "55591677b495ea67f239169e82653ec2d19b9757",
+      "browser_result": "The mobile assertion referenced re without an import. The follow-up uses text matching."
+    },
+    {
+      "id": 43683226351,
+      "revision": "d5393efcc7d476aacdfa0edaf1f8825e863cd3d1",
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43683226351",
+      "outcome": "success",
+      "ubuntu": {
+        "tests_passed": 1780,
+        "startup_checks_passed": 9
+      },
+      "windows": {
+        "tests_passed": 1780,
+        "startup_checks_passed": 9
+      },
+      "chromium": {
+        "checks_passed": 38,
+        "phone_viewport_px": 390,
+        "minor_and_electives_local_updates": true
+      }
+    }
+  ],
+  "open_evaluation": [
+    "Live Gemini rehearsal",
+    "Independent relevance review",
+    "Student pilot"
+  ]
+}
