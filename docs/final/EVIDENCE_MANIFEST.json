@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
-  "runtime_verification_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340",
+  "source_base_revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
+  "runtime_verification_revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217",
   "collections": [
     {
       "name": "baseline",
@@ -227,7 +227,7 @@
     },
     {
       "path": "src/ingest.py",
-      "sha256": "5b63914839983b230c97a377223a4f65051b6129bad6bb1f653cdad96c8d756f"
+      "sha256": "5e8fd09fbd730dce80c4aeebeb6dfa09a5895e7c30aec6df71ae01ca4dce31f2"
     },
     {
       "path": "tests/test_sources.py",
@@ -308,6 +308,10 @@
     {
       "path": "tests/test_runtime_catalog.py",
       "sha256": "18b81e428c816b54bbf44e5b1f7eb263265744d0079724b1c7a6acbd7d97d9eb"
+    },
+    {
+      "path": "tests/test_rule_sources.py",
+      "sha256": "5988d708aab284d23797cc8782fc0771f5a53ecad6fc0fdd403c85385e03004c"
     }
   ],
   "evidence_files": [
@@ -382,6 +386,10 @@
     {
       "path": "docs/evidence/live_demo_rehearsal_2026-11-15.json",
       "sha256": "135739dc3efc470d61b7c72606026ca41f26a465f6ee95f5fa5f5d504c667dc7"
+    },
+    {
+      "path": "docs/evidence/rendered_program_statements_2026-11-15.json",
+      "sha256": "28a8a938964a3b04f289b39a9428bf4ff89f2e2a2439ea8c7463ea04416f77c6"
     }
   ],
   "preserved_inputs": [
@@ -433,15 +441,15 @@
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "1962148e2153df89769734495a40a0da4b2ae55c4cd4fb9bce9a3e85a8b495db"
+      "sha256": "725b7fe3e5ffeee2d6c3f11926f082e07433f2fe5e8f3b9f6374a486f1c88d15"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "fa1f115f8ac9c3dbf19e2b6829a2923aa24767177a38cdfa4e40a107757fbdc2"
+      "sha256": "47ec3c2ad9f3895bdace088b9b136a2f12fa99a6ab66a8d2eb9cadca914f71e8"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "686ffaf50b194ea968d89c64522513ab1e923435d824fd0074b5aa9d11e6abf8"
+      "sha256": "eb908b1f9b6e17781fb2e553f5853a6a1acb93c77debb5c897fd6b0f6e1dc017"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -457,7 +465,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "abc255241c2cc507875de99267f5014d7fa6a9b094bb59b23ce7c7125e677788"
+      "sha256": "7e1af2726039588cd946464cd23aa83be70bd42ffa618fe05706a510991859c3"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -465,7 +473,7 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "b0a06eec13fe6f0ecd52cffa9fb26f20c87d7d7508e294effcaa285b665754e9"
+      "sha256": "94db5a2982b4e5314dcb8ba96a6814d45e803a885dd1e6d01460c44ed86e1c80"
     },
     {
       "path": "docs/59_CAREER_DIRECTIONS.md",
@@ -497,7 +505,7 @@
     },
     {
       "path": "docs/13_FINAL_PROJECT_DEVELOPMENT.md",
-      "sha256": "a92274ed6e3486654eead685167240179d20f81dadc9836a8059db261a34e54d"
+      "sha256": "795e0da0f7ae4a84a27fe35a2f4d446474eb4efa8aab42cd7ac4105573f40f96"
     }
   ],
   "external_references": [
@@ -536,7 +544,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-16T00:49:42+00:00",
+  "updated_at_utc": "2026-11-16T01:13:56+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -645,6 +653,14 @@
     "checks_passed": 11,
     "comparison_records": 7,
     "generation_status": "answered",
+    "app_planning_percent": 95,
+    "submission_planning_percent": 72
+  },
+  "rendered_program_statements": {
+    "date_mst": "2026-11-15",
+    "evidence": "docs/evidence/rendered_program_statements_2026-11-15.json",
+    "reviewed_statements": 4,
+    "live_demo_checks_passed": 11,
     "app_planning_percent": 95,
     "submission_planning_percent": 72
   }

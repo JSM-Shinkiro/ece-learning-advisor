@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 15, 2026
 
-This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Five browser captures document the lesson and Advisor interface. Repeated live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `225fdc6e626030fc09dc920c35f258709b7038e7`. Five browser captures document the lesson and Advisor interface. Repeated live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -80,7 +80,7 @@ Ranks start at one; stable chunk IDs break score ties. Fusion combines positions
 
 Prerequisite interpretation runs in Python with satisfied, unsatisfied and unknown states. Missing grades, incomplete histories, edition mismatches and unreviewed conditions can remain unknown. Current enrollment counts only where a reviewed concurrent condition explicitly permits it. Completed/current courses are removed from next-step recommendations without inventing grades.
 
-The runtime collection has four bound CS interpretations: CSC110, CSC120, CSC144 and CSC210. Fifteen ECE conditions and CSC372 remain unknown. These checks cover particular recorded conditions and do not establish complete enrollment eligibility. Descriptive evidence and a strong relevance score cannot substitute for a reviewed academic rule. [E8](EVIDENCE_MAP.md)
+The runtime collection has four bound CS interpretations: CSC110, CSC120, CSC144 and CSC210. Fifteen ECE conditions and CSC372 remain unknown. These checks cover particular recorded conditions and do not establish complete enrollment eligibility. Descriptive evidence and a strong relevance score cannot substitute for a reviewed academic rule. The source parser can recheck the four CS statements from the published program page when its structured data is stored separately. The existing rule check requires the matching edition, section, course identity and reviewed text. [E8, E24](EVIDENCE_MAP.md)
 
 The app shows dated enrollment references for ECE101, ECE369A, ECE372A and ECE425 alongside a public class search. The course code, official course URL, enrollment reference and catalog edition bind each note to the displayed course. The ECE101 department entry and the 2026–27 advised plan list different math conditions, so both are shown. The notes are displayed in the source panels and are outside the app’s prerequisite evaluator, retrieval index and model context. The directory shows the snapshot’s effective-date filter and retrieval time, plus each course record’s effective start. [E17](EVIDENCE_MAP.md)
 
@@ -159,6 +159,8 @@ The specialization revision passed 1,803 tests and nine startup checks per OS an
 
 The November 15 live CLI rehearsal passed 11 checks in one Hybrid request for the image-classification question. The application validated the selected answer and citations, verified both interim plans and refreshed ECE425 while keeping enrollment unknown. Eight course records and two resources refreshed. Two program checks used saved references. The cold-index request used 34 document embeddings, one query embedding and one generation. The seven-record table uses 768-dimensional Gemini embeddings. ECE425 and PyTorch Quickstart rank first and second in both Advisor cosine rankings, while ECE101 moves from third in topic cosine to fifth in Gemini cosine. The saved roadmap was ready on the server in 18.3 ms and the full request took 33.18 s. The run measures one server request and leaves repeated timing and browser rendering measurements open. [E23](EVIDENCE_MAP.md)
 
+The catalog repair verified four reviewed CS statements and passed the live Hybrid rehearsal with a warm document index. A source-only request with a fictional B in ECE101 satisfied the reviewed CSC120 prerequisite. Course-list discovery used saved references when explicit IDs were unavailable. Linux and Windows each passed 1,813 tests and nine startup checks. Chromium passed 39 checks. [E24](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -195,4 +197,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E23](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E24](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

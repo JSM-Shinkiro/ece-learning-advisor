@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Updated November 15, 2026
 
-Verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. [Final readiness](FINAL_READINESS.md)
+Verified application revision `225fdc6e626030fc09dc920c35f258709b7038e7`. [Final readiness](FINAL_READINESS.md)
 
 ## Purpose
 
@@ -58,7 +58,7 @@ Opportunity matching is based on configured title filters and public listings. O
 - **Collection** · 47 courses, 16 resources and eight career directions, including 32 ECE courses in the curated collection. The saved 34-chunk core supports general AI/ML and Embedded Systems queries and the archived evaluation. The separate 78-entry undergraduate ECE directory follows the official 2026–27 list's effective-date setting of January 13, 2027. Check the class search for section availability.
 - **Academic conditions** · Four exact CS conditions have reviewed interpretations. ECE conditions and CSC372 remain unverified. ECE101, ECE369A, ECE372A and ECE425 show dated enrollment references. ECE101 shows the department and the 2026–27 advised plan separately because their listed math conditions differ. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, native ranking bars and Plotly vector charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification** · The latest run passed 1,803 tests and nine startup checks per OS and 39 Chromium checks. Source-only requests refreshed all 16 added course records. Chromium switched the Photonics specialization and opened the BME416 enrollment details at phone width. [Verification evidence](evidence/career_specializations_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340)
+- **Verification** · The latest run passed 1,813 tests and nine startup checks per OS and 39 Chromium checks. The live Hybrid rehearsal verifies all four published CS statements. Course-list discovery uses saved references when explicit IDs are unavailable. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217)
 - **Preview performance:** the native inspector opens at a median 686.7 ms versus 1,608.4 ms for the fixed baseline, with five sessions per version using the same v2 collector/runner. Native reopening takes 307.8 ms. That comparison recorded feedback/roadmap-control medians of 221.2/453.4 ms. These are offline DOM observations; live-AI/source and hosted/mobile timing remain separate. See [lightweight inspection](52_LIGHTWEIGHT_INSPECTOR.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
 - **Submission** · Planning estimates are approximately 95% for the app and 72% for the complete submission. The one-request live Gemini and catalog rehearsal passed. Remaining work includes live neural and opportunity captures, independent evaluation, a student pilot, slides, report formatting, recording and packaging. [Final readiness](FINAL_READINESS.md) · [Final workspace](final/README.md)

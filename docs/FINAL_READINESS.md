@@ -10,6 +10,8 @@ The specialization expansion adds Photonics & Electro-Optics, Power & Energy Sys
 
 The November 15 live Hybrid rehearsal passed all 11 checks for the carried question. Gemini selected ECE425 and produced the seven-record embedding comparison. The official catalog refreshed ECE425 and its enrollment status stayed unknown. The live browser capture and team recording remain open. [Live rehearsal evidence](evidence/live_demo_rehearsal_2026-11-15.json) · [Demo runbook](final/DEMO_RUNBOOK.md#one-request-rehearsal)
 
+The catalog repair revalidates the published CSC110, CSC120, CSC144 and CSC210 statements. A source-only request with a fictional B in ECE101 satisfies the reviewed CSC120 prerequisite. Program course-list discovery uses saved references because the separate payloads were unavailable. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json)
+
 The four demo courses now show dated department references and a direct class search. The directory exposes its effective-date filter, retrieval time and course record dates. The source checker can refresh published course fields even when the catalog omits inline course metadata. ECE eligibility remains unknown. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 
 The Advisor now shows a dated saved-data plan before official source checks finish in both preview and AI modes. The learner can inspect the plan, submit a profile update, or keep the current plan. The live source-only probe built the first plan on the server in 19.5 ms while empty-cache checks took 16.82 s. The source run updated two records and retained nine bundled fallbacks. [Roadmap verification](evidence/saved_data_roadmap_2026-11-13.json)
@@ -34,7 +36,7 @@ The report draft now links five captioned Chromium captures from the verified re
 | Student profile → grounded roadmap → current/completed progress | Verified | The live rehearsal verifies the Hybrid explanation and interim plans. CI verifies saved profiles, conservatively checked academic conditions and progress changes. |
 | Course/resource coverage and provenance | Focused source review complete | Eight career directions, 47 curated courses, 16 resources and a 78-entry ECE directory. Ten outside-ECE elective candidates need advisor approval. The Mathematics minor card links the published requirements. The archived review uses 34 chunks. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,803 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340) |
+| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,813 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217) |
 | Browser workflow and concurrent sessions | Verified in CI | All 39 Chromium checks pass, including switching Photonics branches and opening Biomedical Imaging, elective and minor guidance at 390 pixels. The carried-question case exports comparison rows from controlled vectors. |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent successful checks are reused for five minutes. Explicit rechecks bypass reuse. The inspector opens in a fragment. Source checks and posting details still depend on their network response times. |
@@ -47,6 +49,10 @@ The report draft now links five captioned Chromium captures from the verified re
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
 | Final report, slides and recording | Partial | The report has five captioned captures and an evidence map. Live neural and opportunity captures, report formatting, slides and the three-member recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
+
+## Rendered catalog requirement verification
+
+The expected program, 2026–27 edition and exact requirement sections bind the rendered text to the existing reviewed rules. The warm-index Hybrid follow-up passed all 11 assertions and produced the seven-record comparison. [Verification](evidence/rendered_program_statements_2026-11-15.json)
 
 ## Live Gemini rehearsal
 

@@ -2,7 +2,7 @@
 
 Team P07 · Updated November 15, 2026 · ECE Learning Advisor
 
-Application revision `034baef173dd783697da72542ce3aa28bdfcf2c7` includes eight career directions and 17 specialization choices. [Career directions](../59_CAREER_DIRECTIONS.md) · [Verification evidence](../evidence/career_specializations_2026-11-14.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43688855340)
+Application revision `225fdc6e626030fc09dc920c35f258709b7038e7` includes eight career directions and revalidates four CS prerequisites from the published catalog page. [Career directions](../59_CAREER_DIRECTIONS.md) · [Catalog verification](../evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-15",
+  "application_revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
+  "tested_tree": "f0baa5d4b48c5c32540cda6e3058a51cb36c448e",
+  "catalog_edition": "2026-2027",
+  "scope": "Published CS prerequisite statements, course-list fallback and the scoped live demo question.",
+  "earlier_live_run": "docs/evidence/live_demo_rehearsal_2026-11-15.json",
+  "program_sources": {
+    "COSCBS": {
+      "url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+      "html_sha256": "98649c2e3cadebcb405009187563e141dc6973670de310e8fb20377a557c395a",
+      "separate_payload_http_status": 403,
+      "live_source_status": "updated",
+      "rule_status": "verified",
+      "discovery_status": "unavailable",
+      "http_attempts_in_live_run": 1
+    },
+    "ECEBSECE": {
+      "url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+      "html_sha256": "d44333e85a5f9b32b516e6aa0127b5332d8e0ea72278aa4f4b779d825cde85fe",
+      "separate_payload_http_status": 403,
+      "live_source_status": "bundled_fallback",
+      "rule_status": null,
+      "discovery_status": "unavailable",
+      "http_attempts_in_live_run": 1
+    }
+  },
+  "reviewed_statements": [
+    {
+      "course_code": "CSC110",
+      "section_id": "R1299/L30",
+      "statement_sha256": "04e1e8f6554990331974b16e77335808c0e12865d6542a39b67af5b4149dca8c",
+      "live_rule_status": "verified"
+    },
+    {
+      "course_code": "CSC120",
+      "section_id": "R1299/L40",
+      "statement_sha256": "137c87c389c60717fe2ba9c912bcf03947d1c6be26c24281e3e1802118ed2dbd",
+      "live_rule_status": "verified"
+    },
+    {
+      "course_code": "CSC144",
+      "section_id": "R1299/L50",
+      "statement_sha256": "8079106d26a402cf46222ab9a171e77e50a17a00f738f2557d64126a73b83eac",
+      "live_rule_status": "verified"
+    },
+    {
+      "course_code": "CSC210",
+      "section_id": "R1299/L70",
+      "statement_sha256": "05227d17680b08a40b630d247b4fabcb3edee69a37477159612b4c8f38e2a2be",
+      "live_rule_status": "verified"
+    }
+  ],
+  "fictional_profile_source_only": {
+    "checked_at": "2026-11-16T01:08:29.580217+00:00",
+    "fictional_completed_course": "ECE101",
+    "fictional_grade": "B",
+    "checked_course": "CSC120",
+    "verified_prerequisite_status": "satisfied",
+    "verification_status": "verified",
+    "evidence_ids": [
+      "uofa:CSC120:2026-2027:rule:R1299-L40"
+    ],
+    "program_status": "updated",
+    "program_rule_status": "verified",
+    "program_http_status": 200,
+    "source_requests": 1
+  },
+  "live_demo": {
+    "checked_at_utc": "2026-11-16T01:05:15.987111+00:00",
+    "status": "passed",
+    "retrieval_mode": "hybrid",
+    "generation_status": "answered",
+    "checks": {
+      "answered": true,
+      "requested_retrieval": true,
+      "statement_contract": true,
+      "focus_selected": true,
+      "completed_not_recommended": true,
+      "academic_unknowns_preserved": true,
+      "demo_course_source_verified": true,
+      "source_limits": true,
+      "lesson_rank_change": true,
+      "shared_overviews": true,
+      "usable_interim_plans": true
+    },
+    "models": {
+      "embedding_model": "gemini-embedding-2",
+      "generation_model": "gemini-3.5-flash-lite",
+      "dimensions": 768
+    },
+    "call_counts": {
+      "document_embeddings": 0,
+      "query_embeddings": 1,
+      "generations": 1
+    },
+    "document_index_cache_state": "hit",
+    "comparison_rows": 7,
+    "corpus_hash": "d633714c0c6b51f2bee9347eff6e67cb836e6f4d2eb36d7c322a9b18fccfab30",
+    "ece425_source_status": "unchanged",
+    "ece425_enrollment": "unknown",
+    "elapsed_server_seconds": {
+      "source_refresh": 11.527197147999914,
+      "embedding": 4.701413066999976,
+      "retrieval": 0.002840728999899511,
+      "generation": 2.756061284999987,
+      "total": 19.416678346000026
+    },
+    "initial_plan_server_seconds": 0.010534186000086265,
+    "raw_report_sha256": "bdd26c63ff7e624c5a023813c1d29433269a9acd329e544502460e72a9d481ef"
+  },
+  "local": {
+    "tests_passed": 1813,
+    "startup_checks_passed": 9
+  },
+  "live_browser_capture": "Open. Chromium could not launch in the local workspace.",
+  "hosted_ci": {
+    "id": 43784349217,
+    "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217",
+    "revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
+    "status": "success",
+    "completed_at_utc": "2026-11-16T01:10:35Z",
+    "tests": [
+      {
+        "job_id": 133028516597,
+        "name": "Python 3.12 / ubuntu-26.04",
+        "tests_passed": 1813,
+        "startup_checks_passed": 9
+      },
+      {
+        "job_id": 133028516701,
+        "name": "Python 3.12 / windows-latest",
+        "tests_passed": 1813,
+        "startup_checks_passed": 9
+      }
+    ],
+    "chromium": {
+      "job_id": 133028516438,
+      "checks_passed": 39,
+      "student_flow": 12,
+      "reviewer_workspace": 6,
+      "controlled_ai_and_browsing": 21
+    }
+  }
+}
