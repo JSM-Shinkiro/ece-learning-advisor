@@ -2,6 +2,7 @@
 
 import json
 from datetime import datetime, timedelta, timezone
+from html import escape
 
 import httpx
 import pytest
@@ -9,7 +10,7 @@ from pydantic import ValidationError
 
 from src.catalog import build_evidence, corpus_hash
 from src.controller import run_advisor
-from src.ingest import extract_program_statements
+from src.ingest import extract_program_courses, extract_program_statements, extract_visible_program_statements
 from src.models import Catalog, Completion, StudentProfile, statement_hash
 from src.providers import EmbeddingCache
 from src.rule_sources import ProgramSnapshot, program_hash
@@ -51,6 +52,28 @@ def program_page(course, *, program_code="COSCBS", edition="2026-2027", text=Non
     return encoded_page(primary, edition=edition)
 
 
+def rendered_program_page(course, *, edition="2026-2027", text=None):
+    from test_discovery import encoded_page
+    proof = course.rule_evidence[0]
+    catalog_data = encoded_page({"data": []}, edition=edition).replace(
+        '<script id="__NUXT_DATA__">', '<script id="__NUXT_DATA__" data-src="/fixture/_payload.json">')
+    return f'''
+        <h1>University of Arizona</h1>
+        <h1>COSCBS - Fixture program</h1>
+        <a href="/programs/COSCBS/program-requirements-a1nCj" aria-current="page"
+           data-test="Program RequirementsTab">Program Requirements</a>
+        <div class="requirements-catalog"><div class="req-rule">
+          <span id="requirement-rule-fixture-title" class="req-rule__name">Fixture ({proof.section_id})</span>
+          <div role="region" aria-labelledby="requirement-rule-fixture-title" class="req-rule__body">
+            <div class="req-rule__separator"></div>
+            <div class="req-rule__description"><section><article>{escape(text or proof.reviewed_text)}</article></section></div>
+            <div class="req-courses"></div>
+          </div>
+        </div></div>
+        {catalog_data}
+    '''
+
+
 def http_fixture(catalog, *, program=None, program_status=200, course_status=200, headers=None, seen=None):
     course = catalog.records[0]
     sources = {s.source_id: s for s in catalog.sources}
@@ -87,6 +110,45 @@ def test_program_identity_edition_and_exact_section_are_extracted(rule_catalog):
     result = extract_program_statements(program_page(course), "COSCBS", ["R1299/L40"])
     assert result["program_code"] == "COSCBS" and result["catalog_version"] == "2026-2027"
     assert result["statements"]["R1299/L40"] == course.rule_evidence[0].reviewed_text
+
+
+@pytest.mark.parametrize("text,edition,verification,eligibility", [
+    (None, "2026-2027", "verified", "satisfied"),
+    ("Fixture condition has changed.", "2026-2027", "changed", "unknown"),
+    (None, "2025-2026", "unavailable", "unknown"),
+])
+def test_rendered_program_proof_follows_existing_identity_and_statement_checks(
+        rule_catalog, tmp_path, text, edition, verification, eligibility):
+    course = rule_catalog.records[0]
+    page = rendered_program_page(course, edition=edition, text=text)
+    seen = []
+    with http_fixture(rule_catalog, program=page, seen=seen) as client:
+        result = check(rule_catalog, client, tmp_path)
+    updated = result.catalog.records[0]
+    assert updated.rule_verification == verification
+    assert evaluate_course(updated, grade_profile()).status == eligibility
+    assert set(seen) == {source.url for source in rule_catalog.sources} and len(seen) == 2
+
+
+@pytest.mark.parametrize("old,new", [
+    ("COSCBS - Fixture program", "OTHERBS - Fixture program"),
+    ("/programs/COSCBS/", "/programs/OTHERBS/"),
+    ('aria-current="page"', 'aria-current="false"'),
+    ('data-src="/fixture/_payload.json"', ''),
+    ('aria-labelledby="requirement-rule-fixture-title"', 'aria-labelledby="requirement-rule-unrelated-title"'),
+    ("<span id=", '<span class="req-rule__name" id="requirement-rule-other-title">Duplicate (R1299/L40)</span><span id='),
+])
+def test_rendered_program_requires_unambiguous_published_identity_and_section(rule_catalog, old, new):
+    page = rendered_program_page(rule_catalog.records[0])
+    assert old in page
+    with pytest.raises(ValueError):
+        extract_visible_program_statements(page.replace(old, new, 1), "COSCBS", ["R1299/L40"])
+
+
+def test_rendered_program_description_does_not_supply_course_discovery_ids(rule_catalog):
+    page = rendered_program_page(rule_catalog.records[0])
+    with pytest.raises(ValueError):
+        extract_program_courses(page, "COSCBS", ["R1299/L40"])
 
 
 @pytest.mark.parametrize("options", [{"program_code": "OTHERBS"}, {"missing": True}, {"conflicting": True}])

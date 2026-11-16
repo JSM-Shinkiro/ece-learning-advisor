@@ -93,10 +93,14 @@ def _visible_course_field(page, label, *, optional=False):
     return fields[0]
 
 
+def _visible_markup(page):
+    return re.sub(r"<(?:script|style|template|noscript)\b[^>]*>.*?</(?:script|style|template|noscript)\s*>"
+                  r"|<!--.*?-->", "", page, flags=re.S | re.I)
+
+
 def _visible_course_fields(page):
     """Read the rendered fields when Coursedog puts course data in a separate payload."""
-    page = re.sub(r"<(?:script|style|template|noscript)\b[^>]*>.*?</(?:script|style|template|noscript)\s*>"
-                  r"|<!--.*?-->", "", page, flags=re.S | re.I)
+    page = _visible_markup(page)
     course_links = set(re.findall(r'<a\b[^>]*\shref="/courses/(\d{7})/general-[A-Za-z0-9]+"', page))
     raw_id = description_text(_visible_course_field(page, "Course ID"))
     if len(course_links) != 1 or not re.fullmatch(r"\d{6}", raw_id):
@@ -182,11 +186,65 @@ def extract_program_statements(page: str, program_code: str, sections: list[str]
             "statements": statements}
 
 
-def _visible_program_sections(page: str, program_code: str, sections: list[str]) -> dict:
+_DIV_TAG = re.compile(r"</?div\b[^>]*>", re.I)
+
+
+def _div_contents(markup, start):
+    depth = 1
+    for tag in _DIV_TAG.finditer(markup, start):
+        depth += -1 if tag[0].startswith("</") else 1
+        if depth == 0:
+            return markup[start:tag.start()]
+    raise ValueError("The published program section is incomplete")
+
+
+def _published_program_descriptions(page, program_code, sections, edition):
+    """Bind rendered statements to the published requirements tab and its labeled regions."""
+    if edition is None or not re.search(
+            r'<script\b(?=[^>]*\sid="__NUXT_DATA__")[^>]*\sdata-src="[^"]+"', page):
+        raise ValueError("The rendered program catalog edition or data reference is missing")
+    markup = _visible_markup(page)
+    headings = (description_text(heading) for heading in re.findall(r"<h1\b[^>]*>(.*?)</h1>", markup, re.S))
+    titles = [heading for heading in headings if re.fullmatch(r"[A-Z][A-Z0-9]{1,20} - \S.*", heading)]
+    tabs = re.findall(r'<a\b(?=[^>]*\saria-current="page")(?=[^>]*\sdata-test="Program RequirementsTab")'
+                      r'[^>]*\shref="([^"]+)"[^>]*>', markup)
+    if (len(titles) != 1 or not titles[0].startswith(program_code + " - ")
+            or len(tabs) != 1
+            or not re.fullmatch(r"/programs/" + re.escape(program_code) + r"/program-requirements-[A-Za-z0-9]+", tabs[0])):
+        raise ValueError("The published program identity does not match")
+
+    catalogs = list(re.finditer(r'<div\b[^>]*\sclass="requirements-catalog"[^>]*>', markup))
+    if len(catalogs) != 1:
+        raise ValueError("The published requirements region is missing or ambiguous")
+    requirements = _div_contents(markup, catalogs[0].end())
+    names = re.findall(r'<span\b(?=[^>]*\sclass="req-rule__name")'
+                       r'[^>]*\sid="(requirement-rule-[A-Za-z0-9-]+-title)"[^>]*>(.*?)</span>', requirements, re.S)
+    labels = [(label, description_text(name)) for label, name in names]
+    nodes = {}
+    for section in sections:
+        matches = [label for label, name in labels if name.endswith("(" + section + ")")]
+        if len(matches) != 1 or sum(label == matches[0] for label, _ in labels) != 1:
+            raise ValueError("The published requirement heading is missing or ambiguous")
+        bodies = list(re.finditer(r'<div\b(?=[^>]*\sclass="req-rule__body")(?=[^>]*\srole="region")'
+                                  r'[^>]*\saria-labelledby="' + re.escape(matches[0]) + r'"[^>]*>', requirements))
+        if len(bodies) != 1:
+            raise ValueError("The published requirement body is missing or ambiguous")
+        body = _div_contents(requirements, bodies[0].end())
+        description = re.match(r'\s*(?:<div\b[^>]*\sclass="req-rule__separator"[^>]*>\s*</div>\s*)?'
+                               r'<div\b[^>]*\sclass="req-rule__description"[^>]*>', body)
+        if description is None or len(re.findall(r'<div\b[^>]*\sclass="req-rule__description"', body)) != 1:
+            raise ValueError("The published requirement description is missing or ambiguous")
+        nodes[section] = {"description": _div_contents(body, description.end())}
+    return {"program_code": program_code, "catalog_version": edition, "nodes": nodes}
+
+
+def _visible_program_sections(page: str, program_code: str, sections: list[str], *, rendered_statements=False) -> dict:
     """Resolve unique visible sections within the primary program's tree."""
     table, resolve = _nuxt_data(page)
     primary = next((v for v in table if isinstance(v, dict) and
                     {"code", "programGroupId", "degreeDesignation", "longName"} <= v.keys()), None)
+    if primary is None and rendered_statements:
+        return _published_program_descriptions(page, program_code, sections, _active_edition(table, resolve))
     if primary is None or resolve(primary["code"]) != program_code or resolve(primary["programGroupId"]) != program_code:
         raise ValueError("The primary program identity does not match")
     requisites = resolve(primary.get("requisites"))
@@ -245,8 +303,8 @@ def extract_program_courses(page: str, program_code: str, sections: list[str]) -
 
 
 def extract_visible_program_statements(page: str, program_code: str, sections: list[str]) -> dict:
-    """Read condition text from the exact visible nodes supplying course links."""
-    selected = _visible_program_sections(page, program_code, sections)
+    """Read condition text from the exact published requirement sections."""
+    selected = _visible_program_sections(page, program_code, sections, rendered_statements=True)
     statements = {}
     for section, node in selected["nodes"].items():
         raw = node.get("description")
