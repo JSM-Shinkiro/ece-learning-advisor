@@ -110,3 +110,7 @@ The audit recorded **85% app / approximately 65% complete submission** and corre
 4. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
 
 Every development update should state the gate closed by that step, the app/submission readiness estimate, and the most consequential remaining gap. Estimates move when acceptance gates close, not when the test count grows.
+
+## Future releases
+
+Later proposals include Pima transfer tracks, broader career search, instructor ratings, and additional UArizona departments. [Future development notes](FUTURE_DEVELOPMENT.md)

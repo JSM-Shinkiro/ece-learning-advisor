@@ -465,7 +465,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "7e1af2726039588cd946464cd23aa83be70bd42ffa618fe05706a510991859c3"
+      "sha256": "c38e1e781d33b6f2f78a7b987352f2ad6e4d101ea5f3dd33246024d3881ed72c"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -544,7 +544,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-16T01:13:56+00:00",
+  "updated_at_utc": "2026-11-16T02:36:32+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
