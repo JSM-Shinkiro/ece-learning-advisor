@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 15, 2026
 
-This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Five browser captures document the lesson and Advisor interface. Live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft describes verified application revision `034baef173dd783697da72542ce3aa28bdfcf2c7`. Five browser captures document the lesson and Advisor interface. Repeated live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -157,6 +157,8 @@ The November 14 semiconductor follow-up passed 1,780 tests and nine startup chec
 
 The specialization revision passed 1,803 tests and nine startup checks per OS and all 39 Chromium checks. The browser observed a laser question select the Photonics route, a button switch the roadmap to Imaging, and local display of Biomedical Imaging enrollment details at 390 pixels. Eight source-only requests refreshed all 16 added catalog records. A separate Biomedical Imaging request left individual enrollment unverified. [E21](EVIDENCE_MAP.md)
 
+The November 15 live CLI rehearsal passed 11 checks in one Hybrid request for the image-classification question. The application validated the selected answer and citations, verified both interim plans and refreshed ECE425 while keeping enrollment unknown. Eight course records and two resources refreshed. Two program checks used saved references. The cold-index request used 34 document embeddings, one query embedding and one generation. The seven-record table uses 768-dimensional Gemini embeddings. ECE425 and PyTorch Quickstart rank first and second in both Advisor cosine rankings, while ECE101 moves from third in topic cosine to fifth in Gemini cosine. The saved roadmap was ready on the server in 18.3 ms and the full request took 33.18 s. The run measures one server request and leaves repeated timing and browser rendering measurements open. [E23](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -178,7 +180,7 @@ The November 13 roadmap update publishes a saved-data plan before the network wa
 
 ## 6. Limitations and next validation
 
-The November 13 audit found continuity, vocabulary coverage and reasoning gaps. The follow-up repairs the reproduced navigation cases, recognizes the audited robotics, computer-vision and C-programming questions and checks the learner's description of the rank change. The quality of the resulting explanation will be assessed in the student pilot. The live provider comparison still needs a rehearsal on the release. [E14, E15](EVIDENCE_MAP.md)
+The November 13 audit found continuity, vocabulary coverage and reasoning gaps. The follow-up repairs the reproduced navigation cases, recognizes the audited robotics, computer-vision and C-programming questions and checks the learner's description of the rank change. The quality of the resulting explanation will be assessed in the student pilot. The live CLI comparison passed, and the team still needs to record the live browser workflow. [E14, E15, E23](EVIDENCE_MAP.md)
 
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
@@ -193,4 +195,4 @@ Before release, collect genuine judgments and student observations, measure real
 3. G. V. Cormack, C. L. A. Clarke and S. Büttcher (2009). [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf).
 4. University of Arkansas Teaching Innovation and Pedagogical Support. [Using Bloom’s Taxonomy](https://tips.uark.edu/using-blooms-taxonomy/).
 
-Implementation and experimental sources are indexed in [E1–E22](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).
+Implementation and experimental sources are indexed in [E1–E23](EVIDENCE_MAP.md). Exact file identities are in [the manifest](EVIDENCE_MANIFEST.json).

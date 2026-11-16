@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-15",
+  "checked_at_utc": "2026-11-16T00:45:16.497000+00:00",
+  "application_revision": "034baef173dd783697da72542ce3aa28bdfcf2c7",
+  "checkout_revision": "8fc60674381356834f8208ce4fdaa868a8097f5c",
+  "scope": "One CLI integration rehearsal with the fictional final-demo profile, live Gemini, and official source checks.",
+  "result": "passed",
+  "question": "How do I train a neural network for image classification in Python?",
+  "retrieval_mode": "hybrid",
+  "generation_status": "answered",
+  "checks": {
+    "answered": true,
+    "requested_retrieval": true,
+    "statement_contract": true,
+    "focus_selected": true,
+    "completed_not_recommended": true,
+    "academic_unknowns_preserved": true,
+    "demo_course_source_verified": true,
+    "source_limits": true,
+    "lesson_rank_change": true,
+    "shared_overviews": true,
+    "usable_interim_plans": true
+  },
+  "models": {
+    "embedding_model": "gemini-embedding-2",
+    "generation_model": "gemini-3.5-flash-lite",
+    "dimensions": 768
+  },
+  "call_budget": {
+    "document_embeddings": 64,
+    "query_embeddings": 1,
+    "generations": 1
+  },
+  "provider_call_counts": {
+    "document_embeddings": 34,
+    "query_embeddings": 1,
+    "generations": 1
+  },
+  "document_index_cache_state": "miss",
+  "saved_catalog_snapshot_hash": "bfbc448044df4eea9d2cde260f1e06e3f21f1296a239a5e168fe939dc0224758",
+  "saved_corpus_hash": "bdd87ede10f6c020b1833f4d43653e62207ab372f912bde81691c829f0db13f7",
+  "refreshed_corpus_hash": "d633714c0c6b51f2bee9347eff6e67cb836e6f4d2eb36d7c322a9b18fccfab30",
+  "embeddings_compared": {
+    "shared_record_count": 7,
+    "embedding_dimensions": 768,
+    "rows": [
+      {
+        "Record": "ECE425",
+        "Record ID": "uofa:ECE425:2026-2027",
+        "Topic rank": 1,
+        "Topic cosine": 0.9922778767136677,
+        "Neural rank": 1,
+        "Neural cosine": 0.634925887970744
+      },
+      {
+        "Record": "PyTorch Quickstart",
+        "Record ID": "resource:pytorch",
+        "Topic rank": 2,
+        "Topic cosine": 0.9246780984747162,
+        "Neural rank": 2,
+        "Neural cosine": 0.6228812657754778
+      },
+      {
+        "Record": "CS50 — Introduction to Computer Science",
+        "Record ID": "resource:cs50",
+        "Topic rank": 4,
+        "Topic cosine": 0.1386750490563073,
+        "Neural rank": 3,
+        "Neural cosine": 0.561404678171364
+      },
+      {
+        "Record": "CSC120",
+        "Record ID": "uofa:CSC120:2026-2027",
+        "Topic rank": 5,
+        "Topic cosine": 0.10878565864408425,
+        "Neural rank": 4,
+        "Neural cosine": 0.5596893427364205
+      },
+      {
+        "Record": "ECE101",
+        "Record ID": "uofa:ECE101:2026-2027",
+        "Topic rank": 3,
+        "Topic cosine": 0.1860521018838127,
+        "Neural rank": 5,
+        "Neural cosine": 0.5320307705400136
+      },
+      {
+        "Record": "ECE369A",
+        "Record ID": "uofa:ECE369A:2026-2027",
+        "Topic rank": 6,
+        "Topic cosine": 0.10878565864408425,
+        "Neural rank": 6,
+        "Neural cosine": 0.5266255396890596
+      },
+      {
+        "Record": "ECE372A",
+        "Record ID": "uofa:ECE372A:2026-2027",
+        "Topic rank": 7,
+        "Topic cosine": 0.07283570407292297,
+        "Neural rank": 7,
+        "Neural cosine": 0.5103813766646329
+      }
+    ]
+  },
+  "lesson": {
+    "preset": "Program a sensor",
+    "method": "semantic",
+    "ece425_preset_rank": null,
+    "ece425_variation_rank": 2
+  },
+  "answer_record_ids": [
+    "resource:pytorch",
+    "resource:python",
+    "uofa:ECE425:2026-2027"
+  ],
+  "ece425": {
+    "source_url": "https://catalog.arizona.edu/courses/0435981",
+    "source_status": "updated",
+    "enrollment_status": "unknown"
+  },
+  "source_checks": {
+    "statuses_by_kind": {
+      "course": {
+        "updated": 8,
+        "skipped": 10
+      },
+      "resource": {
+        "skipped": 5,
+        "updated": 2
+      },
+      "rule": {
+        "bundled_fallback": 1
+      },
+      "discovery": {
+        "bundled_fallback": 1
+      }
+    },
+    "program_fallbacks": [
+      {
+        "code": "COSCBS",
+        "kind": "rule",
+        "source_url": "https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj",
+        "attempt_http_status": 200,
+        "status": "bundled_fallback"
+      },
+      {
+        "code": "ECEBSECE",
+        "kind": "discovery",
+        "source_url": "https://catalog.arizona.edu/programs/ECEBSECE/program-requirements-a1nCj",
+        "attempt_http_status": 200,
+        "status": "bundled_fallback"
+      }
+    ]
+  },
+  "server_timing_seconds": {
+    "dated_saved_plan_ready": 0.01829593100001148,
+    "updated_source_plan_ready": 11.96198923299994,
+    "source_refresh": 11.931097995000073,
+    "embedding": 17.90799757100001,
+    "retrieval": 0.0029638180000119974,
+    "generation": 2.7338090490000013,
+    "total": 33.178301112999975
+  },
+  "timing_scope": "One server-side observation with a cold document index. Browser rendering, repeated latency measurements and participant observations remain open.",
+  "raw_verifier_report_sha256": "b24f6366fc3a0267a4ad1849dc47e64b60b356b51570b073439d9ccb0219b239"
+}

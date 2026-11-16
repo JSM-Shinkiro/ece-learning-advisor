@@ -1,6 +1,6 @@
 # Final demo runbook
 
-Updated November 13, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
+Updated November 15, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
 
 ## 1. Reproducible preview setup
 
@@ -71,6 +71,8 @@ With `GEMINI_API_KEY` configured locally, run the verifier from the repository r
 ```
 
 Use a new output path for every attempt. The verifier uses the demo question, a fictional profile, and Hybrid. It checks ECE425’s lesson rank, the two interim plans, the selected answer and citations, the ECE425 source check, and the seven-record comparison. It can make up to 64 document-embedding calls for a cold cache, one query-embedding call, and one generation call. Other source failures stay in the trace. Remove `--with-sources` to rehearse with saved evidence. That run uses the dated sources and checks one interim plan. A report from either command supports the operator’s rehearsal. The browser walkthrough below is the recorded demo.
+
+The November 15 CLI rehearsal passed all 11 checks using live Gemini and source refresh. ECE425 and PyTorch Quickstart ranked first and second in both Advisor cosine representations for that run. The following walkthrough captures the actual result in the browser. [Verified rehearsal](../evidence/live_demo_rehearsal_2026-11-15.json)
 
 ### Screen walkthrough
 

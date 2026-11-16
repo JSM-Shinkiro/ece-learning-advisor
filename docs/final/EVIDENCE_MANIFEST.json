@@ -378,6 +378,10 @@
     {
       "path": "docs/evidence/report_figures_2026-11-15.json",
       "sha256": "9a569fda7511a59977d8052c7fedf75239653a022195d579911c957a2aab16e9"
+    },
+    {
+      "path": "docs/evidence/live_demo_rehearsal_2026-11-15.json",
+      "sha256": "135739dc3efc470d61b7c72606026ca41f26a465f6ee95f5fa5f5d504c667dc7"
     }
   ],
   "preserved_inputs": [
@@ -425,19 +429,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "e2ea52003b407b524d6fdc82aa40f24a849b1fd43a8361ba9ef1314aaaab6424"
+      "sha256": "5c9cf3fc5c9061c398fd9bbe7f87cf266e00ba3df91c13c635788a5038ec3927"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "25ea4a12ebcd43f5600d55d774ec4e43f76147d4556bbc81c1e3a6605a8259e6"
+      "sha256": "1962148e2153df89769734495a40a0da4b2ae55c4cd4fb9bce9a3e85a8b495db"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "6dac84d9c21cc594582625c4145d798b4eb7e49a0da5bab49eafbb3c4e7e7b59"
+      "sha256": "fa1f115f8ac9c3dbf19e2b6829a2923aa24767177a38cdfa4e40a107757fbdc2"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "b3b8aa545e5f8d8a4126f1393f9ccb86606f44bef5b59c026999be9c5b76ad7e"
+      "sha256": "686ffaf50b194ea968d89c64522513ab1e923435d824fd0074b5aa9d11e6abf8"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -453,7 +457,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "2ba96df2b9c301473219c704a6879b9712e28bc9ed15359f2a663e045b57c9c5"
+      "sha256": "abc255241c2cc507875de99267f5014d7fa6a9b094bb59b23ce7c7125e677788"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -461,7 +465,7 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "07a3a4047bf2a9d41179e976791cbfd4b318d460d1e26c7beb7d6a1b89c22087"
+      "sha256": "b0a06eec13fe6f0ecd52cffa9fb26f20c87d7d7508e294effcaa285b665754e9"
     },
     {
       "path": "docs/59_CAREER_DIRECTIONS.md",
@@ -469,7 +473,7 @@
     },
     {
       "path": "docs/final/FIGURES.md",
-      "sha256": "723ab362a5693515cbad55bf57c1445d871eb9421c240d459f8d7fc693ed7432"
+      "sha256": "8bc2ed03df260764bd3b14c001df3498c6a238f820adc039029005c4fa77fa5b"
     },
     {
       "path": "docs/final/figures/beginner-roadmap.png",
@@ -490,6 +494,10 @@
     {
       "path": "docs/final/figures/advisor-comparison-controlled.png",
       "sha256": "d55f32d3c38c53dd560f4ea281bb63cd64b5a2aeb390ef35d8e09897364e6215"
+    },
+    {
+      "path": "docs/13_FINAL_PROJECT_DEVELOPMENT.md",
+      "sha256": "a92274ed6e3486654eead685167240179d20f81dadc9836a8059db261a34e54d"
     }
   ],
   "external_references": [
@@ -528,7 +536,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-15T23:48:19+00:00",
+  "updated_at_utc": "2026-11-16T00:49:42+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -630,5 +638,14 @@
     "live_demo_preflight": "credential_missing",
     "app_planning_percent": 94,
     "submission_planning_percent": 71
+  },
+  "live_demo_rehearsal": {
+    "date_mst": "2026-11-15",
+    "evidence": "docs/evidence/live_demo_rehearsal_2026-11-15.json",
+    "checks_passed": 11,
+    "comparison_records": 7,
+    "generation_status": "answered",
+    "app_planning_percent": 95,
+    "submission_planning_percent": 72
   }
 }

@@ -32,4 +32,4 @@ The controlled source delay keeps the progress panel visible while the learner c
 
 ![Advisor inspector comparing topic and controlled embedding ranks and cosine scores for seven records.](figures/advisor-comparison-controlled.png)
 
-The browser test supplies controlled vectors for the seven shared overviews. The table shows the comparison layout and download action. The live Gemini rehearsal will supply the neural comparison for the recording. [Demo runbook](DEMO_RUNBOOK.md#one-request-rehearsal)
+The browser test supplies controlled vectors for the seven shared overviews. The table shows the comparison layout and download action. The live CLI rehearsal produced the seven-row Gemini comparison. The browser capture for the final recording remains open. [Live comparison](../evidence/live_demo_rehearsal_2026-11-15.json) · [Demo runbook](DEMO_RUNBOOK.md#one-request-rehearsal)
