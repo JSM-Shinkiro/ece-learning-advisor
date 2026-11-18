@@ -4,7 +4,7 @@ import pytest
 
 from src.catalog import load_runtime_catalog
 from src.collection_filters import filter_collection
-from test_app import app,submit
+from test_app import app, open_advisor_tab, submit
 
 
 def test_collection_search_handles_code_spaces_case_and_combined_filters():
@@ -27,7 +27,7 @@ def test_search_is_literal_and_all_query_words_must_match():
 @pytest.fixture
 def runtime_app(app,monkeypatch):
     monkeypatch.setattr("src.catalog.load_runtime_catalog",load_runtime_catalog)
-    return app.run()
+    return open_advisor_tab(app, "Courses & Resources")
 
 
 def collection_panels(app):
@@ -40,7 +40,7 @@ def test_collection_details_are_lazy_and_search_does_not_start_a_request(runtime
     monkeypatch.setattr("src.controller.run_advisor",forbidden)
     monkeypatch.setattr("httpx.Client.send",forbidden)
     before=app.session_state["profile"].model_dump_json()
-    assert len(collection_panels(app))==63
+    assert len(collection_panels(app))==67
     assert not any("MATH 223, 243 and 254" in item.value for item in app.markdown)
     app.session_state["collection_math_minor"] = True
     app.run()
@@ -61,10 +61,11 @@ def test_empty_filters_reset_and_profile_transition_preserves_browsing(runtime_a
     app.text_input(key="collection_query").set_value("pico").run()
     assert len(collection_panels(app))==1 and collection_panels(app)[0].label.startswith("Raspberry Pi Pico")
     app.selectbox(key="career_id").set_value("embedded");submit(app)
+    open_advisor_tab(app, "Courses & Resources")
     assert app.text_input(key="collection_query").value=="pico"
     assert app.selectbox(key="collection_kind").value=="resource" and len(collection_panels(app))==1
     app.text_input(key="collection_query").set_value("[.*]").run()
     assert not collection_panels(app) and any("No courses or resources match" in i.value for i in app.info)
     app.button(key="collection_reset").click().run()
-    assert not app.exception and len(collection_panels(app))==63
+    assert not app.exception and len(collection_panels(app))==67
     assert app.text_input(key="collection_query").value=="" and app.selectbox(key="collection_direction").value=="all"

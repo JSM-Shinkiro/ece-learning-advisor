@@ -7,7 +7,7 @@ import streamlit as st
 from .course_directory import filter_directory
 from .profiles import edit_profile
 from .session import apply_profile
-from .source_ui import ARIZONA, enrollment_details
+from .source_ui import ARIZONA, enrollment_details, roadmap_expander
 
 PAGE_SIZE = 15
 
@@ -27,10 +27,10 @@ def render_directory(directory, references):
     retrieved = directory.retrieved_at.astimezone(ARIZONA).strftime("%Y-%m-%d %H:%M MST")
     st.caption(f"Effective-date filter {filter_date} · snapshot retrieved {retrieved}")
     st.text_input("Search the ECE catalog", key="directory_query", max_chars=200,
-                  placeholder="ECE 413, circuits, optics...", on_change=reset_directory_page)
+                  placeholder="ECE 413, circuits, optics...", on_change=reset_directory_page, persist_state="session")
     labels = {"all":"All levels", "1":"100 level", "2":"200 level", "3":"300 level", "4":"400 level"}
     level = st.selectbox("Course level", list(labels), format_func=labels.get,
-                         key="directory_level", on_change=reset_directory_page)
+                         key="directory_level", on_change=reset_directory_page, persist_state="session")
     courses = filter_directory(directory, st.session_state.get("directory_query", ""), level)
     pages = max(1, math.ceil(len(courses) / PAGE_SIZE))
     page = min(st.session_state.get("directory_page", 0), pages-1)
@@ -47,7 +47,7 @@ def render_directory(directory, references):
     profile = st.session_state.profile
     recorded = {c.course_code for c in profile.completed} | set(profile.current_enrollment)
     for course in courses[start:start+PAGE_SIZE]:
-        panel = st.expander(course.code+" · "+course.title, key="directory_record_"+course.code, on_change="rerun")
+        panel = roadmap_expander(course.code + " · " + course.title, key="directory_record_" + course.code)
         if panel.open:
             with panel:
                 st.caption(course.credits_label+" · Catalog "+directory.catalog_version)
@@ -56,8 +56,12 @@ def render_directory(directory, references):
                 st.link_button("Official course page", course.url, key="directory_source_"+course.code)
                 enrollment_details(course.code, course.url, course.requirement_reference,
                                    directory.catalog_version, references, key="directory_enrollment_"+course.code)
-                disabled = course.code in recorded or profile.catalog_version != directory.catalog_version
+                matches_year = profile.catalog_version == directory.catalog_version
                 if st.button("Explore "+course.code+" in my roadmap", key="directory_ask_"+course.code,
-                    disabled=disabled, help="Uses your saved profile and AI settings. Enrollment and preparation remain unverified."):
-                    apply_profile(st.session_state, edit_profile(profile, question="What can I learn in "+course.code+"?"))
+                    disabled=course.code in recorded,
+                    help="Opens the published course. A matching catalog year also lets the Advisor build a roadmap."):
+                    apply_profile(st.session_state, edit_profile(profile, question=f"What can I learn in {course.code}?"),
+                                  refresh=matches_year)
+                    st.session_state.roadmap_course_focus = course.code
+                    st.session_state.collapse_advisor_profile = True
                     st.rerun()

@@ -26,6 +26,16 @@ def profile_identity(profile):
     return sha256(profile.model_dump_json().encode()).hexdigest()
 
 
+def advisor_result_label(result):
+    if result.course_question:
+        return "Official links ready"
+    if result.direction_choices:
+        return "Choose a career direction"
+    if result.coverage_notice or result.generation_status == "insufficient_evidence":
+        return "More detail needed"
+    return "Learning plan ready"
+
+
 @dataclass(frozen=True)
 class JobSnapshot:
     version: int
@@ -68,7 +78,10 @@ class AdvisorJob:
 
     def publish(self, result, *, done=False):
         with self._lock:
-            if self.is_cancelled() or profile_identity(result.context.profile) != self.profile_identity:
+            profile = result.context.profile
+            if result.trace.get("career_direction") == {"from": "exploring", "matched": profile.career_id}:
+                profile = profile.model_copy(update={"career_id": "exploring"})
+            if self.is_cancelled() or profile_identity(profile) != self.profile_identity:
                 if done:
                     self._failed = self._done = True
                 return
@@ -145,8 +158,7 @@ def collect_advisor_job(state, job):
         result = state.get("result")
         state["advisor_activity"] = {
             "label": "The plan could not be updated" if snapshot.failed and result is None else
-                "More detail needed" if result is not None and (result.coverage_notice or result.generation_status == "insufficient_evidence")
-                else "Learning plan ready",
+                advisor_result_label(result) if result is not None else "Learning plan ready",
             "phases": snapshot.phases,
             "error": snapshot.failed and result is None,
             "notice": (

@@ -13,16 +13,17 @@ from src.inspector import render_inspector
 from src.models import StudentProfile
 from src.planning import PHASE_NAMES
 from src.profiles import edit_profile, export_profile, merge_completions, parse_completions, parse_current_courses
-from src.session import apply_profile, complete_course, restore_profile, sync_profile_widgets
+from src.session import apply_profile, choose_direction, complete_course, restore_profile, sync_profile_widgets
 from src.settings import ConfigurationError, load_settings
 from src.source_reuse import SOURCE_REUSE_SECONDS
-from src.advisor_jobs import AdvisorBusy, start_advisor_job, collect_advisor_job, keep_source_plan, source_checks_pending
+from src.advisor_jobs import (AdvisorBusy, advisor_result_label, start_advisor_job, collect_advisor_job,
+                              keep_source_plan, source_checks_pending)
 from src.progress import PHASE_LABELS
 from src.collection_ui import render_collection
 from src.opportunity_ui import render_opportunities
-from src.source_ui import enrollment_details, roadmap_expander, source_details
+from src.source_ui import enrollment_details, published_courses, roadmap_expander, source_details, source_status
 from src.course_directory import load_course_directory
-from src.enrollment_references import load_enrollment_references
+from src.enrollment_references import PUBLIC_CLASS_SEARCH, load_enrollment_references
 from src.learning_ui import LESSONS, render_lesson
 
 load_dotenv(ROOT / ".env")
@@ -35,9 +36,11 @@ except ConfigurationError as exc:
 st.markdown("""
 <style>
 .block-container { max-width: 1180px; padding-top: 3rem; padding-bottom: 2rem; }
-[data-testid="stSidebar"] { border-right: 1px solid #25334a; }
 h1 { letter-spacing: -.035em; }
 .stButton button, .stDownloadButton button { border-radius: 9px; }
+[data-testid="stBaseButton-primary"]:enabled { background: #78B8FF; color: #0B1220; }
+[data-testid="stBaseButton-primary"]:enabled:hover { background: #A1CFFF; color: #0B1220; }
+[data-testid="stBaseButton-primary"]:enabled:focus-visible { outline: 2px solid #D5E8FF; outline-offset: 3px; }
 @media (max-width: 700px) { .block-container { padding-left: 1rem; padding-right: 1rem; } }
 </style>
 """, unsafe_allow_html=True)
@@ -52,7 +55,8 @@ elif "view" not in st.session_state:
 view = st.segmented_control("Learning stage", sections, key="view", required=True,
                             bind="query-params", width="stretch", label_visibility="collapsed")
 if view in LESSONS:
-    st.session_state.reset_profile_widgets = True
+    if "advisor_tab" in st.session_state:
+        st.session_state.advisor_destination = st.session_state.advisor_tab
     render_lesson(view, None if view == "Beginner" else load_runtime_catalog())
     st.stop()
 
@@ -76,7 +80,7 @@ course_lookup = dict(sorted(course_lookup.items()))
 standings = ["Incoming", "Freshman", "Sophomore", "Junior", "Senior", "Other"]
 background_names = {"new":"Getting started", "some":"Some programming experience", "experienced":"Comfortable with programming"}
 if "profile" not in st.session_state:
-    st.session_state.profile = StudentProfile()
+    st.session_state.profile = StudentProfile(catalog_version="Not sure")
     st.session_state.reset_profile_widgets = True
 profile = st.session_state.profile
 lesson_question = st.session_state.get("lesson_advisor_question")
@@ -85,6 +89,8 @@ if reset_widgets:
     sync_profile_widgets(st.session_state, profile, course_lookup)
 if (reset_widgets or destination == "Advisor") and st.session_state.get("lesson_question_pending"):
     st.session_state.question = lesson_question
+    st.session_state.advisor_destination = "My Roadmap"
+    st.session_state.advisor_profile_panel = True
 
 
 def show_profile_error(exc):
@@ -112,40 +118,53 @@ def grade_requirements(rule):
     return found
 
 
-with st.sidebar:
-    st.caption("TEAM P07 · ECE 425/525")
-    st.subheader("Your starting point")
+st.caption("ECE LEARNING ADVISOR · TEAM P07")
+st.title("Your next step, with a path forward.")
+st.caption("Build a learning roadmap for UArizona ECE. Check your chosen class section before registering.")
+
+if st.session_state.pop("collapse_advisor_profile", False):
+    st.session_state.advisor_profile_panel = False
+year = base_catalog.catalog_version
+starting_year = int(year[:4])
+catalog_years = ["Not sure", year, *(f"{start}-{start + 1}" for start in range(starting_year - 1, starting_year - 5, -1))]
+if profile.catalog_version not in catalog_years:
+    catalog_years.append(profile.catalog_version)
+
+with st.expander("Your starting point", expanded=True, key="advisor_profile_panel", on_change="rerun"):
     if "profile_error" in st.session_state:
         st.error(st.session_state.profile_error)
     if "profile_message" in st.session_state:
         st.success(st.session_state.pop("profile_message"))
-    with st.form("profile_form"):
-        standing = st.selectbox("Academic standing",standings,key="standing")
-        career_id = st.selectbox("Career direction",list(CAREER_NAMES),
-                                 format_func=lambda k:CAREER_NAMES[k],key="career_id")
-        background = st.selectbox("Programming background",list(background_names),
-            format_func=lambda k:background_names[k],key="programming_background")
+    question = st.text_input("A question about your next step", key="question", max_chars=1200,
+                             placeholder="What should I learn to work in renewable energy?",
+                             live="0ms", on_change="ignore", persist_state="session")
+    with st.form("profile_form", border=False):
+        direction_field, year_field = st.columns(2)
+        career_id = direction_field.selectbox("Career direction", list(CAREER_NAMES),
+                                              format_func=CAREER_NAMES.get, key="career_id", persist_state="session")
+        catalog_version = year_field.selectbox("Catalog year", catalog_years, key="catalog_version", accept_new_options=True,
+                                               help=f"Choose your admitted catalog year. Reviewed rules cover {year}.",
+                                               persist_state="session")
+        standing_field, background_field = st.columns(2)
+        standing = standing_field.selectbox("Academic standing", standings, key="standing", persist_state="session")
+        background = background_field.selectbox("Programming background", list(background_names),
+            format_func=background_names.get, key="programming_background", persist_state="session")
         interests = st.text_area("What interests you?",max_chars=1500,
-                                 placeholder="AI and hardware integration, robotics, computer vision...",height=85,key="interests")
-        selected = st.multiselect("Completed courses (optional)",list(course_lookup),
-            format_func=lambda code:code+" · "+course_lookup[code].title,key="completed_courses")
-        current_selected = st.multiselect("Currently taking (optional)",list(course_lookup),
+                                 placeholder="AI and hardware integration, robotics, computer vision...",
+                                 height=85, key="interests", persist_state="session")
+        completed_field, current_field = st.columns(2)
+        selected = completed_field.multiselect("Completed courses (optional)", list(course_lookup),
+            format_func=lambda code:code+" · "+course_lookup[code].title, key="completed_courses", persist_state="session")
+        current_selected = current_field.multiselect("Currently taking (optional)",list(course_lookup),
             format_func=lambda code:code+" · "+course_lookup[code].title,key="current_courses",
+            persist_state="session",
             help="Keep these courses out of your next-step suggestions. Taking a course does not count as passing it.")
-        question = st.text_input("A question about your next step", key="question", max_chars=1200)
-        submitted = st.form_submit_button("Update my roadmap",type="primary",width="stretch")
-        recheck = st.form_submit_button("Check sources again",disabled=not settings.refresh_sources,
-            help="Update the roadmap from these profile details and recheck selected official pages now.")
-        if settings.refresh_sources:
-            st.caption("Recent source checks are reused for up to 5 minutes. Check sources again to refresh them now.")
         with st.expander("Optional details"):
-            catalog_version = st.text_input("Catalog year",key="catalog_version",
-                                           help="Use your admitted catalog year. Enter Not sure if you do not know it.")
             manual_text = st.text_area("Other course codes or optional grades",
-                placeholder="MATH129, CSC110:B",key="course_text",
+                placeholder="MATH129, CSC110:B", key="course_text", persist_state="session",
                 help="Separate codes with commas. A grade can be supplied as CODE:B. List successful completions only.")
             current_text = st.text_area("Other current course codes",
-                placeholder="MATH129, PHYS241",key="current_course_text",
+                placeholder="MATH129, PHYS241", key="current_course_text", persist_state="session",
                 help="Separate courses you are taking with commas. Add grades after successful completion.")
             needed_grades = set().union(*(grade_requirements(r.rule) for r in catalog.records if r.rule_reviewed))
             grade_values = {}
@@ -154,9 +173,16 @@ with st.sidebar:
                 if code in needed_grades:
                     grade_values[code] = st.selectbox("Grade for "+code,grade_options,
                         format_func=lambda g:g or "Not recorded",
-                        key="grade_"+code,help="A reviewed prerequisite uses the grade for this course.")
-            history_complete = st.checkbox("I listed all my completed courses",key="history_complete")
-            experience = st.text_area("Projects or experience",key="experience",max_chars=2000)
+                        key="grade_"+code, help="A reviewed prerequisite uses the grade for this course.",
+                        persist_state="session")
+            history_complete = st.checkbox("I listed all my completed courses", key="history_complete", persist_state="session")
+            experience = st.text_area("Projects or experience", key="experience", max_chars=2000, persist_state="session")
+        submit_field, sources_field = st.columns(2)
+        submitted = submit_field.form_submit_button("Update my roadmap", type="primary", width="stretch")
+        recheck = sources_field.form_submit_button("Check sources again", disabled=not settings.refresh_sources,
+            help="Update the roadmap from these profile details and recheck selected official pages now.")
+        if settings.refresh_sources:
+            st.caption("Recent source checks are reused for up to 5 minutes. Check sources again to refresh them now.")
 
     # Credentials from the server never become widget defaults or session values.
     server_key = settings.gemini_key.get_secret_value()
@@ -172,8 +198,10 @@ with st.sidebar:
             st.caption("Preview mode is available. The team can configure AI explanations for this app.")
         else:
             st.caption("AI is configured. A submitted profile and selected evidence are sent to Gemini when enabled.")
-        use_ai = st.checkbox("Generate AI explanations",value=False,disabled=not bool(api_key),key="use_ai")
-        method = st.selectbox("Ranking method",["hybrid","semantic","keyword"],disabled=not (use_ai and api_key),key="ranking_method")
+        use_ai = st.checkbox("Generate AI explanations", value=False, disabled=not bool(api_key), key="use_ai",
+                             persist_state="session")
+        method = st.selectbox("Ranking method", ["hybrid", "semantic", "keyword"], disabled=not (use_ai and api_key),
+                              key="ranking_method", persist_state="session")
         generation_model = settings.generation_model
         embedding_model = settings.embedding_model
         if development:
@@ -185,7 +213,6 @@ with st.sidebar:
         st.file_uploader("Restore a saved profile",type=["json"],max_upload_size=1,
                          key="profile_upload",on_change=restore_uploaded_profile)
         st.download_button("Download my profile",export_profile(profile),file_name="ece_profile.json",mime="application/json",width="stretch",on_click="ignore")
-    collection_summary = st.empty()
 
 if submitted or recheck:
     try:
@@ -194,7 +221,7 @@ if submitted or recheck:
         completed = [c.model_copy(update={"grade":grade_values[c.course_code]})
                      if c.course_code in grade_values and c.course_code not in manual_codes else c for c in completed]
         updated = edit_profile(profile,standing=standing,career_id=career_id,programming_background=background,
-            catalog_version=catalog_version.strip() or "Not sure",interests=interests,completed=completed,
+            catalog_version=catalog_version,interests=interests,completed=completed,
             current_enrollment=[*current_selected, *parse_current_courses(current_text)],
             history_complete=history_complete,experience=experience,question=question)
         apply_profile(st.session_state,updated,reset_widgets=False)
@@ -232,9 +259,7 @@ if st.session_state.pop("refresh_pending",False):
             request_status.write(label)
         try:
             st.session_state.result = run_advisor(base_catalog,profile,**request_options,progress=show_request_phase)
-            request_status.update(label="More detail needed" if (st.session_state.result.coverage_notice
-                                  or st.session_state.result.generation_status=="insufficient_evidence")
-                                  else "Learning plan ready",state="complete",expanded=False)
+            request_status.update(label=advisor_result_label(st.session_state.result), state="complete", expanded=False)
         except (ValueError,OSError):
             request_status.update(label="The plan could not be updated",state="error",expanded=True)
             st.error("The plan could not be updated. Check the configuration and submit your profile again.")
@@ -289,13 +314,15 @@ if active_result is not None:
     records = {r.record_id:r for r in catalog.records}
     sources = {s.source_id:s for s in catalog.sources}
 
-st.caption("ECE LEARNING ADVISOR")
-st.title("Your next step, with a path forward.")
-st.caption("Learning suggestions for UofA ECE students. Stages describe preparation, not guaranteed enrollment or semester placement.")
-collection_summary.caption(f"Available collection · {sum(r.kind == 'course' for r in collection_catalog.records)} courses · {sum(r.kind == 'resource' for r in collection_catalog.records)} resources")
+st.caption(f"Available collection · {sum(r.kind == 'course' for r in collection_catalog.records)} courses · "
+           f"{sum(r.kind == 'resource' for r in collection_catalog.records)} resources")
 if course_directory is not None:
-    st.sidebar.caption(f"ECE catalog · {len(course_directory.courses)} undergraduate courses · {course_directory.catalog_version}")
-roadmap, collection, opportunities = st.tabs(["My Roadmap","Courses & Resources","Opportunities"])
+    st.caption(f"ECE catalog · {len(course_directory.courses)} undergraduate courses · {course_directory.catalog_version}")
+advisor_destination = st.session_state.pop("advisor_destination", None)
+if advisor_destination:
+    st.session_state.advisor_tab = advisor_destination
+roadmap, collection, opportunities = st.tabs(["My Roadmap", "Courses & Resources", "Opportunities"],
+                                             key="advisor_tab", on_change="rerun")
 
 
 def render_card(record, result):
@@ -313,6 +340,9 @@ def render_card(record, result):
                 badge = {"satisfied":"Recorded prerequisites satisfied","unsatisfied":"Prerequisites missing","unknown":"Enrollment requirements unverified"}[rule.status]
             credits = f"{record.credits:g} credits" if record.credits is not None else "Variable credits · see source"
             st.caption(badge+" · "+credits)
+            if rule.status == "unknown":
+                st.caption(source_status(sources[record.source_ids[0]]) + " · Check the section before registering")
+                st.link_button("Open class search", PUBLIC_CLASS_SEARCH, key="class_search_" + rid)
             if record.study_stage == "unreviewed":
                 st.caption("Requested catalog course · preparation level and career connection unreviewed")
             if is_elective:
@@ -355,76 +385,107 @@ def render_card(record, result):
             if is_course and rule.status == "unknown":
                 references = enrollment_references if profile.catalog_version == record.catalog_version else None
                 enrollment_details(record.code, sources[record.source_ids[0]].url, record.requirement_reference,
-                                   record.catalog_version, references, key="roadmap_enrollment_"+rid)
+                                   record.catalog_version, references, key="roadmap_enrollment_"+rid,
+                                   show_class_search=False)
 
 
-with roadmap:
-    st.caption(f"Saved profile: {profile.standing} · {CAREER_NAMES[profile.career_id]} · {len(profile.completed)} completed courses · {len(profile.current_enrollment)} currently taking")
-    for notice in st.session_state.get("profile_notices",[]):
-        st.caption(notice)
-    if profile.completed:
-        with st.expander("Completed coursework ("+str(len(profile.completed))+")"):
-            st.write(", ".join(c.course_code+(" ("+c.grade+")" if c.grade else "") for c in profile.completed))
-    if profile.current_enrollment:
-        with st.expander("Currently taking ("+str(len(profile.current_enrollment))+")",expanded=True):
-            st.caption("Mark a course completed after passing it. Add any required grade under Optional details.")
-            for code in profile.current_enrollment:
-                label = code + (" · " + course_lookup[code].title if code in course_lookup else "")
-                name, action = st.columns([3,1])
-                name.write(label)
-                action.button("Mark completed",key="finish_"+code,
-                    on_click=complete_course,args=(st.session_state,code),help="Move this course to completed coursework and refresh the plan.")
-    result = st.session_state.get("result")
-    lesson_draft = lesson_question and question == lesson_question and profile.question != lesson_question
-    if lesson_draft:
-        st.info("Your lesson question is in Your starting point. Select Update my roadmap to use it.")
-        if api_key:
-            st.caption("For the embedding comparison, enable AI explanations with semantic or hybrid ranking.")
-    elif profile.career_id=="exploring" or result is None:
-        direction_cards()
-    if result is None and not lesson_draft:
-        st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
-                "Complete your starting point and select Update my roadmap, or choose a direction above.")
-    if result is not None:
-        job = st.session_state.get("advisor_job")
-        pending_sources = source_checks_pending(result)
-        if pending_sources:
-            st.caption("Saved-data plan · based on dated course and resource snapshots")
-        if pending_sources and job and (result.coverage_notice or not result.context.allowed_record_ids):
-            st.info("This question needs more evidence. Official source checks are in progress.")
-        elif result.coverage_notice:
-            st.info(result.coverage_notice)
-        elif result.generation_status=="insufficient_evidence":
-            st.info(result.answer.clarification if result.answer else "More source information is needed for this request.")
-        elif result.generation_complete:
-            st.caption("AI explanation available · based on selected sources")
-        elif job and not pending_sources:
-            st.caption("Source plan ready · AI assistance is still running")
-        elif result.trace.get("source_refresh", {}).get("enabled"):
-            st.caption("Learning suggestions from the available source evidence")
-        elif not pending_sources:
-            st.caption("Preview mode · learning suggestions from available sources")
-        for issue in result.issues:
-            st.warning(issue)
-        reused = sum(check["status"] == "recent_cache"
-                     for check in result.trace.get("source_refresh", {}).get("checks", []))
-        if reused:
-            st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
-        if not result.coverage_notice and result.generation_status!="insufficient_evidence":
-            render_career_path(result, collection_catalog)
-            st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
-            for phase,title in PHASE_NAMES.items():
-                ids = [rid for rid in result.context.allowed_record_ids if result.context.suggested_phases.get(rid)==phase]
-                if ids:
-                    st.subheader(title)
-                    for rid in ids:
-                        render_card(records[rid],result)
-            if not result.context.allowed_record_ids and not (pending_sources and job):
-                st.info("No additional matches remain in this small collection. Explore Courses & Resources or try another direction.")
-        render_inspector(result, catalog, lesson_question=lesson_question)
+if roadmap.open:
+    with roadmap:
+        st.caption(f"Saved profile: {profile.standing} · {CAREER_NAMES[profile.career_id]} · {len(profile.completed)} completed courses · {len(profile.current_enrollment)} currently taking")
+        for notice in st.session_state.get("profile_notices",[]):
+            st.caption(notice)
+        if profile.completed:
+            with st.expander("Completed coursework ("+str(len(profile.completed))+")"):
+                st.write(", ".join(c.course_code+(" ("+c.grade+")" if c.grade else "") for c in profile.completed))
+        if profile.current_enrollment:
+            with st.expander("Currently taking ("+str(len(profile.current_enrollment))+")",expanded=True):
+                st.caption("Mark a course completed after passing it. Add any required grade under Optional details.")
+                for code in profile.current_enrollment:
+                    label = code + (" · " + course_lookup[code].title if code in course_lookup else "")
+                    name, action = st.columns([3,1])
+                    name.write(label)
+                    action.button("Mark completed",key="finish_"+code,
+                        on_click=complete_course,args=(st.session_state,code),help="Move this course to completed coursework and refresh the plan.")
+        result = st.session_state.get("result")
+        lesson_draft = lesson_question and question == lesson_question and profile.question != lesson_question
+        if lesson_draft:
+            st.info("Your lesson question is in Your starting point. Select Update my roadmap to use it.")
+            if api_key:
+                st.caption("For the embedding comparison, enable AI explanations with semantic or hybrid ranking.")
+        focus_code = st.session_state.get("roadmap_course_focus")
+        if not lesson_draft and not focus_code and (result is None or
+                profile.career_id == "exploring" and result.context.profile.career_id == "exploring"
+                and not result.direction_choices and not result.course_question):
+            direction_cards()
+        if focus_code:
+            focus_record = next((records[rid] for rid in result.context.allowed_record_ids
+                                 if records[rid].code == focus_code), None) if result else None
+            if focus_record is not None:
+                st.subheader("Explore requested courses")
+                render_card(focus_record, result)
+            else:
+                published_courses([focus_code], collection_catalog, course_directory)
+                if result is None and st.session_state.get("advisor_job") is None:
+                    st.info("For preparation recommendations, select the catalog year that applies to you in Your starting point.")
+                    st.link_button("Open class search", PUBLIC_CLASS_SEARCH, key="focus_class_search")
+        if result is None and not lesson_draft and not focus_code:
+            st.info("Checking sources for your plan. You can update your profile while this finishes." if st.session_state.get("advisor_job") else
+                    "Complete your starting point and select Update my roadmap, or choose a direction above.")
+        if result is not None:
+            job = st.session_state.get("advisor_job")
+            pending_sources = source_checks_pending(result)
+            if pending_sources:
+                st.caption("Saved-data plan · based on dated course and resource snapshots")
+            if pending_sources and job and (result.coverage_notice or not result.context.allowed_record_ids):
+                st.info("This question needs more evidence. Official source checks are in progress.")
+            elif result.coverage_notice:
+                st.info(result.coverage_notice)
+            elif result.generation_status=="insufficient_evidence":
+                st.info(result.answer.clarification if result.answer else "More source information is needed for this request.")
+            elif result.generation_complete:
+                st.caption("AI explanation available · based on selected sources")
+            elif job and not pending_sources:
+                st.caption("Source plan ready · AI assistance is still running")
+            elif result.trace.get("source_refresh", {}).get("enabled"):
+                st.caption("Learning suggestions from the available source evidence")
+            elif not pending_sources:
+                st.caption("Preview mode · learning suggestions from available sources")
+            if len(result.issues) > 1:
+                with st.expander("Source and AI check details"):
+                    for issue in result.issues:
+                        st.warning(issue)
+            elif result.issues:
+                st.warning(result.issues[0])
+            reused = sum(check["status"] == "recent_cache"
+                         for check in result.trace.get("source_refresh", {}).get("checks", []))
+            if reused:
+                st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
+            if result.course_question:
+                guidance = result.course_question
+                st.link_button(guidance.link_label, guidance.url)
+                published_courses(guidance.codes, collection_catalog, course_directory)
+            elif result.direction_choices:
+                for choice in result.direction_choices:
+                    st.button("Use " + CAREER_NAMES[choice], key="use_direction_" + choice,
+                              on_click=choose_direction, args=(st.session_state, choice, result.context.question))
+            elif not result.coverage_notice and result.generation_status!="insufficient_evidence":
+                render_career_path(result, collection_catalog)
+                st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
+                for phase,title in PHASE_NAMES.items():
+                    ids = [rid for rid in result.context.allowed_record_ids if result.context.suggested_phases.get(rid)==phase
+                           and (focus_code is None or records[rid].code != focus_code)]
+                    if ids:
+                        st.subheader(title)
+                        for rid in ids:
+                            render_card(records[rid],result)
+                if not result.context.allowed_record_ids and not (pending_sources and job):
+                    st.info("No additional matches remain in this small collection. Explore Courses & Resources or try another direction.")
+            render_inspector(result, catalog, lesson_question=lesson_question)
 
-with collection:
-    render_collection(collection_catalog, course_directory, enrollment_references)
+if collection.open:
+    with collection:
+        render_collection(collection_catalog, course_directory, enrollment_references)
 
-with opportunities:
-    render_opportunities(settings)
+if opportunities.open:
+    with opportunities:
+        render_opportunities(settings)

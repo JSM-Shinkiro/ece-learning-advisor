@@ -2,6 +2,7 @@ import pytest
 import time
 from pathlib import Path
 from streamlit.testing.v1 import AppTest
+from src.models import StudentProfile
 
 
 @pytest.fixture
@@ -17,6 +18,13 @@ def app(monkeypatch):
         monkeypatch.delenv(name,raising=False)
     app = AppTest.from_file(Path(__file__).resolve().parents[1]/"app.py",default_timeout=20)
     app.query_params["view"] = "Advisor"
+    app.session_state["profile"] = StudentProfile()
+    app.session_state["reset_profile_widgets"] = True
+    return app.run()
+
+
+def open_advisor_tab(app, label):
+    app.session_state["advisor_tab"] = label
     return app.run()
 
 
@@ -102,6 +110,7 @@ def test_configured_cache_root_reaches_the_submitted_backend(app, monkeypatch, t
 
 
 def test_public_opportunities_are_available_without_adzuna_credentials(app):
+    open_advisor_tab(app, "Opportunities")
     assert not next(b for b in app.button if b.label=="Available Opportunities").disabled
     assert not app.exception
     assert app.selectbox(key="opportunity_provider").value == "greenhouse"
@@ -125,6 +134,7 @@ def submit_opportunities(app):
 
 
 def test_opportunity_fetch_is_explicit_fresh_by_default_and_cache_reuse_is_visible(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     calls = []
     def search(*args, **kwargs):
         calls.append((args, kwargs))
@@ -148,6 +158,7 @@ def test_opportunity_fetch_is_explicit_fresh_by_default_and_cache_reuse_is_visib
 
 
 def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     calls = []
     def search(*args, **kwargs):
         calls.append((args, kwargs)); return opportunity_fixture(empty=True)
@@ -160,10 +171,11 @@ def test_public_opportunity_filters_reach_backend_on_submission(app, monkeypatch
     assert len(calls) == 1 and calls[0][0] == ("ai_ml", "Tucson", True)
     assert calls[0][1]["updated_within"] == 7 and calls[0][1]["early_career"] is False
     assert [b.token for b in calls[0][1]["boards"]] == ["samsara", "nuro", "andurilindustries"]
-    assert any("No listings were returned" in item.value for item in app.info)
+    assert any("No listings matched" in item.value for item in app.info)
 
 
 def test_recovered_employer_requests_show_attempt_history_without_retrying_on_rerenders(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     import httpx
     from collections import Counter
     from src.opportunities import load_employer_boards, search_employer_jobs
@@ -191,6 +203,7 @@ def test_recovered_employer_requests_show_attempt_history_without_retrying_on_re
 
 
 def test_recovered_posting_details_show_safe_attempts_and_do_not_recheck_on_rerender(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     import httpx
     from src.opportunity_details import fetch_posting_detail
     from test_opportunities import NOW, post
@@ -216,6 +229,7 @@ def test_recovered_posting_details_show_safe_attempts_and_do_not_recheck_on_rere
 
 
 def test_opportunity_page_controls_browse_the_same_snapshot_without_network_or_unsubmitted_filters(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     import httpx
     from test_opportunity_pages import paged_result
     result, calls = paged_result(), []
@@ -243,6 +257,7 @@ def test_opportunity_page_controls_browse_the_same_snapshot_without_network_or_u
 
 
 def test_page_changes_clear_checked_descriptions_and_later_page_detail_actions_still_work(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_pages import paged_result
     from test_opportunity_details import checked
     from test_opportunities import post
@@ -265,6 +280,7 @@ def test_page_changes_clear_checked_descriptions_and_later_page_detail_actions_s
 
 
 def test_fresh_search_and_explicit_result_reuse_both_restart_at_page_one(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_pages import paged_result
     calls = []
     def search(*a, **k): calls.append(1); return paged_result()
@@ -283,6 +299,7 @@ def test_fresh_search_and_explicit_result_reuse_both_restart_at_page_one(app, mo
 
 @pytest.mark.parametrize("count", [0, 1, 10])
 def test_one_page_or_empty_opportunity_results_do_not_offer_navigation(app, monkeypatch, count):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_pages import paged_result
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result(count))
     submit_opportunities(app)
@@ -291,6 +308,7 @@ def test_one_page_or_empty_opportunity_results_do_not_offer_navigation(app, monk
 
 
 def test_capped_snapshot_explains_that_additional_matches_need_narrower_filters(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_pages import paged_result
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result(201))
     submit_opportunities(app)
@@ -299,6 +317,7 @@ def test_capped_snapshot_explains_that_additional_matches_need_narrower_filters(
 
 
 def test_rejected_navigation_is_visible_and_a_new_search_clears_the_page_error(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_pages import paged_result
     from src.opportunities import load_employer_boards
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: paged_result())
@@ -314,6 +333,7 @@ def test_rejected_navigation_is_visible_and_a_new_search_clears_the_page_error(a
 
 
 def test_failed_opportunity_search_removes_previous_results(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     failing = False
     def search(*args, **kwargs):
         if failing:
@@ -333,6 +353,7 @@ def test_failed_opportunity_search_removes_previous_results(app, monkeypatch):
 @pytest.mark.parametrize("role,internship,early,label", [("early_career", False, True, "New grad / entry-level"),
     ("internship", True, False, "Internship / co-op")])
 def test_student_role_choices_reach_the_backend_and_reuse_only_matching_results(app, monkeypatch, role, internship, early, label):
+    open_advisor_tab(app, "Opportunities")
     calls = []
     def search(*a, **k):
         calls.append((a, k))
@@ -355,6 +376,7 @@ def test_student_role_choices_reach_the_backend_and_reuse_only_matching_results(
 
 
 def test_unsubmitted_role_change_keeps_the_displayed_result_filter_label(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     calls = []
     def search(*a, **k): calls.append(1); return opportunity_fixture(role_filter="all")
     monkeypatch.setattr("src.opportunities.search_employer_jobs", search)
@@ -366,6 +388,7 @@ def test_unsubmitted_role_change_keeps_the_displayed_result_filter_label(app, mo
 
 
 def test_posting_details_require_an_explicit_action_and_rerenders_keep_the_original_check_time(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_details import checked
     calls = []
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
@@ -390,6 +413,7 @@ def test_posting_details_require_an_explicit_action_and_rerenders_keep_the_origi
 
 @pytest.mark.parametrize("status,phrase", [(404, "not found at the source"), (429, "could not be reached")])
 def test_failed_posting_recheck_removes_old_description_and_shows_a_dated_failure(app, monkeypatch, status, phrase):
+    open_advisor_tab(app, "Opportunities")
     import httpx
     from test_opportunity_details import checked
     outcomes = iter([checked(), checked(httpx.Response(status))])
@@ -404,6 +428,7 @@ def test_failed_posting_recheck_removes_old_description_and_shows_a_dated_failur
 
 
 def test_changed_posting_title_is_displayed_with_a_search_snapshot_warning(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_details import checked
     from test_opportunities import post
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture())
@@ -418,6 +443,7 @@ def test_changed_posting_title_is_displayed_with_a_search_snapshot_warning(app, 
 
 
 def test_selecting_a_second_posting_shows_only_its_checked_description(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from test_opportunity_details import checked, selected
     from test_opportunities import post
     jobs = opportunity_fixture()
@@ -435,6 +461,7 @@ def test_selecting_a_second_posting_shows_only_its_checked_description(app, monk
 
 
 def test_partial_opportunity_source_issue_is_shown_with_usable_listings(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     monkeypatch.setattr("src.opportunities.search_employer_jobs", lambda *a, **k: opportunity_fixture(issues=["Nuro: this board could not be checked; its listings are omitted."]))
     submit_opportunities(app)
     assert not app.exception
@@ -443,6 +470,7 @@ def test_partial_opportunity_source_issue_is_shown_with_usable_listings(app, mon
 
 
 def test_complete_provider_failure_exposes_source_checks_without_fake_empty_results(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     from src.opportunities import OpportunitySearchError
     def fail(*args, **kwargs):
         raise OpportunitySearchError([{"board": "samsara", "status": "unavailable", "http_status": 429}])
@@ -450,7 +478,7 @@ def test_complete_provider_failure_exposes_source_checks_without_fake_empty_resu
     submit_opportunities(app)
     assert not app.exception
     assert any(item.label == "Last search source checks" for item in app.expander)
-    assert not any("No listings were returned" in item.value for item in app.info)
+    assert not any("No listings matched" in item.value for item in app.info)
 
 
 def test_opportunity_search_waits_for_a_career_direction(app, monkeypatch):
@@ -458,11 +486,13 @@ def test_opportunity_search_waits_for_a_career_direction(app, monkeypatch):
     monkeypatch.setattr("src.opportunities.search_employer_jobs", forbidden)
     app.selectbox(key="career_id").set_value("exploring")
     submit(app)
+    open_advisor_tab(app, "Opportunities")
     assert not app.exception
     assert next(b for b in app.button if b.label == "Available Opportunities").disabled
 
 
 def test_adzuna_is_an_explicit_separate_source_when_configured(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     calls = []
     def adzuna(*args): calls.append(args); return opportunity_fixture(empty=True, provider="adzuna")
     def forbidden(*args, **kwargs): pytest.fail("Do not silently switch to employer boards")
@@ -479,6 +509,7 @@ def test_adzuna_is_an_explicit_separate_source_when_configured(app, monkeypatch)
 
 
 def test_invalid_employer_configuration_keeps_the_rest_of_the_app_usable(app, monkeypatch):
+    open_advisor_tab(app, "Opportunities")
     def fail(*a, **k): raise ValueError("configuration detail")
     monkeypatch.setattr("src.opportunities.load_employer_boards", fail)
     app.run()
@@ -586,14 +617,14 @@ def test_mark_completed_refreshes_plan_and_visible_picker(app):
     assert any("Added to completed" in caption.value for caption in app.caption)
 
 
-def test_exploring_offers_both_goals_and_selectable_direction(app):
+def test_exploring_offers_matching_direction_choices(app):
     app.selectbox(key="career_id").set_value("exploring")
     app.text_area(key="interests").set_value("AI and Hardware Integration")
     submit(app)
     assert not app.exception
-    allowed=app.session_state["result"].context.allowed_record_ids
-    assert {"uofa:ECE425:2026-2027","uofa:ECE372A:2026-2027"} <= set(allowed)
-    app.button(key="choose_embedded").click().run()
+    result = app.session_state["result"]
+    assert set(result.direction_choices) == {"ai_ml", "embedded"} and not result.context.allowed_record_ids
+    app.button(key="use_direction_embedded").click().run()
     assert not app.exception
     assert app.session_state["profile"].career_id=="embedded"
     assert app.selectbox(key="career_id").value=="embedded"
@@ -908,6 +939,7 @@ def test_discovered_sources_reach_collection_picker_and_trace(app, monkeypatch, 
     submit(app)
     assert not app.exception
     assert any('35 courses' in caption.value for caption in app.caption)
+    open_advisor_tab(app, 'Courses & Resources')
     assert any('Discovered fixture CSC110' in item.label for item in app.expander)
     assert len(app.session_state['result'].trace['source_refresh']['discovered_courses']) == 3
     calls = len(seen)

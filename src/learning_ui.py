@@ -8,6 +8,7 @@ import numpy as np
 import streamlit as st
 
 from .catalog import ROOT, corpus_hash
+from .career_paths import CAREER_PATHS
 from .inspection_views import ranking_html
 from .learning_lab import (
     PRESETS, TOPICS, build_lab_index, compare_ranks, evidence_fit, keyword_terms,
@@ -19,10 +20,14 @@ LEARNING_ASSETS = ROOT / "assets/learning"
 LESSONS = ("Beginner", "Intermediate", "Advanced")
 METHODS = {"keyword": "Keyword", "semantic": "Topic cosine", "hybrid": "Hybrid"}
 RANK_CHANGES = ("Moved up", "Moved down", "Stayed at the same rank", "Entered the ranking", "Left the ranking")
+TOP_RECORD_CHANGES = ("Same record stayed first", "Different record ranked first")
 
 
 def show_section(section):
     st.session_state.view = section
+    if section == "Advisor":
+        st.session_state.advisor_destination = "My Roadmap"
+        st.session_state.advisor_profile_panel = True
 
 
 def _finish(stage):
@@ -54,7 +59,12 @@ def render_beginner():
                     "**:material/hub: AI and machine learning** use data and models to recognize patterns or make predictions.")
         st.write("Together these skills help build robots, connected devices and systems that interpret images or signals.")
         st.caption("For prospective and current ECE students. Start with an interest such as robotics, programming or computer vision.")
-        st.button("Try a preset experiment", type="primary", on_click=show_section, args=("Intermediate",))
+        learn, plan = st.columns(2)
+        learn.button("Learn how the Advisor works", type="primary", width="stretch",
+                     on_click=show_section, args=("Intermediate",))
+        plan.button("Build my roadmap", width="stretch", on_click=show_section, args=("Advisor",))
+        with st.expander("Browse the eight career directions"):
+            st.markdown("\n".join("- " + path.name for path in CAREER_PATHS.values()))
     with visual:
         st.image(LEARNING_ASSETS / "ece-lab.webp", width="stretch", caption="Electronics lab illustration")
 
@@ -157,7 +167,7 @@ def render_intermediate(index):
     st.title("Intermediate · Apply & analyze")
     left, right = st.columns([3, 2], vertical_alignment="center")
     with left:
-        st.write("Choose a preset. Compare how shared words and topic similarity order the same evidence.")
+        st.write("Choose a preset and predict which record will rank first. Then compare two ways of ranking the same evidence.")
         preset = st.selectbox("Preset question", list(PRESETS), key="learn_preset", persist_state="session")
         query = PRESETS[preset]
         st.markdown(f"**{query}**")
@@ -170,9 +180,24 @@ def render_intermediate(index):
         }[method])
     with right:
         st.image(LEARNING_ASSETS / "retrieval-lab.webp", width="stretch", caption="Illustration of a retrieval workspace")
-    experiment = run_experiment(index, query, method)
-    _render_experiment(index, experiment, "lesson_preset_plot")
+
     labels = {doc.record_id: label for doc, label in zip(index.retriever.evidence, index.labels)}
+    predictions = st.session_state.setdefault("learn_predictions", {})
+    if preset not in predictions:
+        picked = st.selectbox("Which record do you predict will rank first?", list(labels), index=None,
+                              format_func=labels.get, key="learn_prediction_" + preset, persist_state="session")
+        if not st.button("Reveal ranking", type="primary", disabled=picked is None):
+            return
+        predictions[preset] = (method, picked)
+
+    first_method, predicted_record = predictions[preset]
+    experiment = run_experiment(index, query, method)
+    reference = experiment if method == first_method else run_experiment(index, query, first_method)
+    prior_first = reference.hits[0].record_id
+    current_first = experiment.hits[0].record_id
+    st.caption(f"You predicted {labels[predicted_record]} with {METHODS[first_method]}. "
+               f"{labels[prior_first]} ranked first.")
+    _render_experiment(index, experiment, "lesson_preset_plot")
     evidence_panel = st.expander("Inspect evidence", key="lesson_preset_evidence", on_change="rerun")
     if evidence_panel.open:
         with evidence_panel:
@@ -180,23 +205,18 @@ def render_intermediate(index):
                                      format_func=labels.get, key="lesson_preset_record")
             _show_evidence(index, experiment, record_id)
     _developer_view(index, experiment, "lesson_preset_code")
-    other = "semantic" if method == "keyword" else "keyword"
-    reference = run_experiment(index, query, other)
-    before = {hit.record_id for hit in reference.hits[:3]}
-    after = {hit.record_id for hit in experiment.hits[:3]}
-    changed_records = before ^ after
-    moved = [label for label, doc in zip(index.labels, index.retriever.evidence) if doc.record_id in changed_records]
-    if moved:
-        st.caption(f"Compared with {METHODS[other]}, the top three change for {', '.join(moved)}.")
+    if method == first_method:
+        st.info("Switch to a different ranking method and check which record ranks first.")
     else:
-        st.caption(f"The top three contain the same records as {METHODS[other]}. Check their order and scores.")
-    first = st.selectbox("Which record ranks first with these settings?", list(labels), index=None,
-                         format_func=labels.get, key="learn_rank_answer")
-    if first == experiment.hits[0].record_id:
-        _finish("Intermediate")
-        st.success("Correct. Switch methods and check which records move.")
-    elif first:
-        st.info("Look at the first bar in the ranking and try again.")
+        answer = st.radio("What changed after switching methods?", TOP_RECORD_CHANGES, index=None,
+                          key=f"learn_method_change_{preset}_{first_method}_{method}", persist_state="session")
+        changed = prior_first != current_first
+        if answer == TOP_RECORD_CHANGES[changed]:
+            _finish("Intermediate")
+            st.success(f"Correct. {labels[current_first]} {'is first with the new method' if changed else 'stays first'}.")
+        elif answer is not None:
+            st.info("Compare the first bar with the earlier result above.")
+
     if st.button("Create your variation", type="primary", help="Use this preset and ranking method in Advanced."):
         st.session_state.learn_baseline = preset
         st.session_state.learn_variant_method = method
@@ -323,7 +343,7 @@ def render_advanced(index):
     _developer_view(index, variation, "lesson_variation_code")
     _review_comparison(index, baseline, variation, rows, labels)
     if reflection := state.get("learn_saved_reflection"):
-        st.caption("Observation saved in this session. Download a copy to keep it.")
+        st.caption(f"Observation saved for {labels[reflection['record_id']]}. Download a copy to keep it.")
         export = {
             "schema_version": 1, "preset": preset, "preset_question": PRESETS[preset], "question": query,
             "method": variation.method, "requested_method": method,

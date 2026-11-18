@@ -15,6 +15,7 @@ on:
       - pyproject.toml
       - .env.example
       - .gitattributes
+      - .streamlit/config.toml
       - .github/workflows/**
   pull_request:
     branches: [main]
@@ -30,6 +31,7 @@ on:
       - pyproject.toml
       - .env.example
       - .gitattributes
+      - .streamlit/config.toml
       - .github/workflows/**
   workflow_dispatch:
 

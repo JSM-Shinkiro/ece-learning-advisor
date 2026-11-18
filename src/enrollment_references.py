@@ -21,6 +21,7 @@ class EnrollmentReference(StrictModel):
     requirement_reference: str = Field(pattern=r"^\d{1,12}$")
     department_summary: str = Field(min_length=1, max_length=500)
     plan_summary: str | None = Field(default=None, min_length=1, max_length=500)
+    adviser_question: str | None = Field(default=None, min_length=1, max_length=250)
 
 
 class EnrollmentReferences(StrictModel):

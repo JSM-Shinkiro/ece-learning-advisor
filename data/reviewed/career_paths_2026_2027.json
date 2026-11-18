@@ -1,5 +1,5 @@
 {
-  "version": "career-paths-2026-11-14-specializations",
+  "version": "career-paths-2026-11-18-study-resources",
   "catalog_version": "2026-2027",
   "sources": [
     {
@@ -399,6 +399,34 @@
       "url": "https://www.bls.gov/ooh/architecture-and-engineering/biomedical-engineers.htm",
       "retrieved_at": "2026-11-15T06:59:55.953173+00:00",
       "review_note": "Public role and application examples used to ground team-authored study routes."
+    },
+    {
+      "source_id": "resource:mit_transmission_lines",
+      "title": "MIT OpenCourseWare · Transmission Lines and Reflection",
+      "url": "https://ocw.mit.edu/courses/6-013-electromagnetics-and-applications-fall-2005/resources/lecture-notes/",
+      "retrieved_at": "2026-11-18T22:12:00Z",
+      "review_note": "Read the notes on transmission lines and generalized reflection coefficients."
+    },
+    {
+      "source_id": "resource:nist_process_capability",
+      "title": "NIST/SEMATECH e-Handbook · Process Capability",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+      "retrieved_at": "2026-11-18T22:12:00Z",
+      "review_note": "Use the section on specification limits as a reference for a simulated semiconductor test exercise."
+    },
+    {
+      "source_id": "resource:openstax_ac_power",
+      "title": "OpenStax · Power in an AC Circuit",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/15-4-power-in-an-ac-circuit",
+      "retrieved_at": "2026-11-18T22:12:00Z",
+      "review_note": "Read section 15.4 and adapt its power calculations to a fictional building-load example."
+    },
+    {
+      "source_id": "resource:physionet_ecg_noise",
+      "title": "PhysioNet · MIT-BIH Noise Stress Test Database",
+      "url": "https://physionet.org/content/nstdb/1.0.0/",
+      "retrieved_at": "2026-11-18T22:12:00Z",
+      "review_note": "Use the published examples of noise types to design an exercise with a synthetic signal."
     }
   ],
   "records": [
@@ -1547,6 +1575,86 @@
         "sensors",
         "biomedical instrumentation"
       ]
+    },
+    {
+      "record_id": "resource:mit_transmission_lines",
+      "kind": "resource",
+      "title": "MIT OpenCourseWare · Transmission Lines and Reflection",
+      "summary": "Lectures 10 and 11 cover transmission lines and reflection by loads.",
+      "source_ids": [
+        "resource:mit_transmission_lines"
+      ],
+      "study_stage": "intermediate",
+      "career_ids": [
+        "signals"
+      ],
+      "topics": [
+        "transmission lines",
+        "reflection coefficient",
+        "impedance matching",
+        "RF"
+      ],
+      "first_activity": "Plot the reflected power fraction for a matched load and two mismatched loads."
+    },
+    {
+      "record_id": "resource:nist_process_capability",
+      "kind": "resource",
+      "title": "NIST/SEMATECH e-Handbook · Process Capability",
+      "summary": "NIST explains how to compare process variation with specification limits.",
+      "source_ids": [
+        "resource:nist_process_capability"
+      ],
+      "study_stage": "intermediate",
+      "career_ids": [
+        "semiconductors"
+      ],
+      "topics": [
+        "process capability",
+        "process variation",
+        "specification limits",
+        "test yield"
+      ],
+      "first_activity": "Plot measurements for two simulated wafer lots against a specification limit and report their pass rates."
+    },
+    {
+      "record_id": "resource:openstax_ac_power",
+      "kind": "resource",
+      "title": "OpenStax · Power in an AC Circuit",
+      "summary": "This section covers average AC power, RMS voltage and current, and power factor.",
+      "source_ids": [
+        "resource:openstax_ac_power"
+      ],
+      "study_stage": "intermediate",
+      "career_ids": [
+        "power"
+      ],
+      "topics": [
+        "AC power",
+        "apparent power",
+        "power factor",
+        "building electrical systems"
+      ],
+      "first_activity": "Make a table of real power, apparent power and power factor for two fictional building loads."
+    },
+    {
+      "record_id": "resource:physionet_ecg_noise",
+      "kind": "resource",
+      "title": "PhysioNet · MIT-BIH Noise Stress Test Database",
+      "summary": "The database description identifies baseline wander, muscle artifact and electrode motion artifact.",
+      "source_ids": [
+        "resource:physionet_ecg_noise"
+      ],
+      "study_stage": "intermediate",
+      "career_ids": [
+        "biomedical"
+      ],
+      "topics": [
+        "biosignals",
+        "ECG noise",
+        "baseline drift",
+        "signal filtering"
+      ],
+      "first_activity": "Add drift and high-frequency noise to a synthetic pulse, then plot the filtered signal and compare the error."
     }
   ]
 }

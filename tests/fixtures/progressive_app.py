@@ -30,8 +30,12 @@ def forbidden(*args,**kwargs):
 
 
 def refresh_sources(catalog, profile, **options):
-    if profile.question in {"ECE101 controlled source update", "ECE101 controlled keep saved plan"}:
-        case = "source-update" if profile.question.endswith("source update") else "source-keep"
+    case = {
+        "ECE101 controlled source update": "source-update",
+        "ECE101 controlled keep saved plan": "source-keep",
+        "I want to design a solar energy system": "exploring-solar",
+    }.get(profile.question)
+    if case:
         (control / (case + ".started")).touch()
         try:
             deadline = time.monotonic() + 35

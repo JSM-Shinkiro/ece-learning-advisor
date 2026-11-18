@@ -58,6 +58,13 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                     if summary.locator("..").get_attribute("open") is None:summary.click()
                 def navigate(label):
                     page.get_by_test_id("stButtonGroup").get_by_text(label, exact=True).click()
+                def switch_tab(label):
+                    tab = page.get_by_role("tab", name=label, exact=True)
+                    if tab.get_attribute("aria-selected") != "true":
+                        before = counts["full_runs"]
+                        tab.click()
+                        wait_until(lambda: counts["full_runs"] > before)
+                    expect(tab).to_have_attribute("aria-selected", "true")
                 def pick_record(label, value):
                     field = page.get_by_role("combobox", name=label, exact=True)
                     field.fill(value)
@@ -99,31 +106,66 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.wait_for_function("Array.from(document.images).some(img => img.complete && img.naturalWidth > 0)")
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-beginner.png"))
-                page.set_viewport_size({"width":390,"height":844})
-                page.wait_for_function("window.innerWidth === 390")
+                page.set_viewport_size({"width":320,"height":844})
+                page.wait_for_function("window.innerWidth === 320")
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                expect(page.get_by_role("button", name="Build my roadmap", exact=True)).to_be_visible()
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-mobile.png"))
                 page.set_viewport_size({"width":1500,"height":1100})
                 page.get_by_text("The official requirements and my completed coursework",exact=True).click()
                 expect(page.get_by_text("Correct. A relevance score helps you find a course.",exact=False)).to_be_visible()
-                passed("The illustrated landing page fits phone width and gives immediate feedback on preparation versus relevance.",begin)
+                passed("The landing page fits a 320-pixel viewport, offers both first actions and gives immediate preparation feedback.",begin)
+
+                stage = "primary_action_contrast"
+                begin = time.monotonic()
+                learn_button = page.get_by_role("button", name="Learn how the Advisor works", exact=True)
+                def button_contrast():
+                    return learn_button.evaluate("""button => {
+                        const luminance = color => {
+                            const weights = [0.2126, 0.7152, 0.0722];
+                            return color.match(/[\\d.]+/g).slice(0, 3)
+                                .map(Number).map(n => n / 255)
+                                .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
+                                .reduce((sum, n, i) => sum + n * weights[i], 0);
+                        };
+                        const foreground = luminance(getComputedStyle(button.querySelector('p') || button).color);
+                        const background = luminance(getComputedStyle(button).backgroundColor);
+                        return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
+                    }""")
+                assert button_contrast() >= 4.5
+                learn_button.hover()
+                assert button_contrast() >= 4.5
+                page.mouse.move(0, 0)
+                learn_button.focus()
+                page.keyboard.press("Shift+Tab")
+                page.keyboard.press("Tab")
+                expect(learn_button).to_be_focused()
+                assert button_contrast() >= 4.5
+                assert learn_button.evaluate("button => getComputedStyle(button).outlineStyle === 'solid'")
+                passed("The primary action reaches 4.5:1 contrast at rest, on hover and with keyboard focus.", begin)
 
                 stage="intermediate_experiment";begin=time.monotonic()
-                page.get_by_role("button",name="Try a preset experiment",exact=True).click()
+                learn_button.press("Enter")
                 expect(page.get_by_role("heading",name="Intermediate · Apply & analyze",exact=True)).to_be_visible()
+                expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
+                expect(page.get_by_role("button", name="Reveal ranking", exact=True)).to_be_disabled()
+                choose("Which record do you predict will rank first?", "ECE372A")
+                page.get_by_role("button", name="Reveal ranking", exact=True).press("Enter")
                 expect(page.get_by_test_id("stPlotlyChart")).to_be_visible()
                 ranking=page.locator('[data-ece-ranking="html"]')
                 expect(ranking).to_contain_text("Keyword ranking score")
                 choose("Ranking method","Topic cosine")
                 expect(ranking).to_contain_text("Topic cosine ranking score")
+                page.get_by_text("Same record stayed first", exact=True).click()
+                expect(page.get_by_text("Correct. ECE372A stays first.", exact=True)).to_be_visible()
                 expand("Inspect evidence")
                 expect(page.get_by_text("product of lengths", exact=False)).to_be_visible()
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-intermediate.png"))
                 expand("Developer view · visualization code")
                 expect(page.get_by_test_id("stCode").first).to_contain_text("def plot_experiment")
-                passed("A preset changes ranking method and shows the live plot and its actual source code without AI.",begin)
+                passed("A prediction unlocks the plot, changing methods prompts a rank comparison, and the developer view shows the actual plot code.",begin)
 
                 stage="advanced_comparison";begin=time.monotonic()
                 page.get_by_role("button",name="Create your variation",exact=True).click()
@@ -173,6 +215,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.get_by_role("button", name="Use this question in Advisor", exact=True).click()
                 expect(page.get_by_role("heading",name="Your next step, with a path forward.",exact=True)).to_be_visible()
                 expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(question)
+                expect(page.get_by_role("combobox", name="Catalog year", exact=True)).to_have_value("Not sure")
+                choose("Catalog year", "2026-2027")
                 expect(page.get_by_text("Your lesson question is in Your starting point.", exact=False)).to_be_visible()
                 assert export("lesson-draft.json")["question"] == ""
                 passed("The unsubmitted variation survives navigation and the evaluated question opens as an Advisor draft.", begin)
@@ -290,7 +334,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("Keeping the source plan stops result acceptance, retains the plan and rejects late AI output.",begin)
 
                 stage="collection_filters";begin=time.monotonic()
-                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                switch_tab("Courses & Resources")
                 full_runs=counts["full_runs"]
                 provider_calls=(control/"provider.calls").read_text()
                 draft.fill("Unsubmitted collection draft")
@@ -298,7 +342,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("ece 372a");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 67 courses and resources · local collection search",exact=True)).to_be_visible()
                 result_panel=page.get_by_test_id("stExpander").filter(has=page.locator("summary").filter(has_text="ECE372A · "))
                 expect(result_panel.get_by_role("link")).to_have_count(0)
                 fragment_runs=counts["fragment_runs"];result_panel.locator("summary").click()
@@ -312,22 +356,21 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"]
                 query.fill("pico");query.press("Enter")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
-                expect(page.get_by_text("Showing 1 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 1 of 67 courses and resources · local collection search",exact=True)).to_be_visible()
                 expect(page.locator("summary").filter(has_text="Raspberry Pi Pico C/C++ SDK")).to_be_visible()
                 assert counts["full_runs"]==full_runs and (control/"provider.calls").read_text()==provider_calls
                 expect(draft).to_have_value("Unsubmitted collection draft")
                 passed("Course-code, type and direction filters update locally; opening details keeps source metadata and triggers no advisor run.",begin)
 
                 stage="mobile_collection";begin=time.monotonic()
-                # Collapse while the desktop control is stable. Resizing first can
-                # auto-collapse it between is_visible() and Playwright's click.
-                sidebar=page.get_by_test_id("stSidebar")
-                sidebar.hover()
-                page.get_by_role("button",name="Collapse sidebar",exact=True).click()
-                expect(sidebar).to_have_attribute("data-collapsed","true")
                 page.set_viewport_size({"width":390,"height":844})
-                expect(sidebar).to_have_attribute("data-collapsed","true")
-                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                expect(page.locator("main").get_by_role("textbox", name="A question about your next step", exact=True)).to_be_visible()
+                switch_tab("My Roadmap")
+                expect(query).to_have_count(0)
+                expect(page.get_by_role("button", name="Available Opportunities", exact=True)).to_have_count(0)
+                switch_tab("Courses & Resources")
+                full_runs = counts["full_runs"]
+                expect(draft).to_have_value("Unsubmitted collection draft")
                 expect(query).to_have_value("pico")
                 expect(page.get_by_role("combobox",name="Type",exact=True)).to_have_value("Resources only")
                 fragment_runs=counts["fragment_runs"]
@@ -337,7 +380,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 fragment_runs=counts["fragment_runs"];page.get_by_role("button",name="Reset filters",exact=True).click()
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
                 expect(query).to_have_value("")
-                expect(page.get_by_text("Showing 63 of 63 courses and resources · local collection search",exact=True)).to_be_visible()
+                expect(page.get_by_text("Showing 67 of 67 courses and resources · local collection search",exact=True)).to_be_visible()
                 fragment_runs=counts["fragment_runs"]
                 choose("Direction","Controls & Robotics")
                 wait_until(lambda:counts["fragment_runs"]>fragment_runs)
@@ -382,7 +425,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("Elective details and the Mathematics minor card fit 390 pixels and update locally.",begin)
 
                 stage="mobile_inspector";begin=time.monotonic()
-                page.get_by_role("tab",name="My Roadmap",exact=True).click()
+                switch_tab("My Roadmap")
+                full_runs = counts["full_runs"]
                 inspector_summary = page.locator("summary").filter(
                     has=page.get_by_text("How this plan was made", exact=True))
                 expect(inspector_summary).to_be_visible()
@@ -406,7 +450,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                     ranking.screenshot(path=str(Path(diagnostics_dir)/"ranking-desktop.png"))
 
                 stage="posting_progress";begin=time.monotonic()
-                page.get_by_role("tab",name="Opportunities",exact=True).click()
+                switch_tab("Opportunities")
+                full_runs = counts["full_runs"]
                 page.get_by_role("button",name="Available Opportunities",exact=True).click()
                 expect(page.get_by_text("Controlled Embedded Intern",exact=True)).to_be_visible()
                 check_button=page.get_by_role("button",name="Check posting details",exact=True)
@@ -432,7 +477,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 passed("A failed recheck clears verified content while retaining the saved search; neither search nor AI is repeated.",begin)
 
                 stage="ece_catalog_local_paging";begin=time.monotonic()
-                page.get_by_role("tab",name="Courses & Resources",exact=True).click()
+                switch_tab("Courses & Resources")
+                full_runs = counts["full_runs"]
                 page.get_by_text("All undergraduate ECE courses",exact=True).click()
                 expect(page.get_by_text("Effective-date filter 2027-01-13", exact=False)).to_be_visible()
                 expect(page.get_by_text("78 matching courses · Page 1 of 6 · local catalog search",exact=True)).to_be_visible()
@@ -475,12 +521,29 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 expect(page.locator("summary").filter(has_text="ECE413 · ")).to_be_visible()
                 page.locator("summary").filter(has_text="ECE413 · ").click()
                 page.get_by_role("button",name="Explore ECE413 in my roadmap",exact=True).click()
-                page.get_by_role("tab",name="My Roadmap",exact=True).click()
+                expect(page.get_by_role("tab", name="My Roadmap", exact=True)).to_have_attribute("aria-selected", "true")
                 expect(page.get_by_role("heading",name="Explore requested courses",exact=True)).to_be_visible()
                 expect(page.get_by_text("Requested catalog course · preparation level and career connection unreviewed",exact=True)).to_be_visible()
                 expect(ai_caption).to_be_visible()
                 assert len((control/"provider.calls").read_text().splitlines())==len(provider_calls.splitlines())+1
-                passed("An explicit catalog action creates a source-grounded course card with unreviewed preparation and enrollment, using one controlled advisor request.",begin)
+                passed("A catalog action opens My Roadmap on the requested course, using one controlled advisor request.",begin)
+
+                stage = "inferred_career_progress"
+                begin = time.monotonic()
+                expand("Your starting point")
+                expand("AI and ranking options")
+                page.get_by_role("checkbox", name="Generate AI explanations", exact=True).uncheck()
+                choose("Career direction", "Still exploring")
+                submit("I want to design a solar energy system")
+                wait_until(lambda: (control / "exploring-solar.started").exists())
+                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
+                release("exploring-solar")
+                expect(page.get_by_text("Learning plan ready", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
+                page.get_by_role("button", name="Use this direction", exact=True).click()
+                expect(page.get_by_text("Saved profile: Incoming · Power & Energy Systems", exact=False)).to_be_visible()
+                passed("Still exploring shows both source stages and saves the inferred direction only when accepted.", begin)
 
                 stage="browser_health";begin=time.monotonic()
                 assert counts["stream_connections"]==1 and counts["page_errors"]==0 and counts["fragment_runs"]>0

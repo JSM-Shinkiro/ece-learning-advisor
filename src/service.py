@@ -13,7 +13,7 @@ from .catalog import build_evidence, code_lookup, corpus_hash
 from .career_paths import CAREER_PATHS, CORE_DIRECTIONS
 from .models import Catalog, GeneratedAnswer, GenerationContext, SourceFreshness, StudentProfile
 from .providers import AI_TIME_LIMIT_MESSAGE, AIBudgetExceeded, EmbeddingCache, ProviderError
-from .planning import (coverage_message, learning_phase, needs_learning_foundations,
+from .planning import (CourseQuestion, coverage_message, learning_phase, needs_learning_foundations,
                        requested_record_ids, requested_resource_ids)
 from .retrieval import Hit, Retriever, tokenize
 from .rules import dependency_codes, evaluate_course
@@ -75,6 +75,8 @@ class AdvisorResult:
     statement_validation_passed: bool | None = None
     validation_error: str | None = None
     trace: dict = field(default_factory=dict)
+    course_question: CourseQuestion | None = None
+    direction_choices: tuple[str, ...] = ()
 
 
 def build_query(catalog: Catalog, profile: StudentProfile, question: str, *, interpretation=None):
@@ -235,6 +237,21 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     return context
 
 
+def guidance_result(catalog, profile, question, *, notice, reason, started, interpretation=None):
+    """Return guidance for a question that the retrieval system cannot answer."""
+    context = GenerationContext(profile=profile, question=question, query=question,
+                                allowed_record_ids=[], evidence=[], rule_results={})
+    result = AdvisorResult(context=context, hits=[], catalog=catalog, coverage_notice=notice,
+                           generation_status="insufficient_evidence")
+    interpretation = interpretation or interpret_query(question.strip() or profile.interests.strip(), catalog)
+    result.timings["total"] = time.perf_counter() - started
+    result.trace = {"data_version": catalog.version, "prompt_version": context.prompt_version,
+                    "generation_status": "insufficient_evidence", "generation_complete": False,
+                    "coverage_guard": reason, "model_calls": 0, "query_interpretation": interpretation.trace(),
+                    "context_chunk_ids": [], "allowed_record_ids": [], "timings_seconds": result.timings}
+    return result
+
+
 def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
               provider=None, method="hybrid", cache_dir=Path(".cache/embeddings"), *, preferred_course_codes=(), progress=None) -> AdvisorResult:
     started = time.perf_counter()
@@ -245,17 +262,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
     preferred = requested_record_ids(catalog, profile, preferred_course_codes)
     notice = coverage_message(catalog, profile, question)
     if notice and not preferred:
-        context = GenerationContext(profile=profile, question=question, query=question,
-                                    allowed_record_ids=[], evidence=[], rule_results={})
-        result = AdvisorResult(context=context, hits=[], catalog=catalog, coverage_notice=notice,
-                               generation_status="insufficient_evidence")
-        result.timings["total"] = time.perf_counter() - started
-        result.trace = {"data_version":catalog.version, "prompt_version":context.prompt_version,
-                        "generation_status":"insufficient_evidence", "generation_complete":False,
-                        "coverage_guard":"no_vocabulary_match", "model_calls":0,
-                        "query_interpretation": interpretation.trace(),
-                        "context_chunk_ids":[], "allowed_record_ids":[], "timings_seconds":result.timings}
-        return result
+        return guidance_result(catalog, profile, question, notice=notice, reason="no_vocabulary_match",
+                               started=started, interpretation=interpretation)
     chunks = build_evidence(catalog)
     query = build_query(catalog, profile, question, interpretation=interpretation)
     records = {r.record_id: r for r in catalog.records}

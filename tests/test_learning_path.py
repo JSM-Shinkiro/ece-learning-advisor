@@ -7,6 +7,7 @@ from streamlit.testing.v1 import AppTest
 
 from src.catalog import load_runtime_catalog
 from src.learning_lab import PRESETS, build_lab_index, run_experiment
+from src.learning_ui import TOP_RECORD_CHANGES
 from test_app import settle_advisor
 
 
@@ -42,18 +43,22 @@ def test_learning_path_to_advisor_and_saved_comparison(lesson_app):
 
     app.radio(key="learn_foundations_answer").set_value("The official requirements and my completed coursework").run()
     assert app.session_state["lesson_beginner"]
-    click(app, "Try a preset experiment")
+    click(app, "Learn how the Advisor works")
     assert not app.exception and app.session_state["view"] == "Intermediate"
-    assert len(app.get("plotly_chart")) == 1
+    assert len(app.get("plotly_chart")) == 0
 
     index = build_lab_index(load_runtime_catalog().model_dump_json())
     first = run_experiment(index, PRESETS["Program a sensor"], "keyword").hits[0].record_id
-    app.selectbox(key="learn_rank_answer").set_value(first).run()
-    assert app.session_state["lesson_intermediate"]
+    app.selectbox(key="learn_prediction_Program a sensor").set_value(first).run()
+    click(app, "Reveal ranking")
+    assert len(app.get("plotly_chart")) == 1 and not app.session_state.get("lesson_intermediate", False)
     app.session_state["lesson_preset_code"] = True
     app.run()
     assert any("def plot_experiment" in item.value for item in app.code)
     app.selectbox(key="learn_method").set_value("hybrid").run()
+    new_first = run_experiment(index, PRESETS["Program a sensor"], "hybrid").hits[0].record_id
+    app.radio(key="learn_method_change_Program a sensor_keyword_hybrid").set_value(TOP_RECORD_CHANGES[first != new_first]).run()
+    assert app.session_state["lesson_intermediate"]
     click(app, "Create your variation")
     assert not app.exception and app.session_state["view"] == "Advanced"
 
@@ -90,7 +95,9 @@ def test_advanced_inherits_settings_and_preserves_draft(lesson_app, preset, meth
     app = lesson_app
     navigate(app, "Intermediate")
     app.selectbox(key="learn_preset").set_value(preset)
-    app.selectbox(key="learn_method").set_value(method)
+    app.selectbox(key="learn_method").set_value(method).run()
+    app.selectbox(key="learn_prediction_" + preset).set_value("uofa:ECE101:2026-2027").run()
+    click(app, "Reveal ranking")
     click(app, "Create your variation")
     assert app.selectbox(key="learn_baseline").value == preset
     assert app.selectbox(key="learn_variant_method").value == method

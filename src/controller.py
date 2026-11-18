@@ -5,12 +5,12 @@ import time
 import httpx
 
 from .career_catalog import with_career_paths
-from .career_paths import CAREER_PATHS, CORE_DIRECTIONS, question_direction
-from .planning import coverage_message, requested_record_ids
+from .career_paths import CAREER_PATHS, CORE_DIRECTIONS, question_directions
+from .planning import course_question, coverage_message, requested_record_ids
 from .providers import AIRequestBudget, BudgetedProvider, GeminiProvider, ProviderError
 from .progress import RequestProgress
 from .retrieval import tokenize
-from .service import recommend
+from .service import guidance_result, recommend
 from .sources import refresh_catalog
 from .discovery import load_discovery_plans, match_course_requests
 from .source_reuse import SOURCE_REUSE_SECONDS
@@ -55,12 +55,42 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     started = time.perf_counter()
     phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
+    help_request = course_question(profile.question)
     inferred_direction = None
     learning_request = profile.question.strip() or profile.interests
     if profile.career_id == "exploring":
-        inferred_direction = question_direction(learning_request)
-        if inferred_direction:
-            profile = profile.model_copy(update={"career_id": inferred_direction})
+        matches = question_directions(learning_request) if help_request is None else ()
+    else:
+        matches = question_directions(profile.question, use_course_codes=False) if help_request is None else ()
+    direction_choices = ()
+    if profile.career_id == "exploring" and len(matches) == 1:
+        inferred_direction = matches[0]
+        profile = profile.model_copy(update={"career_id": inferred_direction})
+    elif matches and profile.career_id not in matches:
+        selected_path = CAREER_PATHS.get(profile.career_id)
+        selected_route = selected_path.matching_route(learning_request) if selected_path else None
+        if not any(selected_route in CAREER_PATHS[direction].routes for direction in matches):
+            direction_choices = matches
+
+    if help_request or direction_choices:
+        if help_request:
+            reason = help_request.kind
+            notice = help_request.message
+        else:
+            reason = "direction_choice"
+            notice = ("Your question matches several directions. Choose which one to use for this roadmap."
+                      if len(direction_choices) > 1 else
+                      "Your question matches another career direction. Choose it to build a roadmap for this question.")
+        result = guidance_result(_saved_catalog(catalog), profile, profile.question, notice=notice,
+                                 reason=reason, started=started)
+        result.course_question = help_request
+        result.direction_choices = direction_choices
+        if direction_choices:
+            result.trace["direction_choices"] = list(direction_choices)
+        result.trace["source_refresh"] = {"enabled": False, "reason": reason}
+        result.trace["request_phases"] = phases.finish()
+        return result
+
     path = CAREER_PATHS.get(profile.career_id)
     if path and (profile.career_id not in CORE_DIRECTIONS or path.matching_route(learning_request)
                  or set(tokenize(learning_request)).intersection(code.casefold() for code in path.electives)):

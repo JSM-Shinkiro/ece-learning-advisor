@@ -26,7 +26,7 @@ def render_opportunities(settings):
     configured = settings.adzuna_configured
     provider_names = {"greenhouse": "Employer boards", "adzuna": "Adzuna location search"}
     provider = st.selectbox("Opportunity source", ["greenhouse", "adzuna"] if configured else ["greenhouse"],
-                            format_func=provider_names.get, key="opportunity_provider")
+                            format_func=provider_names.get, key="opportunity_provider", persist_state="session")
     board_available = True
     if provider == "greenhouse":
         try:
@@ -40,20 +40,23 @@ def render_opportunities(settings):
         st.info("Choose a career direction in your roadmap before searching for relevant opportunities.")
     with st.form("jobs_form"):
         location = st.text_input("Location contains (optional)" if provider == "greenhouse" else "Location",
-                                 value="" if provider == "greenhouse" else "Tucson, AZ", max_chars=120, key="opportunity_location_" + provider)
+                                 value="" if provider == "greenhouse" else "Tucson, AZ", max_chars=120,
+                                 key="opportunity_location_" + provider, persist_state="session")
         if provider == "greenhouse":
             role_labels = {"all": "All levels", "internship": "Internship / co-op", "early_career": "New grad / entry-level"}
             role_filter = st.selectbox("Role titles", list(role_labels), format_func=role_labels.get,
-                help="Filters explicit title words. New-grad/entry-level excludes internship and senior/leadership titles; requirements still need review.", key="opportunity_role_titles")
+                help="Filters explicit title words. New-grad/entry-level excludes internship and senior/leadership titles; requirements still need review.",
+                key="opportunity_role_titles", persist_state="session")
             internship, early_career = role_filter == "internship", role_filter == "early_career"
         else:
             internship = st.checkbox("Prefer internship search terms", help="Changes the search phrase; provider listings may include other roles.",
-                key="opportunity_internship_adzuna")
+                key="opportunity_internship_adzuna", persist_state="session")
             early_career = False
         updated_within = st.selectbox("Listing updated within", [None, 7, 30, 90],
             format_func=lambda days: "Any date" if days is None else str(days) + " days",
-            key="opportunity_age", disabled=provider != "greenhouse")
-        reuse = st.checkbox("Reuse matching results from the last 20 minutes", value=False, key="reuse_opportunities")
+            key="opportunity_age", disabled=provider != "greenhouse", persist_state="session")
+        reuse = st.checkbox("Reuse matching results from the last 20 minutes", value=False,
+                            key="reuse_opportunities", persist_state="session")
         requested = st.form_submit_button("Available Opportunities",disabled=profile.career_id=="exploring" or not board_available)
     if requested and profile.career_id!="exploring":
         try:
@@ -64,7 +67,7 @@ def render_opportunities(settings):
                     public_search=opportunities.search_employer_jobs, adzuna_search=jobs_api.search_jobs,
                     app_id=settings.adzuna_app_id.get_secret_value(), app_key=settings.adzuna_app_key.get_secret_value())
         except (ValueError,RuntimeError):
-            st.warning("The provider could not complete this search. Try again later.")
+            st.warning("The provider could not complete this search. Retry the search or choose another configured source.")
     jobs = st.session_state.get("job_result")
     job_error = st.session_state.get("job_error")
     pending = take_posting_detail(st.session_state)
@@ -83,7 +86,7 @@ def render_opportunities(settings):
         for issue in jobs.issues:
             st.warning(issue)
         if not jobs.listings:
-            st.info("No listings were returned for these filters.")
+            st.info("No listings matched. Try a broader location or select All levels.")
         elif jobs.total_matches is not None:
             pagination = pages.page_info(jobs)
             if pagination:

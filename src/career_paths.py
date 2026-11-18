@@ -93,7 +93,8 @@ CAREER_PATHS = {
                        "Generate a noisy signal, filter it, and compare its frequency spectrum before and after.", "resource:pysdr"),
             StudyRoute("RF & Microwave Engineering", ("ECE220", "ECE381A", "ECE486", "ECE488", "ECE484"),
                        r"\b(?:rf|radio frequency|microwave|antennas?|ece ?48(?:4|6|8))\b",
-                       "Simulate a simple impedance mismatch and compare reflected power across frequency."),
+                       "Plot the reflected power fraction for a matched load and two mismatched loads.",
+                       "resource:mit_transmission_lines"),
         ),
         "Apply signal processing to software-defined radio and next-generation wireless systems.",
         electives=("CSC425",), related_courses=("ECE310", "ECE320A", "ECE381A"),
@@ -124,7 +125,8 @@ CAREER_PATHS = {
                        "Simulate a four-bit counter. Write checks for reset, counting and rollover.", "resource:verilator"),
             StudyRoute("Fabrication & test", ("ECE220", "ECE351C", "ECE352", "ECE446"),
                        r"\b(?:fabrication|fab|wafer|manufacturing|product test|process engineer|packaging|ece ?446)\b",
-                       "Compare process variation and test yield for two simulated wafer lots."),
+                       "Plot the measurements for two simulated wafer lots against a specification limit and report their pass rates.",
+                       "resource:nist_process_capability"),
         ),
         "Explore digital chip design and semiconductor manufacturing. Advanced packaging connects device, process and test work.",
         electives=("SIE406", "MSE365"),
@@ -157,7 +159,8 @@ CAREER_PATHS = {
                        "Plot a fictional solar and load profile and estimate how much energy a battery could shift.", "resource:solar_storage"),
             StudyRoute("Building Electrical Systems", ("ECE220", "ECE320A", "ARCE320"),
                        r"\b(?:building (?:electrical|power)|arce ?320)\b",
-                       "Calculate the real and apparent power for a fictional load and compare the two values."),
+                       "Make a table of real power, apparent power and power factor for two fictional building loads.",
+                       "resource:openstax_ac_power"),
         ),
         "Use circuit and power concepts to analyze solar systems, storage and building electrical loads.",
         electives=("ARCE320",), foundation_codes=("ECE220", "ECE320A"),
@@ -170,7 +173,8 @@ CAREER_PATHS = {
         (
             StudyRoute("Biosignals & Instrumentation", ("ECE220", "ECE351C", "ECE417", "BME330"),
                        r"\b(?:biosignals?|biomedical instrumentation|physiological|electrocardiogra\w*|ece ?417|bme ?330)\b",
-                       "Filter a synthetic pulse signal and measure how the filter changes signal and noise."),
+                       "Add baseline drift and high-frequency noise to a synthetic pulse. Plot the filtered signal and compare the error.",
+                       "resource:physionet_ecg_noise"),
             StudyRoute("Biomedical Imaging", ("ECE220", "ECE381A", "BME416", "ECE429"),
                        r"\b(?:(?:biomedical|medical) imaging|bme ?416)\b",
                        "Compare contrast and resolution in two synthetic images made with different blur settings.", "resource:medical_imaging"),
@@ -190,10 +194,14 @@ ELECTIVE_GUIDANCE = (
 )
 
 _DIRECTION_CUES = {
-    "embedded": r"\b(?:edge ai|on device inference|tinyml|firmware|freertos|rtos|ece ?402c)\b",
+    "ai_ml": r"\b(?:(?<!edge )ai|ml|artificial intelligence|machine learning|deep learning|computer vision|"
+             r"machine vision|neural networks?|image classification|csc ?(?:477|480))\b",
+    "embedded": r"\b(?:embedded systems?|embedded software|microcontrollers?|hardware integration|edge ai|on device inference|"
+                r"tinyml|firmware|freertos|rtos|ece ?402c)\b",
     "signals": r"\b(?:digital signal processing|dsp|signals? and communications?|signal processing|"
                r"wireless(?: communications?| systems?| dsp)?|software defined radio|"
-               r"rf|radio frequency|microwave|open ran|computer networking|ece ?429|ece ?435a|ece ?48(?:4|6|8)|csc ?425)\b",
+               r"rf|radio frequency|microwave|transmission lines?|open ran|computer networking|"
+               r"ece ?429|ece ?435a|ece ?48(?:4|6|8)|csc ?425)\b",
     "controls": r"\b(?:controls? and robotics|feedback control|automatic control|digital control|"
                 r"robotics|industrial automation|motor control|pid control(?:ler)?|geometric algorithms|"
                 r"ece ?441a|ece ?442|ece ?447a|csc ?437)\b",
@@ -208,8 +216,15 @@ _DIRECTION_CUES = {
 }
 
 
+def question_directions(question, *, use_course_codes=True):
+    """List the directions with explicit cues in the question."""
+    normalized = _words(question)
+    if not use_course_codes:
+        normalized = re.sub(r"\b[a-z]{2,8} ?[1-9]\d{2}[a-z]{0,2}\b", " ", normalized)
+    return tuple(key for key, pattern in _DIRECTION_CUES.items() if re.search(pattern, normalized))
+
+
 def question_direction(question):
     """Route an open-ended profile only when one direction clearly matches."""
-    normalized = _words(question)
-    matches = [key for key, pattern in _DIRECTION_CUES.items() if re.search(pattern, normalized)]
+    matches = question_directions(question)
     return matches[0] if len(matches) == 1 else None

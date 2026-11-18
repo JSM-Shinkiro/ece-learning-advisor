@@ -132,6 +132,22 @@ class StudentProfile(StrictModel):
     current_enrollment: list[str] = Field(default_factory=list, max_length=100)
     consents: list[str] = Field(default_factory=list, max_length=100)
 
+    @field_validator("catalog_version", mode="before")
+    @classmethod
+    def normalize_catalog_year(cls, value):
+        if not isinstance(value, str):
+            return value
+        value = value.strip()
+        if not value or value.casefold() == "not sure":
+            return "Not sure"
+        years = re.fullmatch(r"(\d{4})\s*[-‐‑‒–—−/]\s*(\d{2}|\d{4})", value)
+        if years:
+            first, last = years.groups()
+            next_year = str(int(first) + 1)
+            if last in {next_year, next_year[-2:]}:
+                return f"{first}-{next_year}"
+        return value
+
     @field_validator("current_enrollment")
     @classmethod
     def valid_current_courses(cls, value):

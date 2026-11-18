@@ -1,8 +1,10 @@
 """Small, explicit learning-stage policies. These do not define enrollment rules."""
 
 import re
+from dataclasses import dataclass
 
 from .career_paths import CAREER_PATHS
+from .enrollment_references import PUBLIC_CLASS_SEARCH
 from .models import Record, StudentProfile
 from .retrieval import tokenize
 from .query import catalog_vocabulary, interpret_query
@@ -25,6 +27,10 @@ RESOURCE_TERMS = {
     "resource:wyant_photonics": ("wyant photonics",),
     "resource:solar_storage": ("solar energy and storage basics",),
     "resource:medical_imaging": ("nibib", "mri"),
+    "resource:mit_transmission_lines": ("mit 6.013", "transmission lines", "reflection coefficient"),
+    "resource:nist_process_capability": ("nist process capability", "process capability"),
+    "resource:openstax_ac_power": ("openstax ac power", "power factor", "apparent power"),
+    "resource:physionet_ecg_noise": ("physionet", "ecg noise", "baseline drift"),
 }
 
 
@@ -87,6 +93,43 @@ def learning_phase(record: Record, profile: StudentProfile, evaluation=None):
     if evaluation is not None and evaluation.status == "satisfied":
         return "next"
     return "build"
+
+
+@dataclass(frozen=True)
+class CourseQuestion:
+    kind: str
+    message: str
+    link_label: str
+    url: str
+    codes: tuple[str, ...]
+
+
+def course_question(question: str) -> CourseQuestion | None:
+    """Recognize common section and billing questions before ranking courses."""
+    text = question.casefold()
+    codes = tuple(dict.fromkeys(term.upper() for term in tokenize(question)
+                                if re.fullmatch(r"[a-z]{2,8}[1-9]\d{2}[a-z]{0,2}", term)))[:3]
+    if (re.search(r"\b(?:tuition|(?:course|class|lab|enrollment|registration) fees?)\b", text)
+            or codes and re.search(r"\b(?:how much|what)\b.{0,80}\bcost\b|\bcost\b.{0,80}\bto take\b", text)):
+        return CourseQuestion(
+            "tuition", "Use the Bursar’s tuition and fee information for your term, program and campus.",
+            "Check UArizona tuition and fees", "https://bursar.arizona.edu/tuition", codes)
+    if (re.search(r"\b(?:syllabus|syllabi)\b", text)
+            or re.search(r"\b(?:exams?|midterms?|finals?|assignments?|homework)\b", text)
+            and re.search(r"\b(?:when|what (?:day|date|time)|dates?|deadlines?|due|schedul\w*)\b", text)):
+        return CourseQuestion(
+            "syllabus", "Check your section’s syllabus in Brightspace for exam and assignment dates. "
+            "If the syllabus is unavailable, ask the section instructor.",
+            "Open UArizona Brightspace", "https://d2l.arizona.edu/", codes)
+    if (re.search(r"\b(?:class search|class schedule|course schedule|enrollment appointment|"
+                  r"registration (?:date|deadline)|waitlists?|(?:open|class) seats?|meeting times?)\b", text)
+            or codes and re.search(r"\b(?:offer(?:ed|ings?)|meets?|when (?:can i register|is it taught)|"
+                                    r"available (?:in|this|next)|(?:class|course|lab) sections?)\b", text)):
+        return CourseQuestion(
+            "schedule", "Use the official class search. Select a term, then open the section for meeting times, "
+            "availability and enrollment details.",
+            "Open class search", PUBLIC_CLASS_SEARCH, codes)
+    return None
 
 
 def coverage_message(catalog, profile, question, *, allow_course_discovery=False):

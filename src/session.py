@@ -38,6 +38,8 @@ def sync_profile_widgets(state, profile, course_codes):
 def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
     discard_advisor_job(state)
     state.pop("lesson_question_pending", None)
+    state.pop("roadmap_course_focus", None)
+    state["advisor_destination"] = "My Roadmap"
     previous = state.get("profile")
     notices = []
     if previous:

@@ -12,7 +12,7 @@ from src.course_directory import (add_requested_courses, build_directory,
 from src.enrollment_references import load_enrollment_references
 from src.models import Completion, StudentProfile
 from src.sources import refresh_catalog
-from test_app import app, submit
+from test_app import app, open_advisor_tab, submit
 
 
 @pytest.fixture
@@ -169,6 +169,7 @@ def test_directory_browsing_is_local_paged_and_does_not_touch_profile_or_plan(di
     monkeypatch.setattr("src.controller.run_advisor",forbidden)
     monkeypatch.setattr("httpx.Client.send",forbidden)
     profile=app.session_state["profile"].model_dump_json()
+    open_advisor_tab(app, "Courses & Resources")
     app.radio(key="collection_scope").set_value("ece").run()
     panels=lambda:[x for x in app.expander if x.key and x.key.startswith("directory_record_")]
     assert len(panels())==15 and "78 matching courses · Page 1 of 6" in " ".join(c.value for c in app.caption)
@@ -219,7 +220,7 @@ def test_roadmap_shows_both_ece101_references_without_granting_eligibility(direc
     assert links["Department course page"].endswith("/ECE101")
     assert links["Open class search"] == "https://studentcenter.arizona.edu/app/ui/public/select-campus"
 
-    app.text_input(key="catalog_version").set_value("2025-2026")
+    app.selectbox(key="catalog_version").set_value("2025-2026")
     submit(app)
     assert not app.exception
     assert not any("The department lists MATH 112" in item.value for item in app.markdown)
@@ -241,6 +242,7 @@ def test_directory_course_pick_and_completion_survive_profile_export(directory_a
 
 def test_explore_from_catalog_creates_grounded_unknown_preparation_card(directory_app):
     app=directory_app
+    open_advisor_tab(app, "Courses & Resources")
     app.radio(key="collection_scope").set_value("ece").run()
     app.text_input(key="directory_query").set_value("ECE413").run()
     app.session_state["directory_record_ECE413"]=True;app.run()
@@ -250,4 +252,7 @@ def test_explore_from_catalog_creates_grounded_unknown_preparation_card(director
     assert rid in result.context.allowed_record_ids and result.context.suggested_phases[rid]=="explore"
     assert any(h.value=="Explore requested courses" for h in app.subheader)
     assert app.session_state["profile"].question=="What can I learn in ECE413?"
-    assert app.text_input(key="directory_query").value=="ECE413"
+    assert app.session_state["advisor_tab"] == "My Roadmap"
+    open_advisor_tab(app, "Courses & Resources")
+    assert app.text_input(key="directory_query").value == "ECE413"
+    assert app.get("link_button")

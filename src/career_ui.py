@@ -46,6 +46,16 @@ def render_career_path(result, catalog):
     active_route = result.trace.get("study_route")
     if active_route:
         st.caption("Specialization · " + active_route)
+        selected_route = next(route for route in path.routes if route.label == active_route)
+        st.write("**First practice** · " + selected_route.practice)
+        for alternative in path.routes:
+            for index, (selected_code, alternative_code) in enumerate(zip(selected_route.courses, alternative.courses)):
+                if selected_code != alternative_code:
+                    if index:
+                        prior = selected_route.courses[index - 1]
+                        st.caption(f"After {prior}, this route explores {selected_code}. "
+                                   f"{alternative.label} explores {alternative_code}.")
+                    break
     plural = "s" if len(electives) > 1 else ""
     title = "Career path and elective" + plural if electives else "Career path and study routes"
     panel = roadmap_expander(title, key="career_details_" + direction)

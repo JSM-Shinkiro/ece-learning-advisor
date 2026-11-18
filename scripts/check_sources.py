@@ -1,6 +1,7 @@
 """Exercise official-source checks without embedding or generation calls."""
 
 import argparse
+from collections import Counter
 import json
 import sys
 from pathlib import Path
@@ -11,6 +12,23 @@ from src.career_paths import CAREER_NAMES
 from src.catalog import ROOT, load_catalog, load_runtime_catalog
 from src.controller import run_advisor
 from src.models import StudentProfile
+from src.source_reuse import VERIFIED_CHECKS
+
+
+def summarize_checks(checks):
+    attempted = [check for check in checks if check["status"] != "skipped"]
+    rules = Counter(check["rule_status"] for check in attempted if check.get("rule_status"))
+    discovery = Counter(check["discovery_status"] for check in attempted if check.get("discovery_status"))
+    failed_sources = sum(check["status"] not in VERIFIED_CHECKS for check in attempted)
+    return {
+        "attempted": len(attempted),
+        "skipped": len(checks) - len(attempted),
+        "failed_sources": failed_sources,
+        "rules": dict(rules),
+        "discovery": dict(discovery),
+        "passed": bool(attempted) and failed_sources == 0
+                  and set(rules) <= {"verified"} and set(discovery) <= {"verified"},
+    }
 
 
 def main():
@@ -28,9 +46,11 @@ def main():
     catalog = load_runtime_catalog() if args.collection == "runtime" else load_catalog()
     result = run_advisor(catalog, StudentProfile(career_id=args.career, catalog_version=args.catalog_year, question=args.question),
                          refresh_sources=True, source_cache_dir=args.cache_dir)
+    checks = result.trace["source_refresh"].get("checks", [])
+    summary = summarize_checks(checks)
+    result.trace["source_refresh"]["summary"] = summary
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result.trace, indent=2), encoding="utf-8")
-    checks = result.trace["source_refresh"].get("checks", [])
     for check in checks:
         print(check.get("kind", "course"), check["code"], check["status"],
               "rule status:", check.get("rule_status") or "not applicable",
@@ -41,11 +61,11 @@ def main():
         print("requested course:", request["code"], request["status"])
     for issue in result.issues:
         print(issue)
+    print("Attempted", summary["attempted"], "· skipped", summary["skipped"], "· failed sources", summary["failed_sources"])
+    print("Prerequisite verification", summary["rules"], "· course discovery", summary["discovery"])
     print("Source-check trace:", args.output)
     print("No embedding or generation requests were made.")
-    return 0 if checks and all(c["status"] in {"updated", "unchanged", "not_modified"}
-                              and c.get("rule_status") in {None, "verified"}
-                              and c.get("discovery_status") in {None, "verified"} for c in checks) else 1
+    return 0 if summary["passed"] else 1
 
 
 if __name__ == "__main__":
