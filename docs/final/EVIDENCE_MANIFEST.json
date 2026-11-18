@@ -2,9 +2,9 @@
   "schema_version": 2,
   "prepared_date": "2026-11-08",
   "created_at_utc": "2026-11-08T08:11:05.544487+00:00",
-  "source_base_revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
-  "runtime_verification_revision": "225fdc6e626030fc09dc920c35f258709b7038e7",
-  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217",
+  "source_base_revision": "10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6",
+  "runtime_verification_revision": "10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6",
+  "runtime_verification_url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324",
   "collections": [
     {
       "name": "baseline",
@@ -32,15 +32,15 @@
     },
     {
       "name": "combined_career_collection",
-      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-14-specializations",
-      "records": 71,
+      "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-18-study-resources",
+      "records": 75,
       "kinds": {
         "course": 47,
-        "resource": 16,
+        "resource": 20,
         "career": 8
       },
-      "evidence_chunks": 75,
-      "corpus_hash": "e79aa89e9cb286847a681b8c3e7e43c5fee6f62928348005de4afd55507b2d5c"
+      "evidence_chunks": 79,
+      "corpus_hash": "454f7f16394cee7af14e8d51a051e6551038c163c0bcf3d7d6b8563f3e08e5c9"
     }
   ],
   "review_template": {
@@ -55,7 +55,7 @@
   "source_files": [
     {
       "path": "app.py",
-      "sha256": "d18db4d2c31f477c00c0bac33c365ec3c86d4a2faa343bbee0775e2de01f5b49"
+      "sha256": "0b474f1941df8a3069d99cfc1fa069de2c575d4fbc4235b7ebb4a13e3fde0dc0"
     },
     {
       "path": "reviewer_app.py",
@@ -75,7 +75,7 @@
     },
     {
       "path": "src/service.py",
-      "sha256": "9abbac27b1a8b417467d5cbcd4d3199f11e7ed8949d7f290f86c6ad3bf3a32ce"
+      "sha256": "9e8771ddac620d99acb6a1e6cfcb77cde12f885a8d600008ab64eb804aaafd93"
     },
     {
       "path": "src/rules.py",
@@ -87,7 +87,7 @@
     },
     {
       "path": "src/controller.py",
-      "sha256": "8eba3cb29572947bc4dcb4bcedc5838756d130dfda02e8256c06c644abf3b93c"
+      "sha256": "28bb905fe8041f9756110d153af60e9114db9466285cac10099b82e650029b8d"
     },
     {
       "path": "src/providers.py",
@@ -99,7 +99,7 @@
     },
     {
       "path": "src/advisor_jobs.py",
-      "sha256": "c891f8169a8367fadf0f5b9cb9deafc8240635433e17bb72b7f8693bc5972e8d"
+      "sha256": "9da5a5929edd19e6eac3b9bda59b98660e00d84f082973037077344d89caa6f3"
     },
     {
       "path": "src/source_reuse.py",
@@ -127,11 +127,11 @@
     },
     {
       "path": "src/collection_ui.py",
-      "sha256": "109249f24cdf38427d6c89bbfc058cc8672933e6a7ac352b02fc101ea0446fb0"
+      "sha256": "6758f24c55f3639b8a3e4723081ba52501c28d2db8cbe8d165e42a606c469c14"
     },
     {
       "path": "src/opportunity_ui.py",
-      "sha256": "ea3632aae9cc334b2fb211497298b6aa5bdccc3fe5629c9ede72ffeea218f316"
+      "sha256": "c1cb2afbcca1c0d87be642ff0d37c9da7d18af891c305a1e5f3b8ffcd876d312"
     },
     {
       "path": "scripts/serve.py",
@@ -155,7 +155,7 @@
     },
     {
       "path": "src/directory_ui.py",
-      "sha256": "0a1078c5b1ee451ca8c2124c704a67bc1b6837437f056dd612e91294c3ccbcb8"
+      "sha256": "c212406442a42c6e92bea4756c41b626f238f2c8a5da439b784527741fec9dd0"
     },
     {
       "path": "scripts/sync_course_directory.py",
@@ -167,7 +167,7 @@
     },
     {
       "path": "tests/test_course_directory.py",
-      "sha256": "7c64a02b55651884f40c4e677a4ac6e7011f64215b63fd07a5e1fa8f87cfb923"
+      "sha256": "034a6fef32a74a5c61ab1a90c3aff195899b13d56c28ecb0c97bb9daa2bdb0d8"
     },
     {
       "path": "src/learning_lab.py",
@@ -175,15 +175,15 @@
     },
     {
       "path": "src/learning_ui.py",
-      "sha256": "13c9e6eb218429ac73d7663f744c743dc449b735eed624e0dad194f8e0c34c70"
+      "sha256": "a4eb469eddd41c13d51982e827e3b2c3f29b927b307d8df1cabfa4bb7718ff86"
     },
     {
       "path": "src/progressive_browser_checks.py",
-      "sha256": "d2cb758a18fd77add8521fda8557b5c11192c8c4a8024b8fa316e4b0a0734d84"
+      "sha256": "2d9724ed1ca29d46e690ffa6916d53680462347a9a1830525a7ff8551d2fdc91"
     },
     {
       "path": "tests/test_learning_path.py",
-      "sha256": "149d0619ccfc647b69220448c654bf6dcd14849d7bf0ff602ecb128cdd2d997d"
+      "sha256": "dea105bb00d1399d660b9a7c6b6b9459ff22c95ae11c3e332b45f37af5a29539"
     },
     {
       "path": "assets/learning/ece-lab.webp",
@@ -195,15 +195,15 @@
     },
     {
       "path": "src/session.py",
-      "sha256": "d4e72dfe4bb0233387a9b27508e30da9cdc9a1bdd7de42e60a858eba4d0c315d"
+      "sha256": "c2ce72dc78347e4283ff6e3b8db9bc091da1974ad3e093ebdffcd2545ac41d8e"
     },
     {
       "path": "src/source_ui.py",
-      "sha256": "36f24e5e06c5b844e99788ffa7b93499692fdc220c107f1906f7a2cca6bda7dd"
+      "sha256": "00d77c04fd80ac0a8c45aa71af2e0631d33e4a758457036f98fa0cb936ddce95"
     },
     {
       "path": "tests/fixtures/progressive_app.py",
-      "sha256": "fab76d9bb6428d3b779bae02d00ee445f10ec9ed9a77af35fe0a243d70fc4aa4"
+      "sha256": "bae91f2d7673d15937b60cffb84ac20053fb4365983ca49984c9300280c3870a"
     },
     {
       "path": "tests/test_advisor_jobs.py",
@@ -219,11 +219,11 @@
     },
     {
       "path": "src/enrollment_references.py",
-      "sha256": "3643036b4c6b1c11c2b46f82228e4c60ff22a710c57ea95f587f7ae1d2434e22"
+      "sha256": "52a74b31cbc693923bd5992d8d9b8ed54bc48d1c844b9ca785cf245ec81a46ac"
     },
     {
       "path": "data/catalog/ece_enrollment_references_2026_2027.json",
-      "sha256": "98b4d6dd8ba786b1e795801f3301224cc7314e3357dcbf2a1887fc52747a4ff3"
+      "sha256": "6253001aca9eaddfc8088e9c1a187aa657a225c1087c6cadf9cd0aeff6ced249"
     },
     {
       "path": "src/ingest.py",
@@ -247,7 +247,7 @@
     },
     {
       "path": "data/reviewed/career_paths_2026_2027.json",
-      "sha256": "1576aafe23f23726a6c48011a663eea4a5c3d0fa85726a577ef3c4ff577abb7c"
+      "sha256": "06080b64ed9682b9db376ca3f189a931a25a95052a3209b0b8ea4543e9a28a10"
     },
     {
       "path": "src/career_catalog.py",
@@ -255,11 +255,11 @@
     },
     {
       "path": "src/career_paths.py",
-      "sha256": "e635ee3182ae88c4592b40ca61ce209c3ace3276a938a785c0b9b75734403b1d"
+      "sha256": "b31a875c874f40d74fef06cd7180fef80bc254c2fd147b9d0c23dc516fe7dacc"
     },
     {
       "path": "src/career_ui.py",
-      "sha256": "7ceb11edabc9b670e4acd9b9369da66f763a9d583653a4b18eea1e1d3041ce74"
+      "sha256": "3d5d8bb9f69cadb39c00fae9945ff9bd667364d1d8ed48df60933ec1b7eb3785"
     },
     {
       "path": "src/collection_filters.py",
@@ -271,11 +271,11 @@
     },
     {
       "path": "src/models.py",
-      "sha256": "ab966895d32dfe1a6e57cd0e96e75b5bbf77c7d23a695731102c9e058a980d19"
+      "sha256": "b7f51fa7c7a8c6f07001c1db538738995a0c77130ee3708f50baf97d47d2e49e"
     },
     {
       "path": "src/planning.py",
-      "sha256": "c9334c63900384b89e6c151a64e37b4e51153f34ff6bb897f11631fa4ebebcc1"
+      "sha256": "f86deef8d9cdd788e3615790122be6e869268ca8193bf5d3e239735fbde302e8"
     },
     {
       "path": "tests/test_career_paths.py",
@@ -287,7 +287,7 @@
     },
     {
       "path": "scripts/check_sources.py",
-      "sha256": "534d96977d6a682abb3ec2070d93baa6c1c99cb761a220f234a8a3271654516f"
+      "sha256": "b435ededd37e63ef4626a2ee1881255585288edb67fd757aad41ddd67550f301"
     },
     {
       "path": "src/browser_checks.py",
@@ -299,19 +299,27 @@
     },
     {
       "path": "tests/test_app.py",
-      "sha256": "a141f2a6c426f2d62b6880869ca4b697affe784fed609be8867b5d3daeaa888d"
+      "sha256": "fa0d88f09f04c93f88d09b21cb8f34625b5149c0ba9fa877e504d4a762fb1b41"
     },
     {
       "path": "tests/test_collection_browsing.py",
-      "sha256": "c2cdb0fdc93fa12a5ec462891a63fe1470545491bd64397f2e57fa97d06c8a83"
+      "sha256": "7acb74cc9fa752eb80319209d4a497cfa227fad20f6d8e306351c51efe3f53cc"
     },
     {
       "path": "tests/test_runtime_catalog.py",
-      "sha256": "18b81e428c816b54bbf44e5b1f7eb263265744d0079724b1c7a6acbd7d97d9eb"
+      "sha256": "c618d195c07eca070fd93b17dcfd05062b0f33df254c6e01b1835899d62f236e"
     },
     {
       "path": "tests/test_rule_sources.py",
       "sha256": "5988d708aab284d23797cc8782fc0771f5a53ecad6fc0fdd403c85385e03004c"
+    },
+    {
+      "path": ".github/workflows/backend.yml",
+      "sha256": "0909364bb07cfc569ece252b88003949e0ec56c9fcc5c1574544d5b3f333836a"
+    },
+    {
+      "path": "tests/test_pre_submission.py",
+      "sha256": "5476b4f7458cae667f9629872eb8723e920a96111db0b9edea76e98b906d49ea"
     }
   ],
   "evidence_files": [
@@ -390,6 +398,10 @@
     {
       "path": "docs/evidence/rendered_program_statements_2026-11-15.json",
       "sha256": "28a8a938964a3b04f289b39a9428bf4ff89f2e2a2439ea8c7463ea04416f77c6"
+    },
+    {
+      "path": "docs/evidence/pre_testing_fixes_2026-11-18.json",
+      "sha256": "f7624e9d010a2400f3db0d57062ac82a6d155e89c7e1ce2dfd90f1a6cb067cec"
     }
   ],
   "preserved_inputs": [
@@ -437,19 +449,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "5c9cf3fc5c9061c398fd9bbe7f87cf266e00ba3df91c13c635788a5038ec3927"
+      "sha256": "9ced7240d22aab92fa5696245835913920e85c43d39e6bcbf151c8116f4ebb6d"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "725b7fe3e5ffeee2d6c3f11926f082e07433f2fe5e8f3b9f6374a486f1c88d15"
+      "sha256": "fcc7985ad1059e25f7ae6a0612301c0b130ca6d85b7cebb7ae71144db6acd462"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "47ec3c2ad9f3895bdace088b9b136a2f12fa99a6ab66a8d2eb9cadca914f71e8"
+      "sha256": "afe66fda09a4a5f062ddf704816d92e30a96f853047265b5b76a6ce22cc8c15d"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "eb908b1f9b6e17781fb2e553f5853a6a1acb93c77debb5c897fd6b0f6e1dc017"
+      "sha256": "228df96cd9b25b70736579883ef327d8911833436f589501e4d427152587dbb9"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -465,7 +477,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "c38e1e781d33b6f2f78a7b987352f2ad6e4d101ea5f3dd33246024d3881ed72c"
+      "sha256": "ab1621aa8708ab879e10f7f7ea4376699d6dd0d9ddf63b86f398428a5902a005"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -473,11 +485,11 @@
     },
     {
       "path": "docs/APP_SUMMARY.md",
-      "sha256": "94db5a2982b4e5314dcb8ba96a6814d45e803a885dd1e6d01460c44ed86e1c80"
+      "sha256": "ac61fb7aa25f3bc373bb26ba25a29a7a808dcd04f8cc79d0179ce5abdf86ea52"
     },
     {
       "path": "docs/59_CAREER_DIRECTIONS.md",
-      "sha256": "138302d2001d0b32d650f2da0b756bb4d061ec00647559a7e59e65dffcdb32e6"
+      "sha256": "55247330cc8e55b99d4006c48f571ce1d295c6449b8128891e395f7813751cba"
     },
     {
       "path": "docs/final/FIGURES.md",
@@ -505,7 +517,7 @@
     },
     {
       "path": "docs/13_FINAL_PROJECT_DEVELOPMENT.md",
-      "sha256": "795e0da0f7ae4a84a27fe35a2f4d446474eb4efa8aab42cd7ac4105573f40f96"
+      "sha256": "7f311932151435f4ea8700d1a39edb997b24b4b1efc61a0701f18992da6d82ec"
     }
   ],
   "external_references": [
@@ -544,7 +556,7 @@
     "The final-readiness audit separates midpoint guidance, accepted core scope and planned validation; midpoint page/video/package rules are not assumed to be final rules.",
     "The learning path demonstrates retrieval with four visible term-count features and saved descriptions. The browser gates use controlled data and provider fixtures. Student comprehension and the final recording remain unverified."
   ],
-  "updated_at_utc": "2026-11-16T02:36:32+00:00",
+  "updated_at_utc": "2026-11-18T22:42:16+00:00",
   "previous_runtime_verification": {
     "revision": "19b8c9c193192779a8333df6f050f0fea5662105",
     "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/42458364808",
@@ -663,5 +675,12 @@
     "live_demo_checks_passed": 11,
     "app_planning_percent": 95,
     "submission_planning_percent": 72
+  },
+  "pre_testing_fixes": {
+    "date_mst": "2026-11-18",
+    "evidence": "docs/evidence/pre_testing_fixes_2026-11-18.json",
+    "chromium_checks": 41,
+    "app_planning_percent": 96,
+    "submission_planning_percent": 73
   }
 }

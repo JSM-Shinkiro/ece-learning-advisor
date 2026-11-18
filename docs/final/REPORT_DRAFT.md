@@ -6,7 +6,7 @@ This draft describes verified application revision `225fdc6e626030fc09dc920c35f2
 
 ## Abstract
 
-ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. It combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index. Optional pretrained Gemini models supply embeddings and statement selections. The Advisor curates eight career directions with selectable study routes across 47 courses and 16 resources. A published 2026–27 directory exposes descriptions for 78 undergraduate ECE courses. In a paired offline browser experiment, median first inspector opening decreased from 1.608 to 0.687 seconds. Independent relevance judgments, student usability outcomes and repeated live-AI latency measurements remain open.
+ECE Learning Advisor connects a student's interests and recorded coursework with courses, learning resources and public opportunities. It combines keyword or neural retrieval with deterministic preparation checks and source-bound explanation selection. Students can inspect evidence, rankings, cosine calculations and a two-dimensional vector projection. The implementation uses versioned JSON, public-source caches and a small NumPy index. Optional pretrained Gemini models supply embeddings and statement selections. The Advisor curates eight career directions with selectable study routes across 47 courses and 20 resources. A published 2026–27 directory exposes descriptions for 78 undergraduate ECE courses. In a paired offline browser experiment, median first inspector opening decreased from 1.608 to 0.687 seconds. Independent relevance judgments, student usability outcomes and repeated live-AI latency measurements remain open.
 
 ## 1. Problem and project goals
 
@@ -118,7 +118,7 @@ Opportunities use explicit public Greenhouse-board searches for Samsara, Nuro an
 | --- | ---: | ---: | ---: | ---: |
 | Frozen development baseline | 5 | 2 | 2 | 10 |
 | Saved runtime collection | 20 | 8 | 2 | 34 |
-| Combined career collection | 47 | 16 | 8 | 75 |
+| Combined career collection | 47 | 20 | 8 | 79 |
 
 The Advisor uses a filtered set of records from the combined collection for each route. The historical retrieval results below use the ten-chunk baseline. The review packet for human assessment uses the archived 34-chunk collection. [E19–E21](EVIDENCE_MAP.md)
 

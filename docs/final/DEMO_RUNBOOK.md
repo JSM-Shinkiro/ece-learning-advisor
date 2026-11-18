@@ -1,6 +1,6 @@
 # Final demo runbook
 
-Updated November 15, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
+Updated November 18, 2026. Rehearse the three segments with the production entrypoint. Agree on the final duration using the course instructions and export a separate final recording.
 
 ## 1. Reproducible preview setup
 
@@ -27,7 +27,7 @@ $env:ECE_DEVELOPMENT_MODE = "false"
 .\.venv\Scripts\python.exe scripts/serve.py --address 127.0.0.1 --port 8501
 ```
 
-Open `http://127.0.0.1:8501`. These settings disable catalog/resource checks and AI; explicit employer searches still require network access. Use a fictional profile. The app opens at **Beginner**. Choose **Advisor** and select **Update my roadmap** to inspect an advisor result. `scripts/serve.py --check` with the same environment runs the startup preflight without listening.
+Open `http://127.0.0.1:8501`. These settings disable catalog/resource checks and AI; explicit employer searches still require network access. Use a fictional profile. The app opens at **Beginner**. Choose **Build my roadmap** and select **Update my roadmap** to inspect an advisor result. `scripts/serve.py --check` with the same environment runs the startup preflight without listening.
 
 The PowerShell credential values contain one space. The app strips credential whitespace, while the defined variable prevents `.env` fallback on older PowerShell versions that remove empty-valued variables. See [Microsoft's environment-variable documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_Environment_Variables).
 
@@ -37,8 +37,8 @@ Each team member prepares, narrates and demonstrates one segment. Share the fina
 
 | Clip | On-screen action | Narration and handoff |
 | --- | --- | --- |
-| `01_beginner.mp4` | Show the landing photo, two ECE directions, roadmap and question-to-evidence flow. Answer the preparation question. End with **Try a preset experiment** in view. | “ECE combines hardware, software and data. The advisor helps us find learning evidence for a goal. Now let’s see what changes when we rank that evidence differently.” |
-| `02_intermediate.mp4` | Open **Intermediate** with **Program a sensor** selected. Change **Keyword** to **Topic cosine**. Open **Inspect evidence** to show the topic counts and cosine for a record. Open **Developer view · visualization code** and end with **Create your variation** in view. | “Keyword matching and topic cosine can order the same records differently. The cosine calculation uses four counts. The developer view shows how the app projects them onto a plot. Carry this setup into Advanced and try a different question.” |
+| `01_beginner.mp4` | Show the landing photo, two ECE directions, roadmap and question-to-evidence flow. Answer the preparation question. End with **Learn how the Advisor works** in view. | “ECE combines hardware, software and data. The advisor helps us find learning evidence for a goal. Now let’s see what changes when we rank that evidence differently.” |
+| `02_intermediate.mp4` | Open **Intermediate** with **Program a sensor** selected. Predict **ECE372A** under **Keyword** and select **Reveal ranking**. Switch to **Topic cosine** and confirm that the same record stayed first. Open **Inspect evidence** to show the topic counts and cosine for a record. Open **Developer view · visualization code** and end with **Create your variation** in view. | “Keyword matching and topic cosine can order the same records differently. The cosine calculation uses four counts. The developer view shows how the app projects them onto a plot. Carry this setup into Advanced and try a different question.” |
 | `03_advanced.mp4` | Select **Create your variation**. Keep the inherited sensor preset and **Topic cosine**. Enter the image-classification question, select **ECE425** as expected evidence, and compare. Choose **ECE425** under **Record to explain**, select **Entered the ranking**, inspect its evidence and save an explanation. Select **Use this question in Advisor** and continue with the neural segment below. | “ECE425 enters the first three results for this question. Its description covers neural network methods. I’ll take the same question into the Advisor and compare the lesson counts with its neural embeddings.” |
 
 Use the question “How do I train a neural network for image classification in Python?” for the shared Advanced example. Record the actual result visible on the final revision.
@@ -76,7 +76,7 @@ The November 15 CLI rehearsal passed all 11 checks using live Gemini and source 
 
 ### Screen walkthrough
 
-1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Use **AI / Machine Learning** and **Comfortable with programming** with empty coursework, interests, and experience. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid**, and select **Update my roadmap**.
+1. Recreate the Advanced comparison in the configured session and select **Use this question in Advisor**. Use **AI / Machine Learning**, the **2026-2027** catalog year, and **Comfortable with programming** with empty coursework, interests, and experience. Confirm the question is present, open **AI and ranking options**, enable **Generate AI explanations**, choose **hybrid**, and select **Update my roadmap**.
 2. Show the dated saved-data roadmap while official sources are checked. Then show the updated source plan while AI runs. Wait for the final result and record any fallback you observe.
 3. Confirm the trace's `retrieval_mode` is the chosen neural mode, actual model IDs are present, `generation_complete` is true and `generation_status` is `answered` before calling the segment a completed AI explanation.
 4. Open **How this plan was made** and **Compare lesson and neural embeddings**. Show how the two cosine rankings compare for the seven common overviews and the displayed Advisor search text. It includes the carried question and profile terms.

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-18",
+  "recorded_at_utc": "2026-11-18T22:42:16+00:00",
+  "audit_base_revision": "cb30cadc77cceee6f63efaa6a983725af27fc1bd",
+  "application_revision": "10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6",
+  "tested_tree": "8e19240d12d8d97592caac1eecee8f60f6825424",
+  "scope": "Pre-testing changes checked with automated fixtures and offline browser sessions.",
+  "regressions": [
+    "A fresh Still exploring request shows its saved and checked solar roadmap before direction acceptance.",
+    "An explicit career choice remains until the student takes a suggested switch. Incompatible questions return a choice.",
+    "Section scheduling, tuition and exam-date questions keep named course descriptions and link to the responsible university service.",
+    "Equivalent 2026–27 catalog-year strings use the same reviewed rules. An older or unknown year leaves the result unknown.",
+    "The first ranking requires a prediction. The method-change feedback uses the displayed ranks.",
+    "Keyboard focus and primary button contrast are checked in Chromium. The 320-pixel landing page reflows.",
+    "Course and opportunity tabs render on demand. The directory opens the requested course in My Roadmap.",
+    "Expected skips are counted separately from source failure, rule verification and discovery in the source checker."
+  ],
+  "local": {
+    "pytest_passed": 1825,
+    "pytest_seconds": 77.2,
+    "startup_checks_passed": 9,
+    "chromium": "The workspace denied the browser's socket at startup. GitHub Actions ran browser acceptance."
+  },
+  "hosted_runs": [
+    {
+      "id": 44412051402,
+      "revision": "9f2d2c553d34a235918366b86d00bd92fcd1f03b",
+      "result": "browser_failure",
+      "finding": "The reveal action ran before the browser had applied the enabled state after a prediction."
+    },
+    {
+      "id": 44412667615,
+      "revision": "fc549ee1e8c31fd372acff3a92a3f2a00948d21a",
+      "result": "browser_failure",
+      "finding": "The browser fixture timed out disabling AI at the beginning of the separate exploratory regression."
+    },
+    {
+      "id": 44413451324,
+      "url": "https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324",
+      "revision": "10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6",
+      "result": "success",
+      "jobs": [
+        {
+          "id": 135187398219,
+          "environment": "Ubuntu 26.04, Python 3.12",
+          "tests_passed": 1825,
+          "startup_checks_passed": 9
+        },
+        {
+          "id": 135187397988,
+          "environment": "Windows latest, Python 3.12",
+          "tests_passed": 1825,
+          "startup_checks_passed": 9
+        },
+        {
+          "id": 135187397451,
+          "environment": "Chromium",
+          "browser_checks_passed": 41,
+          "student_flow": 12,
+          "reviewer_workspace": 6,
+          "controlled_ai_and_browsing": 23,
+          "current_preview_sessions_completed": 5,
+          "fixed_baseline_preview_sessions_completed": 5
+        }
+      ]
+    }
+  ],
+  "combined_collection": {
+    "name": "combined_career_collection",
+    "data_version": "pilot-2026-11-03-rule-provenance-v1+runtime-2026-11-06-v2+career-paths-2026-11-18-study-resources",
+    "records": 75,
+    "kinds": {
+      "course": 47,
+      "resource": 20,
+      "career": 8
+    },
+    "evidence_chunks": 79,
+    "corpus_hash": "454f7f16394cee7af14e8d51a051e6551038c163c0bcf3d7d6b8563f3e08e5c9"
+  },
+  "enrollment_reference_review": {
+    "reviewed_on": "2026-11-18",
+    "codes": [
+      "ECE101",
+      "ECE369A",
+      "ECE372A",
+      "ECE425"
+    ],
+    "section_eligibility": "unknown",
+    "source_links": [
+      "https://ecse.engineering.arizona.edu/undergrad-programs/courses",
+      "https://engineering.arizona.edu/pdfs/4-year-degree-plans/2026/ElectricalComputerEngineering26-27r.pdf",
+      "https://studentcenter.arizona.edu/app/ui/public/select-campus"
+    ]
+  },
+  "evaluation_inputs": {
+    "preserved_hashes": 8,
+    "archived_unscored_judgments": 408
+  },
+  "remaining": [
+    "Independent relevance and claim review.",
+    "Voluntary student sessions and hands-on accessibility checks.",
+    "Live Gemini browser rehearsal and real-source performance.",
+    "Final report, slides, edited recording and package."
+  ]
+}

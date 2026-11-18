@@ -1,8 +1,8 @@
 # Career directions and outside-ECE electives
 
-Team P07 · Updated November 15, 2026 MST
+Team P07 · Updated November 18, 2026 MST
 
-The Advisor offers eight career directions, 17 specialization choices and a combined collection of 47 courses and 16 resources. Open a career panel in **My Roadmap** to see the specialization choices, course sequences and practice exercises. The published undergraduate ECE directory provides 78 searchable course entries. [Career course and source records](../data/reviewed/career_paths_2026_2027.json)
+The Advisor offers eight career directions, 17 specialization choices and a combined collection of 47 courses and 20 resources. Open a career panel in **My Roadmap** to see the specialization choices, course sequences and practice exercises. The published undergraduate ECE directory provides 78 searchable course entries. [Career course and source records](../data/reviewed/career_paths_2026_2027.json)
 
 | Direction | Specializations | Selected course anchors and complementary sources |
 | --- | --- | --- |
@@ -19,10 +19,19 @@ The 2026–27 program catalog specifies upper-division ECE coursework under Tech
 
 ## Advisor behavior
 
-- A question can match a direction under **Still exploring**. Inside a direction, use an **Explore** button or name a specialization in the question field to focus the roadmap. Edge AI appears in both AI / Machine Learning and Embedded Systems.
+- A question can match a direction under **Still exploring**. Accept the match to save it. When a question points outside the selected direction or an exploratory question matches several directions, choose from the matching options. Inside a direction, use an **Explore** button or name a specialization in the question field to focus the roadmap. Edge AI appears in both AI / Machine Learning and Embedded Systems.
 - A selected route supplies relevant courses and its available practice resource. Explicit course requests can join the route. Recorded completed and current courses are excluded from suggestions. Academic enrollment checks use the available section and catalog evidence.
 - All eight directions work in **Courses & Resources** and with **Opportunities** title filters. The configured employer boards determine which jobs appear in a search.
-- The combined collection has 75 evidence chunks. The archived independent-review inputs use the 34-chunk core and the original development comparison uses the ten-chunk baseline.
+- The combined collection has 79 evidence chunks. The archived independent-review inputs use the 34-chunk core and the original development comparison uses the ten-chunk baseline.
+
+Four branch exercises now have a dedicated study source and a concrete output.
+
+| Study route | Source | Practice output |
+| --- | --- | --- |
+| RF & Microwave Engineering | MIT OpenCourseWare, lectures 10 and 11 on transmission lines and reflection | Plot reflected power for a matched load and two mismatched loads. [MIT notes](https://ocw.mit.edu/courses/6-013-electromagnetics-and-applications-fall-2005/resources/lecture-notes/) |
+| Fabrication & test | NIST/SEMATECH process capability guide | Plot measurements from two simulated wafer lots against a specification limit and report pass rates. [NIST guide](https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm) |
+| Building Electrical Systems | OpenStax, Power in an AC Circuit | Compare real power, apparent power and power factor for two fictional loads. [OpenStax chapter](https://openstax.org/books/university-physics-volume-2/pages/15-4-power-in-an-ac-circuit) |
+| Biosignals & Instrumentation | PhysioNet's ECG noise examples | Add drift and high-frequency noise to a synthetic pulse, then plot the filtered signal and compare error. [PhysioNet description](https://physionet.org/content/nstdb/1.0.0/) |
 
 The power routes cover a foundation in solar generation, storage and building power. A dedicated utility-grid protection route still needs a verified course sequence.
 

@@ -1,6 +1,6 @@
 # ECE Learning Advisor — Final Project Development
 
-Team P07 · Updated November 15, 2026 MST · Final presentation and submission December 11.
+Team P07 · Updated November 18, 2026 MST · Final presentation and submission December 11.
 
 For each development step, update [final readiness](FINAL_READINESS.md) with separate app/submission estimates, the acceptance gate resolved, and the main remaining work. These are planning judgments against the scoped project, not measured quality or instructor grades.
 
@@ -21,11 +21,13 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 ## Current implementation
 
-The Advisor offers eight career directions and 17 specialization entries, with Edge AI available from two paths. Students can choose a specialization from the path panel or ask a question that matches a route. Each route includes course preparation and a practice exercise. The combined collection has 47 courses and 16 resources. The archived review uses the 34-chunk core. [Career directions and verification](59_CAREER_DIRECTIONS.md)
+The Advisor offers eight career directions and 17 specialization entries, with Edge AI available from two paths. Students can choose a specialization from the path panel or ask a question that matches a route. Each route includes course preparation and a practice exercise. The combined collection has 47 courses and 20 resources. The archived review uses the 34-chunk core. [Career directions and verification](59_CAREER_DIRECTIONS.md)
 
-The final-demo verifier runs the exact carried image-classification question through one Hybrid request and records the seven-record comparison. The Advisor inspector can download the same comparison from the displayed request. The live CLI rehearsal passed with the official ECE425 source and a seven-record Gemini comparison. The browser capture remains open. Planning readiness is approximately **95% app / 72% complete submission**. [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
+The final-demo verifier runs the exact carried image-classification question through one Hybrid request and records the seven-record comparison. The Advisor inspector can download the same comparison from the displayed request. The live CLI rehearsal passed with the official ECE425 source and a seven-record Gemini comparison. The browser capture remains open. See final readiness for the current planning estimates. [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
 
 The Advisor revalidates four reviewed CS prerequisite statements from the published program page when structured data is stored separately. Course discovery uses explicit catalog course IDs. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json)
+
+The November 18 pre-testing changes publish inferred roadmaps, route schedule and billing questions to official pages, and improve the catalog-year input, lesson and mobile navigation. [Final readiness](FINAL_READINESS.md)
 
 The course directory shows catalog dates and links to section requirements. Four demo courses have dated enrollment references with their source links. The source checker handles published pages that keep their course data outside the inline metadata. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 
@@ -194,3 +196,5 @@ On November 15, the report draft adds five captioned Chromium captures from the 
 The later November 15 live rehearsal passes all 11 CLI checks on the verified application revision. One Hybrid request returns a grounded explanation and all seven comparison rows. The official ECE425 record refreshes and enrollment stays unknown. The single cold-index observation takes 33.18 s on the server, with the dated roadmap ready in 18.3 ms. Two program checks retain saved references. Planning readiness is **95% app / 72% complete submission**. Live browser capture, independent grading and the student pilot remain open. [Live verification](evidence/live_demo_rehearsal_2026-11-15.json)
 
 The later November 15 catalog repair reads the rendered requirements for CSC110, CSC120, CSC144 and CSC210. All four statements match their reviewed texts. A source-only request with a fictional B in ECE101 satisfies the reviewed CSC120 condition. The warm-index live Hybrid rehearsal passes all 11 checks. The separate course-list payloads returned HTTP 403 in this workspace. Linux and Windows each pass 1,813 tests and nine startup checks. Chromium passes 39 checks. Planning readiness is **95% app / 72% complete submission**. Live browser capture, independent evaluation and the student pilot remain open. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217)
+
+The November 18 pre-testing unit restores inferred career results through the background source workflow. It gives section and billing questions an official next step, makes the catalog-year choice explicit, uses on-demand tabs, and adds prediction and comparison to Intermediate. Four branches get dedicated learning sources. The pre-testing revision passes 1,825 tests and nine startup checks on both Ubuntu 26.04 and Windows. Chromium passes all 41 checks, including keyboard activation, contrast, a 320-pixel landing page, and a fresh 390-pixel Still exploring session. Planning readiness is **96% app / 73% complete submission**. The student pilot, independent grades, live browser demonstration and final package remain open. [Verification](evidence/pre_testing_fixes_2026-11-18.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324)

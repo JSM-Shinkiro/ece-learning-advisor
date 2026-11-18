@@ -1,14 +1,14 @@
 # ECE Learning Advisor — App Summary
 
-Team P07 · ECE 425/525 · Updated November 15, 2026
+Team P07 · ECE 425/525 · Updated November 18, 2026
 
-Verified application revision `225fdc6e626030fc09dc920c35f258709b7038e7`. [Final readiness](FINAL_READINESS.md)
+Verified application revision `10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6`. [Final readiness](FINAL_READINESS.md)
 
 ## Purpose
 
 ECE Learning Advisor helps University of Arizona ECE students connect their interests and coursework to a learning path. The Advisor offers eight career directions, including Photonics & Electro-Optics, Power & Energy Systems, and Biomedical Instrumentation & Sensors. **Still exploring** lets learners choose a direction or ask a question. Each direction has a career panel with selectable specializations, with Edge AI available in both AI / Machine Learning and Embedded Systems. Roadmaps group suggestions into **Start here**, **Build toward**, and **Later goals**. [Career directions](59_CAREER_DIRECTIONS.md)
 
-The app opens at **Beginner**, with illustrations, a flowchart and a worked topic-count example. **Intermediate** compares ranking methods and exposes source excerpts and cosine calculations. **Advanced** carries the preset and method forward, compares a custom question, and checks an observed rank change. **Use this question in Advisor** fills the evaluated question into the profile form. In a semantic or hybrid request, the inspector compares topic counts with provider embeddings on the same seven records.
+The app opens at **Beginner**, with illustrations, a flowchart and a worked topic-count example. **Intermediate** prompts a prediction before showing the ranking, checks what changed after switching methods, and exposes source excerpts and cosine calculations. **Advanced** carries the preset and method forward, compares a custom question, and checks an observed rank change. **Use this question in Advisor** fills the evaluated question into the profile form. In a semantic or hybrid request, the inspector compares topic counts with provider embeddings on the same seven records.
 
 ## Are we using a database?
 
@@ -55,10 +55,10 @@ Opportunity matching is based on configured title filters and public listings. O
 
 ## Current implementation and limits
 
-- **Collection** · 47 courses, 16 resources and eight career directions, including 32 ECE courses in the curated collection. The saved 34-chunk core supports general AI/ML and Embedded Systems queries and the archived evaluation. The separate 78-entry undergraduate ECE directory follows the official 2026–27 list's effective-date setting of January 13, 2027. Check the class search for section availability.
-- **Academic conditions** · Four exact CS conditions have reviewed interpretations. ECE conditions and CSC372 remain unverified. ECE101, ECE369A, ECE372A and ECE425 show dated enrollment references. ECE101 shows the department and the 2026–27 advised plan separately because their listed math conditions differ. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
+- **Collection** · 47 courses, 20 resources and eight career directions, including 32 ECE courses in the curated collection. The saved 34-chunk core supports general AI/ML and Embedded Systems queries and the archived evaluation. The separate 78-entry undergraduate ECE directory follows the official 2026–27 list's effective-date setting of January 13, 2027. Check the class search for section availability.
+- **Academic conditions** · Four exact CS conditions have reviewed interpretations. ECE conditions and CSC372 remain unverified. ECE101, ECE369A, ECE372A and ECE425 show dated enrollment references and tailored questions for advising. ECE101 shows the department and the 2026–27 advised plan separately because their listed math conditions differ. [Enrollment source review](evidence/focused_ece_enrollment_2026-11-13.json)
 - **Technology:** Python, Streamlit, Pydantic validation, NumPy retrieval/vector math, native ranking bars and Plotly vector charts, and optional Gemini integration. Default configured models are `gemini-embedding-2` and `gemini-3.5-flash-lite`, with 768-dimensional embeddings; these settings are configurable.
-- **Verification** · The latest run passed 1,813 tests and nine startup checks per OS and 39 Chromium checks. The live Hybrid rehearsal verifies all four published CS statements. Course-list discovery uses saved references when explicit IDs are unavailable. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217)
+- **Verification** · The latest run passes 1,825 tests and nine startup checks per OS and 41 Chromium checks. The November 15 live Hybrid rehearsal verifies four published CS statements. Course-list discovery uses saved references when explicit IDs are unavailable. [Pre-testing verification](evidence/pre_testing_fixes_2026-11-18.json) · [Catalog verification](evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324)
 - **Preview performance:** the native inspector opens at a median 686.7 ms versus 1,608.4 ms for the fixed baseline, with five sessions per version using the same v2 collector/runner. Native reopening takes 307.8 ms. That comparison recorded feedback/roadmap-control medians of 221.2/453.4 ms. These are offline DOM observations; live-AI/source and hosted/mobile timing remain separate. See [lightweight inspection](52_LIGHTWEIGHT_INSPECTOR.md).
 - **Evaluation:** the prepared review packet has twelve development questions, 34 chunks and 408 blank grades. No genuine independent judgments or student-pilot results have been collected in the saved packet.
 - **Submission** · Planning estimates are approximately 95% for the app and 72% for the complete submission. The one-request live Gemini and catalog rehearsal passed. Remaining work includes live neural and opportunity captures, independent evaluation, a student pilot, slides, report formatting, recording and packaging. [Final readiness](FINAL_READINESS.md) · [Final workspace](final/README.md)

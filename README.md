@@ -6,7 +6,11 @@
 
 Development copy for the final project on December 11. The midproject baseline is preserved in [ai-degree-planner at commit 3fdbf78](https://github.com/JSM-Shinkiro/ai-degree-planner/tree/3fdbf78079834adb4b1cf73dd4bffd74b2fe4be9). See the [final-project handoff](docs/13_FINAL_PROJECT_DEVELOPMENT.md) for repository boundaries, backend priorities, and the next work.
 
-The app opens with a self-guided learning path. **Beginner** introduces ECE and evidence retrieval. **Intermediate** compares rankings on preset questions. **Advanced** lets you create a variation and evaluate its results. The developer view shows the code that draws the visualization. [Midproject feedback response](docs/57_MIDPROJECT_FEEDBACK_RESPONSE.md)
+## Quick start
+
+From the repository root, install `python -m pip install -r requirements.txt` in a virtual environment and run `python scripts/serve.py`. Open the local URL from the terminal and choose **Build my roadmap**. The first roadmap works without a model key. Set `ECE_REFRESH_SOURCES=false` for a fully offline roadmap. See [installation steps](#run-locally) for Linux and Windows.
+
+The app opens with a self-guided learning path. **Beginner** introduces ECE and evidence retrieval. **Intermediate** asks you to predict a result, reveal the ranking and explain what changed after switching methods. **Advanced** lets you create a variation and evaluate its results. The developer view shows the code that draws the visualization. [Midproject feedback response](docs/57_MIDPROJECT_FEEDBACK_RESPONSE.md)
 
 [Final readiness](docs/FINAL_READINESS.md) tracks the app and submission separately, including independent evaluation, browser validation, and final report/slides/demo. Each development step updates this assessment.
 
@@ -20,7 +24,7 @@ The [November 13 final-version audit](docs/58_FINAL_VERSION_AUDIT.md) defines th
 
 The directory shows its effective-date filter, retrieval time and each course record’s effective date. Open a course to reach the university’s class search. ECE101, ECE369A, ECE372A and ECE425 also show dated department references, with the separate advised-plan entry for ECE101. [Enrollment source review](docs/evidence/focused_ece_enrollment_2026-11-13.json)
 
-The Advisor's combined collection has 47 courses and 16 resources. **Courses & Resources → Mathematics minor overlap** explains which courses in the 2026–27 ECE plans also fit the minor's foundation requirements and links to the Math Center. The archived evaluation uses the 20-course/eight-resource core. Maintainers can refresh the published inventory with `python scripts/sync_course_directory.py`, which validates the entire paginated ECE search before replacing the snapshot. Restart the app after updating it.
+The Advisor's combined collection has 47 courses and 20 resources. **Courses & Resources → Mathematics minor overlap** explains which courses in the 2026–27 ECE plans also fit the minor's foundation requirements and links to the Math Center. The archived evaluation uses the 20-course/eight-resource core. Maintainers can refresh the published inventory with `python scripts/sync_course_directory.py`, which validates the entire paginated ECE search before replacing the snapshot. Restart the app after updating it.
 
 The [final submission workspace](docs/final/README.md) contains a separate technical report draft, a hashed evidence map/manifest, demo runbook and blank student-pilot protocol. These are preparation materials; actual independent judgments, student sessions and final-release evidence remain to be collected.
 
@@ -59,7 +63,7 @@ python -m streamlit run app.py
 
 On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1` instead.
 
-The lessons run with saved sources and local ranking. Open **Advisor** to use the student workflow in preview mode. Choose a career direction, add completed and currently taking courses with the searchable pickers, and select **Update my roadmap**. The plan groups suggestions into **Start here**, **Build toward**, and **Later goals**. Current courses stay out of next-step suggestions; **Mark completed** moves one to successful completions without inventing a grade. Restore/download JSON files under **Saved profile** to carry progress between sessions. See [current coursework](docs/43_CURRENT_COURSEWORK.md) for the workflow and verification.
+The lessons run with saved sources and local ranking. Select **Build my roadmap** to open **Your starting point** in the main page. Choose your admitted catalog year or **Not sure**, choose a career direction, and select **Update my roadmap**. The Advisor can suggest a new direction for a question while keeping the current profile available. The plan groups suggestions into **Start here**, **Build toward**, and **Later goals**. Current courses stay out of next-step suggestions; **Mark completed** moves one to successful completions without inventing a grade. Restore/download JSON files under **Saved profile** to carry progress between sessions. See [current coursework](docs/43_CURRENT_COURSEWORK.md) for the workflow and verification.
 
 On Windows, the tested Python version is 3.12. You can skip activation:
 
