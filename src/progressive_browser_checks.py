@@ -120,8 +120,8 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 stage = "primary_action_contrast"
                 begin = time.monotonic()
                 learn_button = page.get_by_role("button", name="Learn how the Advisor works", exact=True)
-                def button_contrast():
-                    return learn_button.evaluate("""button => {
+                def button_contrast(button):
+                    return button.evaluate("""button => {
                         const luminance = color => {
                             const weights = [0.2126, 0.7152, 0.0722];
                             return color.match(/[\\d.]+/g).slice(0, 3)
@@ -133,15 +133,15 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                         const background = luminance(getComputedStyle(button).backgroundColor);
                         return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
                     }""")
-                assert button_contrast() >= 4.5
+                assert button_contrast(learn_button) >= 4.5
                 learn_button.hover()
-                assert button_contrast() >= 4.5
+                assert button_contrast(learn_button) >= 4.5
                 page.mouse.move(0, 0)
                 learn_button.focus()
                 page.keyboard.press("Shift+Tab")
                 page.keyboard.press("Tab")
                 expect(learn_button).to_be_focused()
-                assert button_contrast() >= 4.5
+                assert button_contrast(learn_button) >= 4.5
                 assert learn_button.evaluate("button => getComputedStyle(button).outlineStyle === 'solid'")
                 passed("The primary action reaches 4.5:1 contrast at rest, on hover and with keyboard focus.", begin)
 
@@ -149,9 +149,11 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 learn_button.press("Enter")
                 expect(page.get_by_role("heading",name="Intermediate · Apply & analyze",exact=True)).to_be_visible()
                 expect(page.get_by_test_id("stPlotlyChart")).to_have_count(0)
-                expect(page.get_by_role("button", name="Reveal ranking", exact=True)).to_be_disabled()
+                reveal = page.get_by_role("button", name="Reveal ranking", exact=True)
+                expect(reveal).to_be_disabled()
                 choose("Which record do you predict will rank first?", "ECE372A")
-                page.get_by_role("button", name="Reveal ranking", exact=True).press("Enter")
+                expect(reveal).to_be_enabled()
+                reveal.press("Enter")
                 expect(page.get_by_test_id("stPlotlyChart")).to_be_visible()
                 ranking=page.locator('[data-ece-ranking="html"]')
                 expect(ranking).to_contain_text("Keyword ranking score")
@@ -215,6 +217,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.get_by_role("button", name="Use this question in Advisor", exact=True).click()
                 expect(page.get_by_role("heading",name="Your next step, with a path forward.",exact=True)).to_be_visible()
                 expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(question)
+                assert button_contrast(page.get_by_role("button", name="Update my roadmap", exact=True)) >= 4.5
                 expect(page.get_by_role("combobox", name="Catalog year", exact=True)).to_have_value("Not sure")
                 choose("Catalog year", "2026-2027")
                 expect(page.get_by_text("Your lesson question is in Your starting point.", exact=False)).to_be_visible()
