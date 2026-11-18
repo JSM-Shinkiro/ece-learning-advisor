@@ -531,28 +531,33 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 assert len((control/"provider.calls").read_text().splitlines())==len(provider_calls.splitlines())+1
                 passed("A catalog action opens My Roadmap on the requested course, using one controlled advisor request.",begin)
 
-                stage = "inferred_career_progress"
-                begin = time.monotonic()
-                expand("Your starting point")
-                expand("AI and ranking options")
-                page.get_by_role("checkbox", name="Generate AI explanations", exact=True).uncheck()
-                choose("Career direction", "Still exploring")
-                submit("I want to design a solar energy system")
-                wait_until(lambda: (control / "exploring-solar.started").exists())
-                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_be_visible()
-                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
-                release("exploring-solar")
-                expect(page.get_by_text("Learning plan ready", exact=True)).to_be_visible()
-                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
-                page.get_by_role("button", name="Use this direction", exact=True).click()
-                expect(page.get_by_text("Saved profile: Incoming · Power & Energy Systems", exact=False)).to_be_visible()
-                passed("Still exploring shows both source stages and saves the inferred direction only when accepted.", begin)
-
                 stage="browser_health";begin=time.monotonic()
                 assert counts["stream_connections"]==1 and counts["page_errors"]==0 and counts["fragment_runs"]>0
                 report["protocol_counts"]=counts
                 report["browser"]={"engine":"chromium","version":browser.version}
                 passed("The real Streamlit session exchanges full and fragment updates with no JavaScript errors.",begin)
+                stage = "inferred_career_progress"
+                begin = time.monotonic()
+                page = context.new_page()
+                page.set_default_timeout(timeout_ms)
+                page.set_viewport_size({"width": 390, "height": 844})
+                page.goto(url, wait_until="domcontentloaded")
+                page.get_by_role("button", name="Build my roadmap", exact=True).click()
+                expect(page.get_by_role("heading", name="Your next step, with a path forward.", exact=True)).to_be_visible()
+                choose("Catalog year", "2026-2027")
+                choose("Career direction", "Still exploring")
+                submit("I want to design a solar energy system")
+                wait_until(lambda: (control / "exploring-solar.started").exists())
+                expect(page.get_by_text("Saved-data plan ready · checking official sources", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
+                expect(page.get_by_text("Saved profile: Incoming · Still exploring", exact=False)).to_be_visible()
+                release("exploring-solar")
+                expect(page.get_by_text("Learning plan ready", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Solar PV & Energy Storage", exact=True)).to_be_visible()
+                page.get_by_role("button", name="Use this direction", exact=True).click()
+                expect(page.get_by_text("Saved profile: Incoming · Power & Energy Systems", exact=False)).to_be_visible()
+                passed("A new phone session shows both stages for Still exploring and saves the direction once accepted.", begin)
+
                 report["passed"]=True
             finally:browser.close()
     except Exception as exc:
