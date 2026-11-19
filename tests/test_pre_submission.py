@@ -81,8 +81,35 @@ def test_open_ended_interest_recognizes_ai_and_offers_choices_for_mixed_interest
     assert choice.context.profile == mixed and not choice.context.allowed_record_ids
 
 
+def test_mixed_interest_switch_preserves_the_submitted_profile(app):
+    question = "How to combine AI and Robotics?"
+    interests = "robotics with edge AI controls and OS"
+    app.selectbox(key="career_id").set_value("controls")
+    app.text_input(key="question").set_value(question)
+    app.text_area(key="interests").set_value(interests)
+    app.multiselect(key="completed_courses").set_value(["ECE220"])
+    app.multiselect(key="current_courses").set_value(["ECE320A"])
+    submit(app)
+
+    current = app.session_state["profile"]
+    plan = app.session_state["result"]
+    assert not app.exception and not app.error and plan.trace["study_route"] == "Robotics & Autonomy"
+    assert any("AI can help a robot interpret camera images." in item.value for item in app.markdown)
+    assert any("catalog.arizona.edu/courses/0435981" in item.value and
+               "catalog.arizona.edu/courses/0363511" in item.value for item in app.caption)
+    assert "uofa:ECE441A:2026-2027" in plan.context.allowed_record_ids
+    app.button(key="use_direction_ai_ml").click().run()
+    settle_advisor(app)
+    assert not app.exception and not app.error
+    assert app.session_state["profile"] == current.model_copy(update={"career_id": "ai_ml"})
+    assert app.text_input(key="question").value == question
+    assert app.button(key="use_direction_controls").label == "Use Controls & Robotics"
+    assert "uofa:ECE425:2026-2027" in app.session_state["result"].context.allowed_record_ids
+
+
 @pytest.mark.parametrize(("question", "kind", "url"), [
     ("Is ECE 425 offered next spring on Tuesday?", "schedule", "https://studentcenter.arizona.edu/app/ui/public/select-campus"),
+    ("Can I take ECE425 on Tuesday?", "schedule", "https://studentcenter.arizona.edu/app/ui/public/select-campus"),
     ("How much tuition does ECE425 cost?", "tuition", "https://bursar.arizona.edu/tuition"),
     ("When is the midterm for ECE 425?", "syllabus", "https://d2l.arizona.edu/"),
 ])
@@ -104,6 +131,12 @@ def test_administrative_question_links_to_official_information_and_keeps_the_cou
     assert not result.hits and result.trace["model_calls"] == 0 and not result.context.allowed_record_ids
     assert any(link.proto.url == url for link in app.get("link_button"))
     assert any(item.value.startswith("**ECE425 · ") for item in app.markdown)
+
+
+def test_past_course_day_does_not_replace_learning_request_with_class_search():
+    profile = StudentProfile(question="I finished ECE425 on Tuesday. How do I learn computer vision?")
+    plan = run_advisor(load_runtime_catalog(), profile, refresh_sources=False)
+    assert not plan.course_question and plan.trace["study_route"] == "Computer Vision & Perception"
 
 
 @pytest.mark.parametrize(("entered", "status"), [("2026–27", "satisfied"), ("2026-2027", "satisfied"),

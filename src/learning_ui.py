@@ -55,14 +55,14 @@ def render_beginner():
     with copy:
         st.title("Learn how an ECE advisor finds evidence")
         st.write("Explore how a question about electrical and computer engineering turns into course and resource suggestions you can inspect.")
-        st.markdown("**:material/memory: Embedded systems** connect software to sensors, processors and devices.\n\n"
-                    "**:material/hub: AI and machine learning** use data and models to recognize patterns or make predictions.")
-        st.write("Together these skills help build robots, connected devices and systems that interpret images or signals.")
-        st.caption("For prospective and current ECE students. Start with an interest such as robotics, programming or computer vision.")
         learn, plan = st.columns(2)
         learn.button("Learn how the Advisor works", type="primary", width="stretch",
                      on_click=show_section, args=("Intermediate",))
         plan.button("Build my roadmap", width="stretch", on_click=show_section, args=("Advisor",))
+        st.markdown("**:material/memory: Embedded systems** connect software to sensors, processors and devices.\n\n"
+                    "**:material/hub: AI and machine learning** use data and models to recognize patterns or make predictions.")
+        st.write("Together these skills help build robots, connected devices and systems that interpret images or signals.")
+        st.caption("For prospective and current ECE students. Start with an interest such as robotics, programming or computer vision.")
         with st.expander("Browse the eight career directions"):
             st.markdown("\n".join("- " + path.name for path in CAREER_PATHS.values()))
     with visual:

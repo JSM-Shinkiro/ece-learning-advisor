@@ -109,13 +109,14 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.set_viewport_size({"width":320,"height":844})
                 page.wait_for_function("window.innerWidth === 320")
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
-                expect(page.get_by_role("button", name="Build my roadmap", exact=True)).to_be_visible()
+                expect(page.get_by_role("button", name="Build my roadmap", exact=True)).to_be_in_viewport()
+                expect(page.get_by_role("button", name="Learn how the Advisor works", exact=True)).to_be_in_viewport()
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-mobile.png"))
                 page.set_viewport_size({"width":1500,"height":1100})
                 page.get_by_text("The official requirements and my completed coursework",exact=True).click()
                 expect(page.get_by_text("Correct. A relevance score helps you find a course.",exact=False)).to_be_visible()
-                passed("The landing page fits a 320-pixel viewport, offers both first actions and gives immediate preparation feedback.",begin)
+                passed("Both landing actions fit in the first 320-pixel-wide viewport and the preparation question gives immediate feedback.",begin)
 
                 stage = "primary_action_contrast"
                 begin = time.monotonic()
@@ -557,6 +558,31 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.get_by_role("button", name="Use this direction", exact=True).click()
                 expect(page.get_by_text("Saved profile: Incoming · Power & Energy Systems", exact=False)).to_be_visible()
                 passed("A new phone session shows both stages for Still exploring and saves the direction once accepted.", begin)
+
+                stage = "mixed_career_start"
+                begin = time.monotonic()
+                mixed_question = "What should I learn to build autonomous robots that use computer vision?"
+                choose("Career direction", "Still exploring")
+                submit(mixed_question)
+                use_ai = page.get_by_role("button", name="Use AI / Machine Learning", exact=True)
+                use_controls = page.get_by_role("button", name="Use Controls & Robotics", exact=True)
+                expect(use_ai).to_be_visible()
+                expect(use_controls).to_be_visible()
+                expect(page.get_by_role("link", name="ECE425 · Introduction to Deep Learning", exact=False)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0435981")
+                expect(page.get_by_role("link", name="ECE441A · Automatic Control", exact=True)).to_have_attribute(
+                    "href", "https://catalog.arizona.edu/courses/0363511")
+                expect(page.get_by_role("button", name="Mark completed", exact=True)).to_have_count(0)
+                if diagnostics_dir is not None:
+                    use_ai.scroll_into_view_if_needed()
+                    page.screenshot(path=str(Path(diagnostics_dir) / "learning-mixed-careers.png"))
+                use_controls.click()
+                expect(page.get_by_text("Learning plan ready", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Robotics & Autonomy", exact=True)).to_be_visible()
+                expect(use_ai).to_be_visible()
+                expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(mixed_question)
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                passed("The phone shows both starts and official course examples, then keeps the question and the second option on the chosen roadmap.", begin)
 
                 report["passed"]=True
             finally:browser.close()

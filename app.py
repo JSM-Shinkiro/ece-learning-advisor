@@ -6,7 +6,7 @@ from pydantic import ValidationError
 
 from src.career_catalog import with_career_paths
 from src.career_paths import CAREER_NAMES, CAREER_PATHS
-from src.career_ui import direction_cards, elective_details, render_career_path
+from src.career_ui import direction_cards, elective_details, render_career_path, render_direction_options
 from src.catalog import ROOT, load_runtime_catalog
 from src.controller import run_advisor
 from src.inspector import render_inspector
@@ -460,14 +460,11 @@ if roadmap.open:
                          for check in result.trace.get("source_refresh", {}).get("checks", []))
             if reused:
                 st.caption(f"Used {reused} recent source checks for this update. Source details show check times.")
+            render_direction_options(result, collection_catalog)
             if result.course_question:
                 guidance = result.course_question
                 st.link_button(guidance.link_label, guidance.url)
                 published_courses(guidance.codes, collection_catalog, course_directory)
-            elif result.direction_choices:
-                for choice in result.direction_choices:
-                    st.button("Use " + CAREER_NAMES[choice], key="use_direction_" + choice,
-                              on_click=choose_direction, args=(st.session_state, choice, result.context.question))
             elif not result.coverage_notice and result.generation_status!="insufficient_evidence":
                 render_career_path(result, collection_catalog)
                 st.caption("Start with the first suitable activity. Confirm course enrollment requirements before registering.")
