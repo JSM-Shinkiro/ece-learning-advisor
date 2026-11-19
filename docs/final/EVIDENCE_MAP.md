@@ -1,6 +1,6 @@
 # Final report evidence map
 
-Prepared November 8 and updated November 15, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
+Prepared November 8 and updated November 19, 2026. The evidence IDs index project claims. [Manifest with input hashes](EVIDENCE_MANIFEST.json)
 
 | ID | Claim or use | Primary project evidence | Scope and limits |
 | --- | --- | --- | --- |
@@ -29,6 +29,7 @@ Prepared November 8 and updated November 15, 2026. The evidence IDs index projec
 | E23 | One live final-demo Hybrid request | [Live rehearsal record](../evidence/live_demo_rehearsal_2026-11-15.json) · [Demo runbook](DEMO_RUNBOOK.md#one-request-rehearsal) | All 11 CLI checks passed with live Gemini and official sources. ECE425 refreshed and enrollment stayed unknown. Seven overviews were compared using 768-dimensional embeddings. Two program checks retained saved references. The timings cover one cold-index server request. |
 | E24 | CS prerequisite revalidation from the published program page | [University catalog](https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj) · [Live and regression evidence](../evidence/rendered_program_statements_2026-11-15.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/43784349217) | The four exact reviewed CS statements revalidated. A source-only fictional grade case confirmed the CSC120 prerequisite. The live Hybrid follow-up passed all 11 checks. Explicit course-list discovery remained unavailable. |
 | E25 | Pre-testing workflow and interface fixes | [Verification](../evidence/pre_testing_fixes_2026-11-18.json) · [Readiness](../FINAL_READINESS.md) | Regressions cover inferred career results, direct course questions, catalog-year editions, prediction and focus, lazy tabs and directory navigation. The archived evaluation inputs and unfilled judgments retain their recorded hashes. |
+| E26 | Live Gemini and browser rehearsal on the submission candidate | [November 19 verification](../evidence/gemini_submission_rehearsal_2026-11-19.json) · [Live Chromium capture](FIGURES.md#figure-6-advisor-comparison-with-live-gemini) | Two CLI rehearsals pass eleven assertions each with source checks and grounded ECE425 answers. The browser exports seven rows from the same live request. A separate Streamlit check verifies the mixed-interest route. The timings are individual observations and the profiles are fictional. |
 
 ## Inputs must remain separate
 
@@ -43,6 +44,6 @@ The reviewer workspace supports actual grades and resumable forms. It does not a
 - Genuine independent judgments on the runtime collection and a separately identified held-out comparison.
 - Voluntary student-pilot completion observations or satisfaction responses.
 - Real-AI/source/cache latency cohorts on the frozen final release.
-- Live neural and opportunity figures from the frozen release, final slides, new demo recording and validated final packaging instructions.
+- An opportunity figure from the frozen release, final slides, new demo recording and validated final packaging instructions.
 
 Report these as unavailable until collected. Leave blanks unscored; do not treat missing labels as zero, benchmark cases as participants, fixture outputs as live provider results, or CI pass rates as answer accuracy.

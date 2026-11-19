@@ -1,6 +1,6 @@
 # ECE Learning Advisor — Final Project Development
 
-Team P07 · Updated November 18, 2026 MST · Final presentation and submission December 11.
+Team P07 · Updated November 19, 2026 MST · Final presentation and submission December 11.
 
 For each development step, update [final readiness](FINAL_READINESS.md) with separate app/submission estimates, the acceptance gate resolved, and the main remaining work. These are planning judgments against the scoped project, not measured quality or instructor grades.
 
@@ -23,7 +23,7 @@ The snapshot branch preserves the copied midproject files; it does not assert th
 
 The Advisor offers eight career directions and 17 specialization entries, with Edge AI available from two paths. Students can choose a specialization from the path panel or ask a question that matches a route. Each route includes course preparation and a practice exercise. The combined collection has 47 courses and 20 resources. The archived review uses the 34-chunk core. [Career directions and verification](59_CAREER_DIRECTIONS.md)
 
-The final-demo verifier runs the exact carried image-classification question through one Hybrid request and records the seven-record comparison. The Advisor inspector can download the same comparison from the displayed request. The live CLI rehearsal passed with the official ECE425 source and a seven-record Gemini comparison. The browser capture remains open. See final readiness for the current planning estimates. [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
+The final-demo verifier runs the exact carried image-classification question through one Hybrid request. Both operator credentials passed the live CLI rehearsal with the official ECE425 source. Chromium carried the lesson question into the Advisor and exported the seven-record comparison from the displayed live request. The team's narrated recording remains open. [Live verification](evidence/gemini_submission_rehearsal_2026-11-19.json) · [Demo runbook](final/DEMO_RUNBOOK.md) · [Final readiness](FINAL_READINESS.md)
 
 The Advisor revalidates four reviewed CS prerequisite statements from the published program page when structured data is stored separately. Course discovery uses explicit catalog course IDs. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json)
 

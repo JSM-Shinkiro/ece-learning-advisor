@@ -402,6 +402,10 @@
     {
       "path": "docs/evidence/pre_testing_fixes_2026-11-18.json",
       "sha256": "f7624e9d010a2400f3db0d57062ac82a6d155e89c7e1ce2dfd90f1a6cb067cec"
+    },
+    {
+      "path": "docs/evidence/gemini_submission_rehearsal_2026-11-19.json",
+      "sha256": "b0dd18faa60d53d5ffc6b0275d0d6866e68af494aea1d5b4d60e6e8f2601936c"
     }
   ],
   "preserved_inputs": [
@@ -449,19 +453,19 @@
   "preparation_files": [
     {
       "path": "docs/final/DEMO_RUNBOOK.md",
-      "sha256": "9ced7240d22aab92fa5696245835913920e85c43d39e6bcbf151c8116f4ebb6d"
+      "sha256": "1219410b85f3f21d2c310fc850fc3bf2008d2c6f82bfadb814c0b5199efc76bf"
     },
     {
       "path": "docs/final/EVIDENCE_MAP.md",
-      "sha256": "fcc7985ad1059e25f7ae6a0612301c0b130ca6d85b7cebb7ae71144db6acd462"
+      "sha256": "eff6103afbc6ce0c3dfe88dff3e56992e89438514b19c28bb64462e1e143ff00"
     },
     {
       "path": "docs/final/README.md",
-      "sha256": "02c316829cb397f546cc52ec87186179023819373b3f7b30e5d8ff1e1b74af9f"
+      "sha256": "acf2063d147d3ea9d065357a0286cb5b1c643de9fd3bdfaf897fb343803524de"
     },
     {
       "path": "docs/final/REPORT_DRAFT.md",
-      "sha256": "228df96cd9b25b70736579883ef327d8911833436f589501e4d427152587dbb9"
+      "sha256": "39f3f832adeb04486150559f77a668fe73b18c7a5673cfc67198b9ad779a06b4"
     },
     {
       "path": "docs/final/STUDENT_PILOT.md",
@@ -477,7 +481,7 @@
     },
     {
       "path": "docs/FINAL_READINESS.md",
-      "sha256": "31e604d30f48b3d523be91030dbf54702272a720c16824335b3c07853e2194b7"
+      "sha256": "635162a66b36fdacaec0ba8725c9daf02692407b0eec9e8dfd1ed2eb311a72a2"
     },
     {
       "path": "docs/58_FINAL_VERSION_AUDIT.md",
@@ -493,7 +497,7 @@
     },
     {
       "path": "docs/final/FIGURES.md",
-      "sha256": "8bc2ed03df260764bd3b14c001df3498c6a238f820adc039029005c4fa77fa5b"
+      "sha256": "0c9c34980bea089c4fc79a7695c94d96cef70f05803587c60eb4fa730fc4dace"
     },
     {
       "path": "docs/final/figures/beginner-roadmap.png",
@@ -517,7 +521,11 @@
     },
     {
       "path": "docs/13_FINAL_PROJECT_DEVELOPMENT.md",
-      "sha256": "7f311932151435f4ea8700d1a39edb997b24b4b1efc61a0701f18992da6d82ec"
+      "sha256": "2af161c72c345909a1432c7ce255139a459b19231463a2693d4728102e7987b4"
+    },
+    {
+      "path": "docs/final/figures/advisor-gemini-comparison.png",
+      "sha256": "8ef7fc7c453d20133a4c9c1b4c4f82ffb4f8935f594bbdf6b75ae4bf1c7adee5"
     }
   ],
   "external_references": [
