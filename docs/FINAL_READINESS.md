@@ -1,10 +1,14 @@
 # Final submission readiness
 
-Team P07 · Updated November 18, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
+Team P07 · Updated November 19, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
 
 ## Current estimate
 
-The app is approximately **96%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **73%** ready. Both percentages are planning estimates.
+The app is approximately **97%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **73%** ready. Both percentages are planning estimates.
+
+The November 19 candidate recognizes mixed AI and robotics questions even when students ask about autonomous robots, object detection or robotic perception. It explains how perception and control connect and links the published ECE425 and ECE441A descriptions. Students can compare a second direction and retain their submitted question and coursework. Both landing actions appear in the first 320-pixel-wide viewport, and questions about taking a course on a weekday link to the official class search. [Candidate](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1)
+
+The first November 19 pass verifies 1,834 tests and nine startup checks on Ubuntu 26.04 and Windows, plus 42 Chromium checks. The contrast follow-up adds a 4.5:1 check for the two course links in the phone walkthrough. These are automated results with controlled model and source responses. Live Gemini, independent review and the student pilot still need fresh observations on the chosen submission revision. [First passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44616695659) · [Candidate checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1/checks)
 
 The pre-testing fixes restore **Still exploring** through the background source workflow. Competing directions ask the student to choose, and section, tuition and syllabus questions link to the official next step. The student can choose or leave the catalog year uncertain. The landing page opens the profile in the main content, the course directory directs students to the requested course in My Roadmap, and hidden tabs skip rendering. Intermediate now starts with a prediction and checks what changed after switching methods.
 
@@ -28,7 +32,7 @@ The report draft now links five captioned Chromium captures from the verified re
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
-| Application and focused academic data | 50% | 96% |
+| Application and focused academic data | 50% | 97% |
 | Evaluation and performance evidence | 15% | 45% |
 | Final technical report | 20% | 70% |
 | Presentation and recording | 10% | 20% |
@@ -40,8 +44,8 @@ The report draft now links five captioned Chromium captures from the verified re
 | Student profile → grounded roadmap → current/completed progress | Verified | The live rehearsal verifies the Hybrid explanation and interim plans. CI verifies saved profiles, conservatively checked academic conditions and progress changes. |
 | Course/resource coverage and provenance | Focused source review complete | Eight career directions, 47 curated courses, 20 resources and a 78-entry ECE directory. Ten outside-ECE elective candidates need advisor approval. The Mathematics minor card links the published requirements. The archived review uses 34 chunks. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,825 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324) |
-| Browser workflow and concurrent sessions | Verified in CI | All 41 Chromium checks pass. The browser verifies keyboard contrast, the two source stages on a phone-sized viewport, and the catalog jump to My Roadmap. The carried-question case uses controlled vectors. |
+| Reproducible runtime | Verified in CI | Ubuntu 26.04 and Windows each pass 1,834 tests and nine readiness checks for the first November 19 candidate. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44616695659) |
+| Browser workflow and concurrent sessions | Verified in CI | The 42-check November 19 run covers the mixed-interest phone walkthrough, landing actions, keyboard checks, both source stages and reviewer workflow. The carried-question case uses controlled vectors. [Candidate checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1/checks) |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent successful checks are reused for five minutes. Explicit rechecks bypass reuse. The inspector opens in a fragment. Source checks and posting details still depend on their network response times. |
 | Usable plan during source checks and AI | Verified with controlled delays | The saved-data plan appears before sources finish. The updated source plan can appear before AI finishes. Open evidence panels persist. Keeping either plan or submitting a newer profile rejects late results. |

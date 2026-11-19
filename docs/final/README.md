@@ -1,8 +1,8 @@
 # Final submission workspace
 
-Team P07 · Updated November 18, 2026 · ECE Learning Advisor
+Team P07 · Updated November 19, 2026 · ECE Learning Advisor
 
-Application revision `10f2dfc2c14c1b6ce22d13de0c1bf9e25e877bd6` contains the pre-testing Advisor and learning-path fixes. [Career directions](../59_CAREER_DIRECTIONS.md) · [Verification](../evidence/pre_testing_fixes_2026-11-18.json) · [Passing CI](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324)
+The November 19 submission candidate contains the mixed-interest, mobile landing and weekday class-search improvements. The report figures still describe the revision shown in their captions. [Candidate checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1/checks) · [Career directions](../59_CAREER_DIRECTIONS.md) · [November 18 verification](../evidence/pre_testing_fixes_2026-11-18.json)
 
 | Material | Ready for use | Still requires work |
 | --- | --- | --- |
@@ -17,4 +17,4 @@ The midproject submission review supplies directions for the learning path and f
 
 The report deliberately keeps four forms of evidence distinct: automated/software checks, the small authored retrieval benchmark, actual provider integration observations, and offline browser timings. There are no independent runtime relevance grades or student-pilot outcomes to report. The existing twelve-question/34-chunk review template still contains 408 blank grades.
 
-Planning readiness is approximately **96% for the app and 73% for the complete submission**. The browser capture can now follow the passing live CLI rehearsal. Reviewer and student sessions, repeated measurements, final report, slides and recording still need completion. [Final readiness](../FINAL_READINESS.md)
+Planning readiness is approximately **97% for the app and 73% for the complete submission**. Use the candidate for the phone walkthrough and live demo rehearsal. Reviewer and student sessions, repeated measurements, final report, slides and recording still need completion. [Final readiness](../FINAL_READINESS.md)
