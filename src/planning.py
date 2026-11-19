@@ -124,7 +124,9 @@ def course_question(question: str) -> CourseQuestion | None:
     if (re.search(r"\b(?:class search|class schedule|course schedule|enrollment appointment|"
                   r"registration (?:date|deadline)|waitlists?|(?:open|class) seats?|meeting times?)\b", text)
             or codes and re.search(r"\b(?:offer(?:ed|ings?)|meets?|when (?:can i register|is it taught)|"
-                                    r"available (?:in|this|next)|(?:class|course|lab) sections?)\b", text)):
+                                    r"available (?:in|this|next)|(?:class|course|lab) sections?|"
+                                    r"(?:can|could) i take\b[^.?!]{0,70}\bon "
+                                    r"(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)s?)\b", text)):
         return CourseQuestion(
             "schedule", "Use the official class search. Select a term, then open the section for meeting times, "
             "availability and enrollment details.",
@@ -160,7 +162,8 @@ def coverage_message(catalog, profile, question, *, allow_course_discovery=False
         "foundation", "foundations", "project", "projects", "practice", "basic", "introduction",
         "introductory", "engineering", "systems", "design", "control", "data", "patterns", "pattern",
         "coursework", "independent", "source", "saved", "parameters"}
-    vocabulary |= {"ai", "ml", "ece", "csc", "python", "robotics", "robot", "math", "calculus", "algebra", "programming"}
+    vocabulary |= {"ai", "ml", "ece", "csc", "python", "robot", "robots", "robotic", "robotics",
+                   "math", "calculus", "algebra", "programming"}
     vocabulary |= {r.code.lower() for r in catalog.records if r.code}
     if terms & vocabulary:
         return None

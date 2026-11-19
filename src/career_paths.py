@@ -9,10 +9,13 @@ NamedCareer = Literal[
 ]
 CareerDirection = NamedCareer | Literal["exploring"]
 CORE_DIRECTIONS = ("ai_ml", "embedded")
+_ROBOTICS_TERMS = r"robots?|robotics?|autonomous (?:systems?|vehicles?|navigation)|motion planning"
+_VISION_TERMS = r"computer vision|machine vision|image recognition|object detection|robot(?:ic)? (?:vision|perception)"
 
 
 def _words(text):
-    return " ".join(re.findall(r"[a-z0-9]+", text.casefold()))
+    normalized = re.sub(r"\ba\.\s*i\b\.?", "ai", text.casefold())
+    return " ".join(re.findall(r"[a-z0-9]+", normalized))
 
 
 @dataclass(frozen=True)
@@ -64,7 +67,7 @@ CAREER_PATHS = {
         "How can I start learning AI and machine learning?",
         (
             StudyRoute("Computer Vision & Perception", ("ECE101", "CSC120", "CSC477", "ECE425"),
-                       r"\b(?:computer vision|machine vision|image recognition|object detection|csc ?477)\b",
+                       rf"\b(?:{_VISION_TERMS}|csc ?477)\b",
                        "Evaluate an image classifier and explain two errors from its confusion matrix.", "resource:pytorch"),
             StudyRoute("Applied ML", ("ECE101", "CSC120", "CSC480", "ECE425"),
                        r"\b(?:applied (?:ml|machine learning)|principles of machine learning|csc ?480)\b",
@@ -108,7 +111,7 @@ CAREER_PATHS = {
                        r"\b(?:industrial automation|motion control|motor (?:control|speed)|ece ?447a)\b",
                        "Simulate a motor speed controller. Change the gain and compare overshoot and settling time.", "resource:motor_pid"),
             StudyRoute("Robotics & Autonomy", ("ECE220", "ECE320A", "ECE441A", "CSC437", "ECE372A"),
-                       r"\b(?:robots?|robotics|autonom(?:y|ous)|motion planning|geometric algorithms|csc ?437)\b",
+                       rf"\b(?:{_ROBOTICS_TERMS}|autonom(?:y|ous)|geometric algorithms|csc ?437)\b",
                        "Simulate a robot following a planned path and measure tracking error at two speeds.", "resource:motor_pid"),
         ),
         "Apply feedback and stability analysis to industrial automation and autonomous mobile robots.",
@@ -194,16 +197,16 @@ ELECTIVE_GUIDANCE = (
 )
 
 _DIRECTION_CUES = {
-    "ai_ml": r"\b(?:(?<!edge )ai|ml|artificial intelligence|machine learning|deep learning|computer vision|"
-             r"machine vision|neural networks?|image classification|csc ?(?:477|480))\b",
+    "ai_ml": r"\b(?:(?<!edge )ai|ml|artificial intelligence|machine learning|deep learning|reinforcement learning|"
+             rf"neural networks?|image classification|{_VISION_TERMS}|csc ?(?:477|480))\b",
     "embedded": r"\b(?:embedded systems?|embedded software|microcontrollers?|hardware integration|edge ai|on device inference|"
                 r"tinyml|firmware|freertos|rtos|ece ?402c)\b",
     "signals": r"\b(?:digital signal processing|dsp|signals? and communications?|signal processing|"
                r"wireless(?: communications?| systems?| dsp)?|software defined radio|"
                r"rf|radio frequency|microwave|transmission lines?|open ran|computer networking|"
                r"ece ?429|ece ?435a|ece ?48(?:4|6|8)|csc ?425)\b",
-    "controls": r"\b(?:controls? and robotics|feedback control|automatic control|digital control|"
-                r"robotics|industrial automation|motor control|pid control(?:ler)?|geometric algorithms|"
+    "controls": rf"\b(?:{_ROBOTICS_TERMS}|feedback control|automatic control|digital control|"
+                r"industrial automation|motor control|pid control(?:ler)?|geometric algorithms|"
                 r"ece ?441a|ece ?442|ece ?447a|csc ?437)\b",
     "semiconductors": r"\b(?:semiconductors?|digital hardware|chip (?:design|verification|fabrication|manufacturing|testing)|"
                        r"(?:silicon|wafer|chip) fab(?:rication)?|asic|rtl|vlsi|verilator|"

@@ -2,7 +2,7 @@
 
 Team P07 · ECE 425/525 · Final report draft · Updated November 15, 2026
 
-This draft describes verified application revision `225fdc6e626030fc09dc920c35f258709b7038e7`. Five browser captures document the lesson and Advisor interface. Repeated live-release measurements, the live neural and opportunity captures, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
+This draft traces the application through the November 19 submission candidate. Six browser captures document the lesson, Advisor interface and live Gemini comparison. Representative release measurements, the opportunity capture, independent judgments, student-pilot outcomes and final formatting remain open. [Application figures](FIGURES.md) · [Evidence map](EVIDENCE_MAP.md) · [Manifest](EVIDENCE_MANIFEST.json)
 
 ## Abstract
 
@@ -98,7 +98,7 @@ The lesson represents seven saved course and resource overviews as counts of lis
 
 The evaluated question prefills the Advisor profile form. After submission with semantic or hybrid ranking, the inspector uses the provider vectors already computed by the Advisor. It compares cosine ranks for the same seven overviews and the same Advisor search text across the two representations. The search text incorporates the carried question and profile terms. Both visualization views expose their actual source code. [E15](EVIDENCE_MAP.md)
 
-The comparison download records the question, Advisor search text, corpus fingerprint, model, dimensions, and both ranks and cosine scores. It reuses the vectors from the displayed request. The rehearsal verifier uses the same comparison function and checks the authored ECE425 example. The browser capture shows the seven comparison rows using controlled provider vectors. [Figure 5](FIGURES.md#figure-5-advisor-comparison-with-controlled-vectors) · [E18](EVIDENCE_MAP.md)
+The comparison download records the question, Advisor search text, corpus fingerprint, model, dimensions, and both ranks and cosine scores. It reuses the vectors from the displayed request. The rehearsal verifier uses the same comparison function and checks the authored ECE425 example. The browser figures show the seven-row table with controlled vectors and with live Gemini embeddings. [Figures 5 and 6](FIGURES.md#figure-5-advisor-comparison-with-controlled-vectors) · [E18 and E26](EVIDENCE_MAP.md)
 
 The inspector exposes retrieved chunks, component scores, the supplied context, available/selected statements, source checks, model/cache metadata, request timings and a downloadable trace. Scores describe relevance, not eligibility or probability.
 
@@ -161,6 +161,8 @@ The November 15 live CLI rehearsal passed 11 checks in one Hybrid request for th
 
 The catalog repair verified four reviewed CS statements and passed the live Hybrid rehearsal with a warm document index. A source-only request with a fictional B in ECE101 satisfied the reviewed CSC120 prerequisite. Course-list discovery used saved references when explicit IDs were unavailable. Linux and Windows each passed 1,813 tests and nine startup checks. Chromium passed 39 checks. [E24](EVIDENCE_MAP.md)
 
+On November 19, both operator credentials passed the final-demo rehearsal with live Gemini Embedding 2 and Gemini 3.5 Flash-Lite. The cold and warm CLI requests took 31.01 and 15.28 seconds including official-source checks. The cold index used 34 document embeddings and the warm index reused them. Each request made one query-embedding call and one generation call. Both selected ECE425, validated the selected statements and preserved unknown enrollment status. The live Chromium walkthrough carried the lesson question into the Advisor and exported the seven-record comparison and request trace. A separate Streamlit check kept both AI and robotics choices visible before any model call and returned grounded computer-vision recommendations after the choice. [E26](EVIDENCE_MAP.md)
+
 ### 5.3 Preview responsiveness experiment
 
 The inspector comparison uses one Linux x86-64/four-logical-CPU CI runner, Python 3.12.16, Chromium 151.0.7922.34 and a 1,500 × 1,100 viewport. Each version has its own production server/browser process and five fresh contexts, sharing processes within that cohort. Current app runs precede the fixed baseline. AI and source downloads are disabled; browser HTTP caching is disabled by request routing. The v2 readiness boundary requires a laid-out ranking visualization and an enabled trace-download control. Reopening follows content removal and completion of the close animation. [E6](EVIDENCE_MAP.md)
@@ -182,13 +184,13 @@ The November 13 roadmap update publishes a saved-data plan before the network wa
 
 ## 6. Limitations and next validation
 
-The November 13 audit found continuity, vocabulary coverage and reasoning gaps. The follow-up repairs the reproduced navigation cases, recognizes the audited robotics, computer-vision and C-programming questions and checks the learner's description of the rank change. The quality of the resulting explanation will be assessed in the student pilot. The live CLI comparison passed, and the team still needs to record the live browser workflow. [E14, E15, E23](EVIDENCE_MAP.md)
+The November 13 audit found continuity, vocabulary coverage and reasoning gaps. The follow-up repairs the reproduced navigation cases, recognizes the audited robotics, computer-vision and C-programming questions and checks the learner's description of the rank change. The quality of the resulting explanation will be assessed in the student pilot. The live browser rehearsal passed, and the team still needs to record its narrated walkthrough. [E14, E15, E23 and E26](EVIDENCE_MAP.md)
 
 The 34-chunk runtime review bundle has twelve development questions and 408 blank grades. No independent runtime relevance score or student-pilot outcome is available at this draft date. The [pilot protocol](STUDENT_PILOT.md) and separate reviewer workspace prepare collection; they do not supply participant observations or authenticate reviewer independence. A held-out claim requires separately archived questions/judgments fixed before tuning.
 
 Published undergraduate ECE description coverage spans 78 courses, with 32 ECE courses curated across eight directions. ECE prerequisite interpretations remain unreviewed. Outside-ECE elective candidates need individual approval, and the Mathematics minor card provides general guidance for the two 2026–27 advised plans. Opportunity coverage uses three employer boards. Source parsing, edition identity, authored statement quality and statement-selection relevance can still fail. Reproducible local access is available. Final access requirements and hosted delivery remain open.
 
-Before release, collect genuine judgments and student observations, measure real-AI/source/cache behavior on a frozen revision, capture the live neural comparison and an actual opportunity outcome, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
+Before release, collect genuine judgments and student observations, measure representative real-AI and cache timings on a frozen revision, capture an actual opportunity outcome, and finish the required report format, slides and new recording. Current results support an inspectable, failure-aware implementation and an offline preview rendering improvement. General advising effectiveness remains unevaluated.
 
 ## References
 

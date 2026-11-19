@@ -55,7 +55,7 @@ def apply_profile(state, profile, *, refresh=True, reset_widgets=True):
         if old_current - new_current:
             notices.append("Removed from currently taking: " + ", ".join(sorted(old_current - new_current)))
         if previous.career_id != profile.career_id:
-            notices.append("Career direction updated. The learning plan was refreshed.")
+            notices.append("Career direction updated.")
     state["profile"] = profile
     state["profile_notices"] = notices
     for key in ["result", "job_result", "jobs_cache", "job_error", "job_detail", "job_detail_error", "job_page_error", "pending_posting_detail"]:

@@ -1,10 +1,16 @@
 # Final submission readiness
 
-Team P07 · Updated November 18, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
+Team P07 · Updated November 19, 2026 MST · Final presentation and submission December 11 · Planned feature freeze December 4.
 
 ## Current estimate
 
-The app is approximately **96%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **73%** ready. Both percentages are planning estimates.
+The app is approximately **97%** complete with eight career directions, selectable specializations, undergraduate ECE browsing and a self-guided learning experience. The complete submission is approximately **74%** ready. Both percentages are planning estimates.
+
+The November 19 candidate recognizes mixed AI and robotics questions even when students ask about autonomous robots, object detection or robotic perception. It explains how perception and control connect and links the published ECE425 and ECE441A descriptions. Students can compare a second direction and retain their submitted question and coursework. Both landing actions appear in the first 320-pixel-wide viewport, and questions about taking a course on a weekday link to the official class search. [Candidate](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1)
+
+The November 19 candidate passes 1,834 tests and nine startup checks on Ubuntu 26.04 and Windows, plus 42 Chromium checks with controlled model and source responses. The browser verifies 4.5:1 contrast for the two course links in the phone walkthrough. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44617943811)
+
+Both operator credentials passed the live Gemini rehearsal. Each run selected ECE425, validated its explanation and citations, and returned the seven-record comparison using 768-dimensional embeddings. The official ECE425 course check succeeded and enrollment remained unknown. The live Chromium walkthrough exported the comparison and trace. In a separate live Streamlit check, the mixed AI and robotics question waited for a direction, then returned grounded recommendations after the computer vision route was chosen. [Live evidence](evidence/gemini_submission_rehearsal_2026-11-19.json) · [Live figure](final/FIGURES.md#figure-6-advisor-comparison-with-live-gemini)
 
 The pre-testing fixes restore **Still exploring** through the background source workflow. Competing directions ask the student to choose, and section, tuition and syllabus questions link to the official next step. The student can choose or leave the catalog year uncertain. The landing page opens the profile in the main content, the course directory directs students to the requested course in My Roadmap, and hidden tabs skip rendering. Intermediate now starts with a prediction and checks what changed after switching methods.
 
@@ -12,7 +18,7 @@ The pre-testing revision passes 1,825 tests and nine startup checks on both Ubun
 
 The specialization expansion adds Photonics & Electro-Optics, Power & Energy Systems, and Biomedical Instrumentation & Sensors. The eight paths expose 17 choices with preparation courses and exercises. The combined collection has 47 courses and 20 resources. Independent evaluation of the new roadmaps and a student walkthrough remain open. [Career directions](59_CAREER_DIRECTIONS.md)
 
-The November 15 live Hybrid rehearsal passed all 11 checks for the carried question. Gemini selected ECE425 and produced the seven-record embedding comparison. The official catalog refreshed ECE425 and its enrollment status stayed unknown. The live browser capture and team recording remain open. [Live rehearsal evidence](evidence/live_demo_rehearsal_2026-11-15.json) · [Demo runbook](final/DEMO_RUNBOOK.md#one-request-rehearsal)
+The November 15 live Hybrid rehearsal passed all 11 checks for the carried question. Gemini selected ECE425 and produced the seven-record embedding comparison. The official catalog refreshed ECE425 and its enrollment status stayed unknown. [November 15 evidence](evidence/live_demo_rehearsal_2026-11-15.json)
 
 The catalog repair revalidates the published CSC110, CSC120, CSC144 and CSC210 statements. A source-only request with a fictional B in ECE101 satisfies the reviewed CSC120 prerequisite. Program course-list discovery uses saved references because the separate payloads were unavailable. [Catalog verification](evidence/rendered_program_statements_2026-11-15.json)
 
@@ -24,24 +30,24 @@ The November 13 development step addresses the audit's lesson gaps. Presets, met
 
 The midproject review gives explicit direction for the final recording and learning experience. Confirm final timing, formatting, duration and packaging instructions in D2L. The supported delivery uses reproducible local access and portable JSON profiles.
 
-The report draft now links five captioned Chromium captures from the verified revision. The embedding comparison uses test vectors, and the saved-data roadmap uses a controlled source delay. The passing live rehearsal advances the app and evaluation estimates. The November 8 audit weights give approximately 73% submission completion. [Application figures](final/FIGURES.md) · [Planning weights](56_FINAL_READINESS_AUDIT.md)
+The report draft includes the live Gemini comparison alongside the five earlier UI figures. The November 8 audit weights give approximately 74% submission completion with the added live evidence. [Application figures](final/FIGURES.md) · [Planning weights](56_FINAL_READINESS_AUDIT.md)
 
 | Component | Weight | Progress estimate |
 | --- | ---: | ---: |
-| Application and focused academic data | 50% | 96% |
-| Evaluation and performance evidence | 15% | 45% |
-| Final technical report | 20% | 70% |
+| Application and focused academic data | 50% | 97% |
+| Evaluation and performance evidence | 15% | 50% |
+| Final technical report | 20% | 72% |
 | Presentation and recording | 10% | 20% |
 | Release and delivery | 5% | 40% |
 
 | Acceptance gate | Status | Evidence or remaining work |
 | --- | --- | --- |
-| Self-guided learning and developer view | Verified in controlled workflows | Chromium checks the draft round trip, explanation export, and Advisor comparison download using test vectors. Capture the live neural example and observe students completing the lesson. |
+| Self-guided learning and developer view | Verified in controlled and live workflows | Chromium checks the lesson handoff and Advisor export with live Gemini. Observe students completing the lesson. |
 | Student profile → grounded roadmap → current/completed progress | Verified | The live rehearsal verifies the Hybrid explanation and interim plans. CI verifies saved profiles, conservatively checked academic conditions and progress changes. |
 | Course/resource coverage and provenance | Focused source review complete | Eight career directions, 47 curated courses, 20 resources and a 78-entry ECE directory. Ten outside-ECE elective candidates need advisor approval. The Mathematics minor card links the published requirements. The archived review uses 34 chunks. |
 | Opportunity workflow | Implemented with limits | Three public boards, filters, detail checks, paging and recovery; optional Adzuna/OpenRouter remain outside the verified final core |
-| Reproducible runtime | Verified | Ubuntu 26.04 and Windows each pass 1,825 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44413451324) |
-| Browser workflow and concurrent sessions | Verified in CI | All 41 Chromium checks pass. The browser verifies keyboard contrast, the two source stages on a phone-sized viewport, and the catalog jump to My Roadmap. The carried-question case uses controlled vectors. |
+| Reproducible runtime | Verified in CI | Ubuntu 26.04 and Windows each pass 1,834 tests and nine readiness checks. [Passing run](https://github.com/JSM-Shinkiro/ece-learning-advisor/actions/runs/44617943811) |
+| Browser workflow and concurrent sessions | Verified in CI | The 42-check November 19 run covers the mixed-interest phone walkthrough, landing actions, keyboard checks, both source stages and reviewer workflow. The carried-question case uses controlled vectors. [Candidate checks](https://github.com/JSM-Shinkiro/ece-learning-advisor/pull/1/checks) |
 | Request feedback and timing | Verified with limits | Actual attempted stages are visible and timed; observer failure is isolated; timing excludes provider cleanup and browser rendering |
 | Repeated source work and hidden rendering | Verified with limits | Recent successful checks are reused for five minutes. Explicit rechecks bypass reuse. The inspector opens in a fragment. Source checks and posting details still depend on their network response times. |
 | Usable plan during source checks and AI | Verified with controlled delays | The saved-data plan appears before sources finish. The updated source plan can appear before AI finishes. Open evidence panels persist. Keeping either plan or submitting a newer profile rejects late results. |
@@ -49,9 +55,9 @@ The report draft now links five captioned Chromium captures from the verified re
 | Review entry and resume workflow | Verified tooling | Local human-review workspace supports explicit grades, notes, resumable drafts and validated completed exports; actual independent judgments remain open |
 | Hosted access | Open / optional path | No selected public host has been validated; local browser success will not imply TLS/proxy/remote success |
 | Independent retrieval/claim evaluation | Open | Prepared 12-question/34-chunk development bundle has 408 blank grades; a local review workspace supports entry/resume, but genuine independent judgments and separately identified held-out cases remain |
-| Performance evidence | Partial | In one live cold-index rehearsal, the dated plan was ready on the server in 18.3 ms and the full request took 33.18 s. Repeated live and browser measurements remain open. [Live timings](evidence/live_demo_rehearsal_2026-11-15.json) |
+| Performance evidence | Partial | November 19 cold- and warm-index CLI requests took 31.0 s and 15.3 s including source checks. The live browser also reached the final answer and exported the results. Representative latency cohorts remain open. [Live timings](evidence/gemini_submission_rehearsal_2026-11-19.json) |
 | Student pilot | Prepared / execution open | Self-guided lesson, five advisor tasks, timing and assistance rules, and a blank session sheet for 3–5 voluntary students. |
-| Final report, slides and recording | Partial | The report has five captioned captures and an evidence map. Live neural and opportunity captures, report formatting, slides and the three-member recording remain. |
+| Final report, slides and recording | Partial | The report has a live neural figure and an evidence map. The opportunity capture, report formatting, slides and three-member recording remain. |
 | Submission release and final instructions | Open | Reconcile final guidance, freeze/tag a reproducible revision, verify all final links and artifacts |
 
 ## Rendered catalog requirement verification
@@ -109,7 +115,7 @@ The audit recorded **85% app / approximately 65% complete submission** and corre
 ## Next steps toward the submission
 
 1. Run the independent relevance review and 3–5 student sessions on the corrected workflow. Record a phone walkthrough, student explanations and any confusing eligibility language.
-2. Rehearse the live Advisor path, including ECE425 and its section lookup, then capture the two rankings for the same seven records. Record repeated live source/model/cache observations.
+2. Use the live Gemini walkthrough for the team rehearsal. Show the ECE425 section lookup and seven-record comparison, then record all three narrated segments with a working operator credential.
 3. Finish report figures, results, bibliography, PDF and slides. Rehearse, capture and stitch all three narrated segments.
 4. Confirm final D2L instructions, freeze/tag the release, verify setup and access, and assemble the package.
 

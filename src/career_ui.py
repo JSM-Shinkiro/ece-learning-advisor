@@ -22,6 +22,30 @@ def direction_cards():
                           on_click=choose_direction, args=(st.session_state, key))
 
 
+def render_direction_options(result, catalog):
+    related = result.trace.get("related_directions", ())
+    options = result.direction_choices or related
+    if not options:
+        return
+    current = result.context.profile.career_id
+    directions = {*options, current} if related else set(options)
+    with st.container(border=len(directions) > 1, key="career_direction_options"):
+        if len(directions) > 1:
+            st.markdown("**Ways to start**")
+        if {"ai_ml", "controls"} <= directions:
+            st.write("AI can help a robot interpret camera images. Feedback control helps it follow a planned path.")
+            sources = {source.source_id: source.url for source in catalog.sources}
+            examples = [f"[{course.code} · {course.title}]({sources[course.source_ids[0]]})"
+                        for course in catalog.records if course.kind == "course" and course.code in {"ECE425", "ECE441A"}]
+            if examples:
+                st.markdown("Compare course topics · " + " · ".join(examples))
+        if related:
+            st.caption("This roadmap starts with " + CAREER_PATHS[current].name + ".")
+        for option in options:
+            st.button("Use " + CAREER_PATHS[option].name, key="use_direction_" + option,
+                      on_click=choose_direction, args=(st.session_state, option, result.context.question))
+
+
 def elective_details(key):
     st.write(ELECTIVE_GUIDANCE)
     st.link_button("Official ECE technical elective requirements", ELECTIVE_RULE, key=key + "_rules")

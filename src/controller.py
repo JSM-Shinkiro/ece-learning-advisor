@@ -30,19 +30,14 @@ def _saved_catalog(catalog):
     return saved
 
 
-def _attach_source_trace(result, source_trace, issues, source_elapsed, started, directory_trace, inferred_direction):
+def _attach_source_trace(result, source_trace, issues, source_elapsed, started, directory_trace, career_trace):
     result.issues.extend(issues)
     result.timings = {"source_refresh": source_elapsed, **result.timings,
                       "total": time.perf_counter() - started}
     result.trace["source_refresh"] = source_trace
     if directory_trace is not None:
         result.trace["course_directory"] = directory_trace
-    if inferred_direction:
-        result.trace["career_direction"] = {"from": "exploring", "matched": inferred_direction}
-    path = CAREER_PATHS.get(result.context.profile.career_id)
-    route = path.matching_route(result.context.question.strip() or result.context.profile.interests) if path else None
-    if route:
-        result.trace["study_route"] = route.label
+    result.trace.update(career_trace)
     result.trace["timings_seconds"] = result.timings
 
 
@@ -56,21 +51,26 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
     phases = RequestProgress(progress, cancelled=cancelled)
     phases.start("request")
     help_request = course_question(profile.question)
-    inferred_direction = None
-    learning_request = profile.question.strip() or profile.interests
-    if profile.career_id == "exploring":
-        matches = question_directions(learning_request) if help_request is None else ()
-    else:
-        matches = question_directions(profile.question, use_course_codes=False) if help_request is None else ()
-    direction_choices = ()
+    question = profile.question.strip()
+    learning_request = question or profile.interests
+    matches = () if help_request else question_directions(
+        learning_request, use_course_codes=profile.career_id == "exploring")
+    career_trace = {}
     if profile.career_id == "exploring" and len(matches) == 1:
         inferred_direction = matches[0]
         profile = profile.model_copy(update={"career_id": inferred_direction})
-    elif matches and profile.career_id not in matches:
-        selected_path = CAREER_PATHS.get(profile.career_id)
-        selected_route = selected_path.matching_route(learning_request) if selected_path else None
-        if not any(selected_route in CAREER_PATHS[direction].routes for direction in matches):
-            direction_choices = matches
+        career_trace["career_direction"] = {"from": "exploring", "matched": inferred_direction}
+    path = CAREER_PATHS.get(profile.career_id)
+    route = path.matching_route(learning_request) if path else None
+    shared_directions = {direction for direction in matches if route in CAREER_PATHS[direction].routes}
+    direction_choices = ()
+    if matches and profile.career_id not in matches and not shared_directions and (question or path is None):
+        direction_choices = matches
+    elif len(matches) > 1:
+        alternatives = [direction for direction in matches
+                        if direction != profile.career_id and direction not in shared_directions]
+        if alternatives:
+            career_trace["related_directions"] = alternatives
 
     if help_request or direction_choices:
         if help_request:
@@ -91,8 +91,9 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         result.trace["request_phases"] = phases.finish()
         return result
 
-    path = CAREER_PATHS.get(profile.career_id)
-    if path and (profile.career_id not in CORE_DIRECTIONS or path.matching_route(learning_request)
+    if route:
+        career_trace["study_route"] = route.label
+    if path and (profile.career_id not in CORE_DIRECTIONS or route
                  or set(tokenize(learning_request)).intersection(code.casefold() for code in path.electives)):
         catalog = with_career_paths(catalog, (profile.career_id,))
     directory_trace = None
@@ -120,7 +121,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
             preview = recommend(_saved_catalog(catalog), profile, preferred_course_codes=directory_codes,
                                 progress=phases)
             _attach_source_trace(preview, {"enabled": False, "reason": "pending"}, source_issues,
-                                 0.0, started, directory_trace, inferred_direction)
+                                 0.0, started, directory_trace, career_trace)
             preview.trace["request_phases"] = phases.snapshot()
             preview.trace["early_source_plan"] = True
             initial_plan = {"ready_seconds": preview.timings["total"], "observer_failed": False}
@@ -169,7 +170,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
         phases.ensure_active()
         preview = recommend(catalog, profile, cache_dir=cache_dir, preferred_course_codes=preferred_codes,
                             progress=phases)
-        _attach_source_trace(preview, source_trace, source_issues, source_elapsed, started, directory_trace, inferred_direction)
+        _attach_source_trace(preview, source_trace, source_issues, source_elapsed, started, directory_trace, career_trace)
         preview.trace["request_phases"] = phases.snapshot()
         preview.trace["early_source_plan"] = True
         if initial_plan is not None:
@@ -201,7 +202,7 @@ def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
                            preferred_course_codes=preferred_codes, progress=phases)
         if issue:
             result.issues.append(issue)
-        _attach_source_trace(result, source_trace, source_issues, source_elapsed, started, directory_trace, inferred_direction)
+        _attach_source_trace(result, source_trace, source_issues, source_elapsed, started, directory_trace, career_trace)
         if initial_plan is not None:
             result.trace["initial_plan"] = initial_plan
         if budget is not None:

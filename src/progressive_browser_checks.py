@@ -109,19 +109,20 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.set_viewport_size({"width":320,"height":844})
                 page.wait_for_function("window.innerWidth === 320")
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
-                expect(page.get_by_role("button", name="Build my roadmap", exact=True)).to_be_visible()
+                expect(page.get_by_role("button", name="Build my roadmap", exact=True)).to_be_in_viewport()
+                expect(page.get_by_role("button", name="Learn how the Advisor works", exact=True)).to_be_in_viewport()
                 if diagnostics_dir is not None:
                     page.screenshot(path=str(Path(diagnostics_dir)/"learning-mobile.png"))
                 page.set_viewport_size({"width":1500,"height":1100})
                 page.get_by_text("The official requirements and my completed coursework",exact=True).click()
                 expect(page.get_by_text("Correct. A relevance score helps you find a course.",exact=False)).to_be_visible()
-                passed("The landing page fits a 320-pixel viewport, offers both first actions and gives immediate preparation feedback.",begin)
+                passed("Both landing actions fit in the first 320-pixel-wide viewport and the preparation question gives immediate feedback.",begin)
 
                 stage = "primary_action_contrast"
                 begin = time.monotonic()
                 learn_button = page.get_by_role("button", name="Learn how the Advisor works", exact=True)
-                def button_contrast(button):
-                    return button.evaluate("""button => {
+                def text_contrast(locator):
+                    return locator.evaluate("""element => {
                         const luminance = color => {
                             const weights = [0.2126, 0.7152, 0.0722];
                             return color.match(/[\\d.]+/g).slice(0, 3)
@@ -129,19 +130,23 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                                 .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
                                 .reduce((sum, n, i) => sum + n * weights[i], 0);
                         };
-                        const foreground = luminance(getComputedStyle(button.querySelector('p') || button).color);
-                        const background = luminance(getComputedStyle(button).backgroundColor);
+                        const foreground = luminance(getComputedStyle(element.querySelector('p') || element).color);
+                        let surface = element;
+                        while (surface && getComputedStyle(surface).backgroundColor === 'rgba(0, 0, 0, 0)') {
+                            surface = surface.parentElement;
+                        }
+                        const background = luminance(getComputedStyle(surface || document.body).backgroundColor);
                         return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
                     }""")
-                assert button_contrast(learn_button) >= 4.5
+                assert text_contrast(learn_button) >= 4.5
                 learn_button.hover()
-                assert button_contrast(learn_button) >= 4.5
+                assert text_contrast(learn_button) >= 4.5
                 page.mouse.move(0, 0)
                 learn_button.focus()
                 page.keyboard.press("Shift+Tab")
                 page.keyboard.press("Tab")
                 expect(learn_button).to_be_focused()
-                assert button_contrast(learn_button) >= 4.5
+                assert text_contrast(learn_button) >= 4.5
                 assert learn_button.evaluate("button => getComputedStyle(button).outlineStyle === 'solid'")
                 passed("The primary action reaches 4.5:1 contrast at rest, on hover and with keyboard focus.", begin)
 
@@ -217,7 +222,7 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.get_by_role("button", name="Use this question in Advisor", exact=True).click()
                 expect(page.get_by_role("heading",name="Your next step, with a path forward.",exact=True)).to_be_visible()
                 expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(question)
-                assert button_contrast(page.get_by_role("button", name="Update my roadmap", exact=True)) >= 4.5
+                assert text_contrast(page.get_by_role("button", name="Update my roadmap", exact=True)) >= 4.5
                 expect(page.get_by_role("combobox", name="Catalog year", exact=True)).to_have_value("Not sure")
                 choose("Catalog year", "2026-2027")
                 expect(page.get_by_text("Your lesson question is in Your starting point.", exact=False)).to_be_visible()
@@ -557,6 +562,32 @@ def run_progressive_browser_checks(url,control,*,executable_path=None,timeout_ms
                 page.get_by_role("button", name="Use this direction", exact=True).click()
                 expect(page.get_by_text("Saved profile: Incoming · Power & Energy Systems", exact=False)).to_be_visible()
                 passed("A new phone session shows both stages for Still exploring and saves the direction once accepted.", begin)
+
+                stage = "mixed_career_start"
+                begin = time.monotonic()
+                mixed_question = "What should I learn to build autonomous robots that use computer vision?"
+                choose("Career direction", "Still exploring")
+                submit(mixed_question)
+                use_ai = page.get_by_role("button", name="Use AI / Machine Learning", exact=True)
+                use_controls = page.get_by_role("button", name="Use Controls & Robotics", exact=True)
+                expect(use_ai).to_be_visible()
+                expect(use_controls).to_be_visible()
+                learning_link = page.get_by_role("link", name="ECE425 · Introduction to Deep Learning", exact=False)
+                control_link = page.get_by_role("link", name="ECE441A · Automatic Control", exact=True)
+                expect(learning_link).to_have_attribute("href", "https://catalog.arizona.edu/courses/0435981")
+                expect(control_link).to_have_attribute("href", "https://catalog.arizona.edu/courses/0363511")
+                assert text_contrast(learning_link) >= 4.5 and text_contrast(control_link) >= 4.5
+                expect(page.get_by_role("button", name="Mark completed", exact=True)).to_have_count(0)
+                if diagnostics_dir is not None:
+                    use_ai.scroll_into_view_if_needed()
+                    page.screenshot(path=str(Path(diagnostics_dir) / "learning-mixed-careers.png"))
+                use_controls.click()
+                expect(page.get_by_text("Learning plan ready", exact=True)).to_be_visible()
+                expect(page.get_by_text("Specialization · Robotics & Autonomy", exact=True)).to_be_visible()
+                expect(use_ai).to_be_visible()
+                expect(page.get_by_role("textbox", name="A question about your next step", exact=True)).to_have_value(mixed_question)
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                passed("The phone shows both starts and readable official course links, then retains the question and second option on the chosen roadmap.", begin)
 
                 report["passed"]=True
             finally:browser.close()

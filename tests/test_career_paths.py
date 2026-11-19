@@ -59,6 +59,52 @@ def test_combined_collection_extends_each_path_once_and_ambiguous_questions_rema
         assert {*path.progression, *path.electives} <= mapped
 
 
+@pytest.mark.parametrize("question", [
+    "How to combine AI and Robotics?",
+    "What should I learn to build autonomous robots that use computer vision?",
+    "How can I use A.I. for robotic perception?",
+    "How can I run object detection on a mobile robot?",
+])
+def test_mixed_ai_and_robotics_questions_offer_two_starts_without_provider_calls(question):
+    def unexpected_call(*_args, **_kwargs):
+        pytest.fail("Choosing a starting direction should not check sources or use a provider")
+
+    result = run_advisor(load_runtime_catalog(), StudentProfile(career_id="exploring", question=question),
+                         api_key="controlled", use_ai=True, provider_factory=unexpected_call,
+                         source_refresher=unexpected_call)
+    assert result.direction_choices == ("ai_ml", "controls")
+    assert not result.context.allowed_record_ids and result.trace["model_calls"] == 0
+
+
+def test_related_direction_persists_in_saved_and_checked_roadmaps():
+    profile = StudentProfile(career_id="controls", question="Robotic perception",
+                             completed=[Completion(course_code="ECE220", grade="B")])
+    previews = []
+    result = run_advisor(load_runtime_catalog(), profile, on_plan=previews.append,
+                         source_refresher=lambda active, *_args, **_kwargs: CatalogRefresh(active))
+    assert len(previews) == 1
+    for plan in [*previews, result]:
+        assert plan.context.profile == profile and not plan.direction_choices and not plan.coverage_notice
+        assert plan.trace["study_route"] == "Robotics & Autonomy"
+        assert plan.trace["related_directions"] == ["ai_ml"]
+        assert "uofa:ECE441A:2026-2027" in plan.context.allowed_record_ids
+        assert "uofa:ECE220:2026-2027" not in plan.context.allowed_record_ids
+
+
+def test_interests_can_suggest_a_second_direction_without_replacing_a_saved_one():
+    catalog = load_runtime_catalog()
+    profile = StudentProfile(career_id="ai_ml", interests="AI and robotics")
+    result = run_advisor(catalog, profile, refresh_sources=False)
+    assert result.context.profile == profile and not result.direction_choices
+    assert result.trace["related_directions"] == ["controls"]
+
+    profile = profile.model_copy(update={"interests": "Edge AI on a microcontroller"})
+    result = run_advisor(catalog, profile, refresh_sources=False)
+    assert result.context.profile == profile and not result.direction_choices
+    assert result.trace["study_route"] == "Edge AI & On-Device Inference"
+    assert "related_directions" not in result.trace
+
+
 @pytest.mark.parametrize("question,completed,start,goal,unrelated", [
     ("I finished ECE 369A. What should I learn next for digital chip verification?",
      ["ECE369A"], "ECE274A", "ECE407", "ECE446"),

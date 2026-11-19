@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "date_mst": "2026-11-19",
+  "recorded_at_utc": "2026-11-19T22:30:31.827713+00:00",
+  "recorded_at_mst": "2026-11-19T15:30:31.827923-07:00",
+  "application_revision": "a07f6d27e810dd62e8ff241214e3c8cb66fa6fc3",
+  "tested_candidate_revision": "791f046610ec5ee8cdbab8a06f4366a7dc31af4a",
+  "candidate_tree_sha": "fcbf0ef6a36062f1082deac574b5d4e6897c2f82",
+  "scope": "Fictional profiles on the submission candidate with live Gemini and official source checks.",
+  "profile_question": "How do I train a neural network for image classification in Python?",
+  "models": {
+    "embedding": "gemini-embedding-2",
+    "generation": "gemini-3.5-flash-lite",
+    "embedding_dimensions": 768,
+    "google_genai_sdk": "2.33.0"
+  },
+  "credential_model_access": [
+    {
+      "key_slot": 1,
+      "model_access": [
+        {
+          "model": "gemini-embedding-2",
+          "http_status": 200
+        },
+        {
+          "model": "gemini-3.5-flash-lite",
+          "http_status": 200
+        }
+      ],
+      "embedding_dimensions": 768
+    },
+    {
+      "key_slot": 2,
+      "model_access": [
+        {
+          "model": "gemini-embedding-2",
+          "http_status": 200
+        },
+        {
+          "model": "gemini-3.5-flash-lite",
+          "http_status": 200
+        }
+      ],
+      "embedding_dimensions": 768
+    }
+  ],
+  "cli_rehearsals": [
+    {
+      "credential_slot": 1,
+      "checked_at_utc": "2026-11-19T22:21:21.847915+00:00",
+      "checks": {
+        "answered": true,
+        "requested_retrieval": true,
+        "statement_contract": true,
+        "focus_selected": true,
+        "completed_not_recommended": true,
+        "academic_unknowns_preserved": true,
+        "demo_course_source_verified": true,
+        "source_limits": true,
+        "lesson_rank_change": true,
+        "shared_overviews": true,
+        "usable_interim_plans": true
+      },
+      "case": "final_demo",
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "cache_state": "miss",
+      "provider_call_counts": {
+        "document_embeddings": 34,
+        "query_embeddings": 1,
+        "generations": 1,
+        "providers_started": 1,
+        "providers_closed": 1,
+        "errors": [],
+        "blocked_calls": {
+          "document_embeddings": 0,
+          "query_embeddings": 0,
+          "generations": 0
+        }
+      },
+      "answer_record_ids": [
+        "resource:pytorch",
+        "resource:python",
+        "uofa:ECE425:2026-2027"
+      ],
+      "ece425_catalog_check": "updated",
+      "ece425_enrollment": "unknown",
+      "attempted_source_checks": [
+        {
+          "kind": "rule",
+          "code": "COSCBS",
+          "status": "updated"
+        },
+        {
+          "kind": "discovery",
+          "code": "ECEBSECE",
+          "status": "bundled_fallback"
+        },
+        {
+          "kind": "course",
+          "code": "CSC120",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "CSC110",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "CSC144",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "CSC210",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "ECE101",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "ECE425",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "ECE201",
+          "status": "updated"
+        },
+        {
+          "kind": "course",
+          "code": "ECE220",
+          "status": "updated"
+        },
+        {
+          "kind": "resource",
+          "code": "resource:python",
+          "status": "updated"
+        },
+        {
+          "kind": "resource",
+          "code": "resource:pytorch",
+          "status": "updated"
+        }
+      ],
+      "compared_records": 7,
+      "server_seconds": {
+        "source_refresh": 11.85939,
+        "embedding": 16.51721,
+        "retrieval": 0.00235,
+        "generation": 2.59614,
+        "total": 31.00606
+      },
+      "first_saved_plan_seconds": 0.00965,
+      "source_plan_seconds": 11.88089,
+      "raw_report_sha256": "fe40c8aae4f786856f9d428a7dd087c40e924fbaf74753b1731915ec4a243f15"
+    },
+    {
+      "credential_slot": 2,
+      "checked_at_utc": "2026-11-19T22:21:37.149048+00:00",
+      "checks": {
+        "answered": true,
+        "requested_retrieval": true,
+        "statement_contract": true,
+        "focus_selected": true,
+        "completed_not_recommended": true,
+        "academic_unknowns_preserved": true,
+        "demo_course_source_verified": true,
+        "source_limits": true,
+        "lesson_rank_change": true,
+        "shared_overviews": true,
+        "usable_interim_plans": true
+      },
+      "case": "final_demo",
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "cache_state": "hit",
+      "provider_call_counts": {
+        "document_embeddings": 0,
+        "query_embeddings": 1,
+        "generations": 1,
+        "providers_started": 1,
+        "providers_closed": 1,
+        "errors": [],
+        "blocked_calls": {
+          "document_embeddings": 0,
+          "query_embeddings": 0,
+          "generations": 0
+        }
+      },
+      "answer_record_ids": [
+        "resource:pytorch",
+        "resource:python",
+        "uofa:ECE425:2026-2027"
+      ],
+      "ece425_catalog_check": "unchanged",
+      "ece425_enrollment": "unknown",
+      "attempted_source_checks": [
+        {
+          "kind": "rule",
+          "code": "COSCBS",
+          "status": "updated"
+        },
+        {
+          "kind": "discovery",
+          "code": "ECEBSECE",
+          "status": "bundled_fallback"
+        },
+        {
+          "kind": "course",
+          "code": "CSC120",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "CSC110",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "CSC144",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "CSC210",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "ECE101",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "ECE425",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "ECE201",
+          "status": "unchanged"
+        },
+        {
+          "kind": "course",
+          "code": "ECE220",
+          "status": "unchanged"
+        },
+        {
+          "kind": "resource",
+          "code": "resource:python",
+          "status": "not_modified"
+        },
+        {
+          "kind": "resource",
+          "code": "resource:pytorch",
+          "status": "not_modified"
+        }
+      ],
+      "compared_records": 7,
+      "server_seconds": {
+        "source_refresh": 9.58233,
+        "embedding": 3.8546,
+        "retrieval": 0.00457,
+        "generation": 1.78893,
+        "total": 15.28309
+      },
+      "first_saved_plan_seconds": 0.00898,
+      "source_plan_seconds": 9.62405,
+      "raw_report_sha256": "69580bc180b2de6654287581c96ff2ec161dfe7cb440007660733ec2c0986012"
+    }
+  ],
+  "streamlit_widgets": {
+    "passed": true,
+    "scope": "Streamlit widget integration with live Gemini, without Chromium.",
+    "demo": {
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "grounded_statement_validation": true,
+      "selected_record_ids": [
+        "resource:pytorch",
+        "uofa:ECE425:2026-2027"
+      ],
+      "cache_state": "hit",
+      "timings_seconds": {
+        "source_refresh": 16.56911,
+        "embedding": 4.01807,
+        "retrieval": 0.00954,
+        "generation": 1.9327,
+        "total": 22.80602
+      },
+      "ece425_enrollment": "unknown",
+      "shared_comparison_records": 7,
+      "lesson_and_trace_exports_available": true,
+      "server_key_hidden_from_inputs": true
+    },
+    "mixed_interests": {
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "grounded_statement_validation": true,
+      "selected_record_ids": [
+        "uofa:CSC477:2026-2027",
+        "resource:pytorch"
+      ],
+      "cache_state": "miss",
+      "timings_seconds": {
+        "source_refresh": 7.5653,
+        "embedding": 6.39835,
+        "retrieval": 0.00221,
+        "generation": 1.69706,
+        "total": 15.69661
+      },
+      "question": "What should I learn to build autonomous robots that use computer vision?",
+      "direction_choices": [
+        "ai_ml",
+        "controls"
+      ],
+      "model_calls_before_choice": 0,
+      "study_route": "Computer Vision & Perception",
+      "question_preserved": true,
+      "alternate_direction_visible": true
+    }
+  },
+  "chromium_rehearsals": [
+    {
+      "passed": true,
+      "browser": "151.0.7922.34",
+      "scope": "Production launcher on loopback, fictional profile, real Gemini, real Chromium WebSocket.",
+      "profile_question": "How do I train a neural network for image classification in Python?",
+      "time_to_answer_in_browser_seconds": 16.606,
+      "embedding_model": "gemini-embedding-2",
+      "embedding_dimensions": 768,
+      "comparison_records": 7,
+      "grounded_statement_validation": true,
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "server_timings_seconds": {
+        "source_refresh": 9.33268,
+        "embedding": 3.75781,
+        "retrieval": 0.00415,
+        "generation": 2.19542,
+        "total": 15.56242
+      },
+      "page_errors": 0,
+      "comparison_sha256": "561aff8b1d236c6d5985e3ad8936e6f6f2be381df119c330efeb3bee3d71a8bd",
+      "trace_sha256": "1094fb80f69d87e181d4f1fd11a1889c4813f1b201ba484335bf49981f227010",
+      "screenshot_sha256": "9e4a80b79e098864282137804d298f2b1cc4f4c4d6c82819a598695f117e85e2"
+    },
+    {
+      "passed": true,
+      "browser": "151.0.7922.34",
+      "scope": "Production launcher on loopback, fictional profile, real Gemini, real Chromium WebSocket.",
+      "profile_question": "How do I train a neural network for image classification in Python?",
+      "time_to_answer_in_browser_seconds": 16.096,
+      "embedding_model": "gemini-embedding-2",
+      "embedding_dimensions": 768,
+      "comparison_records": 7,
+      "grounded_statement_validation": true,
+      "retrieval_mode": "hybrid",
+      "generation_status": "answered",
+      "server_timings_seconds": {
+        "source_refresh": 9.30512,
+        "embedding": 3.49377,
+        "retrieval": 0.00302,
+        "generation": 1.92634,
+        "total": 14.93752
+      },
+      "page_errors": 0,
+      "comparison_sha256": "561aff8b1d236c6d5985e3ad8936e6f6f2be381df119c330efeb3bee3d71a8bd",
+      "trace_sha256": "a8806ed82f2d8846cb11b2597438b4cbf8875350ae468ca173bf40ab147c7acc",
+      "screenshot_sha256": "8ef7fc7c453d20133a4c9c1b4c4f82ffb4f8935f594bbdf6b75ae4bf1c7adee5"
+    }
+  ],
+  "comparison_rows": [
+    {
+      "Record": "ECE425",
+      "Record ID": "uofa:ECE425:2026-2027",
+      "Topic rank": 1,
+      "Topic cosine": 0.9922778767136677,
+      "Neural rank": 1,
+      "Neural cosine": 0.634925887970744
+    },
+    {
+      "Record": "PyTorch Quickstart",
+      "Record ID": "resource:pytorch",
+      "Topic rank": 2,
+      "Topic cosine": 0.9246780984747162,
+      "Neural rank": 2,
+      "Neural cosine": 0.6228812657754778
+    },
+    {
+      "Record": "CS50 — Introduction to Computer Science",
+      "Record ID": "resource:cs50",
+      "Topic rank": 4,
+      "Topic cosine": 0.1386750490563073,
+      "Neural rank": 3,
+      "Neural cosine": 0.561404678171364
+    },
+    {
+      "Record": "CSC120",
+      "Record ID": "uofa:CSC120:2026-2027",
+      "Topic rank": 5,
+      "Topic cosine": 0.10878565864408425,
+      "Neural rank": 4,
+      "Neural cosine": 0.5596893427364205
+    },
+    {
+      "Record": "ECE101",
+      "Record ID": "uofa:ECE101:2026-2027",
+      "Topic rank": 3,
+      "Topic cosine": 0.1860521018838127,
+      "Neural rank": 5,
+      "Neural cosine": 0.5320307705400136
+    },
+    {
+      "Record": "ECE369A",
+      "Record ID": "uofa:ECE369A:2026-2027",
+      "Topic rank": 6,
+      "Topic cosine": 0.10878565864408425,
+      "Neural rank": 6,
+      "Neural cosine": 0.5266255396890596
+    },
+    {
+      "Record": "ECE372A",
+      "Record ID": "uofa:ECE372A:2026-2027",
+      "Topic rank": 7,
+      "Topic cosine": 0.07283570407292297,
+      "Neural rank": 7,
+      "Neural cosine": 0.5103813766646329
+    }
+  ],
+  "figure": {
+    "path": "docs/final/figures/advisor-gemini-comparison.png",
+    "browser_viewport": [
+      1500,
+      1100
+    ],
+    "panel_image_dimensions": [
+      986,
+      547
+    ],
+    "sha256": "8ef7fc7c453d20133a4c9c1b4c4f82ffb4f8935f594bbdf6b75ae4bf1c7adee5"
+  },
+  "related_offline_tests": {
+    "passed": 37,
+    "role": "Provider, fallback, grounding and runtime checks with fixtures"
+  },
+  "limits": [
+    "Latency measurements record individual requests on one workstation and depend on cache and source conditions.",
+    "Server timings end at response assembly. Browser timing covers submit to the displayed answer.",
+    "The ECE program discovery check used bundled data during both CLI rehearsals.",
+    "The rehearsals verify software and live provider integration with authored questions. Independent review and the student pilot remain open."
+  ]
+}
