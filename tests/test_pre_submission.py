@@ -96,7 +96,7 @@ def test_mixed_interest_switch_preserves_the_submitted_profile(app):
     assert not app.exception and not app.error and plan.trace["study_route"] == "Robotics & Autonomy"
     assert any("AI can help a robot interpret camera images." in item.value for item in app.markdown)
     assert any("catalog.arizona.edu/courses/0435981" in item.value and
-               "catalog.arizona.edu/courses/0363511" in item.value for item in app.caption)
+               "catalog.arizona.edu/courses/0363511" in item.value for item in app.markdown)
     assert "uofa:ECE441A:2026-2027" in plan.context.allowed_record_ids
     app.button(key="use_direction_ai_ml").click().run()
     settle_advisor(app)

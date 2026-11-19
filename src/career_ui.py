@@ -29,7 +29,7 @@ def render_direction_options(result, catalog):
         return
     current = result.context.profile.career_id
     directions = {*options, current} if related else set(options)
-    with st.container(border=len(directions) > 1):
+    with st.container(border=len(directions) > 1, key="career_direction_options"):
         if len(directions) > 1:
             st.markdown("**Ways to start**")
         if {"ai_ml", "controls"} <= directions:
@@ -38,7 +38,7 @@ def render_direction_options(result, catalog):
             examples = [f"[{course.code} · {course.title}]({sources[course.source_ids[0]]})"
                         for course in catalog.records if course.kind == "course" and course.code in {"ECE425", "ECE441A"}]
             if examples:
-                st.caption("Compare course topics · " + " · ".join(examples))
+                st.markdown("Compare course topics · " + " · ".join(examples))
         if related:
             st.caption("This roadmap starts with " + CAREER_PATHS[current].name + ".")
         for option in options:

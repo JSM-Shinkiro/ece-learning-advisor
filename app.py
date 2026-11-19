@@ -41,6 +41,8 @@ h1 { letter-spacing: -.035em; }
 button[data-testid^="stBaseButton-primary"]:enabled { background: #78B8FF; color: #0B1220; }
 button[data-testid^="stBaseButton-primary"]:enabled:hover { background: #A1CFFF; color: #0B1220; }
 button[data-testid^="stBaseButton-primary"]:enabled:focus-visible { outline: 2px solid #D5E8FF; outline-offset: 3px; }
+.st-key-career_direction_options a, .st-key-career_direction_options a:hover,
+.st-key-career_direction_options a:focus-visible { color: inherit; font-weight: 600; }
 @media (max-width: 700px) { .block-container { padding-left: 1rem; padding-right: 1rem; } }
 </style>
 """, unsafe_allow_html=True)
